@@ -40,7 +40,10 @@ public class ShopDemoDialogues
 public class DemoDirector : GenericSingleton<DemoDirector>
 {
     public DemoDataSO demoDataSO;
+    public GameStateVariableSO gameState;
     public Sprite speakerSprite;
+
+    public bool IsCombatOnboardingActive { get; private set; }
     [TextArea]
     public List<string> bendingTheRulesStepDialogue;
     [TextArea]
@@ -150,6 +153,10 @@ public class DemoDirector : GenericSingleton<DemoDirector>
             case DemoStepName.PostCombatRewardsDialogue:
                 yield return PostCombatRewardsDialogueStep();
             break;
+
+            case DemoStepName.CombatTutorialStep:
+                yield return CombatTutorialStep();
+            break;
         }
         yield return null;
     }
@@ -241,6 +248,14 @@ public class DemoDirector : GenericSingleton<DemoDirector>
         DialogueView.Instance.Hide();
         demoDataSO.stepCompletion[DemoStepName.PostCombatRewardsDialogue] = true;
     }
+
+    public IEnumerator CombatTutorialStep() {
+        IsCombatOnboardingActive = true;
+        yield return CombatOnboardingDirector.Instance.RunAllStepsCoroutine();
+        IsCombatOnboardingActive = false;
+        gameState.HasSeenCombatTutorial = true;
+        demoDataSO.stepCompletion[DemoStepName.CombatTutorialStep] = true;
+    }
 }
 
 public enum DemoStepName {
@@ -255,4 +270,5 @@ public enum DemoStepName {
     FullFeatureShopTutorialStep4,
     PostCombatRewardsDialogue,
     StartOfSecondStaticChooseNShop,
+    CombatTutorialStep,
 }

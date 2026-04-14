@@ -76,12 +76,22 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     void Start() {
         startTheTurns = false;
         // This ends up calling BuildEnemyEncounter below
-        combatEncounterView.SetupFromGamestate(this);
         OptionsViewController.Instance.SetEnterHandler(OnMenuOpenedHandler);
         OptionsViewController.Instance.SetExitHandler(OnMenuClosedHandler);
         MultiDeckViewManager.Instance.SetEnterHandler(OnDeckViewOpenedHandler);
         MultiDeckViewManager.Instance.SetExitHandler(OnDeckViewClosedHandler);
+        StartCoroutine(SetupCombatAfterAnyDemoCutscene());
         StartCoroutine(StartWhenUIDocReady());
+    }
+
+    IEnumerator SetupCombatAfterAnyDemoCutscene()
+    {
+        if(!DemoDirector.Instance.IsStepCompleted(DemoStepName.CombatTutorialStep)){
+            combatEncounterView.SetPersistentElementsVisible(false);
+            yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.CombatTutorialStep);
+            combatEncounterView.SetPersistentElementsVisible(true);
+        } 
+        combatEncounterView.SetupFromGamestate(this);
     }
 
     IEnumerator StartWhenUIDocReady() {

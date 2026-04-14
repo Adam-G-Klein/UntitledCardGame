@@ -107,6 +107,34 @@ public class CombatEncounterView : MonoBehaviour,
             ControlsManager.Instance.GetSpriteForGFGAction(GFGInputAction.OPEN_MULTI_DECK_VIEW));
         ControlsManager.Instance.RegisterIconChanger(deckViewButton);
         deckViewButton.pickingMode = PickingMode.Position;
+
+    }
+
+    public void SetPersistentElementsVisible(bool visible)
+    {
+        
+        if(root == null) {
+            uiDoc = GetComponent<UIDocument>();
+            root = uiDoc.rootVisualElement;
+        }
+        DisplayStyle displayStyle = visible ? DisplayStyle.Flex : DisplayStyle.None;
+   
+
+        VisualElement mapRoot = root.Q<VisualElement>("mapRoot");
+        if (mapRoot == null) Debug.LogWarning("SetPersistentElementsVisible: could not find 'mapRoot'");
+        else mapRoot.parent.style.display = displayStyle;
+
+        VisualElement endTurn = root.Q<VisualElement>("end-turn");
+        if (endTurn == null) Debug.LogWarning("SetPersistentElementsVisible: could not find 'end-turn'");
+        else endTurn.style.display = displayStyle;
+
+        VisualElement mamna = root.Q<VisualElement>("mamna");
+        if (mamna == null) Debug.LogWarning("SetPersistentElementsVisible: could not find 'mamna'");
+        else mamna.style.display = displayStyle;
+
+        VisualElement deckViewButton = root.Q<VisualElement>("deck-view-button");
+        if (deckViewButton == null) Debug.LogWarning("SetPersistentElementsVisible: could not find 'deck-view-button'");
+        else deckViewButton.style.display = displayStyle;
     }
 
     // for boss fight intro
