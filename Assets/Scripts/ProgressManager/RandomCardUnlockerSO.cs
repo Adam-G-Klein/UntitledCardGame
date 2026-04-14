@@ -11,7 +11,7 @@ public class RandomCardUnlockerSO : CardUnlockerSO {
     public override List<CardType> ChooseCardsToUnlock(GameStateVariableSO gameState, List<CardType> unlockedCards) {
         List<CardType> cardsToUnlock = new List<CardType>();
 
-        List<PackSO> activePacks = gameState.baseShopData.activePacks;
+        List<PackSO> activePacks = gameState.activePacks;
         List<CompanionTypeSO> companionTypes = gameState.companions.activeCompanions
             .Select(c => c.companionType)
             .ToList();

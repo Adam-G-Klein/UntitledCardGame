@@ -32,7 +32,7 @@ public class TeamSelectionUI : MonoBehaviour, ICompanionViewDelegate
         if (randomStarterCompanionGen)
         {
             System.Random rnd = new();
-            List<PackSO> packSOWithCommonCompanions = gameState.baseShopData.activePacks.Where(pack => pack.companionPoolSO.commonCompanions.Count > 0).ToList();
+            List<PackSO> packSOWithCommonCompanions = gameState.activePacks.Where(pack => pack.companionPoolSO.commonCompanions.Count > 0).ToList();
             List<PackSO> mutablePackSOs = new List<PackSO>(packSOWithCommonCompanions);
             CompanionListVariableSO chosen = new();
             chosen.activeCompanions = new List<Companion>();

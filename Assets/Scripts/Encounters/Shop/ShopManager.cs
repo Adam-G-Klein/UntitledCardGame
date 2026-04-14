@@ -37,6 +37,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     private CardInShopWithPrice currentCardBuyRequest;
     private ShopItemView currentCardBuyRequestItemView;
     private CompanionCombinationManager companionCombinationManager;
+    public CompanionCombinationManager CompanionCombinationManager => companionCombinationManager;
     [SerializeField]
     public UIDocumentGameObjectPlacer placer { get; set; }
     [SerializeField]
@@ -79,13 +80,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
     public void BuildShopEncounter(ShopEncounter shopEncounter) {
         this.shopEncounter = shopEncounter;
-        this.shopLevel = shopEncounter.shopData.GetShopLevel(gameState.playerData.GetValue().shopLevel);
-        if(shopEncounter.shopData != gameState.baseShopData)
-        {
-            // We've been using these two semi-interchangeably, causes some bugs if we don't reconcile them
-            // consider yourself bandaided :)
-            gameState.baseShopData = shopEncounter.shopData;
-        }
+        this.shopLevel = encounterConstants.GetShopLevel(gameState.playerData.GetValue().shopLevel);
         List<Companion> allCompanions = new();
         allCompanions.AddRange(gameState.companions.activeCompanions);
         allCompanions.AddRange(gameState.companions.benchedCompanions);
@@ -125,11 +120,11 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         shopViewController.SetMoney(gameState.playerData.GetValue().gold);
         shopViewController.SetShopUpgradePrice(shopLevel.upgradeIncrementCost);
         shopViewController.SetShopRerollPrice(shopEncounter.shopData.rerollShopPrice, gameState.playerData.GetValue().storedRerolls);
-        shopViewController.SetShopCardRemovalPrice(shopEncounter.shopData.GetCardRemovalPrice(gameState.playerData.GetValue().shopLevel, timesCardRemovedThisShop), gameState.playerData.GetValue().storedCardRemovals);
+        shopViewController.SetShopCardRemovalPrice(GetCardRemovalPrice(gameState.playerData.GetValue().shopLevel, timesCardRemovedThisShop), gameState.playerData.GetValue().storedCardRemovals);
 
         CheckDisableUpgradeButtonV2();
 
-        shopViewController.SetupUpgradeIncrements(shopEncounter.shopData.shopLevels.Count - 1 <= shopLevel.level);
+        shopViewController.SetupUpgradeIncrements(encounterConstants.shopLevels.Count - 1 <= shopLevel.level);
         /* uncomment to re-enable shop dialogue
         DialogueManager.Instance.SetDialogueLocation(
             gameState.dialogueLocations.GetDialogueLocation(gameState));
@@ -149,7 +144,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                 shopViewController.DisableAllUIPreserveAppearance();
                 shopTutorialDisplay = GetComponent<ShopTutorialDisplay>();
                 // this setup method is what plays the dialogue and then the timeline
-                shopTutorialDisplay?.Setup(shopEncounter.shopData);
+                shopTutorialDisplay?.Setup(shopEncounter.shopData, encounterConstants);
                 cinematicIntroComplete = false;
                 StartCoroutine(CinematicStartOfShopCoroutine());
             }
@@ -259,7 +254,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
     private void HealCompanionsOnBench()
     {
-        int scale = shopEncounter.shopData.benchHealingAmount;
+        int scale = encounterConstants.benchHealingAmount;
         if (ProgressManager.Instance.IsFeatureEnabled(AscensionType.WORSE_BENCH))
         {
             scale -= (int)ProgressManager.Instance.GetAscensionSO(AscensionType.WORSE_BENCH).
@@ -319,7 +314,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             newCompanion.combatStats.currentHealth = newCompanion.combatStats.getMaxHealth() - companionInShop.sustainedDamage;
             for (int i = 0; i < GetShopLevel().numLessCardsInStartingDeck; i++) {
                 Debug.Log("Purging a card from " + newCompanion.companionType.name + "'s deck for shop level " + ShopManager.Instance.GetShopLevel().level);
-                newCompanion.deck.PurgeStarterDeckCard(ShopManager.Instance.gameState.baseShopData.baseCardsToRemoveOnUpgrade);
+                newCompanion.deck.PurgeStarterDeckCard(shopEncounter.shopData.baseCardsToRemoveOnUpgrade);
             }
 
             // companionToAdd is the final companion to add to your team :)
@@ -583,7 +578,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     }
 
     public int ProcessCardRemoval() {
-        int cardRemovalPrice = shopEncounter.shopData.GetCardRemovalPrice(gameState.playerData.GetValue().shopLevel, timesCardRemovedThisShop);
+        int cardRemovalPrice = GetCardRemovalPrice(gameState.playerData.GetValue().shopLevel, timesCardRemovedThisShop);
         if (gameState.playerData.GetValue().storedCardRemovals > 0) {
             cardRemovalPrice = 0;
             gameState.playerData.GetValue().storedCardRemovals--;
@@ -593,11 +588,19 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         if (cardRemovalPrice != 0) timesCardRemovedThisShop++;
         removingCard = false;
         if (cardRemovalPrice != 0 &&
-                timesCardRemovedThisShop >= shopEncounter.shopData.GetShopLevel(gameState.playerData.GetValue().shopLevel).numCardRemovalsAllowed) {
+                timesCardRemovedThisShop >= encounterConstants.GetShopLevel(gameState.playerData.GetValue().shopLevel).numCardRemovalsAllowed) {
             shopViewController.DisableCardRemovalButton();
         }
-        shopViewController.SetShopCardRemovalPrice(shopEncounter.shopData.GetCardRemovalPrice(gameState.playerData.GetValue().shopLevel, timesCardRemovedThisShop), gameState.playerData.GetValue().storedCardRemovals);
+        shopViewController.SetShopCardRemovalPrice(GetCardRemovalPrice(gameState.playerData.GetValue().shopLevel, timesCardRemovedThisShop), gameState.playerData.GetValue().storedCardRemovals);
         return timesCardRemovedThisShop;
+    }
+
+    public int GetCardRemovalPrice(int level, int timesCardRemovedThisShop)
+    {
+        ShopLevel shopLevel = encounterConstants.GetShopLevel(level);
+        int cardRemovalPrice = shopEncounter.shopData.cardRemovalPrice - shopLevel.cardRemovalDiscount;
+        cardRemovalPrice += timesCardRemovedThisShop * shopEncounter.shopData.cardRemovalPriceIncrease; // Each subsequent removal in the same shop costs more
+        return Math.Max(0, cardRemovalPrice);
     }
 
     public void ProcessCardBuyCanceled() {
@@ -651,7 +654,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         bool didUpgrade = gameState.EarnUpgradeIncrement();
         PlayerData playerData = gameState.playerData.GetValue();
         if (didUpgrade) {
-            shopLevel = shopEncounter.shopData.GetShopLevel(playerData.shopLevel);
+            shopLevel = encounterConstants.GetShopLevel(playerData.shopLevel);
 
             // Record an event for the analytics service.
             var eventData = new ShopUpgradedAnalyticsEvent
@@ -665,11 +668,11 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             {
                 shopViewController.EnableCardRemovalButton();
             }
-            shopViewController.SetShopCardRemovalPrice(shopEncounter.shopData.GetCardRemovalPrice(gameState.playerData.GetValue().shopLevel, timesCardRemovedThisShop), gameState.playerData.GetValue().storedCardRemovals);
+            shopViewController.SetShopCardRemovalPrice(GetCardRemovalPrice(gameState.playerData.GetValue().shopLevel, timesCardRemovedThisShop), gameState.playerData.GetValue().storedCardRemovals);
             InstantiateShopVFX(shopUpgradePrefab, shopViewController.GetUpgradeShopButton(), 1f);
             MusicController.Instance.PlaySFX("event:/MX/MX_Shop_Upgrade_Stinger");
             CheckDisableUpgradeButtonV2();
-            shopViewController.SetupUpgradeIncrements(shopEncounter.shopData.shopLevels.Count - 1 <= shopLevel.level);
+            shopViewController.SetupUpgradeIncrements(encounterConstants.shopLevels.Count - 1 <= shopLevel.level);
             shopViewController.RebuildUnitManagement(gameState.companions);
         } else {
             shopViewController.ActivateUpgradeIncrement(playerData.shopLevelIncrementsEarned - 1 /* -1 because we just earned an increment */);
@@ -678,7 +681,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     }
 
     private void CheckDisableUpgradeButtonV2() {
-        if (shopEncounter.shopData.shopLevels.Count - 1 <= shopLevel.level) {
+        if (encounterConstants.shopLevels.Count - 1 <= shopLevel.level) {
             shopViewController.DisableUpgradeButton();
         }
     }
@@ -771,7 +774,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         // wanna keep this right next to the bools the manager tracks in case we wanna unite state someday
         // "Dalinar... you must UNITE THEM"
         // NonMouseInputManager.Instance.SetUIState(UIState.REMOVING_CARD);
-        if (gameState.playerData.GetValue().storedCardRemovals > 0 || gameState.playerData.GetValue().gold >= shopEncounter.shopData.GetCardRemovalPrice(gameState.playerData.GetValue().shopLevel, timesCardRemovedThisShop)) {
+        if (gameState.playerData.GetValue().storedCardRemovals > 0 || gameState.playerData.GetValue().gold >= GetCardRemovalPrice(gameState.playerData.GetValue().shopLevel, timesCardRemovedThisShop)) {
             shopViewController.StartCardRemoval();
         } else {
             shopViewController.NotEnoughMoney();
@@ -806,7 +809,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         {
             lines = new List<TooltipLine>()
         };
-        List<ShopLevel> shopLevels = shopEncounter.shopData.shopLevels;
+        List<ShopLevel> shopLevels = encounterConstants.shopLevels;
         for (int i = 0; i < shopLevels.Count; i++) {
             ShopLevel level = shopLevels[i];
             if (level.upgradeTooltip == null || level.upgradeTooltip.lines == null || level.upgradeTooltip.lines.Count == 0) {
@@ -880,7 +883,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             return false;
         }
         int playerGold = gameState.playerData.GetValue().gold;
-        foreach (CompanionInShopWithPrice companion in shopEncounter.companionsInShop) {
+        foreach (CompanionInShopWithPrice companion in shopEncounter.CompanionsInShop) {
             if (companion.price <= playerGold) {
                 return true;
             }

@@ -536,7 +536,7 @@ MonoBehaviour:
   mainMenu: {fileID: 543958280}
   delayTime: 0
   gameState: {fileID: 11400000, guid: 9e326417f60894341a96cc8d02868bbe, type: 2}
-  generateMap: {fileID: 1768978789}
+  generateRun: {fileID: 0}
 --- !u!1 &1768978785
 GameObject:
   m_ObjectHideFlags: 0
@@ -546,31 +546,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1768978787}
-  - component: {fileID: 1768978786}
   - component: {fileID: 1768978789}
   m_Layer: 5
-  m_Name: UIDocument
+  m_Name: RunGenerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1768978786
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1768978785}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PanelSettings: {fileID: 11400000, guid: 11b8d0abb1470a54783bcc5c2141ac05, type: 2}
-  m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: 999427c797697bb4fa22a01836134997, type: 3}
-  m_SortingOrder: 0
+  m_IsActive: 1
 --- !u!4 &1768978787
 Transform:
   m_ObjectHideFlags: 0
@@ -600,7 +583,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameState: {fileID: 11400000, guid: 9e326417f60894341a96cc8d02868bbe, type: 2}
   mapGenerator: {fileID: 11400000, guid: 9c609d9cb3a1547f4a23a5a9d7c047db, type: 2}
-  demoMapGenerator: {fileID: 11400000, guid: 9350963a1cdcf456b86e35dc94201915, type: 2}
+  baseCompanionPool: {fileID: 11400000, guid: 1a5aa5f2c25ef434a822f87e97339f33, type: 2}
+  activePacks:
+  - {fileID: 11400000, guid: 908f28c6f48104c2d85d2fcbd973771e, type: 2}
+  - {fileID: 11400000, guid: 5f4300e0913784f05aeff0dd086d4338, type: 2}
+  - {fileID: 11400000, guid: 79e479ca9df7a4369ba7fa951e0af116, type: 2}
+  - {fileID: 11400000, guid: a87b5da767d4e4659b2965e31e340c58, type: 2}
+  - {fileID: 11400000, guid: 0d12b03c0c8754470a900cb4f78a9217, type: 2}
+  demoMapGenerator: {fileID: 11400000, guid: d4c21885267247d41945ec031b2085e2, type: 2}
+  demoBaseCompanionPool: {fileID: 11400000, guid: 48c7b3405cbcdcc4da342fd49d591dba, type: 2}
+  demoActivePacks:
+  - {fileID: 11400000, guid: 908f28c6f48104c2d85d2fcbd973771e, type: 2}
+  - {fileID: 11400000, guid: 5f4300e0913784f05aeff0dd086d4338, type: 2}
+  - {fileID: 11400000, guid: 79e479ca9df7a4369ba7fa951e0af116, type: 2}
+  - {fileID: 11400000, guid: a87b5da767d4e4659b2965e31e340c58, type: 2}
 --- !u!1 &2116912956
 GameObject:
   m_ObjectHideFlags: 0
@@ -1130,6 +1126,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1921728100752213519, guid: 0e35e41c6de5a4fff9f24104bc1922dd, type: 3}
       propertyPath: generateMap
+      value: 
+      objectReference: {fileID: 1768978789}
+    - target: {fileID: 1921728100752213519, guid: 0e35e41c6de5a4fff9f24104bc1922dd, type: 3}
+      propertyPath: generateRun
       value: 
       objectReference: {fileID: 1768978789}
     - target: {fileID: 1921728100752213519, guid: 0e35e41c6de5a4fff9f24104bc1922dd, type: 3}

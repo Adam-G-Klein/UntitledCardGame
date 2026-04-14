@@ -6,6 +6,7 @@ public class ShopTutorialDisplay : MonoBehaviour
 {
 
     private ShopDataSO shopData;
+    private EncounterConstantsSO encounterConstants;
     [SerializeField]
     private float fullyUpgradeShopTime = 3f;
 
@@ -23,8 +24,9 @@ public class ShopTutorialDisplay : MonoBehaviour
     private float delayPerFreeCardRemovalGiven = 1f;
 
 
-    public void Setup(ShopDataSO shopDataSO)
+    public void Setup(ShopDataSO shopDataSO, EncounterConstantsSO encounterConstants)
     {
+        this.encounterConstants = encounterConstants;
         shopData = shopDataSO;
         StartCoroutine(ShopTutorialCoroutine());
     }
@@ -34,8 +36,7 @@ public class ShopTutorialDisplay : MonoBehaviour
     {
         // UI stays disabled from the call in ShopManager, it's waiting on cinematicIntroComplete = true;
         int prevGold = ShopManager.Instance.gameState.playerData.GetValue().gold;
-        ShopManager.Instance.gameState.playerData.initialize(ShopManager.Instance.getShopEncounter().shopData);
-        ShopManager.Instance.gameState.playerData.GetValue().gold = prevGold;
+        ShopManager.Instance.gameState.playerData.initialize(prevGold);
         yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.FullFeatureShopTutorialStep1);
         yield return GiveFreeMoney();
         yield return new WaitForSeconds(postFreeMoneyDelay);
@@ -87,7 +88,7 @@ public class ShopTutorialDisplay : MonoBehaviour
     private IEnumerator FullyUpgradeShopCoroutine()
     {
         int totalIncrementsNeeded = 0;
-        foreach(ShopLevel shopLevel in shopData.shopLevels)
+        foreach(ShopLevel shopLevel in encounterConstants.shopLevels)
         {
             totalIncrementsNeeded += shopLevel.shopLevelIncrementsToUnlock;
         }

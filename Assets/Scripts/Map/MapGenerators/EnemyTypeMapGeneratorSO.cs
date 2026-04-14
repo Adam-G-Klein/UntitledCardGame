@@ -9,6 +9,7 @@ using UnityEngine;
 public class EnemyTypeMapGeneratorSO: MapGeneratorSO {
 
     public List<EnemyEncounterTypeSO> enemyEncounterTypes;
+    public int playerStartingGold = 0;
     public ShopDataSO shopData;
 
     public override Map generateMap() {
@@ -20,6 +21,11 @@ public class EnemyTypeMapGeneratorSO: MapGeneratorSO {
         }
 
         return new Map(encounters);
+    }
+
+    public override int getPlayerStartingGold()
+    {
+        return playerStartingGold;
     }
 
     public override ShopDataSO getShopData() {

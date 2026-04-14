@@ -9,6 +9,7 @@ using UnityEngine;
 public class SimpleEnemyPoolMapGeneratorSO: MapGeneratorSO {
 
     public List<EnemyEncounterPoolSO> enemyEncounterPools;
+    public int playerStartingGold = 0;
     public ShopDataSO shopData;
     public bool useDifferentShopDatas = false;
     [Header("Only used if above boolean is checked")]
@@ -65,6 +66,11 @@ public class SimpleEnemyPoolMapGeneratorSO: MapGeneratorSO {
         }
 
         return new Map(encounters);
+    }
+
+    public override int getPlayerStartingGold()
+    {
+        return playerStartingGold;
     }
 
     public override ShopDataSO getShopData() {

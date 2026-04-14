@@ -927,7 +927,7 @@ public class ShopViewController : MonoBehaviour,
         }
 
         foreach (CompanionInShopWithPrice companion in companionItemToViewMap.Keys) {
-            int companionsForCombine = GameplayConstantsSingleton.Instance.gameplayConstants.COMPANIONS_FOR_LEVELTWO_COMBINATION;
+            int companionsForCombine = shopManager.CompanionCombinationManager.CompanionsForLevelTwoCombination;
             Vector3 worldspacePos = UIDocumentGameObjectPlacer.GetWorldPositionFromElement(companionItemToViewMap[companion].shopItemElement);
             GameObject vfx = null;
             bool isUpgrade = true;
@@ -1924,7 +1924,7 @@ public class ShopViewController : MonoBehaviour,
     {
         Companion companionToShow = new Companion(companion);
         for (int i = 0; i < shopManager.GetShopLevel().numLessCardsInStartingDeck; i++) {
-            companionToShow.deck.PurgeStarterDeckCard(ShopManager.Instance.gameState.baseShopData.baseCardsToRemoveOnUpgrade);
+            companionToShow.deck.PurgeStarterDeckCard(ShopManager.Instance.getShopEncounter().shopData.baseCardsToRemoveOnUpgrade);
         }
         MultiDeckViewManager.Instance.ShowShopDeckView(true, companionToShow, MultiDeckViewManager.TabType.ForPurchase);
     }
@@ -1990,7 +1990,7 @@ public class ShopViewController : MonoBehaviour,
         rerollButton.pickingMode = PickingMode.Position;
         // IF THE UPGRADE BUTTON IS NOT ENABLING AND IT SHOULD BE THE BUG IS HERE
         // blame adam coding on a plane at 11pm
-        if(shopManager.gameState.playerData.GetValue().shopLevel < shopManager.gameState.baseShopData.shopLevels.Count - 1)
+        if(shopManager.gameState.playerData.GetValue().shopLevel < shopManager.encounterConstants.shopLevels.Count - 1)
         {
             upgradeButton.SetEnabled(true);
             upgradeButton.pickingMode = PickingMode.Position;

@@ -85,7 +85,6 @@ public class EnemyEncounter : Encounter
             return;
         }
 
-
         for(int i = 0; i < enemyList.Count; i++)
         {
             WorldPositionVisualElement newEnemyPlacement = placer.checkoutEnemyMapping();

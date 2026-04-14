@@ -12,26 +12,85 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1c40500d4a761240a4e45cec72e7408, type: 3}
   m_Name: EncounterConstants
   m_EditorClassIdentifier: 
+  goldEarnedPerBattle: 10
+  interestRate: 0.5
+  interestCap: 10
+  benchHealingAmount: 10
+  postEliteHealingAmount: 5
+  bossSpawnLocation: {x: 0, y: 1.5}
+  shopLevels:
+  - level: 0
+    shopLevelIncrementsToUnlock: 6
+    upgradeIncrementCost: 4
+    numCardsToShow: 3
+    numKeepsakesToShow: 3
+    commonCompanionPercentage: 60
+    uncommonCompanionPercentage: 30
+    rareCompanionPercentage: 10
+    commonCardPercentage: 50
+    uncommonCardPercentage: 35
+    rareCardPercentage: 15
+    ratBonusHealth: 0
+    cardRemovalDiscount: 0
+    numCardRemovalsAllowed: 1
+    numLessCardsInStartingDeck: 0
+    upgradeTooltip:
+      empty: 0
+      lines:
+      - title: Upgrade to Level 2
+        description: Increase shop rarity, bonus max HP, better starting decks
+        relatedBehaviorIndex: 0
+        icon: {fileID: 0}
+        iconDescriptionLine: []
+        card: {fileID: 0}
+  - level: 1
+    shopLevelIncrementsToUnlock: 3
+    upgradeIncrementCost: 4
+    numCardsToShow: 4
+    numKeepsakesToShow: 2
+    commonCompanionPercentage: 55
+    uncommonCompanionPercentage: 40
+    rareCompanionPercentage: 5
+    commonCardPercentage: 55
+    uncommonCardPercentage: 40
+    rareCardPercentage: 5
+    ratBonusHealth: 5
+    cardRemovalDiscount: 0
+    numCardRemovalsAllowed: 1
+    numLessCardsInStartingDeck: 1
+    upgradeTooltip:
+      empty: 0
+      lines:
+      - title: Upgrade to Level 3
+        description: Increase shop rarity, bonus max HP, more and cheaper card removals
+        relatedBehaviorIndex: 0
+        icon: {fileID: 0}
+        iconDescriptionLine: []
+        card: {fileID: 0}
+  - level: 2
+    shopLevelIncrementsToUnlock: 1000
+    upgradeIncrementCost: 5
+    numCardsToShow: 4
+    numKeepsakesToShow: 2
+    commonCompanionPercentage: 40
+    uncommonCompanionPercentage: 40
+    rareCompanionPercentage: 20
+    commonCardPercentage: 40
+    uncommonCardPercentage: 40
+    rareCardPercentage: 20
+    ratBonusHealth: 10
+    cardRemovalDiscount: 3
+    numCardRemovalsAllowed: 3
+    numLessCardsInStartingDeck: 1
+    upgradeTooltip:
+      empty: 0
+      lines: []
   companionPrefab: {fileID: 5285687428135354733, guid: 24f62d5c366ae1e488c1f12d6dd09200, type: 3}
   enemyPrefab: {fileID: 1818299386461833425, guid: 34d1fb5b688453b4a919a06abb42f422, type: 3}
   SmokeAndArmsBossPrefab: {fileID: 1818299386461833425, guid: a99d3923036e772438f69e7c8b5fba7a, type: 3}
-  minionPrefab: {fileID: 3793161618878564120, guid: 86773367736110f48bef92cbf342bb6f, type: 3}
-  playerPrefab: {fileID: 5707403771782775114, guid: 17ffb8b95d52187448098481944127fa, type: 3}
   cardPrefab: {fileID: 2953694679348611399, guid: 8054bb662069f4b18b9d1e4d99a9215e, type: 3}
   companionDeathPrefab: {fileID: 8951890979739316548, guid: 8f3e57ef6a6132f41b32f01797dd5c1d, type: 3}
   enemyDeathPrefab: {fileID: 8951890979739316548, guid: 0ffc05750d6ba26408fbf4b4226fcbed, type: 3}
   companionRevivePrefab: {fileID: 3850217184923880746, guid: 604f6efaa1e828d4bacfc84a25dfbd7a, type: 3}
-  actOneEnvironment: {fileID: 3945231861636344524, guid: 290f1727747c0804db2dd356ef5beb3c, type: 3}
-  actTwoEnvironment: {fileID: 3654230989843474512, guid: 671ea12bf6a371e42b9c07f148a83e9a, type: 3}
-  actThreeEnvironment: {fileID: 4284492346861942146, guid: 2dbdf9675b6305e4daeda3f74ac9ac39, type: 3}
-  cardInShopPrefab: {fileID: 8204483024423312325, guid: f1155bdeadaedcc49bb8b3a169d612ac, type: 3}
-  cardSoldOutPrefab: {fileID: 6170618733047339930, guid: 208b6f4f75aa1ed4689a250df5588ce4, type: 3}
-  keepsakeInShopPrefab: {fileID: 271131787034329504, guid: ca8ac3afee1caca46b523947423b4816, type: 3}
-  randomBackgroundPrefab: {fileID: 2752560623856132771, guid: 3c8c1eeb591a5d34799da3833a4e8e49, type: 3}
   companionViewTemplate: {fileID: 9197481963319205126, guid: 8e3e49aec6740ff40b77016be06d711a, type: 3}
-  companionViewTemplateOld: {fileID: 9197481963319205126, guid: 7e96d66c0d1431c48ae3c7c219bed54d, type: 3}
   companionManagementViewTemplate: {fileID: 9197481963319205126, guid: 9e42a3de37ad1e5459462df38bdffddd, type: 3}
-  cardGeneratedByOrb: {fileID: 11400000, guid: 8ac3c6ab98795bc478560ad2d78e80ae, type: 2}
-  cardDrawVFXPrefab: {fileID: 6098351819381026378, guid: bb270a4415ab7d14eae6b9d6ccc52756, type: 3}
-  genericCardCompanionTypeSprite: {fileID: 21300000, guid: c63f296ce93d3e74780174ff97fc07c9, type: 3}
-  bossSpawnLocation: {x: 0, y: 1.5}

@@ -40,7 +40,7 @@ public class ShopItemView : ICompanionViewDelegate {
         tempCompanion.combatStats.IncreaseMaxHealth(companion.maxHealthBonus);
         tempCompanion.combatStats.currentHealth = tempCompanion.combatStats.getMaxHealth() - companion.sustainedDamage;
         for (int i = 0; i < ShopManager.Instance.GetShopLevel().numLessCardsInStartingDeck; i++) {
-            tempCompanion.deck.PurgeStarterDeckCard(ShopManager.Instance.gameState.baseShopData.baseCardsToRemoveOnUpgrade);
+            tempCompanion.deck.PurgeStarterDeckCard(ShopManager.Instance.getShopEncounter().shopData.baseCardsToRemoveOnUpgrade);
         }
         // for (int i = 0; i < tempCompanion.deck.cards.Count; i++) {
             // Debug.Log("Card at index " + i + " in temp companion deck: " + tempCompanion.deck.cards[i].cardType.name);

@@ -41,6 +41,12 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     public GameObject placerGO;
     [SerializeField]
     private GameObject combatEnvironmentParent;
+    [SerializeField]
+    private GameObject actOneEnvironment;
+    [SerializeField]
+    private GameObject actTwoEnvironment;
+    [SerializeField]
+    private GameObject actThreeEnvironment;
     private bool startTheTurns = false;
     private bool cinematicIntroComplete = false;
     private bool cinematicOutroComplete = false;
@@ -125,15 +131,15 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
 
         switch (encounter.act) {
             case Act.One:
-                SetupCombatEnvironment(encounterConstants.actOneEnvironment);
+                SetupCombatEnvironment(actOneEnvironment);
             break;
 
             case Act.Two:
-                SetupCombatEnvironment(encounterConstants.actTwoEnvironment);
+                SetupCombatEnvironment(actTwoEnvironment);
             break;
 
             case Act.Three:
-                SetupCombatEnvironment(encounterConstants.actThreeEnvironment);
+                SetupCombatEnvironment(actThreeEnvironment);
             break;
 
             default:
@@ -243,12 +249,12 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         Debug.Log("EndEncounterHandler called, activeEncounter is " + gameState.activeEncounter.GetValue().id + " isCompleted is " + gameState.activeEncounter.GetValue().isCompleted);
 
         // Gold interest calculation
-        int baseGoldEarnedPerBattle = gameState.baseShopData.goldEarnedPerBattle;
-        int extraGold = Mathf.FloorToInt(gameState.baseShopData.interestRate * gameState.playerData.GetValue().gold);
-        if (extraGold > gameState.baseShopData.interestCap)
+        int baseGoldEarnedPerBattle = encounterConstants.goldEarnedPerBattle;
+        int extraGold = Mathf.FloorToInt(encounterConstants.interestRate * gameState.playerData.GetValue().gold);
+        if (extraGold > encounterConstants.interestCap)
         {
-            Debug.Log("capping extra gold " + extraGold.ToString() + " at interest cap " + gameState.baseShopData.interestCap.ToString());
-            extraGold = gameState.baseShopData.interestCap;
+            Debug.Log("capping extra gold " + extraGold.ToString() + " at interest cap " + encounterConstants.interestCap.ToString());
+            extraGold = encounterConstants.interestCap;
         }
 
         MusicController.Instance.SetCombatState("Victory");
@@ -291,7 +297,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
             {
                 if (companion.combatStats.currentHealth > 0)
                 {
-                    companion.combatStats.Heal(gameState.baseShopData.postEliteHealingAmount);
+                    companion.combatStats.Heal(encounterConstants.postEliteHealingAmount);
                 }
             }
             yield return StartCoroutine(
@@ -317,7 +323,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         //postCombatUI.transform.SetSiblingIndex(postCombatUI.transform.parent.childCount - 1);
 
         TurnOffFocusing();// Needs to go before the next line bc this line disables existing focus, while the next line sets up more focus
-        postCombatUI.GetComponent<EndEncounterView>().Setup(baseGoldEarnedPerBattle, extraGold, gameState.baseShopData.interestCap, gameState.baseShopData.interestRate, bonusManaReward, bonusTeamSizeReward);
+        postCombatUI.GetComponent<EndEncounterView>().Setup(baseGoldEarnedPerBattle, extraGold, encounterConstants.interestCap, encounterConstants.interestRate, bonusManaReward, bonusTeamSizeReward);
         StartCoroutine(displayPostCombatUIAfterDelay());
         SetInToolTip(false);
         yield return null;

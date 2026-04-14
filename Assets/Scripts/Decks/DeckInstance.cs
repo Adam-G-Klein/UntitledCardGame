@@ -422,18 +422,6 @@ public class DeckInstance : MonoBehaviour
         return drawPile.Contains(card) || discardPile.Contains(card);
     }
 
-    public Vector2 getNextMinionSpawnPosition()
-    {
-        Vector2 center = transform.position;
-        // from copilot and https://answers.unity.com/questions/1545128/how-can-i-get-a-point-position-in-circle-line.html
-        Vector2 spawnLoc = new Vector2(
-            center.x + minionSpawnRadius * Mathf.Cos(nextMinionSpawnTheta),
-            center.y + minionSpawnRadius * Mathf.Sin(nextMinionSpawnTheta)
-        );
-        nextMinionSpawnTheta += 2 * Mathf.PI / GameplayConstantsSingleton.Instance.gameplayConstants.MAX_MINIONS_PER_COMPANION;
-        return spawnLoc;
-    }
-
     public CompanionTypeSO GetCompanionTypeSO()
     {
         CompanionInstance companionInstance = GetComponent<CompanionInstance>();

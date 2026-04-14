@@ -206,10 +206,13 @@ public class PackSelectionViewController : MonoBehaviour, IPackSlotViewDelegate
             uncommonCompanions.AddRange(packSO.companionPoolSO.uncommonCompanions);
             rareCompanions.AddRange(packSO.companionPoolSO.rareCompanions);
         }
-        gameState.baseShopData.companionPool.commonCompanions = commonCompanions;
-        gameState.baseShopData.companionPool.uncommonCompanions = uncommonCompanions;
-        gameState.baseShopData.companionPool.rareCompanions = rareCompanions;
-        gameState.baseShopData.activePacks = selectedPackSOs;
+        gameState.companionPool = new CompanionPool
+        {
+            commonCompanions = new List<CompanionTypeSO>(commonCompanions),
+            uncommonCompanions = new List<CompanionTypeSO>(uncommonCompanions),
+            rareCompanions = new List<CompanionTypeSO>(rareCompanions)
+        };
+        gameState.activePacks = selectedPackSOs;
         gameState.LoadNextLocation();
         // progress to the next scene probably
     }

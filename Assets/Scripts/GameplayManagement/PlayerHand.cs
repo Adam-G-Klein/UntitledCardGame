@@ -19,7 +19,7 @@ public class SelectionPurposeTextPair
 [RequireComponent(typeof(TurnPhaseEventListener))]
 public class PlayerHand : GenericSingleton<PlayerHand>
 {
-    // public List<PlayableCard> cardsInHand;
+    public int maxHandSize = 10;
     public SplineContainer splineContainer;
     /*
         This curve is used to get what percent a card should move based on proximity
@@ -98,8 +98,6 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
     private Queue<(PlayableCard, bool)> cardDealQueue = new Queue<(PlayableCard, bool)>();
 
-
-    private int MAX_HAND_SIZE;
     /*
         This int designates the scaling point for cards in hand. With a value of 7,
         this means that even if there are less cards in hand than 7, the the cards will
@@ -126,7 +124,6 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     void Start()
     {
         cardPrefab = EnemyEncounterManager.Instance.encounterConstants.cardPrefab;
-        MAX_HAND_SIZE = GameplayConstantsSingleton.Instance.gameplayConstants.MAX_HAND_SIZE;
         splineMiddleYpos = splineContainer.Spline[1].Position.y;
 
         StartCoroutine(CardDealerWorker());
@@ -307,7 +304,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     {
         if (orderedCards.Count == 0) return;
 
-        float minCardSpacing = 1f / MAX_HAND_SIZE;
+        float minCardSpacing = 1f / maxHandSize;
         float maxCardSpacing = 1f / HAND_START_SCALING;
         float cardSpacing = Mathf.Clamp(1f / orderedCards.Count, minCardSpacing, maxCardSpacing);
         int hoveredIndex = orderedCards.IndexOf(hoveredCard);
@@ -343,8 +340,8 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         }
 
         // 7 - 10
-        int temp = Mathf.Clamp(totalCardsInHand, HAND_START_SCALING, MAX_HAND_SIZE);
-        float val = 1 - ((float)(MAX_HAND_SIZE - temp) / ((float)(MAX_HAND_SIZE - HAND_START_SCALING)));
+        int temp = Mathf.Clamp(totalCardsInHand, HAND_START_SCALING, maxHandSize);
+        float val = 1 - ((float)(maxHandSize - temp) / ((float)(maxHandSize - HAND_START_SCALING)));
         float extraSpacePerSide = extraDistanceHoverCurve.Evaluate(val);
         float positionCalc;
         float distance = Mathf.Abs(index - hoveredIndex);
@@ -451,7 +448,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     {
         List<PlayableCard> cardsEnqueued = new List<PlayableCard>();
         // If the origin is the card, lets temporarily increase the hand size limit so the card can replace itself.
-        int handSizeLimit = GameplayConstantsSingleton.Instance.gameplayConstants.MAX_HAND_SIZE;
+        int handSizeLimit = maxHandSize;
         if (fromCardCast)
         {
             handSizeLimit += 1;
@@ -1081,7 +1078,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
         void UpdateCardSelectionSplineCardPositions()
         {
-            float minCardSpacing = 1f / MAX_HAND_SIZE;
+            float minCardSpacing = 1f / maxHandSize;
             float maxCardSpacing = 1f / 4;
             float cardSpacing = Mathf.Clamp(1f / selectedCards.Count, minCardSpacing, maxCardSpacing);
             float firstCardPosition = 0.5f - (selectedCards.Count - 1) * (cardSpacing / 2);

@@ -1,9 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -46,8 +42,12 @@ public class GameStateVariableSO : ScriptableObject
     public List<CompanionTypeSO> staticStartingTeamCompanions;
     public PlayerDataVariableSO playerData;
     public MapVariableSO map;
+    [Header("Companion pool / Active packs - populated at runtime by map generation or pack selection")]
+    public CompanionPool companionPool;
+    public List<PackSO> activePacks;
+    [Header("Data/Constants")]
     public ShopDataSO baseShopData;
-    private MapGeneratorSO mapGenerator;
+    public EncounterConstantsSO encounterConstants;
     [Header("The Combat or Shop Encounter we're currently in")]
     public EncounterVariableSO activeEncounter;
     [Header("Our map and loop index, used to determine things like which dialogue to display")]
@@ -55,10 +55,6 @@ public class GameStateVariableSO : ScriptableObject
     [Header("The Next Combat or Shop Encounter we'll enter")]
     public EncounterVariableSO nextEncounter;
     public Location currentLocation;
-    public AllDialogueLocationsSO dialogueLocations;
-    [Header("Prevents dialogue seqs from being added to the viewed list")]
-    public bool debugSingleEncounterMode = false;
-    public List<DialogueSequenceSO> viewedSequences;
     public CompanionInstance hoveredCompanion = null;
     public int currentEncounterIndex = 0;
     public Guid currentRunID;
@@ -279,17 +275,14 @@ public class GameStateVariableSO : ScriptableObject
     public void UpgradeTheShop() {
         PlayerData pd = playerData.GetValue();
         pd.shopLevel += 1;
-        // ShopLevel shopLevel = baseShopData.shopLevels[pd.shopLevel];
-        // companions.SetCompanionSlots(shopLevel.teamSize);
         pd.shopLevelIncrementsEarned = 0;
-        // pd.manaPerTurn = shopLevel.mana;
     }
 
     public bool EarnUpgradeIncrement()
     {
         PlayerData pd = playerData.GetValue();
-        ShopLevel shopLevel = baseShopData.shopLevels[pd.shopLevel];
-        if (shopLevel.level < baseShopData.shopLevels.Count - 1)
+        ShopLevel shopLevel = encounterConstants.shopLevels[pd.shopLevel];
+        if (shopLevel.level < encounterConstants.shopLevels.Count - 1)
         {
             if (pd.shopLevelIncrementsEarned == shopLevel.shopLevelIncrementsToUnlock - 1)
             {
@@ -338,16 +331,6 @@ public class GameStateVariableSO : ScriptableObject
         PlayerHand.Instance.UpdatePlayableCards();
     }
 
-    public void KillPlayer() {
-        Debug.Log("killing player");
-        playerData.respawn(baseShopData);
-        companions.respawn(numSlots: playerData.GetValue().teamSize);
-        map.SetValue(mapGenerator.generateMap());
-        SetLocation(Location.WAKE_UP_ROOM);
-        LoadCurrentLocationScene();
-
-    }
-
     private void updateMusic(Location newLocation, Act act) {
         // Just not changing the music on the map right now
         if(newLocation != Location.MAP && MusicController.Instance != null) {
@@ -355,20 +338,11 @@ public class GameStateVariableSO : ScriptableObject
         }
     }
 
-    public void setMapGenerator(MapGeneratorSO mapGeneratorSO) {
-        mapGenerator = mapGeneratorSO;
-    }
-
     public void StartNewRun(MapGeneratorSO mapGeneratorSO) {
         currentEncounterIndex = 0;
         currentRunID = Guid.NewGuid();
-        setMapGenerator(mapGeneratorSO);
-        map.SetValue(mapGenerator.generateMap());
-
-        baseShopData = mapGenerator.getShopData();
-
-        playerData.initialize(baseShopData);
-        viewedSequences = new List<DialogueSequenceSO>();
+        map.SetValue(mapGeneratorSO.generateMap());
+        playerData.initialize(mapGeneratorSO.getPlayerStartingGold());
 
         // Record an event to record the start of the run.
         // We should move this to the pack selection screen or the starting team
@@ -383,5 +357,14 @@ public class GameStateVariableSO : ScriptableObject
     public bool BuildTypeDemoOrConvention()
     {
         return buildType == BuildType.DEMO || buildType == BuildType.CONVENTION;
+    }
+
+    public void PopulateCompanionPool(CompanionPoolSO basePool) {
+        companionPool = new CompanionPool
+        {
+            commonCompanions = new List<CompanionTypeSO>(basePool.commonCompanions),
+            uncommonCompanions = new List<CompanionTypeSO>(basePool.uncommonCompanions),
+            rareCompanions = new List<CompanionTypeSO>(basePool.rareCompanions)
+        };
     }
 }

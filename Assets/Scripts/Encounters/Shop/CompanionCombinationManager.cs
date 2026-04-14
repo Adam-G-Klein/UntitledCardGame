@@ -33,7 +33,11 @@ public class CompanionCombinationManager : MonoBehaviour
     [SerializeField]
     private GameStateVariableSO gameState;
     [SerializeField]
-    private GameplayConstantsSO gameplayConstants;
+    private int companionsForLevelTwoCombination = 3;
+    public int CompanionsForLevelTwoCombination => companionsForLevelTwoCombination;
+    [SerializeField]
+    public int companionsForLevelThreeCombinaion = 2;
+    public int CompanionsForLevelThreeCombination => companionsForLevelTwoCombination;
 
     [SerializeField]
     private GameObject celebrationParticles;
@@ -49,8 +53,8 @@ public class CompanionCombinationManager : MonoBehaviour
         existingCompanions.Add(newGuy);
 
         int numNeededToCombine = newGuy.companionType.level == CompanionLevel.LevelOne ?
-            gameplayConstants.COMPANIONS_FOR_LEVELTWO_COMBINATION :
-            gameplayConstants.COMPANIONS_FOR_LEVELTHREE_COMBINATION;
+            companionsForLevelTwoCombination :
+            companionsForLevelThreeCombinaion;
 
         // This is an expected result when you buy a companion and do not have enough.
         if (existingCompanions.Count < numNeededToCombine)
@@ -64,7 +68,7 @@ public class CompanionCombinationManager : MonoBehaviour
 
         // This means that we have enough for a level 3 upgrade
         List<Companion> level2s = CompanionsOfType(newGuy.companionType.upgradeTo);
-        if (level2s.Count + 1 == gameplayConstants.COMPANIONS_FOR_LEVELTHREE_COMBINATION)
+        if (level2s.Count + 1 == companionsForLevelThreeCombinaion)
         {
             List<Companion> level2UpgradeCompanions = new();
             level2UpgradeCompanions.AddRange(level2s);
@@ -102,8 +106,8 @@ public class CompanionCombinationManager : MonoBehaviour
         existingCompanions.Add(newGuy);
 
         int numNeededToCombine = newGuy.companionType.level == CompanionLevel.LevelOne ?
-            gameplayConstants.COMPANIONS_FOR_LEVELTWO_COMBINATION :
-            gameplayConstants.COMPANIONS_FOR_LEVELTHREE_COMBINATION;
+            companionsForLevelTwoCombination :
+            companionsForLevelThreeCombinaion;
 
         // This is an expected result when you buy a companion and do not have enough.
         if (existingCompanions.Count < numNeededToCombine)
@@ -205,7 +209,7 @@ public class CompanionCombinationManager : MonoBehaviour
         }
         if (cardsToRemove > 0)
         {
-            starterDeck.PurgeStarterDeckCard(ShopManager.Instance.gameState.baseShopData.baseCardsToRemoveOnUpgrade);
+            starterDeck.PurgeStarterDeckCard(ShopManager.Instance.getShopEncounter().shopData.baseCardsToRemoveOnUpgrade);
         }
 
         return starterDeck;

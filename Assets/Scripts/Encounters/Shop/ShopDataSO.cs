@@ -15,18 +15,12 @@ public enum ShopMode
 [System.Serializable]
 public class ShopDataSO : ScriptableObject
 {
-    public List<ShopLevel> shopLevels;
-    // The companionPool is a consolidation of the companion pools across the activePacks.
-    // It lies here for convenience's sake because we do not stratify shop offerings by packs for now.
-    public CompanionPoolSO companionPool;
-    public List<PackSO> activePacks;
     public List<CrossPackCardPoolSO> activeCrossPackCardPools;
 
     public int rerollShopPrice;
     public float incrementalRerollPriceIncrease = 1f;
     public int cardRemovalPrice;
     public int cardRemovalPriceIncrease = 4;
-    public ShopEncounterEvent shopEncounterEvent;
 
     public int commonCardPrice = 1;
     public int uncommonCardPrice = 2;
@@ -39,7 +33,6 @@ public class ShopDataSO : ScriptableObject
     // to force the player to try other strategies.
     public int numKeepsakeCopies;
 
-    public int startingGold;
     [Header("Shop probabilities for card source (should add up to 100)")]
     public int companionTypeCardPoolPct;
     public int packCardPoolPct;
@@ -58,51 +51,20 @@ public class ShopDataSO : ScriptableObject
     public int freeRerolls = 6;
     public int freeCardRemovals = 2;
 
-    [Header("Earning post combat")]
-    public int goldEarnedPerBattle;
-    public float interestRate;
-    public int interestCap;
     [Header("Neutral cards")]
-
     public CardPoolSO neutralCardPool;
 
     [Header("Selling the companions in the shop")]
-
     public float numCompanionsSellFactor = 1.5f;
     public float numCardsBoughtSellFactor = 0.5f;
     public float numCardsRemovedSellFactor = 4f;
 
     [Header("Upgrade parameters")]
     public List<CardType> baseCardsToRemoveOnUpgrade;
-
-    [Header("Controlling healing in the game")]
-    public int benchHealingAmount;
-    public int postEliteHealingAmount;
+    
 
     [Header("Static shop encounters (demo)")]
     public StaticShopEncounterSO staticShopEncounters;
-
-    public ShopLevel GetShopLevel(int level)
-    {
-        foreach (ShopLevel shopLevel in shopLevels)
-        {
-            if (shopLevel.level == level)
-            {
-                return shopLevel;
-            }
-        }
-        // Default to whatever is first in the list
-        Debug.LogWarning("Specified shop level not found, using default shop level");
-        return shopLevels[0];
-    }
-
-    public int GetCardRemovalPrice(int level, int timesCardRemovedThisShop)
-    {
-        ShopLevel shopLevel = GetShopLevel(level);
-        int cardRemovalPrice = this.cardRemovalPrice - shopLevel.cardRemovalDiscount;
-        cardRemovalPrice += timesCardRemovedThisShop * cardRemovalPriceIncrease; // Each subsequent removal in the same shop costs more
-        return Math.Max(0, cardRemovalPrice);
-    }
 }
 
 [Serializable]

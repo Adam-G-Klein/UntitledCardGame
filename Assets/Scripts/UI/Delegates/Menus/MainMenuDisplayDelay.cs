@@ -9,7 +9,7 @@ public class MainMenuDisplayDelay : MonoBehaviour
     public GameObject mainMenu;
     public float delayTime;
     public GameStateVariableSO gameState;
-    public GenerateMap generateMap;
+    public GenerateRun generateRun;
     private bool skipped = false;
 
     void Start() {
@@ -19,7 +19,7 @@ public class MainMenuDisplayDelay : MonoBehaviour
 
     void Update() {
         if(Input.GetKeyDown(KeyCode.J) && gameState.currentLocation == Location.MAIN_MENU){
-            generateMap.generateMapAndChangeScenes();
+            generateRun.generateMapAndChangeScenes();
             skipped = true;
         }
     }

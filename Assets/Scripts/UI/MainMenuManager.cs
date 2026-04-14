@@ -18,7 +18,7 @@ public class MainMenuManager : MonoBehaviour
     private Button optionsButton;
     private Button exitButton;
     [SerializeField]
-    private GenerateMap generateMap;
+    private GenerateRun generateRun;
     public void Awake()
     {
         // there has to be somewhere to call this where it actuallys only runs at start up not every time the player goes back to the main menu
@@ -91,7 +91,7 @@ public class MainMenuManager : MonoBehaviour
         if (gameState.buildType == BuildType.CONVENTION) {
             SaveManager.Instance.DeletePlayerProgressData();
         }
-        generateMap.generateMapAndChangeScenes();
+        generateRun.generateMapAndChangeScenes();
         MusicController.Instance.PlayStartSFX();
     }
 
