@@ -40,15 +40,15 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Haemon+
-      description: Every 5 times Haemon or an adjacent rat loses HP, give Haemon
-        and adjacent rats 2 strength
+      description: "Every 5 times Haemon or a rat adjacent to Haemon loses HP, gain
+        2 \xC9lan and draw 1 card from Haemon"
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
       iconDescriptionLine: []
       card: {fileID: 0}
   keepsakeTitle: 
-  keepsakeDescription: Every 5 times Haemon or an adjacent rat loses HP, give Haemon
-    and adjacent rats 2 strength
+  keepsakeDescription: "Every 5 times Haemon or a rat adjacent to Haemon loses HP,
+    gain 2 \xC9lan and draw 1 card from Haemon"
   references:
     version: 2
     RefIds:
@@ -70,8 +70,9 @@ MonoBehaviour:
         - rid: 7707884639552274905
         - rid: 7082891692335693829
         - rid: 7082891692335693830
-        - rid: 7401433558763438357
-        - rid: 7401433558763438358
+        - rid: 578314858522476547
+        - rid: 578314858522476548
+        - rid: 578314858522476549
         weight: 0
     - rid: 578314564356800757
       type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
@@ -79,6 +80,27 @@ MonoBehaviour:
         effectStepName: EndWorkflowIfConditionMet
         inputKey1: damagedSelfOrAdjacent
         conditionToEndOn: 0
+    - rid: 578314858522476547
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: self
+        outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        waitForDrawsToResolve: 0
+    - rid: 578314858522476548
+      type: {class: ManaChange, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ManaChange
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 578314858522476549
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
     - rid: 7082891692335693829
       type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
       data:
@@ -110,26 +132,6 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
-    - rid: 7401433558763438357
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ApplyStatus
-        inputKey: adj
-        statusEffect: 0
-        scale: 2
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplyByNumAuraStacks: 0
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-    - rid: 7401433558763438358
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: adj
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
-        scale: 1
     - rid: 7401433558763438393
       type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
       data:
