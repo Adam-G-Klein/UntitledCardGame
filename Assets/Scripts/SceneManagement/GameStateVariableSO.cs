@@ -164,7 +164,7 @@ public class GameStateVariableSO : ScriptableObject
                 // currentLocation = Location.TUTORIAL;
                 // Remove below and uncomment above to return to previous behavior
                 if (BuildTypeDemoOrConvention()) {
-                    currentLocation = Location.STARTING_TEAM;
+                    currentLocation = Location.COMBAT;
                 } else {
                     currentLocation = Location.TUTORIAL;
                 }
