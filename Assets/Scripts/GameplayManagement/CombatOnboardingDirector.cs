@@ -43,8 +43,6 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
     public IEnumerator Lines0To1()
     {
         yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, dialogueLines[0], true);
-        yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, lineFor0To1Beat, true);
-        yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, dialogueLines[1], true);
         DialogueView.Instance.Hide();
     }
 }
