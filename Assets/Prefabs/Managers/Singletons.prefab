@@ -989,8 +989,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speakerSprite: {fileID: 21300000, guid: 34af0ef08494934478eca248b698d0ec, type: 3}
-  combatIntroductionDialogue:
-  - No UI, no rats, no enemies. Just u and me buddy.
+  lineFor0To1Beat: ...
+  dialogueLines:
+  - Here we are, the Paccarat Game Board. Unfortunately, the terms of the contract
+    specify you can't do this alone. I present, your team!
+  - I said I present - YOUR TEAM!
 --- !u!1 &5109742072706344275
 GameObject:
   m_ObjectHideFlags: 0
