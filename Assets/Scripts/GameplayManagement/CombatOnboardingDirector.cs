@@ -6,46 +6,45 @@ using UnityEngine;
 [Serializable]
 public enum CombatOnboardingStepName
 {
-    CombatIntroduction,
+    Lines0To1,
 }
+
+/*
+
+Runs through this script: https://docs.google.com/document/d/1r_jzg6FcQWvHmvWbQ557McmXIgseUmjPlC_q-Y6Xk2Y/edit?tab=t.9okxt9anqbnd
+
+*/
 
 public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirector>
 {
     public Sprite speakerSprite;
+    public string lineFor0To1Beat = "...";
 
+    [Header("Refer to this sheet for line id associations: https://docs.google.com/spreadsheets/d/1sCZju8l5PAlu4M5Gi5D9lO3MF4LxUBD1K0KaEl6SMws/edit?usp=sharing")]
     [TextArea]
-    public List<string> combatIntroductionDialogue;
-
-    private List<CombatOnboardingStepName> stepOrder = new List<CombatOnboardingStepName>()
-    {
-        CombatOnboardingStepName.CombatIntroduction,
-    };
+    public List<string> dialogueLines;
 
     public IEnumerator RunAllStepsCoroutine()
     {
-        foreach (CombatOnboardingStepName stepName in stepOrder)
-        {
-            yield return InvokeCombatOnboardingStepCoroutine(stepName);
-        }
+        yield return InvokeCombatOnboardingStepCoroutine(CombatOnboardingStepName.Lines0To1);
     }
 
     public IEnumerator InvokeCombatOnboardingStepCoroutine(CombatOnboardingStepName stepName)
     {
         switch (stepName)
         {
-            case CombatOnboardingStepName.CombatIntroduction:
-                yield return CombatIntroductionStep();
+            case CombatOnboardingStepName.Lines0To1:
+                yield return Lines0To1();
             break;
         }
         yield return null;
     }
 
-    public IEnumerator CombatIntroductionStep()
+    public IEnumerator Lines0To1()
     {
-        foreach (string line in combatIntroductionDialogue)
-        {
-            yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, line, true);
-        }
+        yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, dialogueLines[0], true);
+        yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, lineFor0To1Beat, true);
+        yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, dialogueLines[1], true);
         DialogueView.Instance.Hide();
     }
 }
