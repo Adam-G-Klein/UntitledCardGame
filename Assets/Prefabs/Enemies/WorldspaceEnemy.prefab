@@ -65,6 +65,7 @@ MonoBehaviour:
   combatInstance: {fileID: 6706516355190666426}
   tooltipProvider: {fileID: 616890501312769047}
   statusEffectsDisplay: {fileID: 5226732806696292264}
+  gradientVfx: {fileID: 5745614873364373811}
   registerTurnPhaseTriggerEvent: {fileID: 11400000, guid: f82cd01826dfef44391e6a853f3d2e89, type: 2}
   removeTurnPhaseTriggerEvent: {fileID: 11400000, guid: 88acfcb7f9a9846468020e4e3854b467, type: 2}
   combatEffectEvent: {fileID: 11400000, guid: 7b4f8952c0f9b4d4a80b72189e46bd3c, type: 2}
@@ -345,6 +346,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c2b2c8ed4388464b91d1a70f9680cb5, type: 3}
+--- !u!1 &5745614873364373811 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8951890979739316548, guid: 3c2b2c8ed4388464b91d1a70f9680cb5, type: 3}
+  m_PrefabInstance: {fileID: 3712944267320561783}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8677287490378457231 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5471009176790888696, guid: 3c2b2c8ed4388464b91d1a70f9680cb5, type: 3}

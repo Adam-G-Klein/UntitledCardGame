@@ -22,12 +22,8 @@ public class CompanionView : IUIEventReceiver
 
     private VisualElement statusArea;
     private VisualElement spriteElement;
-    private VisualElement bronzeGradient;
-    private VisualElement silverGradient;
-    private VisualElement goldGradient;
-    private VisualElement bronzeFrame;
-    private VisualElement silverFrame;
-    private VisualElement goldFrame;
+    private VisualElement gradient;
+    private VisualElement frame;
     private Label name;
     private VisualElement healthBarFill;
     private Label healthBarLabel;
@@ -91,12 +87,8 @@ public class CompanionView : IUIEventReceiver
 
         this.statusArea = companionRoot.Q<VisualElement>("companion-view-status-area");
         this.spriteElement = companionRoot.Q<VisualElement>("companion-view-sprite");
-        this.bronzeGradient = companionRoot.Q<VisualElement>("companion-view-bronze-gradient");
-        this.silverGradient = companionRoot.Q<VisualElement>("companion-view-silver-gradient");
-        this.goldGradient = companionRoot.Q<VisualElement>("companion-view-gold-gradient");
-        this.bronzeFrame = companionRoot.Q<VisualElement>("companion-view-frame-bronze");
-        this.silverFrame = companionRoot.Q<VisualElement>("companion-view-frame-silver");
-        this.goldFrame = companionRoot.Q<VisualElement>("companion-view-frame-gold");
+        this.gradient = companionRoot.Q<VisualElement>("companion-view-gradient");
+        this.frame = companionRoot.Q<VisualElement>("companion-view-frame");
         this.name = companionRoot.Q<Label>("companion-view-name-label");
         this.healthBarFill = companionRoot.Q<VisualElement>("companion-view-health-bar-fill");
         this.healthBarLabel = companionRoot.Q<Label>("companion-view-health-bar-label");
@@ -193,27 +185,23 @@ public class CompanionView : IUIEventReceiver
     }
 
     private void SetupLevelIndicator() {
-        bronzeFrame.style.visibility = Visibility.Hidden;
-        bronzeGradient.style.visibility = Visibility.Hidden;
-        silverFrame.style.visibility = Visibility.Hidden;
-        silverGradient.style.visibility = Visibility.Hidden;
-        goldFrame.style.visibility = Visibility.Hidden;
-        goldGradient.style.visibility = Visibility.Hidden;
+        frame.GetClasses().ToList().ForEach((cls) => frame.RemoveFromClassList(cls));
+        gradient.GetClasses().ToList().ForEach((cls) => frame.RemoveFromClassList(cls));
         switch (this.companion.companionType.level) {
             case CompanionLevel.LevelThree:
-                goldFrame.style.visibility = Visibility.Visible;
-                goldGradient.style.visibility = Visibility.Visible;
+                frame.AddToClassList("frame-gold");
+                gradient.AddToClassList("gold-gradient");
             break;
 
             case CompanionLevel.LevelTwo:
-                silverFrame.style.visibility = Visibility.Visible;
-                silverGradient.style.visibility = Visibility.Visible;
+                frame.AddToClassList("frame-silver");
+                gradient.AddToClassList("silver-gradient");
             break;
 
             case CompanionLevel.LevelOne:
             default:
-                bronzeFrame.style.visibility = Visibility.Visible;
-                bronzeGradient.style.visibility = Visibility.Visible;
+                frame.AddToClassList("frame-bronze");
+                gradient.AddToClassList("bronze-gradient");
             break;
         }
     }
@@ -698,6 +686,48 @@ public class CompanionView : IUIEventReceiver
 
         Vector2 localCenter = targetParent.WorldToLocal(worldCenter);
         return localCenter;
+    }
+
+    public void SetEverythingHidden() {
+        container.style.visibility = Visibility.Hidden;
+        pilesContainer.style.visibility = Visibility.Hidden;
+    }
+
+    public void SetOnlySpriteVisible() {
+        container.style.visibility = Visibility.Hidden;
+        pilesContainer.style.visibility = Visibility.Hidden;
+        spriteElement.style.visibility = Visibility.Visible;
+    }
+
+    public void SetEverythingVisible() {
+        container.style.visibility = Visibility.Visible;
+        pilesContainer.style.visibility = Visibility.Visible;
+    }
+
+    public void AnimateFromOffscreen(float seconds, long delay) {
+        IVisualElementScheduledItem rotationAnimation = null;
+        container.schedule.Execute(() => {
+            SetOnlySpriteVisible();
+            float startX = -(container.worldBound.xMin + container.worldBound.width + 20f);
+            container.style.translate = new Translate(startX, 0);
+            LeanTween.value(startX, 0, seconds)
+                .setEase(LeanTweenType.easeOutCubic)
+                .setOnUpdate((float val) => {
+                    container.style.translate = new Translate(val, 0);
+                });
+            LeanTween.value(0f, seconds / 1.5f, seconds / 1.5f)
+                .setOnUpdate((float t) => {
+                    float normalized = (t / seconds / 1.5f) * 4;
+                    float angle = Mathf.Sin(normalized * Mathf.PI * 2f) * 10;
+                    container.style.rotate = new Rotate(new Angle(angle, AngleUnit.Degree));
+                })
+                .setOnComplete(() => {
+                    LeanTween.value(container.style.rotate.value.angle.value, 0, 0.2f)
+                        .setOnUpdate((float val) => {
+                            container.style.rotate = new Rotate(new Angle(val, AngleUnit.Degree));
+                        });
+                });
+        }).ExecuteLater(delay);
     }
 
     public class CompanionViewContext {

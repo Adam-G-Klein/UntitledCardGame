@@ -193,6 +193,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ProceedCutscene",
+                    "type": "Button",
+                    "id": "6a4bb64f-ab10-4f6b-acfd-cd8ebb0d72ae",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -864,6 +873,61 @@
                     "processors": "",
                     "groups": ";Switch",
                     "action": "MultiDeckViewSectionRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0214e4ba-4934-41e5-9445-522f459f709f",
+                    "path": "<SwitchProControllerHID>/buttonEast",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": ";Switch",
+                    "action": "ProceedCutscene",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "80d4f2b8-e2bc-4fdd-a00e-9b0deff4a8fd",
+                    "path": "<XInputController>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Xbox",
+                    "action": "ProceedCutscene",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c6ff36fa-33f2-4cc5-95b4-70e1cd19fc79",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard;Mouse",
+                    "action": "ProceedCutscene",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a544f2b8-9ff2-4ae2-9be8-33ff19998216",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard;Mouse",
+                    "action": "ProceedCutscene",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f6ef9e16-4187-44e1-9cad-0f02461c7331",
+                    "path": "<Mouse>/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ProceedCutscene",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

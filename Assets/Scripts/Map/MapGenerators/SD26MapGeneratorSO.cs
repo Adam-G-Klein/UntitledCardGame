@@ -11,7 +11,6 @@ public class SD26MapGenerator : MapGeneratorSO
     [Header("Start with enemy, then shop, and repeat until out of enemy encounters")]
     public List<SD26EnemyEncounter> enemyEncounters;
     public List<ShopEncounter> shopEncounters;
-    public int playerStartingGold = 0;
 
     public override Map generateMap()
     {
@@ -34,16 +33,6 @@ public class SD26MapGenerator : MapGeneratorSO
         }
 
         return new Map(encounters);
-    }
-
-    public override int getPlayerStartingGold()
-    {
-        return playerStartingGold;
-    }
-
-    public override ShopDataSO getShopData()
-    {
-        return null;
     }
 
     private Act GetAct(int actNum) {

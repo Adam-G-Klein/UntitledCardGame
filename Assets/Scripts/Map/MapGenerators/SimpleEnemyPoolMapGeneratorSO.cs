@@ -68,15 +68,6 @@ public class SimpleEnemyPoolMapGeneratorSO: MapGeneratorSO {
         return new Map(encounters);
     }
 
-    public override int getPlayerStartingGold()
-    {
-        return playerStartingGold;
-    }
-
-    public override ShopDataSO getShopData() {
-        return shopData;
-    }
-
     private Act GetAct(int actNum) {
         switch (actNum) {
             case 1:

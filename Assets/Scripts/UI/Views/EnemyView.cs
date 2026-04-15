@@ -401,16 +401,6 @@ public class EnemyView : IUIEventReceiver
 
     public void BossFrameDestructionPositionShake(float scale, float duration, int pingpongs, float delay = 0f)
     {
-        /*
-        if(delay > 0f)
-        {
-            LeanTween.delayedCall(delay, () => {
-                BossFrameDestructionPositionShake(scale, duration, pingpongs, 0f);
-            });
-            return;
-        }
-        */
-
         float originalElementPosition =
             this.container.style.right.value.value;
 
@@ -448,6 +438,10 @@ public class EnemyView : IUIEventReceiver
     public void HideIntent()
     {
         intentContainer.style.display = DisplayStyle.None;
+    }
+
+    public void SetEverythingHidden() {
+        container.style.visibility = Visibility.Hidden;
     }
 
     public IEnumerator AbilityActivatedVFX() {

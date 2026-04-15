@@ -462,4 +462,23 @@ public class DeckInstance : MonoBehaviour
         extraCardsToDeal = combatInstance.GetStatusEffects()[StatusEffectType.ExtraCardsToDealNextTurn];
         yield break;
     }
+
+    public void MoveCardToTopOfDrawPile(string cardName) {
+        if (drawPile.Count == 0) return;
+
+        int index;
+        Card foundCard = null;
+        foreach (Card card in drawPile) {
+            if (card.cardType.name == cardName) {
+                index = drawPile.IndexOf(card);
+                foundCard = card;
+                break;
+            }
+        }
+
+        if (foundCard == null) return;
+
+        drawPile.Remove(foundCard);
+        drawPile.Insert(0, foundCard);
+    }
 }
