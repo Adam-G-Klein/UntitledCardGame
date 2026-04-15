@@ -1,0 +1,98 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: PB_Combust
+  m_EditorClassIdentifier: 
+  guid: bba00d55-c589-439e-be0a-05143d91f161
+  Name: Combust
+  Description: Exhaust a card in hand and gain 1 energy
+  IconDescription:
+  - tokenType: 2
+    text: 
+    icon: 14
+  - tokenType: 2
+    text: 
+    icon: 14
+  - tokenType: 2
+    text: 
+    icon: 18
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 10
+  - tokenType: 2
+    text: 
+    icon: 10
+  IconDescriptionTooltipLines:
+  - Choose 2 cards in hand to exhaust, removing them for the rest of combat.
+  - "Gain 2 \xC9lan to spend playing other cards."
+  defaultValues: []
+  Cost: 0
+  Artwork: {fileID: 21300000, guid: 47602993e540997478144938c9b7ec9b, type: 3}
+  cardCategory: 2
+  packFrom: {fileID: 11400000, guid: 79e479ca9df7a4369ba7fa951e0af116, type: 2}
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
+  effectWorkflows:
+  - rid: 5602892679876706519
+  onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  onDrawEffectWorkflow:
+    rid: -2
+  tooltips: 
+  tooltipKeyword: 37
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 1289961820425027957
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: selected
+        validTargets: 03000000
+        number: 2
+        specialTargetRule: 5
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 1
+    - rid: 5602892679876706519
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 1289961820425027957
+        - rid: 5602892679876706521
+        - rid: 5602892679876706522
+    - rid: 5602892679876706521
+      type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardInHandEffect
+        inputKey: selected
+        effect: 1
+    - rid: 5602892679876706522
+      type: {class: ManaChange, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ManaChange
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 

@@ -45,7 +45,7 @@ MonoBehaviour:
     lines:
     - title: Plint
       description: The first time each turn you exhaust a card, give leftmost rat
-        3 block. If the card exhausted came from Plint, give 5 block instead
+        3 block. If Plint owned the exhausted card, give 5 block instead
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
       iconDescriptionLine: []

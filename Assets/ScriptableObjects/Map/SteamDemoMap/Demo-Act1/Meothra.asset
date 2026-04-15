@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
   m_Name: Meothra
   m_EditorClassIdentifier: 
-  guid: ab269716-f448-4bdd-b825-cf9f5af094e6
+  guid: 08ef021b-089b-4b1a-8a8d-1f04b0ecb330
   displayName: Baron Grimmclaw
   maxHealth: 200
   baseAttackDamage: 0
@@ -26,17 +26,17 @@ MonoBehaviour:
   enemyPattern:
     behaviors:
     - intent: 0
-      enemyTargetMethod: 0
+      enemyTargetMethod: 6
       targetsKey: target
-      displayValue: 12
+      displayValue: 4
       effectSteps:
       - rid: 3931529445166809421
       - rid: 173314522967966481
       - rid: 3931529445166809422
-    - intent: 1
+    - intent: 0
       enemyTargetMethod: 0
       targetsKey: target
-      displayValue: 5
+      displayValue: 10
       effectSteps:
       - rid: 3931529445166809421
       - rid: 173314522967966481
@@ -55,13 +55,18 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Toying With You
-      description: He's pointing where he'll attack
+      description: He's pointing where he'll attack - a deadly swipe that hits all
+        rats
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
+      iconDescriptionLine: []
+      card: {fileID: 0}
     - title: Speculate
-      description: Attack and grows stronger
+      description: Attacks the leftmost rat and becomes even stronger
       relatedBehaviorIndex: 1
       icon: {fileID: 0}
+      iconDescriptionLine: []
+      card: {fileID: 0}
   DEADLIER_ENEMY_BONUS_STR: -1
   HEALTHIER_ENEMY_BONUS_HEALTH: -1
   references:
@@ -84,13 +89,14 @@ MonoBehaviour:
         specialTargetRule: 3
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 3931529445166809422
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 0
-        scale: 12
+        scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
@@ -123,7 +129,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 0
-        scale: 5
+        scale: 10
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

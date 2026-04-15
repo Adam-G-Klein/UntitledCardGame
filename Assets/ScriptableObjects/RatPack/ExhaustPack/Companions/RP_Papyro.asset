@@ -40,8 +40,8 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Dr. Papyro
-      description: Every 3 times you exhaust a card, shuffle a "Greek Fire" into
-        Dr. Papyro's deck
+      description: Every 3 times you exhaust a card, shuffle a Greek Fire card into
+        Dr. Papyro's deck and increase damage of ALL Greek Fire by 1
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
       iconDescriptionLine: []
@@ -71,6 +71,17 @@ MonoBehaviour:
         useHardCodedInt: 0
         currentWorkflowKey: numCardsLeftToExhaust
         cacheKey: numCardsLeftToExhaust
+    - rid: 578314926115782766
+      type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardModificationEffect
+        inputKey: 
+        scale: 1
+        affectsAllCardsOfType: 1
+        cardTypeToModify: {fileID: 11400000, guid: 036ee2893f13b451cba34bc7df06a300, type: 2}
+        getScaleFromKey: 0
+        scaleKey: 
+        modification: 0
     - rid: 3051694091506811081
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
@@ -87,6 +98,7 @@ MonoBehaviour:
         - rid: 3051694091506811088
         - rid: 3051694091506811089
         - rid: 3051694091506811090
+        - rid: 578314926115782766
         weight: 0
     - rid: 3051694091506811082
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -154,7 +166,7 @@ MonoBehaviour:
         effectStepName: AddCardsToDeck
         inputKey: self
         cardTypes:
-        - {fileID: 11400000, guid: 07ddcab78d7f64ac1849ccdb53efe2c0, type: 2}
+        - {fileID: 11400000, guid: 036ee2893f13b451cba34bc7df06a300, type: 2}
         addToDeckMethod: 1
         getCardsFromKey: 0
         inputCardsKey: 

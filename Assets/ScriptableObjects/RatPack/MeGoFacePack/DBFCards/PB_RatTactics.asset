@@ -1,0 +1,153 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: PB_RatTactics
+  m_EditorClassIdentifier: 
+  guid: 4793768f-dfce-4f2a-bfe9-020d5511b2c8
+  Name: Rat Tactics
+  Description: Draw 1 card from self and adjacent & if the last card you played was
+    an Attack, choose 1 Attack card in hand to retain
+  IconDescription: []
+  IconDescriptionTooltipLines: []
+  defaultValues: []
+  Cost: 1
+  Artwork: {fileID: 21300000, guid: b87c75bd71fd78540bcab566820366a8, type: 3}
+  cardCategory: 2
+  packFrom: {fileID: 11400000, guid: 908f28c6f48104c2d85d2fcbd973771e, type: 2}
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
+  effectWorkflows:
+  - rid: 5602892675124822189
+  onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  onDrawEffectWorkflow:
+    rid: -2
+  tooltips: 
+  tooltipKeyword: 37
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 578314858522477094
+      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetAdjacentCompanions
+        inputKey: self
+        includeInputCompanion: 1
+        outputKey: adj
+    - rid: 578314858522477095
+      type: {class: FilterCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FilterCards
+        inputKey: allCards
+        filter:
+          cardCategoriesToInclude: 01000000
+          retainedCardsFilter: 0
+          manaCostFilter: 0
+          manaCost: 0
+          exactCardType: {fileID: 0}
+        outputKey: attacks
+    - rid: 578314858522477096
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 1
+        inputKey: attacks
+        outputKey: selected
+        validTargets: 03000000
+        number: 1
+        specialTargetRule: 5
+        cantCancelTargetting: 0
+        cardSelectionHelperText: Choose an Attack card in hand to retain
+        selectionPurpose: 3
+    - rid: 578314858522477098
+      type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardInHandEffect
+        inputKey: selected
+        effect: 2
+    - rid: 578314858522477099
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: selected
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+        scale: 1
+    - rid: 2034230176448512659
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: allCards
+        validTargets: 03000000
+        number: 1
+        specialTargetRule: 2
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+    - rid: 2034230176448512661
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: adj
+        outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        waitForDrawsToResolve: 1
+    - rid: 2511001503980847372
+      type: {class: CheckTypeOfMostRecentlyPlayedCard, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CheckTypeOfMostRecentlyPlayedCard
+        cardCategory: 1
+        outputKey: isAttack
+    - rid: 2511001503980847373
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: isAttack
+        conditionToEndOn: 0
+    - rid: 5602892675124822189
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 5602892675124822190
+        - rid: 578314858522477094
+        - rid: 2034230176448512661
+        - rid: 2511001503980847372
+        - rid: 2511001503980847373
+        - rid: 2034230176448512659
+        - rid: 578314858522477095
+        - rid: 578314858522477096
+        - rid: 578314858522477098
+        - rid: 578314858522477099
+    - rid: 5602892675124822190
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 04000000
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0

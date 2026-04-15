@@ -12,12 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db68dac854ab8b9458decb95c7c8c720, type: 3}
   m_Name: GameplayConstants
   m_EditorClassIdentifier: 
-  DEVELOPMENT_MODE: 0
-  START_TURN_MANA: 3
-  COMPANIONS_FOR_LEVELTWO_COMBINATION: 3
-  COMPANIONS_FOR_LEVELTHREE_COMBINATION: 2
-  MAX_MINIONS_PER_COMPANION: 5
-  MAX_HAND_SIZE: 10
   cardTemplate: {fileID: 9197481963319205126, guid: 53067a49cafb041b6876a21b4cea37f7, type: 3}
   mapTemplate: {fileID: 9197481963319205126, guid: 2c221bd60cf846046bda6820650791aa, type: 3}
   enemyTemplate: {fileID: 9197481963319205126, guid: 07858d0a9fb8725419fb2e199ae1c412, type: 3}
@@ -64,3 +58,19 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 682dc9914a4574577a1bafc5b678cf19, type: 3}
   - iconType: 19
     sprite: {fileID: 21300000, guid: c18d8d24524434acca6be8e90af6aea5, type: 3}
+  - iconType: 20
+    sprite: {fileID: 21300000, guid: 6638d90bebdd6894586b2eee2eac3ffc, type: 3}
+  - iconType: 21
+    sprite: {fileID: 21300000, guid: 77259264fe24344feb4f776c6a84c06e, type: 3}
+  - iconType: 22
+    sprite: {fileID: 21300000, guid: 52f62e90b62fa9249aac77854a45e7d5, type: 3}
+  - iconType: 23
+    sprite: {fileID: 21300000, guid: a5b8c5dccafa78942bf687e9f47d4ce4, type: 3}
+  - iconType: 24
+    sprite: {fileID: 21300000, guid: 1f29a335fb3ca43c489b25f9f0892bc1, type: 3}
+  - iconType: 25
+    sprite: {fileID: 21300000, guid: aeb59f0c92d1bac4ab9e6187a2f33e72, type: 3}
+  - iconType: 26
+    sprite: {fileID: 21300000, guid: 5500487feb715b54490f91e1c9796e9c, type: 3}
+  - iconType: 27
+    sprite: {fileID: 21300000, guid: 7d13e867f4dd988488e4c5a179fa0857, type: 3}

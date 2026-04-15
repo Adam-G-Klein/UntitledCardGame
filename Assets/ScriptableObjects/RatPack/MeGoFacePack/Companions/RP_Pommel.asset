@@ -18,21 +18,20 @@ MonoBehaviour:
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: c1ba3b774ff3ec6438f6984cded94a37, type: 3}
   fullSprite: {fileID: 21300000, guid: c1ba3b774ff3ec6438f6984cded94a37, type: 3}
-  backgroundImage: {fileID: 21300000, guid: 22837063fa3474fd092bd296d2b73738, type: 3}
-  entityFrame: {fileID: 21300000, guid: 9a026bca7d3604d08abdabfa7cf9d88e, type: 3}
-  companionManagementFrame: {fileID: 21300000, guid: d2fe52314fcc84db0b56064f21090a6f, type: 3}
+  animationSprites: []
   startingDeck: {fileID: 11400000, guid: b7fb5f30fc0c4400aa60c7d3769912bd, type: 2}
-  cardBack: {fileID: 21300000, guid: 20b46ccd593516f4badbdcdb021f67c1, type: 3}
-  cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
-  cardTypeIconOverride: {fileID: 0}
   rarity: 2
-  cardIdleVfxPrefab: {fileID: 0}
-  genericCompanionSFX: {fileID: 0}
-  genericCompanionVFX: {fileID: 0}
-  cacheValueConfigs: []
+  baseCompanionType: {fileID: 0}
+  cacheValueConfigs:
+  - key: skillsLeftToPlayThisTurn
+    display: 1
+    sprite: {fileID: 21300000, guid: c1ba3b774ff3ec6438f6984cded94a37, type: 3}
+    startOfTurnValue: 3
+    setStartOfTurnValue: 1
+    startOfCombatValue: 0
+    setStartOfCombatValue: 0
   cardPool: {fileID: 11400000, guid: 43d7da1f16b024762bfa16d90f44fd77, type: 2}
   pack: {fileID: 11400000, guid: 908f28c6f48104c2d85d2fcbd973771e, type: 2}
-  speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 205827988172308704
   level: 0
@@ -41,12 +40,15 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Pommel
-      description: Each time you play an Attack, give adjacent companions 1 temporary
-        strength
+      description: The first 3 times each turn you play a Skill card, give adjacent
+        rats to Pommel 1 temporary strength
       relatedBehaviorIndex: 0
+      icon: {fileID: 0}
+      iconDescriptionLine: []
+      card: {fileID: 0}
   keepsakeTitle: 
-  keepsakeDescription: Each time you play an Attack card, give adjacent companions
-    to Hyperwoof 1 temporary strength
+  keepsakeDescription: The first 3 times each turn you play a Skill card, give adjacent
+    rats to Pommel 1 temporary strength
   references:
     version: 2
     RefIds:
@@ -55,10 +57,16 @@ MonoBehaviour:
       data:
         abilityTrigger: 7
         effectSteps:
+        - rid: 578314858522477087
         - rid: 2034230176448512422
         - rid: 2034230176448512490
         - rid: 205827988172308705
+        - rid: 578314858522477118
+        - rid: 578314858522477119
+        - rid: 578314858522477120
         - rid: 7707884639552274890
+        - rid: 578314858522477121
+        - rid: 578314858522477122
         - rid: 2034230176448512662
         - rid: 205827988172308706
         - rid: 205827988172308707
@@ -74,6 +82,8 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 205827988172308706
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -94,14 +104,66 @@ MonoBehaviour:
         inputKey: adj
         prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
         scale: 1
+    - rid: 578314858522477087
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: cardFromThisOrigin
+        conditionToEndOn: 0
+    - rid: 578314858522477118
+      type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheLoad
+        inputCombatInstanceKey: self
+        cacheKey: skillsLeftToPlayThisTurn
+        currentWorkflowKey: skillsLeftToPlayThisTurn
+    - rid: 578314858522477119
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 0
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 0
+        inputKey2: skillsLeftToPlayThisTurn
+        outputKey: isZero
+    - rid: 578314858522477120
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: isZero
+        conditionToEndOn: 1
+    - rid: 578314858522477121
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: skillsLeftToPlayThisTurn
+        operand2InputKey: UNUSED
+        operation: 1
+        scale: 1
+        outputKey: 
+    - rid: 578314858522477122
+      type: {class: CombatInstanceCacheStore, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheStore
+        inputCombatInstanceKey: self
+        hardCodedBool: 0
+        useHardCodedBool: 0
+        hardCodedInt: 0
+        useHardCodedInt: 0
+        currentWorkflowKey: skillsLeftToPlayThisTurn
+        cacheKey: skillsLeftToPlayThisTurn
     - rid: 2034230176448512422
       type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: FilterCards
         inputKey: cardPlayed
         filter:
-          cardCategoriesToInclude: 01000000
+          cardCategoriesToInclude: 02000000
           retainedCardsFilter: 0
+          manaCostFilter: 0
+          manaCost: 0
+          exactCardType: {fileID: 0}
         outputKey: attackCardPlayed
     - rid: 2034230176448512490
       type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
@@ -113,6 +175,7 @@ MonoBehaviour:
       data:
         effectStepName: GetAdjacentCompanions
         inputKey: self
+        includeInputCompanion: 0
         outputKey: adj
     - rid: 7707884639552274890
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}

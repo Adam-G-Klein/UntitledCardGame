@@ -1,0 +1,202 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
+  m_Name: RP_L2_Papyro
+  m_EditorClassIdentifier: 
+  guid: a6904078-ff6c-4baa-8dbe-9a07823709cb
+  companionName: Dr. Papyro+
+  maxHealth: 40
+  initialCardsDealtPerTurn: 1
+  sprite: {fileID: 21300000, guid: da7bfe1085d51954eaca41431462382a, type: 3}
+  fullSprite: {fileID: 21300000, guid: da7bfe1085d51954eaca41431462382a, type: 3}
+  animationSprites: []
+  startingDeck: {fileID: 11400000, guid: a8089ca7a87f448de91096b27f1f3d4e, type: 2}
+  rarity: 1
+  baseCompanionType: {fileID: 0}
+  cacheValueConfigs:
+  - key: numCardsLeftToExhaust
+    display: 1
+    sprite: {fileID: 21300000, guid: 0f91baf441838d747bea7dbae09bfb7f, type: 3}
+    startOfTurnValue: 1
+    setStartOfTurnValue: 0
+    startOfCombatValue: 3
+    setStartOfCombatValue: 1
+  cardPool: {fileID: 11400000, guid: f3284cbe41e554987870c37830675992, type: 2}
+  pack: {fileID: 11400000, guid: 79e479ca9df7a4369ba7fa951e0af116, type: 2}
+  abilitiesV2:
+  - rid: 3051694091506811081
+  level: 1
+  upgradeTo: {fileID: 11400000, guid: 7afc00ff3058e41e187d055020e47040, type: 2}
+  tooltip:
+    empty: 0
+    lines:
+    - title: Dr. Papyro+
+      description: Every 3 times you exhaust a card, shuffle a Greek Fire card into
+        Dr. Papyro's deck, draw 1 from Dr. Papyro, and increase damage of ALL Greek
+        Fire by 1
+      relatedBehaviorIndex: 0
+      icon: {fileID: 0}
+      iconDescriptionLine: []
+      card: {fileID: 0}
+  keepsakeTitle: 
+  keepsakeDescription: 
+  references:
+    version: 2
+    RefIds:
+    - rid: 578314559416696877
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: numCardsLeftToExhaust
+        operand2InputKey: UNUSED
+        operation: 4
+        scale: 0
+        outputKey: numCardsLeftToExhaust
+    - rid: 578314559416696887
+      type: {class: CombatInstanceCacheStore, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheStore
+        inputCombatInstanceKey: self
+        hardCodedBool: 0
+        useHardCodedBool: 0
+        hardCodedInt: 0
+        useHardCodedInt: 0
+        currentWorkflowKey: numCardsLeftToExhaust
+        cacheKey: numCardsLeftToExhaust
+    - rid: 578314858522476880
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: self
+        outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        waitForDrawsToResolve: 0
+    - rid: 578314926115782767
+      type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardModificationEffect
+        inputKey: 
+        scale: 1
+        affectsAllCardsOfType: 1
+        cardTypeToModify: {fileID: 11400000, guid: 036ee2893f13b451cba34bc7df06a300, type: 2}
+        getScaleFromKey: 0
+        scaleKey: 
+        modification: 0
+    - rid: 3051694091506811081
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 9
+        effectSteps:
+        - rid: 3051694091506811082
+        - rid: 3051694091506811083
+        - rid: 3051694091506811086
+        - rid: 578314559416696877
+        - rid: 578314559416696887
+        - rid: 3051694091506811084
+        - rid: 3051694091506811085
+        - rid: 3051694091506811087
+        - rid: 3051694091506811088
+        - rid: 3051694091506811089
+        - rid: 3051694091506811090
+        - rid: 578314858522476880
+        - rid: 578314926115782767
+        weight: 0
+    - rid: 3051694091506811082
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+    - rid: 3051694091506811083
+      type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheLoad
+        inputCombatInstanceKey: self
+        cacheKey: numCardsLeftToExhaust
+        currentWorkflowKey: numCardsLeftToExhaust
+    - rid: 3051694091506811084
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 0
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 0
+        inputKey2: numCardsLeftToExhaust
+        outputKey: isZero
+    - rid: 3051694091506811085
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: isZero
+        conditionToEndOn: 0
+    - rid: 3051694091506811086
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: numCardsLeftToExhaust
+        operand2InputKey: UNUSED
+        operation: 1
+        scale: 1
+        outputKey: numCardsLeftToExhaust
+    - rid: 3051694091506811087
+      type: {class: CombatInstanceCacheStore, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheStore
+        inputCombatInstanceKey: self
+        hardCodedBool: 0
+        useHardCodedBool: 0
+        hardCodedInt: 3
+        useHardCodedInt: 1
+        currentWorkflowKey: 
+        cacheKey: numCardsLeftToExhaust
+    - rid: 3051694091506811088
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+    - rid: 3051694091506811089
+      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToDeck
+        inputKey: self
+        cardTypes:
+        - {fileID: 11400000, guid: 036ee2893f13b451cba34bc7df06a300, type: 2}
+        addToDeckMethod: 1
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 3051694091506811090
+      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FXEffectStep
+        waitForEffect: 0
+        fXExperiencePrefab: {fileID: 4075960956037802917, guid: ec7b1a1529f9141458320888bf8e3d96, type: 3}
+        rootLocationGameObjectKey: 
+        positionMappingList:
+        - fromWorkflow: self
+          toFxExperience: start
+        - fromWorkflow: self
+          toFxExperience: end
+        gameobjectMappingList: []
+        vePositionMappingList: []
+        veMappingList: []

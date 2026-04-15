@@ -1,0 +1,165 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: PB_Outlast
+  m_EditorClassIdentifier: 
+  guid: 0aa62b86-74d1-42b3-97eb-5989c0262786
+  Name: Outlast
+  Description: Give self and adjacent 5 block. When exhausted, heal self and adjacent
+    4 HP
+  IconDescription:
+  - tokenType: 0
+    text: 5
+    icon: 2
+  - tokenType: 2
+    text: 7
+    icon: 2
+  - tokenType: 2
+    text: 
+    icon: 12
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 2
+    text: 7
+    icon: 16
+  - tokenType: 0
+    text: ':'
+    icon: 0
+  - tokenType: 0
+    text: 4
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 20
+  - tokenType: 2
+    text: 
+    icon: 12
+  IconDescriptionTooltipLines:
+  - Give owner rat and adjacent rats 5 block, which prevents damage until the start
+    of next turn
+  - When this card is exhausted by another effect, heal the owner rat and adjacent
+    rats 4 HP
+  defaultValues: []
+  Cost: 1
+  Artwork: {fileID: 21300000, guid: b0388336af3869341bb50af8ec281a8a, type: 3}
+  cardCategory: 2
+  packFrom: {fileID: 0}
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
+  effectWorkflows:
+  - rid: 5602892563578093692
+  onExhaustEffectWorkflow:
+    rid: 7150943289421332666
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  onDrawEffectWorkflow:
+    rid: -2
+  tooltips: 
+  tooltipKeyword: 37
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 578314858522476656
+      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetAdjacentCompanions
+        inputKey: self
+        includeInputCompanion: 1
+        outputKey: target
+    - rid: 578314858522476657
+      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetAdjacentCompanions
+        inputKey: self
+        includeInputCompanion: 1
+        outputKey: adj
+    - rid: 578314858522476658
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: adj
+        combatEffect: 9
+        scale: 0
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 3850217184923880746, guid: 604f6efaa1e828d4bacfc84a25dfbd7a, type: 3}
+    - rid: 1274772082283774506
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
+        scale: 1.5
+    - rid: 2034230108114649131
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: target
+        statusEffect: 2
+        scale: 5
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+    - rid: 5602892563578093692
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 5602892563578093693
+        - rid: 578314858522476656
+        - rid: 2034230108114649131
+        - rid: 1274772082283774506
+    - rid: 5602892563578093693
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+    - rid: 7150943289421332666
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 7150943289421332667
+        - rid: 578314858522476657
+        - rid: 578314858522476658
+    - rid: 7150943289421332667
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0

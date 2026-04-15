@@ -43,7 +43,15 @@ public class DescriptionToken
         WhenExhausted,
         InHandEndOfTurn,
         AnyTarget,
-        RandomRat
+        RandomRat,
+        Heal,
+        IfSelfBelowHalfHP,
+        IfSelfLostHPThisTurn,
+        GreekFire,
+        ShuffleIntoDeck,
+        CreateInHand,
+        NumAttackCardsInHand,
+        NumCardsInHand,
     }
     public TokenType tokenType;
     public string text;
@@ -319,7 +327,7 @@ public class CardType: IdentifiableSO, ITooltipProvider
                 }
             }
             // Remove lines without at least one icon token.
-            descriptionLines = descriptionLines.Where(line => line.Any(token => token.tokenType == DescriptionToken.TokenType.Icon)).ToList();
+            // descriptionLines = descriptionLines.Where(line => line.Any(token => token.tokenType == DescriptionToken.TokenType.Icon)).ToList();
             for (int i = 0; i < descriptionLines.Count; i++)
             {
                 List<DescriptionToken> line = descriptionLines[i];
@@ -395,7 +403,7 @@ public enum CardCategory
 {
     None,
     Attack,
-    NonAttack,
+    Skill,
     Saga,
     Charm,
     Passive,

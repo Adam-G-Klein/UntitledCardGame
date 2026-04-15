@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Enemy_Gemini
   m_EditorClassIdentifier: 
   guid: ccb3091a-e89a-4681-8569-5e8295952f69
-  displayName: Gemini
-  maxHealth: 25
+  displayName: Badgercodger
+  maxHealth: 30
   baseAttackDamage: 0
   enemyDisplayType: 0
   sprite: {fileID: 21300000, guid: 12a7dbb1ef94c43b39d420623a9ac71c, type: 3}
@@ -29,7 +29,7 @@ MonoBehaviour:
     - intent: 0
       enemyTargetMethod: 0
       targetsKey: target
-      displayValue: 3
+      displayValue: 5
       effectSteps:
       - rid: 8790164555430887934
       - rid: 173314522967966402
@@ -48,10 +48,11 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Avenge
-      description: When an enemy dies, gain 6 temporary strength
+      description: When an enemy dies, gain 6 strength
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
       iconDescriptionLine: []
+      card: {fileID: 0}
   DEADLIER_ENEMY_BONUS_STR: -1
   HEALTHIER_ENEMY_BONUS_HEALTH: -1
   references:
@@ -103,7 +104,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 0
-        scale: 3
+        scale: 5
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
@@ -128,8 +129,8 @@ MonoBehaviour:
       data:
         effectStepName: ApplyStatus
         inputKey: self
-        statusEffect: 6
-        scale: 6
+        statusEffect: 0
+        scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0

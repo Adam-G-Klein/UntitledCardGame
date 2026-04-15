@@ -61,10 +61,6 @@ public class ShopDataSO : ScriptableObject
 
     [Header("Upgrade parameters")]
     public List<CardType> baseCardsToRemoveOnUpgrade;
-    
-
-    [Header("Static shop encounters (demo)")]
-    public StaticShopEncounterSO staticShopEncounters;
 }
 
 [Serializable]

@@ -60,6 +60,18 @@ public class CompanionInShopWithPrice {
     }
 }
 
+[Serializable]
+public class StaticCardTypeGroup
+{
+    public List<CardType> cardTypes;
+}
+
+[Serializable]
+public class StaticCompanionTypeGroup
+{
+    public List<CompanionTypeSO> companionTypes;
+}
+
 [System.Serializable]
 public class ShopEncounter : Encounter
 {
@@ -97,8 +109,9 @@ public class ShopEncounter : Encounter
             List<Companion> companionList,
             EncounterConstantsSO constants,
             ShopLevel shopLevel,
-            StaticCardTypeGroup staticCards = null,
-            StaticCompanionTypeGroup staticRats = null)
+            bool shouldGenerateCards = true,
+            bool shouldGenerateRats = true
+    )
     {
         this.shopManager = shopManager;
         this.encounterConstants = constants;
@@ -107,16 +120,21 @@ public class ShopEncounter : Encounter
         if ((staticCardItems == null || staticCardItems.Count == 0) && (staticCompanionItems == null || staticCompanionItems.Count == 0)) staticShopIndex = -1;
         else staticShopIndex = 0;
 
-        generateShopEncounter(shopLevel, companionList, staticCards, staticRats);
+        generateShopEncounter(shopLevel, companionList, shouldGenerateCards, shouldGenerateRats);
         cardsInShop.ForEach(card => shopManager.shopViewController.AddCardToShopView(card));
         companionsInShop.ForEach(companion => shopManager.shopViewController.AddCompanionToShopView(companion));
         shopManager.shopViewController.AddCompanionShineAfterHeirarchyChanged();
         shopManager.SetupUnitManagement();
     }
 
-    public void Reroll(List<Companion> companionList, ShopLevel shopLevel, StaticCardTypeGroup staticCards = null, StaticCompanionTypeGroup staticRats = null) {
+    public void Reroll(
+        List<Companion> companionList,
+        ShopLevel shopLevel,
+        bool shouldGenerateCards = true,
+        bool shouldGenerateRats = true
+    ) {
         if (staticShopIndex != -1) staticShopIndex += 1;
-        generateShopEncounter(shopLevel, companionList, staticCards, staticRats);
+        generateShopEncounter(shopLevel, companionList, shouldGenerateCards, shouldGenerateRats);
         shopManager.shopViewController.Reroll(cardsInShop, companionsInShop);
     }
 
@@ -124,27 +142,15 @@ public class ShopEncounter : Encounter
         encounterBuilder.BuildShopEncounter(this);
     }
 
-    private void generateShopEncounter(ShopLevel shopLevel, List<Companion> companionList, StaticCardTypeGroup staticCards = null, StaticCompanionTypeGroup staticRats = null) {
+    private void generateShopEncounter(ShopLevel shopLevel, List<Companion> companionList, bool shouldGenerateCards = true, bool shouldGenerateRats = true) {
         cardsInShop = new List<CardInShopWithPrice>();
         companionsInShop = new List<CompanionInShopWithPrice>();
 
-        generateCards(shopLevel, companionList, staticCards);
-        generateKeepsakes(shopLevel, companionList, staticRats);
+        if (shouldGenerateRats) generateKeepsakes(shopLevel, companionList);
+        if (shouldGenerateCards) generateCards(shopLevel, companionList);
     }
 
-    private void generateCards(ShopLevel shopLevel, List<Companion> companionList, StaticCardTypeGroup staticCards = null) {
-        // if (staticCards != null && staticCards.cardTypes != null) {
-        //     foreach (CardType cardType in staticCards.cardTypes) {
-        //         Card.CardRarity rarity = DetermineCardRarity(cardType);
-        //         int price = GetCardPriceForRarity(rarity);
-        //         CardInShopWithPrice card = new CardInShopWithPrice(cardType, price, null, null, rarity, null);
-        //         int bonusCost = AddBonusCardCost();
-        //         card.price += bonusCost;
-        //         card.increasedPrice = bonusCost > 0;
-        //         cardsInShop.Add(card);
-        //     }
-        //     return;
-        // }
+    private void generateCards(ShopLevel shopLevel, List<Companion> companionList) {
         if (staticShopIndex != -1 && (staticShopIndex < staticCardItems.Count || loopStaticShop)) {
             int index = staticShopIndex % staticCardItems.Count;
             foreach (CardType cardType in staticCardItems[index].cardTypes) {
@@ -212,7 +218,7 @@ public class ShopEncounter : Encounter
         };
     }
 
-    public void generateKeepsakes(ShopLevel shopLevel, List<Companion> team, StaticCompanionTypeGroup staticRats = null)
+    public void generateKeepsakes(ShopLevel shopLevel, List<Companion> team)
     {
         // if (staticRats != null && staticRats.companionTypes != null) {
         //     foreach (CompanionTypeSO companionType in staticRats.companionTypes) {
@@ -441,7 +447,7 @@ public class ShopEncounter : Encounter
     public class StaticShopCardGroup {
         public List<CardType> cardTypes;
     }
-    
+
     [Serializable]
     public class StaticShopCompanionGroup {
         public List<CompanionTypeSO> companionTypes;
