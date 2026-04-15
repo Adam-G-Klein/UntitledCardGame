@@ -4,7 +4,4 @@ using UnityEngine;
 
 public abstract class MapGeneratorSO: ScriptableObject {
     public abstract Map generateMap();
-
-    public abstract ShopDataSO getShopData();
-    public abstract int getPlayerStartingGold();
 }

@@ -1,13 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using System;
 using UnityEngine;
-using UnityEditor;
-using Unity.VisualScripting;
-using TMPro;
-using FMODUnity;
-using FMOD.Studio;
-using UnityEngine.UI;
 
 [RequireComponent(typeof(EndEncounterEventListener))]
 public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IEncounterBuilder, IControlsReceiver
@@ -88,20 +81,25 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         MultiDeckViewManager.Instance.SetEnterHandler(OnDeckViewOpenedHandler);
         MultiDeckViewManager.Instance.SetExitHandler(OnDeckViewClosedHandler);
         StartCoroutine(SetupCombatAfterAnyDemoCutscene());
-        StartCoroutine(StartWhenUIDocReady());
     }
 
     IEnumerator SetupCombatAfterAnyDemoCutscene()
     {
-        if(!DemoDirector.Instance.IsStepCompleted(DemoStepName.CombatTutorialStep)){
+        /*
+            If we go into the first if, the CombatOnboardingDirector ends up calling
+            combatEncounterView setup functions, LateStart and BuildEnemyEncounter.
+            It needs to do it in a special way.
+        */
+        if (!DemoDirector.Instance.IsStepCompleted(DemoStepName.CombatTutorialStep)){
             combatEncounterView.SetPersistentElementsVisible(false);
             yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.CombatTutorialStep);
-            combatEncounterView.SetPersistentElementsVisible(true);
-        } 
-        combatEncounterView.SetupFromGamestate(this);
+        } else {
+            combatEncounterView.SetupFromGamestate(this);
+            StartCoroutine(StartWhenUIDocReady());
+        }
     }
 
-    IEnumerator StartWhenUIDocReady() {
+    public IEnumerator StartWhenUIDocReady() {
         yield return new WaitUntil(() => placer != null && placer.IsReady());
         Debug.Log("EnemyEncounterManager: UIDocumentGameObjectPlacer is ready, building encounter");
         LateStart();
@@ -206,6 +204,10 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         if(isBoss)
         {
             yield return new WaitUntil(() => cinematicIntroComplete == true);
+        }
+
+        if (!DemoDirector.Instance.IsStepCompleted(DemoStepName.CombatTutorialStep)) {
+            yield return new WaitUntil(() => DemoDirector.Instance.IsStepCompleted(DemoStepName.CombatTutorialStep));
         }
         // todo, yield return on additional dialogue being complete from another manager?
         startTheTurns = true;

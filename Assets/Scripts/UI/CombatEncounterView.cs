@@ -53,12 +53,25 @@ public class CombatEncounterView : MonoBehaviour,
     public MapView mapView;
     private UnityEngine.UIElements.Button endTurnButton;
 
+    private bool hideAllElements = false;
     private Dictionary<CombatInstance, CompanionView> combatInstanceToCompanionView;
     private Dictionary<CombatInstance, EnemyView> combatInstanceToEnemyView;
     private bool bossFight = false;
 
-    public void SetupFromGamestate(EnemyEncounterManager enemyEncounterManager)
+    public void SetupFromGamestate(EnemyEncounterManager enemyEncounterManager, bool hideAllElements = false)
     {
+        this.hideAllElements = hideAllElements;
+        InitNonEntityElements(enemyEncounterManager);
+        InitCompanions();
+        InitEnemies();
+        setupComplete = true;
+    }
+
+    public void SetupTutorial(EnemyEncounterManager enemyEncounterManager) {
+        this.enemyEncounterManager = enemyEncounterManager;
+    }
+
+    public void InitNonEntityElements(EnemyEncounterManager enemyEncounterManager) {
         this.enemyEncounterManager = enemyEncounterManager;
         docRenderer = gameObject.GetComponent<UIDocumentScreenspace>();
         uiDoc = GetComponent<UIDocument>();
@@ -78,10 +91,7 @@ public class CombatEncounterView : MonoBehaviour,
             Debug.LogError("Active encounter is not an EnemyEncounter, Go to ScriptableObjects/Variables/GameState.so and hit Set Active Encounter to set the encounter to an enemy encounter");
             return;
         }
-        List<Enemy> enemies = ((EnemyEncounter)gameState.activeEncounter.GetValue()).enemyList;
-        List<Companion> companions = gameState.companions.activeCompanions;
-        setupEnemies(root.Q<VisualElement>("enemyContainer"), enemies);
-        SetupCompanions(root.Q<VisualElement>("companionContainer"), companions);
+        
         UIDocumentUtils.SetAllPickingMode(root, PickingMode.Ignore);
 
         endTurnButton = root.Q<UnityEngine.UIElements.Button>("end-turn");
@@ -91,7 +101,6 @@ public class CombatEncounterView : MonoBehaviour,
         endTurnIcon.SetIcon(GFGInputAction.END_TURN, ControlsManager.Instance.GetSpriteForGFGAction(GFGInputAction.END_TURN));
         ControlsManager.Instance.RegisterIconChanger(endTurnIcon);
 
-        setupComplete = true;
         // for the boss fight
         VisualElement mapRoot = root.Q("mapRoot");
         mapRoot.Clear();
@@ -107,18 +116,41 @@ public class CombatEncounterView : MonoBehaviour,
             ControlsManager.Instance.GetSpriteForGFGAction(GFGInputAction.OPEN_MULTI_DECK_VIEW));
         ControlsManager.Instance.RegisterIconChanger(deckViewButton);
         deckViewButton.pickingMode = PickingMode.Position;
+    }
 
+    public void InitCompanions() {
+        List<Companion> companions = gameState.companions.activeCompanions;
+        SetupCompanions(root.Q<VisualElement>("companionContainer"), companions);
+    }
+
+    public void InitEnemies() {
+        List<Enemy> enemies = ((EnemyEncounter)gameState.activeEncounter.GetValue()).enemyList;
+        setupEnemies(root.Q<VisualElement>("enemyContainer"), enemies);
+    }
+
+    public void AnimateCompanionsFromOffscreen() {
+        long delay = 100;
+        foreach (CompanionView comp in companionViews) {
+            comp.SetEverythingHidden();
+            comp.DisableInteractions();
+            comp.AnimateFromOffscreen(2f, delay);
+            delay += 100;
+        }
+    }
+
+    public void ShowOnlyCompanionSprites() {
+        foreach (CompanionView comp in companionViews) {
+            comp.SetOnlySpriteVisible();
+        }
     }
 
     public void SetPersistentElementsVisible(bool visible)
     {
-        
         if(root == null) {
             uiDoc = GetComponent<UIDocument>();
             root = uiDoc.rootVisualElement;
         }
         DisplayStyle displayStyle = visible ? DisplayStyle.Flex : DisplayStyle.None;
-   
 
         VisualElement mapRoot = root.Q<VisualElement>("mapRoot");
         if (mapRoot == null) Debug.LogWarning("SetPersistentElementsVisible: could not find 'mapRoot'");
@@ -252,7 +284,8 @@ public class CombatEncounterView : MonoBehaviour,
     {
         var index = UIDocumentGameObjectPlacer.INITIAL_INDEX;
         foreach (var entity in enemies) {
-            container.Add(setupEnemy(entity, index).container);
+            EnemyView enemyView = setupEnemy(entity, index);
+            container.Add(enemyView.container);
             // for when we have more bosses or different enemy types that need special handling
             switch (entity.GetDisplayType())
             {
@@ -262,6 +295,12 @@ public class CombatEncounterView : MonoBehaviour,
                 default:
                     break;
             }
+
+            if (hideAllElements) {
+                enemyView.SetEverythingHidden();
+                enemyView.DisableInteractions();
+            }
+
             index++;
         }
     }
@@ -276,6 +315,12 @@ public class CombatEncounterView : MonoBehaviour,
             enemyInstance.enemyView = enemyView;
             container.Add(enemyView.container);
             combatInstanceToEnemyView.Add(enemyInstance.combatInstance, enemyView);
+
+            if (hideAllElements) {
+                enemyView.SetEverythingHidden();
+                enemyView.DisableInteractions();
+            }
+
             index++;
         }
     }
@@ -287,7 +332,14 @@ public class CombatEncounterView : MonoBehaviour,
         var index = UIDocumentGameObjectPlacer.INITIAL_INDEX;
         foreach (Companion companion in companions)
         {
-            container.Insert(0, SetupCompanion(companion, index).container);
+            CompanionView companionView = SetupCompanion(companion, index);
+            container.Insert(0, companionView.container);
+
+            if (hideAllElements) {
+                companionView.SetEverythingHidden();
+                companionView.DisableInteractions();
+            }
+
             index++;
         }
     }
@@ -306,6 +358,12 @@ public class CombatEncounterView : MonoBehaviour,
             // Need to put them in reverse order due to some UI layering issues with max health indicator
             container.Insert(0, companionView.container);
             combatInstanceToCompanionView.Add(companionInstance.combatInstance, companionView);
+
+            if (hideAllElements) {
+                companionView.SetEverythingHidden();
+                companionView.DisableInteractions();
+            }
+
             index++;
         }
     }
@@ -574,5 +632,15 @@ public class CombatEncounterView : MonoBehaviour,
         defeat.transform.localPosition = new Vector3(0, 0, -100f);
         yield return new WaitForSeconds(3f);
         Destroy(defeat);
+    }
+
+    public void ShowCardsFromCompanion(CompanionInstance companionInstance) {
+        CompanionView companionView = combatInstanceToCompanionView[companionInstance.combatInstance];
+        if (companionView == null) return;
+
+        VisualElement cardArea = root.Q<VisualElement>("demo-card-view-area");
+        cardArea.style.display = DisplayStyle.Flex;
+
+        
     }
 }

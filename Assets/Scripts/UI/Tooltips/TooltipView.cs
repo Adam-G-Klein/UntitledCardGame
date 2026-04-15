@@ -227,6 +227,8 @@ public class TooltipView : MonoBehaviour
 
     public TooltipViewModel tooltip = null;
     public Canvas canvas;
+    public PanelSettings panelSettingsTemplate;
+    public RenderTexture renderTextureBase;
 
     [SerializeField]
     [Header("Set below to true to display the tooltipView in the scene at all times.\nUseful for debugging with the prefab manually added to the scene")]
@@ -237,6 +239,8 @@ public class TooltipView : MonoBehaviour
 
     public VisualElement background;
     private Material mat;
+    private RenderTexture rt;
+    private PanelSettings ps;
 
     public float fadeInOutTime = 0.25f;
     public float waitForUIDocFillTime = 0.1f;
@@ -261,9 +265,18 @@ public class TooltipView : MonoBehaviour
         }
 
         Debug.Log("TooltipView: Start");
-        VisualElement root = GetComponent<MiniUIDocumentScreenspace>().doc.rootVisualElement;
+        UIDocument uiDoc = GetComponent<MiniUIDocumentScreenspace>().doc;
+
+        ps = Instantiate(panelSettingsTemplate);
+        uiDoc.panelSettings = ps;
+        rt = new RenderTexture(renderTextureBase.descriptor);
+        uiDoc.panelSettings.targetTexture = rt;
+        RawImage rawImage = GetComponent<RawImage>();
+        rawImage.texture = rt;
+
+        VisualElement root = uiDoc.rootVisualElement;
         background = root.Q<VisualElement>("tooltip-background");
-        mat = GetComponent<RawImage>().material;
+        mat = rawImage.material;
         transform.position = new Vector3(transform.position.x, transform.position.y, 10f);
         Fill();
     }
@@ -272,14 +285,6 @@ public class TooltipView : MonoBehaviour
     {
         background.Add(tooltip.GetVisualElement());
         UIDocumentUtils.SetAllPickingMode(background, PickingMode.Ignore);
-        /* TODO: make tooltips support transparency without getting occluded
-            by the combat UI. Timeboxed before magwest
-        LeanTween.value(0, 1, fadeInOutTime)
-            .setOnUpdate((float val) => {
-                mat.SetFloat("_alpha", val);
-            });
-            */
-
         Invoke("Display", waitForUIDocFillTime);
     }
 
@@ -297,5 +302,4 @@ public class TooltipView : MonoBehaviour
         background.Clear();
         Destroy(gameObject);
     }
-
 }

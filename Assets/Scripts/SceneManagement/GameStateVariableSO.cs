@@ -39,7 +39,6 @@ public enum BuildType
 public class GameStateVariableSO : ScriptableObject
 {
     public CompanionListVariableSO companions;
-    public List<CompanionTypeSO> staticStartingTeamCompanions;
     public PlayerDataVariableSO playerData;
     public MapVariableSO map;
     [Header("Companion pool / Active packs - populated at runtime by map generation or pack selection")]
@@ -342,7 +341,6 @@ public class GameStateVariableSO : ScriptableObject
         currentEncounterIndex = 0;
         currentRunID = Guid.NewGuid();
         map.SetValue(mapGeneratorSO.generateMap());
-        playerData.initialize(mapGeneratorSO.getPlayerStartingGold());
 
         // Record an event to record the start of the run.
         // We should move this to the pack selection screen or the starting team

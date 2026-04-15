@@ -11,6 +11,8 @@ public class CardTab : MonoBehaviour
     [SerializeField] private PanelSettings panelSettingsTemplate;
     [SerializeField] private RenderTexture renderTextureBase;
 
+    private RenderTexture rt;
+    private PanelSettings ps;
     private CompanionInstance companionInstance;
     private Vector3 baseTabPosition;
     private Vector3 loweredTabPosition;
@@ -19,9 +21,24 @@ public class CardTab : MonoBehaviour
         baseTabPosition = uiDoc.transform.position;
         loweredTabPosition = new Vector3(baseTabPosition.x, baseTabPosition.y - 4f, baseTabPosition.z);
         uiDoc.transform.position = loweredTabPosition;
-        uiDoc.panelSettings = Instantiate(panelSettingsTemplate);
-        uiDoc.panelSettings.targetTexture = new RenderTexture(renderTextureBase.descriptor);
-        rawImage.texture = uiDoc.panelSettings.targetTexture;
+        ps = Instantiate(panelSettingsTemplate);
+        uiDoc.panelSettings = ps;
+        rt = new RenderTexture(renderTextureBase.descriptor);
+        uiDoc.panelSettings.targetTexture = rt;
+        rawImage.texture = rt;
+    }
+
+    void OnDisable() {
+        if (rt != null) {
+            rt.Release();
+            Destroy(rt);
+            rt = null;
+        }
+
+        if (ps != null) {
+            Destroy(ps);
+            ps = null;
+        }
     }
 
     public void Init(CompanionInstance companionInstance) {

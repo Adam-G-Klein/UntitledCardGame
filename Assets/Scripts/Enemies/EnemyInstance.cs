@@ -14,6 +14,7 @@ public class EnemyInstance : MonoBehaviour, IUIEntity
     public CombatInstance combatInstance;
     public CombatEnemyTooltipProvder tooltipProvider;
     public StatusEffectsDisplay statusEffectsDisplay;
+    public GameObject gradientVfx;
 
     public EnemyIntent currentIntent;
     public TurnPhaseTriggerEvent registerTurnPhaseTriggerEvent;
@@ -301,6 +302,10 @@ public class EnemyInstance : MonoBehaviour, IUIEntity
         dead = true;
         CombatEntityManager.Instance.EnemyDied(this);
         yield return null;
+    }
+
+    public void SetBackgroundGradientVisible(bool visible) {
+        gradientVfx.SetActive(visible);
     }
 
     public string GetName()

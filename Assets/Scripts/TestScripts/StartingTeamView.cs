@@ -57,17 +57,8 @@ public class TeamSelectionUI : MonoBehaviour, ICompanionViewDelegate
                 chosen.activeCompanions.Add(new Companion(chosenCompanion));
             }
             team1ActiveCompanions = chosen;
-        }
-        else
-        {
-            CompanionListVariableSO chosen = new();
-            chosen.activeCompanions = new List<Companion>();
-            foreach (CompanionTypeSO companionType in gameState.staticStartingTeamCompanions)
-            {
-                Debug.Log("StartingTeamPreview: Adding companion " + companionType.name + " to starting team");
-                chosen.activeCompanions.Add(new Companion(companionType));
-            }
-            team1ActiveCompanions = chosen;
+        } else {
+            team1ActiveCompanions = gameState.companions;
         }
         docRenderer = GetComponent<UIDocumentScreenspace>();
 

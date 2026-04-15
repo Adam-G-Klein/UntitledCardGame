@@ -992,10 +992,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speakerSprite: {fileID: 21300000, guid: 34af0ef08494934478eca248b698d0ec, type: 3}
-  lineFor0To1Beat: .<wait 1000>.<wait 1000>.<wait 1000>
   dialogueLines:
   - Here we are, the Paccarat Game Board. <wait 300> Unfortunately, the terms of
     the contract specify you can't do this alone. Allow me to present your team!
+  - <speed 500>.....
+  - I said I present - YOUR TEAM!
 --- !u!1 &5109742072706344275
 GameObject:
   m_ObjectHideFlags: 0

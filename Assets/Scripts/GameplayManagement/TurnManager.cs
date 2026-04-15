@@ -59,6 +59,10 @@ public class TurnManager : GenericSingleton<TurnManager>
         return currentTurnPhase;
     }
 
+    public void ChangeTurnPhaseWithoutTriggers(TurnPhase turnPhase) {
+        currentTurnPhase = turnPhase;
+    }
+
     public void turnPhaseChangedEventHandler(TurnPhaseEventInfo info) {
         currentTurnPhase = info.newPhase;
         // This is a bit of a hack until we revisit all the different triggers

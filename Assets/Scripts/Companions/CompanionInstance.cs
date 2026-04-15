@@ -192,6 +192,10 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
         yield break;
     }
 
+    public void SetBackgroundGradientVisible(bool visible) {
+        highlightedVfx.SetActive(visible);
+    }
+
     public void SetCompanionAbilityDeathCallback(IEnumerable callback)
     {
     }
