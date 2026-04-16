@@ -63,7 +63,7 @@ public class CardView {
             description.visible = false;
 
             // It would be helpful to parse the the Icon description and divide it into separate lines.
-            iconDescContainer.visible = true;
+            // iconDescContainer.visible = true;
             iconDescContainer.Clear();
             // Create the first row.
             VisualElement row = new VisualElement();
