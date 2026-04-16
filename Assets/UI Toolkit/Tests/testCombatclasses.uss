@@ -290,3 +290,11 @@
     margin-right: 20px;
     flex-direction: row;
 }
+
+.card-view-container {
+    width: 308px;
+    flex-shrink: 1;
+    flex-grow: 0;
+    height: 470px;
+    transform-origin: center;
+}

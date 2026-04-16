@@ -196,6 +196,26 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
         highlightedVfx.SetActive(visible);
     }
 
+    public void FadeInBackgroundGradient(float seconds) {
+        LeanTween.value(0f, 1f, seconds)
+            .setOnUpdate((float val) => {
+                Gradient newGradient = new Gradient();
+                var colorKeys = rarityColorGradient.colorKeys;
+
+                var alphaKeys = rarityColorGradient.alphaKeys;
+                for (int i = 0; i < alphaKeys.Length; i++)
+                {
+                    alphaKeys[i].alpha = val;
+                }
+
+                newGradient.SetKeys(colorKeys, alphaKeys);
+                rarityColorGradient = newGradient;
+                col = ps.colorOverLifetime;
+                col.color = rarityColorGradient;
+                SetBackgroundGradientVisible(true);
+            });
+    }
+
     public void SetCompanionAbilityDeathCallback(IEnumerable callback)
     {
     }

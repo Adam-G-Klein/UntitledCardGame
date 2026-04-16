@@ -635,12 +635,69 @@ public class CombatEncounterView : MonoBehaviour,
     }
 
     public void ShowCardsFromCompanion(CompanionInstance companionInstance) {
+        float duration = 0.75f; // 0.75 seconds
+        long delay = 100;
         CompanionView companionView = combatInstanceToCompanionView[companionInstance.combatInstance];
         if (companionView == null) return;
 
         VisualElement cardArea = root.Q<VisualElement>("demo-card-view-area");
         cardArea.style.display = DisplayStyle.Flex;
+        cardArea.style.visibility = Visibility.Visible;
 
-        
+        foreach (Card card in companionInstance.deckInstance.drawPile) {
+            CardView cardView = new CardView(card, companionInstance.companion.companionType);
+            cardArea.Add(cardView.cardContainer);
+            cardView.cardContainer.style.visibility = Visibility.Hidden;
+            cardView.cardContainer.schedule.Execute(() => {
+                Vector2 delta = companionView.container.worldBound.center - cardView.cardContainer.worldBound.center;
+                cardView.cardContainer.style.translate = new Translate(delta.x, delta.y);
+                
+                LeanTween.value(0f, 1f, duration)
+                    .setOnUpdate((float val) => {
+                        cardView.cardContainer.style.visibility = Visibility.Visible;
+                        float xVal = Mathf.Lerp(delta.x, 0, val);
+                        float yVal = Mathf.Lerp(delta.y, 0, val);
+                        cardView.cardContainer.style.translate = new Translate(xVal, yVal);
+                        cardView.cardContainer.style.scale = new Vector2(val, val);
+                    });
+            }).ExecuteLater(delay);
+            delay += 100; // 400 ms
+        }
+    }
+
+    public void HideCardsAndShowCompanionFrame(CompanionInstance companionInstance, Action callback) {
+        float duration = 0.75f; // 0.75 seconds
+        long delay = 100;
+        CompanionView companionView = combatInstanceToCompanionView[companionInstance.combatInstance];
+        if (companionView == null) return;
+
+        companionView.FadeInFrame(duration);
+        companionInstance.FadeInBackgroundGradient(duration);
+
+        VisualElement cardArea = root.Q<VisualElement>("demo-card-view-area");
+        List<IVisualElementScheduledItem> scheduledItems = new List<IVisualElementScheduledItem>();
+        foreach (VisualElement el in cardArea.Children()) {
+            IVisualElementScheduledItem scheduledItem = el.schedule.Execute(() => {
+                Vector2 delta = companionView.container.worldBound.center - el.worldBound.center;
+                LeanTween.value(0f, 1f, duration)
+                    .setOnUpdate((float val) => {
+                        float xVal = Mathf.Lerp(0, delta.x, val);
+                        float yVal = Mathf.Lerp(0, delta.y, val);
+                        el.style.translate = new Translate(xVal, yVal);
+                        el.style.scale = new Vector2(1f-val, 1f-val);
+                    })
+                    .setOnComplete(() => {
+                        el.style.visibility = Visibility.Hidden;
+                        scheduledItems.RemoveAt(0);
+                        if (scheduledItems.Count == 0) {
+                            cardArea.Clear();
+                            callback();
+                        }
+                    });
+            });
+            scheduledItems.Add(scheduledItem);
+            scheduledItem.ExecuteLater(delay);
+            delay += 100; // 400 ms
+        }
     }
 }

@@ -704,6 +704,15 @@ public class CompanionView : IUIEventReceiver
         pilesContainer.style.visibility = Visibility.Visible;
     }
 
+    public void FadeInFrame(float seconds) {
+        spriteElement.style.opacity = 1f;
+        LeanTween.value(0f, 1f, seconds)
+            .setOnUpdate((float val) => {
+                frame.style.opacity = val;
+                SetEverythingVisible();
+            });
+    }
+
     public void AnimateFromOffscreen(float seconds, long delay) {
         IVisualElementScheduledItem rotationAnimation = null;
         container.schedule.Execute(() => {

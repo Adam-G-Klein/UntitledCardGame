@@ -26,6 +26,7 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
 
     private EnemyEncounterManager manager;
     private int dialogueLineIndex;
+    private bool pause = false;
 
     public IEnumerator RunAllStepsCoroutine()
     {
@@ -53,6 +54,14 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
         yield return new WaitUntil(() => continueInput.action.WasPerformedThisFrame());
         CombatEntityManager.Instance.getCompanions().ForEach((companion) => ShowHideTooltip(companion.gameObject, false));
         yield return SpeakLine();
+        foreach (CompanionInstance companion in CombatEntityManager.Instance.getCompanions()) {
+            manager.combatEncounterView.ShowCardsFromCompanion(companion);
+            yield return new WaitForNextFrameUnit();
+            yield return new WaitUntil(() => continueInput.action.WasPerformedThisFrame());
+            pause = true;
+            manager.combatEncounterView.HideCardsAndShowCompanionFrame(companion, () => pause = false);
+            yield return new WaitUntil(() => pause == false);
+        }
     }
 
     private IEnumerator SpeakLine()
