@@ -7,11 +7,11 @@ using UnityEngine.UIElements;
 
 public class MusicController : GenericSingleton<MusicController>
 {
-    [SerializeField] FMODUnity.EventReference fmodMixer;
+    [SerializeField] FMODUnity.EventReference conciergeDialogue;
     [SerializeField][ParamRef] public string combatState;
     [SerializeField][ParamRef] public string combatAct;
     public FMODUnity.EventReference meothraMusic;
-    private FMOD.Studio.EventInstance mixerInstance;
+    private FMOD.Studio.EventInstance conciergeDialogueInstance;
     private FMOD.Studio.EventInstance instance;
     public List<LocationTrack> locationTracks;
     private FMODUnity.EventReference currentReference;
@@ -113,6 +113,27 @@ public class MusicController : GenericSingleton<MusicController>
     public void PlaySFX(string sfx)
     {
         RuntimeManager.PlayOneShot(sfx, 1f);
+    }
+
+    public void HandleConciergeDialogue(string command)
+    {
+        switch (command)
+        {
+            case "start":
+                conciergeDialogueInstance = FMODUnity.RuntimeManager.CreateInstance(conciergeDialogue);
+                conciergeDialogueInstance.start();
+                conciergeDialogueInstance.setParameterByName("talking", 1);
+                break;
+            case "pause":
+                conciergeDialogueInstance.setParameterByName("talking", 0);
+                break;
+            case "unpause":
+                conciergeDialogueInstance.setParameterByName("talking", 1);
+                break;
+            case "stop":
+                conciergeDialogueInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+                break;
+        }
     }
 
     public void PlayStartSFX()
