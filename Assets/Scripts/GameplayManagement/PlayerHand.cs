@@ -97,6 +97,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     private int indexToHover = -1;
 
     private Queue<(PlayableCard, bool)> cardDealQueue = new Queue<(PlayableCard, bool)>();
+    public Queue<(PlayableCard, bool)> CardDealQueue => cardDealQueue;
 
     /*
         This int designates the scaling point for cards in hand. With a value of 7,
@@ -413,8 +414,8 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                     if (cardTab != null) cardTab.Show();
 
                     // if (cardToMove.TryGetComponent<SpriteRenderer>(out var SR)) SR.sortingLayerName = "Cards"; // what is this magic
-                    cardToMove.interactable = true;
-                    cardToMove.hoverable = true;
+                    if (canPlayCards) cardToMove.interactable = true;
+                    if (canPlayCards) cardToMove.hoverable = true;
 
                     if (ControlsManager.Instance.GetControlMethod() == ControlsManager.ControlMethod.Mouse) return;
 
@@ -797,6 +798,17 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         foreach (PlayableCard card in GetCardsOrdered())
         {
             card.interactable = false; // not sure why this wasn't enough honestly :/
+            card.hoverable = false;
+        }
+    }
+
+    public void EnableHand()
+    {
+        canPlayCards = true;
+        foreach (PlayableCard card in GetCardsOrdered())
+        {
+            card.interactable = true;
+            card.hoverable = true;
         }
     }
 
