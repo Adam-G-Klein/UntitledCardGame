@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
@@ -376,7 +377,27 @@ public class EnemyInstance : MonoBehaviour, IUIEntity
             default:
                 return null;
         }
-
     }
 
+    public void FadeInBackgroundGradient(float seconds) {
+        ParticleSystem ps = gradientVfx.GetComponentsInChildren<ParticleSystem>().First(p => p.gameObject != gradientVfx);
+        ParticleSystem.ColorOverLifetimeModule col = ps.colorOverLifetime;
+        ParticleSystem.MinMaxGradient baseGradient = col.color;
+        LeanTween.value(0f, 1f, seconds)
+            .setOnUpdate((float val) => {
+                Gradient newGradient = new Gradient();
+                var colorKeys = baseGradient.gradient.colorKeys;
+
+                var alphaKeys = baseGradient.gradient.alphaKeys;
+                for (int i = 0; i < alphaKeys.Length; i++)
+                {
+                    alphaKeys[i].alpha = val;
+                }
+
+                newGradient.SetKeys(colorKeys, alphaKeys);
+                col = ps.colorOverLifetime;
+                col.color = newGradient;
+                SetBackgroundGradientVisible(true);
+            });
+    }
 }

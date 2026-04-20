@@ -713,32 +713,6 @@ public class CompanionView : IUIEventReceiver
             });
     }
 
-    public void AnimateFromOffscreen(float seconds, long delay) {
-        IVisualElementScheduledItem rotationAnimation = null;
-        container.schedule.Execute(() => {
-            SetOnlySpriteVisible();
-            float startX = -(container.worldBound.xMin + container.worldBound.width + 20f);
-            container.style.translate = new Translate(startX, 0);
-            LeanTween.value(startX, 0, seconds)
-                .setEase(LeanTweenType.easeOutCubic)
-                .setOnUpdate((float val) => {
-                    container.style.translate = new Translate(val, 0);
-                });
-            LeanTween.value(0f, seconds / 1.5f, seconds / 1.5f)
-                .setOnUpdate((float t) => {
-                    float normalized = (t / seconds / 1.5f) * 4;
-                    float angle = Mathf.Sin(normalized * Mathf.PI * 2f) * 10;
-                    container.style.rotate = new Rotate(new Angle(angle, AngleUnit.Degree));
-                })
-                .setOnComplete(() => {
-                    LeanTween.value(container.style.rotate.value.angle.value, 0, 0.2f)
-                        .setOnUpdate((float val) => {
-                            container.style.rotate = new Rotate(new Angle(val, AngleUnit.Degree));
-                        });
-                });
-        }).ExecuteLater(delay);
-    }
-
     public class CompanionViewContext {
         public bool setupDrawDiscardButtons;
         public bool setupViewDeckButton;
