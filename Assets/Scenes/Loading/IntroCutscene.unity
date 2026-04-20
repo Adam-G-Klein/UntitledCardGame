@@ -2472,6 +2472,8 @@ PlayableDirector:
     value: {fileID: 671376891}
   - key: {fileID: -4533149573846467386, guid: 4af869aa214552242bb9389bffb8eb71, type: 2}
     value: {fileID: 742782267}
+  - key: {fileID: 6626212077091061253, guid: 4af869aa214552242bb9389bffb8eb71, type: 2}
+    value: {fileID: 1586386872}
   m_ExposedReferences:
     m_References: []
 --- !u!224 &1586386866
@@ -2622,12 +2624,42 @@ MonoBehaviour:
   m_Events:
     m_Signals:
     - {fileID: 11400000, guid: d417dc31c7711734ead4fbd35289c5b6, type: 2}
+    - {fileID: 11400000, guid: d2568c6b448a75c4e8fd235952990a39, type: 2}
+    - {fileID: 11400000, guid: d08de9edfe2054943937b192cc33f96d, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1586386867}
           m_TargetAssemblyTypeName: CutsceneStartStopper, Assembly-CSharp
           m_MethodName: StopTimeline
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1586386867}
+          m_TargetAssemblyTypeName: CutsceneStartStopper, Assembly-CSharp
+          m_MethodName: StartConciergeDialogue
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1586386867}
+          m_TargetAssemblyTypeName: CutsceneStartStopper, Assembly-CSharp
+          m_MethodName: StopConciergeDialogue
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

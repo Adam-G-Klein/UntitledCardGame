@@ -117,6 +117,7 @@ public class MusicController : GenericSingleton<MusicController>
 
     public void HandleConciergeDialogue(string command)
     {
+        Debug.Log($"MusicController: HandleConciergeDialogue {command}");
         switch (command)
         {
             case "start":

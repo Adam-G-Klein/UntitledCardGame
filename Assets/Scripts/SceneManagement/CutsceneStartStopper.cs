@@ -43,6 +43,14 @@ public class CutsceneStartStopper : GenericSingleton<CutsceneStartStopper>, ICon
         isStopped = true;
     }
 
+    public void StartConciergeDialogue() {
+        MusicController.Instance.HandleConciergeDialogue("start");
+    }
+
+    public void StopConciergeDialogue() {
+        MusicController.Instance.HandleConciergeDialogue("stop");
+    }
+
     public void ProcessGFGInputAction(GFGInputAction action)
     {
         if (action == GFGInputAction.SELECT) {
