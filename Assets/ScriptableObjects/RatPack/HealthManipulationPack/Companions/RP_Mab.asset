@@ -18,6 +18,7 @@ MonoBehaviour:
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: 57a7589ca9d8b4ebdb923a34a7184edf, type: 3}
   fullSprite: {fileID: 21300000, guid: 57a7589ca9d8b4ebdb923a34a7184edf, type: 3}
+  animationSprites: []
   startingDeck: {fileID: 11400000, guid: 6ca114c35524b446d8c7ce4a668c0593, type: 2}
   rarity: 0
   baseCompanionType: {fileID: 0}
@@ -33,14 +34,15 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Mab
-      description: At the end of combat, give adjacent rats 4 max HP. Each turn,
-        adjacent rats lose 1 HP unless they would die
+      description: Each turn, bleed 1 HP from adjacent rats unless they would die.
+        At the end of combat, give adjacent rats 4 max HP.
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
       iconDescriptionLine: []
+      card: {fileID: 0}
   keepsakeTitle: Mab's Mercy
-  keepsakeDescription: At the end of combat, heal adjacent rats 4 HP. Each turn,
-    adjacent rats lose 1 HP unless they would die
+  keepsakeDescription: Each turn, bleed 1 HP from adjacent rats unless they would
+    die. At the end of combat, give adjacent rats 4 max HP.
   references:
     version: 2
     RefIds:

@@ -954,8 +954,8 @@ MonoBehaviour:
   - The Cats are incentivised to keep us playing, so you'll be rewarded with some
     fluer de cheese upon each win.
   prematureEndTurnReminderDialogueLines:
-  - "Hey boss, you still have \xC9lan to play cards. It's usually efficient to play
-    as many cards as you can each turn. "
+  - "You still have \xC9lan to play cards. It's usually efficient to play as many
+    cards as you can each turn."
   shopDemoDialogues:
   - shopDemoDialoguesForEvents:
     - shopDemoEvent: 1
@@ -970,14 +970,22 @@ MonoBehaviour:
 '
     - shopDemoEvent: 2
       dialogueLines:
-      - hey u should  buy some cards bozo
+      - Now, you get to add new cards to your rats' decks. If you don't mind, I'll
+        pass on some advice from a wise old rat who used to work here.
+      - Take a look at your team's decks before placing new cards. Decks do not exist
+        in isolation in Paccarat.
+      - 'Last thing, cards that work well together should go in different decks,
+        because you''re more likely to draw them at the same time. '
   - shopDemoDialoguesForEvents:
     - shopDemoEvent: 1
       dialogueLines:
-      - hi u in the second shop what up with it
+      - Now you can take a break from the mayhem and prepare for the next table.
+        This time I pulled some strings so you have more cards and rats to choose
+        from.
     - shopDemoEvent: 2
       dialogueLines:
-      - hey u should  buy some cards bozo
+      - You'll notice that certain rats and cards look similar. They are organized
+        into packs. Usually rats and cards from the same pack work well together.
 --- !u!1 &5109742072706344275
 GameObject:
   m_ObjectHideFlags: 0

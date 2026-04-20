@@ -18,6 +18,7 @@ MonoBehaviour:
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: 57a7589ca9d8b4ebdb923a34a7184edf, type: 3}
   fullSprite: {fileID: 21300000, guid: 57a7589ca9d8b4ebdb923a34a7184edf, type: 3}
+  animationSprites: []
   startingDeck: {fileID: 11400000, guid: 75d02cdf7041b4d31bff1b7857a1d055, type: 2}
   rarity: 0
   baseCompanionType: {fileID: 11400000, guid: d46a66f8d86b8413097eaca31924aa9b, type: 2}
@@ -33,10 +34,12 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Mab++
-      description: At the end of combat, give adjacent rats 5 max HP & heal 5 HP.
-        Each turn, adjacent rats lose 1 HP unless they would die.
+      description: Each turn, bleed 1 HP from adjacent rats unless they would die.
+        At the end of combat, give adjacent rats 15 max HP
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
+      iconDescriptionLine: []
+      card: {fileID: 0}
   keepsakeTitle: 
   keepsakeDescription: At the end of combat, give adjacent rats 5 max HP & heal 5
     HP. Each turn, adjacent rats lose 1 HP unless they would die.
@@ -66,6 +69,7 @@ MonoBehaviour:
         specialTargetRule: 3
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 2034229587402555395
       type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
       data:
@@ -79,7 +83,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: adj
         combatEffect: 9
-        scale: 5
+        scale: 0
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
@@ -122,6 +126,7 @@ MonoBehaviour:
         specialTargetRule: 3
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 2034230176448512386
       type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
       data:
@@ -153,6 +158,6 @@ MonoBehaviour:
         effectStepName: PermanentStatIncrease
         inputKey: adj
         statIncreaseType: 1
-        scale: 5
+        scale: 15
         getScaleFromKey: 0
         inputScaleKey: 

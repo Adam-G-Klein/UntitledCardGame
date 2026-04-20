@@ -235,8 +235,8 @@ public class ShopEncounter : Encounter
         //     return;
         // }
 
-        if (staticShopIndex != -1 && (staticShopIndex < staticCardItems.Count || loopStaticShop)) {
-            int index = staticShopIndex % staticCardItems.Count;
+        if (staticShopIndex != -1 && (staticShopIndex < staticCompanionItems.Count || loopStaticShop)) {
+            int index = staticShopIndex % staticCompanionItems.Count;
             foreach (CompanionTypeSO companionType in staticCompanionItems[index].companionTypes) {
                 CompanionRarity rarity = DetermineCompanionRarity(companionType);
                 int maxHealthBonus = shopLevel.ratBonusHealth;
