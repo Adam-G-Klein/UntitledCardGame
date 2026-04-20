@@ -46,6 +46,7 @@ public class EnemyView : IUIEventReceiver
     private Label intentLabel;
     private VisualElement intentImage;
     private VisualElement intentContainer;
+    private VisualElement frame;
     private bool isTweening = false;
 
     private int lastHealthValue;
@@ -112,6 +113,7 @@ public class EnemyView : IUIEventReceiver
         this.intentContainer = enemyRoot.Q<VisualElement>("enemy-view-intent-container");
         this.intentImage = enemyRoot.Q<VisualElement>("enemy-view-intent-image");
         this.intentLabel = enemyRoot.Q<Label>("enemy-view-intent-label");
+        this.frame = enemyRoot.Q<VisualElement>("enemy-view-frame");
 
         if (this.combatInstance != null)
         {
@@ -442,6 +444,24 @@ public class EnemyView : IUIEventReceiver
 
     public void SetEverythingHidden() {
         container.style.visibility = Visibility.Hidden;
+    }
+
+    public void SetEverythingVisible() {
+        container.style.visibility = Visibility.Visible;
+    }
+
+    public void FadeInFrame(float seconds) {
+        spriteElement.style.opacity = 1f;
+        LeanTween.value(0f, 1f, seconds)
+            .setOnUpdate((float val) => {
+                frame.style.opacity = val;
+                SetEverythingVisible();
+            });
+    }
+
+    public void SetOnlySpriteVisible() {
+        container.style.visibility = Visibility.Hidden;
+        spriteElement.style.visibility = Visibility.Visible;
     }
 
     public IEnumerator AbilityActivatedVFX() {

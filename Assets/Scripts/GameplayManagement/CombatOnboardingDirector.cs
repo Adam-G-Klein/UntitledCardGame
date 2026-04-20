@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 [Serializable]
 public enum CombatOnboardingStepName
@@ -37,9 +38,9 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
         yield return SpeakLine();
         manager.combatEncounterView.SetupFromGamestate(manager, true);
         FocusManager.Instance.StashFocusables(this.GetType().Name);
-        manager.combatEncounterView.AnimateCompanionsFromOffscreen();
-        // Should make the companion animation yield return but couldn't be bothered rn
-        yield return new WaitForSeconds(3f);
+        pause = true;
+        AnimateCompanionsFromOffscreen();
+        yield return new WaitUntil(() => pause == false); // pause gets set to false in AnimateCompanionsFromOffscreen
         // Enemy encounter manager will hang during PreEncounterCoroutine and wait for this
         // large coroutine to finish
         yield return manager.StartWhenUIDocReady();
@@ -62,6 +63,28 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
             manager.combatEncounterView.HideCardsAndShowCompanionFrame(companion, () => pause = false);
             yield return new WaitUntil(() => pause == false);
         }
+        // Change to combat music
+        yield return SpeakLine();
+        // Enemies saunter up, and pedestals form
+        AnimateEnemiesFromOffscreen();
+        pause = true;
+        yield return new WaitUntil(() => pause == false);
+        yield return SpeakLine();
+        // Bell to summon concierge away SFX and screen shake
+        yield return SpeakLineNoHide();
+        yield return SpeakLine();
+        // Set all decks to have strikes on top and draw cards
+        yield return SpeakLine();
+        // Mana indicator appears
+        yield return SpeakLine();
+        // Wait until the player plays a slash
+        yield return SpeakLine();
+        // Baron shadow
+        yield return SpeakLine();
+        // louder bell and bigger screen shake
+        yield return SpeakLineNoHide();
+        yield return SpeakLine();
+
     }
 
     private IEnumerator SpeakLine()
@@ -82,5 +105,80 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
             if (visible) tooltip.OnPointerEnterVoid();
             else tooltip.OnPointerExitVoid();
         }
+    }
+
+    private void AnimateCompanionsFromOffscreen() {
+        long delay = 100;
+        foreach (CompanionView comp in manager.combatEncounterView.CompanionViews) {
+            comp.SetEverythingHidden();
+            comp.DisableInteractions();
+            AnimateCompanionFromOffscreen(comp, 2f, delay);
+            delay += 100;
+        }
+    }
+
+    private void AnimateCompanionFromOffscreen(CompanionView comp, float seconds, long delay) {
+        comp.container.schedule.Execute(() => {
+            comp.SetOnlySpriteVisible();
+            float startX = -(comp.container.worldBound.xMin + comp.container.worldBound.width + 20f);
+            comp.container.style.translate = new Translate(startX, 0);
+            LeanTween.value(startX, 0, seconds)
+                .setEase(LeanTweenType.easeOutCubic)
+                .setOnUpdate((float val) => {
+                    comp.container.style.translate = new Translate(val, 0);
+                })
+                .setOnComplete(() => pause = false);
+            LeanTween.value(0f, seconds / 1.5f, seconds / 1.5f)
+                .setOnUpdate((float t) => {
+                    float normalized = (t / seconds / 1.5f) * 4;
+                    float angle = Mathf.Sin(normalized * Mathf.PI * 2f) * 10;
+                    comp.container.style.rotate = new Rotate(new Angle(angle, AngleUnit.Degree));
+                })
+                .setOnComplete(() => {
+                    LeanTween.value(comp.container.style.rotate.value.angle.value, 0, 0.2f)
+                        .setOnUpdate((float val) => {
+                            comp.container.style.rotate = new Rotate(new Angle(val, AngleUnit.Degree));
+                        });
+                });
+        }).ExecuteLater(delay);
+    }
+
+    private void AnimateEnemiesFromOffscreen() {
+        long delay = 100;
+        foreach (EnemyView enemy in manager.combatEncounterView.EnemyViews) {
+            enemy.SetEverythingHidden();
+            enemy.DisableInteractions();
+            AnimateEnemiesFromOffscreen(enemy, 2f, delay);
+            delay += 100;
+        }
+    }
+
+    private void AnimateEnemiesFromOffscreen(EnemyView enemy, float seconds, long delay) {
+        enemy.container.schedule.Execute(() => {
+            enemy.SetOnlySpriteVisible();
+            float startY = -(enemy.container.worldBound.yMin + enemy.container.worldBound.height + 20f);
+            enemy.container.style.translate = new Translate(0, startY);
+            LeanTween.value(startY, 0, seconds)
+                .setEase(LeanTweenType.easeOutCubic)
+                .setOnUpdate((float val) => {
+                    enemy.container.style.translate = new Translate(0, val);
+                })
+                .setOnComplete(() => {
+                    pause = false;
+                    CombatEntityManager.Instance.getEnemies().ForEach((enemy) => manager.combatEncounterView.ShowEnemyFrame(enemy));
+                });
+            LeanTween.value(0f, seconds / 1.5f, seconds / 1.5f)
+                .setOnUpdate((float t) => {
+                    float normalized = (t / seconds / 1.5f) * 4;
+                    float angle = Mathf.Sin(normalized * Mathf.PI * 2f) * 10;
+                    enemy.container.style.rotate = new Rotate(new Angle(angle, AngleUnit.Degree));
+                })
+                .setOnComplete(() => {
+                    LeanTween.value(enemy.container.style.rotate.value.angle.value, 0, 0.2f)
+                        .setOnUpdate((float val) => {
+                            enemy.container.style.rotate = new Rotate(new Angle(val, AngleUnit.Degree));
+                        });
+                });
+        }).ExecuteLater(delay);
     }
 }

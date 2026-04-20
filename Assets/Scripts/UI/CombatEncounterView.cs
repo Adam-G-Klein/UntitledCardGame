@@ -36,7 +36,9 @@ public class CombatEncounterView : MonoBehaviour,
 
     private List<IUIEventReceiver> pickingModePositionList = new List<IUIEventReceiver>();
     private List<EnemyView> entityViews = new List<EnemyView>();
+    public List<EnemyView> EnemyViews => entityViews;
     private List<CompanionView> companionViews = new List<CompanionView>();
+    public List<CompanionView> CompanionViews => companionViews;
 
 
     [SerializeField]
@@ -126,16 +128,6 @@ public class CombatEncounterView : MonoBehaviour,
     public void InitEnemies() {
         List<Enemy> enemies = ((EnemyEncounter)gameState.activeEncounter.GetValue()).enemyList;
         setupEnemies(root.Q<VisualElement>("enemyContainer"), enemies);
-    }
-
-    public void AnimateCompanionsFromOffscreen() {
-        long delay = 100;
-        foreach (CompanionView comp in companionViews) {
-            comp.SetEverythingHidden();
-            comp.DisableInteractions();
-            comp.AnimateFromOffscreen(2f, delay);
-            delay += 100;
-        }
     }
 
     public void ShowOnlyCompanionSprites() {
@@ -634,6 +626,7 @@ public class CombatEncounterView : MonoBehaviour,
         Destroy(defeat);
     }
 
+    // For the onboarding experience
     public void ShowCardsFromCompanion(CompanionInstance companionInstance) {
         float duration = 0.75f; // 0.75 seconds
         long delay = 100;
@@ -699,5 +692,14 @@ public class CombatEncounterView : MonoBehaviour,
             scheduledItem.ExecuteLater(delay);
             delay += 100; // 400 ms
         }
+    }
+
+    public void ShowEnemyFrame(EnemyInstance enemy) {
+        float duration = 0.75f; // 0.75 seconds
+        EnemyView enemyView = combatInstanceToEnemyView[enemy.combatInstance];
+        if (enemyView == null) return;
+
+        enemyView.FadeInFrame(duration);
+        enemy.FadeInBackgroundGradient(duration);
     }
 }
