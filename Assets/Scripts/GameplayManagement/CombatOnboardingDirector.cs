@@ -24,6 +24,9 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
     [TextArea]
     public List<string> dialogueLines;
     public InputActionReference continueInput;
+    public SpriteRenderer baronShadow;
+    public Vector3 visibleShadowPosition;
+    public Vector3 hiddenShadowPosition;
 
     private EnemyEncounterManager manager;
     private int dialogueLineIndex;
@@ -65,7 +68,6 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
         }
         // Change to combat music
         yield return SpeakLine();
-        // Enemies saunter up, and pedestals form
         AnimateEnemiesFromOffscreen();
         pause = true;
         yield return new WaitUntil(() => pause == false);
@@ -96,7 +98,7 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
         yield return new WaitForNextFrameUnit();
         PlayerHand.Instance.onAttackCardCastDispatcher.RemoveHandler(ContinueAfterCardPlayed);
         yield return SpeakLine();
-        // Baron shadow
+        yield return AnimateBaronShadowComingIn();
         yield return SpeakLine();
         MusicController.Instance.PlaySFX("event:/SFX/SFX_PlayerEndTurn");
         ScreenShakeManager.Instance.ShakeWithForce(0.5f);
@@ -108,8 +110,13 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
         MusicController.Instance.PlaySFX("event:/SFX/SFX_PlayerEndTurn");
         yield return new WaitForSeconds(1f);
         yield return SpeakLineNoHide();
+        StartCoroutine(AnimateBaronShadowGoingOut());
         yield return SpeakLine();
-
+        // Finish remaining setup for the rest of the combat
+        manager.combatEncounterView.SetPersistentElementsVisible(true);
+        List<PlayableCard> cardsInHand = new List<PlayableCard>(PlayerHand.Instance.GetCardsOrdered());
+        cardsInHand.ForEach((card) => PlayerHand.Instance.DiscardCard(card));
+        yield return new WaitForSeconds(3f);
     }
 
     private IEnumerator SpeakLine()
@@ -210,5 +217,23 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
                         });
                 });
         }).ExecuteLater(delay);
+    }
+
+    private IEnumerator AnimateBaronShadowComingIn() {
+        float duration = 2f;
+        bool done = false;
+        baronShadow.enabled = true;
+        LeanTween.move(baronShadow.gameObject, visibleShadowPosition, duration)
+            .setOnComplete(() => done = true);
+        yield return new WaitUntil(() => done == true);
+    }
+
+    private IEnumerator AnimateBaronShadowGoingOut() {
+        float duration = 2f;
+        bool done = false;
+        LeanTween.move(baronShadow.gameObject, hiddenShadowPosition, duration)
+            .setOnComplete(() => done = true);
+        yield return new WaitUntil(() => done == true);
+        baronShadow.enabled = false;
     }
 }

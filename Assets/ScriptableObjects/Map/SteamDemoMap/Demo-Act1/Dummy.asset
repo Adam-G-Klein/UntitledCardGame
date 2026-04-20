@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: f430cb62-5eb9-449b-a7cd-3f86df0db636
   displayName: Soup Duck
-  maxHealth: 1
+  maxHealth: 7
   baseAttackDamage: 0
   enemyDisplayType: 0
   sprite: {fileID: 21300000, guid: a0d9bb37e958a694fac646b3cab615ee, type: 3}
@@ -55,6 +55,7 @@ MonoBehaviour:
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
       iconDescriptionLine: []
+      card: {fileID: 0}
   DEADLIER_ENEMY_BONUS_STR: -1
   HEALTHIER_ENEMY_BONUS_HEALTH: -1
   references:

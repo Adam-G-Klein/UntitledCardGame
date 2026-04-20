@@ -469,7 +469,7 @@ public class DeckInstance : MonoBehaviour
         int index;
         Card foundCard = null;
         foreach (Card card in drawPile) {
-            if (card.cardType.name == cardName) {
+            if (card.cardType.Name == cardName) {
                 index = drawPile.IndexOf(card);
                 foundCard = card;
                 break;
