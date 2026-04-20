@@ -52,6 +52,7 @@ public class DescriptionToken
         CreateInHand,
         NumAttackCardsInHand,
         NumCardsInHand,
+        IfLastCardPlayedWasAttack,
     }
     public TokenType tokenType;
     public string text;

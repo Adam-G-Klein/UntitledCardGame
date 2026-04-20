@@ -12,103 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e34d394278f1a1d49b4df179ce5c1804, type: 3}
   m_Name: SD26_ShopData_ThirdShop
   m_EditorClassIdentifier: 
-  shopLevels:
-  - level: 0
-    shopLevelIncrementsToUnlock: 2
-    upgradeIncrementCost: 2
-    numCardsToShow: 3
-    numKeepsakesToShow: 2
-    commonCompanionPercentage: 100
-    uncommonCompanionPercentage: 0
-    rareCompanionPercentage: 0
-    commonCardPercentage: 95
-    uncommonCardPercentage: 5
-    rareCardPercentage: 0
-    ratBonusHealth: 0
-    cardRemovalDiscount: 0
-    numCardRemovalsAllowed: 1
-    numLessCardsInStartingDeck: 0
-    upgradeTooltip:
-      empty: 0
-      lines:
-      - title: Upgrade to Level 2
-        description: +1 team size, increase shop rarity
-        relatedBehaviorIndex: 0
-        icon: {fileID: 0}
-        iconDescriptionLine: []
-        card: {fileID: 0}
-  - level: 1
-    shopLevelIncrementsToUnlock: 3
-    upgradeIncrementCost: 3
-    numCardsToShow: 4
-    numKeepsakesToShow: 2
-    commonCompanionPercentage: 65
-    uncommonCompanionPercentage: 33
-    rareCompanionPercentage: 2
-    commonCardPercentage: 79
-    uncommonCardPercentage: 20
-    rareCardPercentage: 1
-    ratBonusHealth: 0
-    cardRemovalDiscount: 0
-    numCardRemovalsAllowed: 1
-    numLessCardsInStartingDeck: 0
-    upgradeTooltip:
-      empty: 0
-      lines:
-      - title: Upgrade to Level 3
-        description: +1 team size, increase shop rarity
-        relatedBehaviorIndex: 0
-        icon: {fileID: 0}
-        iconDescriptionLine: []
-        card: {fileID: 0}
-  - level: 2
-    shopLevelIncrementsToUnlock: 4
-    upgradeIncrementCost: 4
-    numCardsToShow: 4
-    numKeepsakesToShow: 2
-    commonCompanionPercentage: 40
-    uncommonCompanionPercentage: 50
-    rareCompanionPercentage: 10
-    commonCardPercentage: 70
-    uncommonCardPercentage: 20
-    rareCardPercentage: 10
-    ratBonusHealth: 0
-    cardRemovalDiscount: 0
-    numCardRemovalsAllowed: 1
-    numLessCardsInStartingDeck: 0
-    upgradeTooltip:
-      empty: 0
-      lines:
-      - title: Upgrade to Level 4
-        description: +1 mana, increase shop rarity
-        relatedBehaviorIndex: 0
-        icon: {fileID: 0}
-        iconDescriptionLine: []
-        card: {fileID: 0}
-  - level: 3
-    shopLevelIncrementsToUnlock: 0
-    upgradeIncrementCost: 5
-    numCardsToShow: 4
-    numKeepsakesToShow: 3
-    commonCompanionPercentage: 30
-    uncommonCompanionPercentage: 40
-    rareCompanionPercentage: 30
-    commonCardPercentage: 50
-    uncommonCardPercentage: 30
-    rareCardPercentage: 20
-    ratBonusHealth: 0
-    cardRemovalDiscount: 0
-    numCardRemovalsAllowed: 10
-    numLessCardsInStartingDeck: 0
-    upgradeTooltip:
-      empty: 0
-      lines: []
-  companionPool: {fileID: 11400000, guid: 48c7b3405cbcdcc4da342fd49d591dba, type: 2}
-  activePacks:
-  - {fileID: 11400000, guid: 5f4300e0913784f05aeff0dd086d4338, type: 2}
-  - {fileID: 11400000, guid: a87b5da767d4e4659b2965e31e340c58, type: 2}
-  - {fileID: 11400000, guid: 79e479ca9df7a4369ba7fa951e0af116, type: 2}
-  - {fileID: 11400000, guid: 908f28c6f48104c2d85d2fcbd973771e, type: 2}
   activeCrossPackCardPools:
   - {fileID: 11400000, guid: ac36f55decb0640ae805ffb12d2befe3, type: 2}
   - {fileID: 11400000, guid: 198251f0df72247e2911d76a13c21b77, type: 2}
@@ -124,13 +27,11 @@ MonoBehaviour:
   incrementalRerollPriceIncrease: 0
   cardRemovalPrice: 5
   cardRemovalPriceIncrease: 3
-  shopEncounterEvent: {fileID: 11400000, guid: d82ee33fc33d20544bce205c53a0832e, type: 2}
   commonCardPrice: 1
   uncommonCardPrice: 2
   rareCardPrice: 3
   companionKeepsakePrice: 3
   numKeepsakeCopies: 15
-  startingGold: 0
   companionTypeCardPoolPct: 35
   packCardPoolPct: 35
   neutralCardPoolPct: 10
@@ -142,11 +43,8 @@ MonoBehaviour:
   numRatsBuyPerShop: 6
   numRatsBuyPerDisplay: 2
   freeMoney: 60
-  freeRerolls: 3
+  freeRerolls: 5
   freeCardRemovals: 2
-  goldEarnedPerBattle: 10
-  interestRate: 0.5
-  interestCap: 10
   neutralCardPool: {fileID: 11400000, guid: f16e9cd7d69314290ae5bed1edae4ce0, type: 2}
   numCompanionsSellFactor: 1.5
   numCardsBoughtSellFactor: 1
@@ -154,6 +52,3 @@ MonoBehaviour:
   baseCardsToRemoveOnUpgrade:
   - {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
   - {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
-  benchHealingAmount: 10
-  postEliteHealingAmount: 5
-  staticShopEncounters: {fileID: 11400000, guid: d71c9d20cc7994245b64bceef61b53c6, type: 2}

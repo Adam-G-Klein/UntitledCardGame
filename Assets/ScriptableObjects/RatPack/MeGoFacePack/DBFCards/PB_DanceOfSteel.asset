@@ -16,8 +16,35 @@ MonoBehaviour:
   Name: Dance of Steel
   Description: Deal {rpl_damage} damage & if the last card you played was an Attack,
     draw 1 card from random x2
-  IconDescription: []
-  IconDescriptionTooltipLines: []
+  IconDescription:
+  - tokenType: 0
+    text: '{rpl_damage}'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
+  - tokenType: 2
+    text: 
+    icon: 18
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 28
+  - tokenType: 2
+    text: 
+    icon: 3
+  - tokenType: 2
+    text: 
+    icon: 19
+  - tokenType: 0
+    text: x2
+    icon: 0
+  IconDescriptionTooltipLines:
+  - Deal X damage to a foe of your choice
+  - If the last card you played this turn was an Attack, draw 1 card from a random
+    rat twice
   defaultValues:
   - key: rpl_damage
     value: 7

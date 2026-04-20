@@ -92,6 +92,7 @@ public class ShopTutorialDisplay : MonoBehaviour
         {
             totalIncrementsNeeded += shopLevel.shopLevelIncrementsToUnlock;
         }
+        totalIncrementsNeeded -= ShopManager.Instance.gameState.playerData.GetValue().shopLevelIncrementsEarned;
         float timePerIncrement = fullyUpgradeShopTime / totalIncrementsNeeded;
         int incrementsApplied = 0;
         while(incrementsApplied < totalIncrementsNeeded)

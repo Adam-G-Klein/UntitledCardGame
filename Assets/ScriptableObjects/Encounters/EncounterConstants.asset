@@ -21,7 +21,7 @@ MonoBehaviour:
   shopLevels:
   - level: 0
     shopLevelIncrementsToUnlock: 6
-    upgradeIncrementCost: 4
+    upgradeIncrementCost: 3
     numCardsToShow: 3
     numKeepsakesToShow: 3
     commonCompanionPercentage: 60
@@ -44,7 +44,7 @@ MonoBehaviour:
         iconDescriptionLine: []
         card: {fileID: 0}
   - level: 1
-    shopLevelIncrementsToUnlock: 3
+    shopLevelIncrementsToUnlock: 5
     upgradeIncrementCost: 4
     numCardsToShow: 4
     numKeepsakesToShow: 2
@@ -57,7 +57,7 @@ MonoBehaviour:
     ratBonusHealth: 5
     cardRemovalDiscount: 0
     numCardRemovalsAllowed: 1
-    numLessCardsInStartingDeck: 1
+    numLessCardsInStartingDeck: 0
     upgradeTooltip:
       empty: 0
       lines:
@@ -81,7 +81,7 @@ MonoBehaviour:
     ratBonusHealth: 10
     cardRemovalDiscount: 3
     numCardRemovalsAllowed: 3
-    numLessCardsInStartingDeck: 1
+    numLessCardsInStartingDeck: 0
     upgradeTooltip:
       empty: 0
       lines: []
