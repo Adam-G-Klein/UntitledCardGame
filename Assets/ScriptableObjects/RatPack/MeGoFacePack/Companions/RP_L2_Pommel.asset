@@ -12,67 +12,65 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
   m_Name: RP_L2_Pommel
   m_EditorClassIdentifier: 
-  guid: b6687c25-bb5b-4138-8416-e1ed69baa93e
+  guid: cba94d9e-1058-4b7d-b1b6-7643019645cc
   companionName: Pommel+
   maxHealth: 40
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: c1ba3b774ff3ec6438f6984cded94a37, type: 3}
   fullSprite: {fileID: 21300000, guid: c1ba3b774ff3ec6438f6984cded94a37, type: 3}
+  animationSprites: []
   startingDeck: {fileID: 11400000, guid: b7fb5f30fc0c4400aa60c7d3769912bd, type: 2}
   rarity: 2
-  baseCompanionType: {fileID: 11400000, guid: 78fe07f26375b42c9bfd64f03469d871, type: 2}
-  cacheValueConfigs: []
+  baseCompanionType: {fileID: 0}
+  cacheValueConfigs:
+  - key: skillsLeftToPlayThisTurn
+    display: 1
+    sprite: {fileID: 21300000, guid: c1ba3b774ff3ec6438f6984cded94a37, type: 3}
+    startOfTurnValue: 3
+    setStartOfTurnValue: 1
+    startOfCombatValue: 0
+    setStartOfCombatValue: 0
   cardPool: {fileID: 11400000, guid: 43d7da1f16b024762bfa16d90f44fd77, type: 2}
   pack: {fileID: 11400000, guid: 908f28c6f48104c2d85d2fcbd973771e, type: 2}
   abilitiesV2:
-  - rid: 2034230176448512458
+  - rid: 205827988172308704
   level: 1
   upgradeTo: {fileID: 11400000, guid: d135a5853f9924bc5862575b52651bec, type: 2}
   tooltip:
     empty: 0
     lines:
-    - title: Pommel+
-      description: Each time you play an Attack, give adjacent companions 2 temporary
-        strength
+    - title: Pommel
+      description: The first 3 times each turn you play a Skill card, give adjacent
+        rats to Pommel 2 temporary strength
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
+      iconDescriptionLine: []
+      card: {fileID: 0}
   keepsakeTitle: 
-  keepsakeDescription: Each time you play an Attack, give adjacent companions 2 temporary
-    strength
+  keepsakeDescription: The first 3 times each turn you play a Skill card, give adjacent
+    rats to Pommel 2 temporary strength
   references:
     version: 2
     RefIds:
-    - rid: 2034230176448512458
+    - rid: 205827988172308704
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
         abilityTrigger: 7
         effectSteps:
-        - rid: 2034230176448512491
-        - rid: 2034230176448512492
-        - rid: 2034230176448512493
-        - rid: 7707884639552274894
-        - rid: 2034230176448512663
-        - rid: 2034230176448512494
-        - rid: 2034230176448512495
+        - rid: 2034230176448512422
+        - rid: 2034230176448512490
+        - rid: 205827988172308705
+        - rid: 578314858522477118
+        - rid: 578314858522477119
+        - rid: 578314858522477120
+        - rid: 7707884639552274890
+        - rid: 578314858522477121
+        - rid: 578314858522477122
+        - rid: 2034230176448512662
+        - rid: 205827988172308706
+        - rid: 205827988172308707
         weight: 0
-    - rid: 2034230176448512491
-      type: {class: FilterCards, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FilterCards
-        inputKey: cardPlayed
-        filter:
-          cardCategoriesToInclude: 01000000
-          retainedCardsFilter: 0
-          manaCostFilter: 0
-          manaCost: 0
-          exactCardType: {fileID: 0}
-        outputKey: attackCardPlayed
-    - rid: 2034230176448512492
-      type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EndWorkflowIfListEmpty
-        inputKey1: attackCardPlayed
-    - rid: 2034230176448512493
+    - rid: 205827988172308705
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
@@ -84,7 +82,8 @@ MonoBehaviour:
         specialTargetRule: 3
         cantCancelTargetting: 0
         cardSelectionHelperText: 
-    - rid: 2034230176448512494
+        selectionPurpose: 0
+    - rid: 205827988172308706
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
@@ -97,21 +96,81 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-    - rid: 2034230176448512495
+    - rid: 205827988172308707
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
         inputKey: adj
         prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
         scale: 1
-    - rid: 2034230176448512663
+    - rid: 578314858522477118
+      type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheLoad
+        inputCombatInstanceKey: self
+        cacheKey: skillsLeftToPlayThisTurn
+        currentWorkflowKey: skillsLeftToPlayThisTurn
+    - rid: 578314858522477119
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 0
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 0
+        inputKey2: skillsLeftToPlayThisTurn
+        outputKey: isZero
+    - rid: 578314858522477120
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: isZero
+        conditionToEndOn: 1
+    - rid: 578314858522477121
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: skillsLeftToPlayThisTurn
+        operand2InputKey: UNUSED
+        operation: 1
+        scale: 1
+        outputKey: skillsLeftToPlayThisTurn
+    - rid: 578314858522477122
+      type: {class: CombatInstanceCacheStore, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheStore
+        inputCombatInstanceKey: self
+        hardCodedBool: 0
+        useHardCodedBool: 0
+        hardCodedInt: 0
+        useHardCodedInt: 0
+        currentWorkflowKey: skillsLeftToPlayThisTurn
+        cacheKey: skillsLeftToPlayThisTurn
+    - rid: 2034230176448512422
+      type: {class: FilterCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FilterCards
+        inputKey: cardPlayed
+        filter:
+          cardCategoriesToInclude: 02000000
+          retainedCardsFilter: 0
+          manaCostFilter: 0
+          manaCost: 0
+          exactCardType: {fileID: 0}
+        outputKey: attackCardPlayed
+    - rid: 2034230176448512490
+      type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfListEmpty
+        inputKey1: attackCardPlayed
+    - rid: 2034230176448512662
       type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetAdjacentCompanions
         inputKey: self
         includeInputCompanion: 0
         outputKey: adj
-    - rid: 7707884639552274894
+    - rid: 7707884639552274890
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX

@@ -18,6 +18,7 @@ MonoBehaviour:
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: aed7ded5c1952734c85f8ad6acc3e85b, type: 3}
   fullSprite: {fileID: 21300000, guid: aed7ded5c1952734c85f8ad6acc3e85b, type: 3}
+  animationSprites: []
   startingDeck: {fileID: 11400000, guid: d84f93e68590444a1964af0761ce573a, type: 2}
   rarity: 1
   baseCompanionType: {fileID: 11400000, guid: 260de4ccd12c947a39356f896e7514b5, type: 2}
@@ -36,6 +37,8 @@ MonoBehaviour:
         x2
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
+      iconDescriptionLine: []
+      card: {fileID: 0}
   keepsakeTitle: Level 2 Daggermunk
   keepsakeDescription: Each turn, create a 0 mana "Dagger" card in hand for a random
     adjacent companion x2
@@ -51,9 +54,7 @@ MonoBehaviour:
         - rid: 205828032053379329
         - rid: 2511001254715195861
         - rid: 1289961820425028203
-        - rid: 2511001254715195862
         - rid: 2034230017118175327
-        - rid: 2511001254715195863
         - rid: 7150943289421332710
         weight: 0
     - rid: 205828032053379329
@@ -68,21 +69,22 @@ MonoBehaviour:
         specialTargetRule: 3
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 1289961820425028203
       type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetRandomItems
         inputKey: adj
-        scale: 1
+        scale: 2
         scaleKey: 
         getScaleFromKey: 0
-        outputKey: target1
-        withReplacement: 0
+        outputKey: targets
+        withReplacement: 1
     - rid: 2034230017118175327
       type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: AddCardsToHand
-        entityFromKey: target1
+        entityFromKey: targets
         cardTypes:
         - {fileID: 11400000, guid: 224034c097974444fa35170919327ce6, type: 2}
         getCardsFromKey: 0
@@ -98,29 +100,6 @@ MonoBehaviour:
         inputKey: self
         includeInputCompanion: 0
         outputKey: adj
-    - rid: 2511001254715195862
-      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetRandomItems
-        inputKey: adj
-        scale: 1
-        scaleKey: 
-        getScaleFromKey: 0
-        outputKey: target2
-        withReplacement: 0
-    - rid: 2511001254715195863
-      type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: AddCardsToHand
-        entityFromKey: target2
-        cardTypes:
-        - {fileID: 11400000, guid: 224034c097974444fa35170919327ce6, type: 2}
-        getCardsFromKey: 0
-        inputCardsKey: 
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-        outputKey: 
     - rid: 7150943289421332710
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
