@@ -161,6 +161,12 @@ public class CombatEncounterView : MonoBehaviour,
         else deckViewButton.style.display = displayStyle;
     }
 
+    public void SetManaIndicatorVisible() {
+        VisualElement mamna = root.Q<VisualElement>("mamna");
+        if (mamna == null) Debug.LogWarning("SetPersistentElementsVisible: could not find 'mamna'");
+        else mamna.style.display = DisplayStyle.Flex;
+    }
+
     // for boss fight intro
     public void DestroyMapAndEnemyUI()
     {

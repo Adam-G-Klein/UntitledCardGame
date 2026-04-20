@@ -70,18 +70,43 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
         pause = true;
         yield return new WaitUntil(() => pause == false);
         yield return SpeakLine();
-        // Bell to summon concierge away SFX and screen shake
+        MusicController.Instance.PlaySFX("event:/SFX/SFX_PlayerEndTurn");
+        ScreenShakeManager.Instance.ShakeWithForce(0.1f);
+        yield return new WaitForSeconds(.1f);
+        ScreenShakeManager.Instance.ShakeWithForce(0.1f);
+        MusicController.Instance.PlaySFX("event:/SFX/SFX_PlayerEndTurn");
+        yield return new WaitForSeconds(1f);
         yield return SpeakLineNoHide();
         yield return SpeakLine();
-        // Set all decks to have strikes on top and draw cards
+        CombatEntityManager.Instance.getCompanions().ForEach((companion) => {
+            companion.deckInstance.MoveCardToTopOfDrawPile("Scratch");
+            companion.deckInstance.DealOneCard();
+        });
+        yield return new WaitUntil(() => PlayerHand.Instance.CardDealQueue.Count == 0);
+        PlayerHand.Instance.DisableHand();
+        yield return new WaitForSeconds(2f);
         yield return SpeakLine();
-        // Mana indicator appears
+        manager.combatEncounterView.SetManaIndicatorVisible();
         yield return SpeakLine();
-        // Wait until the player plays a slash
+        PlayerHand.Instance.EnableHand();
+        manager.combatEncounterView.SetCompanionsAndEnemiesEnabled(true);
+        pause = true;
+        PlayerHand.Instance.onAttackCardCastDispatcher.AddHandler(ContinueAfterCardPlayed, 0);
+        yield return new WaitUntil(() => pause == false);
+        yield return new WaitForNextFrameUnit();
+        PlayerHand.Instance.onAttackCardCastDispatcher.RemoveHandler(ContinueAfterCardPlayed);
         yield return SpeakLine();
         // Baron shadow
         yield return SpeakLine();
-        // louder bell and bigger screen shake
+        MusicController.Instance.PlaySFX("event:/SFX/SFX_PlayerEndTurn");
+        ScreenShakeManager.Instance.ShakeWithForce(0.5f);
+        yield return new WaitForSeconds(.1f);
+        ScreenShakeManager.Instance.ShakeWithForce(0.5f);
+        MusicController.Instance.PlaySFX("event:/SFX/SFX_PlayerEndTurn");
+        yield return new WaitForSeconds(.1f);
+        ScreenShakeManager.Instance.ShakeWithForce(0.5f);
+        MusicController.Instance.PlaySFX("event:/SFX/SFX_PlayerEndTurn");
+        yield return new WaitForSeconds(1f);
         yield return SpeakLineNoHide();
         yield return SpeakLine();
 
@@ -98,6 +123,11 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
     {
         yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, dialogueLines[dialogueLineIndex], true);
         dialogueLineIndex += 1;
+    }
+
+    private IEnumerator ContinueAfterCardPlayed(PlayableCard card) {
+        pause = false;
+        yield break;
     }
 
     private void ShowHideTooltip(GameObject companion, bool visible) {
