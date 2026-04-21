@@ -73,6 +73,7 @@ public class DialogueView : GenericSingleton<DialogueView>, IControlsReceiver
     }
 
     public void Hide() {
+        MusicController.Instance.HandleConciergeDialogue("stop");
         rawImage.enabled = false;
     }
 
