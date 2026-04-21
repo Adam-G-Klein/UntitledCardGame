@@ -98,11 +98,13 @@ public class DialogueView : GenericSingleton<DialogueView>, IControlsReceiver
         label.text = invisibleText;
         for (int i = 0; i <= fullText.Length; i++)
         {
+            if (i == 0) MusicController.Instance.HandleConciergeDialogue("start");
             string visible = fullText.Substring(0, i);
             string invisible = $"<color=#00000000>{fullText.Substring(i)}</color>";
             label.text = visible + invisible;
             if(hasClicked)
             {
+                MusicController.Instance.HandleConciergeDialogue("stop");
                 label.text = fullText;
                 hasClicked = false;
                 break;
@@ -112,6 +114,7 @@ public class DialogueView : GenericSingleton<DialogueView>, IControlsReceiver
         yield return new WaitForSeconds(endDelay);
         if (hideOnComplete) rawImage.enabled = false;
         runningCoroutine = null;
+        MusicController.Instance.HandleConciergeDialogue("stop");
         yield return null;
     }
 
