@@ -90,6 +90,8 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
         yield return SpeakLine();
         manager.combatEncounterView.SetManaIndicatorVisible();
         yield return SpeakLine();
+
+        // Wait for the player to play a card
         PlayerHand.Instance.EnableHand();
         manager.combatEncounterView.SetCompanionsAndEnemiesEnabled(true);
         pause = true;
@@ -97,6 +99,9 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
         yield return new WaitUntil(() => pause == false);
         yield return new WaitForNextFrameUnit();
         PlayerHand.Instance.onAttackCardCastDispatcher.RemoveHandler(ContinueAfterCardPlayed);
+        PlayerHand.Instance.DisableHand();
+
+        // Concierge talking, baron shadow coming in, concierge being summoned away again
         yield return SpeakLine();
         yield return AnimateBaronShadowComingIn();
         yield return SpeakLine();
@@ -109,14 +114,17 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
         ScreenShakeManager.Instance.ShakeWithForce(0.5f);
         MusicController.Instance.PlaySFX("event:/SFX/SFX_PlayerEndTurn");
         yield return new WaitForSeconds(1f);
+
+        // Concierge leaving you, baron shadow moving back away
         yield return SpeakLineNoHide();
         StartCoroutine(AnimateBaronShadowGoingOut());
         yield return SpeakLine();
+
         // Finish remaining setup for the rest of the combat
         manager.combatEncounterView.SetPersistentElementsVisible(true);
+        PlayerHand.Instance.EnableHand();
         List<PlayableCard> cardsInHand = new List<PlayableCard>(PlayerHand.Instance.GetCardsOrdered());
-        cardsInHand.ForEach((card) => PlayerHand.Instance.DiscardCard(card));
-        yield return new WaitForSeconds(3f);
+        cardsInHand.ForEach((card) => StartCoroutine(PlayerHand.Instance.DiscardCard(card)));
     }
 
     private IEnumerator SpeakLine()
