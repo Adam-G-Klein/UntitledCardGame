@@ -125,6 +125,7 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
         PlayerHand.Instance.EnableHand();
         List<PlayableCard> cardsInHand = new List<PlayableCard>(PlayerHand.Instance.GetCardsOrdered());
         cardsInHand.ForEach((card) => StartCoroutine(PlayerHand.Instance.DiscardCard(card)));
+        manager.combatEncounterView.CompanionViews.ForEach((view) => view.EnableInteractions());
     }
 
     private IEnumerator SpeakLine()
