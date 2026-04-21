@@ -122,11 +122,7 @@ public class AddCardsToDeck : EffectStep, ITooltipProvider {
         }
         List<TooltipLine> lines = new();
         foreach (CardType cardType in cardTypes) {
-            if (cardType.tooltipKeyword != TooltipKeyword.NONE) {
-                lines.AddRange(KeywordTooltipProvider.Instance.GetTooltip(cardType.tooltipKeyword).lines);
-            } else {
-                lines.Add(new TooltipLine(cardType.GetName(), cardType.Cost + ". " + cardType.GetDescription()));
-            }
+            lines.Add(new TooltipLine(cardType));
         }
         return new TooltipViewModel(lines);
     }
