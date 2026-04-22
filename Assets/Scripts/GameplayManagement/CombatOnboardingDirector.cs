@@ -93,6 +93,7 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
 
         // Wait for the player to play a card
         PlayerHand.Instance.EnableHand();
+        FocusManager.Instance.UnstashFocusables(this.GetType().Name);
         manager.combatEncounterView.SetCompanionsAndEnemiesEnabled(true);
         pause = true;
         PlayerHand.Instance.onAttackCardCastDispatcher.AddHandler(ContinueAfterCardPlayed, 0);
