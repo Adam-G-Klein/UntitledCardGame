@@ -593,7 +593,8 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
             }
 
             TryEndPlayerTurn();
-            prematureEndTurnReminderDone = false;
+            // Hint: add this back if you want the premarture end turn reminder to trigger multiple times a combat.
+            // prematureEndTurnReminderDone = false;
         }
         if (action == GFGInputAction.OPEN_MULTI_DECK_VIEW)
         {

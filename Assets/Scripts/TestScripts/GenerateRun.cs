@@ -30,10 +30,10 @@ public class GenerateRun : MonoBehaviour
         if (gameState.BuildTypeDemoOrConvention()) {
             gameState.PopulateCompanionPool(demoBaseCompanionPool);
             gameState.activePacks = new List<PackSO>(demoActivePacks);
-            gameState.companions.respawn(startingTeamSize);
+            gameState.companions.respawn(demoStartingTeamSize);
             demoStaticCompanions.ForEach((companion) => gameState.companions.activeCompanions.Add(new Companion(companion)));
             gameState.playerData.initialize(demoStartingGold);
-            gameState.playerData.GetValue().teamSize = startingTeamSize;
+            gameState.playerData.GetValue().teamSize = demoStartingTeamSize;
             gameState.StartNewRun(demoMapGenerator);
         } else {
             gameState.PopulateCompanionPool(baseCompanionPool);
