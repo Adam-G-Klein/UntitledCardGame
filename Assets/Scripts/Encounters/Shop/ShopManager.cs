@@ -108,16 +108,19 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         shopViewController.SetMoney(gameState.playerData.GetValue().gold);
         shopViewController.SetShopUpgradePrice(shopLevel.upgradeIncrementCost);
         shopViewController.SetShopRerollPrice(shopEncounter.shopData.rerollShopPrice, gameState.playerData.GetValue().storedRerolls);
-        shopViewController.SetShopCardRemovalPrice(GetCardRemovalPrice(gameState.playerData.GetValue().shopLevel, timesCardRemovedThisShop), gameState.playerData.GetValue().storedCardRemovals);
+        shopViewController.SetShopCardRemovalPrice(
+            GetCardRemovalPrice(gameState.playerData.GetValue().shopLevel, timesCardRemovedThisShop), gameState.playerData.GetValue().storedCardRemovals);
+        shopViewController.RebuildUnitManagement(gameState.companions);
+        if (!healedCompanions)
+        {
+            // Necessary to let the unit management view fully render and get their positioning
+            StartCoroutine(HealCompanionsOnBenchAfterFrame());
+            healedCompanions = true;
+        }
 
         CheckDisableUpgradeButtonV2();
 
         shopViewController.SetupUpgradeIncrements(encounterConstants.shopLevels.Count - 1 <= shopLevel.level);
-        /* uncomment to re-enable shop dialogue
-        DialogueManager.Instance.SetDialogueLocation(
-            gameState.dialogueLocations.GetDialogueLocation(gameState));
-        DialogueManager.Instance.StartAnyDialogueSequence();
-        */
 
         cinematicIntroComplete = true;
         if (gameState.BuildTypeDemoOrConvention())
@@ -128,7 +131,6 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             }
             else if (!DemoDirector.Instance.IsStepCompleted(DemoStepName.FullFeatureShopTutorialStep1))
             {
-
                 shopViewController.DisableAllUIPreserveAppearance();
                 shopTutorialDisplay = GetComponent<ShopTutorialDisplay>();
                 // this setup method is what plays the dialogue and then the timeline
@@ -193,24 +195,9 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         shopViewController.EnableAllUI();
     }
 
-    public void SetupUnitManagement() {
-        StartCoroutine(DelayedSetupUnitManagement());
-    }
-
-    private IEnumerator DelayedSetupUnitManagement()
-    {
+    private IEnumerator HealCompanionsOnBenchAfterFrame() {
         yield return new WaitForEndOfFrame();
-        shopViewController.RebuildUnitManagement(gameState.companions);
-
-        // Heal the companions on the bench if it's the first time this shop.
-        if (!healedCompanions)
-        {
-            yield return new WaitForEndOfFrame();
-            HealCompanionsOnBench();
-            healedCompanions = true;
-        }
-
-        // Demo shop UI enabling is handled by PreEncounterCoroutine waiting on ShopTutorialDisplay
+        HealCompanionsOnBench();
     }
 
     private void HealCompanionsOnBench()
@@ -403,6 +390,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     {
         InstantiateShopVFX(bigSparklePrefab, ve, 1.0f);
     }
+
     private void ScaleGameObjectAndChildren(GameObject obj, float scale)
     {
         obj.transform.localScale *= scale;

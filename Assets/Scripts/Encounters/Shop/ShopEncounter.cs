@@ -124,7 +124,7 @@ public class ShopEncounter : Encounter
         cardsInShop.ForEach(card => shopManager.shopViewController.AddCardToShopView(card));
         companionsInShop.ForEach(companion => shopManager.shopViewController.AddCompanionToShopView(companion));
         shopManager.shopViewController.AddCompanionShineAfterHeirarchyChanged();
-        shopManager.SetupUnitManagement();
+        // shopManager.SetupUnitManagement();
     }
 
     public void Reroll(
