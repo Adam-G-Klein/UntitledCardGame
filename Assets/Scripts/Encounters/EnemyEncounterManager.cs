@@ -225,6 +225,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     */
     private IEnumerator EndEncounterCoroutine(EndEncounterEventInfo info) {
         TurnOffInteractions();
+        DestroyAllTooltips();
         combatOver = true;
         combatEncounterView.SetEndCombat(true);
 

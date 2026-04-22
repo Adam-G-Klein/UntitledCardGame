@@ -62,6 +62,7 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
             manager.combatEncounterView.ShowCardsFromCompanion(companion);
             yield return new WaitForNextFrameUnit();
             yield return new WaitUntil(() => continueInput.action.WasPerformedThisFrame());
+            LeanTween.cancelAll();
             pause = true;
             manager.combatEncounterView.HideCardsAndShowCompanionFrame(companion, () => pause = false);
             yield return new WaitUntil(() => pause == false);
@@ -101,6 +102,7 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
         yield return new WaitForNextFrameUnit();
         PlayerHand.Instance.onAttackCardCastDispatcher.RemoveHandler(ContinueAfterCardPlayed);
         PlayerHand.Instance.DisableHand();
+        FocusManager.Instance.StashFocusables(this.GetType().Name);
 
         // Concierge talking, baron shadow coming in, concierge being summoned away again
         yield return SpeakLine();
@@ -124,6 +126,7 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
         // Finish remaining setup for the rest of the combat
         manager.combatEncounterView.SetPersistentElementsVisible(true);
         PlayerHand.Instance.EnableHand();
+        FocusManager.Instance.UnstashFocusables(this.GetType().Name);
         List<PlayableCard> cardsInHand = new List<PlayableCard>(PlayerHand.Instance.GetCardsOrdered());
         cardsInHand.ForEach((card) => StartCoroutine(PlayerHand.Instance.DiscardCard(card)));
         manager.combatEncounterView.CompanionViews.ForEach((view) => view.EnableInteractions());

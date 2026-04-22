@@ -742,6 +742,8 @@ public class CompanionView : IUIEventReceiver
 
     public static CompanionViewContext COMBAT_CONTEXT = new CompanionViewContext(
         false, false, true, true, 24, 20, 0.15f);
+    public static CompanionViewContext VICTORY_CONTEXT = new CompanionViewContext(
+        false, false, false, false, 24, 20, 0.15f);
     public static CompanionViewContext SHOP_CONTEXT = new CompanionViewContext(
         false, true, false, false, 18, 16, 0.15f * .75f);
     public static CompanionViewContext STARTING_TEAM_CONTEXT = new CompanionViewContext(

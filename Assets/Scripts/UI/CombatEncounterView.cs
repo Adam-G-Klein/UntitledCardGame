@@ -678,12 +678,16 @@ public class CombatEncounterView : MonoBehaviour,
         foreach (VisualElement el in cardArea.Children()) {
             IVisualElementScheduledItem scheduledItem = el.schedule.Execute(() => {
                 Vector2 delta = companionView.container.worldBound.center - el.worldBound.center;
+                float startX = el.style.translate.value.x.value;
+                float startY = el.style.translate.value.y.value;
+                float startScaleX = el.style.scale.value.value.x;
+                float startScaleY = el.style.scale.value.value.x;
                 LeanTween.value(0f, 1f, duration)
                     .setOnUpdate((float val) => {
                         float xVal = Mathf.Lerp(0, delta.x, val);
                         float yVal = Mathf.Lerp(0, delta.y, val);
-                        el.style.translate = new Translate(xVal, yVal);
-                        el.style.scale = new Vector2(1f-val, 1f-val);
+                        el.style.translate = new Translate(xVal + startX, yVal + startY);
+                        el.style.scale = new Vector2(startScaleX-(val*startScaleX), startScaleY-(val*startScaleY));
                     })
                     .setOnComplete(() => {
                         el.style.visibility = Visibility.Hidden;
