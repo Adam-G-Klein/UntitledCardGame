@@ -163,8 +163,13 @@ public class CombatEncounterView : MonoBehaviour,
 
     public void SetManaIndicatorVisible() {
         VisualElement mamna = root.Q<VisualElement>("mamna");
-        if (mamna == null) Debug.LogWarning("SetPersistentElementsVisible: could not find 'mamna'");
-        else mamna.style.display = DisplayStyle.Flex;
+        if (mamna == null) {
+            Debug.LogWarning("SetPersistentElementsVisible: could not find 'mamna'");
+            return;
+        }
+        mamna.style.display = DisplayStyle.Flex;
+        mamna.style.opacity = 0f;
+        LeanTween.value(0f, 1f, 0.25f).setOnUpdate((float val) => mamna.style.opacity = val);
     }
 
     // for boss fight intro

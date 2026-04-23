@@ -1024,6 +1024,72 @@ MonoBehaviour:
   baronShadow: {fileID: 5887899029849301874}
   visibleShadowPosition: {x: 3.6255, y: -0.8985, z: 0}
   hiddenShadowPosition: {x: 10.01, y: -6.64, z: 0}
+  companionKickInCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.45890617
+      value: 0.8161219
+      inSlope: 0.30062062
+      outSlope: 0.30062062
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.08312784
+      outWeight: 0.06753355
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.12768768
+      outSlope: 0.12768768
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.13456655
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  waddleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5
+      value: 1
+      inSlope: 0.6962547
+      outSlope: -0.67124575
+      tangentMode: 1
+      weightedMode: 0
+      inWeight: 0.05939686
+      outWeight: 0.07417016
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -2
+      outSlope: -2
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &5109742072706344275
 GameObject:
   m_ObjectHideFlags: 0

@@ -27,6 +27,8 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
     public SpriteRenderer baronShadow;
     public Vector3 visibleShadowPosition;
     public Vector3 hiddenShadowPosition;
+    public AnimationCurve companionKickInCurve;
+    public AnimationCurve waddleCurve;
 
     private EnemyEncounterManager manager;
     private int dialogueLineIndex;
@@ -88,8 +90,8 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
         yield return new WaitUntil(() => PlayerHand.Instance.CardDealQueue.Count == 0);
         PlayerHand.Instance.DisableHand();
         yield return new WaitForSeconds(2f);
-        yield return SpeakLine();
         manager.combatEncounterView.SetManaIndicatorVisible();
+        yield return SpeakLine();
         yield return SpeakLine();
 
         // Wait for the player to play a card
@@ -172,17 +174,17 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
             comp.SetOnlySpriteVisible();
             float startX = -(comp.container.worldBound.xMin + comp.container.worldBound.width + 20f);
             comp.container.style.translate = new Translate(startX, 0);
-            LeanTween.value(startX, 0, seconds)
-                .setEase(LeanTweenType.easeOutCubic)
+            LeanTween.value(0, 1, seconds)
                 .setOnUpdate((float val) => {
-                    comp.container.style.translate = new Translate(val, 0);
+                    float t = companionKickInCurve.Evaluate(val);
+                    float x = Mathf.Lerp(startX, 0, t);
+                    comp.container.style.translate = new Translate(x, 0);
                 })
                 .setOnComplete(() => pause = false);
-            LeanTween.value(0f, seconds / 1.5f, seconds / 1.5f)
-                .setOnUpdate((float t) => {
-                    float normalized = (t / seconds / 1.5f) * 4;
-                    float angle = Mathf.Sin(normalized * Mathf.PI * 2f) * 10;
-                    comp.container.style.rotate = new Rotate(new Angle(angle, AngleUnit.Degree));
+            LeanTween.value(0f, 5f, seconds)
+                .setOnUpdate((float val) => {
+                    float t = waddleCurve.Evaluate(Mathf.Repeat(val, 1f));
+                    comp.container.style.rotate = new Rotate(new Angle(t * 10f, AngleUnit.Degree));
                 })
                 .setOnComplete(() => {
                     LeanTween.value(comp.container.style.rotate.value.angle.value, 0, 0.2f)
