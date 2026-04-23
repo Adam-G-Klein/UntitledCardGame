@@ -507,15 +507,19 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
     public void SetDraftingHelpText(int numPerDisplay, int remaining)
     {
-        string cardsFormat = "Choose {0} cards for rats on your team\n({1} remaining)";
-        string ratsFormat = "Choose {0} rats for your team\n({1} remaining)";
+        string cardsBuyingHelpText = numPerDisplay == 1
+            ? "Choose a card for a rat on your team"
+            : string.Format("Choose {0} cards for rats on your team", numPerDisplay);
+        string ratsHelpText = numPerDisplay == 1
+            ? "Choose a rat for your team"
+            : string.Format("Choose {0} rats for your team", numPerDisplay);
         if (currentDemoShopPhase == ShopPhase.CARD_BUYING_PHASE)
         {
-            shopViewController.SetDraftingHelpText(string.Format(cardsFormat, numPerDisplay, remaining));
+            shopViewController.SetDraftingHelpText(cardsBuyingHelpText);
         }
         else if (currentDemoShopPhase == ShopPhase.RAT_BUYING_PHASE)
         {
-            shopViewController.SetDraftingHelpText(string.Format(ratsFormat, numPerDisplay, remaining));
+            shopViewController.SetDraftingHelpText(ratsHelpText);
         } else if (currentDemoShopPhase == ShopPhase.DONE)
         {
             shopViewController.SetDraftingHelpText($"Out of stock. Come back after the next combat");
