@@ -588,7 +588,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
                 && PlayerHand.Instance.StillEnoughManaToPlayCards(ManaManager.Instance.currentMana)
                 && !prematureEndTurnReminderDone)
             {
-                CanEndTurn(false);
+                prematureEndTurnReminderDone = true;
                 StartCoroutine(PrematureEndTurnReminderCoroutine());
                 return;
             }
@@ -606,8 +606,6 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
 
     public IEnumerator PrematureEndTurnReminderCoroutine() {
         yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.PrematureEndTurnReminder);
-        prematureEndTurnReminderDone = true;
-        CanEndTurn(true);
     }
 
     public void SwappedControlMethod(ControlsManager.ControlMethod controlMethod)
