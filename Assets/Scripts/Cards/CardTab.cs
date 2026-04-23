@@ -18,9 +18,9 @@ public class CardTab : MonoBehaviour
     private Vector3 loweredTabPosition;
 
     void Awake() {
-        baseTabPosition = uiDoc.transform.position;
+        baseTabPosition = uiDoc.transform.localPosition;
         loweredTabPosition = new Vector3(baseTabPosition.x, baseTabPosition.y - 4f, baseTabPosition.z);
-        uiDoc.transform.position = loweredTabPosition;
+        uiDoc.transform.localPosition = loweredTabPosition;
         ps = Instantiate(panelSettingsTemplate);
         uiDoc.panelSettings = ps;
         rt = new RenderTexture(renderTextureBase.descriptor);

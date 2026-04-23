@@ -49,6 +49,10 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     private float hoverZOffset;
     [SerializeField]
     private float hoverAnimationTime;
+    [SerializeField]
+    private Vector3 handVisiblePosition;
+    [SerializeField]
+    private Vector3 handMinimizedPosition;
 
     [SerializeField]
     private SplineContainer cardInHandSelectionSpline;
@@ -111,6 +115,9 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     private int lastHoveredIndex = -1;
     private float splineMiddleYpos;
     public List<PlayableCard> cardsInSelectionSpline = null;
+    private bool handMinimized = true;
+    private bool forceHandVisible = false;
+    private Coroutine handMinimizationCoroutine = null;
 
     void Awake()
     {
@@ -120,6 +127,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         selectionView = new CardInHandSelectionView(
                 cardInHandSelectionDoc,
                 cardInHandSelectionDoc.rootVisualElement.Q<VisualElement>("card-in-hand-selection-view"));
+        splineContainer.transform.position = handMinimizedPosition;
     }
 
     void Start()
@@ -139,7 +147,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         {
             orderedDeckInstances.Add(companion.GetDeckInstance());
             deckInstanceToPlayableCard.Add(companion.GetDeckInstance(), new List<PlayableCard>());
-            GameObject cardTabGO = Instantiate(cardTabPrefab);
+            GameObject cardTabGO = Instantiate(cardTabPrefab, splineContainer.transform);
             CardTab cardTab = cardTabGO.GetComponent<CardTab>();
             cardTab.Init(companion);
             companionGOToCardTab.Add(companion.gameObject, cardTab);
@@ -273,6 +281,8 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             .setEase(LeanTweenType.easeOutQuint);
         UpdateCardPositions(null);
 
+        CheckHandMinimization(true, false);
+
         if (EnemyEncounterManager.Instance.GetCastingCard()) return;
         HighlightRelevantCards(card.deckFrom);
     }
@@ -286,7 +296,47 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 .setEase(LeanTweenType.easeOutQuint);
         UpdateCardPositions();
 
+        CheckHandMinimization(false, true);
+
         HighlightRelevantCards(null);
+    }
+
+    public void CheckHandMinimization(bool cardHovered, bool cardUnhovered) {
+        if (forceHandVisible) {
+            if (handMinimized) SetHandMinimized(false);
+            return;
+        }
+
+        // A card was hovered and the coroutine isn't running -> show hand
+        if (cardHovered && handMinimizationCoroutine == null) {
+            if (handMinimized) SetHandMinimized(false);
+        // A card was hovered and the coroutine is running -> stop coroutine
+        } else if (cardHovered && handMinimizationCoroutine != null) {
+            StopCoroutine(handMinimizationCoroutine);
+            handMinimizationCoroutine = null;
+            if (handMinimized) SetHandMinimized(false);
+        // A card was unhovered and the coroutine isn't running -> start coroutine
+        } else if (cardUnhovered && handMinimizationCoroutine == null) {
+            handMinimizationCoroutine = StartCoroutine(HandMinimization());
+        // A card was unhovered and the coroutine is running -> do nothing
+        } else {
+        }
+    }
+
+    private IEnumerator HandMinimization() {
+        yield return new WaitForSeconds(0.2f);
+        SetHandMinimized(true);
+    }
+
+    private void SetHandMinimized(bool minimized) {
+        if (minimized) {
+            LeanTween.moveLocal(splineContainer.gameObject, handMinimizedPosition, 0.15f).setEase(LeanTweenType.easeInOutQuad);
+            handMinimized = true;
+        }
+        else {
+            LeanTween.moveLocal(splineContainer.gameObject, handVisiblePosition, 0.15f).setEase(LeanTweenType.easeInOutQuad);
+            handMinimized = false;
+        }
     }
 
     public void HighlightRelevantCards(DeckInstance deckFrom)
@@ -403,10 +453,10 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             LeanTween.rotate(cardTab.gameObject, rotation.eulerAngles, rotationTime)
                     .setEase(LeanTweenType.easeInOutQuad);
             Vector3 modifiedPosition = new Vector3(position.x, position.y, position.z + 0.1f);
-            LeanTween.move(cardTab.gameObject, modifiedPosition, isNewCard ? dealMoveTime : moveTime);
+            LeanTween.moveLocal(cardTab.gameObject, modifiedPosition, isNewCard ? dealMoveTime : moveTime);
         }
 
-        LeanTween.move(moveGO, position, isNewCard ? dealMoveTime : moveTime)
+        LeanTween.moveLocal(moveGO, position, isNewCard ? dealMoveTime : moveTime)
                 .setOnComplete(() =>
                 {
                     if (!isNewCard) return;
@@ -473,7 +523,8 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             Vector3 startPos = deckFrom.GetCardDealPosition();
             PlayableCard newCard = PrefabInstantiator.InstantiateCard(
                 cardPrefab,
-                EnemyEncounterManager.Instance.transform,
+                // EnemyEncounterManager.Instance.transform,
+                splineContainer.transform,
                 cardInfo,
                 deckFrom,
                 startPos);
@@ -526,7 +577,10 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
     public void HoverNextCardAfterCast()
     {
-        if (ControlsManager.Instance.GetControlMethod() == ControlsManager.ControlMethod.Mouse) return;
+        if (ControlsManager.Instance.GetControlMethod() == ControlsManager.ControlMethod.Mouse) {
+            CheckHandMinimization(false, true);
+            return;
+        }
 
         List<PlayableCard> cardsInHand = GetCardsOrdered();
         if (cardsInHand.Count == 0)
@@ -893,6 +947,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         // CardInHandSelectionView selectionView = combatEncounterView.GetCardSelectionView();
 
         SetHoverable(true);
+        forceHandVisible = true;
 
         List<PlayableCard> selectedCards = new List<PlayableCard>();
 
@@ -1014,6 +1069,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             UpdateOrderedCards();
             UpdateCardPositions();
             cardsInSelectionSpline = null;
+            forceHandVisible = false;
         }
 
         void SelectingCardConfirmed()
@@ -1040,6 +1096,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 }
                 UpdateOrderedCards();
                 UpdateCardPositions();
+                forceHandVisible = false;
             });
         }
 

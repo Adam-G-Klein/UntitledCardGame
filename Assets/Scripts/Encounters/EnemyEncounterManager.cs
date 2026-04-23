@@ -558,6 +558,15 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     {
         if (endTurnEnabled && TurnManager.Instance.GetTurnPhase() == TurnPhase.PLAYER_TURN)
         {
+            // Premature end turn reminder that helps the player not end turn when they still have cards to play.
+            if (gameState.BuildTypeDemoOrConvention()
+                && PlayerHand.Instance.StillEnoughManaToPlayCards(ManaManager.Instance.currentMana)
+                && !prematureEndTurnReminderDone)
+            {
+                prematureEndTurnReminderDone = true;
+                StartCoroutine(PrematureEndTurnReminderCoroutine());
+                return;
+            }
             FocusManager.Instance.Unfocus();
             StartCoroutine(turnPhaseEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseEventInfo(TurnPhase.BEFORE_END_PLAYER_TURN)));
             MusicController.Instance.PlaySFX("event:/SFX/SFX_PlayerEndTurn");
@@ -583,16 +592,6 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     public void ProcessGFGInputAction(GFGInputAction action)
     {
         if (action == GFGInputAction.END_TURN) {
-            // Premature end turn reminder that helps the player not end turn when they still have cards to play.
-            if (gameState.BuildTypeDemoOrConvention()
-                && PlayerHand.Instance.StillEnoughManaToPlayCards(ManaManager.Instance.currentMana)
-                && !prematureEndTurnReminderDone)
-            {
-                prematureEndTurnReminderDone = true;
-                StartCoroutine(PrematureEndTurnReminderCoroutine());
-                return;
-            }
-
             TryEndPlayerTurn();
             // Hint: add this back if you want the premarture end turn reminder to trigger multiple times a combat.
             // prematureEndTurnReminderDone = false;
