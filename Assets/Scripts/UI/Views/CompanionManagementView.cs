@@ -277,6 +277,9 @@ public class CompanionManagementView : IControlsReceiver {
     }
 
     public void SellCompanionButtonOnClick() {
+        // Don't allow selling companions in the demo.
+        if (ShopManager.Instance.gameState.BuildTypeDemoOrConvention() && ShopManager.Instance.getShopEncounter().shopData.shopMode == ShopMode.StaticChooseNDemo)
+            return;
         RemoveCompanionHoverButtons();
         viewDelegate.SellCompanion(this);
     }
