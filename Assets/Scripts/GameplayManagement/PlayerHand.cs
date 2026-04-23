@@ -414,7 +414,15 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                     if (cardTab != null) cardTab.Show();
 
                     // if (cardToMove.TryGetComponent<SpriteRenderer>(out var SR)) SR.sortingLayerName = "Cards"; // what is this magic
-                    if (canPlayCards) cardToMove.interactable = true;
+                    if (canPlayCards)
+                    {
+                        Debug.Log("PlayerHand: Card " + cardToMove.name + " is interactable because canPlayCards is TRUE");
+                        cardToMove.interactable = true;
+                    }
+                    else
+                    {
+                        Debug.Log("PlayerHand: Card " + cardToMove.name + " is not interactable because canPlayCards is false");
+                    }
                     if (canPlayCards) cardToMove.hoverable = true;
 
                     if (ControlsManager.Instance.GetControlMethod() == ControlsManager.ControlMethod.Mouse) return;
@@ -543,13 +551,15 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
     public void TurnPhaseChangedEventHandler(TurnPhaseEventInfo info)
     {
-        if (info.newPhase == TurnPhase.PLAYER_TURN)
+        if (info.newPhase == TurnPhase.BEFORE_START_PLAYER_TURN)
         {
+            Debug.Log("PlayerHand: Starting player turn, enabling hand");
             canPlayCards = true;
             indexToHover = 0;
         }
         if (info.newPhase == TurnPhase.END_PLAYER_TURN)
         {
+            Debug.Log("PlayerHand: Player turn ended, disabling hand");
             canPlayCards = false;
             List<PlayableCard> retainedCards = new();
             // Run the effect workflows for all the cards left in the hand,
