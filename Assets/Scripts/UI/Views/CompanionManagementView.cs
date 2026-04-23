@@ -160,7 +160,9 @@ public class CompanionManagementView : IControlsReceiver {
         if (viewDelegate == null) return;
         if (viewDelegate.IsSellingCompanions() || viewDelegate.IsDraggingCompanion() || upgradeAnimationPlaying) return;
         CreateViewDeckButton();
-        if (!isSellingDisabled) CreateSellCompanionButton();
+        if (!isSellingDisabled && (!ShopManager.Instance.gameState.BuildTypeDemoOrConvention() || ShopManager.Instance.getShopEncounter().shopData.shopMode != ShopMode.StaticChooseNDemo)) {
+            CreateSellCompanionButton();
+        }
         CreateCompanionBoundingBox();
         viewDelegate.DisplayTooltip(container, companion.companionType.GetTooltip(), TooltipContext.CompanionManagementView);
     }
