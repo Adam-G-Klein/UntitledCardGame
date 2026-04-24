@@ -4,7 +4,11 @@ using UnityEngine.Playables;
 
 public class ShopTutorialDisplay : MonoBehaviour
 {
-
+    public enum ShopTutorialToShow
+    {
+        FullFeatureShopTutorial,
+        CardOfferingShopTutorial,
+    }
     private ShopDataSO shopData;
     private EncounterConstantsSO encounterConstants;
     [SerializeField]
@@ -24,15 +28,38 @@ public class ShopTutorialDisplay : MonoBehaviour
     private float delayPerFreeCardRemovalGiven = 1f;
 
 
-    public void Setup(ShopDataSO shopDataSO, EncounterConstantsSO encounterConstants)
+    public void Setup(ShopDataSO shopDataSO, EncounterConstantsSO encounterConstants, ShopTutorialToShow shopTutorialToShow = ShopTutorialToShow.FullFeatureShopTutorial)
     {
         this.encounterConstants = encounterConstants;
-        shopData = shopDataSO;
-        StartCoroutine(ShopTutorialCoroutine());
+        this.shopData = shopDataSO;
+        StartCoroutine(RunTutorialWrapper(shopTutorialToShow));
+    }
+
+    private IEnumerator RunTutorialWrapper(ShopTutorialToShow shopTutorialToShow)
+    {
+        switch (shopTutorialToShow)
+        {
+            case ShopTutorialToShow.FullFeatureShopTutorial:
+                yield return FullFeatureShopTutorialCoroutine();
+                break;
+            case ShopTutorialToShow.CardOfferingShopTutorial:
+                yield return CardOfferingShopTutorialCoroutine();
+                break;
+        }
+        CinematicIntroComplete();
+    }
+
+    public IEnumerator CardOfferingShopTutorialCoroutine()
+    {
+        yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.CardBuyingTutorialStep1);
+        yield return new WaitForSeconds(2f);
+        MultiDeckViewManager.Instance.ShowShopDeckView();
+        yield return new WaitForSeconds(2f);
+        yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.CardBuyingTutorialStep2);
     }
 
     // Called here, so we can wait on the first dialogue to finish before starting the cinematic
-    public IEnumerator ShopTutorialCoroutine()
+    public IEnumerator FullFeatureShopTutorialCoroutine()
     {
         // UI stays disabled from the call in ShopManager, it's waiting on cinematicIntroComplete = true;
         int prevGold = ShopManager.Instance.gameState.playerData.GetValue().gold;
@@ -48,7 +75,6 @@ public class ShopTutorialDisplay : MonoBehaviour
         yield return new WaitForSeconds(postFreeRerollDelay);
         yield return GiveFreeCardRemovals();
         yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.FullFeatureShopTutorialStep4);
-        CinematicIntroComplete();
     }
 
     public IEnumerator GiveFreeRerolls()

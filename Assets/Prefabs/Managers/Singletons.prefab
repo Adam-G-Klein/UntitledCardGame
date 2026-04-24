@@ -102,7 +102,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 628815193
-  m_SortingOrder: 200
+  m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!114 &5249614791031580760
 MonoBehaviour:
@@ -929,14 +929,14 @@ MonoBehaviour:
     We did bring you here to win...
   - An additional companion results in an extra card drawn each turn. Please choose
     from one of our available candidates.
-  cardOfferingTipsDialogue:
-  - You can purchase cards to add to your companion's respective decks. These cards
-    will stay in a companion's deck for the rest of your run- so please distribute
-    them strategically.
-  - 'You will draw one card from each rat in every turn. A word of advice, if I may:
-    separating cards that work well together across different rats increases the
-    likelihood they can be drawn in the same hand.'
-  - Do with that what you will!
+  cardBuyingTutorialStep1Dialogue:
+  - I almost forgot to explain a critical element of playing Paccarat. Before you
+    pick which rat should have the new card, you should pull the deck view for full
+    information.
+  cardBuyingTutorialStep2Dialogue:
+  - Here, you can see what's in each rat's deck. I recommend placing cards that synergize
+    with each other in different decks - you will be more likely to draw them in
+    the same hand.
   secondShopTutorialStep1Dialogue:
   - The invisible paw of the Paccarat market has returned- this is how you can expect
     things here to appear from now on.

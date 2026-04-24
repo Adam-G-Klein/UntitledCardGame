@@ -55,7 +55,9 @@ public class DemoDirector : GenericSingleton<DemoDirector>
     [TextArea]
     public List<string> buyCompanionReminderStepDialogue;
     [TextArea]
-    public List<string> cardOfferingTipsDialogue;
+    public List<string> cardBuyingTutorialStep1Dialogue;
+    [TextArea]
+    public List<string> cardBuyingTutorialStep2Dialogue;
     [TextArea]
     public List<string> secondShopTutorialStep1Dialogue;
     [TextArea]
@@ -134,8 +136,20 @@ public class DemoDirector : GenericSingleton<DemoDirector>
                 yield return BuyCompanionReminderStep();
             break;
 
-            case DemoStepName.CardOfferingTips:
-                yield return CardOfferingTipsStep();
+            case DemoStepName.CardBuyingTutorialStep1:
+                foreach (string line in cardBuyingTutorialStep1Dialogue) {
+                    yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, line, true);
+                }
+                DialogueView.Instance.Hide();
+                demoDataSO.stepCompletion[DemoStepName.CardBuyingTutorialStep1] = true;
+            break;
+
+            case DemoStepName.CardBuyingTutorialStep2:
+                foreach (string line in cardBuyingTutorialStep2Dialogue) {
+                    yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, line, true);
+                }
+                DialogueView.Instance.Hide();
+                demoDataSO.stepCompletion[DemoStepName.CardBuyingTutorialStep2] = true;
             break;
 
             case DemoStepName.FullFeatureShopTutorialStep1:
@@ -221,14 +235,6 @@ public class DemoDirector : GenericSingleton<DemoDirector>
         demoDataSO.stepCompletion[DemoStepName.BuyCompanionReminder] = true;
     }
 
-    public IEnumerator CardOfferingTipsStep() {
-        foreach (string line in cardOfferingTipsDialogue) {
-            yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, line, true);
-        }
-        DialogueView.Instance.Hide();
-        demoDataSO.stepCompletion[DemoStepName.CardOfferingTips] = true;
-    }
-
     public IEnumerator FullFeatureShopTutorialStep1() {
         foreach (string line in secondShopTutorialStep1Dialogue) {
             yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, line, true);
@@ -283,7 +289,7 @@ public enum DemoStepName {
     MoreRewardsThanUsual,
     StartOfFirstStaticChooseNShop,
     BuyCompanionReminder,
-    CardOfferingTips,
+    CardBuyingTutorialStep1,
     FullFeatureShopTutorialStep1,
     FullFeatureShopTutorialStep2,
     FullFeatureShopTutorialStep3,
@@ -293,4 +299,5 @@ public enum DemoStepName {
     PrematureEndTurnReminder,
     CombatTutorialStep,
     YouShouldSpendYourMoneyBozo,
+    CardBuyingTutorialStep2,
 }

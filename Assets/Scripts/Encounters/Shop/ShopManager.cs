@@ -131,12 +131,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             }
             else if (!DemoDirector.Instance.IsStepCompleted(DemoStepName.FullFeatureShopTutorialStep1))
             {
-                shopViewController.DisableAllUIPreserveAppearance();
-                shopTutorialDisplay = GetComponent<ShopTutorialDisplay>();
-                // this setup method is what plays the dialogue and then the timeline
-                shopTutorialDisplay?.Setup(shopEncounter.shopData, encounterConstants);
-                cinematicIntroComplete = false;
-                StartCoroutine(CinematicStartOfShopCoroutine());
+                StartCoroutine(RunShopTutorial(ShopTutorialDisplay.ShopTutorialToShow.FullFeatureShopTutorial));
             }
         }
     }
@@ -144,6 +139,21 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     public void CinematicIntroComplete()
     {
         cinematicIntroComplete = true;
+    }
+
+    private IEnumerator RunShopTutorial(ShopTutorialDisplay.ShopTutorialToShow shopTutorialToShow, bool waitForReroll = false)
+    {
+        if (waitForReroll)
+        {
+            // Wait until the reroll animation is done if we're supposed to wait for it
+            yield return new WaitUntil(() => shopViewController.DoneWithReroll());
+        }
+        shopViewController.DisableAllUIPreserveAppearance();
+        shopTutorialDisplay = GetComponent<ShopTutorialDisplay>();
+        // this setup method is what plays the dialogue and then the timeline
+        shopTutorialDisplay?.Setup(shopEncounter.shopData, encounterConstants, shopTutorialToShow);
+        cinematicIntroComplete = false;
+        StartCoroutine(CinematicStartOfShopCoroutine());
     }
 
     private IEnumerator CinematicStartOfShopCoroutine()
@@ -345,7 +355,8 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
                     rerollShop();
 
-                    if (numRatsBoughtThisShop >= shopEncounter.shopData.numRatsBuyPerShop && gameState.BuildTypeDemoOrConvention())
+                    if (numRatsBoughtThisShop >= shopEncounter.shopData.numRatsBuyPerShop &&
+                        gameState.BuildTypeDemoOrConvention())
                     {
                         StartCoroutine(RunShopDialogueStep(ShopDemoEvent.CardOfferingTips, waitForReroll: true));
                     }
@@ -456,6 +467,15 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         Companion companion = companionView.companion;
         if (this.buyingCard)
         {
+            // Put us into a tutorial.
+            if (shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo &&
+                gameState.BuildTypeDemoOrConvention() &&
+                !DemoDirector.Instance.IsStepCompleted(DemoStepName.CardBuyingTutorialStep1))
+            {
+                StartCoroutine(RunShopTutorial(ShopTutorialDisplay.ShopTutorialToShow.CardOfferingShopTutorial));
+                return;
+            }
+
             shopViewController.DestroyAllTooltips();
             if (!IsApplicableCompanion(currentCardBuyRequest, companion)) return;
             Card newCard = new Card(currentCardBuyRequest.cardType, companion.companionType, currentCardBuyRequest.rarity);
