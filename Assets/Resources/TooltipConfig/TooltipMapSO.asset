@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectTooltipMappings:
   - title: Strength
-    description: Increases every instance of damage this companion deals
+    description: Increases the damage of every Attack card you play from this rat
     relateBehaviorIndex: 0
     image: {fileID: 0}
     tooltipKeyword: 6
   - title: Block
-    description: Prevents up to X damage dealt to this companion until next turn
+    description: Prevents up to X damage dealt to this rat until next turn
     relateBehaviorIndex: 0
     image: {fileID: 0}
     tooltipKeyword: 7
@@ -29,7 +29,7 @@ MonoBehaviour:
     image: {fileID: 0}
     tooltipKeyword: 0
   - title: Draw
-    description: Choose a companion to draw X cards from
+    description: Choose a rat to draw X cards from
     relateBehaviorIndex: 0
     image: {fileID: 0}
     tooltipKeyword: 3
@@ -40,7 +40,7 @@ MonoBehaviour:
     image: {fileID: 0}
     tooltipKeyword: 5
   - title: Discard
-    description: Moves the card to the companion's discard pile
+    description: Moves the card to the rat's discard pile
     relateBehaviorIndex: 0
     image: {fileID: 0}
     tooltipKeyword: 2
@@ -275,9 +275,9 @@ MonoBehaviour:
   - title: Bleed
     descriptionIconType: 9
     description: Rat loses X HP ignoring any block
-  - title: Energy
+  - title: "\xC9lan"
     descriptionIconType: 10
-    description: Gain 1 energy that you can spend on playing cards
+    description: "Gain 1 \xC9lan that you can spend on playing cards"
   - title: Self
     descriptionIconType: 11
     description: The effect targets the rat who cast this card
