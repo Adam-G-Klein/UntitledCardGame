@@ -559,9 +559,11 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         if (endTurnEnabled && TurnManager.Instance.GetTurnPhase() == TurnPhase.PLAYER_TURN)
         {
             // Premature end turn reminder that helps the player not end turn when they still have cards to play.
+            // Don't activate on the first onboarding combat.
             if (gameState.BuildTypeDemoOrConvention()
                 && PlayerHand.Instance.StillEnoughManaToPlayCards(ManaManager.Instance.currentMana)
-                && !prematureEndTurnReminderDone)
+                && !prematureEndTurnReminderDone
+                && gameState.currentEncounterIndex > 0)
             {
                 prematureEndTurnReminderDone = true;
                 StartCoroutine(PrematureEndTurnReminderCoroutine());
