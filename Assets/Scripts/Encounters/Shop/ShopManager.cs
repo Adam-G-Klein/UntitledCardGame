@@ -188,8 +188,13 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         shopViewController.ShowFreeCardRemovals();
     }
 
-    public IEnumerator RunShopDialogueStep(ShopDemoEvent stepName)
+    public IEnumerator RunShopDialogueStep(ShopDemoEvent stepName, bool waitForReroll = false)
     {
+        if (waitForReroll)
+        {
+            // Wait until the reroll animation is done if we're supposed to wait for it
+            yield return new WaitUntil(() => shopViewController.DoneWithReroll());
+        }
         shopViewController.DisableAllUI();
         yield return DemoDirector.Instance.InvokeDemoStepForShopDemoEventCoroutine(stepName, shopIndex);
         shopViewController.EnableAllUI();
@@ -335,14 +340,15 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                     if (numRatsBoughtThisShop >= shopEncounter.shopData.numRatsBuyPerShop)
                     {
                         currentDemoShopPhase = ShopPhase.CARD_BUYING_PHASE;
-                        if (gameState.BuildTypeDemoOrConvention())
-                        {
-                            StartCoroutine(RunShopDialogueStep(ShopDemoEvent.CardOfferingTips));
-                        }
                         SetDraftingHelpText(shopEncounter.shopData.numCardsBuyPerDisplay, shopEncounter.shopData.numCardsBuyPerShop - numCardsBoughtThisShop);
                     }
 
                     rerollShop();
+
+                    if (numRatsBoughtThisShop >= shopEncounter.shopData.numRatsBuyPerShop && gameState.BuildTypeDemoOrConvention())
+                    {
+                        StartCoroutine(RunShopDialogueStep(ShopDemoEvent.CardOfferingTips, waitForReroll: true));
+                    }
                 }
             }
         }

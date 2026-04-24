@@ -115,6 +115,8 @@ public class ShopViewController : MonoBehaviour,
 
     private VisualElement draftingHelpContainer;
 
+    private bool doneWithReroll = true;
+
     public void Start()
     {
         ControlsManager.Instance.RegisterControlsReceiver(this);
@@ -155,6 +157,8 @@ public class ShopViewController : MonoBehaviour,
         deckView = uiDoc.rootVisualElement.Q("deck-view");
         deckViewContentContainer = uiDoc.rootVisualElement.Q("deck-view-card-area");
         genericMessageBox = uiDoc.rootVisualElement.Q("generic-message-box");
+
+        doneWithReroll = true;
 
         SetupActiveSlots();
         SetBlockedActiveSlotsIfNecessary(shopManager.gameState.companions.currentCompanionSlots);
@@ -744,6 +748,7 @@ public class ShopViewController : MonoBehaviour,
     // Handles both the VFX and setting up the new area
     public void Reroll(List<CardInShopWithPrice> cards, List<CompanionInShopWithPrice> companions)
     {
+        doneWithReroll = false;
         RemoveAllCompanionShineVFX();
         rerollButton.SetEnabled(false);
         VisualElement tempParentContainer = CreateTempContainer(shopGoodsArea.resolvedStyle.width, shopGoodsArea.resolvedStyle.height);
@@ -869,9 +874,15 @@ public class ShopViewController : MonoBehaviour,
                     tempParentContainer.RemoveFromHierarchy();
                     rerollButton.SetEnabled(true);
                     AddCompanionShineVFX();
+                    doneWithReroll = true;
                 });
             delay += rerollTimeBetweenItems;
         }
+    }
+
+    public bool DoneWithReroll()
+    {
+        return doneWithReroll;
     }
 
     private VisualElement CreateTempContainer(float width, float height)
