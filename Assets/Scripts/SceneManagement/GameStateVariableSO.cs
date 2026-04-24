@@ -32,6 +32,12 @@ public enum BuildType
     CONVENTION // resets progress/tutorials after each run
 }
 
+public enum RunOutcome {
+    Undetermined,
+    Victory,
+    Defeat
+}
+
 [CreateAssetMenu(
     fileName = "NewGameStateVariable",
     menuName = "Variables/Game State Variable")]
@@ -57,6 +63,7 @@ public class GameStateVariableSO : ScriptableObject
     public CompanionInstance hoveredCompanion = null;
     public int currentEncounterIndex = 0;
     public Guid currentRunID;
+    public RunOutcome currentRunOutcome;
     [SerializeField]
     public bool skipTutorials = false;
     [SerializeField]
@@ -341,6 +348,7 @@ public class GameStateVariableSO : ScriptableObject
         currentEncounterIndex = 0;
         currentRunID = Guid.NewGuid();
         map.SetValue(mapGeneratorSO.generateMap());
+        currentRunOutcome = RunOutcome.Undetermined;
 
         // Record an event to record the start of the run.
         // We should move this to the pack selection screen or the starting team

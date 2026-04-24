@@ -41,6 +41,11 @@ public class DefeatView : MonoBehaviour
         button = doc.rootVisualElement.Q<Button>();
         button.RegisterOnSelected(() => {
             button.SetEnabled(false);
+            // modified for deckbuilder fest
+            if (EnemyEncounterManager.Instance.gameState.BuildTypeDemoOrConvention()) {
+                SceneTransitionManager.LoadScene("DemoEndOfRun");
+                return;
+            }
             // go to end of run progress scene if there are any achievements to display
             if (ProgressManager.Instance.achievementSOList.Exists(x => x.lockedInProgress < x.target)) {
                 SceneTransitionManager.LoadScene("EndOfRunProgressScene", .5f);

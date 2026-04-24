@@ -1,0 +1,19 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/fontStyling.uss?fileID=7433441132597879392&amp;guid=d0c0881f1c32747ecb649373600de095&amp;type=3#fontStyling" />
+    <Style src="project://database/Assets/UI/common.uss?fileID=7433441132597879392&amp;guid=8d0bc28a2ed710a44b762e4c857ac6f9&amp;type=3#common" />
+    <ui:VisualElement name="background" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/Environments/HotelLobbyDemoVersBlurred.png?fileID=2800000&amp;guid=3445d23f6f476fe418540739dcd1feac&amp;type=3#HotelLobbyDemoVersBlurred&quot;); -unity-background-image-tint-color: rgb(184, 184, 184); align-items: center;">
+        <ui:VisualElement style="flex-grow: 1; width: 60%;">
+            <ui:VisualElement style="flex-grow: 0; align-items: stretch; justify-content: flex-end; height: 50%;">
+                <ui:VisualElement name="text-box-background" style="flex-grow: 0; height: 60%;">
+                    <ui:VisualElement style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/UI/GFG_UI__0004s_0001s_0003_Unit-management_BG_Flat.png?fileID=2800000&amp;guid=4e65776cb2eab7a44b2c15877ca4f342&amp;type=3#GFG_UI__0004s_0001s_0003_Unit-management_BG_Flat&quot;); -unity-background-scale-mode: scale-to-fit; scale: 0.98 0.97; translate: 0 17px;" />
+                    <ui:VisualElement style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/UI/GFG_UI__0004s_0001s_0000_Unit-Managementbox.png?fileID=2800000&amp;guid=859b2acc6dd679a4f8840c2041fadcd0&amp;type=3#GFG_UI__0004s_0001s_0000_Unit-Managementbox&quot;); position: absolute; width: 100%; height: 100%; -unity-background-scale-mode: scale-to-fit;" />
+                    <ui:Label tabindex="-1" text="Thanks for playing the demo.&#10;&#10;Complete the demo for a chance to win exclusive prizes!" parse-escape-sequences="true" display-tooltip-when-elided="true" enable-rich-text="true" name="main-label" style="position: absolute; top: 17%; bottom: 9%; left: 5%; right: 5%; font-size: 40px; white-space: normal; -unity-text-align: upper-center; -unity-font-style: normal;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-grow: 0; height: 50%; align-items: center; justify-content: center;">
+                <ui:Button text="Enter Raffle" parse-escape-sequences="true" display-tooltip-when-elided="true" name="enterButton" class="main-menu-button" style="width: 31%; height: 95px; margin-top: 10px; margin-right: 10px; margin-bottom: 10px; margin-left: 10px; font-size: 44px;" />
+                <ui:Button text="Main Menu" parse-escape-sequences="true" display-tooltip-when-elided="true" name="mainMenuButton" class="main-menu-button" style="width: 31%; height: 95px; font-size: 44px; margin-top: 13px; margin-right: 13px; margin-bottom: 13px; margin-left: 13px;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

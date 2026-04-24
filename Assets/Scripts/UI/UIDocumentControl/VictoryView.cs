@@ -41,8 +41,9 @@ public class VictoryView : MonoBehaviour
         button.RegisterOnSelected(() => {
             button.SetEnabled(false);
             // Added for GDC 2026
+            // modified for deckbuilder fest
             if (EnemyEncounterManager.Instance.gameState.BuildTypeDemoOrConvention()) {
-                SceneTransitionManager.LoadScene("MainMenu");
+                SceneTransitionManager.LoadScene("DemoEndOfRun");
                 return;
             }
             // go to end of run progress scene if there are any achievements to display

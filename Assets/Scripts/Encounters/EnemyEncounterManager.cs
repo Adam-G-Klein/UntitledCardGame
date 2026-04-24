@@ -356,6 +356,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         EntityVictoryStatsManager.Instance.ReportWin(gameState.companions.activeCompanions, gameState.ascensionLevel);
         SaveManager.Instance.DeleteSaveData();
         gameState.LoadNextLocation();
+        gameState.currentRunOutcome = RunOutcome.Victory;
         victoryUI.SetActive(true);
         MusicController.Instance.SetCombatState("Run Complete");
         uIStateEvent.Raise(new UIStateEventInfo(UIState.END_ENCOUNTER));
@@ -377,6 +378,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
             ProgressManager.Instance.UnlockCards();
         }
 
+        gameState.currentRunOutcome = RunOutcome.Defeat;
         SaveManager.Instance.DeleteSaveData();
         postGamePopup.SetActive(true);
         MusicController.Instance.SetCombatState("Defeat");

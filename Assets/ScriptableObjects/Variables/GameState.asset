@@ -13,10 +13,6 @@ MonoBehaviour:
   m_Name: GameState
   m_EditorClassIdentifier: 
   companions: {fileID: 11400000, guid: a3ca1b79c2cb46b44b803f391e148eb5, type: 2}
-  staticStartingTeamCompanions:
-  - {fileID: 11400000, guid: bb82c6f907d7346c1b0aa5847e323c44, type: 2}
-  - {fileID: 11400000, guid: 8f16f5410550d4b59aca1f1dc6e5f733, type: 2}
-  - {fileID: 11400000, guid: c8d7d8ca579c743b59b1b87f3aae4ad6, type: 2}
   playerData: {fileID: 11400000, guid: 04fd9f244e2a13e4d9e28d6e1a2f7a9a, type: 2}
   map: {fileID: 11400000, guid: 981cfb3346592264a80aab03d0b9594d, type: 2}
   companionPool:
@@ -32,6 +28,7 @@ MonoBehaviour:
   currentLocation: 9
   hoveredCompanion: {fileID: 0}
   currentEncounterIndex: 1
+  currentRunOutcome: 1
   skipTutorials: 0
   hasSeenPackSelectTutorial: 0
   hasSeenShopTutorial: 0
