@@ -820,4 +820,10 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         }
         return false;
     }
+
+    public bool HasNotSpentEnoughMoney()
+    {
+        int playerGold = gameState.playerData.GetValue().gold;
+        return playerGold > shopEncounter.shopData.maximumMoneyLeftBeforeNextCombat;
+    }
 }

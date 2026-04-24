@@ -68,6 +68,8 @@ public class DemoDirector : GenericSingleton<DemoDirector>
     public List<string> postCombatRewardsDialogueDialogue;
     [TextArea]
     public List<string> prematureEndTurnReminderDialogueLines;
+    [TextArea]
+    public List<string> youShouldSpendYourMoneyBozoDialogueLines;
 
     // Shop demo dialogues for a specific shop (index 0 is the first shop, index 1 is the second shop, etc.)
     [SerializeField]
@@ -163,7 +165,15 @@ public class DemoDirector : GenericSingleton<DemoDirector>
                 DialogueView.Instance.Hide();
                 demoDataSO.stepCompletion[DemoStepName.PrematureEndTurnReminder] = true;
             break;
-            
+
+            case DemoStepName.YouShouldSpendYourMoneyBozo:
+                foreach (string line in youShouldSpendYourMoneyBozoDialogueLines) {
+                    yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, line, true);
+                }
+                DialogueView.Instance.Hide();
+                demoDataSO.stepCompletion[DemoStepName.YouShouldSpendYourMoneyBozo] = true;
+                break;
+
             case DemoStepName.CombatTutorialStep:
                 yield return CombatTutorialStep();
             break;
@@ -282,4 +292,5 @@ public enum DemoStepName {
     StartOfSecondStaticChooseNShop,
     PrematureEndTurnReminder,
     CombatTutorialStep,
+    YouShouldSpendYourMoneyBozo,
 }

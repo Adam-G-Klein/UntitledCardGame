@@ -50,6 +50,7 @@ public class ShopDataSO : ScriptableObject
     public int freeMoney = 60;
     public int freeRerolls = 6;
     public int freeCardRemovals = 2;
+    public int maximumMoneyLeftBeforeNextCombat = 10;
 
     [Header("Neutral cards")]
     public CardPoolSO neutralCardPool;
