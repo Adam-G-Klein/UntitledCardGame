@@ -246,12 +246,22 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     }
 
     public void ProcessCardBuyRequestV2(ShopItemView shopItemView, CardInShopWithPrice cardInShop) {
-        if ((shopEncounter.shopData.shopMode != ShopMode.StaticChooseNDemo && gameState.playerData.GetValue().gold >= cardInShop.price) || (shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo && numCardsBoughtThisShop < shopEncounter.shopData.numCardsBuyPerShop)) {
+        if ((shopEncounter.shopData.shopMode != ShopMode.StaticChooseNDemo && gameState.playerData.GetValue().gold >= cardInShop.price) ||
+            (shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo && numCardsBoughtThisShop < shopEncounter.shopData.numCardsBuyPerShop)) {
             this.buyingCard = true;
             this.currentCardBuyRequest = cardInShop;
             this.currentCardBuyRequestItemView = shopItemView;
             shopViewController.CardBuyingSetup(shopItemView, cardInShop);
             shopViewController.DestroyAllTooltips();
+
+            // Activate a tutorial on the second card bought this shop.
+            if (gameState.BuildTypeDemoOrConvention() &&
+                shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo &&
+                !DemoDirector.Instance.IsStepCompleted(DemoStepName.CardBuyingTutorialStep1) &&
+                numCardsBoughtThisShop == 1) // we want to wait until the player has bought their first card to show the tutorial so that they have the context of buying a card before we show them how to click on a companion to give it to them
+             {
+                StartCoroutine(RunShopTutorial(ShopTutorialDisplay.ShopTutorialToShow.CardOfferingShopTutorial));
+            }
         } else {
             shopViewController.AlreadyBoughtBudgetOfCards();
         }
@@ -467,14 +477,14 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         Companion companion = companionView.companion;
         if (this.buyingCard)
         {
-            // Put us into a tutorial.
-            if (shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo &&
-                gameState.BuildTypeDemoOrConvention() &&
-                !DemoDirector.Instance.IsStepCompleted(DemoStepName.CardBuyingTutorialStep1))
-            {
-                StartCoroutine(RunShopTutorial(ShopTutorialDisplay.ShopTutorialToShow.CardOfferingShopTutorial));
-                return;
-            }
+            // Activate a tutorial for clicking on the card.
+            // if (shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo &&
+            //     gameState.BuildTypeDemoOrConvention() &&
+            //     !DemoDirector.Instance.IsStepCompleted(DemoStepName.CardBuyingTutorialStep1))
+            // {
+            //     StartCoroutine(RunShopTutorial(ShopTutorialDisplay.ShopTutorialToShow.CardOfferingShopTutorial));
+            //     return;
+            // }
 
             shopViewController.DestroyAllTooltips();
             if (!IsApplicableCompanion(currentCardBuyRequest, companion)) return;

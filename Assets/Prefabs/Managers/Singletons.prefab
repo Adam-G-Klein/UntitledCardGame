@@ -930,13 +930,18 @@ MonoBehaviour:
   - An additional companion results in an extra card drawn each turn. Please choose
     from one of our available candidates.
   cardBuyingTutorialStep1Dialogue:
-  - I almost forgot to explain a critical element of playing Paccarat. Before you
-    pick which rat should have the new card, you should pull the deck view for full
-    information.
+  - Before you buy your second card, I will offer a word of advice.
+  - It helps to look at the contents of your team's decks before placing new cards.
+    Give me a second and I'll show you.
   cardBuyingTutorialStep2Dialogue:
-  - Here, you can see what's in each rat's deck. I recommend placing cards that synergize
-    with each other in different decks - you will be more likely to draw them in
-    the same hand.
+  - The first card you bought was an Attack. See where it is?
+  - The Skill card we are buying now works well with Attack cards. I recommend placing
+    it in a different deck than the Attack you bought.
+  - Why, you might ask? You draw one from each rat each turn in Paccarat, so you
+    are more likely to draw cards that work well together if they are distributed
+    across different decks.
+  - There is some strategic depth here. I've been here a long time and I still don't
+    know all that's possible. Take your time.
   secondShopTutorialStep1Dialogue:
   - The invisible paw of the Paccarat market has returned- this is how you can expect
     things here to appear from now on.
@@ -961,8 +966,8 @@ MonoBehaviour:
     you want to end your turn?
   youShouldSpendYourMoneyBozoDialogueLines:
   - Before you face the Baron, be warned that he is exceptionally strong. Please
-    spend the money we gave you to make your team better - you can't keep it for
-    later...
+    spend the money we gave you to make your team better because you can't keep it
+    for later...
   shopDemoDialogues:
   - shopDemoDialoguesForEvents:
     - shopDemoEvent: 1
@@ -977,12 +982,8 @@ MonoBehaviour:
 '
     - shopDemoEvent: 2
       dialogueLines:
-      - Now, you get to add new cards to your rats' decks. If you don't mind, I'll
-        pass on some advice from a wise old rat who used to work here.
-      - Take a look at your team's decks before placing new cards. Decks do not exist
-        in isolation in Paccarat.
-      - 'Last thing, cards that work well together should go in different decks,
-        because you''re more likely to draw them at the same time. '
+      - Now, you get to add new cards to your rats' decks. Improving your team's
+        decks is a critical element of success in Paccarat.
   - shopDemoDialoguesForEvents:
     - shopDemoEvent: 1
       dialogueLines:

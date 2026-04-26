@@ -96,9 +96,9 @@ public class MultiDeckView
 
         if (ControlsManager.Instance.GetControlMethod() == ControlsManager.ControlMethod.KeyboardController) {
             // Wait two frames to update the tab button icons
-            tabButtonContainer.schedule.Execute(() => { 
-                tabButtonContainer.schedule.Execute(() => { 
-                    SetTabButtonIconsPositionAndVisible(true); 
+            tabButtonContainer.schedule.Execute(() => {
+                tabButtonContainer.schedule.Execute(() => {
+                    SetTabButtonIconsPositionAndVisible(true);
                 }).StartingIn(0);
             }).StartingIn(0);
         }
@@ -138,12 +138,12 @@ public class MultiDeckView
 
         // TODO Setup IconChanger visual elements for tab buttons
         IconVisualElement leftTabIconVE = new IconVisualElement(tabLeftIcon);
-        leftTabIconVE.SetIcon(GFGInputAction.MULTI_DECK_VIEW_TAB_LEFT, 
+        leftTabIconVE.SetIcon(GFGInputAction.MULTI_DECK_VIEW_TAB_LEFT,
                 ControlsManager.Instance.GetSpriteForGFGAction(GFGInputAction.MULTI_DECK_VIEW_TAB_LEFT));
         ControlsManager.Instance.RegisterIconChanger(leftTabIconVE);
 
         IconVisualElement rightTabIconVE = new IconVisualElement(tabRightIcon);
-        rightTabIconVE.SetIcon(GFGInputAction.MULTI_DECK_VIEW_TAB_RIGHT, 
+        rightTabIconVE.SetIcon(GFGInputAction.MULTI_DECK_VIEW_TAB_RIGHT,
                 ControlsManager.Instance.GetSpriteForGFGAction(GFGInputAction.MULTI_DECK_VIEW_TAB_RIGHT));
         ControlsManager.Instance.RegisterIconChanger(rightTabIconVE);
 
@@ -241,7 +241,7 @@ public class MultiDeckView
 
         if (inTransition || indexOfSection == 0) return; // remove this line to enable wrap around
         UnFocusDeckSection(deckSectionView, false);
-        
+
         FocusDeckSection(deckTabView.sectionViews[indexOfSection - 1], false);
         deckTabView.focusedSectionView = deckTabView.sectionViews[indexOfSection - 1];
         nameLabel.text = deckTabView.focusedSectionView.deckTabSection.companion.GetName();
@@ -601,7 +601,23 @@ public class MultiDeckView
         tooltipController.DestroyAllTooltips();
     }
 
-    public void TurnOffInteractions() {
+    public void DisableInteractions() {
+        FocusManager.Instance.UnlockFocusables();
+        FocusManager.Instance.StashFocusables(this.GetType().Name + "Interactions");
+        FocusManager.Instance.LockFocusables();
+        // Disable clicking on everything in the view
+        UIDocumentUtils.SetAllPickingMode(uiDocument.rootVisualElement, PickingMode.Ignore);
+    }
+
+    public void EnableInteractions() {
+        FocusManager.Instance.UnlockFocusables();
+        FocusManager.Instance.UnstashFocusables(this.GetType().Name + "Interactions");
+        FocusManager.Instance.LockFocusables();
+        // Enable clicking on everything in the view
+        UIDocumentUtils.SetAllPickingMode(uiDocument.rootVisualElement, PickingMode.Position);
+    }
+
+    public void TurnOffInteractionsAndHide() {
         ToggleVisibility(false);
         CleanUp();
         isEnabled = false;

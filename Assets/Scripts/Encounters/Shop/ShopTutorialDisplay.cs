@@ -54,8 +54,10 @@ public class ShopTutorialDisplay : MonoBehaviour
         yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.CardBuyingTutorialStep1);
         yield return new WaitForSeconds(2f);
         MultiDeckViewManager.Instance.ShowShopDeckView();
+        MultiDeckViewManager.Instance.DisableInteractions();
         yield return new WaitForSeconds(2f);
         yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.CardBuyingTutorialStep2);
+        MultiDeckViewManager.Instance.EnableInteractions();
     }
 
     // Called here, so we can wait on the first dialogue to finish before starting the cinematic

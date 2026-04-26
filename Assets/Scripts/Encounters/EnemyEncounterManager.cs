@@ -389,7 +389,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     }
 
     public void TurnOffInteractions() {
-        MultiDeckViewManager.Instance.TurnOffInteractions();
+        MultiDeckViewManager.Instance.TurnOffInteractionsAndHide();
         FocusManager.Instance.UnregisterAll();
         PlayerHand.Instance.DisableHand();
         combatEncounterView.DisableInteractions();

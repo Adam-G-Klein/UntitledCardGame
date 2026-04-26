@@ -31,6 +31,7 @@ public class MultiDeckViewManager : GenericSingleton<MultiDeckViewManager>, IMul
     private event EnterExitVoidHandler onViewEnterHandler;
     private event EnterExitVoidHandler onViewExitHandler;
     private bool optionsMenuOpen = false;
+    private bool interactionsEnabled = true;
 
     public enum TabType
     {
@@ -46,6 +47,7 @@ public class MultiDeckViewManager : GenericSingleton<MultiDeckViewManager>, IMul
         mainCamera = Camera.main;
         OptionsViewController.Instance.SetEnterHandler(() => optionsMenuOpen = true);
         OptionsViewController.Instance.SetExitHandler(() => optionsMenuOpen = false);
+        interactionsEnabled = true;
     }
 
     public void OnViewEnter()
@@ -216,9 +218,22 @@ public class MultiDeckViewManager : GenericSingleton<MultiDeckViewManager>, IMul
         onViewExitHandler?.Invoke();
     }
 
+    public void DisableInteractions()
+    {
+        multiDeckView.DisableInteractions();
+        interactionsEnabled = false;
+    }
+
+    public void EnableInteractions()
+    {
+        multiDeckView.EnableInteractions();
+        interactionsEnabled = true;
+    }
+
     public void ProcessGFGInputAction(GFGInputAction action)
     {
         if (optionsMenuOpen) return;
+        if (!interactionsEnabled) return;
         if (action == GFGInputAction.BACK)
         {
             multiDeckView.ExitButtonClicked(multiDeckView.exitButton.CreateFakeClickEvent());
@@ -285,9 +300,9 @@ public class MultiDeckViewManager : GenericSingleton<MultiDeckViewManager>, IMul
         onViewExitHandler += handler;
     }
 
-    public void TurnOffInteractions()
+    public void TurnOffInteractionsAndHide()
     {
-        multiDeckView.TurnOffInteractions();
+        multiDeckView.TurnOffInteractionsAndHide();
     }
 }
 

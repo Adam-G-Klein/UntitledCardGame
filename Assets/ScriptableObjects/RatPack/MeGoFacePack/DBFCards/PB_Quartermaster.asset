@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 1a44e95d-1040-4aea-99e9-8dcd8d37fde7
   Name: Quartermaster
-  Description: Discount 3 random Attack cards in hand by 1 energy
+  Description: "Discount 2 random Attack cards in hand by 1 \xC9lan"
   IconDescription: []
   IconDescriptionTooltipLines: []
   defaultValues: []
-  Cost: 1
+  Cost: 0
   Artwork: {fileID: 21300000, guid: 5f66e07752da0d34ca5ca0b6a327d011, type: 3}
   cardCategory: 2
   packFrom: {fileID: 11400000, guid: 908f28c6f48104c2d85d2fcbd973771e, type: 2}
@@ -89,7 +89,7 @@ MonoBehaviour:
       data:
         effectStepName: GetRandomItems
         inputKey: attacks
-        scale: 3
+        scale: 2
         scaleKey: 
         getScaleFromKey: 0
         outputKey: selected
