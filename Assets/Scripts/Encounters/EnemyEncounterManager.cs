@@ -80,23 +80,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         OptionsViewController.Instance.SetExitHandler(OnMenuClosedHandler);
         MultiDeckViewManager.Instance.SetEnterHandler(OnDeckViewOpenedHandler);
         MultiDeckViewManager.Instance.SetExitHandler(OnDeckViewClosedHandler);
-        StartCoroutine(SetupCombatAfterAnyDemoCutscene());
-    }
-
-    IEnumerator SetupCombatAfterAnyDemoCutscene()
-    {
-        /*
-            If we go into the first if, the CombatOnboardingDirector ends up calling
-            combatEncounterView setup functions, LateStart and BuildEnemyEncounter.
-            It needs to do it in a special way.
-        */
-        if (!DemoDirector.Instance.IsStepCompleted(DemoStepName.CombatTutorialStep)){
-            combatEncounterView.SetPersistentElementsVisible(false);
-            yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.CombatTutorialStep);
-        } else {
-            combatEncounterView.SetupFromGamestate(this);
-            StartCoroutine(StartWhenUIDocReady());
-        }
+        combatEncounterView.SetupFromGamestate(this);
     }
 
     public IEnumerator StartWhenUIDocReady() {
@@ -210,6 +194,11 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
             yield return new WaitUntil(() => DemoDirector.Instance.IsStepCompleted(DemoStepName.CombatTutorialStep));
         }
         // todo, yield return on additional dialogue being complete from another manager?
+        if (!DemoDirector.Instance.IsStepCompleted(DemoStepName.CombatTutorialStep) && !gameState.HasSeenCombatTutorial){
+            combatEncounterView.SetPersistentElementsVisible(false);
+            yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.CombatTutorialStep);
+        } 
+        StartCoroutine(StartWhenUIDocReady());
         startTheTurns = true;
         yield return null;
     }
