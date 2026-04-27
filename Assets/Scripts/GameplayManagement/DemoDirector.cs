@@ -102,11 +102,16 @@ public class DemoDirector : GenericSingleton<DemoDirector>
     }
 
     public bool IsStepCompleted(DemoStepName stepName) {
-        // Shouldn't hit this case but worth checking
         if(demoDataSO.stepCompletion == null) // necessary when running in editor
         {
             Reset();
         }
+        if(stepName == DemoStepName.CombatTutorialStep 
+            && gameState.HasSeenCombatTutorial) {
+            return true;
+        }
+
+        
         if (!demoDataSO.stepCompletion.ContainsKey(stepName)) {
             return true;
         }
