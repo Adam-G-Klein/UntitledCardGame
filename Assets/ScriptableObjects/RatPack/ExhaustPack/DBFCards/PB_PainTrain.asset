@@ -15,11 +15,13 @@ MonoBehaviour:
   guid: ff87b2e5-f96a-4e22-8592-f2dd6e6951d7
   Name: 
   Description: 
+  IconDescription: []
+  IconDescriptionTooltipLines: []
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 0}
   cardCategory: 5
-  packFrom: {fileID: 0}
+  packFrom: {fileID: 11400000, guid: 79e479ca9df7a4369ba7fa951e0af116, type: 2}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
@@ -59,6 +61,7 @@ MonoBehaviour:
         specialTargetRule: 4
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 754093991137641291
       type: {class: ActivatePower, ns: , asm: Assembly-CSharp}
       data:

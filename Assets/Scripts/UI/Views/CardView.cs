@@ -15,7 +15,7 @@ public class CardView {
     public Color modifiedManaCostColor = Color.green;
 
     private static float BASE_WIDTH = 543f;
-    private static float BASE_HEIGHT = 832f;
+    private static float BASE_HEIGHT = 760f;
     private CardType cardType;
 
     private VisualElement cardRoot;
@@ -110,7 +110,7 @@ public class CardView {
         PackSO packFrom = packSO;
         if (packSO == null) {
             if (card.packFrom != null)  packFrom = card.packFrom;
-            else if (companionType.pack != null) packFrom = companionType.pack ;
+            else if (companionType != null) packFrom = companionType.pack;
         }
 
         if (packFrom != null)

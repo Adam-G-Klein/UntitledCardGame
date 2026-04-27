@@ -17,7 +17,7 @@
             <ui:Label tabindex="-1" text="Eternal Flame" parse-escape-sequences="true" display-tooltip-when-elided="true" name="cardName" class="cardName" style="-unity-font: resource(&apos;fonts/Quattrocento-Bold&apos;); -unity-font-style: normal; top: 7.5%; left: 30%;" />
             <ui:Label tabindex="-1" text="Attack" parse-escape-sequences="true" display-tooltip-when-elided="true" name="cardTypeLabel" class="cardTypeLabel" style="-unity-font: resource(&apos;fonts/Quattrocento-Regular&apos;); top: 19.5%; left: 50%;" />
         </ui:VisualElement>
-        <ui:VisualElement name="cardIconDesc" class="iconDescContainer cardDescription" style="width: 67%; height: 63%; bottom: 10%;">
+        <ui:VisualElement name="cardIconDesc" class="iconDescContainer cardDescription">
             <ui:VisualElement name="firstRow" class="iconDescRow">
                 <ui:Label tabindex="-1" text="5" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" class="iconDescLabel" style="margin-bottom: 4px;" />
                 <ui:VisualElement name="VisualElement" class="iconDescSprite" style="background-image: url(&quot;project://database/Assets/Sprites/CardIcons/DamageIcon.png?fileID=2800000&amp;guid=104ad0eef62e94fc6a6d6a1777285e63&amp;type=3#DamageIcon&quot;);" />
