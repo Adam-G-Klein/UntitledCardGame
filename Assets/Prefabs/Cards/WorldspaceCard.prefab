@@ -64,7 +64,7 @@ MonoBehaviour:
   m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PanelSettings: {fileID: 0}
+  m_PanelSettings: {fileID: 11400000, guid: 97c73e73c4e3b3e45b48a7ae25296741, type: 2}
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: 750a6489c3d9f16428c86e584580b9e0, type: 3}
   m_SortingOrder: 0
@@ -80,8 +80,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 927efa6efeb5b8946b1eb4261070c0c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CARD_SIZE: {x: 1, y: 1.53}
-  HITBOX_SIZE: {x: 1, y: 1.53}
+  CARD_SIZE: {x: 1, y: 1.4}
+  HITBOX_SIZE: {x: 1, y: 1.4}
   renderTextureConstantly: 0
 --- !u!212 &6443691569999266555
 SpriteRenderer:
@@ -129,7 +129,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
-  m_Size: {x: 1, y: 1.53}
+  m_Size: {x: 1, y: 1.4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -256,13 +256,13 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 8, y: 14}
-    newSize: {x: 1, y: 1.53}
+    newSize: {x: 1, y: 1.4}
     adaptiveTilingThreshold: 0.5
     drawMode: 1
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.564518}
+  m_Size: {x: 1, y: 1.4}
   m_EdgeRadius: 0
 --- !u!95 &6627301573617809454
 Animator:

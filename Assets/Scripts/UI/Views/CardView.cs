@@ -107,8 +107,12 @@ public class CardView {
         }
 
         // TODO: eek we need a neutral card back as well for cards without a PackSO :thinking:
-        PackSO packFrom = packSO != null ? packSO : companionType.pack;
-        Debug.LogError(packFrom?.packName);
+        PackSO packFrom = packSO;
+        if (packSO == null) {
+            if (card.packFrom != null)  packFrom = card.packFrom;
+            else if (companionType.pack != null) packFrom = companionType.pack ;
+        }
+
         if (packFrom != null)
         {
             VisualElement backgroundTexture = container.Q<VisualElement>("cardBackgroundTexture");
