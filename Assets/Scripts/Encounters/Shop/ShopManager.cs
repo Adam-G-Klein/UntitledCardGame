@@ -257,10 +257,10 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             // Activate a tutorial on the second card bought this shop.
             if (gameState.BuildTypeDemoOrConvention() &&
                 shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo &&
-                !DemoDirector.Instance.IsStepCompleted(DemoStepName.CardBuyingTutorialStep1) &&
+                !DemoDirector.Instance.IsStepCompleted(DemoStepName.CardBuyingTutorial) &&
                 numCardsBoughtThisShop == 1) // we want to wait until the player has bought their first card to show the tutorial so that they have the context of buying a card before we show them how to click on a companion to give it to them
              {
-                StartCoroutine(RunShopTutorial(ShopTutorialDisplay.ShopTutorialToShow.CardOfferingShopTutorial));
+                StartCoroutine(DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.CardBuyingTutorial));
             }
         } else {
             shopViewController.AlreadyBoughtBudgetOfCards();

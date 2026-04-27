@@ -6,8 +6,7 @@ public class ShopTutorialDisplay : MonoBehaviour
 {
     public enum ShopTutorialToShow
     {
-        FullFeatureShopTutorial,
-        CardOfferingShopTutorial,
+        FullFeatureShopTutorial
     }
     private ShopDataSO shopData;
     private EncounterConstantsSO encounterConstants;
@@ -42,24 +41,9 @@ public class ShopTutorialDisplay : MonoBehaviour
             case ShopTutorialToShow.FullFeatureShopTutorial:
                 yield return FullFeatureShopTutorialCoroutine();
                 break;
-            case ShopTutorialToShow.CardOfferingShopTutorial:
-                yield return CardOfferingShopTutorialCoroutine();
-                break;
         }
         CinematicIntroComplete();
     }
-
-    public IEnumerator CardOfferingShopTutorialCoroutine()
-    {
-        yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.CardBuyingTutorialStep1);
-        yield return new WaitForSeconds(1f);
-        MultiDeckViewManager.Instance.ShowShopDeckView();
-        MultiDeckViewManager.Instance.DisableInteractions();
-        yield return new WaitForSeconds(1f);
-        yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.CardBuyingTutorialStep2);
-        MultiDeckViewManager.Instance.EnableInteractions();
-    }
-
     // Called here, so we can wait on the first dialogue to finish before starting the cinematic
     public IEnumerator FullFeatureShopTutorialCoroutine()
     {

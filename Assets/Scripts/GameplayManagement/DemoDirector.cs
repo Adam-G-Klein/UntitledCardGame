@@ -136,22 +136,6 @@ public class DemoDirector : GenericSingleton<DemoDirector>
                 yield return BuyCompanionReminderStep();
             break;
 
-            case DemoStepName.CardBuyingTutorialStep1:
-                foreach (string line in cardBuyingTutorialStep1Dialogue) {
-                    yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, line, true);
-                }
-                DialogueView.Instance.Hide();
-                demoDataSO.stepCompletion[DemoStepName.CardBuyingTutorialStep1] = true;
-            break;
-
-            case DemoStepName.CardBuyingTutorialStep2:
-                foreach (string line in cardBuyingTutorialStep2Dialogue) {
-                    yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, line, true);
-                }
-                DialogueView.Instance.Hide();
-                demoDataSO.stepCompletion[DemoStepName.CardBuyingTutorialStep2] = true;
-            break;
-
             case DemoStepName.FullFeatureShopTutorialStep1:
                 yield return FullFeatureShopTutorialStep1();
             break;
@@ -190,6 +174,10 @@ public class DemoDirector : GenericSingleton<DemoDirector>
 
             case DemoStepName.CombatTutorialStep:
                 yield return CombatTutorialStep();
+            break;
+
+            case DemoStepName.CardBuyingTutorial:
+                yield return CardBuyingTutorial();
             break;
         }
         yield return null;
@@ -282,6 +270,24 @@ public class DemoDirector : GenericSingleton<DemoDirector>
         gameState.HasSeenCombatTutorial = true;
         demoDataSO.stepCompletion[DemoStepName.CombatTutorialStep] = true;
     }
+
+    private IEnumerator CardBuyingTutorial() {
+        ShopManager.Instance.shopViewController.DisableAllUIPreserveAppearance();
+        foreach (string line in cardBuyingTutorialStep1Dialogue) {
+            yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, line, true);
+        }
+        DialogueView.Instance.Hide();
+        yield return new WaitForSeconds(1f);
+        ShopManager.Instance.shopViewController.EnableAllUI();
+        MultiDeckViewManager.Instance.ShowShopDeckView();
+        MultiDeckViewManager.Instance.DisableInteractions();
+        yield return new WaitForSeconds(1f);
+        foreach (string line in cardBuyingTutorialStep2Dialogue) {
+            yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, line, true);
+        }
+        DialogueView.Instance.Hide();
+        MultiDeckViewManager.Instance.EnableInteractions();
+    }
 }
 
 public enum DemoStepName {
@@ -289,7 +295,7 @@ public enum DemoStepName {
     MoreRewardsThanUsual,
     StartOfFirstStaticChooseNShop,
     BuyCompanionReminder,
-    CardBuyingTutorialStep1,
+    CardBuyingTutorialStep1, // Deprecated
     FullFeatureShopTutorialStep1,
     FullFeatureShopTutorialStep2,
     FullFeatureShopTutorialStep3,
@@ -299,5 +305,6 @@ public enum DemoStepName {
     PrematureEndTurnReminder,
     CombatTutorialStep,
     YouShouldSpendYourMoneyBozo,
-    CardBuyingTutorialStep2,
+    CardBuyingTutorialStep2, // Deprecated
+    CardBuyingTutorial
 }
