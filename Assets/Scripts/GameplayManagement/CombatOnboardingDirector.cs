@@ -54,10 +54,12 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
         CombatEntityManager.Instance.getEnemies().ForEach((enemy) => enemy.SetBackgroundGradientVisible(false));
         manager.combatEncounterView.ShowOnlyCompanionSprites();
         yield return SpeakLine();
-        CombatEntityManager.Instance.getCompanions().ForEach((companion) => ShowHideTooltip(companion.gameObject, true));
+        yield return ShowCompanionTooltips();
         continueInput.action.Enable();
         yield return new WaitForNextFrameUnit(); // Need to wait a frame or it'll pickup the click from continuing dialogue
+        manager.combatEncounterView.ToggleContinuePromptVisibility(true);
         yield return new WaitUntil(() => continueInput.action.WasPerformedThisFrame());
+        manager.combatEncounterView.ToggleContinuePromptVisibility(false);
         CombatEntityManager.Instance.getCompanions().ForEach((companion) => ShowHideTooltip(companion.gameObject, false));
         yield return SpeakLine();
         foreach (CompanionInstance companion in CombatEntityManager.Instance.getCompanions()) {
@@ -253,5 +255,18 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
             .setOnComplete(() => done = true);
         yield return new WaitUntil(() => done == true);
         baronShadow.enabled = false;
+    }
+
+    private IEnumerator ShowCompanionTooltips()
+    {
+        float delay = .5f;
+        for (int i = 0; i < CombatEntityManager.Instance.getCompanions().Count; i++) {
+            CompanionInstance companion = CombatEntityManager.Instance.getCompanions()[i];
+            ShowHideTooltip(companion.gameObject, true);
+            yield return new WaitForSeconds(delay);
+        };
+        // this isn't strictly necessary, but makes it so that the tooltips finish rendering before
+        // the click to proceed button shows up
+        yield return new WaitForSeconds(delay);
     }
 }
