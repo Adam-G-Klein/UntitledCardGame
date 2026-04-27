@@ -46,7 +46,10 @@ public class DialogueView : GenericSingleton<DialogueView>, IControlsReceiver
 
     public void SpeakLine(Sprite sprite, string line)
     {
-        if (runningCoroutine != null) StopCoroutine(runningCoroutine);
+        if (runningCoroutine != null) {
+            StopCoroutine(runningCoroutine);
+            MusicController.Instance.HandleConciergeDialogue("stop");
+        }
         portraitElement.style.backgroundImage = new StyleBackground(sprite);
         label.text = "";
         label.style.fontSize = CalculateFontSize(line);
@@ -54,7 +57,10 @@ public class DialogueView : GenericSingleton<DialogueView>, IControlsReceiver
     }
 
     public IEnumerator SpeakLineCoroutine(Sprite sprite, string line, bool waitForClick = false) {
-        if (runningCoroutine != null) StopCoroutine(runningCoroutine);
+        if (runningCoroutine != null) {
+            StopCoroutine(runningCoroutine);
+            MusicController.Instance.HandleConciergeDialogue("stop");
+        }
         yield return new WaitUntil(() => portraitElement != null); // for when a dialogue is triggered on awake
         portraitElement.style.backgroundImage = new StyleBackground(sprite);
         label.text = "";
