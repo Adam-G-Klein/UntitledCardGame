@@ -10,7 +10,7 @@
     <Style src="project://database/Assets/UI%20Toolkit/Stylesheets/CompanionView.uss?fileID=7433441132597879392&amp;guid=715a20f0aa0920b47918dd6f4e424bbf&amp;type=3#CompanionView" />
     <Style src="project://database/Assets/UI%20Toolkit/Stylesheets/EntityStatusIndicatorStylesheet.uss?fileID=7433441132597879392&amp;guid=c51c2c34e2e16e348bdfc4c868d86a28&amp;type=3#EntityStatusIndicatorStylesheet" />
     <ui:VisualElement style="flex-grow: 1; position: absolute; left: 0; top: 77.5%; background-image: none; width: 100%; height: 22.5%;" />
-    <ui:VisualElement style="flex-grow: 1; flex-direction: column;">
+    <ui:VisualElement name="VisualElement" style="flex-grow: 1; flex-direction: column;">
         <ui:VisualElement name="VisualElement" class="map-header-container" style="position: absolute; width: 100%;">
             <ui:VisualElement name="mapRoot" class="map-outer-container">
                 <ui:Instance template="MapTemplateUiDocument" name="MapTemplateUiDocument" style="flex-grow: 1;" />
@@ -58,4 +58,9 @@
         <IconButton name="deck-view-button" text="VIEW DECKS" class="focusable deck-view-button" style="position: absolute; height: 65px; width: 270px; font-size: 32px; -unity-font-style: normal; background-color: rgba(188, 188, 188, 0); background-image: url(&quot;project://database/Assets/Sprites/UI/CombatScreen_ViewDecks.png?fileID=2800000&amp;guid=419a7d38b5aaca444853cb59e6407c29&amp;type=3#CombatScreen_ViewDecks&quot;); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; top: 20px; right: 20px; color: rgb(238, 229, 197); padding-top: 10px; -unity-background-scale-mode: scale-to-fit;" />
     </ui:VisualElement>
     <ui:VisualElement name="demo-card-view-area" style="flex-grow: 1; position: absolute; width: 65%; height: 50%; top: 12%; align-items: center; display: none; flex-direction: row; right: 17.5%; justify-content: space-between;" />
+    <ui:VisualElement name="demo-continue-prompt" style="flex-grow: 1; position: absolute; width: 370px; height: 100px; right: 40px; bottom: 40px; display: none;">
+        <ui:VisualElement name="backgroundColor" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/UI/GFG_UI__0004s_0001s_0003_Unit-management_BG_Flat.png?fileID=2800000&amp;guid=4e65776cb2eab7a44b2c15877ca4f342&amp;type=3#GFG_UI__0004s_0001s_0003_Unit-management_BG_Flat&quot;); position: absolute; width: 100%; height: 91%; bottom: 0;" />
+        <ui:Label tabindex="-1" text="Click anywhere to continue" parse-escape-sequences="true" display-tooltip-when-elided="true" style="position: absolute; width: 100%; height: 100%; -unity-text-align: middle-center; font-size: 24px; white-space: normal;" />
+        <ui:VisualElement name="goldBorders" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; background-image: url(&quot;project://database/Assets/Sprites/UI/GFG_UI__0004s_0001s_0000_Unit-Managementbox.png?fileID=2800000&amp;guid=859b2acc6dd679a4f8840c2041fadcd0&amp;type=3#GFG_UI__0004s_0001s_0000_Unit-Managementbox&quot;);" />
+    </ui:VisualElement>
 </ui:UXML>

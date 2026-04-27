@@ -61,9 +61,12 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
         CombatEntityManager.Instance.getCompanions().ForEach((companion) => ShowHideTooltip(companion.gameObject, false));
         yield return SpeakLine();
         foreach (CompanionInstance companion in CombatEntityManager.Instance.getCompanions()) {
-            manager.combatEncounterView.ShowCardsFromCompanion(companion);
+            yield return manager.combatEncounterView.ShowCardsFromCompanion(companion);
+            // show combatUI click to proceed 
+            manager.combatEncounterView.ToggleContinuePromptVisibility(true);
             yield return new WaitForNextFrameUnit();
             yield return new WaitUntil(() => continueInput.action.WasPerformedThisFrame());
+            manager.combatEncounterView.ToggleContinuePromptVisibility(false);
             LeanTween.cancelAll();
             pause = true;
             manager.combatEncounterView.HideCardsAndShowCompanionFrame(companion, () => pause = false);

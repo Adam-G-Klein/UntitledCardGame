@@ -648,15 +648,18 @@ public class CombatEncounterView : MonoBehaviour,
     }
 
     // For the onboarding experience
-    public void ShowCardsFromCompanion(CompanionInstance companionInstance) {
+    public IEnumerator ShowCardsFromCompanion(CompanionInstance companionInstance) {
         float duration = 0.75f; // 0.75 seconds
         long delay = 100;
         CompanionView companionView = combatInstanceToCompanionView[companionInstance.combatInstance];
-        if (companionView == null) return;
+        if (companionView == null) yield break;
 
         VisualElement cardArea = root.Q<VisualElement>("demo-card-view-area");
         cardArea.style.display = DisplayStyle.Flex;
         cardArea.style.visibility = Visibility.Visible;
+
+        int animationsCompleted = 0;
+        int totalAnimations = companionInstance.deckInstance.drawPile.Count;
 
         foreach (Card card in companionInstance.deckInstance.drawPile) {
             CardView cardView = new CardView(card, companionInstance.companion.companionType);
@@ -673,10 +676,16 @@ public class CombatEncounterView : MonoBehaviour,
                         float yVal = Mathf.Lerp(delta.y, 0, val);
                         cardView.cardContainer.style.translate = new Translate(xVal, yVal);
                         cardView.cardContainer.style.scale = new Vector2(val, val);
+                    })
+                    .setOnComplete(() => {
+                        animationsCompleted++;
                     });
             }).ExecuteLater(delay);
             delay += 100; // 400 ms
         }
+
+        // Wait until all animations are complete
+        yield return new WaitUntil(() => animationsCompleted == totalAnimations);
     }
 
     public void HideCardsAndShowCompanionFrame(CompanionInstance companionInstance, Action callback) {
@@ -726,5 +735,11 @@ public class CombatEncounterView : MonoBehaviour,
 
         enemyView.FadeInFrame(duration);
         enemy.FadeInBackgroundGradient(duration);
+    }
+
+    public void ToggleContinuePromptVisibility(bool visible)
+    {
+        VisualElement continuePrompt = uiDoc.rootVisualElement.Q<VisualElement>("demo-continue-prompt");
+        continuePrompt.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
     }
 }
