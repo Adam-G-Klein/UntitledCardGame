@@ -53,6 +53,7 @@ public class DescriptionToken
         NumAttackCardsInHand,
         NumCardsInHand,
         IfLastCardPlayedWasAttack,
+        IfOnlyAttackCardInHand,
     }
     public TokenType tokenType;
     public string text;
