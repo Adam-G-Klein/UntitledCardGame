@@ -18,6 +18,8 @@ MonoBehaviour:
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: e9108acc0c564144288cabd141d39174, type: 3}
   fullSprite: {fileID: 21300000, guid: e9108acc0c564144288cabd141d39174, type: 3}
+  animationSprites: []
+  icon: {fileID: 21300000, guid: 45e31972840180d41bc2ecc529acf63d, type: 3}
   startingDeck: {fileID: 11400000, guid: 669d7190127094f0395e06bc6cb98d0e, type: 2}
   rarity: 2
   baseCompanionType: {fileID: 11400000, guid: 8950a2a36d4be461eaa44c386b13c760, type: 2}
@@ -36,6 +38,7 @@ MonoBehaviour:
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
       iconDescriptionLine: []
+      card: {fileID: 0}
   keepsakeTitle: 
   keepsakeDescription: "Whenever you exhaust a card, draw a card from Tj\xF6rk"
   references:
@@ -63,6 +66,7 @@ MonoBehaviour:
         specialTargetRule: 3
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 7401433308100034734
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
@@ -72,6 +76,7 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        waitForDrawsToResolve: 0
     - rid: 7401433308100034735
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

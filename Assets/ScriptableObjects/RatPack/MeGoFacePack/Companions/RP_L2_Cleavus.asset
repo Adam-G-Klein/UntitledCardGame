@@ -18,6 +18,8 @@ MonoBehaviour:
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: b746caed2c443064cbd845440619f239, type: 3}
   fullSprite: {fileID: 21300000, guid: b746caed2c443064cbd845440619f239, type: 3}
+  animationSprites: []
+  icon: {fileID: 21300000, guid: 77b68419a4224bb4e820c36bb2b879f8, type: 3}
   startingDeck: {fileID: 11400000, guid: e3482dc12143142c2a2d0268da5d205f, type: 2}
   rarity: 0
   baseCompanionType: {fileID: 11400000, guid: c8d7d8ca579c743b59b1b87f3aae4ad6, type: 2}
@@ -35,6 +37,8 @@ MonoBehaviour:
       description: Starts combat with 2 strength
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
+      iconDescriptionLine: []
+      card: {fileID: 0}
   keepsakeTitle: Level 2 Doofclaw
   keepsakeDescription: Starts combat with 2 strength
   references:
@@ -62,6 +66,7 @@ MonoBehaviour:
         specialTargetRule: 3
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 205828032053379330
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -75,6 +80,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        toggleStatus: 0
     - rid: 205828032053379331
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

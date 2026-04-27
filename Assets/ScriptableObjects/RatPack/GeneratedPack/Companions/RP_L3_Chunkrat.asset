@@ -18,6 +18,8 @@ MonoBehaviour:
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: 94d8a9a58ebf84465a87bcde6fcc8c7b, type: 3}
   fullSprite: {fileID: 21300000, guid: 94d8a9a58ebf84465a87bcde6fcc8c7b, type: 3}
+  animationSprites: []
+  icon: {fileID: 21300000, guid: 4fe60b6f2dbb95a4dbf06706658b8412, type: 3}
   startingDeck: {fileID: 11400000, guid: e99468c9ae12a4996a527ac53fb7625a, type: 2}
   rarity: 0
   baseCompanionType: {fileID: 11400000, guid: 15384d3ef47cd4c4fa0b25dd225331f4, type: 2}
@@ -35,6 +37,8 @@ MonoBehaviour:
       description: End of combat, permanently add a "Spice Cake" to this deck.
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
+      iconDescriptionLine: []
+      card: {fileID: 0}
   keepsakeTitle: 
   keepsakeDescription: End of combat, permanently add a "Spice Cake" to this deck.
   references:
@@ -82,6 +86,7 @@ MonoBehaviour:
         specialTargetRule: 3
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 7707884639552274982
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:

@@ -18,6 +18,8 @@ MonoBehaviour:
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: 3306d815f8841484b80588f7c6d9dfff, type: 3}
   fullSprite: {fileID: 21300000, guid: 3306d815f8841484b80588f7c6d9dfff, type: 3}
+  animationSprites: []
+  icon: {fileID: 21300000, guid: 0d5b1f303b7fa464081d947facefabfb, type: 3}
   startingDeck: {fileID: 11400000, guid: de154260733284eeda9f983a22e41908, type: 2}
   rarity: 1
   baseCompanionType: {fileID: 11400000, guid: 13ca5bddd11d949bba4f74a348944d38, type: 2}
@@ -44,6 +46,7 @@ MonoBehaviour:
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
       iconDescriptionLine: []
+      card: {fileID: 0}
   keepsakeTitle: Hidden Cache
   keepsakeDescription: The first 4 times you draw a Charm card from another deck
     each turn, draw 1 from Alder
@@ -80,6 +83,7 @@ MonoBehaviour:
         specialTargetRule: 3
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 754093968382754838
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
@@ -168,3 +172,4 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        waitForDrawsToResolve: 0

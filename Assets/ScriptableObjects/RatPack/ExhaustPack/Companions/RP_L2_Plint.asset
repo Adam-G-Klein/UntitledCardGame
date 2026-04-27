@@ -23,6 +23,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: f67a9070e0b745a4b8e8a6d0f125709e, type: 3}
   - {fileID: 21300000, guid: 98501e54a9bc9804298401e63b45e6fb, type: 3}
   - {fileID: 21300000, guid: f67a9070e0b745a4b8e8a6d0f125709e, type: 3}
+  icon: {fileID: 21300000, guid: 9e7224f7ac7d15846bd7425586ffba71, type: 3}
   startingDeck: {fileID: 11400000, guid: c0eb29cf7264745e89d7d38855ccca27, type: 2}
   rarity: 0
   baseCompanionType: {fileID: 0}
@@ -81,6 +82,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        toggleStatus: 0
     - rid: 758316092100444255
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -138,6 +140,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        toggleStatus: 0
     - rid: 2034230017118175366
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

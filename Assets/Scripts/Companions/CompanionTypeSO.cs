@@ -27,6 +27,7 @@ public class CompanionTypeSO : IdentifiableSO
     public Sprite sprite;
     public Sprite fullSprite;
     public List<Sprite> animationSprites;
+    public Sprite icon;
     [Space(8)]
     public StartingDeck startingDeck;
     public CompanionRarity rarity;

@@ -18,6 +18,8 @@ MonoBehaviour:
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: bf1e6f00d6394484db7d9385d1fb2729, type: 3}
   fullSprite: {fileID: 21300000, guid: bf1e6f00d6394484db7d9385d1fb2729, type: 3}
+  animationSprites: []
+  icon: {fileID: 21300000, guid: 63b1af6b7571c784c97dfcab05198781, type: 3}
   startingDeck: {fileID: 11400000, guid: 44c880e376d231e4faedb5567cc1676d, type: 2}
   rarity: 0
   baseCompanionType: {fileID: 0}
@@ -43,6 +45,8 @@ MonoBehaviour:
         to a random enemy
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
+      iconDescriptionLine: []
+      card: {fileID: 0}
   keepsakeTitle: The Eye
   keepsakeDescription: The first 3 times each turn you discard a card, deal 2 damage
     to a random enemy
@@ -76,6 +80,7 @@ MonoBehaviour:
         specialTargetRule: 6
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 754093826381185260
       type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
       data:
@@ -148,3 +153,4 @@ MonoBehaviour:
         specialTargetRule: 3
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0

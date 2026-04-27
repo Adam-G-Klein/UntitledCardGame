@@ -18,6 +18,8 @@ MonoBehaviour:
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: 6db397c2f308ed34584af477fcf91cc7, type: 3}
   fullSprite: {fileID: 21300000, guid: 6db397c2f308ed34584af477fcf91cc7, type: 3}
+  animationSprites: []
+  icon: {fileID: 21300000, guid: 9e7224f7ac7d15846bd7425586ffba71, type: 3}
   startingDeck: {fileID: 11400000, guid: c0eb29cf7264745e89d7d38855ccca27, type: 2}
   rarity: 0
   baseCompanionType: {fileID: 11400000, guid: bb82c6f907d7346c1b0aa5847e323c44, type: 2}
@@ -35,6 +37,8 @@ MonoBehaviour:
       description: Whenever you exhaust a card, give leftmost rat 3 block
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
+      iconDescriptionLine: []
+      card: {fileID: 0}
   keepsakeTitle: Plint's Armor
   keepsakeDescription: Whenever you exhaust a card, give leftmost rat 3 block
   references:
@@ -62,6 +66,7 @@ MonoBehaviour:
         specialTargetRule: 7
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 2034230017118175365
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -75,6 +80,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        toggleStatus: 0
     - rid: 2034230017118175366
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

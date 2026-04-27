@@ -18,6 +18,8 @@ MonoBehaviour:
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: db071cc09a4801d448917a976d3c6ee4, type: 3}
   fullSprite: {fileID: 21300000, guid: db071cc09a4801d448917a976d3c6ee4, type: 3}
+  animationSprites: []
+  icon: {fileID: 21300000, guid: 307e082378dd2b942b03de45c5b20584, type: 3}
   startingDeck: {fileID: 11400000, guid: 8cfb59c3193db4a2cbced98c8ef59eda, type: 2}
   rarity: 1
   baseCompanionType: {fileID: 0}
@@ -37,6 +39,7 @@ MonoBehaviour:
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
       iconDescriptionLine: []
+      card: {fileID: 0}
   keepsakeTitle: Rilla
   keepsakeDescription: At the end of turn, retain 1 Charm card chosen at random.
     If you have 2 or less Charm cards in hand, give leftmost rat 3 block
@@ -55,6 +58,7 @@ MonoBehaviour:
         specialTargetRule: 7
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 1289961959942521051
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -67,6 +71,7 @@ MonoBehaviour:
         specialTargetRule: 1
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 1289961959942521052
       type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
@@ -136,6 +141,7 @@ MonoBehaviour:
         specialTargetRule: 3
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 1289961959942521085
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -156,6 +162,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        toggleStatus: 0
     - rid: 1289961959942521088
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

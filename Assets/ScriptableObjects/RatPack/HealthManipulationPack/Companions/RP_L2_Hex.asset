@@ -19,6 +19,7 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 3489f32d537178446aae3f15990ca556, type: 3}
   fullSprite: {fileID: 21300000, guid: 3489f32d537178446aae3f15990ca556, type: 3}
   animationSprites: []
+  icon: {fileID: 21300000, guid: fb9da1957227cb940846748d34e5f833, type: 3}
   startingDeck: {fileID: 11400000, guid: 466520c011e0b499e9ec3a59502a6788, type: 2}
   rarity: 0
   baseCompanionType: {fileID: 11400000, guid: 8f16f5410550d4b59aca1f1dc6e5f733, type: 2}
@@ -123,6 +124,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        toggleStatus: 0
     - rid: 2034230176448512013
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

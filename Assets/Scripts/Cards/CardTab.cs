@@ -11,6 +11,9 @@ public class CardTab : MonoBehaviour
     [SerializeField] private PanelSettings panelSettingsTemplate;
     [SerializeField] private RenderTexture renderTextureBase;
 
+    private VisualElement background;
+    private VisualElement icon;
+
     private RenderTexture rt;
     private PanelSettings ps;
     private CompanionInstance companionInstance;
@@ -26,9 +29,12 @@ public class CardTab : MonoBehaviour
         rt = new RenderTexture(renderTextureBase.descriptor);
         uiDoc.panelSettings.targetTexture = rt;
         rawImage.texture = rt;
+
+        background = uiDoc.rootVisualElement.Q<VisualElement>("background");
+        icon = uiDoc.rootVisualElement.Q<VisualElement>("icon");
     }
 
-    void OnDisable() {
+    void OnDestroy() {
         if (rt != null) {
             rt.Release();
             Destroy(rt);
@@ -43,6 +49,8 @@ public class CardTab : MonoBehaviour
 
     public void Init(CompanionInstance companionInstance) {
         this.companionInstance = companionInstance;
+        background.style.backgroundImage = new StyleBackground(companionInstance.companion.companionType.pack.cardTab);
+        icon.style.backgroundImage = new StyleBackground(companionInstance.companion.companionType.icon);
     }
 
     public void Show() {

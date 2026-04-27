@@ -18,6 +18,8 @@ MonoBehaviour:
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: c1ba3b774ff3ec6438f6984cded94a37, type: 3}
   fullSprite: {fileID: 21300000, guid: c1ba3b774ff3ec6438f6984cded94a37, type: 3}
+  animationSprites: []
+  icon: {fileID: 21300000, guid: 1a0a0559adb00d24fa86fc5408f4d98e, type: 3}
   startingDeck: {fileID: 11400000, guid: b7fb5f30fc0c4400aa60c7d3769912bd, type: 2}
   rarity: 2
   baseCompanionType: {fileID: 11400000, guid: 78fe07f26375b42c9bfd64f03469d871, type: 2}
@@ -35,6 +37,8 @@ MonoBehaviour:
       description: Each time you play an Attack, give adjacent companions 1 strength
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
+      iconDescriptionLine: []
+      card: {fileID: 0}
   keepsakeTitle: 
   keepsakeDescription: Each time you play an Attack, give adjacent companions 1 strength
   references:
@@ -82,6 +86,7 @@ MonoBehaviour:
         specialTargetRule: 3
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 2034230176448512494
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -95,6 +100,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        toggleStatus: 0
     - rid: 2034230176448512495
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

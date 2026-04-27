@@ -18,6 +18,8 @@ MonoBehaviour:
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: 2cf756261bc36e24a8b80c0bb481b331, type: 3}
   fullSprite: {fileID: 21300000, guid: 2cf756261bc36e24a8b80c0bb481b331, type: 3}
+  animationSprites: []
+  icon: {fileID: 21300000, guid: 5d4d57575afc13e4c90c77fa27727910, type: 3}
   startingDeck: {fileID: 11400000, guid: 9bd279683242744af81f7d07ca8471fc, type: 2}
   rarity: 2
   baseCompanionType: {fileID: 11400000, guid: f62014069b44b496abfab485bce40fd4, type: 2}
@@ -37,6 +39,7 @@ MonoBehaviour:
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
       iconDescriptionLine: []
+      card: {fileID: 0}
   keepsakeTitle: Pluck
   keepsakeDescription: At the end of turn, deal 5 damage to all foes for each Charm
     card in your hand
@@ -69,6 +72,7 @@ MonoBehaviour:
         specialTargetRule: 1
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 2034230017118175446
       type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
@@ -99,6 +103,7 @@ MonoBehaviour:
         specialTargetRule: 1
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 2034230176448512928
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:

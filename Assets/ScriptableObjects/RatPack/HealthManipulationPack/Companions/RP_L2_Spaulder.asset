@@ -18,6 +18,8 @@ MonoBehaviour:
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: 2ab42d2580735414ca464cf674ac304d, type: 3}
   fullSprite: {fileID: 21300000, guid: 2ab42d2580735414ca464cf674ac304d, type: 3}
+  animationSprites: []
+  icon: {fileID: 21300000, guid: 6985b9f7d0c1cb846970f3297ff6f9ac, type: 3}
   startingDeck: {fileID: 11400000, guid: 1c73175d985fa4a2bb8ef49e809c32a7, type: 2}
   rarity: 1
   baseCompanionType: {fileID: 11400000, guid: e65d0392c4877436e8ce3c44d1e27ac5, type: 2}
@@ -38,6 +40,7 @@ MonoBehaviour:
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
       iconDescriptionLine: []
+      card: {fileID: 0}
   keepsakeTitle: 
   keepsakeDescription: Start of turn, bleed self & adjacent 1 HP. Whenever Spaulder+
     loses HP, give leftmost rat 3 block & give self 1 block
@@ -72,6 +75,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        toggleStatus: 0
     - rid: 205828107393564793
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -118,6 +122,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        toggleStatus: 0
     - rid: 2511001503980847383
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

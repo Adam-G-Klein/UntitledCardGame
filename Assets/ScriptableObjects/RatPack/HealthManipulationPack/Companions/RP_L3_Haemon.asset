@@ -18,6 +18,8 @@ MonoBehaviour:
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: bb0c01087809cb24f90cf67857b3fcdb, type: 3}
   fullSprite: {fileID: 21300000, guid: bb0c01087809cb24f90cf67857b3fcdb, type: 3}
+  animationSprites: []
+  icon: {fileID: 21300000, guid: 3f5b0a8e22b327e4885b16e7e43d128a, type: 3}
   startingDeck: {fileID: 11400000, guid: 01bed10f78baa4885922ab894d8dd770, type: 2}
   rarity: 2
   baseCompanionType: {fileID: 11400000, guid: eee8f1da4c1704bb9aa5f1be418fd762, type: 2}
@@ -35,6 +37,8 @@ MonoBehaviour:
       description: Every time a rat loses HP, give self and adjacent 1 strength
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
+      iconDescriptionLine: []
+      card: {fileID: 0}
   keepsakeTitle: 
   keepsakeDescription: Every time a rat loses HP, give self and adjacent 1 strength
   references:
@@ -71,6 +75,7 @@ MonoBehaviour:
         specialTargetRule: 3
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 7401433558763438357
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -84,6 +89,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        toggleStatus: 0
     - rid: 7401433558763438358
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

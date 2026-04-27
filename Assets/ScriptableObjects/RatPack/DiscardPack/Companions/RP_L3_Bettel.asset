@@ -18,6 +18,8 @@ MonoBehaviour:
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: 0d9420d39ed7f1d4197a84b0331cd727, type: 3}
   fullSprite: {fileID: 21300000, guid: 0d9420d39ed7f1d4197a84b0331cd727, type: 3}
+  animationSprites: []
+  icon: {fileID: 21300000, guid: f740daf1e5aadce4f83b8d4a29c6276c, type: 3}
   startingDeck: {fileID: 11400000, guid: de5f5f358da2f418397bc9379e0dd14f, type: 2}
   rarity: 1
   baseCompanionType: {fileID: 11400000, guid: d22f2948b60ca4407adf434a68bb3ea9, type: 2}
@@ -43,6 +45,8 @@ MonoBehaviour:
         this companion
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
+      iconDescriptionLine: []
+      card: {fileID: 0}
   keepsakeTitle: 
   keepsakeDescription: The first 5 times each turn you discard a card, draw a card
     from this companion
@@ -86,6 +90,7 @@ MonoBehaviour:
         specialTargetRule: 3
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 7401433308100034730
       type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
       data:
@@ -131,3 +136,4 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        waitForDrawsToResolve: 0

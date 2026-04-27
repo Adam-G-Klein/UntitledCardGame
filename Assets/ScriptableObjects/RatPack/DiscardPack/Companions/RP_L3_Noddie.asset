@@ -18,6 +18,8 @@ MonoBehaviour:
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: c2029d3d35ba2714d827b1fb8fa4a0fe, type: 3}
   fullSprite: {fileID: 21300000, guid: c2029d3d35ba2714d827b1fb8fa4a0fe, type: 3}
+  animationSprites: []
+  icon: {fileID: 21300000, guid: ac2e1a5008d71bb4f9f366bd79063f79, type: 3}
   startingDeck: {fileID: 11400000, guid: b23f200d4ca864a2d8598bdda929ba0f, type: 2}
   rarity: 0
   baseCompanionType: {fileID: 11400000, guid: 04c7e341cd1cb4872bc1252299c09f2e, type: 2}
@@ -43,6 +45,8 @@ MonoBehaviour:
         Strategy" in hand
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
+      iconDescriptionLine: []
+      card: {fileID: 0}
   keepsakeTitle: Thistleton
   keepsakeDescription: At the start of the first 3 turns of combat, create in hand
     a 0 mana card with Retain that draws 2 and discards
@@ -79,6 +83,7 @@ MonoBehaviour:
         specialTargetRule: 3
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 7401433308100034739
       type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
       data:

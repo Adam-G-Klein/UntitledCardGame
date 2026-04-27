@@ -18,17 +18,11 @@ MonoBehaviour:
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: bf1e6f00d6394484db7d9385d1fb2729, type: 3}
   fullSprite: {fileID: 21300000, guid: bf1e6f00d6394484db7d9385d1fb2729, type: 3}
-  backgroundImage: {fileID: 21300000, guid: 094c4d0ce89284effb02b7e66c41c106, type: 3}
-  entityFrame: {fileID: 21300000, guid: 93992d0d35ca9405b831e052145f48f8, type: 3}
-  companionManagementFrame: {fileID: 21300000, guid: 3438500f50c834ffd8cab1850f7e94bf, type: 3}
+  animationSprites: []
+  icon: {fileID: 21300000, guid: 63b1af6b7571c784c97dfcab05198781, type: 3}
   startingDeck: {fileID: 11400000, guid: 4733a1e0b28d44aa1886df62523cc46e, type: 2}
-  cardBack: {fileID: 21300000, guid: a5222a8d127763c49b397cce916345ec, type: 3}
-  cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
-  cardTypeIconOverride: {fileID: 0}
   rarity: 0
-  cardIdleVfxPrefab: {fileID: 0}
-  genericCompanionSFX: {fileID: 0}
-  genericCompanionVFX: {fileID: 0}
+  baseCompanionType: {fileID: 0}
   cacheValueConfigs:
   - key: numDiscards
     display: 1
@@ -39,7 +33,6 @@ MonoBehaviour:
     setStartOfCombatValue: 0
   cardPool: {fileID: 11400000, guid: ea2e0be33aeb148b5b6fb019d0942226, type: 2}
   pack: {fileID: 11400000, guid: 5f4300e0913784f05aeff0dd086d4338, type: 2}
-  speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 205828032053379705
   level: 0
@@ -52,6 +45,8 @@ MonoBehaviour:
         to a random enemy
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
+      iconDescriptionLine: []
+      card: {fileID: 0}
   keepsakeTitle: The Eye
   keepsakeDescription: The first 3 times each turn you discard a card, deal 2 damage
     to a random enemy
@@ -85,6 +80,7 @@ MonoBehaviour:
         specialTargetRule: 6
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 754093826381185260
       type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
       data:
@@ -157,3 +153,4 @@ MonoBehaviour:
         specialTargetRule: 3
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
