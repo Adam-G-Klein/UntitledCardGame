@@ -21,7 +21,6 @@ public class CardView {
     private VisualElement cardRoot;
 
     private Card.CardRarity rarity = Card.CardRarity.NONE;
-    private static Dictionary<String, Sprite> silhouetteCache = new Dictionary<String, Sprite>();
 
     public CardView(CardType cardType, CompanionTypeSO companionType, Card.CardRarity rarity, bool cardInShop = false, PackSO packSO = null, bool hideBackground = false) {
         this.cardType = cardType;
@@ -107,53 +106,14 @@ public class CardView {
             iconDescContainer.visible = false;
         }
 
-        VisualElement cardBackground = container.Q("cardBackground");
-        if (hideBackground)
+        // TODO: eek we need a neutral card back as well for cards without a PackSO :thinking:
+        PackSO packFrom = packSO != null ? packSO : companionType.pack;
+        Debug.LogError(packFrom?.packName);
+        if (packFrom != null)
         {
-            cardBackground.visible = false;
-        } else {
-            if (companionType != null) {
-                Sprite silhouette = GetSilhouette(companionType.fullSprite, companionType.companionName);
-                cardBackground.style.backgroundImage = new StyleBackground(silhouette.texture);
-            } else if (packSO != null && packSO.packIcon != null)
-            {
-                Sprite silhouette = GetSilhouette(packSO.packIcon, packSO.packName);
-                cardBackground.style.backgroundImage = new StyleBackground(silhouette.texture);
-            }
-            else {
-                Sprite silhouette = GetSilhouette(GameplayConstantsSingleton.Instance.gameplayConstants.neutralPackIcon, "neutral");
-                cardBackground.style.backgroundImage = new StyleBackground(silhouette.texture);
-            }   
+            VisualElement backgroundTexture = container.Q<VisualElement>("cardBackgroundTexture");
+            backgroundTexture.style.backgroundImage = new StyleBackground(packFrom.cardBack);
         }
-
-        VisualElement rarityIndicator = container.Q("rarityIndicator");
-        Sprite rarityIndicatorSprite = null;
-        switch(rarity) {
-            case Card.CardRarity.NONE:
-            case Card.CardRarity.COMMON:
-                if (cardType.packFrom != null) rarityIndicatorSprite = cardType.packFrom.commonIcon;
-                else if (companionType != null) rarityIndicatorSprite = companionType.pack.commonIcon;
-                else rarityIndicatorSprite = GameplayConstantsSingleton.Instance.gameplayConstants.neutralCommonIcon;
-                break;
-            case Card.CardRarity.UNCOMMON:
-                if (cardType.packFrom != null) rarityIndicatorSprite = cardType.packFrom.uncommonIcon;
-                else if (companionType != null) rarityIndicatorSprite = companionType.pack.uncommonIcon;
-                else rarityIndicatorSprite = GameplayConstantsSingleton.Instance.gameplayConstants.neutralUncommonIcon;
-                break;
-            case Card.CardRarity.RARE:
-                if (cardType.packFrom != null) rarityIndicatorSprite = cardType.packFrom.rareIcon;
-                else if (companionType != null) rarityIndicatorSprite = companionType.pack.rareIcon;
-                else rarityIndicatorSprite = GameplayConstantsSingleton.Instance.gameplayConstants.neutralRareIcon;
-                break;
-        }
-        rarityIndicator.style.backgroundImage = new StyleBackground(rarityIndicatorSprite);
-
-        VisualElement cardBackgroundTexture = container.Q("cardBackgroundTexture");
-        float xScale = UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1;
-        float yScale = UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1;
-
-        // Set the scale of the cardBackgroundTexture
-        cardBackgroundTexture.style.scale = new StyleScale(new Scale(new Vector2(xScale, yScale)));
 
         Label cardTypeLabel = container.Q<Label>("cardTypeLabel");
         cardTypeLabel.text = cardTypeLabel.text = System.Text.RegularExpressions.Regex.Replace(
@@ -240,68 +200,5 @@ public class CardView {
     public CardType GetCardType()
     {
         return cardType;
-    }
-
-    public static Sprite GetSilhouette(Sprite originalSprite, String UID, float alpha = 0.4f)
-    {
-        Sprite original = originalSprite;
-        // Check if we've already processed this sprite
-        if (silhouetteCache.ContainsKey(UID))
-            return silhouetteCache[UID];
-
-        Sprite silhouette = CreateSilhouette(original, alpha);
-
-        // Step 7: Cache it so we don't have to do this again
-        silhouetteCache[UID] = silhouette;
-
-        return silhouette;
-    }
-
-    public static Sprite CreateSilhouette(Sprite original, float alpha)
-    {
-        // Step 1: Get the original texture from the sprite
-        Texture2D originalTex = original.texture;
-
-        // Step 2: Create a new texture with same dimensions
-        Texture2D newTex = new Texture2D(
-            (int)original.textureRect.width,   // Width of the sprite's region in the texture
-            (int)original.textureRect.height,  // Height of the sprite's region
-            TextureFormat.RGBA32,              // Color format (Red, Green, Blue, Alpha - 32 bits)
-            false                              // No mipmaps (we don't need them for UI)
-        );
-
-        // Step 3: Get the pixels from the SPECIFIC REGION of the texture that this sprite uses
-        // (Important because sprite atlases can have multiple sprites in one texture)
-        Color[] pixels = originalTex.GetPixels(
-            (int)original.textureRect.x,      // Start X in texture
-            (int)original.textureRect.y,      // Start Y in texture
-            (int)original.textureRect.width,  // How many pixels wide
-            (int)original.textureRect.height  // How many pixels tall
-        );
-
-        // Step 4: Process each pixel - convert to black with modified alpha
-        for (int i = 0; i < pixels.Length; i++)
-        {
-            // This is doing exactly what the shader fragment shader did:
-            // Keep the original alpha, multiply by our desired alpha, make RGB black
-            pixels[i] = new Color(
-                0,                      // R = black
-                0,                      // G = black
-                0,                      // B = black
-                pixels[i].a * alpha     // A = original alpha × our control value
-            );
-        }
-
-        // Step 5: Write the processed pixels into our new texture
-        newTex.SetPixels(pixels);
-        newTex.Apply();  // Actually upload to GPU memory
-
-        // Step 6: Create a new sprite from this texture
-        return Sprite.Create(
-            newTex,                                          // The texture we just created
-            new Rect(0, 0, newTex.width, newTex.height),   // Use the entire texture
-            new Vector2(0.5f, 0.5f),                       // Pivot point (center)
-            original.pixelsPerUnit                          // Match original's pixel density
-        );
     }
 }
