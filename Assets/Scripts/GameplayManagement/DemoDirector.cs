@@ -286,6 +286,7 @@ public class DemoDirector : GenericSingleton<DemoDirector>
             yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, line, true);
         }
         DialogueView.Instance.Hide();
+        demoDataSO.stepCompletion[DemoStepName.CardBuyingTutorial] = true;
         MultiDeckViewManager.Instance.EnableInteractions();
     }
 }
