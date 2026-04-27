@@ -82,6 +82,7 @@ public class TooltipController {
 
             case TooltipContext.Shop:
             case TooltipContext.MultiDeckView:
+            case TooltipContext.CardSelection:
                 xTooltipPos = element.worldBound.center.x - (element.resolvedStyle.width * .8f);
                 yTooltipPos = element.worldBound.center.y + (element.resolvedStyle.height * .1f);
                 position = UIDocumentGameObjectPlacer.GetWorldPositionFromUIDocumentPosition(new Vector3(xTooltipPos, yTooltipPos, 0));
@@ -197,5 +198,6 @@ public enum TooltipContext {
     StartingTeam,
     Shop,
     CompanionManagementView,
-    MultiDeckView
+    MultiDeckView,
+    CardSelection
 }

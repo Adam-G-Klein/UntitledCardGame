@@ -7,7 +7,7 @@
     <Style src="project://database/Assets/cardTemplateV2.uss?fileID=7433441132597879392&amp;guid=922dd945fb23f42b392b047dcd9a06b7&amp;type=3#cardTemplateV2" />
     <Style src="project://database/Assets/ScrollBarStyles.uss?fileID=7433441132597879392&amp;guid=2980896833cea4ded9b44f3cf3a5a143&amp;type=3#ScrollBarStyles" />
     <ui:VisualElement style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/UI/CombatRewardsBackground%20(1).png?fileID=2800000&amp;guid=22d02968a50274729a4f4335573f045b&amp;type=3#CombatRewardsBackground (1)&quot;);">
-        <ui:VisualElement name="companion-area" style="flex-grow: 0; height: 30%; display: flex; align-items: center; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-bottom-width: 4px;">
+        <ui:VisualElement name="companion-area" style="flex-grow: 0; height: 30%; display: flex; align-items: center; border-left-color: rgb(188, 140, 62); border-right-color: rgb(188, 140, 62); border-top-color: rgb(188, 140, 62); border-bottom-color: rgb(188, 140, 62); border-bottom-width: 4px;">
             <ui:Label tabindex="-1" text="Companion Description Text" parse-escape-sequences="true" display-tooltip-when-elided="true" name="companion-description-text" style="font-size: 26px; color: rgb(255, 255, 255);" />
         </ui:VisualElement>
         <ui:VisualElement style="flex-grow: 1; height: 60%; margin-right: 17px; margin-left: 17px;">
@@ -16,8 +16,8 @@
             </ui:ScrollView>
         </ui:VisualElement>
         <ui:VisualElement style="flex-grow: 0; height: 10%; align-items: center; flex-direction: row; justify-content: center;">
-            <ui:Label tabindex="-1" text="Please select 1 card." parse-escape-sequences="true" display-tooltip-when-elided="true" name="prompt-text-label" style="font-size: 30px; margin-right: 5%; color: rgb(255, 255, 255); height: 90%; flex-wrap: nowrap; max-width: 80%; white-space: normal;" />
-            <ui:Button text="Confirm" parse-escape-sequences="true" display-tooltip-when-elided="true" name="confirm-exit-button" class="focusable exit-button" style="font-size: 30px; margin-left: 5%; flex-shrink: 1; background-image: url(&quot;project://database/Assets/Sprites/UI/TrimmedPlainButton.png?fileID=2800000&amp;guid=85a91730dc15b6f47b0a0f5923d2e07e&amp;type=3#TrimmedPlainButton&quot;); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; background-color: rgba(188, 188, 188, 0); flex-grow: 0; width: 10%;" />
+            <ui:Label tabindex="-1" text="Please select 1 card." parse-escape-sequences="true" display-tooltip-when-elided="true" name="prompt-text-label" style="font-size: 30px; margin-right: 5%; color: rgb(255, 255, 255); height: 90%; flex-wrap: nowrap; max-width: 80%; white-space: normal; -unity-text-align: upper-left;" />
+            <ui:Button text="Confirm" parse-escape-sequences="true" display-tooltip-when-elided="true" name="confirm-exit-button" class="focusable exit-button" style="font-size: 30px; margin-left: 5%; flex-shrink: 1; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; flex-grow: 0; width: 10%; background-image: url(&quot;project://database/Assets/Sprites/UI/CombatScreen_HoverButton.png?fileID=2800000&amp;guid=5a7e6950ede86cb47811b1d9e1947916&amp;type=3#CombatScreen_HoverButton&quot;); background-color: rgba(188, 188, 188, 0); white-space: normal; align-self: flex-start;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

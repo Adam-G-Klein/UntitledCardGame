@@ -182,6 +182,16 @@ public class CardView {
         ve.MarkDirtyRepaint();
     }
 
+    public void SetBlackBorder(bool isVisible) {
+        if (cardContainer == null) return;
+        VisualElement ve = cardContainer.Q<VisualElement>("blackBorder");
+        if (isVisible) {
+            ve.visible = true;
+        } else {
+            ve.visible = false;
+        }
+    }
+
     public void SetLocked() {
         VisualElement lockedIndicator = cardContainer.Q<VisualElement>("card-locked-indicator");
         lockedIndicator.style.display = DisplayStyle.Flex;

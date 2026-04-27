@@ -8,6 +8,7 @@ using UnityEngine.UIElements;
 public class CardSelectionView : MonoBehaviour
 {
     [SerializeField] private UIDocument uiDoc;
+    [SerializeField] private GameObject tooltipPrefab;
 
     public delegate void CardsSelected(List<Card> cards, Companion companion);
     public event CardsSelected cardsSelectedHandler;
@@ -23,6 +24,7 @@ public class CardSelectionView : MonoBehaviour
     private string promptText;
     private IEnumerator currentCoroutine = null;
     private Companion companion;
+    private TooltipController tooltipController;
 
     private List<CardView> cardViews;
 
@@ -52,6 +54,7 @@ public class CardSelectionView : MonoBehaviour
         this.maxSelections = maxSelections;
         this.promptText = promptText;
         cardViews = new List<CardView>();
+        tooltipController = new TooltipController(tooltipPrefab);
 
         FocusManager.Instance.StashFocusables(this.GetType().Name);
 
@@ -83,6 +86,8 @@ public class CardSelectionView : MonoBehaviour
             VisualElement cardWrapper = new VisualElement();
             cardWrapper.AddToClassList("card-wrapper");
             newCardView.cardContainer.RegisterOnSelected(() => CardViewClicked(null, newCardView));
+            newCardView.cardContainer.RegisterOnFocused(() => tooltipController.DisplayTooltip(newCardView.cardContainer, card.cardType.GetTooltip(), TooltipContext.CardSelection));
+            newCardView.cardContainer.RegisterOnUnfocused(() => tooltipController.DestroyTooltip(newCardView.cardContainer));
             cardWrapper.Add(newCardView.cardContainer);
             cardViews.Add(newCardView);
             this.cardContainer.Add(cardWrapper);
@@ -107,7 +112,8 @@ public class CardSelectionView : MonoBehaviour
             cardsSelected.Remove(cardView);
             // Undo styling for having card selected
             // cardView.cardContainer.parent.RemoveFromClassList("card-selected");
-            cardView.cardContainer.RemoveFromClassList("card-selected");
+            // cardView.cardContainer.RemoveFromClassList("card-selected");
+            cardView.SetBlackBorder(false);
             return;
         }
 
@@ -118,11 +124,13 @@ public class CardSelectionView : MonoBehaviour
         cardsSelected.Add(cardView);
         // Setup styling for having card selected
         // cardView.cardContainer.parent.AddToClassList("card-selected");
-        cardView.cardContainer.AddToClassList("card-selected");
+        // cardView.cardContainer.AddToClassList("card-selected");
+        cardView.SetBlackBorder(true);
     }
 
     private void ExitView() {
         cardViews.Clear();
+        tooltipController.DestroyAllTooltips();
 
         if (cardsSelected.Count < minSelections) {
             if (currentCoroutine == null) {
