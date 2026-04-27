@@ -159,7 +159,10 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
 
     private void ShowHideTooltip(GameObject companion, bool visible) {
         if (companion.TryGetComponent<TooltipOnHover>(out var tooltip)) {
-            if (visible) tooltip.OnPointerEnterVoid();
+            if (visible) {
+                tooltip.DisplayTooltip();
+                MusicController.Instance.PlaySFX("event:/SFX/SFX_UIHover");
+            }
             else tooltip.OnPointerExitVoid();
         }
     }
@@ -263,7 +266,7 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
         for (int i = 0; i < CombatEntityManager.Instance.getCompanions().Count; i++) {
             CompanionInstance companion = CombatEntityManager.Instance.getCompanions()[i];
             ShowHideTooltip(companion.gameObject, true);
-            yield return new WaitForSeconds(delay);
+            yield return new WaitForSeconds(delay);        
         };
         // this isn't strictly necessary, but makes it so that the tooltips finish rendering before
         // the click to proceed button shows up

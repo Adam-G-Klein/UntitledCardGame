@@ -224,7 +224,6 @@ public class TooltipViewModel
 
 public class TooltipView : MonoBehaviour
 {
-
     public TooltipViewModel tooltip = null;
     public Canvas canvas;
     public PanelSettings panelSettingsTemplate;
@@ -279,6 +278,19 @@ public class TooltipView : MonoBehaviour
         mat = rawImage.material;
         transform.position = new Vector3(transform.position.x, transform.position.y, 10f);
         Fill();
+    }
+
+    void OnDestroy() {
+        if (rt != null) {
+            rt.Release();
+            Destroy(rt);
+            rt = null;
+        }
+
+        if (ps != null) {
+            Destroy(ps);
+            ps = null;
+        }
     }
 
     public void Fill()

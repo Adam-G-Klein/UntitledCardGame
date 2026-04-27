@@ -50,7 +50,7 @@ public class TooltipOnHover : MonoBehaviour,
         if(Active() && !destroyed) {
             Debug.Log("Tooltip: Enter");
             ResetCoroutine();
-            currentCoroutine = DisplayTooltip();
+            currentCoroutine = DisplayTooltipCoroutine();
             StartCoroutine(currentCoroutine);
         }
     }
@@ -122,9 +122,14 @@ public class TooltipOnHover : MonoBehaviour,
         }
     }
 
-    private IEnumerator DisplayTooltip() {
+    private IEnumerator DisplayTooltipCoroutine() {
         coroutineIsRunning = true;
         yield return new WaitForSeconds(displayWaitTime);
+        DisplayTooltip();
+        coroutineIsRunning = false;
+    }
+
+    public void DisplayTooltip() {
         TooltipView instantiatedView;
         if(instantiateInWorldspace) {
             instantiatedView = PrefabInstantiator.instantiateTooltipView(
@@ -142,6 +147,5 @@ public class TooltipOnHover : MonoBehaviour,
             instantaitedViews.Add(instantiatedView);
         }
         TooltipController.ClampTooltipToScreen(instantiatedView.gameObject, Camera.main);
-        coroutineIsRunning = false;
     }
 }
