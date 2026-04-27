@@ -84,7 +84,8 @@ public class CombatInstance : MonoBehaviour
             { StatusEffectType.Charge, 0},
             { StatusEffectType.MaxBlockToLoseAtEndOfTurn, -1 }, // 0 is a valid value so we need to use -1 to indicate a value hasn't been set
             { StatusEffectType.Burn, 0},
-            { StatusEffectType.ExtraCardsToDealNextTurn, 0}
+            { StatusEffectType.ExtraCardsToDealNextTurn, 0},
+            { StatusEffectType.FlippedUpsideDown, 0}
         };
 
     private Dictionary<StatusEffectType, int> statusEffects =
@@ -107,6 +108,16 @@ public class CombatInstance : MonoBehaviour
     // the sprites on the game objects that sit on the scene.
     private VisualElement rootVisualElement;
     private bool destroyOnDeath = true;
+
+    public void ToggleStatusEffect(StatusEffectType statusEffect) {
+        if (statusEffects[statusEffect] > 0) {
+            statusEffects[statusEffect] = 0;
+        } else {
+            statusEffects[statusEffect] = 1;
+        }
+        UpdateView();
+        onStatusEffectChangeHandler?.Invoke();
+    }
 
     public void ApplyStatusEffects(StatusEffectType statusEffect, int scale) {
         Debug.Log(String.Format("Applying status with scale {0}", scale));
@@ -579,6 +590,7 @@ public class CombatInstance : MonoBehaviour
     public Dictionary<StatusEffectType, int> GetDisplayedStatusEffects() {
         Dictionary<StatusEffectType, int> displayedStatusEffects = new Dictionary<StatusEffectType, int>();
         foreach (KeyValuePair<StatusEffectType, int> statusEffect in statusEffects) {
+            if (statusEffect.Key == StatusEffectType.FlippedUpsideDown) continue;
             int value = statusEffect.Value;
             if (statusEffect.Key == StatusEffectType.Strength) {
                 value += combatStats.baseAttackDamage;

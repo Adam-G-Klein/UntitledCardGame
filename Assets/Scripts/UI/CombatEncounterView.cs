@@ -93,7 +93,7 @@ public class CombatEncounterView : MonoBehaviour,
             Debug.LogError("Active encounter is not an EnemyEncounter, Go to ScriptableObjects/Variables/GameState.so and hit Set Active Encounter to set the encounter to an enemy encounter");
             return;
         }
-        
+
         UIDocumentUtils.SetAllPickingMode(root, PickingMode.Ignore);
 
         endTurnButton = root.Q<UnityEngine.UIElements.Button>("end-turn");
@@ -278,6 +278,16 @@ public class CombatEncounterView : MonoBehaviour,
         {
             Debug.Log($"Updating sprite for enemy {enemy.GetName()}");
             enemyView.UpdateSprite(sprite);
+        }
+    }
+
+    public void FlipOverSpriteForCompanion(CompanionInstance companion)
+    {
+        CompanionView companionView = companionViews.Find(cv => cv.GetCompanionInstance() == companion);
+        if (companionView != null)
+        {
+            Debug.Log($"Flipping over sprite for companion {companion.GetName()}");
+            companionView.RotateSprite(180f);
         }
     }
 
@@ -655,7 +665,7 @@ public class CombatEncounterView : MonoBehaviour,
             cardView.cardContainer.schedule.Execute(() => {
                 Vector2 delta = companionView.container.worldBound.center - cardView.cardContainer.worldBound.center;
                 cardView.cardContainer.style.translate = new Translate(delta.x, delta.y);
-                
+
                 LeanTween.value(0f, 1f, duration)
                     .setOnUpdate((float val) => {
                         cardView.cardContainer.style.visibility = Visibility.Visible;

@@ -51,6 +51,7 @@ public class CompanionView : IUIEventReceiver
 
     private int lastHealthValue;
     private bool isHealthTweening = false;
+    private float currentRotationDegrees = 0f;
 
     public CompanionView(
             Companion companion,
@@ -140,7 +141,7 @@ public class CompanionView : IUIEventReceiver
             deckInstance.OnDrawDiscardPilesChanged += OnDecksChangedHandler;
             deckInstance.OnDrawPileShuffled += ShuffleDiscardIntoDrawVFX;
             deckInstance.InvokeDrawDiscardPilesChanged();
-            pilesContainer.RegisterCallback<GeometryChangedEvent>(SetDrawDiscardPilePositions);   
+            pilesContainer.RegisterCallback<GeometryChangedEvent>(SetDrawDiscardPilePositions);
         }
         pilesContainer.style.display = DisplayStyle.Flex;
         pickingModePositionList.Add(drawPileIcon);
@@ -411,10 +412,17 @@ public class CompanionView : IUIEventReceiver
         animationFrames = this.companion.companionType.animationSprites;
         currentFrame = 0;
         this.spriteElement.style.backgroundImage = new StyleBackground(animationFrames[0]);
+        // this.spriteElement.style.rotate = new StyleRotate(new Rotate(new Angle(180, AngleUnit.Degree)));
         animationItem = this.spriteElement.schedule.Execute(() => {
             currentFrame = (currentFrame + 1) % animationFrames.Count;
             this.spriteElement.style.backgroundImage = new StyleBackground(animationFrames[currentFrame]);
         }).Every(250);
+    }
+
+    public void RotateSprite(float angle) {
+        currentRotationDegrees += angle;
+        currentRotationDegrees = currentRotationDegrees % 360;
+        this.spriteElement.style.rotate = new StyleRotate(new Rotate(new Angle(currentRotationDegrees, AngleUnit.Degree)));
     }
 
     private void SetStaticSprite() {
@@ -618,6 +626,7 @@ public class CompanionView : IUIEventReceiver
         spriteCopy.style.backgroundSize = new StyleBackgroundSize(new BackgroundSize(BackgroundSizeType.Contain));
         spriteCopy.style.width = new Length(100, LengthUnit.Percent);
         spriteCopy.style.height = new Length(100, LengthUnit.Percent);
+        spriteCopy.style.rotate = new StyleRotate(new Rotate(new Angle(currentRotationDegrees, AngleUnit.Degree)));
         yield return EntityAbilityInstance.GenericAbilityTriggeredVFX(this.spriteElement, spriteCopy);
     }
 

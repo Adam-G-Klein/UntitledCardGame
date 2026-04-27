@@ -37,6 +37,8 @@ public class ApplyStatus : EffectStep, ITooltipProvider
     private bool getMultiplicityFromKey = false;
     [SerializeField]
     private string inputMultiplicityKey = "";
+    [SerializeField]
+    private bool toggleStatus = false; // if true, will remove the status if it's already present instead of adding to stacks
 
     public ApplyStatus()
     {
@@ -57,6 +59,11 @@ public class ApplyStatus : EffectStep, ITooltipProvider
         }
 
         foreach (CombatInstance combatInstance in combatInstances) {
+            if (toggleStatus) {
+                combatInstance.ToggleStatusEffect(statusEffect);
+                continue;
+            }
+
             int personalizedScale = finalScale;
             // Certain companion abilities have effects like "give each
             // companion on the team 4 block for each aura stack they have".

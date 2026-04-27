@@ -49,11 +49,11 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
         if (instances.Count == 0)
         {
             EffectError("No input targets present for key " + inputKey);
-            yield return null;
+            yield break;
         }
         int finalScale = getFinalScale(document);
 
-        if (finalScale == -1) yield return null;
+        if (finalScale == -1) yield break;
 
         const float delayIncrement = 1f;
 
@@ -79,8 +79,6 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
                 yield return new WaitForSeconds(delayIncrement / baseMultiplicity);
             }
         }
-
-        yield return null;
     }
 
     private int getFinalScale(EffectDocument document)

@@ -1,0 +1,131 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: PB_DownUnderForce
+  m_EditorClassIdentifier: 
+  guid: d3a7c7e5-a9af-40ed-8e8a-d29b684658c4
+  Name: Down Under Force
+  Description: Flip a rat upside down. Give all upside down rats 2 strength
+  IconDescription: []
+  IconDescriptionTooltipLines: []
+  defaultValues: []
+  Cost: 1
+  Artwork: {fileID: 21300000, guid: 9fc5df2c57ed7dd4686ab9274820f38e, type: 3}
+  cardCategory: 2
+  packFrom: {fileID: 11400000, guid: 908f28c6f48104c2d85d2fcbd973771e, type: 2}
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
+  effectWorkflows:
+  - rid: 5602892533381726226
+  onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  onDrawEffectWorkflow:
+    rid: -2
+  tooltips: 
+  tooltipKeyword: 37
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 578315134572691578
+      type: {class: SpriteSwap, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: SpriteSwap
+        newSprite: {fileID: 0}
+        inputKey: targetCompanion
+        flipOver: 1
+    - rid: 578315134572691599
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: targetCompanion
+        statusEffect: 17
+        scale: 0
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        toggleStatus: 1
+    - rid: 578315134572691600
+      type: {class: FilterEntityByStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FilterEntityByStatus
+        inputKey: all
+        status: 17
+        outputKey: flippedUpsideDown
+    - rid: 578315134572691601
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: all
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+    - rid: 578315134572691602
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: flippedUpsideDown
+        statusEffect: 0
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        toggleStatus: 0
+    - rid: 1289961820425028205
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: flippedUpsideDown
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
+        scale: 1
+    - rid: 5602892533381726226
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 5602892533381726227
+        - rid: 578315134572691599
+        - rid: 578315134572691601
+        - rid: 578315134572691600
+        - rid: 578315134572691602
+        - rid: 1289961820425028205
+        - rid: 578315134572691578
+    - rid: 5602892533381726227
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: targetCompanion
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
