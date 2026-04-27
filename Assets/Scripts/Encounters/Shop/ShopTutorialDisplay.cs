@@ -52,10 +52,10 @@ public class ShopTutorialDisplay : MonoBehaviour
     public IEnumerator CardOfferingShopTutorialCoroutine()
     {
         yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.CardBuyingTutorialStep1);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         MultiDeckViewManager.Instance.ShowShopDeckView();
         MultiDeckViewManager.Instance.DisableInteractions();
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.CardBuyingTutorialStep2);
         MultiDeckViewManager.Instance.EnableInteractions();
     }
