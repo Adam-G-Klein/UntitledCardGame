@@ -1,0 +1,153 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: CreatorCard_GhostPepper
+  m_EditorClassIdentifier: 
+  guid: 213d4a1f-a17b-4f11-932c-fd5a96332753
+  Name: Ghost Pepper
+  Description: Bleed self 1 HP and gain 2 energy
+  IconDescription:
+  - tokenType: 0
+    text: 1
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 9
+  - tokenType: 2
+    text: 
+    icon: 11
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 10
+  - tokenType: 2
+    text: 
+    icon: 10
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 16
+  - tokenType: 0
+    text: ':'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 3
+  - tokenType: 2
+    text: 
+    icon: 19
+  - tokenType: 0
+    text: x3
+    icon: 0
+  IconDescriptionTooltipLines:
+  - Bleed owner rat 1 HP
+  - "Gain 2 \xC9lan to spend on playing other cards"
+  - When this card is exhausted, draw 1 card from a random rat 3 times
+  defaultValues: []
+  Cost: 1
+  Artwork: {fileID: 21300000, guid: 292ee1eb3f315c9448b8c577d0e6a420, type: 3}
+  cardCategory: 4
+  packFrom: {fileID: 0}
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
+  effectWorkflows:
+  - rid: 7082891692335694181
+  onExhaustEffectWorkflow:
+    rid: 7082891692335694182
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  onDrawEffectWorkflow:
+    rid: -2
+  tooltips: 
+  tooltipKeyword: 37
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 578315134572691687
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: random
+        outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        waitForDrawsToResolve: 0
+    - rid: 578315134572691688
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+    - rid: 578315134572691689
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: self
+        combatEffect: 16
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
+    - rid: 578315134572691690
+      type: {class: ManaChange, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ManaChange
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 7082891692335694181
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 578315134572691688
+        - rid: 578315134572691689
+        - rid: 578315134572691690
+    - rid: 7082891692335694182
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 7082891692335694183
+        - rid: 578315134572691687
+    - rid: 7082891692335694183
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: random
+        validTargets: 00000000
+        number: 3
+        specialTargetRule: 6
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
