@@ -34,6 +34,7 @@ public class MultiDeckView
     private List<DeckTabView> deckTabViews;
 
     private TooltipController tooltipController;
+    private bool interactionsDisabled = false;
 
     private Dictionary<int, int> CARDS_WIDE_PER_COMP_NUM = new Dictionary<int, int>() {
         { 1, 8 },
@@ -211,7 +212,7 @@ public class MultiDeckView
         // ideally do after a slight delay
         inTransition = false;
         if (scrollView.contentContainer.Children().ToList().Count == 0) return;
-        if (enableFocusables) {
+        if (enableFocusables && !interactionsDisabled) {
             ToggleDeckFocusability(scrollView.contentContainer.Children().ToList(), true);
             if (companionView != null) FocusManager.Instance.EnableFocusableTarget(companionView.AsFocusable());
             if (ControlsManager.Instance.GetControlMethod() == ControlsManager.ControlMethod.Mouse) return;
@@ -607,6 +608,7 @@ public class MultiDeckView
         FocusManager.Instance.LockFocusables();
         // Disable clicking on everything in the view
         UIDocumentUtils.SetAllPickingMode(uiDocument.rootVisualElement, PickingMode.Ignore);
+        interactionsDisabled = true;
     }
 
     public void EnableInteractions() {
@@ -615,6 +617,7 @@ public class MultiDeckView
         FocusManager.Instance.LockFocusables();
         // Enable clicking on everything in the view
         UIDocumentUtils.SetAllPickingMode(uiDocument.rootVisualElement, PickingMode.Position);
+        interactionsDisabled = false;
     }
 
     public void TurnOffInteractionsAndHide() {
