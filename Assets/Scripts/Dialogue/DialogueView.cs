@@ -24,12 +24,14 @@ public class DialogueView : GenericSingleton<DialogueView>, IControlsReceiver
     private Coroutine runningCoroutine = null;
     private bool waitingForClick = false;
     private bool hasClicked = false;
+    private VisualElement clickToProceedVE;
 
     // Start is called before the first frame update
     void Awake()
     {
         this.portraitElement = uiDoc.rootVisualElement.Q<VisualElement>("speaker-portrait");
         this.label = uiDoc.rootVisualElement.Q<Label>("main-text-label");
+        this.clickToProceedVE = uiDoc.rootVisualElement.Q<VisualElement>("click-to-continue");
     }
 
     void Start() {
@@ -67,10 +69,11 @@ public class DialogueView : GenericSingleton<DialogueView>, IControlsReceiver
         if (!waitForClick) {
             yield break;
         }
-
+        clickToProceedVE.style.display = DisplayStyle.Flex;
         waitingForClick = true;
         runningCoroutine = StartCoroutine(WaitForClick());
         yield return runningCoroutine;
+        clickToProceedVE.style.display = DisplayStyle.None;
         waitingForClick = false;
         hasClicked = false;
     }
