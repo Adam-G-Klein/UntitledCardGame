@@ -6,7 +6,8 @@ public class ShopTutorialDisplay : MonoBehaviour
 {
     public enum ShopTutorialToShow
     {
-        FullFeatureShopTutorial
+        FullFeatureShopTutorial,
+        None
     }
     private ShopDataSO shopData;
     private EncounterConstantsSO encounterConstants;
@@ -40,6 +41,8 @@ public class ShopTutorialDisplay : MonoBehaviour
         {
             case ShopTutorialToShow.FullFeatureShopTutorial:
                 yield return FullFeatureShopTutorialCoroutine();
+                break;
+            default:
                 break;
         }
         CinematicIntroComplete();

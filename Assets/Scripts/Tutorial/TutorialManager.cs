@@ -193,7 +193,7 @@ public class TutorialManager : MonoBehaviour
                 gameState.HasSeenPackSelectTutorial = true;
                 break;
             case TutorialType.Shop:
-                gameState.HasSeenShopTutorial = true;
+                gameState.HasSeenAllShopTutorials = true;
                 break;
         }
     }

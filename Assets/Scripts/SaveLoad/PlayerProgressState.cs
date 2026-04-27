@@ -36,7 +36,7 @@ public class PlayerProgressState
           this.skipTutorials = gameState.skipTutorials;
           this.hasSeenCombatTutorial = gameState.HasSeenCombatTutorial;
           this.hasSeenPackSelectTutorial = gameState.HasSeenPackSelectTutorial;
-          this.hasSeenShopTutorial = gameState.HasSeenShopTutorial;
+          this.hasSeenShopTutorial = gameState.HasSeenAllShopTutorials;
           this.nextTutorialID = TutorialManager.Instance.UpcomingTutorialID;
 
      }
@@ -71,7 +71,7 @@ public class PlayerProgressState
           gameState.skipTutorials = this.skipTutorials;
           gameState.HasSeenCombatTutorial = this.hasSeenCombatTutorial;
           gameState.HasSeenPackSelectTutorial = this.hasSeenPackSelectTutorial;
-          gameState.HasSeenShopTutorial = this.hasSeenShopTutorial;
+          gameState.HasSeenAllShopTutorials = this.hasSeenShopTutorial;
           TutorialManager.Instance.SetUpcomingTutorialID(this.nextTutorialID);
 
           PrintPlayerProgress();

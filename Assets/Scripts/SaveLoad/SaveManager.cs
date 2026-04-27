@@ -68,7 +68,7 @@ public class SaveManager : GenericSingleton<SaveManager>
         }
         gameStateVariableSO.HasSeenCombatTutorial = false;
         gameStateVariableSO.HasSeenPackSelectTutorial = false;
-        gameStateVariableSO.HasSeenShopTutorial = false;
+        gameStateVariableSO.HasSeenAllShopTutorials = false;
         ProgressManager.Instance.progressSO.unlockedCards = new List<CardType>();
     }
 

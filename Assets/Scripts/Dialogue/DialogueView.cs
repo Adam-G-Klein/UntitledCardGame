@@ -32,6 +32,7 @@ public class DialogueView : GenericSingleton<DialogueView>, IControlsReceiver
         this.portraitElement = uiDoc.rootVisualElement.Q<VisualElement>("speaker-portrait");
         this.label = uiDoc.rootVisualElement.Q<Label>("main-text-label");
         this.clickToProceedVE = uiDoc.rootVisualElement.Q<VisualElement>("click-to-continue");
+        rawImage.enabled = false;
     }
 
     void Start() {

@@ -77,9 +77,10 @@ public class GameStateVariableSO : ScriptableObject
             }
         }
     }
+    [Header("DO NOT COMMIT A CHANGE TO THESE VALUES")]
     [SerializeField]
     private bool hasSeenShopTutorial = false;
-    public bool HasSeenShopTutorial {
+    public bool HasSeenAllShopTutorials {
         get => hasSeenShopTutorial;
         set {
             hasSeenShopTutorial = value;

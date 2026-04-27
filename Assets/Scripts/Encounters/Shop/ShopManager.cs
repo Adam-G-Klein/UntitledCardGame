@@ -151,7 +151,8 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         shopViewController.DisableAllUIPreserveAppearance();
         shopTutorialDisplay = GetComponent<ShopTutorialDisplay>();
         // this setup method is what plays the dialogue and then the timeline
-        shopTutorialDisplay?.Setup(shopEncounter.shopData, encounterConstants, shopTutorialToShow);
+        // has seen all shop tutorials is just used for debug rn
+        shopTutorialDisplay?.Setup(shopEncounter.shopData, encounterConstants, gameState.HasSeenAllShopTutorials ? ShopTutorialDisplay.ShopTutorialToShow.None : shopTutorialToShow);
         cinematicIntroComplete = false;
         StartCoroutine(CinematicStartOfShopCoroutine());
     }
@@ -160,7 +161,6 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     {
         Debug.Log("ShopManager: waiting for cinematic intro to complete");
         shopViewController.DisableAllUIPreserveAppearance();
-
         yield return new WaitUntil(() => cinematicIntroComplete == true);
         shopViewController.EnableAllUI();
         Debug.Log("ShopManager: cinematic intro complete");
