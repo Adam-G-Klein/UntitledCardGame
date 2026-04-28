@@ -90,6 +90,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
             combatEncounterView setup functions, LateStart and BuildEnemyEncounter.
             It needs to do it in a special way.
         */
+        Debug.Log("SetupCombatAfterAnyDemoCutscene, HasSeenCombatTutorial is " + gameState.HasSeenCombatTutorial);
         if (!DemoDirector.Instance.IsStepCompleted(DemoStepName.CombatTutorialStep)){
             combatEncounterView.SetPersistentElementsVisible(false);
             yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.CombatTutorialStep);

@@ -30,14 +30,23 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
     public AnimationCurve companionKickInCurve;
     public AnimationCurve waddleCurve;
 
+    [Header("Intro Camera Tour")]
+    public List<Transform> cameraTourTargets = new List<Transform>();
+    public float cameraDollyDuration = 2.5f;
+    public float cameraTourHoldInBlack = 0.35f;
+
     private EnemyEncounterManager manager;
+    private Cinemachine.CinemachineVirtualCamera virtualCamera;
     private int dialogueLineIndex;
     private bool pause = false;
 
     public IEnumerator RunAllStepsCoroutine()
     {
         manager = EnemyEncounterManager.Instance;
+        virtualCamera = ScreenShakeManager.Instance.GetComponent<Cinemachine.CinemachineVirtualCamera>();
         dialogueLineIndex = 0;
+        yield return SpeakLineNoHide();
+        yield return CameraTourCoroutine();
         yield return SpeakLineNoHide();
         yield return SpeakLineNoHide();
         yield return SpeakLine();
@@ -248,6 +257,36 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
         baronShadow.enabled = true;
         LeanTween.move(baronShadow.gameObject, visibleShadowPosition, duration)
             .setOnComplete(() => pause = false);
+    }
+    private IEnumerator CameraTourCoroutine() {
+        if (virtualCamera == null || cameraTourTargets == null || cameraTourTargets.Count == 0) {
+            yield break;
+        }
+        DialogueView.Instance.SetScreenSpaceMode(true);
+        Vector3 startPosition = virtualCamera.transform.position;
+        try {
+            for (int i = 0; i < cameraTourTargets.Count; i++) {
+                Transform target = cameraTourTargets[i];
+                if (target == null) continue;
+                yield return DollyCameraTo(target.position, cameraDollyDuration);
+                yield return SceneTransitionManager.Instance.Fade(1f);
+                yield return new WaitForSeconds(cameraTourHoldInBlack);
+                if (i < cameraTourTargets.Count - 1) {
+                    yield return SceneTransitionManager.Instance.Fade(0f);
+                }
+            }
+            virtualCamera.transform.position = startPosition;
+            yield return SceneTransitionManager.Instance.Fade(0f);
+        } finally {
+            DialogueView.Instance.SetScreenSpaceMode(false);
+        }
+    }
+
+    private IEnumerator DollyCameraTo(Vector3 target, float duration) {
+        bool done = false;
+        LeanTween.move(virtualCamera.gameObject, target, duration)
+            .setOnComplete(() => done = true);
+        yield return new WaitUntil(() => done);
     }
 
     private IEnumerator AnimateBaronShadowGoingOut() {

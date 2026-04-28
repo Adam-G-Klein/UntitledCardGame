@@ -26,6 +26,10 @@ public class DialogueView : GenericSingleton<DialogueView>, IControlsReceiver
     private bool hasClicked = false;
     private VisualElement clickToProceedVE;
 
+    private bool screenSpaceModeActive = false;
+    private RenderMode savedCanvasRenderMode;
+    private Vector2 savedAnchorMin, savedAnchorMax, savedPivot, savedAnchoredPos, savedSizeDelta;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -83,6 +87,33 @@ public class DialogueView : GenericSingleton<DialogueView>, IControlsReceiver
         clickToProceedVE.style.display = DisplayStyle.None;
         waitingForClick = false;
         hasClicked = false;
+    }
+
+    public void SetScreenSpaceMode(bool screenSpace) {
+        if (screenSpace == screenSpaceModeActive) return;
+        var rt = rawImage.rectTransform;
+        if (screenSpace) {
+            savedCanvasRenderMode = canvas.renderMode;
+            savedAnchorMin = rt.anchorMin;
+            savedAnchorMax = rt.anchorMax;
+            savedPivot = rt.pivot;
+            savedAnchoredPos = rt.anchoredPosition;
+            savedSizeDelta = rt.sizeDelta;
+            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            canvas.sortingOrder = 500;
+            rt.anchorMin = new Vector2(1, 0);
+            rt.anchorMax = new Vector2(1, 0);
+            rt.pivot = new Vector2(1, 0);
+            rt.anchoredPosition = new Vector2(-40f, 40f);
+        } else {
+            canvas.renderMode = savedCanvasRenderMode;
+            rt.anchorMin = savedAnchorMin;
+            rt.anchorMax = savedAnchorMax;
+            rt.pivot = savedPivot;
+            rt.anchoredPosition = savedAnchoredPos;
+            rt.sizeDelta = savedSizeDelta;
+        }
+        screenSpaceModeActive = screenSpace;
     }
 
     public void Hide() {

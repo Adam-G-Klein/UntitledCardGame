@@ -10,6 +10,7 @@ public class SceneTransitionManager : MonoBehaviour
     [SerializeField] private Color fadeColor = Color.black;
     
     private static SceneTransitionManager instance;
+    public static SceneTransitionManager Instance => instance;
     private Image fadeImage;
     private Coroutine fadeCoroutine;
 
@@ -85,7 +86,7 @@ public class SceneTransitionManager : MonoBehaviour
         yield return StartCoroutine(Fade(0f));
     }
 
-    private IEnumerator Fade(float targetAlpha)
+    public IEnumerator Fade(float targetAlpha)
     {
     
         // Set the target color with the desired alpha
