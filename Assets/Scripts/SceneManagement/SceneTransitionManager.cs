@@ -12,6 +12,10 @@ public class SceneTransitionManager : MonoBehaviour
     private static SceneTransitionManager instance;
     public static SceneTransitionManager Instance => instance;
     private Image fadeImage;
+    private Canvas canvas;
+    private int defaultSortingOrder = 999;
+    private RenderMode defaultRenderMode = RenderMode.ScreenSpaceOverlay;
+    private string defaultSortingLayer;
     private Coroutine fadeCoroutine;
 
     private void Awake()
@@ -32,9 +36,10 @@ public class SceneTransitionManager : MonoBehaviour
     private void SetupFadeCanvas()
     {
         // Create canvas for the fade effect
-        Canvas canvas = gameObject.AddComponent<Canvas>();
-        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-        canvas.sortingOrder = 999; // Ensure it renders on top
+        canvas = gameObject.AddComponent<Canvas>();
+        canvas.renderMode = defaultRenderMode;
+        canvas.sortingOrder = defaultSortingOrder; // Ensure it renders on top
+        defaultSortingLayer = canvas.sortingLayerName;
 
         // Add a Canvas Scaler for proper UI scaling
         CanvasScaler scaler = gameObject.AddComponent<CanvasScaler>();
@@ -84,6 +89,23 @@ public class SceneTransitionManager : MonoBehaviour
 
         // Fade back in
         yield return StartCoroutine(Fade(0f));
+    }
+
+    public void SetSortingOrder(int sortingOrder)
+    {
+        if (canvas == null) return;
+        canvas.renderMode = RenderMode.ScreenSpaceCamera;
+        canvas.worldCamera = Camera.main;
+        canvas.sortingLayerName = "Overlay UI";
+        canvas.sortingOrder = sortingOrder;
+    }
+
+    public void ResetSortingOrder()
+    {
+        if (canvas == null) return;
+        canvas.renderMode = defaultRenderMode;
+        canvas.sortingLayerName = defaultSortingLayer;
+        canvas.sortingOrder = defaultSortingOrder;
     }
 
     public IEnumerator Fade(float targetAlpha)

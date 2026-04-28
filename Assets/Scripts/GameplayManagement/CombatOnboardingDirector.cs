@@ -31,9 +31,11 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
     public AnimationCurve waddleCurve;
 
     [Header("Intro Camera Tour")]
-    public List<Transform> cameraTourTargets = new List<Transform>();
+    public Transform cameraTourTargetsParent;
     public float cameraDollyDuration = 2.5f;
     public float cameraTourHoldInBlack = 0.35f;
+    public float cameraFadeDuration = 0.5f;
+    [SerializeField] private float cameraTourZoom = 5f;
 
     private EnemyEncounterManager manager;
     private Cinemachine.CinemachineVirtualCamera virtualCamera;
@@ -45,7 +47,7 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
         manager = EnemyEncounterManager.Instance;
         virtualCamera = ScreenShakeManager.Instance.GetComponent<Cinemachine.CinemachineVirtualCamera>();
         dialogueLineIndex = 0;
-        yield return SpeakLineNoHide();
+        yield return SpeakLineNoHideNoWait();
         yield return CameraTourCoroutine();
         yield return SpeakLineNoHide();
         yield return SpeakLineNoHide();
@@ -156,6 +158,13 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
         dialogueLineIndex += 1;
     }
 
+    private IEnumerator SpeakLineNoHideNoWait()
+    {
+        StartCoroutine(DialogueView.Instance.SpeakLineCoroutine(speakerSprite, dialogueLines[dialogueLineIndex], false));
+        dialogueLineIndex += 1;
+        yield break;
+    }
+
     private IEnumerator SpeakLineNoHide()
     {
         yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, dialogueLines[dialogueLineIndex], true);
@@ -259,26 +268,49 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
             .setOnComplete(() => pause = false);
     }
     private IEnumerator CameraTourCoroutine() {
-        if (virtualCamera == null || cameraTourTargets == null || cameraTourTargets.Count == 0) {
+        if (virtualCamera == null || cameraTourTargetsParent == null || cameraTourTargetsParent.childCount < 2) {
             yield break;
         }
+
         DialogueView.Instance.SetScreenSpaceMode(true);
         Vector3 startPosition = virtualCamera.transform.position;
+        float startOrthographicSize = virtualCamera.m_Lens.OrthographicSize;
+        int childCount = cameraTourTargetsParent.childCount;
         try {
-            for (int i = 0; i < cameraTourTargets.Count; i++) {
-                Transform target = cameraTourTargets[i];
-                if (target == null) continue;
-                yield return DollyCameraTo(target.position, cameraDollyDuration);
+            SceneTransitionManager.Instance.SetSortingOrder(100);
+            yield return SceneTransitionManager.Instance.Fade(1f);
+            yield return new WaitForSeconds(cameraTourHoldInBlack);
+            virtualCamera.m_Lens.OrthographicSize = cameraTourZoom;
+
+            for (int i = 0; i + 1 < childCount; i += 2) {
+                Transform snapTarget = cameraTourTargetsParent.GetChild(i);
+                Transform panTarget = cameraTourTargetsParent.GetChild(i + 1);
+
+                virtualCamera.transform.position = new Vector3(snapTarget.position.x, snapTarget.position.y, virtualCamera.transform.position.z);
+
+                // Start pan immediately, then fade in — camera is already moving when visible
+                Vector3 flatTarget = new Vector3(panTarget.position.x, panTarget.position.y, virtualCamera.transform.position.z);
+                float panStartTime = Time.time;
+                LeanTween.move(virtualCamera.gameObject, flatTarget, cameraDollyDuration);
+
+                yield return SceneTransitionManager.Instance.Fade(0f);
+
+                // Wait until cameraFadeDuration before pan ends, then fade out while camera is still moving
+                float elapsed = Time.time - panStartTime;
+                float waitTime = cameraDollyDuration - elapsed - cameraFadeDuration;
+                if (waitTime > 0f) yield return new WaitForSeconds(waitTime);
+
                 yield return SceneTransitionManager.Instance.Fade(1f);
+                LeanTween.cancel(virtualCamera.gameObject);
                 yield return new WaitForSeconds(cameraTourHoldInBlack);
-                if (i < cameraTourTargets.Count - 1) {
-                    yield return SceneTransitionManager.Instance.Fade(0f);
-                }
             }
+
             virtualCamera.transform.position = startPosition;
+            virtualCamera.m_Lens.OrthographicSize = startOrthographicSize;
             yield return SceneTransitionManager.Instance.Fade(0f);
         } finally {
             DialogueView.Instance.SetScreenSpaceMode(false);
+            SceneTransitionManager.Instance.ResetSortingOrder();
         }
     }
 
