@@ -22,10 +22,12 @@ public class CompanionView : IUIEventReceiver
 
     private VisualElement statusArea;
     private VisualElement spriteElement;
-    private VisualElement gradient;
     private VisualElement frame;
+    private VisualElement frameBackground;
     private Label name;
     private VisualElement healthBarFill;
+    private VisualElement healthBarFillClip;
+    private VisualElement healthBarParent;
     private Label healthBarLabel;
     private VisualElement drawDiscardContainer;
     private VisualElement viewDeckContainer;
@@ -88,10 +90,12 @@ public class CompanionView : IUIEventReceiver
 
         this.statusArea = companionRoot.Q<VisualElement>("companion-view-status-area");
         this.spriteElement = companionRoot.Q<VisualElement>("companion-view-sprite");
-        this.gradient = companionRoot.Q<VisualElement>("companion-view-gradient");
         this.frame = companionRoot.Q<VisualElement>("companion-view-frame");
+        this.frameBackground = companionRoot.Q<VisualElement>("companion-view-frame-background");
         this.name = companionRoot.Q<Label>("companion-view-name-label");
         this.healthBarFill = companionRoot.Q<VisualElement>("companion-view-health-bar-fill");
+        this.healthBarFillClip = companionRoot.Q<VisualElement>("companion-view-health-bar-clip");
+        this.healthBarParent = companionRoot.Q<VisualElement>("companion-view-health-bar-parent");
         this.healthBarLabel = companionRoot.Q<Label>("companion-view-health-bar-label");
         this.hoverDetector = companionRoot.Q<VisualElement>("companion-view-lower-hover-detector");
         this.drawDiscardContainer = companionRoot.Q<VisualElement>("companion-view-draw-discard-container");
@@ -101,10 +105,6 @@ public class CompanionView : IUIEventReceiver
         this.viewDeckButton = companionRoot.Q<IconButton>("companion-view-view-deck-button");
         this.selectedIndicator = companionRoot.Q<VisualElement>("companion-view-selected-indicator");
         this.rarityIndicator = companionRoot.Q<VisualElement>("companion-view-rarity-icon");
-
-        if (combatInstance != null) {
-            companionRoot.Q<VisualElement>("companion-view-background-gradient").style.display = DisplayStyle.None;
-        }
 
         // Moving past the random VisualElement parent CloneTree() creates
         this.container = companionRoot.Children().First();
@@ -116,7 +116,7 @@ public class CompanionView : IUIEventReceiver
         SetupName();
         SetupHealth();
         SetupStatusIndicators();
-        SetupLevelIndicator();
+        SetupFrame();
 
         if (this.context.setupDrawDiscardButtons || this.context.setupViewDeckButton) SetupHoverDetector();
         if (this.context.setupDrawDiscardButtons) SetupDrawDiscardContainer();
@@ -185,26 +185,25 @@ public class CompanionView : IUIEventReceiver
         }
     }
 
-    private void SetupLevelIndicator() {
-        frame.GetClasses().ToList().ForEach((cls) => frame.RemoveFromClassList(cls));
-        gradient.GetClasses().ToList().ForEach((cls) => frame.RemoveFromClassList(cls));
+    private void SetupFrame() {
+        Sprite frameSprite = null;
         switch (this.companion.companionType.level) {
             case CompanionLevel.LevelThree:
-                frame.AddToClassList("frame-gold");
-                gradient.AddToClassList("gold-gradient");
+                frameSprite = companion.companionType.pack.levelThreeFrame;
             break;
 
             case CompanionLevel.LevelTwo:
-                frame.AddToClassList("frame-silver");
-                gradient.AddToClassList("silver-gradient");
+                frameSprite = companion.companionType.pack.levelTwoFrame;
             break;
 
             case CompanionLevel.LevelOne:
             default:
-                frame.AddToClassList("frame-bronze");
-                gradient.AddToClassList("bronze-gradient");
+                frameSprite = companion.companionType.pack.levelOneFrame;
             break;
         }
+
+        this.frame.style.backgroundImage = new StyleBackground(frameSprite);
+        this.frameBackground.style.backgroundImage = new StyleBackground(companion.companionType.pack.frameBackground);
     }
 
     private void SetupRarityIndicator() {
@@ -376,7 +375,7 @@ public class CompanionView : IUIEventReceiver
 
         isHealthTweening = true;
 
-        HealthBarUtils.UpdateHealth(lastHealthValue, currentHealth, maxHealth, healthBarFill, healthBarLabel, () => {
+        HealthBarUtils.UpdateHealth(lastHealthValue, currentHealth, maxHealth, healthBarFillClip, healthBarLabel, () => {
                 isHealthTweening = false;
                 lastHealthValue = currentHealth;
                 // In case multiple instances of damage come through in close timing
@@ -394,8 +393,15 @@ public class CompanionView : IUIEventReceiver
             currentHealth = this.combatInstance.combatStats.currentHealth;
             maxHealth = this.combatInstance.combatStats.maxHealth;
         }
-        HealthBarUtils.SetupHealth(currentHealth, maxHealth, healthBarFill, healthBarLabel);
+        HealthBarUtils.SetupHealth(currentHealth, maxHealth, healthBarFillClip, healthBarLabel);
         lastHealthValue = currentHealth;
+        container.RegisterCallback<GeometryChangedEvent>(SetHealthBarFillSize);
+    }
+
+    private void SetHealthBarFillSize(GeometryChangedEvent evt) {
+        healthBarFill.style.width = healthBarParent.resolvedStyle.width;
+        healthBarFill.style.height = healthBarParent.resolvedStyle.height;
+        container.UnregisterCallback<GeometryChangedEvent>(SetHealthBarFillSize);
     }
 
     private void SetupName() {

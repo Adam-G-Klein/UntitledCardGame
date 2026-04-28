@@ -11,18 +11,18 @@ public class CompanionManagementView : IControlsReceiver {
     private ICompanionManagementViewDelegate viewDelegate;
 
     private VisualElement spriteElement;
-    private VisualElement bronzeFrame;
-    private VisualElement silverFrame;
-    private VisualElement goldFrame;
+    private VisualElement frame;
+    private VisualElement frameBackground;
     private Label name;
     private VisualElement healthBarFill;
+    private VisualElement healthBarFillClip;
+    private VisualElement healthBarParent;
     private Label healthBarLabel;
     private VisualElement darkBox;
     private IconButton viewDeckButton = null;
     private IconButton sellCompanionButton = null;
     private VisualElement companionBoundingBox = null;
     private VisualElement rarityIndicator = null;
-    // private CompanionViewOld companionView;
 
     private bool draggingThisCompanion = false;
     private bool isSellingDisabled = false;
@@ -37,28 +37,29 @@ public class CompanionManagementView : IControlsReceiver {
     public CompanionManagementView(Companion companion, VisualTreeAsset template, ICompanionManagementViewDelegate viewDelegate) {
         this.viewDelegate = viewDelegate;
         this.companion = companion;
-        container = MakeCompanionManagementView(companion, template);
+        MakeCompanionManagementView(companion, template);
     }
 
-    public VisualElement MakeCompanionManagementView(Companion companion, VisualTreeAsset template) {
+    public void MakeCompanionManagementView(Companion companion, VisualTreeAsset template) {
         VisualElement managementRoot = template.CloneTree();
 
         this.spriteElement = managementRoot.Q<VisualElement>("management-view-sprite");
-        this.bronzeFrame = managementRoot.Q<VisualElement>("management-view-bronze-frame");
-        this.silverFrame = managementRoot.Q<VisualElement>("management-view-silver-frame");
-        this.goldFrame = managementRoot.Q<VisualElement>("management-view-gold-frame");
-        this.name = managementRoot.Q<Label>("management-view-name-label");
-        this.healthBarFill = managementRoot.Q<VisualElement>("management-view-health-bar-fill");
-        this.healthBarLabel = managementRoot.Q<Label>("management-view-health-bar-label");
-        this.rarityIndicator = managementRoot.Q<VisualElement>("management-view-rarity-indicator");
+        this.frame = managementRoot.Q<VisualElement>("companion-view-frame");
+        this.frameBackground = managementRoot.Q<VisualElement>("companion-view-frame-background");
+        this.name = managementRoot.Q<Label>("companion-view-name-label");
+        this.healthBarFill = managementRoot.Q<VisualElement>("companion-view-health-bar-fill");
+        this.healthBarFillClip = managementRoot.Q<VisualElement>("companion-view-health-bar-clip");
+        this.healthBarParent = managementRoot.Q<VisualElement>("companion-view-health-bar-parent");
+        this.healthBarLabel = managementRoot.Q<Label>("companion-view-health-bar-label");
+        this.rarityIndicator = managementRoot.Q<VisualElement>("companion-view-rarity-icon");
 
-        VisualElement container = managementRoot.Children().First();
+        container = managementRoot.Children().First();
 
         SetupRarityIndicator();
         SetupCompanionSprite();
         SetupName();
         SetupHealth();
-        SetupLevelIndicator();
+        SetupFrame();
 
         container.RegisterCallback<ClickEvent>(CompanionManagementOnClick);
 
@@ -70,28 +71,27 @@ public class CompanionManagementView : IControlsReceiver {
         container.RegisterCallback<PointerEnterEvent>(CompanionManagementOnPointerEnter);
 
         container.name = companion.companionType.name;
-
-        return container;
     }
 
-    private void SetupLevelIndicator() {
-        bronzeFrame.style.visibility = Visibility.Hidden;
-        silverFrame.style.visibility = Visibility.Hidden;
-        goldFrame.style.visibility = Visibility.Hidden;
+    private void SetupFrame() {
+        Sprite frameSprite = null;
         switch (this.companion.companionType.level) {
             case CompanionLevel.LevelThree:
-                goldFrame.style.visibility = Visibility.Visible;
+                frameSprite = companion.companionType.pack.levelThreeFrame;
             break;
 
             case CompanionLevel.LevelTwo:
-                silverFrame.style.visibility = Visibility.Visible;
+                frameSprite = companion.companionType.pack.levelTwoFrame;
             break;
 
             case CompanionLevel.LevelOne:
             default:
-                bronzeFrame.style.visibility = Visibility.Visible;
+                frameSprite = companion.companionType.pack.levelOneFrame;
             break;
         }
+
+        this.frame.style.backgroundImage = new StyleBackground(frameSprite);
+        this.frameBackground.style.backgroundImage = new StyleBackground(companion.companionType.pack.frameBackground);
     }
 
     private void SetupRarityIndicator() {
@@ -118,7 +118,14 @@ public class CompanionManagementView : IControlsReceiver {
         maxHealth = this.companion.GetCombatStats().getMaxHealth();
         this.healthBarLabel.text = String.Format(HEALTH_LABEL_STRING, currentHealth, maxHealth);
         float healthPercent = (float) currentHealth / (float) maxHealth;
-        this.healthBarFill.style.width = Length.Percent(healthPercent * 100);
+        this.healthBarFillClip.style.width = Length.Percent(healthPercent * 100);
+        container.RegisterCallback<GeometryChangedEvent>(SetHealthBarFillSize);
+    }
+
+    private void SetHealthBarFillSize(GeometryChangedEvent evt) {
+        healthBarFill.style.width = healthBarParent.resolvedStyle.width;
+        healthBarFill.style.height = healthBarParent.resolvedStyle.height;
+        container.UnregisterCallback<GeometryChangedEvent>(SetHealthBarFillSize);
     }
 
     private void UpdateHealth() {
@@ -133,7 +140,7 @@ public class CompanionManagementView : IControlsReceiver {
 
         isHealthTweening = true;
 
-        HealthBarUtils.UpdateHealth(lastHealthValue, currentHealth, maxHealth, healthBarFill, healthBarLabel, () => {
+        HealthBarUtils.UpdateHealth(lastHealthValue, currentHealth, maxHealth, healthBarFillClip, healthBarLabel, () => {
                 isHealthTweening = false;
                 lastHealthValue = currentHealth;
                 // In case multiple instances of damage come through in close timing

@@ -9,18 +9,18 @@ public static class HealthBarUtils {
     public static void SetupHealth(
             int currentHealth,
             int maxHealth,
-            VisualElement healthBarFill,
+            VisualElement healthBarElement,
             Label healthBarLabel) {
         healthBarLabel.text = String.Format(HEALTH_LABEL_STRING, currentHealth, maxHealth);
         float healthPercent = (float) currentHealth / (float) maxHealth;
-        healthBarFill.style.width = Length.Percent(healthPercent * 100);
+        healthBarElement.style.width = Length.Percent(healthPercent * 100);
     }
 
     public static void UpdateHealth(
             int lastHealthValue,
             int currentHealth,
             int maxHealth,
-            VisualElement healthBarFill,
+            VisualElement healthBarElement,
             Label healthBarLabel,
             Action onComplete) {
         float pointsPerSecond = 8f;
@@ -31,7 +31,7 @@ public static class HealthBarUtils {
                 int intVal = Mathf.RoundToInt(val);
                 healthBarLabel.text = String.Format(HEALTH_LABEL_STRING, intVal, maxHealth);
                 float healthPercent = val / (float) maxHealth;
-                healthBarFill.style.width = Length.Percent(healthPercent * 100);
+                healthBarElement.style.width = Length.Percent(healthPercent * 100);
             })
             .setOnComplete(() => {
                 onComplete?.Invoke();

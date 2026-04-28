@@ -18,6 +18,10 @@ public class PackSO : ScriptableObject
     public Sprite packIcon; // TODO: this should be entirely deprecated
     public Sprite cardBack;
     public Sprite cardTab;
+    public Sprite levelOneFrame;
+    public Sprite levelTwoFrame;
+    public Sprite levelThreeFrame;
+    public Sprite frameBackground;
 
     [Header("Rarity Icons")]
     public Sprite commonIcon;
