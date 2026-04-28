@@ -75,9 +75,9 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
             yield return new WaitUntil(() => pause == false);
         }
         // Change to combat music
-        yield return SpeakLine();
         AnimateEnemiesFromOffscreen();
         pause = true;
+        yield return SpeakLine();
         yield return new WaitUntil(() => pause == false);
         yield return SpeakLine();
         MusicController.Instance.PlaySFX("event:/SFX/SFX_PlayerEndTurn");
@@ -112,9 +112,10 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
         FocusManager.Instance.StashFocusables(this.GetType().Name);
 
         // Concierge talking, baron shadow coming in, concierge being summoned away again
+        pause = true;
+        AnimateBaronShadowComingIn();
         yield return SpeakLine();
-        yield return AnimateBaronShadowComingIn();
-        yield return SpeakLine();
+        yield return new WaitUntil(() => pause == false);
         MusicController.Instance.PlaySFX("event:/SFX/SFX_PlayerEndTurn");
         ScreenShakeManager.Instance.ShakeWithForce(0.5f);
         yield return new WaitForSeconds(.1f);
@@ -242,13 +243,11 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
         }).ExecuteLater(delay);
     }
 
-    private IEnumerator AnimateBaronShadowComingIn() {
+    private void AnimateBaronShadowComingIn() {
         float duration = 2f;
-        bool done = false;
         baronShadow.enabled = true;
         LeanTween.move(baronShadow.gameObject, visibleShadowPosition, duration)
-            .setOnComplete(() => done = true);
-        yield return new WaitUntil(() => done == true);
+            .setOnComplete(() => pause = false);
     }
 
     private IEnumerator AnimateBaronShadowGoingOut() {
