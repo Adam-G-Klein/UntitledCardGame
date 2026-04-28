@@ -82,7 +82,12 @@ public class MusicController : GenericSingleton<MusicController>
             if (location == locationTrack.location) {
                 instance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
                 instance.release();
-                instance = FMODUnity.RuntimeManager.CreateInstance(locationTrack.eventReference);
+                try {
+                    instance = FMODUnity.RuntimeManager.CreateInstance(locationTrack.eventReference);
+                } catch (EventNotFoundException) {
+                    Debug.Log("MusicController: Event not found, this is normal in editor: " + locationTrack.eventReference);
+                    return;
+                }
                 instance.start();
                 instance.setVolume(currentMusicVolume);
                 currentReference = locationTrack.eventReference;
@@ -121,8 +126,13 @@ public class MusicController : GenericSingleton<MusicController>
         switch (command)
         {
             case "start":
-                // currently yields EventNotFoundException
-                //conciergeDialogueInstance = FMODUnity.RuntimeManager.CreateInstance(conciergeDialogue);
+                // for in-editor
+                try {
+                    conciergeDialogueInstance = FMODUnity.RuntimeManager.CreateInstance(conciergeDialogue);
+                } catch (EventNotFoundException) {
+                    Debug.Log("MusicController: Event not found, this is normal in editor: " + conciergeDialogue);
+                    return;
+                }
                 conciergeDialogueInstance.start();
                 conciergeDialogueInstance.setParameterByName("talking", 1);
                 break;
@@ -215,7 +225,12 @@ public class MusicController : GenericSingleton<MusicController>
         instance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         instance.release();
         // instance = FMODUnity.RuntimeManager.CreateInstance(meothraMusic);
-        instance = FMODUnity.RuntimeManager.CreateInstance("{12fa3fda-9f96-4f70-a7a1-24e2273bc2bb}");
+        try {
+            instance = FMODUnity.RuntimeManager.CreateInstance("{12fa3fda-9f96-4f70-a7a1-24e2273bc2bb}");
+        } catch (EventNotFoundException) {
+            Debug.Log("MusicController: Event not found, this is normal in editor: " + "{12fa3fda-9f96-4f70-a7a1-24e2273bc2bb}");
+            return;
+        }
         instance.start();
         // instance.setVolume(currentMusicVolume);
         // currentReference = meothraMusic;
