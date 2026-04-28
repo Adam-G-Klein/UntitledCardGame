@@ -25,7 +25,6 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - _ALPHAPREMULTIPLY_ON
   - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords:
   - _RECEIVE_SHADOWS_OFF
@@ -128,7 +127,7 @@ Material:
     - _QueueOffset: 0
     - _ReceiveShadows: 0
     - _Soft_Sides_Opacity: 0
-    - _SrcBlend: 1
+    - _SrcBlend: 5
     - _Surface: 1
     - _Text_Power: 0.5
     - _Use_Cutoff: 1
