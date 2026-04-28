@@ -121,7 +121,8 @@ public class MusicController : GenericSingleton<MusicController>
         switch (command)
         {
             case "start":
-                conciergeDialogueInstance = FMODUnity.RuntimeManager.CreateInstance(conciergeDialogue);
+                // currently yields EventNotFoundException
+                //conciergeDialogueInstance = FMODUnity.RuntimeManager.CreateInstance(conciergeDialogue);
                 conciergeDialogueInstance.start();
                 conciergeDialogueInstance.setParameterByName("talking", 1);
                 break;
