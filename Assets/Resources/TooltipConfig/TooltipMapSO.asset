@@ -258,20 +258,19 @@ MonoBehaviour:
     description: Deal X damage to foe
   - title: Block
     descriptionIconType: 2
-    description: Prevents up to X damage dealt to this rat until next turn
+    description: Prevents up to X damage dealt to a rat until next turn
   - title: Draw
     descriptionIconType: 3
     description: Draw 1 card from a rat's deck
   - title: Random
     descriptionIconType: 4
-    description: The effect targets at random - targeting a random rat, card, or
-      enemy
+    description: Target at random - targeting a random rat, card, or enemy
   - title: Adjacent Targeting
     descriptionIconType: 5
-    description: The effect targets rats adjacent to the rat casting this card
+    description: Target rats adjacent to the owner rat
   - title: Leftmost Targeting
     descriptionIconType: 6
-    description: The effect targets  targets the leftmost rat on the team
+    description: Target the leftmost rat on the team
   - title: Bleed
     descriptionIconType: 9
     description: Rat loses X HP ignoring any block
@@ -280,34 +279,33 @@ MonoBehaviour:
     description: "Gain 1 \xC9lan that you can spend on playing cards"
   - title: Self
     descriptionIconType: 11
-    description: The effect targets the rat who cast this card
+    description: Target only the owner rat
   - title: Self and Adjacent
     descriptionIconType: 12
-    description: The effect targets the rat who cast it and rats adjacent to it
+    description: Target the owner rat and adjacent rats
   - title: Exhaust
     descriptionIconType: 14
     description: Select a card in your hand and remove it for the rest of combat
   - title: Discard
     descriptionIconType: 13
-    description: Select a card in your hand and remove it to the discard pile of
-      the rat who owns it
+    description: Select a card in your hand and move it to the discard pile of the
+      owner rat
   - title: When Discarded
     descriptionIconType: 15
-    description: When this card is discarded from a card or ability effect, trigger
-      the following effect
+    description: When this card is discarded, trigger the following effect
   - title: When Exhausted
     descriptionIconType: 16
-    description: When this card is exhausted from a card or ability effect, trigger
-      the following effect
+    description: When this card is exhausted, trigger the following effect
   - title: In Hand End of Turn
     descriptionIconType: 17
     description: If this card is still in hand at the end of the turn, trigger the
-      effect indicated
+      following effect
   - title: Strength
     descriptionIconType: 7
-    description: All attacks belonging to this rat deal extra damage equal to total
-      strength
+    description: All attacks deal extra damage equal to total strength
   - title: Temporary Strength
     descriptionIconType: 8
-    description: Buffs all attacks like strength but wears off at the end of the
-      turn
+    description: Buffs all attacks from a rat but wears off at the end of the turn
+  - title: Any Target
+    descriptionIconType: 18
+    description: Choose any rat, card, or foe
