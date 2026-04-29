@@ -8,7 +8,7 @@
                 <ui:VisualElement style="flex-grow: 1; width: 100%; height: 52%; flex-direction: row; align-items: center;">
                     <ui:VisualElement style="flex-grow: 0; background-image: url(&quot;project://database/Assets/Sprites/UI/PaccaratLogo.png?fileID=2800000&amp;guid=36fb7a075fa844c7db7e88e8c9e4cc94&amp;type=3#PaccaratLogo&quot;); -unity-background-scale-mode: scale-to-fit; width: 100%; height: 55%; top: 23%;" />
                 </ui:VisualElement>
-                <ui:VisualElement style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/UI/MainMenu_Frame.png?fileID=2800000&amp;guid=81ed6e86796666f4184a44877732f913&amp;type=3#MainMenu_Frame&quot;); width: 47%; align-items: auto; justify-content: flex-start; padding-top: 5%; -unity-background-image-tint-color: rgba(255, 255, 255, 0.8);">
+                <ui:VisualElement style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/UI/MainMenu_Frame.png?fileID=2800000&amp;guid=81ed6e86796666f4184a44877732f913&amp;type=3#MainMenu_Frame&quot;); width: 47%; align-items: auto; justify-content: space-between; padding-top: 6%; -unity-background-image-tint-color: rgba(255, 255, 255, 0.8); padding-bottom: 6%;">
                     <ui:VisualElement name="VisualElement" class="menu-option">
                         <ui:Button text="Start" parse-escape-sequences="true" display-tooltip-when-elided="true" name="startButton" class="main-menu-button focusable main-menu-button-size" />
                     </ui:VisualElement>
@@ -18,6 +18,9 @@
                     <ui:VisualElement name="VisualElement" class="menu-option" style="display: flex;">
                         <ui:Button text="Options" parse-escape-sequences="true" display-tooltip-when-elided="true" name="optionsButton" class="main-menu-button focusable selected-sfx main-menu-button-size" />
                     </ui:VisualElement>
+                    <ui:VisualElement name="VisualElement" class="menu-option" style="display: none;">
+                        <ui:Button text="Wishlist!" parse-escape-sequences="true" display-tooltip-when-elided="true" name="wishlistButton" class="main-menu-button focusable selected-sfx main-menu-button-size" />
+                    </ui:VisualElement>
                     <ui:VisualElement name="VisualElement" class="menu-option">
                         <ui:Button text="Quit Game" parse-escape-sequences="true" display-tooltip-when-elided="true" name="exitButton" class="main-menu-button focusable selected-sfx main-menu-button-size" />
                     </ui:VisualElement>
@@ -26,5 +29,4 @@
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:Label tabindex="-1" text="Demo Version, art not final" parse-escape-sequences="true" display-tooltip-when-elided="true" name="game-isnt-fully-done-label" style="position: absolute; height: 51px; width: 370px; top: 1021px; left: 31px; color: rgb(255, 255, 255); font-size: 32px; flex-wrap: wrap; overflow: visible; display: none;" />
-    <ui:Button text="Wishlist!" parse-escape-sequences="true" display-tooltip-when-elided="true" name="wishlistButton" class="main-menu-button focusable selected-sfx main-menu-button-size" style="background-image: url(&quot;project://database/Assets/Sprites/UI/MainMenu_BaseButton.png?fileID=2800000&amp;guid=907770250ea9f1346b4ddc31db30674e&amp;type=3#MainMenu_BaseButton&quot;); position: absolute; bottom: 2%; right: 1%; display: flex;" />
 </ui:UXML>

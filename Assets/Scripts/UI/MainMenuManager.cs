@@ -66,12 +66,9 @@ public class MainMenuManager : MonoBehaviour
 
         if (gameState.BuildTypeDemoOrConvention()) {
             mainMenuUIDocument.rootVisualElement.Q<Label>("game-isnt-fully-done-label").style.display = DisplayStyle.Flex;
-            mainMenuUIDocument.rootVisualElement.Q<Button>("wishlistButton").style.display = DisplayStyle.Flex;
+            mainMenuUIDocument.rootVisualElement.Q<Button>("wishlistButton").parent.style.display = DisplayStyle.Flex;
             mainMenuUIDocument.rootVisualElement.Q<Button>("wishlistButton").clicked += VisitSteamPageHandler;
-        }
-
-        if (gameState.buildType == BuildType.CONVENTION) {
-            continueButton.SetEnabled(false);
+            continueButton.parent.style.display = DisplayStyle.None;
         }
 
         startButton.RegisterOnSelected(startButtonHandler);
