@@ -75,9 +75,9 @@ MonoBehaviour:
   statusEffectsDisplay: {fileID: 8494857512198128503}
   tooltipProvider: {fileID: -4785001928966702165}
   highlightedVfx: {fileID: 4563441446422324415}
-  bronzeColor: {r: 0.6901961, g: 0.14117648, b: 0.0627451, a: 0.9490196}
-  silverColor: {r: 0.5764706, g: 0.5921569, b: 0.59607846, a: 1}
-  goldColor: {r: 0.94509804, g: 0.8392157, b: 0.20392157, a: 1}
+  bronzeColor: {r: 0.6431373, g: 0.2627451, b: 0.09803922, a: 1}
+  silverColor: {r: 0.4627451, g: 0.49803922, b: 0.627451, a: 1}
+  goldColor: {r: 0.7921569, g: 0.57254905, b: 0.21960784, a: 1}
   references:
     version: 2
     RefIds: []
@@ -284,7 +284,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5471009176790888696, guid: 3c2b2c8ed4388464b91d1a70f9680cb5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.78
+      value: 0.93
       objectReference: {fileID: 0}
     - target: {fileID: 5471009176790888696, guid: 3c2b2c8ed4388464b91d1a70f9680cb5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -317,10 +317,6 @@ PrefabInstance:
     - target: {fileID: 5471009176790888696, guid: 3c2b2c8ed4388464b91d1a70f9680cb5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7719063508202814305, guid: 3c2b2c8ed4388464b91d1a70f9680cb5, type: 3}
-      propertyPath: ColorModule.gradient.maxGradient.atime1
-      value: 65535
       objectReference: {fileID: 0}
     - target: {fileID: 8951890979739316548, guid: 3c2b2c8ed4388464b91d1a70f9680cb5, type: 3}
       propertyPath: m_Name
