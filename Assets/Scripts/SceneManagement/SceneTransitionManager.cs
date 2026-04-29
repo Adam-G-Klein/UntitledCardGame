@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
@@ -8,24 +7,19 @@ public class SceneTransitionManager : MonoBehaviour
     [Header("Transition Settings")]
     [SerializeField] public float fadeTime = .25f;
     [SerializeField] private Color fadeColor = Color.black;
-    
+
     private static SceneTransitionManager instance;
     public static SceneTransitionManager Instance => instance;
-    private Image fadeImage;
-    private Canvas canvas;
-    private int defaultSortingOrder = 999;
-    private RenderMode defaultRenderMode = RenderMode.ScreenSpaceOverlay;
-    private string defaultSortingLayer;
+    private ScreenFader screenFader;
     private Coroutine fadeCoroutine;
 
     private void Awake()
     {
-        // Singleton pattern to persist across scenes
         if (instance == null)
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
-            SetupFadeCanvas();
+            SetupScreenFader();
         }
         else
         {
@@ -33,96 +27,50 @@ public class SceneTransitionManager : MonoBehaviour
         }
     }
 
-    private void SetupFadeCanvas()
+    private void SetupScreenFader()
     {
-        // Create canvas for the fade effect
-        canvas = gameObject.AddComponent<Canvas>();
-        canvas.renderMode = defaultRenderMode;
-        canvas.sortingOrder = defaultSortingOrder; // Ensure it renders on top
-        defaultSortingLayer = canvas.sortingLayerName;
-
-        // Add a Canvas Scaler for proper UI scaling
-        CanvasScaler scaler = gameObject.AddComponent<CanvasScaler>();
-        scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-        scaler.referenceResolution = new Vector2(1920, 1080);
-
-        // Create the fade image
-        GameObject imageObj = new GameObject("FadeImage");
-        imageObj.transform.SetParent(transform, false);
-        fadeImage = imageObj.AddComponent<Image>();
-        fadeImage.color = new Color(fadeColor.r, fadeColor.g, fadeColor.b, 0f);
-
-        // Set the image to cover the entire screen
-        RectTransform rect = fadeImage.rectTransform;
-        rect.anchorMin = Vector2.zero;
-        rect.anchorMax = Vector2.one;
-        rect.sizeDelta = Vector2.zero;
+        GameObject faderObj = new GameObject("ScreenFader");
+        faderObj.transform.SetParent(transform);
+        screenFader = faderObj.AddComponent<ScreenFader>();
+        screenFader.fadeTime = fadeTime;
+        screenFader.fadeColor = fadeColor;
+        screenFader.Initialize();
     }
 
     public static void LoadScene(string sceneName, float delay = 0f)
     {
         Debug.Log($"SceneTransitionManager: Loading scene {sceneName}");
-        // if (instance != null && !instance.isFading)
         if (instance != null)
         {
             if (instance.fadeCoroutine != null) instance.StopCoroutine(instance.fadeCoroutine);
             instance.fadeCoroutine = instance.StartCoroutine(instance.WaitAndLoadScene(sceneName));
         }
     }
-    
+
     private IEnumerator WaitAndLoadScene(string sceneName, float delay = 0f)
     {
-        yield return new WaitForSeconds(delay); // Wait for the specified delay
-        LeanTween.cancelAll(); // Cancel any running tweens
-        yield return StartCoroutine(FadeAndLoadScene(sceneName)); // Start the fade and load process
+        yield return new WaitForSeconds(delay);
+        LeanTween.cancelAll();
+        yield return StartCoroutine(FadeAndLoadScene(sceneName));
     }
 
     private IEnumerator FadeAndLoadScene(string sceneName)
     {
-        // Fade to black
-        yield return StartCoroutine(Fade(1f));
-
-        // Load the new scene
+        yield return StartCoroutine(screenFader.Fade(1f));
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        screenFader.SetAlpha(1f);
         SceneManager.LoadScene(sceneName);
-
-        yield return new WaitForSeconds(0.25f); // waits for 0.1 seconds
-
-        // Fade back in
-        yield return StartCoroutine(Fade(0f));
     }
 
-    public void SetSortingOrder(int sortingOrder)
-    {
-        if (canvas == null) return;
-        canvas.renderMode = RenderMode.ScreenSpaceCamera;
-        canvas.worldCamera = Camera.main;
-        canvas.sortingLayerName = "Overlay UI";
-        canvas.sortingOrder = sortingOrder;
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        screenFader.SetAlpha(1f);
+        StartCoroutine(screenFader.Fade(0f));
     }
 
-    public void ResetSortingOrder()
-    {
-        if (canvas == null) return;
-        canvas.renderMode = defaultRenderMode;
-        canvas.sortingLayerName = defaultSortingLayer;
-        canvas.sortingOrder = defaultSortingOrder;
-    }
+    public void SetSortingOrder(int sortingOrder) => screenFader.SetSortingOrder(sortingOrder);
 
-    public IEnumerator Fade(float targetAlpha)
-    {
-    
-        // Set the target color with the desired alpha
-        Color targetColor = new Color(fadeColor.r, fadeColor.g, fadeColor.b, targetAlpha);
-        
-        // Use LeanTween to tween the alpha value of the fadeImage
-        LeanTween.alpha(fadeImage.rectTransform, targetAlpha, fadeTime).setOnComplete(() =>
-        {
-            // Ensure the final color is set after the tween completes
-            fadeImage.color = targetColor;
-        });
+    public void ResetSortingOrder() => screenFader.ResetSortingOrder();
 
-        // Wait for the duration of the fade
-        yield return new WaitForSeconds(fadeTime);
-    
-    }
+    public IEnumerator Fade(float targetAlpha) => screenFader.Fade(targetAlpha);
 }

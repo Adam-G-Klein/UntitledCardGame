@@ -283,8 +283,8 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
         float startOrthographicSize = virtualCamera.m_Lens.OrthographicSize;
         int childCount = cameraTourTargetsParent.childCount;
         try {
-            SceneTransitionManager.Instance.SetSortingOrder(100);
-            yield return SceneTransitionManager.Instance.Fade(1f);
+            CutsceneFadeManager.Instance.SetSortingOrder(100);
+            CutsceneFadeManager.Instance.SetAlpha(1f);
             yield return new WaitForSeconds(cameraTourHoldInBlack);
             virtualCamera.m_Lens.OrthographicSize = cameraTourZoom;
 
@@ -299,17 +299,20 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
                 float panStartTime = Time.time;
                 LeanTween.move(virtualCamera.gameObject, flatTarget, cameraDollyDuration);
 
-                yield return SceneTransitionManager.Instance.Fade(0f);
+                yield return CutsceneFadeManager.Instance.Fade(0f);
 
                 // Wait until cameraFadeDuration before pan ends, then fade out while camera is still moving
                 float elapsed = Time.time - panStartTime;
                 float waitTime = cameraDollyDuration - elapsed - cameraFadeDuration;
+                // check if we're on the last pair
+                if (i / 2 >= (childCount / 2) - 1) {
+                    // right above the dialogue
+                    CutsceneFadeManager.Instance.SetSortingOrder(201);
+                }
                 if (waitTime > 0f) yield return new WaitForSeconds(waitTime);
 
-                if(i == childCount - 1) {
-                    DialogueView.Instance.SetScreenSpaceSortingOrder("Overlay UI", 99);
-                }
-                yield return SceneTransitionManager.Instance.Fade(1f);
+                
+                yield return CutsceneFadeManager.Instance.Fade(1f);
                 LeanTween.cancel(virtualCamera.gameObject);
                 yield return new WaitForSeconds(cameraTourHoldInBlack);
             }
@@ -319,10 +322,9 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
         } finally {
             DialogueView.Instance.Hide();
             DialogueView.Instance.SetScreenSpaceMode(false);
-            StartCoroutine(SceneTransitionManager.Instance.Fade(0f));
+            StartCoroutine(CutsceneFadeManager.Instance.Fade(0f));
         }
-        yield return new WaitForSeconds(SceneTransitionManager.Instance.fadeTime);
-        SceneTransitionManager.Instance.ResetSortingOrder();
+        yield return new WaitForSeconds(CutsceneFadeManager.Instance.FadeTime);
     }
 
     private IEnumerator DollyCameraTo(Vector3 target, float duration) {
