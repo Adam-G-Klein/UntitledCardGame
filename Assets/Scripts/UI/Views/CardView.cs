@@ -116,7 +116,11 @@ public class CardView {
         if (packFrom != null)
         {
             VisualElement backgroundTexture = container.Q<VisualElement>("cardBackgroundTexture");
-            backgroundTexture.style.backgroundImage = new StyleBackground(packFrom.cardBack);
+            Sprite cardBack = packFrom.cardBackCommon;
+            if (rarity == Card.CardRarity.COMMON) cardBack = packFrom.cardBackCommon;
+            else if (rarity == Card.CardRarity.UNCOMMON) cardBack = packFrom.cardBackUncommon;
+            else if (rarity == Card.CardRarity.RARE) cardBack = packFrom.cardBackRare;
+            backgroundTexture.style.backgroundImage = new StyleBackground(cardBack);
         }
 
         Label cardTypeLabel = container.Q<Label>("cardTypeLabel");

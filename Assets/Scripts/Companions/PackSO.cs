@@ -15,8 +15,9 @@ public class PackSO : ScriptableObject
     public Color packColor;
 
     [Header("Art Assets")]
-    public Sprite packIcon; // TODO: this should be entirely deprecated
-    public Sprite cardBack;
+    public Sprite cardBackCommon;
+    public Sprite cardBackUncommon;
+    public Sprite cardBackRare;
     public Sprite cardTab;
     public Sprite levelOneFrame;
     public Sprite levelTwoFrame;
