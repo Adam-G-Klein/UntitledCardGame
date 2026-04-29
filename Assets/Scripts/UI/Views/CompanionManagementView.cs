@@ -23,6 +23,7 @@ public class CompanionManagementView : IControlsReceiver {
     private IconButton sellCompanionButton = null;
     private VisualElement companionBoundingBox = null;
     private VisualElement rarityIndicator = null;
+    private VisualElement healthBarBorder = null;
 
     private bool draggingThisCompanion = false;
     private bool isSellingDisabled = false;
@@ -52,6 +53,7 @@ public class CompanionManagementView : IControlsReceiver {
         this.healthBarParent = managementRoot.Q<VisualElement>("companion-view-health-bar-parent");
         this.healthBarLabel = managementRoot.Q<Label>("companion-view-health-bar-label");
         this.rarityIndicator = managementRoot.Q<VisualElement>("companion-view-rarity-icon");
+        this.healthBarBorder = managementRoot.Q<VisualElement>("companion-view-health-bar-outline");
 
         container = managementRoot.Children().First();
 
@@ -78,15 +80,18 @@ public class CompanionManagementView : IControlsReceiver {
         switch (this.companion.companionType.level) {
             case CompanionLevel.LevelThree:
                 frameSprite = companion.companionType.pack.levelThreeFrame;
+                healthBarBorder.AddToClassList("companion-health-bar-outline-gold");
             break;
 
             case CompanionLevel.LevelTwo:
                 frameSprite = companion.companionType.pack.levelTwoFrame;
+                healthBarBorder.AddToClassList("companion-health-bar-outline-silver");
             break;
 
             case CompanionLevel.LevelOne:
             default:
                 frameSprite = companion.companionType.pack.levelOneFrame;
+                healthBarBorder.AddToClassList("companion-health-bar-outline-copper");
             break;
         }
 

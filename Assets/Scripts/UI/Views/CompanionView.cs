@@ -40,6 +40,7 @@ public class CompanionView : IUIEventReceiver
     private VisualElement pilesContainer;
     private VisualElement drawPileIcon;
     private VisualElement discardPileIcon;
+    private VisualElement healthBarBorder;
 
     private List<VisualElement> pickingModePositionList = new List<VisualElement>();
     private List<VisualElement> elementsKeepingHiddenContainerVisible = new List<VisualElement>();
@@ -105,6 +106,7 @@ public class CompanionView : IUIEventReceiver
         this.viewDeckButton = companionRoot.Q<IconButton>("companion-view-view-deck-button");
         this.selectedIndicator = companionRoot.Q<VisualElement>("companion-view-selected-indicator");
         this.rarityIndicator = companionRoot.Q<VisualElement>("companion-view-rarity-icon");
+        this.healthBarBorder = companionRoot.Q<VisualElement>("companion-view-health-bar-outline");
 
         // Moving past the random VisualElement parent CloneTree() creates
         this.container = companionRoot.Children().First();
@@ -190,15 +192,18 @@ public class CompanionView : IUIEventReceiver
         switch (this.companion.companionType.level) {
             case CompanionLevel.LevelThree:
                 frameSprite = companion.companionType.pack.levelThreeFrame;
+                healthBarBorder.AddToClassList("companion-health-bar-outline-gold");
             break;
 
             case CompanionLevel.LevelTwo:
                 frameSprite = companion.companionType.pack.levelTwoFrame;
+                healthBarBorder.AddToClassList("companion-health-bar-outline-silver");
             break;
 
             case CompanionLevel.LevelOne:
             default:
                 frameSprite = companion.companionType.pack.levelOneFrame;
+                healthBarBorder.AddToClassList("companion-health-bar-outline-copper");
             break;
         }
 
