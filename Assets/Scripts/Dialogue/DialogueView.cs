@@ -12,7 +12,19 @@ public class DialogueView : GenericSingleton<DialogueView>, IControlsReceiver
     public UIDocument uiDoc;
     public RawImage rawImage;
     public Canvas canvas;
-    [SerializeField] private DialogueView prefabReference;
+
+    [Header("Screenspace view")]
+    [SerializeField] private GameObject screenSpaceView;
+    private UIDocument screenSpaceUiDoc;
+    private RawImage screenSpaceRawImage;
+
+    [Header("Screenspace layout (percent of screen)")]
+    [SerializeField] private float screenSpaceLeftPercent = 0f;
+    [SerializeField] private float screenSpaceTopPercent = 0f;
+    [SerializeField] private float screenSpaceWidthPercent = 60f;
+    [SerializeField] private float screenSpaceHeightPercent = 55f;
+    [SerializeField] private float screenSpaceFontScale = 0.7f;
+
     public float DefaultCharRevealDelay;
     public float postFullTextDelay;
     public int maxChars;
@@ -28,15 +40,53 @@ public class DialogueView : GenericSingleton<DialogueView>, IControlsReceiver
     private VisualElement clickToProceedVE;
 
     private bool screenSpaceModeActive = false;
-    private int savedCanvasSortingOrder;
+    private UIDocument activeUiDoc;
+    private RawImage activeRawImage;
 
     // Start is called before the first frame update
     void Awake()
     {
-        this.portraitElement = uiDoc.rootVisualElement.Q<VisualElement>("speaker-portrait");
-        this.label = uiDoc.rootVisualElement.Q<Label>("main-text-label");
-        this.clickToProceedVE = uiDoc.rootVisualElement.Q<VisualElement>("click-to-continue");
-        rawImage.enabled = false;
+        if (screenSpaceView != null) {
+            screenSpaceUiDoc = screenSpaceView.GetComponentInChildren<UIDocument>(true);
+            screenSpaceRawImage = screenSpaceView.GetComponentInChildren<RawImage>(true);
+            screenSpaceView.SetActive(false);
+        }
+        activeUiDoc = uiDoc;
+        activeRawImage = rawImage;
+        BindActiveDocElements();
+        ApplyScreenSpaceLayout();
+        if (rawImage != null) rawImage.enabled = false;
+        if (screenSpaceRawImage != null) screenSpaceRawImage.enabled = false;
+    }
+
+    private void BindActiveDocElements()
+    {
+        if (activeUiDoc == null) return;
+        var root = activeUiDoc.rootVisualElement;
+        if (root == null) return;
+        portraitElement = root.Q<VisualElement>("speaker-portrait");
+        label = root.Q<Label>("main-text-label");
+        clickToProceedVE = root.Q<VisualElement>("click-to-continue");
+        if (clickToProceedVE != null) clickToProceedVE.style.display = DisplayStyle.None;
+    }
+
+    private void ApplyScreenSpaceLayout()
+    {
+        if (screenSpaceUiDoc == null) return;
+        var root = screenSpaceUiDoc.rootVisualElement;
+        if (root == null) return;
+        root.style.position = Position.Absolute;
+        root.style.left = Length.Percent(screenSpaceLeftPercent);
+        root.style.top = Length.Percent(screenSpaceTopPercent);
+        root.style.width = Length.Percent(screenSpaceWidthPercent);
+        root.style.height = Length.Percent(screenSpaceHeightPercent);
+        var ssLabel = root.Q<Label>("main-text-label");
+        if (ssLabel != null) ssLabel.style.fontSize = Mathf.RoundToInt(maxFontSize * screenSpaceFontScale);
+    }
+
+    private void SetActiveViewVisible(bool visible)
+    {
+        if (activeRawImage != null) activeRawImage.enabled = visible;
     }
 
     void Start() {
@@ -91,33 +141,24 @@ public class DialogueView : GenericSingleton<DialogueView>, IControlsReceiver
 
     public void SetScreenSpaceMode(bool screenSpace) {
         if (screenSpace == screenSpaceModeActive) return;
-        var rt = rawImage.rectTransform;
+        if (activeRawImage != null) activeRawImage.enabled = false;
         if (screenSpace) {
-            savedCanvasSortingOrder = canvas.sortingOrder;
-            canvas.renderMode = RenderMode.ScreenSpaceCamera;
-            canvas.sortingOrder = 500;
-            rt.anchorMin = new Vector2(1, 0);
-            rt.anchorMax = new Vector2(1, 0);
-            rt.pivot = new Vector2(1, 0);
-            rt.anchoredPosition = new Vector2(-40f, 40f);
+            if (screenSpaceView != null) screenSpaceView.SetActive(true);
+            activeUiDoc = screenSpaceUiDoc != null ? screenSpaceUiDoc : uiDoc;
+            activeRawImage = screenSpaceRawImage != null ? screenSpaceRawImage : rawImage;
         } else {
-            var prefabRt = prefabReference.rawImage.rectTransform;
-            canvas.renderMode = prefabReference.canvas.renderMode;
-            canvas.sortingOrder = savedCanvasSortingOrder;
-            rt.anchorMin = prefabRt.anchorMin;
-            rt.anchorMax = prefabRt.anchorMax;
-            rt.pivot = prefabRt.pivot;
-            rt.anchoredPosition = prefabRt.anchoredPosition;
-            rt.sizeDelta = prefabRt.sizeDelta;
-            rt.localScale = prefabRt.localScale;
-            rt.localRotation = prefabRt.localRotation;
+            if (screenSpaceView != null) screenSpaceView.SetActive(false);
+            activeUiDoc = uiDoc;
+            activeRawImage = rawImage;
         }
         screenSpaceModeActive = screenSpace;
+        BindActiveDocElements();
+        if (screenSpace) ApplyScreenSpaceLayout();
     }
 
     public void Hide() {
         MusicController.Instance.HandleConciergeDialogue("stop");
-        rawImage.enabled = false;
+        SetActiveViewVisible(false);
     }
 
     private IEnumerator WaitForClick() {
@@ -129,6 +170,7 @@ public class DialogueView : GenericSingleton<DialogueView>, IControlsReceiver
         float percent = (float) line.Count() / (float) maxChars;
         Debug.Log(percent);
         int fontSize = (int)(maxFontSize - (percent * (maxFontSize - minFontSize)));
+        if (screenSpaceModeActive) fontSize = Mathf.RoundToInt(fontSize * screenSpaceFontScale);
         Debug.Log(fontSize);
         return fontSize;
     }
@@ -181,7 +223,7 @@ public class DialogueView : GenericSingleton<DialogueView>, IControlsReceiver
     {
         hasClicked = false;
         yield return new WaitForSeconds(0.05f);
-        rawImage.enabled = true;
+        SetActiveViewVisible(true);
         string invisibleText = $"<color=#00000000>{fullText}</color>";
         label.text = invisibleText;
         float currentCharDelay = DefaultCharRevealDelay;
@@ -207,7 +249,7 @@ public class DialogueView : GenericSingleton<DialogueView>, IControlsReceiver
             yield return new WaitForSeconds(currentCharDelay);
         }
         yield return new WaitForSeconds(endDelay);
-        if (hideOnComplete) rawImage.enabled = false;
+        if (hideOnComplete) SetActiveViewVisible(false);
         runningCoroutine = null;
         MusicController.Instance.HandleConciergeDialogue("stop");
         yield return null;

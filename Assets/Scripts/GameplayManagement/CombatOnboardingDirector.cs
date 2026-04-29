@@ -47,8 +47,9 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
         manager = EnemyEncounterManager.Instance;
         virtualCamera = ScreenShakeManager.Instance.GetComponent<Cinemachine.CinemachineVirtualCamera>();
         dialogueLineIndex = 0;
-        yield return SpeakLineNoHideNoWait();
+        // calls speakline for the first time. Just needs the dialogue to be in screenspace mode, and does the setup for that
         yield return CameraTourCoroutine();
+        yield return new WaitForSeconds(0.5f); // brief delay after camera tour
         yield return SpeakLineNoHide();
         yield return SpeakLineNoHide();
         yield return SpeakLine();
@@ -165,6 +166,12 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
         yield break;
     }
 
+    private IEnumerator SpeakLineNoHideNoWaitDelayed(float delaySeconds)
+    {
+        yield return new WaitForSeconds(delaySeconds);
+        yield return SpeakLineNoHideNoWait();
+    }
+
     private IEnumerator SpeakLineNoHide()
     {
         yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, dialogueLines[dialogueLineIndex], true);
@@ -273,6 +280,7 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
         }
 
         DialogueView.Instance.SetScreenSpaceMode(true);
+        StartCoroutine(SpeakLineNoHideNoWaitDelayed(0.5f));
         Vector3 startPosition = virtualCamera.transform.position;
         float startOrthographicSize = virtualCamera.m_Lens.OrthographicSize;
         int childCount = cameraTourTargetsParent.childCount;

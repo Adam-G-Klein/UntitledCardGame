@@ -1009,7 +1009,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speakerSprite: {fileID: 21300000, guid: 34af0ef08494934478eca248b698d0ec, type: 3}
   dialogueLines:
-  - Here we are, the Paccarat Game Board.
+  - <speed 25> Here we are, the Paccarat Game Board.
   - Unfortunately, the terms of the contract specify you can't do this alone. Allow
     me to present your team!
   - <speed 500>.....
@@ -1069,15 +1069,15 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 2
-      outSlope: 2
+      inSlope: 4.7997656
+      outSlope: 4.7997656
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.5
-      value: 1
+      time: 0.10417175
+      value: 0.5
       inSlope: 0.6962547
       outSlope: -0.67124575
       tangentMode: 1
@@ -1085,10 +1085,118 @@ MonoBehaviour:
       inWeight: 0.05939686
       outWeight: 0.07417016
     - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: -2
-      outSlope: -2
+      time: 0.1458435
+      value: 0.0047302246
+      inSlope: -3.3582213
+      outSlope: -3.3582213
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.24166666
+      value: 0.5
+      inSlope: -1.3968403
+      outSlope: -1.3968403
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.30416667
+      value: 0.0023584906
+      inSlope: -0.82323575
+      outSlope: -0.82323575
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.38333333
+      value: 0.5023585
+      inSlope: -0.55672765
+      outSlope: -0.55672765
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.45
+      value: 0.007075472
+      inSlope: 0.53066015
+      outSlope: 0.53066015
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5083333
+      value: 0.5023585
+      inSlope: 0.5483489
+      outSlope: 0.5483489
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.575
+      value: 0.009433962
+      inSlope: 1.6804223
+      outSlope: 1.6804223
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.62083334
+      value: 0.5023585
+      inSlope: 2.2939398
+      outSlope: 2.2939398
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.7
+      value: 0.014150944
+      inSlope: 0.15557742
+      outSlope: 0.15557742
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.775
+      value: 0.5
+      inSlope: -2.1383624
+      outSlope: -2.1383624
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.8208333
+      value: 0.007075472
+      inSlope: -2.2492526
+      outSlope: -2.2492526
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.9
+      value: 0.5023585
+      inSlope: 0.76206803
+      outSlope: 0.76206803
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1.0041667
+      value: 0.009433962
+      inSlope: -4.732072
+      outSlope: -4.732072
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -1097,8 +1205,10 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   cameraTourTargetsParent: {fileID: 0}
-  cameraDollyDuration: 2.5
-  cameraTourHoldInBlack: 0.35
+  cameraDollyDuration: 3.5
+  cameraTourHoldInBlack: 0.1
+  cameraFadeDuration: 0.5
+  cameraTourZoom: 1.5
 --- !u!1 &5109742072706344275
 GameObject:
   m_ObjectHideFlags: 0
