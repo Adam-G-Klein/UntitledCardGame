@@ -15,13 +15,15 @@ MonoBehaviour:
   guid: 6032e67b-d067-4f18-9489-f49ae66516b3
   Name: Dagger+
   Description: Exhaust. Deal {rpl_damage} damage.
+  IconDescription: []
+  IconDescriptionTooltipLines: []
   defaultValues:
   - key: rpl_damage
     value: 5
   Cost: 0
   Artwork: {fileID: 21300000, guid: dcfdc6d5b4c40644b90c3330582adb6a, type: 3}
   cardCategory: 1
-  packFrom: {fileID: 0}
+  packFrom: {fileID: 11400000, guid: 908f28c6f48104c2d85d2fcbd973771e, type: 2}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 1
@@ -33,6 +35,8 @@ MonoBehaviour:
   onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  onDrawEffectWorkflow:
     rid: -2
   tooltips: 00000000
   tooltipKeyword: 45
@@ -66,6 +70,8 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 5602892563578094212
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
