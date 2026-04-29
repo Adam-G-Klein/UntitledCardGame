@@ -186,6 +186,7 @@ MonoBehaviour:
   combatInstance: {fileID: 6706516355190666426}
   tooltipProvider: {fileID: 0}
   statusEffectsDisplay: {fileID: 0}
+  gradientVfx: {fileID: 0}
   registerTurnPhaseTriggerEvent: {fileID: 11400000, guid: f82cd01826dfef44391e6a853f3d2e89, type: 2}
   removeTurnPhaseTriggerEvent: {fileID: 11400000, guid: 88acfcb7f9a9846468020e4e3854b467, type: 2}
   combatEffectEvent: {fileID: 11400000, guid: 7b4f8952c0f9b4d4a80b72189e46bd3c, type: 2}
@@ -252,6 +253,8 @@ PlayableDirector:
   - key: {fileID: -5375833175400715663, guid: dc78d963ff8533a4f8c3e264e5231baf, type: 2}
     value: {fileID: 0}
   - key: {fileID: 8270996674138680680, guid: dc78d963ff8533a4f8c3e264e5231baf, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -5490703692345070305, guid: dc78d963ff8533a4f8c3e264e5231baf, type: 2}
     value: {fileID: 0}
   m_ExposedReferences:
     m_References: []
