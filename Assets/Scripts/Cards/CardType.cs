@@ -305,6 +305,16 @@ public class CardType: IdentifiableSO, ITooltipProvider
             // Loop through the description tokens with icons.
             List<DescriptionToken> tokens = GetIconDescriptionTokens();
 
+            // // With LinQ, extract a list of the unique icon tokens in the description.
+            // List<DescriptionToken.DescriptionIconType> uniqueIconTokens = tokens.Where(t => t.tokenType == DescriptionToken.TokenType.Icon).Select(t => t.icon).Distinct().ToList();
+            // foreach (DescriptionToken.DescriptionIconType tokenType in uniqueIconTokens)
+            // {
+            //     if (KeywordTooltipProvider.Instance.HasTooltip(tokenType))
+            //     {
+            //         tooltip += KeywordTooltipProvider.Instance.GetTooltip(tokenType);
+            //     }
+            // }
+
             // Split across newlines
             List<List<DescriptionToken>> descriptionLines = new List<List<DescriptionToken>> { new List<DescriptionToken>() };
             foreach (DescriptionToken token in tokens)
@@ -333,17 +343,6 @@ public class CardType: IdentifiableSO, ITooltipProvider
                 //     tooltip += new TooltipViewModel("TODO", line);
                 // }
             }
-
-            // With LinQ, extract a list of the unique icon tokens in the description.
-            List<DescriptionToken.DescriptionIconType> uniqueIconTokens = tokens.Where(t => t.tokenType == DescriptionToken.TokenType.Icon).Select(t => t.icon).Distinct().ToList();
-            foreach (DescriptionToken.DescriptionIconType tokenType in uniqueIconTokens)
-            {
-                if (KeywordTooltipProvider.Instance.HasTooltip(tokenType))
-                {
-                    tooltip += KeywordTooltipProvider.Instance.GetTooltip(tokenType);
-                }
-            }
-
 
             return tooltip;
         }
