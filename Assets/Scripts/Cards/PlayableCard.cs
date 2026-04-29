@@ -120,6 +120,7 @@ public class PlayableCard : MonoBehaviour,
         EnemyEncounterManager.Instance.combatEncounterState.CastCard(card);
         UnHoverAssociatedCompanion();
         PlayerHand.Instance.SetHoverable(true);
+        hoverable = false;
         yield return StartCoroutine(PlayerHand.Instance.OnCardCast(this));
 
         if (card.cardType.exhaustsWhenPlayed)
