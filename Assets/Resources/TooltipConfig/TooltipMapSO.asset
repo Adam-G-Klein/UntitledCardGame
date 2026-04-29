@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectTooltipMappings:
   - title: Strength
-    description: Increases the damage of every Attack card you play from this rat
+    description: Increases damage of attacks from by this rat
     relateBehaviorIndex: 0
     image: {fileID: 0}
     tooltipKeyword: 6
   - title: Block
-    description: Prevents up to X damage dealt to this rat until next turn
+    description: Prevents damage to this rat until next turn
     relateBehaviorIndex: 0
     image: {fileID: 0}
     tooltipKeyword: 7
