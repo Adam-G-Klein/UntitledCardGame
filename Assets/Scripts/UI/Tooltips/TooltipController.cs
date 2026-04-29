@@ -95,6 +95,10 @@ public class TooltipController {
             break;
         }
 
+        // Tooltip GOs are 10 units tall (mostly invisible), so we need to offset this
+        // so that the top of the tooltips appear around the same location as the item
+        position = new Vector3(position.x, position.y - 4.5f, position.z);
+
         return position;
     }
 
