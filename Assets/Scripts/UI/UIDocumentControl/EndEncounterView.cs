@@ -19,6 +19,7 @@ public class EndEncounterView : MonoBehaviour
     private CanvasGroup canvasGroup;
     private VisualElement goldEarnedContainer;
     private VisualElement interestEarnedContainer;
+    private VisualElement RPEarnedContainer;
     private VisualElement bonusEarnedContainer;
     private int goldEarned;
     private int interestEarned;
@@ -51,6 +52,7 @@ public class EndEncounterView : MonoBehaviour
         goldEarnedContainer = doc.rootVisualElement.Q("base-gold-container");
         interestEarnedContainer = doc.rootVisualElement.Q("interest-container");
         bonusEarnedContainer = doc.rootVisualElement.Q("bonus-elite-reward-container");
+        RPEarnedContainer = doc.rootVisualElement.Q("RP-earned-parent");
     }
 
     public void Setup(int baseGoldEarnedPerBattle, int interestEarned, int interestCap, float interestPercentage, int bonusManaReward = 0, int bonusTeamSizeReward = 0)
@@ -80,7 +82,7 @@ public class EndEncounterView : MonoBehaviour
         canvasGroup.alpha = 0;
 
         if (this.bonusManaReward > 0 || this.bonusTeamSizeReward > 0) {
-            bonusEarnedContainer.visible = true;
+            bonusEarnedContainer.style.display = DisplayStyle.None;
             Label bonusLabel = bonusEarnedContainer.Q<Label>("bonus-elite-reward-text");
             string bonusText = "";
             if (this.bonusManaReward > 0) {
@@ -91,7 +93,13 @@ public class EndEncounterView : MonoBehaviour
             }
             bonusLabel.text = bonusText;
         } else {
-            bonusEarnedContainer.visible = false;
+            bonusEarnedContainer.style.display = DisplayStyle.None;
+        }
+
+        // I think we could make an argument that displaying interest here is necessary to show depth,
+        // but I don't think the same argument can be made for RP. Just feels out of place
+        if (gameState.BuildTypeDemoOrConvention()) {
+            RPEarnedContainer.visible = false;
         }
 
         LeanTween.value(gameObject, 0, 1, fadeTime)
