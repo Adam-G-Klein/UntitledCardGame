@@ -47,12 +47,6 @@ MonoBehaviour:
       icon: {fileID: 0}
       iconDescriptionLine: []
       card: {fileID: 0}
-    - title: Exhaust
-      description: Select a card in your hand and remove it for the rest of combat
-      relatedBehaviorIndex: 0
-      icon: {fileID: 0}
-      iconDescriptionLine: []
-      card: {fileID: 0}
   keepsakeTitle: Plint's Armor
   keepsakeDescription: The first time each turn you exhaust a card, give leftmost
     rat 3 block. If the card exhausted came from Plint, give 5 block instead
@@ -79,6 +73,12 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         toggleStatus: 0
+    - rid: 578315134572691777
+      type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardInHandEffect
+        inputKey: 
+        effect: 1
     - rid: 758316092100444255
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -109,6 +109,7 @@ MonoBehaviour:
         - rid: 2034230017118175366
         - rid: 578314559416696874
         - rid: 578314559416696875
+        - rid: 578315134572691777
         weight: 0
     - rid: 2034230017118175364
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}

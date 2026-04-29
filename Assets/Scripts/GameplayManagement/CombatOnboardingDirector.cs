@@ -74,7 +74,7 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
         yield return SpeakLine();
         foreach (CompanionInstance companion in CombatEntityManager.Instance.getCompanions()) {
             yield return manager.combatEncounterView.ShowCardsFromCompanion(companion);
-            // show combatUI click to proceed 
+            // show combatUI click to proceed
             manager.combatEncounterView.ToggleContinuePromptVisibility(true);
             yield return new WaitForNextFrameUnit();
             yield return new WaitUntil(() => continueInput.action.WasPerformedThisFrame());
@@ -343,12 +343,13 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
 
     private IEnumerator ShowCompanionTooltips()
     {
-        float delay = .5f;
+        float betweenCompanionsTooltipDelay = 3f;
         for (int i = 0; i < CombatEntityManager.Instance.getCompanions().Count; i++) {
             CompanionInstance companion = CombatEntityManager.Instance.getCompanions()[i];
             ShowHideTooltip(companion.gameObject, true);
-            yield return new WaitForSeconds(delay);        
+            yield return new WaitForSeconds(betweenCompanionsTooltipDelay);
         };
+        float delay = 0.5f;
         // this isn't strictly necessary, but makes it so that the tooltips finish rendering before
         // the click to proceed button shows up
         yield return new WaitForSeconds(delay);

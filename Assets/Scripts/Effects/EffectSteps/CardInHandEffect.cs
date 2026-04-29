@@ -24,6 +24,11 @@ public class CardInHandEffect : EffectStep, ITooltipProvider
         {CardInHandEffectName.Retain, TooltipKeyword.Retain},
     };
 
+    private static Dictionary<CardInHandEffectName, DescriptionToken.DescriptionIconType> descriptionIconMapping = new Dictionary<CardInHandEffectName, DescriptionToken.DescriptionIconType>() {
+        {CardInHandEffectName.Discard, DescriptionToken.DescriptionIconType.Discard},
+        {CardInHandEffectName.Exhaust, DescriptionToken.DescriptionIconType.Exhaust},
+    };
+
     public CardInHandEffect() {
         effectStepName = "CardInHandEffect";
     }
@@ -31,7 +36,7 @@ public class CardInHandEffect : EffectStep, ITooltipProvider
     public override IEnumerator invoke(EffectDocument document) {
         if (!document.map.ContainsValueWithKey<PlayableCard>(inputKey)) {
             EffectError("No input PlayableCard for given key " + inputKey);
-            yield return null;
+            yield break;
         }
 
         List<PlayableCard> playableCards = document.map.GetList<PlayableCard>(inputKey);
@@ -87,7 +92,10 @@ public class CardInHandEffect : EffectStep, ITooltipProvider
     }
 
     public TooltipViewModel GetTooltip(){
-        if(KeywordTooltipProvider.Instance.HasTooltip(tooltipMapping[effect])){
+        if (descriptionIconMapping.ContainsKey(effect) && KeywordTooltipProvider.Instance.HasTooltip(descriptionIconMapping[effect])){
+            return KeywordTooltipProvider.Instance.GetTooltip(descriptionIconMapping[effect]);
+        }
+         else if (tooltipMapping.ContainsKey(effect) && KeywordTooltipProvider.Instance.HasTooltip(tooltipMapping[effect])){
             return KeywordTooltipProvider.Instance.GetTooltip(tooltipMapping[effect]);
         }
         else return new TooltipViewModel(empty: true);

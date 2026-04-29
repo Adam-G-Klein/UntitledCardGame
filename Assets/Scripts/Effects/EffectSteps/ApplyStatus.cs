@@ -40,6 +40,13 @@ public class ApplyStatus : EffectStep, ITooltipProvider
     [SerializeField]
     private bool toggleStatus = false; // if true, will remove the status if it's already present instead of adding to stacks
 
+
+    private static Dictionary<StatusEffectType, DescriptionToken.DescriptionIconType> descriptionIconMapping = new Dictionary<StatusEffectType, DescriptionToken.DescriptionIconType>() {
+        {StatusEffectType.Strength, DescriptionToken.DescriptionIconType.Strength},
+        {StatusEffectType.Defended, DescriptionToken.DescriptionIconType.Block},
+        {StatusEffectType.TemporaryStrength, DescriptionToken.DescriptionIconType.TemporaryStrength},
+    };
+
     public ApplyStatus()
     {
         effectStepName = "ApplyStatus";
@@ -86,10 +93,12 @@ public class ApplyStatus : EffectStep, ITooltipProvider
     }
 
     public TooltipViewModel GetTooltip() {
-        if(KeywordTooltipProvider.Instance.HasTooltip(statusEffect))
-        {
+        if (descriptionIconMapping.ContainsKey(statusEffect) && KeywordTooltipProvider.Instance.HasTooltip(descriptionIconMapping[statusEffect])){
+            return KeywordTooltipProvider.Instance.GetTooltip(descriptionIconMapping[statusEffect]);
+        }
+         else if (KeywordTooltipProvider.Instance.HasTooltip(statusEffect)){
             return KeywordTooltipProvider.Instance.GetTooltip(statusEffect);
         }
-        return new TooltipViewModel(empty: true);
+         else return new TooltipViewModel(empty: true);
     }
 }
