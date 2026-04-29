@@ -202,7 +202,7 @@ public class CardView {
     }
 
     private void ScaleCardRootToFitContainer(GeometryChangedEvent evt) {
-        cardContainer.UnregisterCallback<GeometryChangedEvent>(ScaleCardRootToFitContainer);
+        // cardContainer.UnregisterCallback<GeometryChangedEvent>(ScaleCardRootToFitContainer);
 
         float width = cardContainer.resolvedStyle.width;
         float height = cardContainer.resolvedStyle.height;
