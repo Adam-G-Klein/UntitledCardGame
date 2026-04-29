@@ -2,13 +2,17 @@
     <Style src="project://database/Assets/fontStyling.uss?fileID=7433441132597879392&amp;guid=d0c0881f1c32747ecb649373600de095&amp;type=3#fontStyling" />
     <Style src="project://database/Assets/UI%20Toolkit/Stylesheets/EntityStatusIndicatorStylesheet.uss?fileID=7433441132597879392&amp;guid=c51c2c34e2e16e348bdfc4c868d86a28&amp;type=3#EntityStatusIndicatorStylesheet" />
     <ui:VisualElement name="enemy-view-parent-container" picking-mode="Ignore" style="flex-grow: 0; align-items: center; justify-content: flex-end; flex-shrink: 0; width: 100%; height: 100%; flex-direction: column-reverse;">
-        <ui:VisualElement name="enemy-view-frame" style="flex-grow: 0; position: relative; width: 100%; height: 41%; background-image: url(&quot;project://database/Assets/Sprites/entityFrames/Enemy/EnemyFrame.png?fileID=2800000&amp;guid=42bef55109fe6a64bbdbd3e68042aea5&amp;type=3#EnemyFrame&quot;);">
+        <ui:VisualElement name="enemy-view-frame" style="flex-grow: 0; position: relative; width: 100%; height: 41%;">
+            <ui:VisualElement name="enemy-view-background" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; background-image: url(&quot;project://database/Assets/Sprites/entityFrames/Enemy/Enemy_Background_New.png?fileID=2800000&amp;guid=bae308b79cc57eb42870bc906e7d5a2f&amp;type=3#Enemy_Background_New&quot;);" />
+            <ui:VisualElement name="enemy-view-frame" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; background-image: url(&quot;project://database/Assets/Sprites/entityFrames/Enemy/Enemy_Frame_New.png?fileID=2800000&amp;guid=8ee31f255572d694aadbcda723286b0c&amp;type=3#Enemy_Frame_New&quot;);" />
             <ui:VisualElement name="enemy-view-name-and-health-bar" style="flex-grow: 0; width: 100%; height: 66%; align-items: center; position: relative; padding-top: 3%; padding-bottom: 3%; justify-content: center;">
-                <ui:Label tabindex="-1" text="Sopu Duck" parse-escape-sequences="true" display-tooltip-when-elided="true" name="enemy-view-name-label" style="-unity-text-align: upper-center; -unity-font-style: bold; font-size: 26px; padding-bottom: 0; color: rgb(255, 255, 255); margin-top: 0; margin-bottom: 0; padding-top: 0;" />
-                <ui:VisualElement style="flex-grow: 0; flex-shrink: 0; width: 73%; height: 36%; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; border-left-color: rgb(30, 30, 30); border-right-color: rgb(30, 30, 30); border-top-color: rgb(30, 30, 30); border-bottom-color: rgb(30, 30, 30); margin-bottom: 5px;">
-                    <ui:VisualElement name="enemy-view-health-bar-background" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; background-color: rgb(255, 255, 255);" />
-                    <ui:VisualElement name="enemy-view-health-bar-fill" style="flex-grow: 0; background-color: rgb(158, 0, 3); flex-shrink: 0; width: 89%; height: 100%;" />
-                    <ui:Label tabindex="-1" text="45/50" parse-escape-sequences="true" display-tooltip-when-elided="true" name="enemy-view-health-bar-label" style="position: absolute; left: 25%; right: 25%; top: 0; bottom: 0; -unity-font-style: bold; -unity-text-align: middle-center; font-size: 16px; color: rgb(30, 30, 30); margin-top: 2px;" />
+                <ui:Label tabindex="-1" text="Sopu Duck" parse-escape-sequences="true" display-tooltip-when-elided="true" name="enemy-view-name-label" style="-unity-text-align: upper-center; -unity-font-style: bold; font-size: 26px; padding-bottom: 0; margin-top: 0; margin-bottom: 0; padding-top: 0;" />
+                <ui:VisualElement name="enemy-view-health-bar-parent" style="flex-grow: 0; height: 34%; width: 68%;">
+                    <ui:VisualElement name="enemy-view-health-bar-clip" style="flex-grow: 1; width: 100%; height: 100%; align-items: flex-start; overflow: hidden; position: absolute; left: 0;">
+                        <ui:VisualElement name="enemy-view-health-bar-fill" style="background-image: url(&quot;project://database/Assets/Sprites/entityFrames/Companion/frames-DBF/Background_HealthBar.png?fileID=2800000&amp;guid=5a6279273d32f4749ba8ea42dfd98e33&amp;type=3#Background_HealthBar&quot;); -unity-background-scale-mode: scale-to-fit; position: absolute; width: 100%; height: 100%; left: 0;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="enemy-view-health-bar-outline" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; background-image: url(&quot;project://database/Assets/Sprites/entityFrames/Enemy/Enemy_Healthbar_Frame.png?fileID=2800000&amp;guid=1490372e7558725418a1886ea14ef9e5&amp;type=3#Enemy_Healthbar_Frame&quot;); -unity-background-scale-mode: scale-to-fit;" />
+                    <ui:Label tabindex="-1" text="50/50" parse-escape-sequences="true" display-tooltip-when-elided="true" name="enemy-view-health-bar-label" class="companion-frame-health-bar-label" style="-unity-text-align: middle-center; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; -unity-font-style: bold;" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="enemy-view-intent-container-parent" style="flex-grow: 1; align-items: center; margin-bottom: 2px;">
@@ -19,9 +23,6 @@
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement picking-mode="Ignore" style="flex-grow: 1; flex-shrink: 0; width: 91%; justify-content: flex-end; align-items: center;">
-            <ui:VisualElement name="enemy-view-background-gradient" style="flex-grow: 0; width: 100%; height: 45%; translate: 0 2%; flex-shrink: 0;">
-                <ui:VisualElement name="enemy-view-gradient" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; background-image: url(&quot;project://database/Assets/Sprites/entityFrames/Enemy/EnemyGradient.png?fileID=2800000&amp;guid=8058ef0c42c187542a3b112839424ed0&amp;type=3#EnemyGradient&quot;); -unity-background-image-tint-color: rgba(255, 255, 255, 0.76);" />
-            </ui:VisualElement>
             <ui:VisualElement name="enemy-view-sprite" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/Enemies/TheSqueakSquad/Freaky%20Goose2.png?fileID=2800000&amp;guid=a0d9bb37e958a694fac646b3cab615ee&amp;type=3#Freaky Goose2&quot;); height: 100%; width: 100%; position: absolute; -unity-background-scale-mode: scale-to-fit;" />
         </ui:VisualElement>
         <ui:VisualElement name="enemy-view-selected-indicator" picking-mode="Ignore" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; visibility: hidden; display: flex;">

@@ -31,16 +31,14 @@ public class EnemyView : IUIEventReceiver
 
     private List<VisualElement> pickingModePositionList = new List<VisualElement>();
 
-    private Vector3 originalScale;
-    private Vector2 originalElementScale;
-    private int ENTITY_NAME_MAX_CHARS = 6;
-    private int ENTITY_NAME_FONT_SIZE = 20;
     public GameObject tweenTarget;
 
     private VisualElement statusArea;
     private VisualElement spriteElement;
     private Label name;
     private VisualElement healthBarFill;
+    private VisualElement healthBarFillClip;
+    private VisualElement healthBarParent;
     private Label healthBarLabel;
     private VisualElement selectedIndicator;
     private Label intentLabel;
@@ -109,16 +107,13 @@ public class EnemyView : IUIEventReceiver
         this.name = enemyRoot.Q<Label>("enemy-view-name-label");
         this.healthBarFill = enemyRoot.Q<VisualElement>("enemy-view-health-bar-fill");
         this.healthBarLabel = enemyRoot.Q<Label>("enemy-view-health-bar-label");
+        this.healthBarFillClip = enemyRoot.Q<VisualElement>("enemy-view-health-bar-clip");
+        this.healthBarParent = enemyRoot.Q<VisualElement>("enemy-view-health-bar-parent");
         this.selectedIndicator = enemyRoot.Q<VisualElement>("enemy-view-selected-indicator");
         this.intentContainer = enemyRoot.Q<VisualElement>("enemy-view-intent-container");
         this.intentImage = enemyRoot.Q<VisualElement>("enemy-view-intent-image");
         this.intentLabel = enemyRoot.Q<Label>("enemy-view-intent-label");
         this.frame = enemyRoot.Q<VisualElement>("enemy-view-frame");
-
-        if (this.combatInstance != null)
-        {
-            enemyRoot.Q<VisualElement>("enemy-view-background-gradient").visible = false;
-        }
 
         // Moving past the random VisualElement parent CloneTree() creates
         this.container = enemyRoot.Children().First();
@@ -165,8 +160,15 @@ public class EnemyView : IUIEventReceiver
         }
         this.healthBarLabel.text = String.Format(HEALTH_LABEL_STRING, currentHealth, maxHealth);
         float healthPercent = (float) currentHealth / (float) maxHealth;
-        this.healthBarFill.style.width = Length.Percent(healthPercent * 100);
+        this.healthBarFillClip.style.width = Length.Percent(healthPercent * 100);
         lastHealthValue = currentHealth;
+        container.RegisterCallback<GeometryChangedEvent>(SetHealthBarFillSize);
+    }
+
+    private void SetHealthBarFillSize(GeometryChangedEvent evt) {
+        healthBarFill.style.width = healthBarParent.resolvedStyle.width;
+        healthBarFill.style.height = healthBarParent.resolvedStyle.height;
+        container.UnregisterCallback<GeometryChangedEvent>(SetHealthBarFillSize);
     }
 
     private void UpdateHealth() {
@@ -186,7 +188,7 @@ public class EnemyView : IUIEventReceiver
 
         isHealthTweening = true;
 
-        HealthBarUtils.UpdateHealth(lastHealthValue, currentHealth, maxHealth, healthBarFill, healthBarLabel, () => {
+        HealthBarUtils.UpdateHealth(lastHealthValue, currentHealth, maxHealth, healthBarFillClip, healthBarLabel, () => {
             isHealthTweening = false;
             lastHealthValue = currentHealth;
             // In case multiple instances of damage come through in close timing
