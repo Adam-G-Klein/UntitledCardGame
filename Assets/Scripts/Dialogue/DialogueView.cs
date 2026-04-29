@@ -139,6 +139,15 @@ public class DialogueView : GenericSingleton<DialogueView>, IControlsReceiver
         hasClicked = false;
     }
 
+    public void SetScreenSpaceSortingOrder(string sortingLayer, int sortingOrder) {
+        if (screenSpaceRawImage == null) return;
+        Canvas ssCanvas = screenSpaceView.GetComponentInChildren<Canvas>(true);
+        if (ssCanvas == null) return;
+        ssCanvas.overrideSorting = true;
+        ssCanvas.sortingLayerName = sortingLayer;
+        ssCanvas.sortingOrder = sortingOrder;
+    }
+
     public void SetScreenSpaceMode(bool screenSpace) {
         if (screenSpace == screenSpaceModeActive) return;
         if (activeRawImage != null) activeRawImage.enabled = false;

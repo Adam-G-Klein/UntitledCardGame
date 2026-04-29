@@ -51,8 +51,6 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
         yield return CameraTourCoroutine();
         yield return new WaitForSeconds(0.5f); // brief delay after camera tour
         yield return SpeakLineNoHide();
-        yield return SpeakLineNoHide();
-        yield return SpeakLine();
         manager.combatEncounterView.SetupFromGamestate(manager, true);
         FocusManager.Instance.StashFocusables(this.GetType().Name);
         pause = true;
@@ -308,6 +306,9 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
                 float waitTime = cameraDollyDuration - elapsed - cameraFadeDuration;
                 if (waitTime > 0f) yield return new WaitForSeconds(waitTime);
 
+                if(i == childCount - 1) {
+                    DialogueView.Instance.SetScreenSpaceSortingOrder("Overlay UI", 99);
+                }
                 yield return SceneTransitionManager.Instance.Fade(1f);
                 LeanTween.cancel(virtualCamera.gameObject);
                 yield return new WaitForSeconds(cameraTourHoldInBlack);
@@ -315,11 +316,13 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
 
             virtualCamera.transform.position = startPosition;
             virtualCamera.m_Lens.OrthographicSize = startOrthographicSize;
-            yield return SceneTransitionManager.Instance.Fade(0f);
         } finally {
+            DialogueView.Instance.Hide();
             DialogueView.Instance.SetScreenSpaceMode(false);
-            SceneTransitionManager.Instance.ResetSortingOrder();
+            StartCoroutine(SceneTransitionManager.Instance.Fade(0f));
         }
+        yield return new WaitForSeconds(SceneTransitionManager.Instance.fadeTime);
+        SceneTransitionManager.Instance.ResetSortingOrder();
     }
 
     private IEnumerator DollyCameraTo(Vector3 target, float duration) {

@@ -6,7 +6,7 @@ using System.Collections;
 public class SceneTransitionManager : MonoBehaviour
 {
     [Header("Transition Settings")]
-    [SerializeField] private float fadeTime = .25f;
+    [SerializeField] public float fadeTime = .25f;
     [SerializeField] private Color fadeColor = Color.black;
     
     private static SceneTransitionManager instance;
