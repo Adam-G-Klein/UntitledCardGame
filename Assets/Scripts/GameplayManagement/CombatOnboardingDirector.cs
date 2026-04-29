@@ -84,7 +84,7 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
             manager.combatEncounterView.HideCardsAndShowCompanionFrame(companion, () => pause = false);
             yield return new WaitUntil(() => pause == false);
         }
-        // Change to combat music
+        MusicController.Instance.PlayMusicLocation(Location.COMBAT, Act.One);
         AnimateEnemiesFromOffscreen();
         pause = true;
         yield return SpeakLine();

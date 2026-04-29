@@ -339,6 +339,11 @@ public class GameStateVariableSO : ScriptableObject
     }
 
     private void updateMusic(Location newLocation, Act act) {
+        // We want combat music to start mid combat onboarding if it's not completed
+        // already, so adding this check here
+        if (newLocation == Location.COMBAT && hasSeenCombatTutorial == false) {
+            return;
+        }
         // Just not changing the music on the map right now
         if(newLocation != Location.MAP && MusicController.Instance != null) {
             MusicController.Instance.PlayMusicLocation(newLocation, act);
