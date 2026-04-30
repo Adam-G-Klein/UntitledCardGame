@@ -39,7 +39,8 @@ MonoBehaviour:
     icon: 12
   IconDescriptionTooltipLines:
   - Deal X damage to a foe of your choice.
-  - Then, this rat and rats adjacent to it lose 1 HP, ignoring block.
+  - Then, bleed 1 HP from owner rat and adjacent rats, which damages them ignoring
+    block
   defaultValues:
   - key: rpl_damage
     value: 12
