@@ -346,7 +346,12 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             // will need to decide which behavior makes sense for the null case
             playableCard.ToggleDarkOverlay(deckFrom != null && deckFrom != playableCard.deckFrom);
         }
-    }
+
+        foreach (CompanionInstance companion in CombatEntityManager.Instance.getCompanions())
+        {
+            companionGOToCardTab[companion.gameObject].ToggleDarkOverlay(deckFrom != null && companion.deckInstance != deckFrom);
+        }
+     }
 
     // Function that updates all card positions
     // Optionally takes a list of new cards to dictate if a card is being newly delt, or just shifting in the hand

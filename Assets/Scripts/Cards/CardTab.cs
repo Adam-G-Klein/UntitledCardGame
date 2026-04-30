@@ -13,6 +13,7 @@ public class CardTab : MonoBehaviour
 
     private VisualElement background;
     private VisualElement icon;
+    private VisualElement darkOverlay;
 
     private RenderTexture rt;
     private PanelSettings ps;
@@ -32,6 +33,7 @@ public class CardTab : MonoBehaviour
 
         background = uiDoc.rootVisualElement.Q<VisualElement>("background");
         icon = uiDoc.rootVisualElement.Q<VisualElement>("icon");
+        darkOverlay = uiDoc.rootVisualElement.Q<VisualElement>("dark-overlay");
     }
 
     void OnDestroy() {
@@ -63,5 +65,10 @@ public class CardTab : MonoBehaviour
         LeanTween.moveLocal(uiDoc.gameObject, loweredTabPosition, 0.35f)
             .setEase(LeanTweenType.easeInOutQuad)
             .setOnComplete(() => rawImage.enabled = false);
+    }
+
+    public void ToggleDarkOverlay(bool toggleOn)
+    {
+        darkOverlay.style.visibility = toggleOn ? Visibility.Visible : Visibility.Hidden;
     }
 }
