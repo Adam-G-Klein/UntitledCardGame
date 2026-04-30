@@ -108,7 +108,7 @@ icon: 9
 text:
 icon: 12
 Tooltip:
-- Deal X damage to target foe
+- Deal damage to target foe
 - Bleed 1 HP ignoring any block from self and adjacent rats.
 
 Description: 'Discard 2 cards in hand & deal {rpl_damage} damage '

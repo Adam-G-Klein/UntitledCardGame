@@ -35,7 +35,7 @@ MonoBehaviour:
     text: 
     icon: 4
   IconDescriptionTooltipLines:
-  - Give rat of your choice X block, which prevents damage until the start of the
+  - Give rat of your choice 8 block, which prevents damage until the start of the
     next turn
   - Exhaust a random card in hand, removing it for the rest of combat
   defaultValues: []
@@ -84,6 +84,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        toggleStatus: 0
     - rid: 2034230108114649132
       type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
       data:

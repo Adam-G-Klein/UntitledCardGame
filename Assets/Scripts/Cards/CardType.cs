@@ -159,7 +159,7 @@ public class CardType: IdentifiableSO, ITooltipProvider
         return IconDescription != null && IconDescription.Count > 0;
     }
 
-    public List<DescriptionToken> GetIconDescriptionTokens()
+    public List<DescriptionToken> GetIconDescriptionTokens(bool fillDefaultValues = true)
     {
         // Fill out the default values in the icon description.
         List<DescriptionToken> filledTokens = new List<DescriptionToken>();
@@ -171,9 +171,12 @@ public class CardType: IdentifiableSO, ITooltipProvider
                 continue;
             }
             string filledText = token.text;
-            foreach (var defaultValue in defaultValues)
+            if (fillDefaultValues)
             {
-                filledText = filledText.Replace($"{{{defaultValue.key}}}", $"{defaultValue.value}");
+                foreach (var defaultValue in defaultValues)
+                {
+                    filledText = filledText.Replace($"{{{defaultValue.key}}}", $"{defaultValue.value}");
+                }
             }
             filledTokens.Add(new DescriptionToken
             { tokenType = DescriptionToken.TokenType.Text, text = filledText });
@@ -303,9 +306,9 @@ public class CardType: IdentifiableSO, ITooltipProvider
         {
             Debug.Log("CardType.GetTooltip(): Generating icon description tooltip");
             // Loop through the description tokens with icons.
-            List<DescriptionToken> tokens = GetIconDescriptionTokens();
+            List<DescriptionToken> tokens = GetIconDescriptionTokens(fillDefaultValues: false);
 
-            // // With LinQ, extract a list of the unique icon tokens in the description.
+            // Add this if we want to see tooltips for individual icons.
             // List<DescriptionToken.DescriptionIconType> uniqueIconTokens = tokens.Where(t => t.tokenType == DescriptionToken.TokenType.Icon).Select(t => t.icon).Distinct().ToList();
             // foreach (DescriptionToken.DescriptionIconType tokenType in uniqueIconTokens)
             // {
@@ -322,11 +325,14 @@ public class CardType: IdentifiableSO, ITooltipProvider
                 if (token.tokenType == DescriptionToken.TokenType.NewLine)
                 {
                     descriptionLines.Add(new List<DescriptionToken>());
+                    continue;
                 }
-                else
+                // Exclude tokens with default values.
+                if (token.tokenType == DescriptionToken.TokenType.Text && System.Text.RegularExpressions.Regex.IsMatch(token.text, @"\{.+\}"))
                 {
-                    descriptionLines.Last().Add(token);
+                    continue;
                 }
+                descriptionLines.Last().Add(token);
             }
             // Remove lines without at least one icon token.
             // descriptionLines = descriptionLines.Where(line => line.Any(token => token.tokenType == DescriptionToken.TokenType.Icon)).ToList();

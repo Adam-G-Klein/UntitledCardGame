@@ -39,7 +39,7 @@ MonoBehaviour:
     text: 
     icon: 11
   IconDescriptionTooltipLines:
-  - Give a rat of your choice X block, which prevents damage until start of next
+  - Give a rat of your choice 7 block, which prevents damage until start of next
     turn
   - Then, if the owner rat lost HP this turn, draw 1 card from the owner rat
   defaultValues: []
@@ -104,6 +104,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        toggleStatus: 0
     - rid: 758315839196758753
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
