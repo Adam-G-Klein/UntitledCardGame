@@ -73,7 +73,7 @@ public class DeckInstance : MonoBehaviour
     {
         DeregisterDrawTrigger();
         DeregisterDealExtraCardsTrigger();
-        yield return null;
+        yield return PlayerHand.Instance.CompanionDeath(this);
     }
 
     public IEnumerable DealStartPlayerTurnCards()

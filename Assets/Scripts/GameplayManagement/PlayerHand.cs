@@ -688,6 +688,16 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         UpdateOrderedCards();
     }
 
+    public IEnumerator CompanionDeath(DeckInstance deckInstance) {
+        List<PlayableCard> cardsToRemove = new List<PlayableCard>(deckInstanceToPlayableCard[deckInstance]);
+        foreach (PlayableCard card in cardsToRemove) {
+            Debug.Log($"PlayerHand: Removing card {card.card.cardType.Name}");
+            yield return SafeRemoveCardFromHand(card);
+            Destroy(card.gameObject);
+        }
+        UpdateCardPositions();
+    }
+
     private void SetTabVisibility(PlayableCard card) {
         if (deckInstanceToPlayableCard[card.deckFrom].Count > 0) {
             companionGOToCardTab[card.deckFrom.gameObject].Show();
