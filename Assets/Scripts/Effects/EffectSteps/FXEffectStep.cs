@@ -49,6 +49,7 @@ public class FXEffectStep: EffectStep {
             List<GameObject> gameObjects = document.map.GetList<GameObject>(posMapping.fromWorkflow);
             if (gameObjects.Count != 1) {
                 EffectError(String.Format("Can't bind map object to FXExperience because there were {0} options", gameObjects.Count));
+                GameObject.Destroy(experience.gameObject);
                 yield break;
             }
             experience.AddLocationToKey(posMapping.toFxExperience, gameObjects[0].transform.position);
@@ -59,6 +60,7 @@ public class FXEffectStep: EffectStep {
             List<GameObject> gameObjects = document.map.GetList<GameObject>(goMapping.fromWorkflow);
             if (gameObjects.Count != 1) {
                 EffectError(String.Format("Can't bind map object to FXExperience because there were {0} options", gameObjects.Count));
+                GameObject.Destroy(experience.gameObject);
                 yield break;
             }
             keyToGameObjectDict.Add(goMapping.toFxExperience, gameObjects[0]);
@@ -69,6 +71,7 @@ public class FXEffectStep: EffectStep {
             List<VisualElement> visualElements = document.map.GetList<VisualElement>(veMapping.fromWorkflow);
             if (visualElements.Count != 1) {
                 EffectError(String.Format("Can't bind map VE to FXExperience because there were {0} options", visualElements.Count));
+                GameObject.Destroy(experience.gameObject);
                 yield break;
             }
             experience.AddVisualElementToKey(veMapping.toFxExperience, visualElements[0]);
@@ -78,6 +81,7 @@ public class FXEffectStep: EffectStep {
             List<VisualElement> visualElements = document.map.GetList<VisualElement>(vePosMapping.fromWorkflow);
             if (visualElements.Count != 1) {
                 EffectError(String.Format("Can't bind map VE to FXExperience because there were {0} options", visualElements.Count));
+                GameObject.Destroy(experience.gameObject);
                 yield break;
             }
             Rect veRect = visualElements[0].worldBound;

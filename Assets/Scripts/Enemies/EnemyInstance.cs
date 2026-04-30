@@ -253,14 +253,19 @@ public class EnemyInstance : MonoBehaviour, IUIEntity
         document.map.AddItem(EffectDocument.ORIGIN, this);
         document.originEntityType = EntityType.Enemy;
         if (enemyIntentArrows != null) enemyIntentArrows.clearArrows();
-        List<CombatInstance> combatInstanceTargets = currentIntent.targets.Select(x => x.combatInstance).ToList();
-        List<DeckInstance> deckInstanceTargets = currentIntent.targets.Select(x => x.deckInstance).ToList();
-        List<GameObject> gameObjectTargets = currentIntent.targets.Select(x => x.gameObject).ToList();
-        List<VisualElement> visualElementTargets = currentIntent.targets.Select(x => x.combatInstance.GetVisualElement()).ToList();
+        // List<CombatInstance> combatInstanceTargets = currentIntent.targets.Select(x => x.combatInstance).ToList();
+        // List<DeckInstance> deckInstanceTargets = currentIntent.targets.Select(x => x.deckInstance).ToList();
+        // List<GameObject> gameObjectTargets = currentIntent.targets.Select(x => x.gameObject).ToList();
+        // List<VisualElement> visualElementTargets = currentIntent.targets.Select(x => x.combatInstance.GetVisualElement()).ToList();
+        List<CompanionInstance> updatedTargets = currentIntent.targets.Where(x => x != null && x.gameObject != null).ToList();
+        List<CombatInstance> combatInstanceTargets = updatedTargets.Select(x => x.combatInstance).ToList();
+        List<DeckInstance> deckInstanceTargets = updatedTargets.Select(x => x.deckInstance).ToList();
+        List<GameObject> gameObjectTargets = updatedTargets.Select(x => x.gameObject).ToList();
+        List<VisualElement> visualElementTargets = updatedTargets.Select(x => x.combatInstance.GetVisualElement()).ToList();
 
         onIntentEnacted?.Invoke(); // For boss, allows us to make intent invisible right as we're enacting
         if (preEnactIntentHook != null) { // For boss, allows us to yield on attack animation
-            List<Vector3> targetPositions = currentIntent.targets.Select(x => x.transform.position).ToList();
+            List<Vector3> targetPositions = updatedTargets.Select(x => x.transform.position).ToList();
             yield return preEnactIntentHook.Invoke(targetPositions);
         }
 
