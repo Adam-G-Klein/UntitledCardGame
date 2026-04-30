@@ -14,7 +14,7 @@
         </ui:VisualElement>
         <ui:VisualElement class="post-combat-background" style="width: 35%; align-self: center; height: 60%; background-image: url(&quot;project://database/Assets/Sprites/UI/CombatRewardsBackground%20(1).png?fileID=2800000&amp;guid=22d02968a50274729a4f4335573f045b&amp;type=3#CombatRewardsBackground (1)&quot;); background-color: rgba(0, 0, 0, 0); align-items: center; justify-content: center;">
             <ui:VisualElement style="flex-grow: 1; width: 90%; height: 90%; max-height: 90%;">
-                <ui:Label tabindex="-1" text="Combat Rewards!" parse-escape-sequences="true" display-tooltip-when-elided="true" class="post-combat-text" style="translate: 0 0; font-size: 48px; transform-origin: center; margin-top: 2%;" />
+                <ui:Label tabindex="-1" text="Payout" parse-escape-sequences="true" display-tooltip-when-elided="true" class="post-combat-text" style="translate: 0 0; font-size: 48px; transform-origin: center; margin-top: 2%;" />
                 <ui:VisualElement style="top: 50%; position: absolute; min-width: 100%; left: 50%; translate: -50% -50%; height: 70%; justify-content: center;">
                     <ui:VisualElement class="combat-rewards-section" style="border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; flex-direction: row; justify-content: space-between;">
                         <ui:Label tabindex="-1" text="1 interest per ${0} ({1} max):" display-tooltip-when-elided="true" name="interest-help" enable-rich-text="true" class="post-combat-text" style="-unity-text-align: middle-left; font-size: 28px; -unity-font-style: bold; color: rgb(255, 255, 255); margin-left: 20px;" />
