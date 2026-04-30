@@ -105,6 +105,9 @@ public class SaveManager : GenericSingleton<SaveManager>
     public void LoadPlayerProgress()
     {
         PlayerProgressState playerProgressState = SaveSystem.Load<PlayerProgressState>(SaveSystem.SaveType.Progress);
+        if (playerProgressState == null) {
+            gameStateVariableSO.HasSeenCombatTutorial = false;
+        }
         playerProgressState?.LoadToLocalPlayerProgress(gameStateVariableSO, soRegistry);
     }
 
