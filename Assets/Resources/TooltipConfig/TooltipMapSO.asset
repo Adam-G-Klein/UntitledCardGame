@@ -258,13 +258,13 @@ MonoBehaviour:
     description: Deal damage to foe
   - title: Block
     descriptionIconType: 2
-    description: Prevents up to X damage dealt to a rat until next turn
+    description: Prevents damage dealt to a rat until next turn
   - title: Draw
     descriptionIconType: 3
-    description: Draw 1 card from a rat's deck
+    description: Draw a card from a rat's deck
   - title: Random
     descriptionIconType: 4
-    description: Target at random - targeting a random rat, card, or enemy
+    description: Target a random rat, card, or enemy
   - title: Adjacent Targeting
     descriptionIconType: 5
     description: Target rats adjacent to the owner rat
@@ -273,10 +273,10 @@ MonoBehaviour:
     description: Target the leftmost rat on the team
   - title: Bleed
     descriptionIconType: 9
-    description: Rat loses X HP ignoring any block
+    description: Rat loses HP ignoring any block
   - title: "\xC9lan"
     descriptionIconType: 10
-    description: "Gain 1 \xC9lan that you can spend on playing cards"
+    description: "Gain \xC9lan that you can spend on playing cards"
   - title: Self
     descriptionIconType: 11
     description: Target only the owner rat
@@ -310,3 +310,12 @@ MonoBehaviour:
   - title: Any Target
     descriptionIconType: 18
     description: Choose any rat, card, or foe
+  abilityTriggerDescriptionIconMappings:
+  - abilityTrigger: 9
+    descriptionIconType: 14
+  - abilityTrigger: 11
+    descriptionIconType: 9
+  - abilityTrigger: 16
+    descriptionIconType: 13
+  - abilityTrigger: 19
+    descriptionIconType: 3

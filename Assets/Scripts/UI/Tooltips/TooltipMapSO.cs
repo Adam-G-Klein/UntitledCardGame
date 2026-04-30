@@ -47,6 +47,13 @@ public class DescriptionIconTooltipMapping {
     }
 }
 
+[System.Serializable]
+public class AbilityTriggerDescriptionIconMapping
+{
+    public EntityAbility.EntityAbilityTrigger abilityTrigger;
+    public DescriptionToken.DescriptionIconType descriptionIconType;
+}
+
 
 [CreateAssetMenu(fileName = "TooltipMapSO", menuName = "ScriptableObjects/TooltipMapSO", order = 1)]
 public class TooltipMapSO: ScriptableObject
@@ -54,6 +61,18 @@ public class TooltipMapSO: ScriptableObject
     public List<KeywordTooltipMapping> effectTooltipMappings;
 
     public List<DescriptionIconTooltipMapping> descriptionIconTooltipMappings = new();
+    public List<AbilityTriggerDescriptionIconMapping> abilityTriggerDescriptionIconMappings = new();
+
+    // Helps with getting tooltips for things like On Exhaust or On Damage abilities.
+    public DescriptionToken.DescriptionIconType GetDescriptionIconForAbilityTrigger(EntityAbility.EntityAbilityTrigger abilityTrigger) {
+        foreach (var mapping in abilityTriggerDescriptionIconMappings) {
+            if (mapping.abilityTrigger == abilityTrigger) {
+                return mapping.descriptionIconType;
+            }
+        }
+        return DescriptionToken.DescriptionIconType.None;
+    }
+
     public TooltipViewModel GetTooltip(TooltipKeyword tooltipKeyword)
     {
         if(effectTooltipMappings != null)

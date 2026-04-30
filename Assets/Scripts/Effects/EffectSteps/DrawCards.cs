@@ -12,7 +12,7 @@ using UnityEngine;
         - GetScaleFromKey: If checked, the scale will be pulled from a previous step
         - InputScaleKey: The key from which to pull the scale integer from
 */
-public class DrawCards : EffectStep /*, ITooltipProvider*/
+public class DrawCards : EffectStep, ITooltipProvider
 {
     [SerializeField]
     private string inputKey = "";
@@ -75,7 +75,7 @@ public class DrawCards : EffectStep /*, ITooltipProvider*/
         yield return null;
     }
 
-    /*public TooltipViewModel GetTooltip() {
-        return KeywordTooltipProvider.Instance.GetTooltip(TooltipKeyword.Draw);
-    }*/
+    public TooltipViewModel GetTooltip() {
+        return KeywordTooltipProvider.Instance.GetTooltip(DescriptionToken.DescriptionIconType.Draw);
+    }
 }

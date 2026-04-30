@@ -62,6 +62,22 @@ public class KeywordTooltipProvider: GenericSingleton<KeywordTooltipProvider>
         return new TooltipViewModel("Tooltip not found for descriptionIconType: " + descriptionIconType);
     }
 
+    public bool HasTooltip(EntityAbility.EntityAbilityTrigger abilityTrigger) {
+        LoadTooltipMap();
+        DescriptionToken.DescriptionIconType iconType = tooltipMap.GetDescriptionIconForAbilityTrigger(abilityTrigger);
+        return iconType != DescriptionToken.DescriptionIconType.None && tooltipMap.HasTooltip(iconType);
+    }
+
+    public TooltipViewModel GetTooltip(EntityAbility.EntityAbilityTrigger abilityTrigger) {
+        LoadTooltipMap();
+        DescriptionToken.DescriptionIconType iconType = tooltipMap.GetDescriptionIconForAbilityTrigger(abilityTrigger);
+        if (iconType != DescriptionToken.DescriptionIconType.None && tooltipMap.HasTooltip(iconType)) {
+            return tooltipMap.GetTooltip(iconType);
+        }
+        Debug.LogError("Call HasTooltip first: Tooltip not found for abilityTrigger " + abilityTrigger);
+        return new TooltipViewModel("Tooltip not found for abilityTrigger: " + abilityTrigger);
+    }
+
     private void LoadTooltipMap() {
         if(tooltipMap == null)
         {

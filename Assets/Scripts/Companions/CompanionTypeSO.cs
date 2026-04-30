@@ -58,6 +58,8 @@ public class CompanionTypeSO : IdentifiableSO
     public string keepsakeTitle;
     public string keepsakeDescription;
 
+    public List<DescriptionToken.DescriptionIconType> tooltipTokens = new();
+
     public TooltipViewModel GetTooltip()
     {
         TooltipViewModel tooltipViewModel = new TooltipViewModel(tooltip.lines);
@@ -75,7 +77,21 @@ public class CompanionTypeSO : IdentifiableSO
                     tooltipViewModel += tooltipProvider.GetTooltip();
                     Debug.Log("CompanionTypeSO.GetTooltip(): Added tooltip " + tooltip.plainText);
                 }
-            }      
+            }
+
+            // Also add tooltips for the abilities themselves, in case they have things like On Exhaust or On Damage triggers.
+            if (KeywordTooltipProvider.Instance.HasTooltip(entityAbility.abilityTrigger)) {
+                tooltipViewModel += KeywordTooltipProvider.Instance.GetTooltip(entityAbility.abilityTrigger);
+            }
+        }
+        // Add the ability to manually configure tooltip tokens.
+        for (int i = 0; i < tooltipTokens.Count; i++)
+        {
+            DescriptionToken.DescriptionIconType tokenType = tooltipTokens[i];
+            if (KeywordTooltipProvider.Instance.HasTooltip(tokenType))
+            {
+                tooltipViewModel += KeywordTooltipProvider.Instance.GetTooltip(tokenType);
+            }
         }
         return tooltipViewModel;
     }
