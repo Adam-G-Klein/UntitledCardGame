@@ -174,6 +174,9 @@ public class CompanionView : IUIEventReceiver
         pile.RemoveFromClassList("pile-two-cards");
         pile.RemoveFromClassList("pile-three-cards");
         pile.RemoveFromClassList("pile-four-plus-cards");
+
+        pile.style.unityBackgroundImageTintColor = count == 0 ? Color.white : companion.companionType.pack.packColor;
+
         if (count == 0) {
             pile.AddToClassList("pile-no-cards");
         } else if (count == 1) {
@@ -650,6 +653,7 @@ public class CompanionView : IUIEventReceiver
         for (int i = 0; i < cardsShuffled; i++) {
             VisualElement card = new VisualElement();
             card.AddToClassList("companion-view-deck-shuffled-card");
+            card.style.unityBackgroundImageTintColor = companion.companionType.pack.packColor;
             card.style.width = discardPileIcon.resolvedStyle.width;
             card.style.height = discardPileIcon.resolvedStyle.height;
             container.Add(card);
