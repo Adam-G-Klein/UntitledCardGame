@@ -29,6 +29,7 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
     public Vector3 hiddenShadowPosition;
     public AnimationCurve companionKickInCurve;
     public AnimationCurve waddleCurve;
+    public bool waddleRats = true;
 
     [Header("Intro Camera Tour")]
     public Transform cameraTourTargetsParent;
@@ -213,17 +214,20 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
                     comp.container.style.translate = new Translate(x, 0);
                 })
                 .setOnComplete(() => pause = false);
-            LeanTween.value(0f, 5f, seconds)
-                .setOnUpdate((float val) => {
-                    float t = waddleCurve.Evaluate(Mathf.Repeat(val, 1f));
-                    comp.container.style.rotate = new Rotate(new Angle(t * 10f, AngleUnit.Degree));
-                })
-                .setOnComplete(() => {
-                    LeanTween.value(comp.container.style.rotate.value.angle.value, 0, 0.2f)
-                        .setOnUpdate((float val) => {
-                            comp.container.style.rotate = new Rotate(new Angle(val, AngleUnit.Degree));
-                        });
-                });
+            if (waddleRats)
+            {
+                LeanTween.value(0f, 5f, seconds)
+                    .setOnUpdate((float val) => {
+                        float t = waddleCurve.Evaluate(Mathf.Repeat(val, 1f));
+                        comp.container.style.rotate = new Rotate(new Angle(t * 10f, AngleUnit.Degree));
+                    })
+                    .setOnComplete(() => {
+                        LeanTween.value(comp.container.style.rotate.value.angle.value, 0, 0.2f)
+                            .setOnUpdate((float val) => {
+                                comp.container.style.rotate = new Rotate(new Angle(val, AngleUnit.Degree));
+                            });
+                    });
+            }
         }).ExecuteLater(delay);
     }
 
