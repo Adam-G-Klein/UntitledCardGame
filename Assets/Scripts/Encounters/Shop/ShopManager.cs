@@ -92,7 +92,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             if (shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo) {
 
                 // Set up the Choose N rats / cards demo :)
-                SetDraftingHelpText(shopEncounter.shopData.numRatsBuyPerDisplay, shopEncounter.shopData.numRatsBuyPerShop);
+                SetDraftingHelpText(shopEncounter.shopData.numRatsBuyPerDisplay - numRatsBoughtThisShop % shopEncounter.shopData.numRatsBuyPerDisplay);
 
                 shopViewController.EnableDraftingHelp();
                 shouldGenerateCards = false;
@@ -354,13 +354,13 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             numRatsBoughtThisShop++;
             if (shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo)
             {
-                SetDraftingHelpText(shopEncounter.shopData.numRatsBuyPerDisplay, shopEncounter.shopData.numRatsBuyPerShop - numRatsBoughtThisShop);
+                SetDraftingHelpText(shopEncounter.shopData.numRatsBuyPerDisplay - numRatsBoughtThisShop % shopEncounter.shopData.numRatsBuyPerDisplay);
                 if (numRatsBoughtThisShop % shopEncounter.shopData.numRatsBuyPerDisplay == 0)
                 {
                     if (numRatsBoughtThisShop >= shopEncounter.shopData.numRatsBuyPerShop)
                     {
                         currentDemoShopPhase = ShopPhase.CARD_BUYING_PHASE;
-                        SetDraftingHelpText(shopEncounter.shopData.numCardsBuyPerDisplay, shopEncounter.shopData.numCardsBuyPerShop - numCardsBoughtThisShop);
+                        SetDraftingHelpText(shopEncounter.shopData.numCardsBuyPerDisplay - numCardsBoughtThisShop % shopEncounter.shopData.numCardsBuyPerDisplay);
                     }
 
                     rerollShop();
@@ -514,7 +514,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
             if (shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo)
             {
-                SetDraftingHelpText(shopEncounter.shopData.numCardsBuyPerDisplay, shopEncounter.shopData.numCardsBuyPerShop - numCardsBoughtThisShop);
+                SetDraftingHelpText(shopEncounter.shopData.numCardsBuyPerDisplay - numCardsBoughtThisShop % shopEncounter.shopData.numCardsBuyPerDisplay);
                 if (numCardsBoughtThisShop % shopEncounter.shopData.numCardsBuyPerDisplay == 0)
                 {
                     if (numCardsBoughtThisShop >= shopEncounter.shopData.numCardsBuyPerShop)
@@ -525,7 +525,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                         // Enable the next combat button since the demo shop is over.
                         shopViewController.EnableNextCombatButton();
 
-                        SetDraftingHelpText(0, 0);
+                        SetDraftingHelpText();
                     }
                     else
                     {
@@ -541,14 +541,14 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         }
     }
 
-    public void SetDraftingHelpText(int numPerDisplay, int remaining)
+    public void SetDraftingHelpText(int remainingInDisplay = 1)
     {
-        string cardsBuyingHelpText = numPerDisplay == 1
+        string cardsBuyingHelpText = remainingInDisplay == 1
             ? "Choose a card for a rat on your team"
-            : string.Format("Choose {0} cards for rats on your team", numPerDisplay);
-        string ratsHelpText = numPerDisplay == 1
+            : string.Format("Choose {0} cards for rats on your team", remainingInDisplay);
+        string ratsHelpText = remainingInDisplay == 1
             ? "Choose a rat for your team"
-            : string.Format("Choose {0} rats for your team", numPerDisplay);
+            : string.Format("Choose {0} rats for your team", remainingInDisplay);
         if (currentDemoShopPhase == ShopPhase.CARD_BUYING_PHASE)
         {
             shopViewController.SetDraftingHelpText(cardsBuyingHelpText);
@@ -558,7 +558,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             shopViewController.SetDraftingHelpText(ratsHelpText);
         } else if (currentDemoShopPhase == ShopPhase.DONE)
         {
-            shopViewController.SetDraftingHelpText($"Out of stock. Come back after the next combat");
+            shopViewController.SetDraftingHelpText($"Out of stock. Come back after the next table");
         }
     }
 
