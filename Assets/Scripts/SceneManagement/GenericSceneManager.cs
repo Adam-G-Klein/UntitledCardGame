@@ -33,6 +33,7 @@ public class GenericSceneManager : MonoBehaviour, IControlsReceiver
 
     public void ContinueGameState() {
         Debug.Log("ContinueGameState");
+        MusicController.Instance.HandleConciergeDialogue("stop");
         gameState.LoadNextLocation();
     }
 
