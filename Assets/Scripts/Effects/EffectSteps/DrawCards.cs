@@ -69,7 +69,8 @@ public class DrawCards : EffectStep, ITooltipProvider
                 return true;
             });
             // yield return new WaitForSeconds(0.3f); // Small delay to ensure all card state updates have resolved
-            yield return new WaitUntil(() => LeanTween.tweensRunning == 0);
+            // yield return new WaitUntil(() => LeanTween.tweensRunning == 0); This doesn't work in the boss scene,
+            // because Meowthra uses tweens for their hand movement animation
         }
 
         yield return null;
