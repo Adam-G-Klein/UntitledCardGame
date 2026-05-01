@@ -67,10 +67,12 @@ public class TooltipLine
             }
         }
 
-
-        Label text = new Label(this.description);
-        text.AddToClassList("tooltip-text");
-        ve.Add(text);
+        if (!string.IsNullOrEmpty(description))
+        {
+            Label text = new Label(this.description);
+            text.AddToClassList("tooltip-text");
+            ve.Add(text);
+        }
 
         return ve;
     }

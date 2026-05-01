@@ -52,11 +52,11 @@ public class KeywordTooltipProvider: GenericSingleton<KeywordTooltipProvider>
         return tooltipMap.HasTooltip(descriptionIconType);
     }
 
-    public TooltipViewModel GetTooltip(DescriptionToken.DescriptionIconType descriptionIconType)
+    public TooltipViewModel GetTooltip(DescriptionToken.DescriptionIconType descriptionIconType, bool includeDescription = true)
     {
         if(HasTooltip(descriptionIconType))
         {
-            return tooltipMap.GetTooltip(descriptionIconType);
+            return tooltipMap.GetTooltip(descriptionIconType, includeDescription);
         }
         Debug.LogError("Call HasTooltip first: Tooltip not found for descriptionIconType " + descriptionIconType);
         return new TooltipViewModel("Tooltip not found for descriptionIconType: " + descriptionIconType);
@@ -64,15 +64,14 @@ public class KeywordTooltipProvider: GenericSingleton<KeywordTooltipProvider>
 
     public bool HasTooltip(EntityAbility.EntityAbilityTrigger abilityTrigger) {
         LoadTooltipMap();
-        DescriptionToken.DescriptionIconType iconType = tooltipMap.GetDescriptionIconForAbilityTrigger(abilityTrigger);
-        return iconType != DescriptionToken.DescriptionIconType.None && tooltipMap.HasTooltip(iconType);
+        return tooltipMap.HasTooltip(abilityTrigger);
     }
 
     public TooltipViewModel GetTooltip(EntityAbility.EntityAbilityTrigger abilityTrigger) {
         LoadTooltipMap();
-        DescriptionToken.DescriptionIconType iconType = tooltipMap.GetDescriptionIconForAbilityTrigger(abilityTrigger);
-        if (iconType != DescriptionToken.DescriptionIconType.None && tooltipMap.HasTooltip(iconType)) {
-            return tooltipMap.GetTooltip(iconType);
+        if (HasTooltip(abilityTrigger))
+        {
+            return tooltipMap.GetTooltip(abilityTrigger);
         }
         Debug.LogError("Call HasTooltip first: Tooltip not found for abilityTrigger " + abilityTrigger);
         return new TooltipViewModel("Tooltip not found for abilityTrigger: " + abilityTrigger);

@@ -35,15 +35,17 @@ public class DescriptionIconTooltipMapping {
     public DescriptionToken.DescriptionIconType descriptionIconType;
     public string description;
 
-    public TooltipViewModel tooltip { get {
-        Sprite iconImage = GameplayConstantsSingleton.Instance.gameplayConstants.descriptionIconSprites.GetValueOrDefault(descriptionIconType);
-        return new TooltipViewModel(title, description, -1, iconImage != null ? iconImage.texture : null);
-    }}
-
     public DescriptionIconTooltipMapping(DescriptionToken.DescriptionIconType descriptionIconType, string title, string description) {
         this.descriptionIconType = descriptionIconType;
         this.title = title;
         this.description = description;
+    }
+
+    public TooltipViewModel GetTooltip(bool includeDescription = true)
+    {
+        Sprite iconImage = GameplayConstantsSingleton.Instance.gameplayConstants.descriptionIconSprites.GetValueOrDefault(descriptionIconType);
+        string tooltipDescription = includeDescription ? description : "";
+        return new TooltipViewModel(title, tooltipDescription, -1, iconImage != null ? iconImage.texture : null);
     }
 }
 
@@ -51,7 +53,13 @@ public class DescriptionIconTooltipMapping {
 public class AbilityTriggerDescriptionIconMapping
 {
     public EntityAbility.EntityAbilityTrigger abilityTrigger;
+    public string title;
     public DescriptionToken.DescriptionIconType descriptionIconType;
+    public string description;
+    public TooltipViewModel tooltip { get {
+        Sprite iconImage = GameplayConstantsSingleton.Instance.gameplayConstants.descriptionIconSprites.GetValueOrDefault(descriptionIconType);
+        return new TooltipViewModel(title, description, -1, iconImage != null ? iconImage.texture : null);
+    }}
 }
 
 
@@ -63,14 +71,18 @@ public class TooltipMapSO: ScriptableObject
     public List<DescriptionIconTooltipMapping> descriptionIconTooltipMappings = new();
     public List<AbilityTriggerDescriptionIconMapping> abilityTriggerDescriptionIconMappings = new();
 
-    // Helps with getting tooltips for things like On Exhaust or On Damage abilities.
-    public DescriptionToken.DescriptionIconType GetDescriptionIconForAbilityTrigger(EntityAbility.EntityAbilityTrigger abilityTrigger) {
-        foreach (var mapping in abilityTriggerDescriptionIconMappings) {
-            if (mapping.abilityTrigger == abilityTrigger) {
-                return mapping.descriptionIconType;
+    public TooltipViewModel GetTooltip(EntityAbility.EntityAbilityTrigger abilityTrigger) {
+        if (abilityTriggerDescriptionIconMappings != null) {
+            foreach (AbilityTriggerDescriptionIconMapping mapping in abilityTriggerDescriptionIconMappings) {
+                if (mapping.abilityTrigger == abilityTrigger) {
+                    return mapping.tooltip;
+                }
             }
+            Debug.LogError("Tooltip not found for abilityTrigger: " + abilityTrigger);
+            return new TooltipViewModel("Tooltip not found for abilityTrigger: " + abilityTrigger);
         }
-        return DescriptionToken.DescriptionIconType.None;
+        Debug.LogError("TooltipMapSO: abilityTriggerDescriptionIconMappings is null");
+        return new TooltipViewModel("TooltipMapSO: abilityTriggerDescriptionIconMappings is null");
     }
 
     public TooltipViewModel GetTooltip(TooltipKeyword tooltipKeyword)
@@ -91,13 +103,13 @@ public class TooltipMapSO: ScriptableObject
         return new TooltipViewModel("TooltipMapSO: effectTooltipMappings is null");
     }
 
-    public TooltipViewModel GetTooltip(DescriptionToken.DescriptionIconType descriptionIconType)
+    public TooltipViewModel GetTooltip(DescriptionToken.DescriptionIconType descriptionIconType, bool includeDescription = true)
     {
         foreach(DescriptionIconTooltipMapping mapping in descriptionIconTooltipMappings)
         {
             if(mapping.descriptionIconType == descriptionIconType)
             {
-                return mapping.tooltip;
+                return mapping.GetTooltip(includeDescription);
             }
         }
         Debug.LogError("Tooltip not found for descriptionIconType: " + descriptionIconType);
@@ -116,6 +128,15 @@ public class TooltipMapSO: ScriptableObject
     public bool HasTooltip(TooltipKeyword tooltipKeyword) {
         foreach(KeywordTooltipMapping mapping in effectTooltipMappings) {
             if(mapping.tooltipKeyword == tooltipKeyword) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public bool HasTooltip(EntityAbility.EntityAbilityTrigger abilityTrigger) {
+        foreach(AbilityTriggerDescriptionIconMapping mapping in abilityTriggerDescriptionIconMappings) {
+            if(mapping.abilityTrigger == abilityTrigger) {
                 return true;
             }
         }
