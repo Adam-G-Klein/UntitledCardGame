@@ -21,6 +21,7 @@ public class EndEncounterView : MonoBehaviour
     private VisualElement interestEarnedContainer;
     private VisualElement RPEarnedContainer;
     private VisualElement bonusEarnedContainer;
+    private Label totalGoldEarnedLabel;
     private int goldEarned;
     private int interestEarned;
     private float interestRate;
@@ -53,6 +54,7 @@ public class EndEncounterView : MonoBehaviour
         interestEarnedContainer = doc.rootVisualElement.Q("interest-container");
         bonusEarnedContainer = doc.rootVisualElement.Q("bonus-elite-reward-container");
         RPEarnedContainer = doc.rootVisualElement.Q("RP-earned-parent");
+        totalGoldEarnedLabel = doc.rootVisualElement.Q<Label>("total-gold");
     }
 
     public void Setup(int baseGoldEarnedPerBattle, int interestEarned, int interestCap, float interestPercentage, int bonusManaReward = 0, int bonusTeamSizeReward = 0)
@@ -80,6 +82,7 @@ public class EndEncounterView : MonoBehaviour
         canvasGroup.blocksRaycasts = true;
         mat.SetFloat("_alpha", 0);
         canvasGroup.alpha = 0;
+        totalGoldEarnedLabel.text = "0";
 
         if (this.bonusManaReward > 0 || this.bonusTeamSizeReward > 0) {
             bonusEarnedContainer.style.display = DisplayStyle.None;
@@ -99,7 +102,7 @@ public class EndEncounterView : MonoBehaviour
         // I think we could make an argument that displaying interest here is necessary to show depth,
         // but I don't think the same argument can be made for RP. Just feels out of place
         if (gameState.BuildTypeDemoOrConvention()) {
-            RPEarnedContainer.visible = false;
+            RPEarnedContainer.style.display = DisplayStyle.None;
         }
 
         LeanTween.value(gameObject, 0, 1, fadeTime)
@@ -133,12 +136,15 @@ public class EndEncounterView : MonoBehaviour
 
     private IEnumerator AnimateText()
     {
+        int totalEarned = 0;
         for (int i = 0; i < interestEarned; i++)
         {
             Label label = MakeMoneyLabel();
             interestEarnedContainer.Add(label);
             AnimateDollar(label);
             MusicController.Instance.PlaySFX("event:/SFX/SFX_EarnMoney");
+            totalEarned += 1;
+            totalGoldEarnedLabel.text = totalEarned.ToString();
             yield return new WaitForSeconds(.1f);
         }
         for (int i = 0; i < goldEarned; i++)
@@ -147,6 +153,8 @@ public class EndEncounterView : MonoBehaviour
             goldEarnedContainer.Add(label);
             AnimateDollar(label);
             MusicController.Instance.PlaySFX("event:/SFX/SFX_EarnMoney");
+            totalEarned += 1;
+            totalGoldEarnedLabel.text = totalEarned.ToString();
             yield return new WaitForSeconds(.1f);
         }
     }

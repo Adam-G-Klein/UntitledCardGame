@@ -27,20 +27,26 @@
                             <ui:Label tabindex="-1" text="5" display-tooltip-when-elided="true" name="interest" class="post-combat-text post-combat-reward-dollar" style="margin-right: 0;" />
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:VisualElement class="combat-rewards-section">
+                    <ui:VisualElement name="VisualElement" class="combat-rewards-section">
                         <ui:Label tabindex="-1" text="Base Reward:" display-tooltip-when-elided="true" name="base-gold-label" class="post-combat-text" style="font-size: 28px; -unity-text-align: middle-left; margin-left: 20px;" />
                         <ui:VisualElement name="base-gold-container" class="post-combat-reward-container">
                             <ui:Label tabindex="-1" display-tooltip-when-elided="true" name="base-gold" text="5" class="post-combat-text post-combat-reward-dollar" />
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:VisualElement name="VisualElement" style="flex-grow: 0; align-items: center; display: none;">
+                    <ui:VisualElement name="horizontal-linebreak" style="flex-grow: 0; align-items: center; display: flex;">
                         <ui:VisualElement name="horizontlLineBreak" style="flex-grow: 1; margin-top: 3%; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; width: 70%; align-items: center; margin-bottom: 3%;" />
                     </ui:VisualElement>
-                    <ui:VisualElement name="RP-earned-parent" class="combat-rewards-section" style="flex-direction: row; justify-content: space-between;">
+                    <ui:VisualElement name="TotalEarned" class="combat-rewards-section">
+                        <ui:Label tabindex="-1" text="Total Earnings:" display-tooltip-when-elided="true" name="total-gold-label" class="post-combat-text" style="font-size: 28px; -unity-text-align: middle-left; margin-left: 20px;" />
+                        <ui:VisualElement name="total-gold-container" class="post-combat-reward-container">
+                            <ui:Label tabindex="-1" display-tooltip-when-elided="true" name="total-gold" text="10" class="post-combat-text post-combat-reward-dollar" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="RP-earned-parent" class="combat-rewards-section" style="flex-direction: row; justify-content: space-between; display: none;">
                         <ui:Label tabindex="-1" text="RP Earned:" display-tooltip-when-elided="true" name="upgradeIncrementsLabel" class="post-combat-text" style="margin-left: 20px;" />
                         <ui:Label tabindex="-1" text="1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="upgradeIncrementsEarned" class="post-combat-text" style="margin-right: 20px; font-size: 28px;" />
                     </ui:VisualElement>
-                    <ui:VisualElement name="bonus-elite-reward-container" class="combat-rewards-section" style="flex-direction: row; justify-content: space-between; display: flex;">
+                    <ui:VisualElement name="bonus-elite-reward-container" class="combat-rewards-section" style="flex-direction: row; justify-content: space-between; display: none;">
                         <ui:Label tabindex="-1" text="Bonus Reward:" display-tooltip-when-elided="true" name="upgradeIncrementsLabel" class="post-combat-text" style="margin-left: 20px;" />
                         <ui:Label tabindex="-1" text="+1 team size" parse-escape-sequences="true" display-tooltip-when-elided="true" name="bonus-elite-reward-text" class="post-combat-text" style="margin-right: 20px; font-size: 28px;" />
                     </ui:VisualElement>
