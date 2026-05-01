@@ -533,6 +533,11 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 cardInfo,
                 deckFrom,
                 startPos);
+            
+            if (newCard == null) {
+                continue;
+            }
+
             newCard.gameObject.name = cardInfo.name;
             newCard.interactable = false;
             newCard.hoverable = false;
