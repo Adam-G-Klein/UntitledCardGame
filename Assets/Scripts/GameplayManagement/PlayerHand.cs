@@ -443,21 +443,15 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         float moveTime = 0.25f;
         float dealMoveTime = 0.5f;
 
-        if (cardToMove != hoveredCard)
-        {
-            LeanTween.rotate(rotateGO, rotation.eulerAngles, rotationTime)
-                    .setEase(LeanTweenType.easeInOutQuad);
-        }
-        else
-        {
-            LeanTween.rotate(rotateGO, Vector3.zero, rotationTime)
-                    .setEase(LeanTweenType.easeInOutQuad);
-        }
+        Vector3 targetRotation = cardToMove != hoveredCard ? rotation.eulerAngles : Vector3.zero;
 
+        LeanTween.rotate(rotateGO, targetRotation, rotationTime)
+                .setEase(LeanTweenType.easeInOutQuad);
+        
         if (cardTab != null) {
-            LeanTween.rotate(cardTab.gameObject, rotation.eulerAngles, rotationTime)
+            LeanTween.rotate(cardTab.gameObject, targetRotation, rotationTime)
                     .setEase(LeanTweenType.easeInOutQuad);
-            Vector3 modifiedPosition = new Vector3(position.x, position.y, position.z + 0.1f);
+            Vector3 modifiedPosition = new Vector3(position.x - (cardToMove == hoveredCard ? .8f : 0), position.y, position.z + 0.1f);
             LeanTween.moveLocal(cardTab.gameObject, modifiedPosition, isNewCard ? dealMoveTime : moveTime);
         }
 
