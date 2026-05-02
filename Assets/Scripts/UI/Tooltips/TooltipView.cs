@@ -33,23 +33,46 @@ public class TooltipLine
         titleContainer.AddToClassList("tooltip-title-container");
         ve.Add(titleContainer);
 
+        VisualElement tooltipTitleLabelContainer = new VisualElement();
+        tooltipTitleLabelContainer.AddToClassList("tooltip-title-title");
+        titleContainer.Add(tooltipTitleLabelContainer);
+
+        VisualElement tooltipTitleIcons = new VisualElement();
+        tooltipTitleIcons.AddToClassList("tooltip-title-icons");
+
         if (iconDescriptionLine != null && iconDescriptionLine.Count > 0)
         {
+            Label titleLabel = new Label();
+            titleLabel.AddToClassList("tooltip-icon-description-text");
+            string titleLabelText = "";
             foreach (var token in iconDescriptionLine)
             {
-                if (token.tokenType == DescriptionToken.TokenType.Text)
-                {
-                    Label title = new Label(token.text);
-                    title.AddToClassList("tooltip-icon-description-text");
-                    titleContainer.Add(title);
+                if (token.tokenType == DescriptionToken.TokenType.Icon) {
+                    DescriptionIconInfo descriptionIconInfo = GameplayConstantsSingleton.Instance.gameplayConstants.descriptionIconSprites[token.icon];
+                    if (descriptionIconInfo.iconName != "") {
+                        if (titleLabelText != "") titleLabelText += " ";
+                        titleLabelText += descriptionIconInfo.iconName;
+                    }
                 }
-                else if (token.tokenType == DescriptionToken.TokenType.Icon)
+            }
+            if (titleLabelText != "") {
+                titleLabel.text = titleLabelText;
+                tooltipTitleLabelContainer.Add(titleLabel);
+            }
+            foreach (var token in iconDescriptionLine)
+            {
+                if (token.tokenType == DescriptionToken.TokenType.Icon)
                 {
+                    DescriptionIconInfo descriptionIconInfo = GameplayConstantsSingleton.Instance.gameplayConstants.descriptionIconSprites[token.icon];
+
                     VisualElement imgContainer = new VisualElement();
                     imgContainer.AddToClassList("tooltip-icon-description-image");
-                    imgContainer.style.backgroundImage = new StyleBackground(GameplayConstantsSingleton.Instance.gameplayConstants.descriptionIconSprites[token.icon]);
-                    titleContainer.Add(imgContainer);
+                    imgContainer.style.backgroundImage = new StyleBackground(descriptionIconInfo.sprite);
+                    tooltipTitleIcons.Add(imgContainer);
                 }
+            }
+            if (tooltipTitleIcons.childCount != 0) {
+                titleContainer.Add(tooltipTitleIcons);
             }
         }
         else

@@ -82,7 +82,7 @@ public class CardView {
                         {
                             icon.AddToClassList("iconDescSpriteShop");
                         }
-                        Sprite s = GameplayConstantsSingleton.Instance.gameplayConstants.descriptionIconSprites[token.icon];
+                        Sprite s = GameplayConstantsSingleton.Instance.gameplayConstants.descriptionIconSprites[token.icon].sprite;
                         icon.style.backgroundImage = new StyleBackground(s.texture);
                         row.Add(icon);
                         break;

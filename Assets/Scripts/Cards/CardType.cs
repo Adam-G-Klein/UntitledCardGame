@@ -340,6 +340,7 @@ public class CardType: IdentifiableSO, ITooltipProvider
                 // }
             }
 
+            /* 
             // Add this if we want to see tooltips for individual icons.
             List<DescriptionToken.DescriptionIconType> uniqueIconTokens = tokens.Where(t => t.tokenType == DescriptionToken.TokenType.Icon).Select(t => t.icon).Distinct().ToList();
             foreach (DescriptionToken.DescriptionIconType tokenType in uniqueIconTokens)
@@ -350,7 +351,8 @@ public class CardType: IdentifiableSO, ITooltipProvider
                     tooltip += KeywordTooltipProvider.Instance.GetTooltip(tokenType, includeDescription: false);
                 }
             }
-
+            */ 
+            
             return tooltip;
         }
 

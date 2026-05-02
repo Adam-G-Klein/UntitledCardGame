@@ -19,17 +19,17 @@ public class GameplayConstantsSO : ScriptableObject
     [SerializeField]
     private List<DescriptionIconEntry> descriptionIconList = new();
 
-    private Dictionary<DescriptionToken.DescriptionIconType, Sprite> _descriptionIconSprites;
-    public Dictionary<DescriptionToken.DescriptionIconType, Sprite> descriptionIconSprites
+    private Dictionary<DescriptionToken.DescriptionIconType, DescriptionIconInfo> _descriptionIconSprites;
+    public Dictionary<DescriptionToken.DescriptionIconType, DescriptionIconInfo> descriptionIconSprites
     {
         get
         {
             if (_descriptionIconSprites == null)
             {
-                _descriptionIconSprites = new Dictionary<DescriptionToken.DescriptionIconType, Sprite>();
+                _descriptionIconSprites = new Dictionary<DescriptionToken.DescriptionIconType, DescriptionIconInfo>();
                 foreach (var entry in descriptionIconList)
                 {
-                    _descriptionIconSprites[entry.iconType] = entry.sprite;
+                    _descriptionIconSprites[entry.iconType] = new DescriptionIconInfo {sprite = entry.sprite, iconName = entry.iconName};
                 }
             }
             return _descriptionIconSprites;
@@ -42,4 +42,12 @@ public class DescriptionIconEntry
 {
     public DescriptionToken.DescriptionIconType iconType;
     public Sprite sprite;
+    public string iconName;
+}
+
+[Serializable]
+public class DescriptionIconInfo
+{
+    public Sprite sprite;
+    public string iconName;
 }

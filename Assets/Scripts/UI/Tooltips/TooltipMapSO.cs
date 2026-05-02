@@ -43,7 +43,7 @@ public class DescriptionIconTooltipMapping {
 
     public TooltipViewModel GetTooltip(bool includeDescription = true)
     {
-        Sprite iconImage = GameplayConstantsSingleton.Instance.gameplayConstants.descriptionIconSprites.GetValueOrDefault(descriptionIconType);
+        Sprite iconImage = GameplayConstantsSingleton.Instance.gameplayConstants.descriptionIconSprites.GetValueOrDefault(descriptionIconType).sprite;
         string tooltipDescription = includeDescription ? description : "";
         return new TooltipViewModel(title, tooltipDescription, -1, iconImage != null ? iconImage.texture : null);
     }
@@ -57,7 +57,7 @@ public class AbilityTriggerDescriptionIconMapping
     public DescriptionToken.DescriptionIconType descriptionIconType;
     public string description;
     public TooltipViewModel tooltip { get {
-        Sprite iconImage = GameplayConstantsSingleton.Instance.gameplayConstants.descriptionIconSprites.GetValueOrDefault(descriptionIconType);
+        Sprite iconImage = GameplayConstantsSingleton.Instance.gameplayConstants.descriptionIconSprites.GetValueOrDefault(descriptionIconType).sprite;
         return new TooltipViewModel(title, description, -1, iconImage != null ? iconImage.texture : null);
     }}
 }

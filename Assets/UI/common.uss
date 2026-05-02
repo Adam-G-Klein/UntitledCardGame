@@ -462,7 +462,6 @@
 
 .tooltip-icon-description-text {
     font-size: 36px;
-    flex-wrap: wrap;
     -unity-font-style: bold;
     white-space: normal;
     color: rgb(234, 182, 106);
@@ -470,17 +469,14 @@
     padding-right: 3px;
     padding-bottom: 3px;
     padding-left: 3px;
-    width: auto;
-    flex-grow: 0;
-    flex-shrink: 0;
 }
 
 .tooltip-icon-description-image {
     flex-shrink: 0;
     -unity-background-scale-mode: scale-to-fit;
     flex-grow: 0;
-    width: 10%;
-    height: 100%;
+    width: 40px;
+    height: auto;
     padding-top: 5px;
     padding-right: 5px;
     padding-bottom: 5px;
@@ -498,7 +494,6 @@
     padding-right: 5px;
     padding-bottom: 5px;
     padding-left: 5px;
-    width: 70%;
 }
 
 .tooltip-text {
@@ -518,6 +513,24 @@
 }
 
 .tooltip-title-container {
+    width: 100%;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.tooltip-title-title {
+    overflow: wrap;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex-grow: 1;
+}
+
+.tooltip-title-icons {
+    min-width: 40%;
+    margin-left: 4px;
+    align-items: center;
+    height: 100%;
     flex-direction: row;
 }
 
