@@ -32,6 +32,9 @@ MonoBehaviour:
     text: 
     icon: 21
   - tokenType: 0
+    text: ':'
+    icon: 0
+  - tokenType: 0
     text: 6
     icon: 2
   - tokenType: 2
@@ -100,6 +103,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        toggleStatus: 0
     - rid: 1289961959942521198
       type: {class: CountStep, ns: , asm: Assembly-CSharp}
       data:
@@ -135,6 +139,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        toggleStatus: 0
     - rid: 5602892723852673317
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
