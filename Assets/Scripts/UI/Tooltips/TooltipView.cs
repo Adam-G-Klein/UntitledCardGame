@@ -45,14 +45,16 @@ public class TooltipLine
             Label titleLabel = new Label();
             titleLabel.AddToClassList("tooltip-icon-description-text");
             string titleLabelText = "";
+            Dictionary<DescriptionToken.DescriptionIconType, bool> seen = new();
             foreach (var token in iconDescriptionLine)
             {
                 if (token.tokenType == DescriptionToken.TokenType.Icon) {
                     DescriptionIconInfo descriptionIconInfo = GameplayConstantsSingleton.Instance.gameplayConstants.descriptionIconSprites[token.icon];
-                    if (descriptionIconInfo.iconName != "") {
+                    if (descriptionIconInfo.iconName != "" && !seen.ContainsKey(token.icon)) {
                         if (titleLabelText != "") titleLabelText += " ";
                         titleLabelText += descriptionIconInfo.iconName;
                     }
+                    seen[token.icon] = true;
                 }
             }
             if (titleLabelText != "") {
