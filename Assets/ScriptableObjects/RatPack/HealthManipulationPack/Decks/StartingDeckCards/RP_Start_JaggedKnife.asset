@@ -42,7 +42,7 @@ MonoBehaviour:
   - The rat who cast this card loses 2 HP.
   defaultValues:
   - key: rpl_damage
-    value: 6
+    value: 5
   Cost: 0
   Artwork: {fileID: 21300000, guid: 0f5ecf3627abce84490e1f8ec8e4f24f, type: 3}
   cardCategory: 1
@@ -108,7 +108,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: enemy
         combatEffect: 0
-        scale: 6
+        scale: 5
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

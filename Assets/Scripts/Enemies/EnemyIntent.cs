@@ -15,6 +15,7 @@ public enum EnemyIntentType {
     // Defend,
     // Heal,
     // None
+    AOEAttack,
 }
 
 public class EnemyIntent {
@@ -25,6 +26,7 @@ public class EnemyIntent {
     public string targetsKey;
     public int displayValue;
     public List<EffectStep> effectSteps;
+    public EnemyTargetMethod enemyTargetMethod;
 
     public EnemyIntent(
             EnemyInstance self,
@@ -33,7 +35,8 @@ public class EnemyIntent {
             EnemyIntentType intentType,
             string targetsKey,
             int displayValue,
-            List<EffectStep> effectSteps) {
+            List<EffectStep> effectSteps,
+            EnemyTargetMethod enemyTargetMethod) {
         this.self = self;
         this.targets = targets;
         this.attackTime = attackTime;
@@ -41,10 +44,11 @@ public class EnemyIntent {
         this.targetsKey = targetsKey;
         this.displayValue = displayValue;
         this.effectSteps = effectSteps;
+        this.enemyTargetMethod = enemyTargetMethod;
     }
 
     public int GetDisplayValue() {
-        if (this.intentType != EnemyIntentType.BigAttack && this.intentType != EnemyIntentType.SmallAttack) {
+        if (this.intentType != EnemyIntentType.BigAttack && this.intentType != EnemyIntentType.SmallAttack && this.intentType != EnemyIntentType.AOEAttack) {
             return this.displayValue;
         }
 
@@ -52,5 +56,9 @@ public class EnemyIntent {
             + self.combatInstance.combatStats.baseAttackDamage
             + self.combatInstance.GetStatus(StatusEffectType.Strength)
             + self.combatInstance.GetStatus(StatusEffectType.TemporaryStrength);
+    }
+
+    public void UpdateTargets(List<CompanionInstance> newTargets) {
+        this.targets = newTargets;
     }
 }

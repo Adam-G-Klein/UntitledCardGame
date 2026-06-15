@@ -31,6 +31,9 @@
                 <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" class="iconDescLabel" style="display: none;" />
                 <ui:VisualElement name="VisualElement" class="iconDescSprite" style="background-image: url(&quot;project://database/Assets/Sprites/CardIcons/DamageIcon.png?fileID=2800000&amp;guid=104ad0eef62e94fc6a6d6a1777285e63&amp;type=3#DamageIcon&quot;);" />
             </ui:VisualElement>
+            <ui:VisualElement name="secondRow" class="iconDescRow">
+                <ui:Label tabindex="-1" text="Unplayable" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" class="iconDescLabelLongText" style="margin-bottom: 4px;" />
+            </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="DEPRECATED-cardOutline" class="cardOutline" style="border-top-width: 4px; display: none;" />
         <ui:VisualElement name="card-locked-indicator" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.96); display: none;">

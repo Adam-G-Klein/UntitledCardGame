@@ -13,23 +13,23 @@ MonoBehaviour:
   m_Name: EncounterConstants
   m_EditorClassIdentifier: 
   goldEarnedPerBattle: 10
-  interestRate: 0.5
-  interestCap: 10
+  interestRate: 0.2
+  interestCap: 5
   benchHealingAmount: 10
   postEliteHealingAmount: 5
   bossSpawnLocation: {x: 0, y: 1.5}
   shopLevels:
   - level: 0
     shopLevelIncrementsToUnlock: 6
-    upgradeIncrementCost: 3
+    upgradeIncrementCost: 2
     numCardsToShow: 3
-    numKeepsakesToShow: 3
-    commonCompanionPercentage: 60
-    uncommonCompanionPercentage: 30
-    rareCompanionPercentage: 10
-    commonCardPercentage: 50
-    uncommonCardPercentage: 35
-    rareCardPercentage: 15
+    numKeepsakesToShow: 2
+    commonCompanionPercentage: 100
+    uncommonCompanionPercentage: 0
+    rareCompanionPercentage: 0
+    commonCardPercentage: 95
+    uncommonCardPercentage: 5
+    rareCardPercentage: 0
     ratBonusHealth: 0
     cardRemovalDiscount: 0
     numCardRemovalsAllowed: 1
@@ -38,23 +38,23 @@ MonoBehaviour:
       empty: 0
       lines:
       - title: Upgrade to Level 2
-        description: Increase shop rarity, bonus max HP, better starting decks
+        description: Increase shop rarity, +1 card available
         relatedBehaviorIndex: 0
         icon: {fileID: 0}
         iconDescriptionLine: []
         card: {fileID: 0}
   - level: 1
-    shopLevelIncrementsToUnlock: 5
-    upgradeIncrementCost: 4
+    shopLevelIncrementsToUnlock: 8
+    upgradeIncrementCost: 3
     numCardsToShow: 4
     numKeepsakesToShow: 2
-    commonCompanionPercentage: 55
-    uncommonCompanionPercentage: 40
-    rareCompanionPercentage: 5
-    commonCardPercentage: 55
-    uncommonCardPercentage: 40
-    rareCardPercentage: 5
-    ratBonusHealth: 5
+    commonCompanionPercentage: 69
+    uncommonCompanionPercentage: 30
+    rareCompanionPercentage: 1
+    commonCardPercentage: 69
+    uncommonCardPercentage: 30
+    rareCardPercentage: 1
+    ratBonusHealth: 0
     cardRemovalDiscount: 0
     numCardRemovalsAllowed: 1
     numLessCardsInStartingDeck: 0
@@ -62,26 +62,50 @@ MonoBehaviour:
       empty: 0
       lines:
       - title: Upgrade to Level 3
-        description: Increase shop rarity, bonus max HP, more and cheaper card removals
+        description: Increase shop rarity, +1 rat available, bonus max HP
         relatedBehaviorIndex: 0
         icon: {fileID: 0}
         iconDescriptionLine: []
         card: {fileID: 0}
   - level: 2
-    shopLevelIncrementsToUnlock: 0
-    upgradeIncrementCost: 5
+    shopLevelIncrementsToUnlock: 8
+    upgradeIncrementCost: 4
     numCardsToShow: 4
-    numKeepsakesToShow: 2
-    commonCompanionPercentage: 40
+    numKeepsakesToShow: 3
+    commonCompanionPercentage: 50
     uncommonCompanionPercentage: 40
-    rareCompanionPercentage: 20
-    commonCardPercentage: 40
+    rareCompanionPercentage: 10
+    commonCardPercentage: 50
     uncommonCardPercentage: 40
-    rareCardPercentage: 20
-    ratBonusHealth: 10
+    rareCardPercentage: 10
+    ratBonusHealth: 5
+    cardRemovalDiscount: 0
+    numCardRemovalsAllowed: 1
+    numLessCardsInStartingDeck: 0
+    upgradeTooltip:
+      empty: 0
+      lines:
+      - title: Upgrade to Level 4
+        description: Increase shop rarity, better card removal, better starting decks
+        relatedBehaviorIndex: 0
+        icon: {fileID: 0}
+        iconDescriptionLine: []
+        card: {fileID: 0}
+  - level: 3
+    shopLevelIncrementsToUnlock: 0
+    upgradeIncrementCost: 4
+    numCardsToShow: 4
+    numKeepsakesToShow: 3
+    commonCompanionPercentage: 30
+    uncommonCompanionPercentage: 40
+    rareCompanionPercentage: 30
+    commonCardPercentage: 30
+    uncommonCardPercentage: 40
+    rareCardPercentage: 30
+    ratBonusHealth: 5
     cardRemovalDiscount: 3
     numCardRemovalsAllowed: 3
-    numLessCardsInStartingDeck: 0
+    numLessCardsInStartingDeck: 1
     upgradeTooltip:
       empty: 0
       lines: []

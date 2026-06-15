@@ -25,7 +25,7 @@ MonoBehaviour:
   cacheValueConfigs: []
   enemyPattern:
     behaviors:
-    - intent: 0
+    - intent: 6
       enemyTargetMethod: 6
       targetsKey: 
       displayValue: 1
@@ -53,6 +53,9 @@ MonoBehaviour:
     - title: Earthquake
       description: Deals AOE damage to your entire team and slowly grows stronger
       relatedBehaviorIndex: 0
+      icon: {fileID: 0}
+      iconDescriptionLine: []
+      card: {fileID: 0}
   DEADLIER_ENEMY_BONUS_STR: -1
   HEALTHIER_ENEMY_BONUS_HEALTH: 5
   references:
@@ -69,6 +72,8 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 3443535291885027969
       type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
       data:
@@ -98,6 +103,8 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 1
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 5280922829633617990
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -126,6 +133,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        toggleStatus: 0
     - rid: 5602893111447519608
       type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
       data:

@@ -14,7 +14,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 07b06791-2aa3-4f37-8e7d-49df2ffc0668
   Name: Transfusion
-  Description: Bleed any 4 HP & give any 9 block
+  Description: 
+  IconDescription:
+  - tokenType: 0
+    text: 4
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 9
+  - tokenType: 2
+    text: 
+    icon: 18
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 0
+    text: 7
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 2
+  - tokenType: 2
+    text: 
+    icon: 12
+  IconDescriptionTooltipLines: []
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 0f5ecf3627abce84490e1f8ec8e4f24f, type: 3}
@@ -41,23 +64,11 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 758315839196758748
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: blockguy
-        validTargets: 00000000
-        number: 1
-        specialTargetRule: 0
-        cantCancelTargetting: 1
-        cardSelectionHelperText: 
     - rid: 1274772082283774959
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: blockguy
+        inputKey: adj
         prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
         scale: 1.5
     - rid: 1289961820425028169
@@ -77,15 +88,16 @@ MonoBehaviour:
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
-        inputKey: blockguy
+        inputKey: adj
         statusEffect: 2
-        scale: 9
+        scale: 7
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        toggleStatus: 0
     - rid: 1289961820425028171
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -98,6 +110,8 @@ MonoBehaviour:
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 5602892723852673317
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -105,9 +119,16 @@ MonoBehaviour:
         - rid: 7401433558763438506
         - rid: 1289961820425028171
         - rid: 1289961820425028169
-        - rid: 758315839196758748
+        - rid: 6567162537147629617
         - rid: 1289961820425028170
         - rid: 1274772082283774959
+    - rid: 6567162537147629617
+      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetAdjacentCompanions
+        inputKey: self
+        includeInputCompanion: 1
+        outputKey: adj
     - rid: 7401433558763438506
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -120,3 +141,5 @@ MonoBehaviour:
         specialTargetRule: 4
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0

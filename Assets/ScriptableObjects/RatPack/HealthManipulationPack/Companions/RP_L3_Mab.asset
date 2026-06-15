@@ -42,8 +42,8 @@ MonoBehaviour:
       iconDescriptionLine: []
       card: {fileID: 0}
   keepsakeTitle: 
-  keepsakeDescription: At the end of combat, give adjacent rats 5 max HP & heal 5
-    HP. Each turn, adjacent rats lose 1 HP unless they would die.
+  keepsakeDescription: Each turn, bleed 1 HP from adjacent rats unless they would
+    die. At the end of combat, give adjacent rats 15 max HP
   tooltipTokens: 09000000
   references:
     version: 2
@@ -72,6 +72,7 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 2034229587402555395
       type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
       data:
@@ -129,6 +130,7 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 2034230176448512386
       type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
       data:

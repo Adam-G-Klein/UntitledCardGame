@@ -26,7 +26,7 @@ MonoBehaviour:
   cacheValueConfigs:
   - key: skillsLeftToPlayThisTurn
     display: 1
-    sprite: {fileID: 21300000, guid: c1ba3b774ff3ec6438f6984cded94a37, type: 3}
+    sprite: {fileID: 21300000, guid: 1a0a0559adb00d24fa86fc5408f4d98e, type: 3}
     startOfTurnValue: 3
     setStartOfTurnValue: 1
     startOfCombatValue: 0
@@ -50,6 +50,7 @@ MonoBehaviour:
   keepsakeTitle: 
   keepsakeDescription: The first 3 times each turn you play a Skill card, give adjacent
     rats to Pommel 2 temporary strength
+  tooltipTokens: 
   references:
     version: 2
     RefIds:
@@ -84,6 +85,7 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 205827988172308706
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:

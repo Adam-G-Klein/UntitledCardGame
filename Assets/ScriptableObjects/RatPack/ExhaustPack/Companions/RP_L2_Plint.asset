@@ -26,7 +26,7 @@ MonoBehaviour:
   cacheValueConfigs:
   - key: numCardsExhausted
     display: 1
-    sprite: {fileID: 21300000, guid: c4c548a339b4d41a590928c0c98934a7, type: 3}
+    sprite: {fileID: 21300000, guid: 9e7224f7ac7d15846bd7425586ffba71, type: 3}
     startOfTurnValue: 2
     setStartOfTurnValue: 1
     startOfCombatValue: 0
@@ -87,6 +87,7 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 2034230017118175363
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
@@ -118,6 +119,7 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 2034230017118175365
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:

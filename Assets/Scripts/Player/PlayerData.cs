@@ -9,6 +9,7 @@ public class PlayerData
     public int shopLevel = 0;
     public int shopLevelIncrementsEarned = 0;
     public int manaPerTurn = 3;
+    public int numStartingRats = 3;
     public int teamSize = 4;
     // TODO: make this a scriptableobject for things they have and haven't done
     public int storedRerolls = 0;
@@ -27,6 +28,8 @@ public class PlayerData
         this.storedRerolls = playerDataSerializeable.storedRerolls;
         this.storedCardRemovals = playerDataSerializeable.storedCardRemovals;
         this.seenTutorial = playerDataSerializeable.seenTutorial;
+        this.inTutorialRun = playerDataSerializeable.inTutorialRun;
+        this.numStartingRats = playerDataSerializeable.numStartingRats;
     }
 }
 
@@ -41,6 +44,7 @@ public class PlayerDataSerializable {
     public int storedCardRemovals;
     public bool seenTutorial;
     public bool inTutorialRun;
+    public int numStartingRats;
 
     public PlayerDataSerializable(PlayerData playerData) {
         this.gold = playerData.gold;
@@ -52,5 +56,6 @@ public class PlayerDataSerializable {
         this.storedCardRemovals = playerData.storedCardRemovals;
         this.seenTutorial = playerData.seenTutorial;
         this.inTutorialRun = playerData.inTutorialRun;
+        this.numStartingRats = playerData.numStartingRats;
     }
 }

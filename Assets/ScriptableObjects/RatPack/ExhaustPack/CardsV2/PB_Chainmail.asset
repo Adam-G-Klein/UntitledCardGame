@@ -15,6 +15,34 @@ MonoBehaviour:
   guid: 39e2f3cc-4f5f-41cc-afb4-ba051e216ae5
   Name: Chainmail
   Description: Give any 5 block & if you exhausted a card this turn, give +3 block
+  IconDescription:
+  - tokenType: 0
+    text: 5
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 2
+  - tokenType: 2
+    text: 
+    icon: 18
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 31
+  - tokenType: 0
+    text: ': '
+    icon: 2
+  - tokenType: 0
+    text: +3
+    icon: 2
+  - tokenType: 2
+    text: 
+    icon: 2
+  IconDescriptionTooltipLines:
+  - Give block to a rat of your choice, preventing damage until next turn
+  - If you exhausted a card this turn, this card gives extra block
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 109c4464923594f4bb2478d2624dcf1a, type: 3}
@@ -66,6 +94,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        toggleStatus: 0
     - rid: 758316092100444225
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -79,6 +108,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        toggleStatus: 0
     - rid: 2034230176448512660
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -108,3 +138,5 @@ MonoBehaviour:
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0

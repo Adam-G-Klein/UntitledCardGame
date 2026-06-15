@@ -50,6 +50,7 @@ public class PlayableCard : MonoBehaviour,
     private bool cardExhaustVFXFinished = false;
 
     private const string CardCalculationDamageKey = "card_calculation_rpl_damage_key";
+    private const string CardCalculationBlockKey = "card_calculation_rpl_block_key";
 
     public void Awake()
     {
@@ -246,6 +247,7 @@ public class PlayableCard : MonoBehaviour,
         if (card.effectSteps != null && card.effectSteps.Count != 0)
         {
             document.stringMap[CardCalculationDamageKey] = "rpl_damage";
+            document.stringMap[CardCalculationBlockKey] = "rpl_block";
             yield return EffectManager.Instance.invokeEffectWorkflowForCalculation(
                 document,
                 card.effectSteps,
@@ -255,6 +257,7 @@ public class PlayableCard : MonoBehaviour,
         if (card.cardType.inPlayerHandEndOfTurnWorkflow != null && card.cardType.inPlayerHandEndOfTurnWorkflow.effectSteps.Count != 0)
         {
             document.stringMap[CardCalculationDamageKey] = "inhand_rpl_damage";
+            document.stringMap[CardCalculationBlockKey] = "inhand_rpl_block";
             yield return EffectManager.Instance.invokeEffectWorkflowForCalculation(
                 document,
                 card.cardType.inPlayerHandEndOfTurnWorkflow.effectSteps,
@@ -264,6 +267,7 @@ public class PlayableCard : MonoBehaviour,
         if (card.cardType.onExhaustEffectWorkflow != null && card.cardType.onExhaustEffectWorkflow.effectSteps.Count != 0)
         {
             document.stringMap[CardCalculationDamageKey] = "onexhaust_rpl_damage";
+            document.stringMap[CardCalculationBlockKey] = "onexhaust_rpl_block";
             yield return EffectManager.Instance.invokeEffectWorkflowForCalculation(
                 document,
                 card.cardType.onExhaustEffectWorkflow.effectSteps,
@@ -273,6 +277,7 @@ public class PlayableCard : MonoBehaviour,
         if (card.cardType.onDiscardEffectWorkflow != null && card.cardType.onDiscardEffectWorkflow.effectSteps.Count != 0)
         {
             document.stringMap[CardCalculationDamageKey] = "ondiscard_rpl_damage";
+            document.stringMap[CardCalculationBlockKey] = "ondiscard_rpl_block";
             yield return EffectManager.Instance.invokeEffectWorkflowForCalculation(
                 document,
                 card.cardType.onDiscardEffectWorkflow.effectSteps,
@@ -282,6 +287,7 @@ public class PlayableCard : MonoBehaviour,
         if (card.cardType.onDrawEffectWorkflow != null && card.cardType.onDrawEffectWorkflow.effectSteps.Count != 0)
         {
             document.stringMap[CardCalculationDamageKey] = "ondraw_rpl_damage";
+            document.stringMap[CardCalculationBlockKey] = "ondraw_rpl_block";
             yield return EffectManager.Instance.invokeEffectWorkflowForCalculation(
                 document,
                 card.cardType.onDrawEffectWorkflow.effectSteps,

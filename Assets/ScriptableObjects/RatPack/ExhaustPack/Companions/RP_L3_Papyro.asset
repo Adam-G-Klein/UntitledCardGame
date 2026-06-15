@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
   m_Name: RP_L3_Papyro
   m_EditorClassIdentifier: 
-  guid: c807dedf-b2f8-460f-a050-a27588cdd562
+  guid: 30c9556a-eaee-4b67-a244-fe489c991306
   companionName: Dr. Papyro++
   maxHealth: 60
   initialCardsDealtPerTurn: 1
@@ -26,7 +26,7 @@ MonoBehaviour:
   cacheValueConfigs:
   - key: numCardsLeftToExhaust
     display: 1
-    sprite: {fileID: 21300000, guid: 0f91baf441838d747bea7dbae09bfb7f, type: 3}
+    sprite: {fileID: 21300000, guid: 95701b22de262434f8f786ac90d3820b, type: 3}
     startOfTurnValue: 1
     setStartOfTurnValue: 0
     startOfCombatValue: 3
@@ -35,21 +35,23 @@ MonoBehaviour:
   pack: {fileID: 11400000, guid: 79e479ca9df7a4369ba7fa951e0af116, type: 2}
   abilitiesV2:
   - rid: 3051694091506811081
+  - rid: 6567162444329517088
   level: 2
   upgradeTo: {fileID: 0}
   tooltip:
     empty: 0
     lines:
     - title: Dr. Papyro++
-      description: Every 3 times you exhaust a card, shuffle a Greek Fire card into
-        Dr. Papyro's deck, draw 1 from Dr. Papyro, and increase damage of ALL Greek
-        Fire by 2
+      description: Start of combat, shuffle 3 Greek Fire into Dr. Papyro's deck.
+        Every 3 times you exhaust a card, increase the damage of ALL Greek Fire by
+        2
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
       iconDescriptionLine: []
       card: {fileID: 0}
   keepsakeTitle: 
   keepsakeDescription: 
+  tooltipTokens: 
   references:
     version: 2
     RefIds:
@@ -90,7 +92,7 @@ MonoBehaviour:
         inputKey: 
         scale: 2
         affectsAllCardsOfType: 1
-        cardTypeToModify: {fileID: 11400000, guid: 036ee2893f13b451cba34bc7df06a300, type: 2}
+        cardTypeToModify: {fileID: 11400000, guid: acb22d7c3c0804188ac3dc7565396fd5, type: 2}
         getScaleFromKey: 0
         scaleKey: 
         modification: 0
@@ -108,8 +110,6 @@ MonoBehaviour:
         - rid: 3051694091506811085
         - rid: 3051694091506811087
         - rid: 3051694091506811088
-        - rid: 3051694091506811089
-        - rid: 3051694091506811090
         - rid: 578314858522476880
         - rid: 578314926115782767
         weight: 0
@@ -126,6 +126,7 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 3051694091506811083
       type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
       data:
@@ -173,31 +174,59 @@ MonoBehaviour:
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
-    - rid: 3051694091506811089
+    - rid: 6567162444329517088
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 0
+        effectSteps:
+        - rid: 6567162444329517089
+        - rid: 6567162444329517090
+        - rid: 6567162444329517092
+        - rid: 6567162444329517093
+        weight: 0
+    - rid: 6567162444329517089
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
+    - rid: 6567162444329517090
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+    - rid: 6567162444329517092
       type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: AddCardsToDeck
         inputKey: self
         cardTypes:
-        - {fileID: 11400000, guid: 036ee2893f13b451cba34bc7df06a300, type: 2}
+        - {fileID: 11400000, guid: acb22d7c3c0804188ac3dc7565396fd5, type: 2}
         addToDeckMethod: 1
         getCardsFromKey: 0
         inputCardsKey: 
-        scale: 1
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 3051694091506811090
+    - rid: 6567162444329517093
       type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: FXEffectStep
         waitForEffect: 0
         fXExperiencePrefab: {fileID: 4075960956037802917, guid: ec7b1a1529f9141458320888bf8e3d96, type: 3}
         rootLocationGameObjectKey: 
-        positionMappingList:
+        positionMappingList: []
+        gameobjectMappingList:
         - fromWorkflow: self
           toFxExperience: start
         - fromWorkflow: self
           toFxExperience: end
-        gameobjectMappingList: []
         vePositionMappingList: []
         veMappingList: []

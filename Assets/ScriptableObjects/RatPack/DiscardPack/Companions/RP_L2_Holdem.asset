@@ -26,7 +26,7 @@ MonoBehaviour:
   cacheValueConfigs:
   - key: numDiscards
     display: 1
-    sprite: {fileID: 21300000, guid: 87ca436f7312bd8438886b00d3e2e69d, type: 3}
+    sprite: {fileID: 21300000, guid: 63b1af6b7571c784c97dfcab05198781, type: 3}
     startOfTurnValue: 4
     setStartOfTurnValue: 1
     startOfCombatValue: 0
@@ -50,6 +50,7 @@ MonoBehaviour:
   keepsakeTitle: 
   keepsakeDescription: The first 4 times you discard a card each turn, deal 3 damage
     to a random enemy
+  tooltipTokens: 
   references:
     version: 2
     RefIds:
@@ -128,6 +129,7 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 7401433059192471557
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -154,3 +156,4 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0

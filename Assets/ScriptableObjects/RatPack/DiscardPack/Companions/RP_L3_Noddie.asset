@@ -26,7 +26,7 @@ MonoBehaviour:
   cacheValueConfigs:
   - key: turnsRemaining
     display: 1
-    sprite: {fileID: 21300000, guid: 075d631d82a8340fab8366ba447f5ec8, type: 3}
+    sprite: {fileID: 21300000, guid: 04a1d976953825d4db586e6147348356, type: 3}
     startOfTurnValue: 0
     setStartOfTurnValue: 0
     startOfCombatValue: 2
@@ -50,6 +50,7 @@ MonoBehaviour:
   keepsakeTitle: Thistleton
   keepsakeDescription: At the start of the first 3 turns of combat, create in hand
     a 0 mana card with Retain that draws 2 and discards
+  tooltipTokens: 
   references:
     version: 2
     RefIds:
@@ -84,6 +85,7 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 7401433308100034739
       type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
       data:

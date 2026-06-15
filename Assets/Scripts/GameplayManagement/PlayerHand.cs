@@ -447,7 +447,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
         LeanTween.rotate(rotateGO, targetRotation, rotationTime)
                 .setEase(LeanTweenType.easeInOutQuad);
-        
+
         if (cardTab != null) {
             LeanTween.rotate(cardTab.gameObject, targetRotation, rotationTime)
                     .setEase(LeanTweenType.easeInOutQuad);
@@ -527,7 +527,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 cardInfo,
                 deckFrom,
                 startPos);
-            
+
             if (newCard == null) {
                 continue;
             }
@@ -916,15 +916,18 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     }
 
     public void SelectCardsFromHand(
-            int number,
-            List<GameObject> disallowedCards,
-            List<GameObject> cardsLimitedTo,
-            Action<CancelContext> cancelCallback,
-            Action<List<PlayableCard>> callback,
-            PlayableCard cardCast, // Nullable
-            bool canCancel,
-            string helperText = "",
-            GetTargets.SelectionPurposeEnum selectionPurpose = GetTargets.SelectionPurposeEnum.None)
+        int number,
+        List<GameObject> disallowedCards,
+        List<GameObject> cardsLimitedTo,
+        Action<CancelContext> cancelCallback,
+        Action<List<PlayableCard>> callback,
+        PlayableCard cardCast, // Nullable
+        bool canCancel,
+        string helperText = "",
+        GetTargets.SelectionPurposeEnum selectionPurpose = GetTargets.SelectionPurposeEnum.None,
+        CardCategory cardCategory = CardCategory.None,
+        bool forceExactNumberOfCards = false
+    )
     {
         // Do a check on the number of targets we can select.
         int numValidTargets = 0;
@@ -941,20 +944,20 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         // int cardsToBeDrawn = cardDealQueue.Count;
         // numValidTargets += cardsToBeDrawn;
         // Debug.Log("PlayerHand: There are " + cardsToBeDrawn + " cards queued to be drawn, adjusting valid targets to " + numValidTargets);
-        if (numValidTargets == 0)
+        if (numValidTargets == 0 && !forceExactNumberOfCards)
         {
             Debug.Log("PlayerHand: No valid targets for card selection, returning :)");
             callback(new List<PlayableCard>());
             return;
-        } else if (numValidTargets < number)
+        } else if (numValidTargets < number && !forceExactNumberOfCards)
         {
             Debug.Log("PlayerHand: effect wants the player to select " + number + " cards, but there are only " + numValidTargets + " valid targets, adjusting number to select accordingly");
             number = numValidTargets;
         }
 
         EnemyEncounterManager.Instance.DestroyAllTooltips();
-        string CHOOSE_X_CARDS = "Choose {0} cards{1}";
-        string CHOOSE_A_CARD = "Choose a card{0}";
+        string CHOOSE_X_CARDS = "Choose {0}{1} cards{2}";
+        string CHOOSE_A_CARD = "Choose 1{0} card{1}";
         string SELECT_CONFIRM = "Select Confirm";
 
         CombatEncounterView combatEncounterView = EnemyEncounterManager.Instance.combatEncounterView;
@@ -1124,13 +1127,14 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 extraText = GetTextForPurpose(selectionPurpose);
             }
             int cardsRemainingToSelect = number - selectedCards.Count;
+            string cardCategoryText = cardCategory == CardCategory.None ? "" : " " + cardCategory.ToString();
             if (cardsRemainingToSelect > 1)
             {
-                return String.Format(CHOOSE_X_CARDS, cardsRemainingToSelect, extraText);
+                return String.Format(CHOOSE_X_CARDS, cardsRemainingToSelect, cardCategoryText, extraText);
             }
             else if (cardsRemainingToSelect == 1)
             {
-                return String.Format(CHOOSE_A_CARD, extraText);
+                return String.Format(CHOOSE_A_CARD, cardCategoryText, extraText);
             }
 
             return SELECT_CONFIRM;

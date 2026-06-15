@@ -16,11 +16,39 @@ MonoBehaviour:
   Name: Serrated Waraxe
   Description: Deal {rpl_damage} damage & if self lost HP this turn, deal {rpl_damage_2}
     damage
+  IconDescription:
+  - tokenType: 0
+    text: '{rpl_damage}'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
+  - tokenType: 2
+    text: 
+    icon: 18
+  - tokenType: 1
+    text: 
+    icon: 18
+  - tokenType: 2
+    text: 
+    icon: 22
+  - tokenType: 0
+    text: ': '
+    icon: 18
+  - tokenType: 0
+    text: '{rpl_damage_2}'
+    icon: 18
+  - tokenType: 2
+    text: 
+    icon: 1
+  IconDescriptionTooltipLines:
+  - Deal damage to a foe of your choice.
+  - If owner rat lost HP this turn, deal extra damage to the foe.
   defaultValues:
   - key: rpl_damage
     value: 3
   - key: rpl_damage_2
-    value: 2
+    value: 4
   Cost: 1
   Artwork: {fileID: 21300000, guid: 0f5ecf3627abce84490e1f8ec8e4f24f, type: 3}
   cardCategory: 1
@@ -52,6 +80,7 @@ MonoBehaviour:
         effectStepName: CombatInstanceTookDamageThisTurn
         inputCombatInstanceKey: self
         outputKey: tookDamage
+        numTimesOutputKey: 
     - rid: 758315839196758671
       type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
       data:
@@ -64,7 +93,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: enemy
         combatEffect: 0
-        scale: 2
+        scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
@@ -93,6 +122,8 @@ MonoBehaviour:
         specialTargetRule: 4
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 5602892949302281048
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -105,6 +136,8 @@ MonoBehaviour:
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 5602892949302281049
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:

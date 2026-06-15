@@ -128,6 +128,8 @@ public class PowerSO : ScriptableObject
         ToothExchange,
         // _: Whenever you exhaust a card from this rat, deal X damage.
         DragonsBreath,
+        // _: Whenever you exhaust a card from this rat, draw 1 card from a random rat.
+        ExothermicReaction,
     }
 
     public TooltipViewModel GetTooltip(int stackCount)

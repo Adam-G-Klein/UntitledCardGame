@@ -16,6 +16,33 @@ MonoBehaviour:
   Name: Careful Strategy
   Description: Retain. Exhaust. Draw 1 from target companion, then discard 1 card
     in hand.
+  IconDescription:
+  - tokenType: 0
+    text: Retain. Exhaust
+    icon: 0
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 3
+  - tokenType: 2
+    text: 
+    icon: 18
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 13
+  - tokenType: 2
+    text: 
+    icon: 18
+  IconDescriptionTooltipLines:
+  - This card is retained, so it stays in hand at the end of turn. It exhausts when
+    played.
+  - Draw 1 card from a rat of your choice.
+  - Then, choose 1 card in hand to discard.
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: e485a5f74ee5d074187ebd614e44b7fd, type: 3}
@@ -32,6 +59,8 @@ MonoBehaviour:
   onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  onDrawEffectWorkflow:
     rid: -2
   tooltips: 
   tooltipKeyword: 43
@@ -51,6 +80,9 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 5
         cantCancelTargetting: 1
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 2034230108114649668
       type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
       data:
@@ -69,8 +101,8 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 5602892723852673196
-        - rid: 5602892723852673197
         - rid: 5280922841426165977
+        - rid: 5602892723852673197
         - rid: 2034230108114649667
         - rid: 2034230108114649668
     - rid: 5602892723852673196
@@ -84,6 +116,9 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 5602892723852673197
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
@@ -93,3 +128,4 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        waitForDrawsToResolve: 1

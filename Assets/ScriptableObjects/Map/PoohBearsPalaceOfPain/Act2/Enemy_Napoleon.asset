@@ -1,0 +1,194 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
+  m_Name: Enemy_Napoleon
+  m_EditorClassIdentifier: 
+  guid: cc0c228a-72e0-4dc0-b07c-b466465dc335
+  displayName: Napoleon
+  maxHealth: 120
+  baseAttackDamage: 0
+  enemyDisplayType: 0
+  sprite: {fileID: 21300000, guid: be409f988b43c465e8aff2ef52b8aabc, type: 3}
+  backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
+  entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
+  morale: 0
+  abilities:
+  - rid: 6567162444329517186
+  cacheValueConfigs:
+  - key: hpLeftToLose
+    display: 1
+    sprite: {fileID: 21300000, guid: 5e6b87688c4f1934dbfbc4d3235535e6, type: 3}
+    startOfTurnValue: 15
+    setStartOfTurnValue: 1
+    startOfCombatValue: 0
+    setStartOfCombatValue: 0
+  enemyPattern:
+    behaviors:
+    - intent: 0
+      enemyTargetMethod: 4
+      targetsKey: target
+      displayValue: 6
+      effectSteps:
+      - rid: 205828126246961605
+      - rid: 205828126246961606
+      - rid: 173314522967966401
+    behaviorType: 0
+  belowHalfHPEnemyPattern:
+    behaviors: []
+    behaviorType: 0
+  adaptWhenAloneEnemyPattern:
+    behaviors: []
+    behaviorType: 0
+  initialStatuses: []
+  tooltip:
+    empty: 0
+    lines:
+    - title: Tactical Adjustment
+      description: Whenever Napoleon loses 15 HP in a turn, Napoleon retargets a
+        random rat
+      relatedBehaviorIndex: 0
+      icon: {fileID: 0}
+      iconDescriptionLine: []
+      card: {fileID: 0}
+  DEADLIER_ENEMY_BONUS_STR: 2
+  HEALTHIER_ENEMY_BONUS_HEALTH: 30
+  references:
+    version: 2
+    RefIds:
+    - rid: 173314522967966401
+      type: {class: ScriptableObjectEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ScriptableObjectEffectStep
+        effectStepSO: {fileID: 11400000, guid: 46ac36b880e2ff14aa699c90b6e9f19c, type: 2}
+    - rid: 205828126246961605
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
+    - rid: 205828126246961606
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: target
+        combatEffect: 0
+        scale: 6
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}
+    - rid: 6567162444329517186
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 11
+        effectSteps:
+        - rid: 6567162444329517187
+        - rid: 6567162444329517215
+        - rid: 6567162444329517221
+        - rid: 6567162444329517223
+        - rid: 6567162444329517224
+        - rid: 6567162444329517222
+        - rid: 6567162444329517225
+        - rid: 6567162444329517226
+        - rid: 6567162444329517227
+        - rid: 6567162444329517220
+        weight: 0
+    - rid: 6567162444329517187
+      type: {class: EndWorkflowIfNoMapElement, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfNoMapElement
+        keyToCheck: damagedEnemy
+    - rid: 6567162444329517215
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
+    - rid: 6567162444329517220
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+    - rid: 6567162444329517221
+      type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheLoad
+        inputCombatInstanceKey: self
+        cacheKey: hpLeftToLose
+        currentWorkflowKey: hpLeftToLose
+    - rid: 6567162444329517222
+      type: {class: CombatInstanceCacheStore, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheStore
+        inputCombatInstanceKey: self
+        hardCodedBool: 0
+        useHardCodedBool: 0
+        hardCodedInt: 0
+        useHardCodedInt: 0
+        currentWorkflowKey: hpLeftToLose
+        cacheKey: hpLeftToLose
+    - rid: 6567162444329517223
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: hpLeftToLose
+        operand2InputKey: damageAfterDefense
+        operation: 1
+        scale: 0
+        outputKey: hpLeftToLose
+    - rid: 6567162444329517224
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: hpLeftToLose
+        operand2InputKey: UNUSED
+        operation: 4
+        scale: 0
+        outputKey: hpLeftToLose
+    - rid: 6567162444329517225
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 0
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 0
+        inputKey2: hpLeftToLose
+        outputKey: hpLeftIsZero
+    - rid: 6567162444329517226
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: hpLeftIsZero
+        conditionToEndOn: 0
+    - rid: 6567162444329517227
+      type: {class: ChangeEnemyIntent, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ChangeEnemyIntent
+        enemyInputKey: self

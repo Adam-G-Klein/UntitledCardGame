@@ -146,6 +146,19 @@ public class Card : Entity, IEquatable<Card>
         return Mathf.Max(0, cardType.Cost - totalReduction);
     }
 
+    public int GetBonusBlock()
+    {
+        int totalBonus = 0;
+        if (cardModifications == null)
+        {
+            ResetCardModifications();
+        }
+        totalBonus += cardModifications[CardModification.FixedBlockIncrease];
+        totalBonus += cardType.cardModifications[CardModification.FixedBlockIncrease];
+
+        return totalBonus;
+    }
+
     public Dictionary<string, int> GetDefaultValuesMap(CombatInstance origin)
     {
         Dictionary<string, int> intMap = new();
@@ -156,6 +169,10 @@ public class Card : Entity, IEquatable<Card>
             if (origin != null)
             {
                 value = UpdateScaleForCardModificationsAndPassives(defaultValue.value, origin);
+            }
+            if (defaultValue.key.EndsWith("rpl_block"))
+            {
+                value += GetBonusBlock();
             }
             intMap[defaultValue.key] = value;
         }

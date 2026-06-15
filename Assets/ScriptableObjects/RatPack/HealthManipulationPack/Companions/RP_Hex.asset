@@ -26,7 +26,7 @@ MonoBehaviour:
   cacheValueConfigs:
   - key: numBuffs
     display: 1
-    sprite: {fileID: 21300000, guid: 52f62e90b62fa9249aac77854a45e7d5, type: 3}
+    sprite: {fileID: 21300000, guid: fb9da1957227cb940846748d34e5f833, type: 3}
     startOfTurnValue: 0
     setStartOfTurnValue: 0
     startOfCombatValue: 2
@@ -48,6 +48,7 @@ MonoBehaviour:
       card: {fileID: 0}
   keepsakeTitle: Beezelbumbler's Fangs
   keepsakeDescription: 
+  tooltipTokens: 
   references:
     version: 2
     RefIds:
@@ -86,6 +87,7 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 2034230176448512009
       type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
       data:

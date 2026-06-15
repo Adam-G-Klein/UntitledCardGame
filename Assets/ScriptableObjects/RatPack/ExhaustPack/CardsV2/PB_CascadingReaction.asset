@@ -16,6 +16,31 @@ MonoBehaviour:
   Name: Cascading Reaction
   Description: Draw 1 card from self and adjacent & if you exhausted a card this
     turn, exhaust 1 card in hand
+  IconDescription:
+  - tokenType: 2
+    text: 
+    icon: 3
+  - tokenType: 2
+    text: 
+    icon: 12
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 31
+  - tokenType: 0
+    text: ': '
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 14
+  - tokenType: 2
+    text: 
+    icon: 18
+  IconDescriptionTooltipLines:
+  - Draw 1 card from owner rat and adjacent rats.
+  - If you exhausted a card this turn, then choose 1 card in hand to exhaust.
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 109c4464923594f4bb2478d2624dcf1a, type: 3}
@@ -71,6 +96,8 @@ MonoBehaviour:
         specialTargetRule: 2
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 758315839196758772
       type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
       data:
@@ -96,6 +123,8 @@ MonoBehaviour:
         specialTargetRule: 5
         cantCancelTargetting: 1
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 2034230176448512660
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -112,6 +141,7 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        waitForDrawsToResolve: 0
     - rid: 5602892675124822189
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -138,3 +168,5 @@ MonoBehaviour:
         specialTargetRule: 4
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0

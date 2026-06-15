@@ -43,6 +43,7 @@ MonoBehaviour:
   keepsakeTitle: Pluck
   keepsakeDescription: At the end of turn, deal 4 damage to a random foe for each
     Charm card in your hand
+  tooltipTokens: 
   references:
     version: 2
     RefIds:
@@ -51,7 +52,7 @@ MonoBehaviour:
       data:
         effectStepName: GetRandomItems
         inputKey: enemies
-        scale: 1
+        scale: 0
         scaleKey: numStatusCards
         getScaleFromKey: 1
         outputKey: targets
@@ -84,6 +85,7 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 2034230017118175446
       type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
@@ -115,6 +117,7 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 2034230176448512928
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:

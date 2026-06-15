@@ -13,7 +13,7 @@ using UnityEngine;
         - GetScaleFromKey: If checked, the scale will be pulled from a previous step
         - InputScaleKey: The key from which to pull the scale integer from
 */
-public class ApplyStatus : EffectStep, ITooltipProvider
+public class ApplyStatus : EffectStep, ITooltipProvider, IEffectStepCalculation
 {
     [SerializeField]
     [Tooltip(
@@ -60,10 +60,7 @@ public class ApplyStatus : EffectStep, ITooltipProvider
         }
 
         // Setup the scale
-        int finalScale = scale;
-        if (getScaleFromKey && document.intMap.ContainsKey(inputScaleKey)) {
-            finalScale = document.intMap[inputScaleKey];
-        }
+        int finalScale = getFinalScale(document);
 
         foreach (CombatInstance combatInstance in combatInstances) {
             if (toggleStatus) {
@@ -92,6 +89,67 @@ public class ApplyStatus : EffectStep, ITooltipProvider
         yield return null;
     }
 
+    private int getFinalScale(EffectDocument document) {
+        PlayableCard originCard = null;
+        CombatInstance originCombatInstance;
+        // Determine whether origin of damage is from a card, companion ability, or enemy attack
+        // and get that origin
+        if (document.map.ContainsValueWithKey<PlayableCard>(EffectDocument.ORIGIN))
+        {
+            // Debug.Log("[ApplyStatus] Origin is a card");
+            originCard = document.map.GetItem<PlayableCard>(EffectDocument.ORIGIN, 0);
+            originCombatInstance = originCard.deckFrom.combatInstance;
+        }
+        else if (document.map.ContainsValueWithKey<CompanionInstance>(EffectDocument.ORIGIN))
+        {
+            // Debug.Log("[ApplyStatus] Origin is a companion");
+            originCombatInstance = document.map.GetItem<CompanionInstance>(EffectDocument.ORIGIN, 0).combatInstance;
+        }
+        else if (document.map.ContainsValueWithKey<EnemyInstance>(EffectDocument.ORIGIN))
+        {
+            // Debug.Log("[ApplyStatus] Origin is an enemy");
+            originCombatInstance = document.map.GetItem<EnemyInstance>(EffectDocument.ORIGIN, 0).combatInstance;
+        }
+        else
+        {
+            EffectError("No origin set in EffectDocument to pull stats from");
+            return -1;
+        }
+
+        int finalScale = scale;
+        if (getScaleFromKey && document.intMap.ContainsKey(inputScaleKey)) {
+            finalScale = document.intMap[inputScaleKey];
+        }
+        return UpdateScaleForEffect(finalScale, originCombatInstance, originCard);
+    }
+
+    private int UpdateScaleForEffect(
+            int baseScale,
+            CombatInstance origin = null,
+            PlayableCard card = null)
+    {
+        int newScale = baseScale;
+        switch (statusEffect)
+        {
+            case StatusEffectType.Defended:
+                if (card != null)
+                {
+                    int val = card.card.GetBonusBlock();
+                    Debug.Log($"[ApplyStatus] Card {card.card.name} has FixedBlockIncrease {val}");
+                    Debug.Log("[ApplyStatus] Base scale: " + baseScale);
+                    newScale += val;
+                    Debug.Log("[ApplyStatus] New scale: " + newScale);
+                }
+                else
+                {
+                    Debug.Log("[ApplyStatus] No card origin, base scale: " + baseScale);
+                }
+                break;
+        }
+
+        return newScale;
+    }
+
     public TooltipViewModel GetTooltip() {
         if (descriptionIconMapping.ContainsKey(statusEffect) && KeywordTooltipProvider.Instance.HasTooltip(descriptionIconMapping[statusEffect])){
             return KeywordTooltipProvider.Instance.GetTooltip(descriptionIconMapping[statusEffect]);
@@ -100,5 +158,28 @@ public class ApplyStatus : EffectStep, ITooltipProvider
             return KeywordTooltipProvider.Instance.GetTooltip(statusEffect);
         }
          else return new TooltipViewModel(empty: true);
+    }
+
+    public IEnumerator invokeForCalculation(EffectDocument document)
+    {
+        if (statusEffect == StatusEffectType.Defended)
+        {
+            int finalScale = getFinalScale(document);
+            string blockRplKey = document.stringMap.GetValueOrDefault("card_calculation_rpl_block_key", "rpl_block");
+            // Help subsequent combat effect steps store their damage under a different key.
+            // If we have a card that does multiple combat effect steps with different values, we should have some way to access them.
+            // The index will be local to the efect workflow.
+            string numApplyStatusStepsKey = blockRplKey + "_num_applystatussteps";
+            int numApplyStatusSteps = document.intMap.GetValueOrDefault(numApplyStatusStepsKey, 1);
+
+            // For the second and third invocations, we add the suffix with the damage.
+            string adjustedBlockRplKey = numApplyStatusSteps > 1 ? $"{blockRplKey}_{numApplyStatusSteps}" : blockRplKey;
+
+            Debug.Log($"Block RPL key {adjustedBlockRplKey} has final scale {finalScale}");
+
+            document.intMap[adjustedBlockRplKey] = finalScale;
+            document.intMap[numApplyStatusStepsKey] = numApplyStatusSteps + 1;
+        }
+        yield return null;
     }
 }

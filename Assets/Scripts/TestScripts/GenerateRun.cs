@@ -17,6 +17,7 @@ public class GenerateRun : MonoBehaviour
     public CompanionPoolSO baseCompanionPool;
     public List<PackSO> activePacks;
     public int startingTeamSize;
+    public int numStartingRats;
     public int startingGold;
     [Header("Demo Build")]
     public MapGeneratorSO demoMapGenerator;
@@ -24,6 +25,7 @@ public class GenerateRun : MonoBehaviour
     public List<PackSO> demoActivePacks;
     public List<CompanionTypeSO> demoStaticCompanions;
     public int demoStartingTeamSize;
+    public int demoNumStartingRats;
     public int demoStartingGold;
 
     public void generateMapAndChangeScenes() {
@@ -34,12 +36,14 @@ public class GenerateRun : MonoBehaviour
             demoStaticCompanions.ForEach((companion) => gameState.companions.activeCompanions.Add(new Companion(companion)));
             gameState.playerData.initialize(demoStartingGold);
             gameState.playerData.GetValue().teamSize = demoStartingTeamSize;
+            gameState.playerData.GetValue().numStartingRats = demoNumStartingRats;
             gameState.StartNewRun(demoMapGenerator);
         } else {
             gameState.PopulateCompanionPool(baseCompanionPool);
             gameState.activePacks = new List<PackSO>(activePacks);
             gameState.playerData.initialize(startingGold);
             gameState.playerData.GetValue().teamSize = startingTeamSize;
+            gameState.playerData.GetValue().numStartingRats = numStartingRats;
             gameState.StartNewRun(mapGenerator);
         }
     }

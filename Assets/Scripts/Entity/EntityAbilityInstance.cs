@@ -289,7 +289,7 @@ public abstract class EntityAbilityInstance
         yield return null;
     }
 
-    private IEnumerator OnDamageTaken(CombatInstance damagedInstance) {
+    private IEnumerator OnDamageTaken(CombatInstance damagedInstance, int damageAfterDefense) {
         //yield return abilityTriggeredVFX();
         EffectDocument document = createEffectDocument();
         if (damagedInstance.parentType == CombatInstance.CombatInstanceParent.COMPANION) {
@@ -312,6 +312,7 @@ public abstract class EntityAbilityInstance
                 EffectUtils.AddEnemyToDocument(document, "damagedEnemy", enemy);
             }
         }
+        document.intMap.Add("damageAfterDefense", damageAfterDefense);
         EffectManager.Instance.QueueEffectWorkflow(new EffectWorkflowClosure(document, ability.effectWorkflow, null));
         yield return null;
     }

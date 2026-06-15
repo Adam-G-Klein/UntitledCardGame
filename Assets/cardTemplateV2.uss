@@ -57,7 +57,7 @@
     padding-right: 5%;
     padding-bottom: 5%;
     padding-left: 5%;
-    -unity-font: resource('fonts/static/Jost-Medium');
+    -unity-font: resource('fonts/Quattrocento-Regular');
 }
 
 .cardDescriptionShop {
@@ -157,6 +157,18 @@
     flex-wrap: wrap;
     white-space: normal;
     -unity-font: resource('fonts/Quattrocento-Regular');
+}
+
+.iconDescLabelLongText {
+    width: auto;
+    height: auto;
+    flex-shrink: 1;
+    align-items: auto;
+    align-self: auto;
+    flex-wrap: wrap;
+    white-space: normal;
+    -unity-font: resource('fonts/Quattrocento-Regular');
+    font-size: 42px;
 }
 
 .iconDescSprite {

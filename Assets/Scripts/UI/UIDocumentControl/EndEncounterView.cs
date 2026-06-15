@@ -69,7 +69,7 @@ public class EndEncounterView : MonoBehaviour
         this.bonusManaReward = bonusManaReward;
         this.bonusTeamSizeReward = bonusTeamSizeReward;
 
-        int earnOneInterestEveryXGold = (int)(1 / interestPercentage);
+        int earnOneInterestEveryXGold = (int)Math.Ceiling(1 / interestPercentage);
 
         string templateText = doc.rootVisualElement.Q<Label>("interest-help").text;
         doc.rootVisualElement.Q<Label>("interest-help").text = string.Format(templateText, earnOneInterestEveryXGold, interestCap);

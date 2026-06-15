@@ -15,8 +15,25 @@ MonoBehaviour:
   guid: 504cfe20-d733-4c63-8c61-d37c18be102f
   Name: Natural Resilience
   Description: Give any 3 block & put a Ironseed on top of their deck
-  IconDescription: []
-  IconDescriptionTooltipLines: []
+  IconDescription:
+  - tokenType: 0
+    text: 3
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 2
+  - tokenType: 2
+    text: 
+    icon: 18
+  - tokenType: 1
+    text: 
+    icon: 18
+  - tokenType: 0
+    text: Put an Ironseed on top of their deck
+    icon: 0
+  IconDescriptionTooltipLines:
+  - Give a rat of your choice 3 block.
+  - Then put an Ironseed Charm card on top of their deck
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 6cb44060d9d637b44a6b0567dd3ff92f, type: 3}
@@ -97,3 +114,4 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        toggleStatus: 0

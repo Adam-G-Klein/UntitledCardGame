@@ -458,6 +458,9 @@ MonoBehaviour:
   postGamePopup: {fileID: 0}
   placerGO: {fileID: 0}
   combatEnvironmentParent: {fileID: 0}
+  actOneEnvironment: {fileID: 0}
+  actTwoEnvironment: {fileID: 0}
+  actThreeEnvironment: {fileID: 0}
   isBoss: 0
   endCombatScreenDelay: 2.75
 --- !u!114 &5736324480777454308
@@ -500,6 +503,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b458032db5467024b8efa5ba14e9e79b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHandSize: 10
   splineContainer: {fileID: 1921872909002141824}
   distanceMovementCurve:
     serializedVersion: 2
@@ -567,11 +571,13 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  hoverScale: 2.75
+  hoverScale: 2.5
   nonHoverScale: 2
-  hoverYOffset: 1.25
+  hoverYOffset: 0.925
   hoverZOffset: -0.5
   hoverAnimationTime: 0.2
+  handVisiblePosition: {x: 0, y: 0, z: 0}
+  handMinimizedPosition: {x: 0, y: -1, z: 0}
   cardInHandSelectionSpline: {fileID: 2486614766840282858}
   selectionPurposeToText:
   - purpose: 1
@@ -582,6 +588,10 @@ MonoBehaviour:
     text: ' to retain'
   - purpose: 4
     text: ' to discount'
+  - purpose: 5
+    text: ' to exhaust as a cost'
+  - purpose: 6
+    text: ' to discard as a cost'
   cardInHandSelectionDoc: {fileID: 7519191540468906240}
   cardTabPrefab: {fileID: 5021688859659122472, guid: 5d1b8668734281648bdae66c57aa79e9, type: 3}
   cardsInSelectionSpline: []

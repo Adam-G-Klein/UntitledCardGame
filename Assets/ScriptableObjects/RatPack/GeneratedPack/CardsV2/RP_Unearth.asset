@@ -16,12 +16,45 @@ MonoBehaviour:
   Name: Unearth
   Description: Draw 2 cards from any & give leftmost rat 3 block for each Charm card
     drawn
-  IconDescription: []
+  IconDescription:
+  - tokenType: 2
+    text: 
+    icon: 3
+  - tokenType: 2
+    text: 
+    icon: 3
+  - tokenType: 2
+    text: 
+    icon: 18
+  - tokenType: 1
+    text: 
+    icon: 18
+  - tokenType: 0
+    text: 3
+    icon: 18
+  - tokenType: 2
+    text: 3
+    icon: 2
+  - tokenType: 2
+    text: 3
+    icon: 6
+  - tokenType: 0
+    text: xN
+    icon: 6
+  - tokenType: 1
+    text: xN
+    icon: 6
+  - tokenType: 0
+    text: N = Number of Charm cards you drew
+    icon: 6
+  IconDescriptionTooltipLines:
+  - Draw 2 cards from a rat of your choice
+  - Then, give the leftmost rat 3 block for each Charm card you drew this way
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 5e40f858eddaed340a6366c33c4e216f, type: 3}
   cardCategory: 2
-  packFrom: {fileID: 0}
+  packFrom: {fileID: 11400000, guid: 0d12b03c0c8754470a900cb4f78a9217, type: 2}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
@@ -59,6 +92,7 @@ MonoBehaviour:
         scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
+        waitForDrawsToResolve: 0
     - rid: 1289961959942521257
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -71,6 +105,7 @@ MonoBehaviour:
         specialTargetRule: 7
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 5602892561590779943
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -95,6 +130,7 @@ MonoBehaviour:
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 7150943289421332678
       type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
@@ -126,6 +162,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 1
         inputMultiplicityKey: numCharms
+        toggleStatus: 0
     - rid: 7150943289421332681
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

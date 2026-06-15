@@ -8,4 +8,5 @@ public enum CardModification {
     DoubleDamageIncrease,
     UntilLeavesHandManaDecrease,
     ThisCombatManaDecrease,
+    FixedBlockIncrease,
 }

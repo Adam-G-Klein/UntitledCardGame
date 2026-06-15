@@ -34,7 +34,7 @@ public class EnemyIntentArrowsController : MonoBehaviour
     private Vector3 arrowBend2 = Vector3.zero;
     [SerializeField]
     private Vector3 targetPositionOffset = new Vector3(0, -1, 0);
-    
+
     public TurnPhaseTriggerEvent removeTurnPhaseTriggerEvent;
     private TurnManager turnManager;
     private CombatEntityManager combatEntityManager;
@@ -51,7 +51,7 @@ public class EnemyIntentArrowsController : MonoBehaviour
         this.onCompanionDeathTrigger = new CombatEntityTrigger(CombatEntityTriggerType.COMPANION_DIED, UpdateDisplayAfterCompanionDies());
         this.combatEntityManager.registerTrigger(onCompanionDeathTrigger);
         this.enemyInstance.combatInstance.onDeathHandler += OnDeath;
-        
+
         this.leftRightScreenPlacementPercent = leftRightScreenPlacementPercent;
         arrowBend1 = arrowBend1 + (leftRightArrowBendMod1 * leftRightScreenPlacementPercent);
         arrowBend2 = arrowBend2 + (leftRightArrowBendMod2 * leftRightScreenPlacementPercent);
@@ -101,14 +101,17 @@ public class EnemyIntentArrowsController : MonoBehaviour
 
     public void updateArrows(EnemyIntent intent)
     {
-        if (intent.targets.Count == 0 || intent.targets[0] == null)
+        if (intent.targets.Count == 0 || intent.targets[0] == null || intent.enemyTargetMethod == EnemyTargetMethod.AllCompanions)
         {
+            Debug.Log("Not displaying arrows, either no targets or AOE attack");
             return;
         }
-        Debug.Log("Updating arrows, intent was: " + intent + " and targets count was: " + intent.targets.Count + " target pos: " + intent.targets[0].transform.position);
-        TargettingArrow newArrow = createArrow(intent.targets[0].transform, intent.intentType);
-        arrows.Add(newArrow);
-
+        for (int i = 0; i < intent.targets.Count; i++)
+        {
+            Debug.Log("Updating arrows, intent was: " + intent.enemyTargetMethod + " and targets count was: " + intent.targets.Count + " target pos: " + intent.targets[i].transform.position);
+            TargettingArrow newArrow = createArrow(intent.targets[i].transform, intent.intentType);
+            arrows.Add(newArrow);
+        }
     }
     private TargettingArrow createArrow(Transform target, EnemyIntentType intentType){
         TargettingArrow newArrow = Instantiate(arrowPrefab, transform).GetComponent<TargettingArrow>();
@@ -121,7 +124,7 @@ public class EnemyIntentArrowsController : MonoBehaviour
         return newArrow;
     }
 
-    
+
     private void setArrowColor(TargettingArrow arrow, List<EntityType> validTargets){
         if(validTargets.Contains(EntityType.CompanionInstance) && validTargets.Contains(EntityType.Enemy)){
             arrow.setColor(colors.neutralEffectColor);

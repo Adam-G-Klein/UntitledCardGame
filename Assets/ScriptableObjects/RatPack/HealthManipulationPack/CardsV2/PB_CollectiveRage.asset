@@ -15,9 +15,11 @@ MonoBehaviour:
   guid: a832a2cd-717a-4e06-9036-205dbe3ee7e2
   Name: Collective Rage
   Description: Deal {rpl_damage} damage for each rat below half HP ({numComps} rats)
+  IconDescription: []
+  IconDescriptionTooltipLines: []
   defaultValues:
   - key: rpl_damage
-    value: 9
+    value: 10
   - key: numComps
     value: 0
   Cost: 2
@@ -67,6 +69,8 @@ MonoBehaviour:
         specialTargetRule: 1
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 2295167909047304311
       type: {class: CountStep, ns: , asm: Assembly-CSharp}
       data:
@@ -95,6 +99,8 @@ MonoBehaviour:
         specialTargetRule: 4
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 5602892949302281048
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -107,13 +113,15 @@ MonoBehaviour:
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 5602892949302281049
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
         inputKey: enemy
         combatEffect: 0
-        scale: 9
+        scale: 10
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

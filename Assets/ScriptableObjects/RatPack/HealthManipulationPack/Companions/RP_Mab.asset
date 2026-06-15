@@ -36,14 +36,14 @@ MonoBehaviour:
     lines:
     - title: Mab
       description: Each turn, bleed 1 HP from adjacent rats unless they would die.
-        At the end of combat, give adjacent rats 4 max HP.
+        At the end of combat, give adjacent rats 3 max HP.
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
       iconDescriptionLine: []
       card: {fileID: 0}
   keepsakeTitle: Mab's Mercy
   keepsakeDescription: Each turn, bleed 1 HP from adjacent rats unless they would
-    die. At the end of combat, give adjacent rats 4 max HP.
+    die. At the end of combat, give adjacent rats 3 max HP.
   tooltipTokens: 09000000
   references:
     version: 2
@@ -72,6 +72,7 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 205828107393564676
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -85,7 +86,7 @@ MonoBehaviour:
         effectStepName: PermanentStatIncrease
         inputKey: adj
         statIncreaseType: 1
-        scale: 4
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
     - rid: 2034230176448512341
@@ -119,6 +120,7 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 2034230176448512346
       type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
       data:

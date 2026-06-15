@@ -26,8 +26,8 @@ MonoBehaviour:
   cacheValueConfigs:
   - key: numDrawn
     display: 1
-    sprite: {fileID: 21300000, guid: 44f991fc7bf6d4e15b1140543b84ad2b, type: 3}
-    startOfTurnValue: 2
+    sprite: {fileID: 21300000, guid: 0d5b1f303b7fa464081d947facefabfb, type: 3}
+    startOfTurnValue: 3
     setStartOfTurnValue: 1
     startOfCombatValue: 0
     setStartOfCombatValue: 0
@@ -41,15 +41,16 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Alder
-      description: The first 2 times you draw a Charm card from another deck each
-        turn, draw 1 from Alder
+      description: The first 3 times you draw a Charm card from another rat each
+        turn, draw 1 card from that rat
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
       iconDescriptionLine: []
       card: {fileID: 0}
   keepsakeTitle: Hidden Cache
-  keepsakeDescription: The first 2 times you draw a Charm card from another deck
-    each turn, draw 1 from Alder
+  keepsakeDescription: The first 3 times you draw a Charm card from another rat each
+    turn, draw 1 card from that rat
+  tooltipTokens: 
   references:
     version: 2
     RefIds:
@@ -69,6 +70,7 @@ MonoBehaviour:
         - rid: 754093968382754842
         - rid: 754093968382754843
         - rid: 2511001095643857206
+        - rid: 6567162537147629631
         weight: 0
     - rid: 754093871974056130
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -83,6 +85,7 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 754093968382754838
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
@@ -157,9 +160,16 @@ MonoBehaviour:
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DrawCards
-        inputKey: self
+        inputKey: companionCardPlayedFrom
         outputKey: 
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
         waitForDrawsToResolve: 0
+    - rid: 6567162537147629631
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: companionCardPlayedFrom
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1

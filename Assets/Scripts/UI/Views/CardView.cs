@@ -88,7 +88,14 @@ public class CardView {
                         break;
                     case DescriptionToken.TokenType.Text:
                         Label textLbl = new Label();
-                        textLbl.AddToClassList("iconDescLabel");
+                        if (token.text.Length <= 3)
+                        {
+                            textLbl.AddToClassList("iconDescLabel");
+                        }
+                        else
+                        {
+                            textLbl.AddToClassList("iconDescLabelLongText");
+                        }
                         textLbl.text = token.text;
                         textLbl.name = "iconDescText" + i;
                         row.Add(textLbl);

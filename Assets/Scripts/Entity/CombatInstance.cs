@@ -278,7 +278,7 @@ public class CombatInstance : MonoBehaviour
             // If there are on-damage effects from companion abilities,
             // we invoke them here.
             // Note: this only should run if there is damage dealt to the guy.
-            StartCoroutine(CombatEntityManager.Instance.OnDamageTaken(this));
+            StartCoroutine(CombatEntityManager.Instance.OnDamageTaken(this, damageAfterDefense));
 
             // We took damage!!
             EnemyEncounterManager.Instance.combatEncounterState.RecordCombatInstanceTakingDamage(this);

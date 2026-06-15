@@ -15,6 +15,8 @@ MonoBehaviour:
   guid: 8c396ad1-6b2d-493a-860a-962983162b41
   Name: Focus Shield
   Description: Give any 3 block & if you have 3 or less cards in hand, give +4 block
+  IconDescription: []
+  IconDescriptionTooltipLines: []
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 6ea2475484f389f4bb3e309b575cdf7e, type: 3}
@@ -53,6 +55,8 @@ MonoBehaviour:
         specialTargetRule: 1
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 1289961820425028089
       type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
       data:
@@ -82,6 +86,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        toggleStatus: 0
     - rid: 2034230108114649172
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -94,6 +99,8 @@ MonoBehaviour:
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 2034230108114649173
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -107,6 +114,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        toggleStatus: 0
     - rid: 2034230108114649175
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

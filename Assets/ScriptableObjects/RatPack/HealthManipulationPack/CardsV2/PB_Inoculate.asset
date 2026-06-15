@@ -16,11 +16,46 @@ MonoBehaviour:
   Name: Inoculate
   Description: 'Exhaust. If self below half HP, draw 1 card from self. Heal all 4
     HP. '
+  IconDescription:
+  - tokenType: 0
+    text: Exhaust
+    icon: 0
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 21
+  - tokenType: 0
+    text: ': '
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 3
+  - tokenType: 2
+    text: 
+    icon: 11
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 0
+    text: 4
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 20
+  - tokenType: 2
+    text: 
+    icon: 33
+  IconDescriptionTooltipLines:
+  - This card exhausts when played.
+  - If owner rat below half HP, draw 1 card from owner rat.
+  - Heal all rats on your team.
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 06c409edcf5e308438ea9c89ccd99c68, type: 3}
   cardCategory: 2
-  packFrom: {fileID: 0}
+  packFrom: {fileID: 11400000, guid: a87b5da767d4e4659b2965e31e340c58, type: 2}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 1
@@ -64,6 +99,7 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        waitForDrawsToResolve: 0
     - rid: 2295168569757140190
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -76,6 +112,8 @@ MonoBehaviour:
         specialTargetRule: 4
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 2295168569757140191
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -106,6 +144,8 @@ MonoBehaviour:
         specialTargetRule: 1
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 8034950120506654967
       type: {class: FilterEntityByHP, ns: , asm: Assembly-CSharp}
       data:

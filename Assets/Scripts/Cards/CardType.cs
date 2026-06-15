@@ -54,6 +54,10 @@ public class DescriptionToken
         NumCardsInHand,
         IfLastCardPlayedWasAttack,
         IfOnlyAttackCardInHand,
+        IfLessThan3CardsInHand,
+        IfExhaustedCardThisTurn,
+        WhenDrawn,
+        AOETarget,
     }
     public TokenType tokenType;
     public string text;
@@ -124,6 +128,7 @@ public class CardType: IdentifiableSO, ITooltipProvider
         {CardModification.DoubleDamageIncrease, 0},
         {CardModification.UntilLeavesHandManaDecrease, 0},
         {CardModification.ThisCombatManaDecrease, 0},
+        {CardModification.FixedBlockIncrease, 0},
     };
 
     public void ResetCardModifications() {
@@ -340,7 +345,7 @@ public class CardType: IdentifiableSO, ITooltipProvider
                 // }
             }
 
-            /* 
+            /*
             // Add this if we want to see tooltips for individual icons.
             List<DescriptionToken.DescriptionIconType> uniqueIconTokens = tokens.Where(t => t.tokenType == DescriptionToken.TokenType.Icon).Select(t => t.icon).Distinct().ToList();
             foreach (DescriptionToken.DescriptionIconType tokenType in uniqueIconTokens)
@@ -351,27 +356,27 @@ public class CardType: IdentifiableSO, ITooltipProvider
                     tooltip += KeywordTooltipProvider.Instance.GetTooltip(tokenType, includeDescription: false);
                 }
             }
-            */ 
-            
-            return tooltip;
+            */
+        }
+        else
+        {
+            List<TooltipKeyword> tooltipKeywords = new();
+            tooltipKeywords.AddRange(tooltips);
+            if (!tooltipKeywords.Contains(TooltipKeyword.Exhaust) && exhaustsWhenPlayed)
+            {
+                tooltipKeywords.Add(TooltipKeyword.Exhaust);
+            }
+            if (!tooltipKeywords.Contains(TooltipKeyword.Retain) && retain)
+            {
+                tooltipKeywords.Add(TooltipKeyword.Retain);
+            }
+            foreach (TooltipKeyword keyword in tooltipKeywords)
+            {
+                Debug.Log("CardType.GetTooltip(): Adding tooltip keyword " + keyword);
+                tooltip += KeywordTooltipProvider.Instance.GetTooltip(keyword);
+            }
         }
 
-
-        List<TooltipKeyword> tooltipKeywords = new();
-        tooltipKeywords.AddRange(tooltips);
-        if (!tooltipKeywords.Contains(TooltipKeyword.Exhaust) && exhaustsWhenPlayed)
-        {
-            tooltipKeywords.Add(TooltipKeyword.Exhaust);
-        }
-        if (!tooltipKeywords.Contains(TooltipKeyword.Retain) && retain)
-        {
-            tooltipKeywords.Add(TooltipKeyword.Retain);
-        }
-        foreach (TooltipKeyword keyword in tooltipKeywords)
-        {
-            Debug.Log("CardType.GetTooltip(): Adding tooltip keyword " + keyword);
-            tooltip += KeywordTooltipProvider.Instance.GetTooltip(keyword);
-        }
         List<EffectWorkflow> tooltipWorkflows = new();
         tooltipWorkflows.AddRange(effectWorkflows);
         if (inPlayerHandEndOfTurnWorkflow != null)
@@ -394,14 +399,20 @@ public class CardType: IdentifiableSO, ITooltipProvider
             }
             foreach (EffectStep step in workflow.effectSteps)
             {
-                Debug.Log("CardType.GetTooltip(): Found effect step " + step.effectStepName);
                 if (step is ITooltipProvider)
                 {
+                    Debug.Log("CardType.GetTooltip(): Found effect step " + step.effectStepName + " that provides a tooltip, adding it to the card tooltip");
                     ITooltipProvider tooltipProvider = (ITooltipProvider)step;
                     // + is overridden in Tooltip class to concatenate plaintext strings
                     // this code should stay operable when images are added if we update the
                     // operation override
-                    tooltip += tooltipProvider.GetTooltip();
+                    TooltipViewModel stepTooltip = tooltipProvider.GetTooltip();
+                    if (HasIconDescription() && IconDescriptionTooltipLines.Count > 0 && !stepTooltip.lines.Any(line => line.card != null))
+                    {
+                        Debug.Log("CardType.GetTooltip(): Skipping adding tooltip from effect step " + step.effectStepName + " because it doesn't have a card associated with it and this card has an icon description with custom tooltip lines");
+                        continue;
+                    }
+                    tooltip += stepTooltip;
                     Debug.Log("CardType.GetTooltip(): Added tooltip " + tooltip.plainText);
                 }
             }

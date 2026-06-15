@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Enemy_GoblinA
   m_EditorClassIdentifier: 
   guid: 71dc8bd7-b0a1-44d6-b9f4-22ab6efc58cd
-  displayName: Angriff Goblin
+  displayName: Iggy
   maxHealth: 20
   baseAttackDamage: 0
-  sprite: {fileID: -2013906114, guid: 52ef76537258f7d43a3a9dc144329c2f, type: 3}
+  enemyDisplayType: 0
+  sprite: {fileID: 21300000, guid: b496008454491429bbc527e0fcce56fc, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
   morale: 0
@@ -46,6 +47,9 @@ MonoBehaviour:
     - title: Goblin Might
       description: Small but mighty attack
       relatedBehaviorIndex: -1
+      icon: {fileID: 0}
+      iconDescriptionLine: []
+      card: {fileID: 0}
   DEADLIER_ENEMY_BONUS_STR: -1
   HEALTHIER_ENEMY_BONUS_HEALTH: -1
   references:
@@ -67,6 +71,8 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 3931529445166809422
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:

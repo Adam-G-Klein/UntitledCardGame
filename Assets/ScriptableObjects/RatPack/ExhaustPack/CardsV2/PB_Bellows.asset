@@ -16,9 +16,12 @@ MonoBehaviour:
   Name: Bellows
   Description: Draw 1 card from 3 random rats & choose 2 cards in hand to exhaust.
   IconDescription:
-  - tokenType: 0
-    text: 3
-    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 3
+  - tokenType: 2
+    text: 
+    icon: 3
   - tokenType: 2
     text: 
     icon: 3
@@ -28,9 +31,9 @@ MonoBehaviour:
   - tokenType: 1
     text: 
     icon: 0
-  - tokenType: 0
-    text: 2
-    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 14
   - tokenType: 2
     text: 
     icon: 14
@@ -124,6 +127,7 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 9024302470308298799
       type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
       data:
@@ -143,3 +147,4 @@ MonoBehaviour:
         cantCancelTargetting: 1
         cardSelectionHelperText: 
         selectionPurpose: 1
+        selectionCardCategory: 0

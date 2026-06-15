@@ -57,7 +57,7 @@ public class PermanentStatIncrease : EffectStep {
             break;
 
             default:
-                EffectError("StatIncreaseType " + statIncreaseType + 
+                EffectError("StatIncreaseType " + statIncreaseType +
                     " not yet supported");
             break;
         }
@@ -81,7 +81,14 @@ public class PermanentStatIncrease : EffectStep {
             // Example: Without this, if a entity health is 20/20 and we increase
             // max health by 1, then the entity would have 20/21 health and it would
             // visually look like it took damage even though it didn't.
-            instance.combatStats.setCurrentHealth(instance.combatStats.getCurrentHealth() + scale);
+            // (James): choosing to disable this for mechanics reasons.
+            // instance.combatStats.setCurrentHealth(instance.combatStats.getCurrentHealth() + scale);
+            if (instance.combatStats.getCurrentHealth() > instance.combatStats.getMaxHealth()) {
+                instance.combatStats.setCurrentHealth(instance.combatStats.getMaxHealth());
+            }
+            if (instance.combatStats.getCurrentHealth() <= 0) {
+                instance.ApplyNonStatusCombatEffect(CombatEffect.Sacrifice, 0, instance, null);
+            }
         }
     }
 

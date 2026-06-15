@@ -15,10 +15,51 @@ MonoBehaviour:
   guid: 207c2d14-3124-4054-87f0-cda50587e297
   Name: Doombloom
   Description: Unplayable. End of turn, deal {inhand_rpl_damage} damage to a random
-    foe. When drawn, give this card +4 damage
+    foe. When drawn, give this card +6 damage
+  IconDescription:
+  - tokenType: 0
+    text: Unplayable
+    icon: 0
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 17
+  - tokenType: 0
+    text: ': '
+    icon: 0
+  - tokenType: 0
+    text: '{inhand_rpl_damage}'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
+  - tokenType: 2
+    text: 
+    icon: 4
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 32
+  - tokenType: 0
+    text: ': '
+    icon: 0
+  - tokenType: 0
+    text: +6
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
+  IconDescriptionTooltipLines:
+  - This card is unplayable.
+  - End of turn, if this card is still in hand, deal damage to a random foe.
+  - Whenever you draw this card, it deals +6 damage.
   defaultValues:
   - key: inhand_rpl_damage
-    value: 2
+    value: 1
   Cost: 0
   Artwork: {fileID: 21300000, guid: a5b8c5dccafa78942bf687e9f47d4ce4, type: 3}
   cardCategory: 4
@@ -64,12 +105,14 @@ MonoBehaviour:
         specialTargetRule: 3
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 758315839196758413
       type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CardModificationEffect
         inputKey: self
-        scale: 4
+        scale: 6
         affectsAllCardsOfType: 0
         cardTypeToModify: {fileID: 0}
         getScaleFromKey: 0
@@ -109,13 +152,15 @@ MonoBehaviour:
         specialTargetRule: 6
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 5602892561590779906
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
         inputKey: enemy
         combatEffect: 14
-        scale: 2
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

@@ -24,7 +24,7 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
                 {CombatEntityTriggerType.MINION_DIED, new List<CombatEntityTrigger>()}
             };
 
-    public delegate IEnumerator OnEntityDamage(CombatInstance combatInstance);
+    public delegate IEnumerator OnEntityDamage(CombatInstance combatInstance, int damageAfterDefense);
     public PriorityEventDispatcher<OnEntityDamage> onEntityDamageDispatcher = new();
 
     public delegate IEnumerator OnEntityHealed(CombatInstance combatInstance);
@@ -200,9 +200,9 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
                 new TurnPhaseEventInfo(TurnPhase.END_ENCOUNTER)));
     }
 
-    public IEnumerator OnDamageTaken(CombatInstance combatInstance)
+    public IEnumerator OnDamageTaken(CombatInstance combatInstance, int damageAfterDefense)
     {
-        yield return StartCoroutine(onEntityDamageDispatcher.Invoke(combatInstance).GetEnumerator());
+        yield return StartCoroutine(onEntityDamageDispatcher.Invoke(combatInstance, damageAfterDefense).GetEnumerator());
     }
 
     public IEnumerator OnHeal(CombatInstance combatInstance)

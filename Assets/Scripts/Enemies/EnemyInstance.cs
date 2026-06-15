@@ -111,32 +111,29 @@ public class EnemyInstance : MonoBehaviour, IUIEntity
         // Note: this only allows the enemies to target companions for now.
         // There is nothing that allows targeting other enemies, but this is not
         // an important behavior to support for now.
-        List<CompanionInstance> targetList;
-        if (action.enemyTargetMethod == EnemyTargetMethod.AllCompanions)
-        {
-            targetList = CombatEntityManager.Instance.getCompanions();
-        }
-        else
-        {
-            CompanionInstance target = ChooseTargets(action.enemyTargetMethod);
-            targetList = new();
-            if (target != null)
-            {
-                targetList.Add(target);
-            }
-        }
-
+        List<CompanionInstance> targets = ChooseTargets(action.enemyTargetMethod);
         behaviorIndices[brain] = new ValueTuple<int, int>(behaviorIndex, nextBehaviorIndex);
 
         return new EnemyIntent(
             this,
             // I'm aware this is bad, stick with me for a sec
-            targetList,
+            targets,
             0.05f,
             action.intent,
             action.targetsKey,
             action.displayValue,
-            action.effectSteps);
+            action.effectSteps,
+            action.enemyTargetMethod
+        );
+    }
+
+    public void RetargetIntent()
+    {
+        Debug.Log("Retargeting intent for enemy: " + GetName());
+        currentIntent.UpdateTargets(ChooseTargets(currentIntent.enemyTargetMethod));
+
+        Debug.Log("Displaying new intent for enemy: " + GetName());
+        StartCoroutine(enemyIntentArrows.displayIntent(this).GetEnumerator());
     }
 
     public int GetBehaviorIndexForBrain(EnemyBrain brain)
@@ -144,32 +141,29 @@ public class EnemyInstance : MonoBehaviour, IUIEntity
         return behaviorIndices.GetValueOrDefault(brain, new(0, 0)).Item1;
     }
 
-    private CompanionInstance ChooseTargets(EnemyTargetMethod targetMethod)
+    private List<CompanionInstance> ChooseTargets(EnemyTargetMethod targetMethod)
     {
-        CompanionInstance target = null;
-        List<CompanionInstance> possibleTargets = new List<CompanionInstance>();
+        List<CompanionInstance> targets = new();
         switch (targetMethod)
         {
             case EnemyTargetMethod.FirstCompanion:
-                target = CombatEntityManager.Instance.GetCompanionInstanceAtPosition(0);
+                targets.Add(CombatEntityManager.Instance.GetCompanionInstanceAtPosition(0));
                 break;
 
             case EnemyTargetMethod.LastCompanion:
-                target = CombatEntityManager.Instance.GetCompanionInstanceAtPosition(-1);
+                targets.Add(CombatEntityManager.Instance.GetCompanionInstanceAtPosition(-1));
                 break;
 
             case EnemyTargetMethod.SecondFromFront:
-                target = CombatEntityManager.Instance.GetCompanionInstanceAtPosition(1);
+                targets.Add(CombatEntityManager.Instance.GetCompanionInstanceAtPosition(1));
                 break;
 
             case EnemyTargetMethod.ThirdFromFront:
-                target = CombatEntityManager.Instance.GetCompanionInstanceAtPosition(2);
+                targets.Add(CombatEntityManager.Instance.GetCompanionInstanceAtPosition(2));
                 break;
 
             case EnemyTargetMethod.RandomCompanion:
-                CombatEntityManager.Instance.getCompanions()
-                    .ForEach(companion => possibleTargets.Add(companion));
-                target = possibleTargets[UnityEngine.Random.Range(0, possibleTargets.Count)];
+                targets.Add(CombatEntityManager.Instance.getCompanions()[UnityEngine.Random.Range(0, CombatEntityManager.Instance.getCompanions().Count)]);
                 break;
 
             // case EnemyTargetMethod.RandomEnemyNotSelf:
@@ -184,7 +178,7 @@ public class EnemyInstance : MonoBehaviour, IUIEntity
 
             case EnemyTargetMethod.LowestHealth:
                 List<CompanionInstance> companions = CombatEntityManager.Instance.getCompanions();
-                target = companions[0];
+                CompanionInstance target = companions[0];
                 foreach (CompanionInstance instance in companions)
                 {
                     if (instance.combatInstance.combatStats.getCurrentHealth() < target.combatInstance.combatStats.getCurrentHealth())
@@ -192,9 +186,15 @@ public class EnemyInstance : MonoBehaviour, IUIEntity
                         target = instance;
                     }
                 }
+                targets.Add(target);
+                break;
+
+            case EnemyTargetMethod.AllCompanions:
+                List<CompanionInstance> allCompanions = CombatEntityManager.Instance.getCompanions();
+                targets.AddRange(allCompanions);
                 break;
         }
-        return target;
+        return targets;
     }
 
     private void RegisterTurnPhaseTriggers()

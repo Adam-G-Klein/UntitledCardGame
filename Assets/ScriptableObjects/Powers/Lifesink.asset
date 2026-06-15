@@ -13,23 +13,26 @@ MonoBehaviour:
   m_Name: Lifesink
   m_EditorClassIdentifier: 
   powerType: 11
-  title: Lifesink
-  description: End of turn, bleed all 1 HP and give self 3 block and heal self 2
+  title: Juggernaut
+  description: End of turn, remove 1 max HP from all other rats and give self 3 max
     HP
   abilities:
   - rid: 754093991137640772
-  displaySprite: {fileID: 21300000, guid: 3408ba482a44c9f4f866827baed81034, type: 3}
-  tooltip:
-    rid: 754093871974056657
+  displaySprite: {fileID: 21300000, guid: 5f66e07752da0d34ca5ca0b6a327d011, type: 3}
+  extraTooltip:
+    rid: 6567162537147629588
   stackable: 1
+  cacheConfiguration:
+    key: 
+    display: 1
+    sprite: {fileID: 0}
+    startOfTurnValue: 0
+    setStartOfTurnValue: 0
+    startOfCombatValue: 0
+    setStartOfCombatValue: 0
   references:
     version: 2
     RefIds:
-    - rid: 754093871974056657
-      type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
-      data:
-        empty: 0
-        lines: []
     - rid: 754093991137640772
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
@@ -37,9 +40,11 @@ MonoBehaviour:
         effectSteps:
         - rid: 754093991137640773
         - rid: 754094139776958501
-        - rid: 754093991137641080
-        - rid: 2511000960759496704
-        - rid: 2511000960759496705
+        - rid: 6567162537147629625
+        - rid: 6567162537147629626
+        - rid: 6567162537147629627
+        - rid: 6567162537147629628
+        weight: 0
     - rid: 754093991137640773
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -51,19 +56,9 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-    - rid: 754093991137641080
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatEffectStep
-        inputKey: all
-        combatEffect: 16
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-        vfxPrefab: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 754094139776958501
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -73,31 +68,45 @@ MonoBehaviour:
         outputKey: all
         validTargets: 00000000
         number: 1
-        specialTargetRule: 1
+        specialTargetRule: 2
         cantCancelTargetting: 0
-    - rid: 2511000960759496704
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
+    - rid: 6567162537147629588
+      type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: ApplyStatus
+        empty: 1
+        lines: []
+    - rid: 6567162537147629625
+      type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: PermanentStatIncrease
         inputKey: self
-        statusEffect: 2
-        scale: 4
+        statIncreaseType: 1
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
-        multiplyByNumAuraStacks: 0
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-    - rid: 2511000960759496705
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+    - rid: 6567162537147629626
+      type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: CombatEffectStep
-        inputKey: self
-        combatEffect: 9
-        scale: 2
+        effectStepName: PermanentStatIncrease
+        inputKey: all
+        statIncreaseType: 1
+        scale: -1
         getScaleFromKey: 0
         inputScaleKey: 
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-        vfxPrefab: {fileID: 3850217184923880746, guid: 604f6efaa1e828d4bacfc84a25dfbd7a, type: 3}
+    - rid: 6567162537147629627
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: all
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 377a399fb9991684eb788275070abb5e, type: 3}
+        scale: 1
+    - rid: 6567162537147629628
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+        scale: 1

@@ -16,6 +16,34 @@ MonoBehaviour:
   Name: Trailblaze
   Description: Deal {rpl_damage} damage & if you exhausted a card this turn, draw
     1 card from self
+  IconDescription:
+  - tokenType: 0
+    text: '{rpl_damage}'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
+  - tokenType: 2
+    text: 
+    icon: 18
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 31
+  - tokenType: 0
+    text: ': '
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 3
+  - tokenType: 2
+    text: 
+    icon: 11
+  IconDescriptionTooltipLines:
+  - Deal damage to a foe of your choice.
+  - If you exhausted a card this turn, draw 1 card from the owner rat.
   defaultValues:
   - key: rpl_damage
     value: 7
@@ -68,6 +96,8 @@ MonoBehaviour:
         specialTargetRule: 4
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 2034230176448512660
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -84,6 +114,7 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        waitForDrawsToResolve: 0
     - rid: 5602892675124822189
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -107,6 +138,8 @@ MonoBehaviour:
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 5602892675124822191
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:

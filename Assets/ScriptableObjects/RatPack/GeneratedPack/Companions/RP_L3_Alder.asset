@@ -34,15 +34,16 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Alder++
-      description: Whenever you draw a Charm card from another deck, draw 1 from
-        Alder
+      description: Whenever you draw a Charm card from another rat's deck, draw 1
+        card from that rat.
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
       iconDescriptionLine: []
       card: {fileID: 0}
   keepsakeTitle: Hidden Cache
-  keepsakeDescription: Whenever you draw a Charm card from another deck, draw 1 from
-    Alder
+  keepsakeDescription: Whenever you draw a Charm card from another rat's deck, draw
+    1 card from that rat.
+  tooltipTokens: 
   references:
     version: 2
     RefIds:
@@ -57,6 +58,7 @@ MonoBehaviour:
         - rid: 754093968382754845
         - rid: 2511001095643857208
         - rid: 2511001095643857209
+        - rid: 6567162537147629634
         weight: 0
     - rid: 754093871974056130
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -71,6 +73,7 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 754093968382754844
       type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
@@ -102,9 +105,16 @@ MonoBehaviour:
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DrawCards
-        inputKey: self
+        inputKey: companionCardPlayedFrom
         outputKey: 
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
         waitForDrawsToResolve: 0
+    - rid: 6567162537147629634
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: companionCardPlayedFrom
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1

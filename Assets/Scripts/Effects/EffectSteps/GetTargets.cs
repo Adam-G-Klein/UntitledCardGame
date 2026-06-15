@@ -55,6 +55,7 @@ public class GetTargets : EffectStep, IEffectStepCalculation
     private bool cantCancelTargetting = false;
     [SerializeField] private string cardSelectionHelperText;
     [SerializeField] private SelectionPurposeEnum selectionPurpose;
+    [SerializeField] private CardCategory selectionCardCategory = CardCategory.None;
     private bool cancelled = false;
 
     private List<Targetable> targetsList;
@@ -117,13 +118,14 @@ public class GetTargets : EffectStep, IEffectStepCalculation
                 FocusManager.Instance.StashFocusablesNotOfTargetType(validTargets, this.GetType().Name);
                 UIStateManager.Instance.setState(UIState.EFFECT_TARGETTING);
                 bool selected = false;
+                bool forceExactNumber = selectionPurpose == SelectionPurposeEnum.ExhaustAsACost || selectionPurpose == SelectionPurposeEnum.DiscardAsACost;
                 // TODO (James): would be nice to wait until the draw queue is empty before resolving the card selection.
                 PlayerHand.Instance.SelectCardsFromHand(number, disallowedTargets, limitOptions, CancelHandler, (List<PlayableCard> selectedCards) => {
                     foreach (PlayableCard card in selectedCards) {
                         targetsList.Add(card.GetComponent<Targetable>());
                     }
                     selected = true;
-                }, originCard, !cantCancelTargetting, cardSelectionHelperText, selectionPurpose);
+                }, originCard, !cantCancelTargetting, cardSelectionHelperText, selectionPurpose, selectionCardCategory, forceExactNumber);
                 yield return new WaitUntil(() => selected == true || (!cantCancelTargetting && cancelled));
             } else {
                 TargettingManager.Instance.targetSuppliedHandler += TargetSuppliedHandler;
@@ -394,6 +396,8 @@ public class GetTargets : EffectStep, IEffectStepCalculation
         Exhaust,
         Discard,
         Retain,
-        Discount
+        Discount,
+        ExhaustAsACost,
+        DiscardAsACost,
     }
 }

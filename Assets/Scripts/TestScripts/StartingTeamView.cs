@@ -3,6 +3,7 @@ using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.Assertions;
 
 public class TeamSelectionUI : MonoBehaviour, ICompanionViewDelegate
 {
@@ -36,7 +37,8 @@ public class TeamSelectionUI : MonoBehaviour, ICompanionViewDelegate
             List<PackSO> mutablePackSOs = new List<PackSO>(packSOWithCommonCompanions);
             CompanionListVariableSO chosen = new();
             chosen.activeCompanions = new List<Companion>();
-            for (int i = 0; i < gameState.playerData.GetValue().teamSize; i++)
+            Assert.IsTrue(gameState.playerData.GetValue().numStartingRats <= gameState.playerData.GetValue().teamSize, "Number of starting rats cannot be greater than team size");
+            for (int i = 0; i < gameState.playerData.GetValue().numStartingRats; i++)
             {
                 int chosenIndex = rnd.Next(mutablePackSOs.Count);
                 PackSO chosenPack = mutablePackSOs[chosenIndex];
