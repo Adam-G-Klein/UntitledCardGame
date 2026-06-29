@@ -16,6 +16,54 @@ MonoBehaviour:
   Name: Ironseed
   Description: Unplayable. When drawn, give self and leftmost rat 3 block. End of
     turn, deal {inhand_rpl_damage} damage to self
+  IconDescription:
+  - tokenType: 0
+    text: Unplayable
+    icon: 0
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 32
+  - tokenType: 0
+    text: ': '
+    icon: 0
+  - tokenType: 0
+    text: 3
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 2
+  - tokenType: 2
+    text: 
+    icon: 11
+  - tokenType: 2
+    text: 
+    icon: 6
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 17
+  - tokenType: 0
+    text: ': '
+    icon: 0
+  - tokenType: 0
+    text: '{inhand_rpl_damage}'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
+  - tokenType: 2
+    text: 
+    icon: 11
+  IconDescriptionTooltipLines:
+  - This card cannot be played.
+  - When this card is drawn, give block to the owner rat and the leftmost rat on
+    your team.
+  - If this card is in hand at the end of turn, deal damage to the owner rat.
   defaultValues:
   - key: inhand_rpl_damage
     value: 3
@@ -66,6 +114,8 @@ MonoBehaviour:
         specialTargetRule: 4
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 758315839196758529
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -79,6 +129,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        toggleStatus: 0
     - rid: 758315839196758530
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -98,6 +149,8 @@ MonoBehaviour:
         specialTargetRule: 7
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 758316142852047399
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -111,6 +164,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        toggleStatus: 0
     - rid: 758316142852047400
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -140,6 +194,8 @@ MonoBehaviour:
         specialTargetRule: 4
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 5602892561590779906
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:

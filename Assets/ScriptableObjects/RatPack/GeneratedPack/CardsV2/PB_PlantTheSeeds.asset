@@ -16,8 +16,32 @@ MonoBehaviour:
   Name: Plant the Seeds
   Description: Exhaust. Put an Ironseed on top of all rats' decks & draw 1 card from
     2 random rats
-  IconDescription: []
-  IconDescriptionTooltipLines: []
+  IconDescription:
+  - tokenType: 0
+    text: Exhaust
+    icon: 0
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 0
+    text: Put an Ironseed on top of each rat's deck
+    icon: 0
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 3
+  - tokenType: 2
+    text: 
+    icon: 3
+  - tokenType: 2
+    text: 
+    icon: 19
+  IconDescriptionTooltipLines:
+  - This card exhausts when played.
+  - Put an Ironseed Charm card on top of each rat's deck.
+  - Draw 1 card from 2 randomly selected rats.
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: cf5aa02f77468564190f8694f7007ee1, type: 3}
@@ -106,3 +130,4 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
