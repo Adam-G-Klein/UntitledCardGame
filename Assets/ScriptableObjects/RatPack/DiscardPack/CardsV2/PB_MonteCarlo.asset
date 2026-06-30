@@ -15,11 +15,13 @@ MonoBehaviour:
   guid: c365d496-a3e2-49c6-9775-5b3d808bbfbe
   Name: Monte Carlo
   Description: Discard your hand & draw 1 card from 3 random rats
+  IconDescription: []
+  IconDescriptionTooltipLines: []
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 47602993e540997478144938c9b7ec9b, type: 3}
   cardCategory: 2
-  packFrom: {fileID: 0}
+  packFrom: {fileID: 11400000, guid: 5f4300e0913784f05aeff0dd086d4338, type: 2}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
@@ -71,6 +73,7 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        waitForDrawsToResolve: 0
     - rid: 2034230108114649716
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -83,6 +86,8 @@ MonoBehaviour:
         specialTargetRule: 2
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 2034230108114649717
       type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
       data:
@@ -101,6 +106,8 @@ MonoBehaviour:
         specialTargetRule: 1
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 5602892563578094203
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:

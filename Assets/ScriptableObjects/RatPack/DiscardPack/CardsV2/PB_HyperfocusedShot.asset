@@ -16,6 +16,8 @@ MonoBehaviour:
   Name: Hyperfocused Shot
   Description: Deal {rpl_damage} damage & if you have 3 or less cards in hand, deal
     {rpl_damage_2} damage
+  IconDescription: []
+  IconDescriptionTooltipLines: []
   defaultValues:
   - key: rpl_damage
     value: 10
@@ -62,6 +64,8 @@ MonoBehaviour:
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 5602892563578094203
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -111,6 +115,8 @@ MonoBehaviour:
         specialTargetRule: 1
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 8034949928137261275
       type: {class: CountStep, ns: , asm: Assembly-CSharp}
       data:

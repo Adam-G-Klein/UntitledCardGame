@@ -38,6 +38,8 @@ public class ShopViewController : MonoBehaviour,
     private Button rerollButton;
     private VisualElement freeRerollsContainer;
     private Label freeRerollsLabel;
+    private Button switchDecksButton;
+    private Label switchDecksPriceLabel;
     private Button cardRemovalButton;
     private VisualElement freeRemovalsContainer;
     private Label freeRemovalsLabel;
@@ -47,6 +49,11 @@ public class ShopViewController : MonoBehaviour,
     public VisualElement selectingIndicator;
     public Button selectingCancelButton;
     private VisualElement selectingIndicatorForCardRemovalIndicator;
+    // Cancel button shown specifically during the companion-selection "switch decks" flow
+    private Button switchDecksCancelButton;
+    private VisualElement selectingIndicatorForSwitchDecksIndicator;
+    private Label switchingDecksSelectionLabel;
+
     private Button cancelCardRemovalButton;
     private Button startNextCombatButton;
 
@@ -55,6 +62,11 @@ public class ShopViewController : MonoBehaviour,
     public Label cardRemovalPriceLabel;
 
     public Label draftingHelpLabel;
+    private VisualElement upgradeButtonContainer;
+    private VisualElement rerollContainer;
+    private VisualElement switchDecksContainer;
+    private VisualElement cardRemovalContainer;
+
 
     public SellingCompanionConfirmationView sellingCompanionConfirmationView;
     private VisualElement deckView;
@@ -150,6 +162,11 @@ public class ShopViewController : MonoBehaviour,
         rerollPriceLabel = uiDoc.rootVisualElement.Q<Label>("reroll-price-label");
         cardRemovalPriceLabel = uiDoc.rootVisualElement.Q<Label>("card-remove-price-label");
 
+        upgradeButtonContainer = uiDoc.rootVisualElement.Q("upgrade-button-container");
+        rerollContainer = uiDoc.rootVisualElement.Q("reroll-button-container");
+        switchDecksContainer = uiDoc.rootVisualElement.Q("switch-decks-button-container");
+        cardRemovalContainer = uiDoc.rootVisualElement.Q("card-removal-container");
+
         draftingHelpLabel = uiDoc.rootVisualElement.Q<Label>("drafting-help-label");
 
         sellingCompanionConfirmationView = new SellingCompanionConfirmationView(uiDoc.rootVisualElement.Q("selling-companion-confirmation"), this);
@@ -183,6 +200,14 @@ public class ShopViewController : MonoBehaviour,
             ShowFreeRerolls();
         }
 
+        switchDecksButton = uiDoc.rootVisualElement.Q<Button>("switch-decks-button");
+        switchDecksButton.RegisterOnSelected(SwitchDecksButtonOnClick);
+        FocusManager.Instance.RegisterFocusableTarget(switchDecksButton.AsFocusable());
+        disableOnCompanionDrag.Add(switchDecksButton.AsFocusable());
+
+        switchDecksContainer = uiDoc.rootVisualElement.Q<VisualElement>("switch-decks-button-container");
+        switchDecksPriceLabel = uiDoc.rootVisualElement.Q<Label>("switch-decks-price-label");
+
         upgradeButton = uiDoc.rootVisualElement.Q<Button>("upgrade-button");
         upgradeButton.RegisterOnSelected(UpgradeButtonOnClick);
         upgradeButton.RegisterCallback<PointerEnterEvent>(UpgradeButtonOnPointerEnter);
@@ -199,6 +224,16 @@ public class ShopViewController : MonoBehaviour,
         cancelCardRemovalButton.RegisterOnSelected(CancelCardRemoval);
         FocusManager.Instance.RegisterFocusableTarget(cancelCardRemovalButton.AsFocusable());
         FocusManager.Instance.DisableFocusableTarget(cancelCardRemovalButton.AsFocusable());
+
+        // companion-selection switch-decks cancel button (skeleton)
+        selectingIndicatorForSwitchDecksIndicator = uiDoc.rootVisualElement.Q<VisualElement>("companion-selection-switch-decks-indicator");
+        switchingDecksSelectionLabel = uiDoc.rootVisualElement.Q<Label>("companion-selection-switch-decks-label");
+        switchDecksCancelButton = uiDoc.rootVisualElement.Q<Button>("companion-selection-switch-decks-cancel-button");
+        if (switchDecksCancelButton != null) {
+            switchDecksCancelButton.RegisterOnSelected(CancelSwitchDecks);
+            FocusManager.Instance.RegisterFocusableTarget(switchDecksCancelButton.AsFocusable());
+            FocusManager.Instance.DisableFocusableTarget(switchDecksCancelButton.AsFocusable());
+        }
 
         cardRemovalButton = uiDoc.rootVisualElement.Q<Button>("card-remove-button");
         cardRemovalButton.RegisterOnSelected(CardRemovalButtonOnClick);
@@ -259,12 +294,11 @@ public class ShopViewController : MonoBehaviour,
 
         shopButtonsContainerBg.visible = false;
 
-        VisualElement upgradeButtonContainer = uiDoc.rootVisualElement.Q("upgrade-button-container");
-        VisualElement rerollContainer = uiDoc.rootVisualElement.Q("reroll-button-container");
-        VisualElement cardRemovalContainer = uiDoc.rootVisualElement.Q("card-removal-container");
-
         rerollButton.SetEnabled(false);
         FocusManager.Instance.DisableFocusableTarget(rerollButton.AsFocusable());
+
+        switchDecksButton.SetEnabled(false);
+        FocusManager.Instance.DisableFocusableTarget(switchDecksButton.AsFocusable());
 
         upgradeButton.SetEnabled(false);
         FocusManager.Instance.DisableFocusableTarget(upgradeButton.AsFocusable());
@@ -274,6 +308,7 @@ public class ShopViewController : MonoBehaviour,
 
         upgradeButtonContainer.style.display = DisplayStyle.None;
         rerollContainer.style.display = DisplayStyle.None;
+        switchDecksContainer.style.display = DisplayStyle.None;
         cardRemovalContainer.style.display = DisplayStyle.None;
     }
 
@@ -1028,6 +1063,35 @@ public class ShopViewController : MonoBehaviour,
         }
     }
 
+    public void ToggleShopButtonsForShopLevel(ShopLevel currentShopLevel)
+    {
+        if (currentShopLevel.cardRemovalEnabled)
+        {
+            cardRemovalContainer.style.display = DisplayStyle.Flex;
+            cardRemovalButton.SetEnabled(true);
+            FocusManager.Instance.EnableFocusableTarget(cardRemovalButton.AsFocusable());
+        }
+        else
+        {
+            cardRemovalContainer.style.display = DisplayStyle.None;
+            cardRemovalButton.SetEnabled(false);
+            FocusManager.Instance.DisableFocusableTarget(cardRemovalButton.AsFocusable());
+        }
+
+        if (currentShopLevel.switchDecksEnabled)
+        {
+            switchDecksContainer.style.display = DisplayStyle.Flex;
+            switchDecksButton.SetEnabled(true);
+            FocusManager.Instance.EnableFocusableTarget(switchDecksButton.AsFocusable());
+        }
+        else
+        {
+            switchDecksContainer.style.display = DisplayStyle.None;
+            switchDecksButton.SetEnabled(false);
+            FocusManager.Instance.DisableFocusableTarget(switchDecksButton.AsFocusable());
+        }
+    }
+
     public void SetupActiveCompanions(List<Companion> companions) {
         for (int i = 0; i < companions.Count; i++) {
             CompanionManagementView companionView = new CompanionManagementView(
@@ -1091,6 +1155,13 @@ public class ShopViewController : MonoBehaviour,
     public void RerollButtonOnClick(ClickEvent evt)
     {
         shopManager.ProcessRerollShopClick();
+    }
+
+    public void SwitchDecksButtonOnClick(ClickEvent evt)
+    {
+        // TODO: Implement switching decks
+        Debug.Log("Switch Decks button clicked");
+        shopManager.ProcessSwitchDecksRequest();
     }
 
     public void UpgradeButtonOnClick(ClickEvent evt) {
@@ -1435,36 +1506,68 @@ public class ShopViewController : MonoBehaviour,
         StartCoroutine(ShowGenericNotification("Already bought the budget of cards."));
     }
 
+    public void SwitchDecksSelectedFirstCompanion(CompanionManagementView firstCompanion) {
+        // Now, we selected the first companion in the exchange.
+        // Let's gray it out and make it non-focusable.
+        firstCompanion.ShowNotApplicable();
+        FocusManager.Instance.StashFocusableTarget(this.GetType().Name + "SwitchDecks", GetParentSlotViewForCompanion(firstCompanion).veFocusable);
+        switchingDecksSelectionLabel.text = "Select the second rat whose deck you want to switch";
+    }
+
+    public void SwitchDecksSetup()
+    {
+        canDragCompanions = false;
+        selectingCompanionVeil.style.visibility = Visibility.Visible;
+        selectingIndicatorForSwitchDecksIndicator.style.visibility = Visibility.Visible;
+        StashNonCompanionViewFocusables(this.GetType().Name + "SwitchDecks");
+        FocusManager.Instance.EnableFocusableTarget(switchDecksCancelButton.AsFocusable());
+        DisableSellingForAll();
+        switchingDecksSelectionLabel.text = "Select the first rat whose deck you want to switch";
+    }
+
+    public void StopSwitchDecks()
+    {
+        canDragCompanions = true;
+        selectingCompanionVeil.style.visibility = Visibility.Hidden;
+        selectingIndicatorForSwitchDecksIndicator.style.visibility = Visibility.Hidden;
+        FocusManager.Instance.DisableFocusableTarget(switchDecksCancelButton.AsFocusable());
+        FocusManager.Instance.UnstashFocusables(this.GetType().Name + "SwitchDecks");
+        EnableSellingForAll();
+    }
+
+    private void EnableSellingForAll() {
+        foreach (CompanionManagementSlotView slotView in activeSlots) {
+            if (slotView.IsEmpty()) continue;
+            slotView.companionManagementView.ResetApplicable();
+                slotView.EnableSelling();
+        }
+
+        foreach (CompanionManagementSlotView slotView in benchSlots) {
+            if (slotView.IsEmpty()) continue;
+            slotView.companionManagementView.ResetApplicable();
+            slotView.EnableSelling();
+        }
+    }
+
+    private void DisableSellingForAll() {
+        foreach (CompanionManagementSlotView slotView in activeSlots) {
+            if (slotView.IsEmpty()) continue;
+            slotView.DisableSelling();
+        }
+
+        foreach (CompanionManagementSlotView slotView in benchSlots) {
+            if (slotView.IsEmpty()) continue;
+            slotView.DisableSelling();
+        }
+    }
+
     public void CardBuyingSetup(ShopItemView shopItemView, CardInShopWithPrice cardInShop) {
         canDragCompanions = false;
         selectingCompanionVeil.style.visibility = Visibility.Visible;
         selectingIndicator.style.visibility = Visibility.Visible;
         StashNonCompanionViewFocusables(this.GetType().Name + "CardBuying");
         FocusManager.Instance.EnableFocusableTarget(selectingCancelButton.AsFocusable());
-        List<CompanionManagementView> notApplicable = new List<CompanionManagementView>();
-        foreach (CompanionManagementSlotView slotView in activeSlots) {
-            if (slotView.IsEmpty()) continue;
-            CompanionManagementView companion = slotView.companionManagementView;
-            slotView.DisableSelling();
-            if (!shopManager.IsApplicableCompanion(cardInShop, companion.companion)) {
-                notApplicable.Add(companion);
-                FocusManager.Instance.StashFocusableTarget(this.GetType().Name + "CardBuying", GetParentSlotViewForCompanion(companion).veFocusable);
-            }
-        }
-
-        foreach (CompanionManagementSlotView slotView in benchSlots) {
-            if (slotView.IsEmpty()) continue;
-            CompanionManagementView companion = slotView.companionManagementView;
-            slotView.DisableSelling();
-            if (!shopManager.IsApplicableCompanion(cardInShop, companion.companion)) {
-                notApplicable.Add(companion);
-                FocusManager.Instance.StashFocusableTarget(this.GetType().Name + "CardBuying", GetParentSlotViewForCompanion(companion).veFocusable);
-            }
-        }
-
-        foreach(CompanionManagementView view in notApplicable) {
-            view.ShowNotApplicable();
-        }
+        DisableSellingForAll();
     }
 
     private void StashNonCompanionViewFocusables(string stashedBy) {
@@ -1483,22 +1586,17 @@ public class ShopViewController : MonoBehaviour,
         selectingIndicator.style.visibility = Visibility.Hidden;
         FocusManager.Instance.DisableFocusableTarget(selectingCancelButton.AsFocusable());
         FocusManager.Instance.UnstashFocusables(this.GetType().Name + "CardBuying");
-        foreach (CompanionManagementSlotView slotView in activeSlots) {
-            if (slotView.IsEmpty()) continue;
-            slotView.companionManagementView.ResetApplicable();
-            slotView.EnableSelling();
-        }
-
-        foreach (CompanionManagementSlotView slotView in benchSlots) {
-            if (slotView.IsEmpty()) continue;
-            slotView.companionManagementView.ResetApplicable();
-            slotView.EnableSelling();
-        }
+        EnableSellingForAll();
     }
 
     private void CancelCardBuy(ClickEvent evt) {
         shopManager.ProcessCardBuyCanceled();
         StopBuyingCard();
+    }
+
+    private void CancelSwitchDecks(ClickEvent evt) {
+        shopManager.ProcessSwitchDecksCancelled();
+        StopSwitchDecks();
     }
 
     public void CardRemovalButtonOnClick(ClickEvent evt) {
@@ -1583,6 +1681,10 @@ public class ShopViewController : MonoBehaviour,
             rerollPriceLabel.text = COIN + amount.ToString();
             freeRerollsContainer.style.visibility = Visibility.Hidden;
         }
+    }
+
+    public void SetShopSwitchDecksPrice(int amount) {
+        switchDecksPriceLabel.text = COIN + amount.ToString();
     }
 
     public void SetShopUpgradePrice(int amount) {
@@ -1744,6 +1846,11 @@ public class ShopViewController : MonoBehaviour,
 
     public VisualElement GetRerollShopButton() {
         return rerollButton;
+    }
+
+    public VisualElement GetSwitchDecksShopButton()
+    {
+        return switchDecksButton;
     }
 
     public VisualElement GetRemoveCardButton()

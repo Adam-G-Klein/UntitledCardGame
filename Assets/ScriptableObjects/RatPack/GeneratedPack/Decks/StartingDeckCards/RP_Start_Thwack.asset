@@ -12,18 +12,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: RP_Start_Thwack
   m_EditorClassIdentifier: 
-  guid: ff44ee4a-bcd5-4c9d-a54e-f93961ddf7f5
+  guid: ea6e4438-815f-4280-8e56-b8b5d040536e
   Name: Thwack
-  Description: Deal {rpl_damage} damage & create a Bitterbark in hand for self
-  IconDescription: []
-  IconDescriptionTooltipLines: []
+  Description: 
+  IconDescription:
+  - tokenType: 0
+    text: '{rpl_damage}'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
+  - tokenType: 2
+    text: 
+    icon: 18
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 0
+    text: Create a Bitterbark in hand for self
+    icon: 0
+  IconDescriptionTooltipLines:
+  - Deal damage to a foe of your choice.
+  - Create a Bitterbark Charm card in hand for the owner rat.
   defaultValues:
   - key: rpl_damage
     value: 11
   Cost: 2
   Artwork: {fileID: 21300000, guid: 6cb44060d9d637b44a6b0567dd3ff92f, type: 3}
   cardCategory: 1
-  packFrom: {fileID: 0}
+  packFrom: {fileID: 11400000, guid: 0d12b03c0c8754470a900cb4f78a9217, type: 2}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
@@ -71,19 +88,7 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
-    - rid: 758316142852046947
-      type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: AddCardsToHand
-        entityFromKey: self
-        cardTypes:
-        - {fileID: 11400000, guid: e5aefb6a1e4354d73910a59bd8677cf0, type: 2}
-        getCardsFromKey: 0
-        inputCardsKey: 
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-        outputKey: 
+        selectionCardCategory: 0
     - rid: 5602892561590779943
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -91,7 +96,8 @@ MonoBehaviour:
         - rid: 5602892561590779944
         - rid: 758316142852046945
         - rid: 758316142852046946
-        - rid: 758316142852046947
+        - rid: 6567162537147630034
+        - rid: 6567162537147630035
     - rid: 5602892561590779944
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -105,3 +111,24 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
+    - rid: 6567162537147630034
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1
+    - rid: 6567162537147630035
+      type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToHand
+        entityFromKey: self
+        cardTypes:
+        - {fileID: 11400000, guid: e5aefb6a1e4354d73910a59bd8677cf0, type: 2}
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        outputKey: 

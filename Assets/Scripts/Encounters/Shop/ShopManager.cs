@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.UIElements;
 
 public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
@@ -26,11 +27,15 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     public GameObject healPrefab;
     public GameObject sparklePrefab;
     public GameObject bigSparklePrefab;
+    public GameObject switchDecksPrefab;
 
     private ShopEncounter shopEncounter;
     private ShopLevel shopLevel;
     private bool buyingCard = false;
     private bool removingCard = false;
+    private bool switchingDecks = false;
+    private CompanionManagementView switchingDecksCompanion1;
+    private CompanionManagementView switchingDecksCompanion2;
     private CardInShopWithPrice currentCardBuyRequest;
     private ShopItemView currentCardBuyRequestItemView;
     private CompanionCombinationManager companionCombinationManager;
@@ -108,6 +113,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         shopViewController.SetMoney(gameState.playerData.GetValue().gold);
         shopViewController.SetShopUpgradePrice(shopLevel.upgradeIncrementCost);
         shopViewController.SetShopRerollPrice(shopEncounter.shopData.rerollShopPrice, gameState.playerData.GetValue().storedRerolls);
+        shopViewController.SetShopSwitchDecksPrice(shopEncounter.shopData.switchDecksPrice);
         shopViewController.SetShopCardRemovalPrice(
             GetCardRemovalPrice(gameState.playerData.GetValue().shopLevel, timesCardRemovedThisShop), gameState.playerData.GetValue().storedCardRemovals);
         shopViewController.RebuildUnitManagement(gameState.companions);
@@ -134,6 +140,8 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                 StartCoroutine(RunShopTutorial(ShopTutorialDisplay.ShopTutorialToShow.FullFeatureShopTutorial));
             }
         }
+
+        shopViewController.ToggleShopButtonsForShopLevel(GetShopLevel());
     }
 
     public void CinematicIntroComplete()
@@ -245,6 +253,19 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         }
     }
 
+    public void ProcessSwitchDecksRequest()
+    {
+        if (gameState.playerData.GetValue().gold >= shopEncounter.shopData.switchDecksPrice)
+        {
+            this.switchingDecks = true;
+            shopViewController.SwitchDecksSetup();
+        }
+        else
+        {
+            shopViewController.NotEnoughMoney();
+        }
+    }
+
     public void ProcessCardBuyRequestV2(ShopItemView shopItemView, CardInShopWithPrice cardInShop) {
         if ((shopEncounter.shopData.shopMode != ShopMode.StaticChooseNDemo && gameState.playerData.GetValue().gold >= cardInShop.price) ||
             (shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo && numCardsBoughtThisShop < shopEncounter.shopData.numCardsBuyPerShop)) {
@@ -263,7 +284,8 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                 StartCoroutine(DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.CardBuyingTutorial));
             }
         } else {
-            shopViewController.AlreadyBoughtBudgetOfCards();
+            if (shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo) shopViewController.AlreadyBoughtBudgetOfRats();
+            else shopViewController.NotEnoughMoney();
         }
     }
 
@@ -539,6 +561,61 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             shopViewController.DestroyAllTooltips();
             shopViewController.ShopDeckViewForCardRemoval(companion);
         }
+
+        if (switchingDecks)
+        {
+            // TODO: Add the logic for selecting the companion.
+            Debug.Log("Switch Decks: Companion selected: " + companion.companionType.name);
+            if (switchingDecksCompanion1 == null)
+            {
+                switchingDecksCompanion1 = companionView;
+                shopViewController.SwitchDecksSelectedFirstCompanion(companionView);
+            }
+            else if (companionView == switchingDecksCompanion1)
+            {
+                Debug.LogWarning("Switch Decks: The same companion was selected twice. Please select a different companion.");
+                return;
+            }
+            else
+            {
+                // The player has selected the second companion, so we can switch the decks.
+                switchingDecksCompanion2 = companionView;
+                Assert.IsTrue(switchingDecksCompanion1 != switchingDecksCompanion2, "SwitchDecks: The same companion was selected twice.");
+                SwitchDecks(switchingDecksCompanion1.companion, switchingDecksCompanion2.companion);
+                gameState.playerData.GetValue().gold -= shopEncounter.shopData.switchDecksPrice;
+                shopViewController.SetMoney(gameState.playerData.GetValue().gold);
+                shopViewController.StopSwitchDecks();
+
+                InstantiateShopVFX(moneySpentPrefab, shopViewController.GetSwitchDecksShopButton(), 1.5f);
+                // InstantiateShopVFX(switchDecksPrefab, switchingDecksCompanion1.container, 1.5f);
+                // InstantiateShopVFX(switchDecksPrefab, switchingDecksCompanion2.container, 1.5f);
+            }
+
+        }
+    }
+
+    private void SwitchDecks(Companion companion1, Companion companion2)
+    {
+        if (companion1 == null || companion2 == null)
+        {
+            Debug.LogError("SwitchDecks: One or both companions are null.");
+            return;
+        }
+
+        Debug.Log("Switching decks between " + companion1.companionType.name + " and " + companion2.companionType.name);
+
+        // Swap the decks of the two companions.
+        List<Card> tempDeck = companion1.deck.cards;
+        companion1.deck.cards = companion2.deck.cards;
+        companion2.deck.cards = tempDeck;
+
+        // Update the UI to reflect the changes.
+        shopViewController.RebuildUnitManagement(gameState.companions);
+
+        // Reset the switching decks state.
+        ResetSwitchDecksState();
+
+        // Optionally, you can add some visual feedback or sound effect here.
     }
 
     public void SetDraftingHelpText(int remainingInDisplay = 1)
@@ -594,6 +671,18 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
     public void ProcessCardRemovalCancelled() {
         removingCard = false;
+    }
+
+    public void ProcessSwitchDecksCancelled()
+    {
+        ResetSwitchDecksState();
+    }
+
+    private void ResetSwitchDecksState()
+    {
+        switchingDecksCompanion1 = null;
+        switchingDecksCompanion2 = null;
+        switchingDecks = false;
     }
 
     public void SellCompanion(Companion companion, VisualElement ve) {
@@ -659,6 +748,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             CheckDisableUpgradeButtonV2();
             shopViewController.SetupUpgradeIncrements(encounterConstants.shopLevels.Count - 1 <= shopLevel.level);
             shopViewController.RebuildUnitManagement(gameState.companions);
+            shopViewController.ToggleShopButtonsForShopLevel(shopLevel);
         } else {
             shopViewController.ActivateUpgradeIncrement(playerData.shopLevelIncrementsEarned - 1 /* -1 because we just earned an increment */);
         }

@@ -13,22 +13,25 @@ MonoBehaviour:
   m_Name: Witchwork
   m_EditorClassIdentifier: 
   powerType: 6
-  title: Witchwork
-  description: End of turn, give all Status cards in hand +5 damage
+  title: Saturate
+  description: End of turn, give all Charm cards in hand +5 damage
   abilities:
   - rid: 754093991137640772
-  displaySprite: {fileID: 21300000, guid: 06c409edcf5e308438ea9c89ccd99c68, type: 3}
-  tooltip:
-    rid: 754093871974056657
+  displaySprite: {fileID: 21300000, guid: a5222a8d127763c49b397cce916345ec, type: 3}
+  extraTooltip:
+    rid: 7189280385716453377
   stackable: 1
+  cacheConfiguration:
+    key: 
+    display: 1
+    sprite: {fileID: 0}
+    startOfTurnValue: 0
+    setStartOfTurnValue: 0
+    startOfCombatValue: 0
+    setStartOfCombatValue: 0
   references:
     version: 2
     RefIds:
-    - rid: 754093871974056657
-      type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
-      data:
-        empty: 0
-        lines: []
     - rid: 754093991137640772
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
@@ -39,6 +42,7 @@ MonoBehaviour:
         - rid: 754093991137641210
         - rid: 754093991137641211
         - rid: 754093991137641212
+        weight: -1
     - rid: 754093991137641208
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -50,6 +54,9 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 1
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 754093991137641209
       type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
@@ -58,6 +65,9 @@ MonoBehaviour:
         filter:
           cardCategoriesToInclude: 04000000
           retainedCardsFilter: 0
+          manaCostFilter: 0
+          manaCost: 0
+          exactCardType: {fileID: 0}
         outputKey: statusCards
     - rid: 754093991137641210
       type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
@@ -82,3 +92,8 @@ MonoBehaviour:
       data:
         effectStepName: WaitForSecondsEffect
         seconds: 0.3
+    - rid: 7189280385716453377
+      type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
+      data:
+        empty: 1
+        lines: []

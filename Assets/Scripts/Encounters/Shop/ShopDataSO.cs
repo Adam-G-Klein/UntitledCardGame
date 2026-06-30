@@ -21,6 +21,7 @@ public class ShopDataSO : IdentifiableSO
     public float incrementalRerollPriceIncrease = 1f;
     public int cardRemovalPrice;
     public int cardRemovalPriceIncrease = 4;
+    public int switchDecksPrice = 2;
 
     public int commonCardPrice = 1;
     public int uncommonCardPrice = 2;
@@ -88,6 +89,8 @@ public class ShopLevel {
     public int cardRemovalDiscount;
     public int numCardRemovalsAllowed = 1;
     public int numLessCardsInStartingDeck;
+    public bool switchDecksEnabled = true;
+    public bool cardRemovalEnabled = true;
 
     [Space(10)]
     [Header("Help the player understand this shit")]

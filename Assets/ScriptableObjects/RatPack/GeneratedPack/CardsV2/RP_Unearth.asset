@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 41580b28-02af-4fed-a3d6-d42e658fcb6d
   Name: Unearth
-  Description: Draw 2 cards from any & give leftmost rat 3 block for each Charm card
-    drawn
+  Description: "Draw 2 cards from any & gain 1 \xC9lan for each Charm card drawn"
   IconDescription:
   - tokenType: 2
     text: 
@@ -29,15 +28,9 @@ MonoBehaviour:
   - tokenType: 1
     text: 
     icon: 18
-  - tokenType: 0
-    text: 3
-    icon: 18
   - tokenType: 2
     text: 3
-    icon: 2
-  - tokenType: 2
-    text: 3
-    icon: 6
+    icon: 10
   - tokenType: 0
     text: xN
     icon: 6
@@ -49,7 +42,7 @@ MonoBehaviour:
     icon: 6
   IconDescriptionTooltipLines:
   - Draw 2 cards from a rat of your choice
-  - Then, give the leftmost rat 3 block for each Charm card you drew this way
+  - "Then, gain 1 \xC9lan for each Charm card you drew this way"
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 5e40f858eddaed340a6366c33c4e216f, type: 3}
@@ -106,6 +99,7 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 5602892561590779943
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -116,8 +110,7 @@ MonoBehaviour:
         - rid: 1289961959942521257
         - rid: 7150943289421332678
         - rid: 7150943289421332679
-        - rid: 7150943289421332680
-        - rid: 7150943289421332681
+        - rid: 7189280385716453622
     - rid: 5602892561590779944
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -131,6 +124,7 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 7150943289421332678
       type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
@@ -149,24 +143,10 @@ MonoBehaviour:
         effectStepName: CountStep
         inputKey: charmsDrawn
         outputKey: numCharms
-    - rid: 7150943289421332680
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+    - rid: 7189280385716453622
+      type: {class: ManaChange, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: ApplyStatus
-        inputKey: leftmost
-        statusEffect: 2
-        scale: 3
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplyByNumAuraStacks: 0
-        multiplicity: 1
-        getMultiplicityFromKey: 1
-        inputMultiplicityKey: numCharms
-        toggleStatus: 0
-    - rid: 7150943289421332681
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: leftmost
-        prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
-        scale: 1
+        effectStepName: ManaChange
+        scale: 0
+        getScaleFromKey: 1
+        inputScaleKey: numCharms

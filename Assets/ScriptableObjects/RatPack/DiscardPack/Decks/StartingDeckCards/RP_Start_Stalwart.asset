@@ -51,7 +51,7 @@ MonoBehaviour:
   Cost: 1
   Artwork: {fileID: 21300000, guid: c0e53d043957bac4c8fb2528ecd0a1b9, type: 3}
   cardCategory: 2
-  packFrom: {fileID: 0}
+  packFrom: {fileID: 11400000, guid: 5f4300e0913784f05aeff0dd086d4338, type: 2}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
@@ -100,6 +100,7 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 8034949928137261060
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -113,6 +114,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        toggleStatus: 0
     - rid: 8034949928137261061
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -133,6 +135,7 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 8034950092883230781
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -150,6 +153,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        toggleStatus: 0
     - rid: 8034950092883230784
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

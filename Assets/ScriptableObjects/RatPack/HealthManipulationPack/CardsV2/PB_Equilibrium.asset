@@ -15,11 +15,13 @@ MonoBehaviour:
   guid: 0a656fd0-f93a-4c85-8667-248d5a6b1a6c
   Name: Equilibrium
   Description: Exhaust. Set any to half HP x2 & draw 1 card from self
+  IconDescription: []
+  IconDescriptionTooltipLines: []
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: db26ea4bdc4531f4a9d89b36175475e6, type: 3}
   cardCategory: 2
-  packFrom: {fileID: 0}
+  packFrom: {fileID: 11400000, guid: a87b5da767d4e4659b2965e31e340c58, type: 2}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 1
@@ -53,6 +55,8 @@ MonoBehaviour:
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 758316092100444620
       type: {class: GetHPStatistics, ns: , asm: Assembly-CSharp}
       data:
@@ -95,6 +99,8 @@ MonoBehaviour:
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 1289961820425028157
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
@@ -104,6 +110,7 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        waitForDrawsToResolve: 0
     - rid: 2034230108114649708
       type: {class: GetHPStatistics, ns: , asm: Assembly-CSharp}
       data:
@@ -160,3 +167,5 @@ MonoBehaviour:
         specialTargetRule: 4
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0

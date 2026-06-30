@@ -79,7 +79,7 @@ public class PlayableCard : MonoBehaviour,
         {
             DialogueView.Instance.gameObject.SetActive(true);
             DialogueView.Instance.SpeakLine(deckFrom.GetComponent<CompanionInstance>().companion.companionType.fullSprite,
-                    "You don't have enough mana for me to cast that for you.");
+                    "You don't have enough Élan for me to cast that for you.");
             return;
         }
 

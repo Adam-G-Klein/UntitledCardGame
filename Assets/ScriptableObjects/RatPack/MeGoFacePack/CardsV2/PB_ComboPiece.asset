@@ -17,6 +17,7 @@ MonoBehaviour:
   Description: Deal {rpl_damage} damage & if the last card you played was an Attack,
     draw 1 card from 2 random rats
   IconDescription: []
+  IconDescriptionTooltipLines: []
   defaultValues:
   - key: rpl_damage
     value: 7
@@ -67,6 +68,8 @@ MonoBehaviour:
         specialTargetRule: 1
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 2034230176448512660
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -83,6 +86,7 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        waitForDrawsToResolve: 0
     - rid: 2511001503980847372
       type: {class: CheckTypeOfMostRecentlyPlayedCard, ns: , asm: Assembly-CSharp}
       data:
@@ -119,6 +123,8 @@ MonoBehaviour:
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 5602892675124822191
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:

@@ -955,6 +955,23 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             number = numValidTargets;
         }
 
+        // Auto select if the number matches the number of valid targets
+        if (numValidTargets == number)
+        {
+            Debug.Log("PlayerHand: effect wants the player to select " + number + " cards, and there are exactly " + numValidTargets + " valid targets, auto selecting all valid targets");
+            List<PlayableCard> autoSelectedCards = new List<PlayableCard>();
+            foreach (PlayableCard card in GetCardsOrdered())
+            {
+                if ((disallowedCards == null || !disallowedCards.Contains(card.gameObject)) &&
+                    (cardsLimitedTo == null || cardsLimitedTo.Contains(card.gameObject)))
+                {
+                    autoSelectedCards.Add(card);
+                }
+            }
+            callback(autoSelectedCards);
+            return;
+        }
+
         EnemyEncounterManager.Instance.DestroyAllTooltips();
         string CHOOSE_X_CARDS = "Choose {0}{1} cards{2}";
         string CHOOSE_A_CARD = "Choose 1{0} card{1}";

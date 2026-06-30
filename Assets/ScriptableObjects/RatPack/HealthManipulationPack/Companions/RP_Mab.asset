@@ -36,14 +36,14 @@ MonoBehaviour:
     lines:
     - title: Mab
       description: Each turn, bleed 1 HP from adjacent rats unless they would die.
-        At the end of combat, give adjacent rats 3 max HP.
+        At the end of combat, give adjacent rats 3 max HP & heal 3 HP
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
       iconDescriptionLine: []
       card: {fileID: 0}
   keepsakeTitle: Mab's Mercy
   keepsakeDescription: Each turn, bleed 1 HP from adjacent rats unless they would
-    die. At the end of combat, give adjacent rats 3 max HP.
+    die. At the end of combat, give adjacent rats 3 max HP & heal 3 HP.
   tooltipTokens: 09000000
   references:
     version: 2
@@ -56,8 +56,8 @@ MonoBehaviour:
         - rid: 205828032053379073
         - rid: 7707884639552274914
         - rid: 2034230176448512341
-        - rid: 205828107393564676
         - rid: 578314559416696876
+        - rid: 7189280385716453596
         weight: 0
     - rid: 205828032053379073
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -73,13 +73,6 @@ MonoBehaviour:
         cardSelectionHelperText: 
         selectionPurpose: 0
         selectionCardCategory: 0
-    - rid: 205828107393564676
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: adj
-        prefabToInstantiate: {fileID: 3850217184923880746, guid: 604f6efaa1e828d4bacfc84a25dfbd7a, type: 3}
-        scale: 1
     - rid: 578314559416696876
       type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
       data:
@@ -141,6 +134,19 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
+    - rid: 7189280385716453596
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: adj
+        combatEffect: 9
+        scale: 3
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 3850217184923880746, guid: 604f6efaa1e828d4bacfc84a25dfbd7a, type: 3}
     - rid: 7401433059192472008
       type: {class: FilterEntityByHP, ns: , asm: Assembly-CSharp}
       data:

@@ -211,6 +211,9 @@ public abstract class EntityAbilityInstance
             if (document.originEntityType == EntityType.CompanionInstance) {
                 CompanionInstance source = document.map.GetItem<CompanionInstance>(EffectDocument.ORIGIN, 0);
                 document.boolMap.Add("cardFromThisOrigin", source == companion);
+
+                bool fromSelfOrAdjacent = CombatEntityManager.Instance.GetAdjacentCompanions(source, true).Contains(companion);
+                document.boolMap.Add("fromSelfOrAdjacent", fromSelfOrAdjacent);
             }
             EffectUtils.AddCompanionToDocument(document, "companionCardPlayedFrom", companion);
         }

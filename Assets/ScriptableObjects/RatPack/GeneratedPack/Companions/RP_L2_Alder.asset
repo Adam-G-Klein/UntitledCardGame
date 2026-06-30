@@ -41,15 +41,15 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Alder+
-      description: The first 5 times you draw a Charm card from another deck each
-        turn, draw 1 from that rat
+      description: The first 5 times you draw a Charm card from Alder or a rat adjacent
+        to Alder each turn, draw 1 from that rat
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
       iconDescriptionLine: []
       card: {fileID: 0}
   keepsakeTitle: Hidden Cache
-  keepsakeDescription: The first 5 times you draw a Charm card from another deck
-    each turn, draw 1 from that rat
+  keepsakeDescription: The first 5 times you draw a Charm card from Alder or an adjacent
+    rat each turn, draw 1 from that rat
   tooltipTokens: 
   references:
     version: 2
@@ -164,8 +164,8 @@ MonoBehaviour:
       type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EndWorkflowIfConditionMet
-        inputKey1: cardFromThisOrigin
-        conditionToEndOn: 1
+        inputKey1: fromSelfOrAdjacent
+        conditionToEndOn: 0
     - rid: 2511001095643857207
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:

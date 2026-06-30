@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Earthshaker
   m_EditorClassIdentifier: 
   guid: 362e5a7e-a636-43d6-bf69-345a56d78913
-  displayName: Earthshaker
-  maxHealth: 60
+  displayName: Butch Boxhound
+  maxHealth: 80
   baseAttackDamage: 0
   enemyDisplayType: 0
-  sprite: {fileID: 21300000, guid: 27ec1549f8e73da4c93e706a368e736b, type: 3}
+  sprite: {fileID: 21300000, guid: d870e904ee392490caaf72d57f82b5dd, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
   morale: 0
@@ -25,20 +25,27 @@ MonoBehaviour:
   cacheValueConfigs: []
   enemyPattern:
     behaviors:
-    - intent: 6
-      enemyTargetMethod: 6
+    - intent: 4
+      enemyTargetMethod: 7
       targetsKey: 
-      displayValue: 1
+      displayValue: 2
       effectSteps:
       - rid: 2295167909047304423
-      - rid: 3931529445166809429
-      - rid: 3931529445166809326
       - rid: 5602893111447519606
       - rid: 5602893111447519608
       - rid: 5602893111447519609
       - rid: 3443535291885027969
       - rid: 5602893111447519607
       - rid: 5280922829633617990
+    - intent: 6
+      enemyTargetMethod: 6
+      targetsKey: target
+      displayValue: 2
+      effectSteps:
+      - rid: 2295167909047304423
+      - rid: 3931529445166809429
+      - rid: 3931529445166809326
+      - rid: 7189280385716453420
     behaviorType: 0
   belowHalfHPEnemyPattern:
     behaviors: []
@@ -50,9 +57,15 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Earthquake
-      description: Deals AOE damage to your entire team and slowly grows stronger
+    - title: Wind Up
+      description: Gains strength and prepares a mighty AOE attack
       relatedBehaviorIndex: 0
+      icon: {fileID: 0}
+      iconDescriptionLine: []
+      card: {fileID: 0}
+    - title: Haymaker
+      description: Deals AOE damage to your entire team
+      relatedBehaviorIndex: 1
       icon: {fileID: 0}
       iconDescriptionLine: []
       card: {fileID: 0}
@@ -74,6 +87,7 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 3443535291885027969
       type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
       data:
@@ -85,13 +99,13 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 0
-        scale: 1
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
+        vfxPrefab: {fileID: 6137048663962808129, guid: 418a03ccd75ca98409952e0384c196fd, type: 3}
     - rid: 3931529445166809429
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -105,6 +119,7 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 5280922829633617990
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -126,7 +141,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 0
-        scale: 1
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
@@ -138,7 +153,7 @@ MonoBehaviour:
       type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: BooleanComparison
-        hardCodedInputKey1: 5
+        hardCodedInputKey1: 6
         useHardCodedInputKey1: 1
         inputKey1: 
         operation: 2
@@ -150,3 +165,8 @@ MonoBehaviour:
         effectStepName: EndWorkflowIfConditionMet
         inputKey1: pastStrengthThreshold
         conditionToEndOn: 1
+    - rid: 7189280385716453420
+      type: {class: ScriptableObjectEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ScriptableObjectEffectStep
+        effectStepSO: {fileID: 11400000, guid: 46ac36b880e2ff14aa699c90b6e9f19c, type: 2}

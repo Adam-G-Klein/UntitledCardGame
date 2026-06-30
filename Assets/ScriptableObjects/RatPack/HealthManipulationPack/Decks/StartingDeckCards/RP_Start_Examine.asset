@@ -72,6 +72,7 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        waitForDrawsToResolve: 0
     - rid: 5602892949302281051
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -92,6 +93,7 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 5602892949302281053
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:

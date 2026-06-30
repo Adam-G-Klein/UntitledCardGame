@@ -17,6 +17,7 @@ MonoBehaviour:
   Description: Unplayable. When drawn, give self and adjacent block equal to the
     number of cards in own deck ({numCards} cards)
   IconDescription: []
+  IconDescriptionTooltipLines: []
   defaultValues:
   - key: numCards
     value: 0
@@ -69,6 +70,8 @@ MonoBehaviour:
         specialTargetRule: 3
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 758315839196758414
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -93,6 +96,8 @@ MonoBehaviour:
         specialTargetRule: 4
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 758316092100444617
       type: {class: CountCardsInDeck, ns: , asm: Assembly-CSharp}
       data:
@@ -136,6 +141,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        toggleStatus: 0
     - rid: 7150943289421332804
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

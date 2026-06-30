@@ -15,6 +15,8 @@ MonoBehaviour:
   guid: 7334b425-0e1c-4a4c-bd4a-d97def94e25a
   Name: Ventilate
   Description: Exhaust 2 cards in hand at random & draw 1 card from 4 random rats
+  IconDescription: []
+  IconDescriptionTooltipLines: []
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 0f91baf441838d747bea7dbae09bfb7f, type: 3}
@@ -88,6 +90,7 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        waitForDrawsToResolve: 0
     - rid: 9024302470308298798
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -100,6 +103,8 @@ MonoBehaviour:
         specialTargetRule: 1
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 9024302470308298799
       type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
       data:
@@ -118,3 +123,5 @@ MonoBehaviour:
         specialTargetRule: 2
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0

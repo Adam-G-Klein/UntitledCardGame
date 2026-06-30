@@ -16,7 +16,7 @@ MonoBehaviour:
   interestRate: 0.2
   interestCap: 5
   benchHealingAmount: 10
-  postEliteHealingAmount: 5
+  postEliteHealingAmount: 10
   bossSpawnLocation: {x: 0, y: 1.5}
   shopLevels:
   - level: 0
@@ -27,13 +27,15 @@ MonoBehaviour:
     commonCompanionPercentage: 100
     uncommonCompanionPercentage: 0
     rareCompanionPercentage: 0
-    commonCardPercentage: 95
-    uncommonCardPercentage: 5
+    commonCardPercentage: 70
+    uncommonCardPercentage: 30
     rareCardPercentage: 0
     ratBonusHealth: 0
     cardRemovalDiscount: 0
     numCardRemovalsAllowed: 1
     numLessCardsInStartingDeck: 0
+    switchDecksEnabled: 1
+    cardRemovalEnabled: 1
     upgradeTooltip:
       empty: 0
       lines:
@@ -51,13 +53,15 @@ MonoBehaviour:
     commonCompanionPercentage: 69
     uncommonCompanionPercentage: 30
     rareCompanionPercentage: 1
-    commonCardPercentage: 69
-    uncommonCardPercentage: 30
-    rareCardPercentage: 1
+    commonCardPercentage: 55
+    uncommonCardPercentage: 40
+    rareCardPercentage: 5
     ratBonusHealth: 0
     cardRemovalDiscount: 0
     numCardRemovalsAllowed: 1
     numLessCardsInStartingDeck: 0
+    switchDecksEnabled: 1
+    cardRemovalEnabled: 1
     upgradeTooltip:
       empty: 0
       lines:
@@ -68,8 +72,8 @@ MonoBehaviour:
         iconDescriptionLine: []
         card: {fileID: 0}
   - level: 2
-    shopLevelIncrementsToUnlock: 8
-    upgradeIncrementCost: 4
+    shopLevelIncrementsToUnlock: 6
+    upgradeIncrementCost: 5
     numCardsToShow: 4
     numKeepsakesToShow: 3
     commonCompanionPercentage: 50
@@ -82,11 +86,13 @@ MonoBehaviour:
     cardRemovalDiscount: 0
     numCardRemovalsAllowed: 1
     numLessCardsInStartingDeck: 0
+    switchDecksEnabled: 1
+    cardRemovalEnabled: 1
     upgradeTooltip:
       empty: 0
       lines:
       - title: Upgrade to Level 4
-        description: Increase shop rarity, better card removal, better starting decks
+        description: More rare rats, better card removal, better starting decks
         relatedBehaviorIndex: 0
         icon: {fileID: 0}
         iconDescriptionLine: []
@@ -99,13 +105,15 @@ MonoBehaviour:
     commonCompanionPercentage: 30
     uncommonCompanionPercentage: 40
     rareCompanionPercentage: 30
-    commonCardPercentage: 30
+    commonCardPercentage: 45
     uncommonCardPercentage: 40
-    rareCardPercentage: 30
+    rareCardPercentage: 15
     ratBonusHealth: 5
     cardRemovalDiscount: 3
     numCardRemovalsAllowed: 3
     numLessCardsInStartingDeck: 1
+    switchDecksEnabled: 1
+    cardRemovalEnabled: 1
     upgradeTooltip:
       empty: 0
       lines: []

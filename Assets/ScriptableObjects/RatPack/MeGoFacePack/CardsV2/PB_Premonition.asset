@@ -15,11 +15,13 @@ MonoBehaviour:
   guid: 829d164f-3ab3-4b35-8818-e2f0e05812e9
   Name: Premonition
   Description: Retain. Retain an Attack card in hand & gain 1 energy next turn
+  IconDescription: []
+  IconDescriptionTooltipLines: []
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: c0e53d043957bac4c8fb2528ecd0a1b9, type: 3}
   cardCategory: 2
-  packFrom: {fileID: 0}
+  packFrom: {fileID: 11400000, guid: 908f28c6f48104c2d85d2fcbd973771e, type: 2}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
@@ -58,6 +60,8 @@ MonoBehaviour:
         specialTargetRule: 2
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 2034230176448512665
       type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
@@ -66,6 +70,8 @@ MonoBehaviour:
         filter:
           cardCategoriesToInclude: 01000000
           retainedCardsFilter: 0
+          manaCostFilter: 0
+          manaCost: 0
           exactCardType: {fileID: 0}
         outputKey: onlyAttacks
     - rid: 2116895648763871336
@@ -103,3 +109,5 @@ MonoBehaviour:
         specialTargetRule: 5
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0

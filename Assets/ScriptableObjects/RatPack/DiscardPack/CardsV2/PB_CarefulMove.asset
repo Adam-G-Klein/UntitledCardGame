@@ -34,13 +34,14 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 1
+  IconDescriptionTooltipLines: []
   defaultValues:
   - key: rpl_damage
     value: 6
   Cost: 1
   Artwork: {fileID: 21300000, guid: e8c1b164e48b3ed4ea21cc0ef5d14b1a, type: 3}
   cardCategory: 1
-  packFrom: {fileID: 0}
+  packFrom: {fileID: 11400000, guid: 5f4300e0913784f05aeff0dd086d4338, type: 2}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
@@ -84,6 +85,8 @@ MonoBehaviour:
         specialTargetRule: 0
         cantCancelTargetting: 1
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 5602892563578094203
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -117,3 +120,5 @@ MonoBehaviour:
         specialTargetRule: 5
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0

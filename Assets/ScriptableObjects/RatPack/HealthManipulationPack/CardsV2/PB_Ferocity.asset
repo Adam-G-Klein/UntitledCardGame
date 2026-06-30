@@ -94,6 +94,7 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 5602892675124822084
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -120,3 +121,4 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        toggleStatus: 0

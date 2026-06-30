@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98c54fe17bbfaba4697c85c1618843f4, type: 3}
   m_Name: RP_SpaulderCardPool
   m_EditorClassIdentifier: 
-  commonCards: []
-  uncommonCards: []
+  commonCards:
+  - {fileID: 11400000, guid: 46efcb8fab42548df8c86eb43484e77e, type: 2}
+  - {fileID: 11400000, guid: 92fb24decc4574596b1e327840045852, type: 2}
+  uncommonCards:
+  - {fileID: 11400000, guid: c9acb5355d33e41deb0fe60c7411d935, type: 2}
+  - {fileID: 11400000, guid: a11ef2a8dfb5c407db90cbf240987971, type: 2}
   rareCards:
   - {fileID: 11400000, guid: 836f9fb9182fb4b3fa1358563d647688, type: 2}
   - {fileID: 11400000, guid: baad398ad6c5d4787943a1afc7c7f502, type: 2}

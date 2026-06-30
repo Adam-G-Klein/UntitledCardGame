@@ -14,9 +14,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 75066bef-cce4-41db-9960-bbc2b0bbcd9f
   Name: Stonesprout
-  Description: Exhaust 2 Charm cards in hand & give any 10 block
-  IconDescription: []
-  IconDescriptionTooltipLines: []
+  Description: Exhaust 1 Charm cards in hand & give any 10 block
+  IconDescription:
+  - tokenType: 0
+    text: Exhaust a Charm card in hand as cost
+    icon: 0
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 0
+    text: 10
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 2
+  - tokenType: 2
+    text: 
+    icon: 18
+  IconDescriptionTooltipLines:
+  - Choose a Charm card in hand to exhaust. This is a cost to play this card.
+  - Give a rat of your choice block, preventing damage until next turn.
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: a5222a8d127763c49b397cce916345ec, type: 3}
@@ -56,6 +73,7 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 1289961959942521125
       type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
       data:
@@ -93,11 +111,12 @@ MonoBehaviour:
         inputKey: statusCards
         outputKey: chosen
         validTargets: 03000000
-        number: 2
+        number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
-        selectionPurpose: 1
+        selectionPurpose: 5
+        selectionCardCategory: 4
     - rid: 7150943289421332674
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -111,6 +130,7 @@ MonoBehaviour:
         cantCancelTargetting: 1
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 7150943289421332675
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:

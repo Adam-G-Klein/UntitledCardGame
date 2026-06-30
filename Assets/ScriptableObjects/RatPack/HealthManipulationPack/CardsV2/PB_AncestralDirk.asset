@@ -16,6 +16,8 @@ MonoBehaviour:
   Name: 'Ancestral Dirk '
   Description: Deal {rpl_damage} damage & if self lost HP this turn, give all Attack
     cards in hand +2 damage
+  IconDescription: []
+  IconDescriptionTooltipLines: []
   defaultValues:
   - key: rpl_damage
     value: 3
@@ -50,6 +52,7 @@ MonoBehaviour:
         effectStepName: CombatInstanceTookDamageThisTurn
         inputCombatInstanceKey: self
         outputKey: tookDamage
+        numTimesOutputKey: 
     - rid: 758315839196758671
       type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
       data:
@@ -68,6 +71,8 @@ MonoBehaviour:
         specialTargetRule: 2
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 758316092100444625
       type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
@@ -76,6 +81,8 @@ MonoBehaviour:
         filter:
           cardCategoriesToInclude: 01000000
           retainedCardsFilter: 0
+          manaCostFilter: 0
+          manaCost: 0
           exactCardType: {fileID: 0}
         outputKey: attacks
     - rid: 758316092100444626
@@ -121,6 +128,8 @@ MonoBehaviour:
         specialTargetRule: 4
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 5602892949302281048
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -133,6 +142,8 @@ MonoBehaviour:
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 5602892949302281049
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:

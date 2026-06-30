@@ -82,8 +82,7 @@ public class DeckInstance : MonoBehaviour
         {
             Debug.Log("Dealing extra cards for this deck instance, count: " + extraCardsToDeal);
         }
-        yield return DealCardsToPlayerHand(sourceDeck.cardsDealtPerTurn + extraCardsToDeal);
-        yield return null;
+        yield return DealCardsToPlayerHand(sourceDeck.cardsDealtPerTurn + extraCardsToDeal, countAsExtraDraw: false);
     }
 
     private void SetupPiles(Deck sourceDeck)
@@ -120,7 +119,7 @@ public class DeckInstance : MonoBehaviour
         StartCoroutine(DealCardsToPlayerHand(1));
     }
 
-    public IEnumerator DealCardsToPlayerHand(int numCards, List<PlayableCard> deltCards = null, bool fromCardCast = false)
+    public IEnumerator DealCardsToPlayerHand(int numCards, List<PlayableCard> deltCards = null, bool fromCardCast = false, bool countAsExtraDraw = false)
     {
         List<Card> cards = new List<Card>();
         for (int i = 0; i < numCards; i++)
@@ -130,6 +129,10 @@ public class DeckInstance : MonoBehaviour
         inHand.AddRange(cards);
         List<PlayableCard> cardsDelt = PlayerHand.Instance.DealCards(cards, this, true, fromCardCast);
         deltCards?.AddRange(cardsDelt);
+        if (countAsExtraDraw)
+        {
+            EnemyEncounterManager.Instance.combatEncounterState.RecordExtraCardDrawn();
+        }
         InvokeDrawDiscardPilesChanged();
     }
 

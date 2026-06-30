@@ -16,6 +16,7 @@ MonoBehaviour:
   Name: 
   Description: 
   IconDescription: []
+  IconDescriptionTooltipLines: []
   defaultValues: []
   Cost: 2
   Artwork: {fileID: 0}
@@ -61,6 +62,8 @@ MonoBehaviour:
         specialTargetRule: 4
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 754093991137641291
       type: {class: ActivatePower, ns: , asm: Assembly-CSharp}
       data:

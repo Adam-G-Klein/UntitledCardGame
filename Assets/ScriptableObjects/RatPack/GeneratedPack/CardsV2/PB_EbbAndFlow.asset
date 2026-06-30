@@ -14,12 +14,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: a218efea-351b-4f6b-9ad0-4face979a7b3
   Name: Ebb and Flow
-  Description: Discard any Charm card in hand & deal {rpl_damage} damage
-  IconDescription: []
-  IconDescriptionTooltipLines: []
+  Description: 
+  IconDescription:
+  - tokenType: 0
+    text: Exhaust 2 Charm cards in hand as cost
+    icon: 0
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 0
+    text: '{rpl_damage}'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
+  - tokenType: 2
+    text: 
+    icon: 33
+  IconDescriptionTooltipLines:
+  - Choose 2 Charm cards in hand to exhaust as a cost to play this card.
+  - Deal damage to all foes.
   defaultValues:
   - key: rpl_damage
-    value: 9
+    value: 12
   Cost: 1
   Artwork: {fileID: 21300000, guid: fccdd43ca64c8644fa54c06ab327bdd3, type: 3}
   cardCategory: 1
@@ -58,12 +75,13 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 1289961959942521125
       type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CardInHandEffect
         inputKey: card
-        effect: 0
+        effect: 1
     - rid: 1289961959942521126
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -76,7 +94,8 @@ MonoBehaviour:
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
-        selectionPurpose: 2
+        selectionPurpose: 5
+        selectionCardCategory: 4
     - rid: 1289961959942521127
       type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
@@ -108,20 +127,21 @@ MonoBehaviour:
         outputKey: target
         validTargets: 02000000
         number: 1
-        specialTargetRule: 0
-        cantCancelTargetting: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 7401433037623787538
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 0
-        scale: 9
+        scale: 12
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
+        vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}

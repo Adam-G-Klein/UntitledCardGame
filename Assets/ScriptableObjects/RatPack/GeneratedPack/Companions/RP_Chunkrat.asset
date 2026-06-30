@@ -41,6 +41,7 @@ MonoBehaviour:
       card: {fileID: 0}
   keepsakeTitle: Chunkrat's Bulk
   keepsakeDescription: End of combat, permanently add a "Yummy Snack" to this deck.
+  tooltipTokens: 
   references:
     version: 2
     RefIds:
@@ -67,6 +68,7 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 205828032053379183
       type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
       data:

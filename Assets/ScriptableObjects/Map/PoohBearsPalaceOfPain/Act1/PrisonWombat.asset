@@ -47,7 +47,7 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Enacting Revenge
+    - title: You Ratted Me Out!
       description: Attacks the leftmost rat and grows in strength
       relatedBehaviorIndex: -1
       icon: {fileID: 0}
@@ -76,6 +76,7 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 3931529445166809422
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:

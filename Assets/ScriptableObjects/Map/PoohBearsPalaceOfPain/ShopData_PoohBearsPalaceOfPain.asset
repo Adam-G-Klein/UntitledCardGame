@@ -28,6 +28,7 @@ MonoBehaviour:
   incrementalRerollPriceIncrease: 0
   cardRemovalPrice: 6
   cardRemovalPriceIncrease: 4
+  switchDecksPrice: 1
   commonCardPrice: 1
   uncommonCardPrice: 2
   rareCardPrice: 3
@@ -52,7 +53,13 @@ MonoBehaviour:
   numCardsBoughtSellFactor: 1
   numCardsRemovedSellFactor: 2
   baseCardsToRemoveOnUpgrade:
-  - {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
-  - {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
-  - {fileID: 11400000, guid: b990549fcbd124f17ab76bb66d219789, type: 2}
-  - {fileID: 11400000, guid: 6e01b4f822628475c955ded353da9480, type: 2}
+  - {fileID: 11400000, guid: 38df20cfa67a247b7ba206413d7f874e, type: 2}
+  - {fileID: 11400000, guid: 2483a7d7534424a4498e2abb3572b2e0, type: 2}
+  - {fileID: 11400000, guid: 40e12d470fef646979c3a9e646ddd1fa, type: 2}
+  - {fileID: 11400000, guid: fe96bb141ca664146b90ec7a3d9ebc7b, type: 2}
+  - {fileID: 11400000, guid: 8bb5a419ae90a421dad424b745fb0b71, type: 2}
+  - {fileID: 11400000, guid: 2445dc628ada540c2baf9d79d6e94c72, type: 2}
+  - {fileID: 11400000, guid: fa00b26bf83574e0e841fcf8877affb4, type: 2}
+  - {fileID: 11400000, guid: 22c9e41b9bfe848dd924c8d66052ce7b, type: 2}
+  - {fileID: 11400000, guid: fbd85eb705f02456c85820814ee152b9, type: 2}
+  - {fileID: 11400000, guid: 2bc4e5c0377f4446280f89a77eea4d68, type: 2}

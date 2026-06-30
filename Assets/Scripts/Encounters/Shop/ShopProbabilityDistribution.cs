@@ -7,13 +7,13 @@ using UnityEngine;
 
 public class CardWithWeight {
     public CardInShopWithPrice card;
-    public float weight;
+    public double weight;
     public Card.CardRarity rarity;
     public CardSource cardSource;
 
     public CardWithWeight(
         CardInShopWithPrice card,
-        float weight,
+        double weight,
         Card.CardRarity rarity,
         CardSource cardSource
     ) {
@@ -26,7 +26,7 @@ public class CardWithWeight {
     // Reweighting the card.
     public CardWithWeight(
         CardWithWeight x,
-        float weight
+        double weight
     ) {
         this.card = x.card;
         this.weight = weight;
@@ -46,8 +46,8 @@ public class ShopCardProbabilityDistBuilder {
 
     List<CardWithWeight> filteredCards = new();
 
-    Dictionary<Card.CardRarity, float> rarityProb = new();
-    Dictionary<CardSource, float> cardSourceProb = new();
+    Dictionary<Card.CardRarity, double> rarityProb = new();
+    Dictionary<CardSource, double> cardSourceProb = new();
 
     public ShopCardProbabilityDistBuilder(ShopDataSO shopData, ShopLevel shopLevel, List<Companion> companionList) {
         // Add the card pools for each companion that is on your team.
@@ -121,14 +121,14 @@ public class ShopCardProbabilityDistBuilder {
             .Select(g => g.First())
             .ToList();
 
-        rarityProb[Card.CardRarity.COMMON] = (float) shopLevel.commonCardPercentage / 100f;
-        rarityProb[Card.CardRarity.UNCOMMON] = (float) shopLevel.uncommonCardPercentage / 100f;
-        rarityProb[Card.CardRarity.RARE] = (float) shopLevel.rareCardPercentage / 100f;
+        rarityProb[Card.CardRarity.COMMON] = (double) shopLevel.commonCardPercentage / 100.0;
+        rarityProb[Card.CardRarity.UNCOMMON] = (double) shopLevel.uncommonCardPercentage / 100.0;
+        rarityProb[Card.CardRarity.RARE] = (double) shopLevel.rareCardPercentage / 100.0;
 
-        cardSourceProb[CardSource.CompanionPool] = (float) shopData.companionTypeCardPoolPct / 100f;
-        cardSourceProb[CardSource.PackPool] = (float) shopData.packCardPoolPct / 100f;
-        cardSourceProb[CardSource.CrossPackPool] = (float) shopData.crossPackCardPoolPct / 100f;
-        cardSourceProb[CardSource.NeutralPool] = (float) shopData.neutralCardPoolPct / 100f;
+        cardSourceProb[CardSource.CompanionPool] = (double) shopData.companionTypeCardPoolPct / 100.0;
+        cardSourceProb[CardSource.PackPool] = (double) shopData.packCardPoolPct / 100.0;
+        cardSourceProb[CardSource.CrossPackPool] = (double) shopData.crossPackCardPoolPct / 100.0;
+        cardSourceProb[CardSource.NeutralPool] = (double) shopData.neutralCardPoolPct / 100.0;
     }
 
     public static List<CardWithWeight> ExtractCardsFromPool(
@@ -144,15 +144,15 @@ public class ShopCardProbabilityDistBuilder {
         List<CardType> rarePool = pool.AllUnlockedRareCards(ProgressManager.Instance.progressSO.unlockedCards, shopData.alwaysShowUnlockedCards);
         foreach (CardType card in commonPool) {
             CardInShopWithPrice c = new CardInShopWithPrice(card, shopData.commonCardPrice, dude, pool, Card.CardRarity.COMMON, packSO);
-            cards.Add(new CardWithWeight(c, 1f, c.rarity, cardSource));
+            cards.Add(new CardWithWeight(c, 1.0, c.rarity, cardSource));
         }
         foreach (CardType card in uncommonPool) {
             CardInShopWithPrice c = new CardInShopWithPrice(card, shopData.uncommonCardPrice, dude, pool, Card.CardRarity.UNCOMMON, packSO);
-            cards.Add(new CardWithWeight(c, 1f, c.rarity, cardSource));
+            cards.Add(new CardWithWeight(c, 1.0, c.rarity, cardSource));
         }
         foreach (CardType card in rarePool) {
             CardInShopWithPrice c = new CardInShopWithPrice(card, shopData.rareCardPrice, dude, pool, Card.CardRarity.RARE, packSO);
-            cards.Add(new CardWithWeight(c, 1f, c.rarity, cardSource));
+            cards.Add(new CardWithWeight(c, 1.0, c.rarity, cardSource));
         }
         return cards;
     }
@@ -202,20 +202,19 @@ public class ShopCardProbabilityDistBuilder {
             int numGroups = this.CountNumGroupsForRarityAndCardSource(card.rarity, card.cardSource);
             int count = this.CountCardsWithSameFeatures(card);
             // Debug.Log("Number of cards with same features: " + count + ", card " + card.card.cardType.name + ", number of groups: " + numGroups);
-            float probInGroup = 1f / (float) count;
-            float groupProb = 1f / (float) numGroups;  // Each group gets equal probability mass.
-            float combinedProb = probInGroup * groupProb * rarityProb[card.rarity] * cardSourceProb[card.cardSource];
+            double probInGroup = 1.0 / (double) count;
+            double groupProb = 1.0 / (double) numGroups;  // Each group gets equal probability mass.
+            double combinedProb = probInGroup * groupProb * rarityProb[card.rarity] * cardSourceProb[card.cardSource];
             cardCategoricalDistribution.Add(new CardWithWeight(card, combinedProb));
         }
-        cardCategoricalDistribution = cardCategoricalDistribution
-            .OrderByDescending(c => c.weight)
-            .ToList();
         return new ShopProbabilityDistribution(cardCategoricalDistribution);
     }
 }
 
 public class ShopProbabilityDistribution {
     List<CardWithWeight> cardCategoricalDistribution = new();
+
+    private static System.Random rng = new System.Random();
 
     public ShopProbabilityDistribution(List<CardWithWeight> cardCat) {
         this.cardCategoricalDistribution = cardCat;
@@ -246,27 +245,32 @@ public class ShopProbabilityDistribution {
 
 
     private CardWithWeight randomDraw(List<CardWithWeight> cards) {
-        float totalWeight = (float) cards.Select(c => c.weight).ToList().Sum();
-
-        float sample = UnityEngine.Random.Range(0f, totalWeight);
-        float accum = 0f;
+        double totalWeight = cards.Sum(c => (double)c.weight);
+        // NextDouble() returns a native double in [0, 1), avoiding the
+        // float precision loss that UnityEngine.Random.Range() would introduce.
+        double sample = rng.NextDouble() * totalWeight; // or use System.Random for a double draw
+        double accum = 0.0;
         for (int i = 0; i < cards.Count; i++) {
             accum += cards[i].weight;
             if (sample <= accum) {
                 return cards[i];
             }
         }
-        return null;
+        return cards[cards.Count - 1]; // fallback instead of null
     }
 
     public void PrintCardDistribution()
     {
-        foreach (CardWithWeight card in cardCategoricalDistribution)
+        List<CardWithWeight> sortedDist = this.cardCategoricalDistribution
+            .OrderByDescending(c => c.weight)
+            .ToList();
+
+        foreach (CardWithWeight card in sortedDist)
         {
             Debug.Log($"[Card Probability Distribution] {card.card.cardType.name} ({card.rarity}, {card.cardSource}): {card.weight}");
         }
         // Check that the probabilities sum to 1.
-        float totalProb = cardCategoricalDistribution.Select(c => c.weight).ToList().Sum();
+        double totalProb = sortedDist.Select(c => c.weight).ToList().Sum();
         Debug.Log($"[Card Probability Distribution] Total Probability: {totalProb}");
     }
 }

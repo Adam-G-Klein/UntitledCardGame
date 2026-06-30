@@ -1,0 +1,174 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: RP_ByTheBook
+  m_EditorClassIdentifier: 
+  guid: 75dd110d-68e2-4835-97a5-b074fcd3bda9
+  Name: By the Book
+  Description: Unplayable. When discarded, give the leftmost rat 4 block. When in
+    hand end of turn, gain perma +2 block
+  IconDescription:
+  - tokenType: 0
+    text: Unplayable
+    icon: 0
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 15
+  - tokenType: 0
+    text: ': '
+    icon: 11
+  - tokenType: 0
+    text: '{rpl_block}'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 2
+  - tokenType: 2
+    text: 
+    icon: 6
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 17
+  - tokenType: 0
+    text: ': '
+    icon: 2
+  - tokenType: 0
+    text: +2
+    icon: 2
+  - tokenType: 2
+    text: 
+    icon: 2
+  IconDescriptionTooltipLines:
+  - This card cannot be played.
+  - When this card is discarded, give the leftmost rat block, preventing damage until
+    next turn.
+  - When this card is in hand at the end of turn, it gives extra block for the rest
+    of combat
+  defaultValues:
+  - key: rpl_block
+    value: 4
+  Cost: 0
+  Artwork: {fileID: 21300000, guid: 50bbe2ab14b04f54c96e28c3e3f8e313, type: 3}
+  cardCategory: 2
+  packFrom: {fileID: 11400000, guid: 5f4300e0913784f05aeff0dd086d4338, type: 2}
+  vfxPrefab: {fileID: 0}
+  playable: 0
+  exhaustsWhenPlayed: 0
+  retain: 0
+  effectWorkflows:
+  - rid: 5602892563578094203
+  onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
+    rid: 2034230108114649711
+  inPlayerHandEndOfTurnWorkflow:
+    rid: 7189280321289322496
+  onDrawEffectWorkflow:
+    rid: -2
+  tooltips: 
+  tooltipKeyword: 37
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 2034230108114649711
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 2034230108114649752
+        - rid: 7401433308100035072
+        - rid: 2034230108114649755
+    - rid: 2034230108114649752
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: adj
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 7
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
+    - rid: 2034230108114649755
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: adj
+        prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
+        scale: 1
+    - rid: 5602892563578094203
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps: []
+    - rid: 7189280321289322496
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 7189280321289322497
+        - rid: 7189280321289322498
+        - rid: 7189280321289322499
+    - rid: 7189280321289322497
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: thisCard
+        validTargets: 03000000
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
+    - rid: 7189280321289322498
+      type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardModificationEffect
+        inputKey: thisCard
+        scale: 2
+        affectsAllCardsOfType: 0
+        cardTypeToModify: {fileID: 0}
+        getScaleFromKey: 0
+        scaleKey: 
+        modification: 4
+    - rid: 7189280321289322499
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: thisCard
+        prefabToInstantiate: {fileID: 6137048663962808129, guid: 032e33b914ed32b418cdc1ed2f15fc6e, type: 3}
+        scale: 1
+    - rid: 7401433308100035072
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: adj
+        statusEffect: 2
+        scale: 4
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        toggleStatus: 0

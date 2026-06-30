@@ -41,6 +41,7 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 4
+  IconDescriptionTooltipLines: []
   defaultValues:
   - key: rpl_damage
     value: 2
@@ -83,6 +84,8 @@ MonoBehaviour:
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 1886371092460208252
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -95,6 +98,8 @@ MonoBehaviour:
         specialTargetRule: 1
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 1886371092460208256
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -131,6 +136,8 @@ MonoBehaviour:
         specialTargetRule: 2
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 2295168569757139626
       type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
       data:

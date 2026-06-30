@@ -14,12 +14,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: b5cea7e3-0fcb-4f31-9980-57c3e9995b4f
   Name: Peacemaker
-  Description: Unplayable. When discarded, deal {ondiscard_rpl_damage} damage to
-    a random foe x2
+  Description: 
   IconDescription:
+  - tokenType: 2
+    text: 
+    icon: 30
   - tokenType: 0
-    text: Unplayable.
+    text: ': '
     icon: 0
+  - tokenType: 2
+    text: 
+    icon: 3
+  - tokenType: 2
+    text: 
+    icon: 3
+  - tokenType: 2
+    text: 
+    icon: 19
   - tokenType: 1
     text: 
     icon: 0
@@ -38,18 +49,18 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 4
-  - tokenType: 0
-    text: x2
-    icon: 0
+  IconDescriptionTooltipLines:
+  - If you have 3 or less cards in hand, draw 1 card from 2 random rats.
+  - When this card is discarded, deal damage to a random foe.
   defaultValues:
   - key: ondiscard_rpl_damage
-    value: 3
+    value: 5
   Cost: 0
   Artwork: {fileID: 21300000, guid: 70dd24a7c98646b44870b00b67a720f4, type: 3}
   cardCategory: 1
-  packFrom: {fileID: 0}
+  packFrom: {fileID: 11400000, guid: 5f4300e0913784f05aeff0dd086d4338, type: 2}
   vfxPrefab: {fileID: 0}
-  playable: 0
+  playable: 1
   exhaustsWhenPlayed: 0
   retain: 0
   effectWorkflows:
@@ -75,6 +86,83 @@ MonoBehaviour:
         effectSteps:
         - rid: 7401433308100034879
         - rid: 7401433308100034880
+    - rid: 7189280385716453526
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: cards
+        validTargets: 03000000
+        number: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
+    - rid: 7189280385716453527
+      type: {class: CountStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CountStep
+        inputKey: cards
+        outputKey: numCards
+    - rid: 7189280385716453528
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 3
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 4
+        inputKey2: numCards
+        outputKey: lessThan3
+    - rid: 7189280385716453529
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: lessThan3
+        conditionToEndOn: 0
+    - rid: 7189280385716453530
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: rats
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
+    - rid: 7189280385716453531
+      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetRandomItems
+        inputKey: rats
+        scale: 2
+        scaleKey: 
+        getScaleFromKey: 0
+        outputKey: selected
+        withReplacement: 0
+    - rid: 7189280385716453532
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: selected
+        outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        waitForDrawsToResolve: 0
+    - rid: 7189280385716453533
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: selected
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1
     - rid: 7401433308100034879
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -87,20 +175,30 @@ MonoBehaviour:
         specialTargetRule: 6
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 7401433308100034880
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
         inputKey: enemy
         combatEffect: 0
-        scale: 3
+        scale: 6
         getScaleFromKey: 0
         inputScaleKey: 
-        multiplicity: 2
+        multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: 4847f21b038e1aa42bceefe5c97ab1ab, type: 3}
+        vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
     - rid: 8034949815888773120
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
-        effectSteps: []
+        effectSteps:
+        - rid: 7189280385716453526
+        - rid: 7189280385716453527
+        - rid: 7189280385716453528
+        - rid: 7189280385716453529
+        - rid: 7189280385716453530
+        - rid: 7189280385716453531
+        - rid: 7189280385716453532
+        - rid: 7189280385716453533

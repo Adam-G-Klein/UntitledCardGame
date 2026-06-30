@@ -16,6 +16,8 @@ public class CombatEncounterState
     private Dictionary<CombatInstance, int> numTimesCombatInstanceTookDamageThisTurn =
         new Dictionary<CombatInstance, int>();
 
+    private int numExtraCardsDrawnThisTurn = 0;
+
     public int turn = 1;
 
     public void CastCard(Card card)
@@ -33,6 +35,11 @@ public class CombatEncounterState
         cardsDiscardedThisTurn.Add(card);
     }
 
+    public void RecordExtraCardDrawn()
+    {
+        numExtraCardsDrawnThisTurn++;
+    }
+
 
     public void UpdateStateOnEndTurn()
     {
@@ -44,6 +51,7 @@ public class CombatEncounterState
         cardsDiscardedThisCombat.AddRange(cardsDiscardedThisTurn);
         cardsDiscardedThisTurn = new List<Card>();
         numTimesCombatInstanceTookDamageThisTurn.Clear();
+        numExtraCardsDrawnThisTurn = 0;
     }
 
     public Card GetLastCastCard()
@@ -101,5 +109,10 @@ public class CombatEncounterState
         {
             numTimesCombatInstanceTookDamageThisTurn[combatInstance] = 1;
         }
+    }
+
+    public int GetNumExtraCardsDrawnThisTurn()
+    {
+        return numExtraCardsDrawnThisTurn;
     }
 }

@@ -16,6 +16,8 @@ MonoBehaviour:
   Name: Followthrough
   Description: Deal {rpl_damage} damage & if the last card you played was an Attack,
     give self 1 strength
+  IconDescription: []
+  IconDescriptionTooltipLines: []
   defaultValues:
   - key: rpl_damage
     value: 5
@@ -57,6 +59,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        toggleStatus: 0
     - rid: 2034230176448512659
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -69,6 +72,8 @@ MonoBehaviour:
         specialTargetRule: 4
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 2034230176448512660
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -111,6 +116,8 @@ MonoBehaviour:
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 5602892675124822191
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 207c2d14-3124-4054-87f0-cda50587e297
   Name: Doombloom
-  Description: Unplayable. End of turn, deal {inhand_rpl_damage} damage to a random
+  Description: Unplayable. When exhausted, deal {inhand_rpl_damage} damage to a random
     foe. When drawn, give this card +6 damage
   IconDescription:
   - tokenType: 0
@@ -25,12 +25,12 @@ MonoBehaviour:
     icon: 0
   - tokenType: 2
     text: 
-    icon: 17
+    icon: 16
   - tokenType: 0
     text: ': '
     icon: 0
   - tokenType: 0
-    text: '{inhand_rpl_damage}'
+    text: '{onexhaust_rpl_damage}'
     icon: 0
   - tokenType: 2
     text: 
@@ -48,18 +48,18 @@ MonoBehaviour:
     text: ': '
     icon: 0
   - tokenType: 0
-    text: +6
+    text: +8
     icon: 0
   - tokenType: 2
     text: 
     icon: 1
   IconDescriptionTooltipLines:
   - This card is unplayable.
-  - End of turn, if this card is still in hand, deal damage to a random foe.
-  - Whenever you draw this card, it deals +6 damage.
+  - When this card is exhausted, deal damage to a random foe.
+  - Whenever you draw this card, it gains extra damage.
   defaultValues:
-  - key: inhand_rpl_damage
-    value: 1
+  - key: onexhaust_rpl_damage
+    value: 4
   Cost: 0
   Artwork: {fileID: 21300000, guid: a5b8c5dccafa78942bf687e9f47d4ce4, type: 3}
   cardCategory: 4
@@ -71,7 +71,7 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 2034230108114649328
   onExhaustEffectWorkflow:
-    rid: -2
+    rid: 6567162537147630138
   onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
@@ -112,7 +112,7 @@ MonoBehaviour:
       data:
         effectStepName: CardModificationEffect
         inputKey: self
-        scale: 6
+        scale: 8
         affectsAllCardsOfType: 0
         cardTypeToModify: {fileID: 0}
         getScaleFromKey: 0
@@ -137,16 +137,20 @@ MonoBehaviour:
     - rid: 5602892561590779904
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
+        effectSteps: []
+    - rid: 6567162537147630138
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
         effectSteps:
-        - rid: 5602892561590779905
-        - rid: 5602892561590779906
-    - rid: 5602892561590779905
+        - rid: 6567162537147630139
+        - rid: 6567162537147630140
+    - rid: 6567162537147630139
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: enemy
+        outputKey: random
         validTargets: 02000000
         number: 1
         specialTargetRule: 6
@@ -154,16 +158,16 @@ MonoBehaviour:
         cardSelectionHelperText: 
         selectionPurpose: 0
         selectionCardCategory: 0
-    - rid: 5602892561590779906
+    - rid: 6567162537147630140
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
-        inputKey: enemy
+        inputKey: random
         combatEffect: 14
-        scale: 1
+        scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
+        vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}

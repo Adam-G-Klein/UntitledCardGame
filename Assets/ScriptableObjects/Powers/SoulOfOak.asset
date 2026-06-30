@@ -11,24 +11,27 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ac8d29b7a56d46539bdf7eeb2d1260a, type: 3}
   m_Name: SoulOfOak
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   powerType: 9
   title: Soul of Oak
-  description: End of turn, gain 2 block for each Status card in hand
+  description: End of turn, gain 2 block for each Charm card in hand
   abilities:
   - rid: 754093991137640772
-  displaySprite: {fileID: 21300000, guid: bdd59c505b86bf44cabf5f9f82a41064, type: 3}
-  tooltip:
-    rid: 754093871974056657
+  displaySprite: {fileID: 21300000, guid: 8c16952da6b2cfa4181be941e4a49469, type: 3}
+  extraTooltip:
+    rid: 7189280385716453391
   stackable: 1
+  cacheConfiguration:
+    key: 
+    display: 1
+    sprite: {fileID: 0}
+    startOfTurnValue: 0
+    setStartOfTurnValue: 0
+    startOfCombatValue: 0
+    setStartOfCombatValue: 0
   references:
     version: 2
     RefIds:
-    - rid: 754093871974056657
-      type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
-      data:
-        empty: 0
-        lines: []
     - rid: 754093991137640772
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
@@ -41,17 +44,21 @@ MonoBehaviour:
         - rid: 754093991137641405
         - rid: 754093991137641404
         - rid: 754093991137641406
+        weight: 0
     - rid: 754093991137641208
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
-        inputKey:
+        inputKey: 
         outputKey: cards
         validTargets: 03000000
         number: 1
         specialTargetRule: 1
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 754093991137641209
       type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
@@ -60,6 +67,9 @@ MonoBehaviour:
         filter:
           cardCategoriesToInclude: 04000000
           retainedCardsFilter: 0
+          manaCostFilter: 0
+          manaCost: 0
+          exactCardType: {fileID: 0}
         outputKey: statusCards
     - rid: 754093991137641404
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
@@ -69,22 +79,26 @@ MonoBehaviour:
         statusEffect: 2
         scale: 2
         getScaleFromKey: 0
-        inputScaleKey:
+        inputScaleKey: 
         multiplyByNumAuraStacks: 0
         multiplicity: 1
         getMultiplicityFromKey: 1
         inputMultiplicityKey: numStatusCards
+        toggleStatus: 0
     - rid: 754093991137641405
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
-        inputKey:
+        inputKey: 
         outputKey: self
-        validTargets:
+        validTargets: 
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 754093991137641406
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -103,3 +117,8 @@ MonoBehaviour:
       data:
         effectStepName: EndWorkflowIfListEmpty
         inputKey1: statusCards
+    - rid: 7189280385716453391
+      type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
+      data:
+        empty: 1
+        lines: []

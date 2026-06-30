@@ -14,13 +14,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 57c61744-9f83-4700-a27e-b3390cef426b
   Name: Wayfinder
-  Description: Exhaust any Charm in hand to draw 3 from any
-  IconDescription: []
-  IconDescriptionTooltipLines: []
+  Description: Exhaust any Charm in hand to draw 3 from self
+  IconDescription:
+  - tokenType: 0
+    text: Exhaust a Charm card in hand as cost
+    icon: 0
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 3
+  - tokenType: 2
+    text: 
+    icon: 3
+  - tokenType: 2
+    text: 
+    icon: 3
+  - tokenType: 2
+    text: 
+    icon: 11
+  IconDescriptionTooltipLines:
+  - Choose a Charm card in hand to exhaust. This is a cost to play this card.
+  - Draw 3 cards from the owner rat.
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: fccdd43ca64c8644fa54c06ab327bdd3, type: 3}
-  cardCategory: 1
+  cardCategory: 2
   packFrom: {fileID: 11400000, guid: 0d12b03c0c8754470a900cb4f78a9217, type: 2}
   vfxPrefab: {fileID: 0}
   playable: 1
@@ -56,6 +76,7 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 1289961959942521125
       type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
       data:
@@ -75,6 +96,7 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 1289961959942521127
       type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
@@ -107,10 +129,11 @@ MonoBehaviour:
         outputKey: target
         validTargets: 00000000
         number: 1
-        specialTargetRule: 0
-        cantCancelTargetting: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 7150943289421332805
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:

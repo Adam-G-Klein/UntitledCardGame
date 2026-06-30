@@ -16,13 +16,14 @@ MonoBehaviour:
   Name: Palisade
   Description: Give any 2 block for each card in hand ({block} block)
   IconDescription: []
+  IconDescriptionTooltipLines: []
   defaultValues:
   - key: block
     value: 0
   Cost: 2
   Artwork: {fileID: 21300000, guid: 45525ee67521e6646bc3c798eabca14a, type: 3}
   cardCategory: 2
-  packFrom: {fileID: 0}
+  packFrom: {fileID: 11400000, guid: 5f4300e0913784f05aeff0dd086d4338, type: 2}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
@@ -76,6 +77,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 1
         inputMultiplicityKey: numCards
+        toggleStatus: 0
     - rid: 2268261022115299367
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -95,6 +97,8 @@ MonoBehaviour:
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 5602892563578094203
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -117,3 +121,5 @@ MonoBehaviour:
         specialTargetRule: 1
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0

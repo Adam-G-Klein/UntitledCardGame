@@ -42,6 +42,7 @@ MonoBehaviour:
   keepsakeTitle: Daggermunk
   keepsakeDescription: Each turn, create a 0 mana "Dagger" card in hand for a random
     adjacent rat
+  tooltipTokens: 
   references:
     version: 2
     RefIds:
@@ -70,6 +71,7 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 2034230017118175263
       type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
       data:

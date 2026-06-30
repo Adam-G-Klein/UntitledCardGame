@@ -16,8 +16,28 @@ MonoBehaviour:
   Name: Resonant Shot
   Description: Deal {rpl_damage} damage for each Charm card in hand ({numStatusCards}
     cards)
-  IconDescription: []
-  IconDescriptionTooltipLines: []
+  IconDescription:
+  - tokenType: 0
+    text: '{rpl_damage}'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
+  - tokenType: 2
+    text: 
+    icon: 18
+  - tokenType: 0
+    text: xN
+    icon: 18
+  - tokenType: 1
+    text: 
+    icon: 18
+  - tokenType: 0
+    text: N = Number of Charm cards in hand ({numStatusCards} cards)
+    icon: 18
+  IconDescriptionTooltipLines:
+  - Deal damage to a foe of your choice N times.
+  - N equals the number of Charm cards in your hand.
   defaultValues:
   - key: rpl_damage
     value: 6
@@ -92,6 +112,7 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 4463206079571951821
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -105,6 +126,7 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 5602892874868589218
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:

@@ -17,9 +17,9 @@
                 <ui:Instance template="MapTemplateUiDocument" name="MapTemplateUiDocument" style="flex-grow: 1;" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="middle-section" style="flex-grow: 1; flex-direction: row; max-height: 45%; min-height: 40%;">
+        <ui:VisualElement name="middle-section" style="flex-grow: 1; flex-direction: row; min-height: 40%; height: 100%;">
             <ui:VisualElement name="shop-view-button-container" class="shop-view-button-container" style="flex-grow: 1; flex-basis: auto; justify-content: center; align-self: flex-start; align-items: center;">
-                <ui:VisualElement name="shop-view-button-container-background" style="flex-grow: 1; position: absolute; width: 89%; height: 85%; background-image: url(&quot;project://database/Assets/Sprites/UI/Shop/ShopScreen_Frame.png?fileID=2800000&amp;guid=f0c3f2da469d1504fa6c4951fc8b4f85&amp;type=3#ShopScreen_Frame&quot;); border-top-left-radius: 26px; border-top-right-radius: 26px; border-bottom-right-radius: 26px; border-bottom-left-radius: 26px;" />
+                <ui:VisualElement name="shop-view-button-container-background" style="flex-grow: 1; position: absolute; width: 89%; height: 90%; background-image: url(&quot;project://database/Assets/Sprites/UI/Shop/ShopScreen_Frame.png?fileID=2800000&amp;guid=f0c3f2da469d1504fa6c4951fc8b4f85&amp;type=3#ShopScreen_Frame&quot;); border-top-left-radius: 26px; border-top-right-radius: 26px; border-bottom-right-radius: 26px; border-bottom-left-radius: 26px;" />
                 <ui:VisualElement name="upgrade-button-container" class="shopButtonContainer" style="align-items: center; width: 80%; flex-direction: row-reverse; display: flex;">
                     <ui:Label tabindex="-1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="upgrade-price-label" class="shopButtonPriceTag" />
                     <ui:VisualElement name="VisualElement" style="flex-grow: 1; flex-direction: row; justify-content: center;">
@@ -52,6 +52,10 @@
                         <ui:VisualElement style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/UI/Map/BASE%20CIRCLE%20MAP.png?fileID=2800000&amp;guid=48489db1d3e615d4688200151e4d657d&amp;type=3#BASE CIRCLE MAP&quot;);" />
                         <ui:Label tabindex="-1" text="0" parse-escape-sequences="true" display-tooltip-when-elided="true" name="card-remove-button-free-removals-label" style="position: absolute; width: 100%; height: 100%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-text-align: middle-center; font-size: 21px;" />
                     </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="switch-decks-button-container" class="shopButtonContainer" style="width: 80%; flex-direction: row-reverse; display: flex;">
+                    <ui:Label tabindex="-1" text="$1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="switch-decks-price-label" class="shopButtonPriceTag" />
+                    <ui:Button text="Switch Decks" parse-escape-sequences="true" display-tooltip-when-elided="true" name="switch-decks-button" class="shopButton" style="margin-right: 0; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; padding-top: 15px; padding-right: 15px; padding-bottom: 15px; padding-left: 15px;" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="shop-view-goods-area-container" class="shop-view-goods-area-container" style="flex-grow: 1; justify-content: center;">
@@ -103,6 +107,10 @@
         <ui:VisualElement name="companion-selection-indicator" style="flex-grow: 1; position: absolute; height: 70px; width: auto; top: 568px; flex-direction: row; justify-content: center; visibility: hidden; display: flex; align-self: center;">
             <ui:Label tabindex="-1" text="Select a companion to get the card." parse-escape-sequences="true" display-tooltip-when-elided="true" class="inlineMessageStyle" style="font-size: 32px; -unity-font-style: normal; padding-right: 4px; padding-left: 4px;" />
             <ui:Button text="Cancel" parse-escape-sequences="true" display-tooltip-when-elided="true" name="companion-selection-cancel-button" class="shopButton" style="margin-top: 0; margin-bottom: 0; height: 100%; width: 172px;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="companion-selection-switch-decks-indicator" style="flex-grow: 1; position: absolute; height: 70px; width: auto; top: 568px; flex-direction: row; justify-content: center; visibility: hidden; display: flex; align-self: center;">
+            <ui:Label tabindex="-1" text="Select the first rat for switching decks" parse-escape-sequences="true" display-tooltip-when-elided="true" name="companion-selection-switch-decks-label" class="inlineMessageStyle" style="font-size: 32px; -unity-font-style: normal; padding-right: 4px; padding-left: 4px;" />
+            <ui:Button text="Cancel" parse-escape-sequences="true" display-tooltip-when-elided="true" name="companion-selection-switch-decks-cancel-button" class="shopButton" style="margin-top: 0; margin-bottom: 0; height: 100%; width: 172px;" />
         </ui:VisualElement>
         <ui:VisualElement name="selling-companion-confirmation" style="flex-grow: 1; position: absolute; left: 25%; top: 25%; right: 25%; bottom: 25%; background-color: rgb(255, 243, 225); border-top-width: 8px; border-right-width: 8px; border-bottom-width: 8px; border-left-width: 8px; border-top-left-radius: 22px; border-top-right-radius: 22px; border-bottom-right-radius: 22px; border-bottom-left-radius: 22px; border-left-color: rgb(220, 151, 3); border-right-color: rgb(220, 151, 3); border-top-color: rgb(220, 151, 3); border-bottom-color: rgb(220, 151, 3); visibility: hidden;">
             <ui:VisualElement name="VisualElement" style="flex-grow: 1; justify-content: center; align-items: center;">

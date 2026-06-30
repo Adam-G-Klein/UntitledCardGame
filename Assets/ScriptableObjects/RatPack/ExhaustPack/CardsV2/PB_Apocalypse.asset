@@ -15,6 +15,8 @@ MonoBehaviour:
   guid: 38812b69-d785-4a2b-8f4e-32df57cbffb1
   Name: 
   Description: 
+  IconDescription: []
+  IconDescriptionTooltipLines: []
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 0}
@@ -61,6 +63,8 @@ MonoBehaviour:
         specialTargetRule: 4
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 754093991137641291
       type: {class: ActivatePower, ns: , asm: Assembly-CSharp}
       data:

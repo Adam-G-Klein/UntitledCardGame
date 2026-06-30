@@ -34,6 +34,9 @@ MonoBehaviour:
     icon: 3
   - tokenType: 2
     text: 
+    icon: 3
+  - tokenType: 2
+    text: 
     icon: 11
   - tokenType: 1
     text: 
@@ -49,7 +52,7 @@ MonoBehaviour:
     icon: 33
   IconDescriptionTooltipLines:
   - This card exhausts when played.
-  - If owner rat below half HP, draw 1 card from owner rat.
+  - If the owner rat is below half HP, draw 2 card from the owner rat.
   - Heal all rats on your team.
   defaultValues: []
   Cost: 0
@@ -96,7 +99,7 @@ MonoBehaviour:
         effectStepName: DrawCards
         inputKey: self
         outputKey: 
-        scale: 1
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         waitForDrawsToResolve: 0

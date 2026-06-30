@@ -16,6 +16,8 @@ MonoBehaviour:
   Name: Blade Volley
   Description: Deal {rpl_damage} damage for each of the cards in your hand ({numberOfCardsInHand}
     cards)
+  IconDescription: []
+  IconDescriptionTooltipLines: []
   defaultValues:
   - key: rpl_damage
     value: 2
@@ -37,7 +39,10 @@ MonoBehaviour:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
+  onDrawEffectWorkflow:
+    rid: -2
   tooltips: 
+  tooltipKeyword: 37
   references:
     version: 2
     RefIds:
@@ -54,6 +59,9 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 1886371092460208252
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -65,6 +73,9 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 1
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 1886371092460208256
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:

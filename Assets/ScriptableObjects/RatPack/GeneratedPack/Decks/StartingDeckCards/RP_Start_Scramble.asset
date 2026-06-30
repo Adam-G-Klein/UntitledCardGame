@@ -15,13 +15,30 @@ MonoBehaviour:
   guid: 5f49c2e7-8b9c-4c2e-bcc2-29712135a8b7
   Name: Scramble
   Description: Draw 2 cards from any & shuffle a Bitterbark into their deck
-  IconDescription: []
-  IconDescriptionTooltipLines: []
+  IconDescription:
+  - tokenType: 2
+    text: 
+    icon: 3
+  - tokenType: 2
+    text: 
+    icon: 3
+  - tokenType: 2
+    text: 
+    icon: 18
+  - tokenType: 1
+    text: 
+    icon: 18
+  - tokenType: 0
+    text: Shuffle a Bitterbark into own deck
+    icon: 18
+  IconDescriptionTooltipLines:
+  - Draw 2 cards from a rat of your choice.
+  - Shuffle a Bitterbark Charm card into the owner rat's draw pile.
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 5e40f858eddaed340a6366c33c4e216f, type: 3}
   cardCategory: 2
-  packFrom: {fileID: 0}
+  packFrom: {fileID: 11400000, guid: 0d12b03c0c8754470a900cb4f78a9217, type: 2}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
@@ -59,6 +76,7 @@ MonoBehaviour:
         scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
+        waitForDrawsToResolve: 0
     - rid: 1289961959942521257
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -72,19 +90,7 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
-    - rid: 2511001095643857211
-      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: AddCardsToDeck
-        inputKey: target
-        cardTypes:
-        - {fileID: 11400000, guid: e5aefb6a1e4354d73910a59bd8677cf0, type: 2}
-        addToDeckMethod: 1
-        getCardsFromKey: 0
-        inputCardsKey: 
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
+        selectionCardCategory: 0
     - rid: 5602892561590779943
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -93,7 +99,8 @@ MonoBehaviour:
         - rid: 1289961959942521257
         - rid: 1274772082283774706
         - rid: 1289961959942521193
-        - rid: 2511001095643857211
+        - rid: 6567162537147630218
+        - rid: 6567162537147630219
     - rid: 5602892561590779944
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -107,3 +114,32 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
+    - rid: 6567162537147630218
+      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToDeck
+        inputKey: self
+        cardTypes:
+        - {fileID: 11400000, guid: e5aefb6a1e4354d73910a59bd8677cf0, type: 2}
+        addToDeckMethod: 1
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 6567162537147630219
+      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FXEffectStep
+        waitForEffect: 0
+        fXExperiencePrefab: {fileID: 4075960956037802917, guid: ec7b1a1529f9141458320888bf8e3d96, type: 3}
+        rootLocationGameObjectKey: 
+        positionMappingList: []
+        gameobjectMappingList:
+        - fromWorkflow: self
+          toFxExperience: start
+        - fromWorkflow: self
+          toFxExperience: end
+        vePositionMappingList: []
+        veMappingList: []

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerType: 31
   title: Rejuvenation
-  description: Whenever a rat heals HP, they gain 1 strength
+  description: Whenever any rat heals HP, give self 1 strength
   abilities:
   - rid: 2511001254715195776
   displaySprite: {fileID: 21300000, guid: 8b7f45e259d8a914ca69c92891ca4bf1, type: 3}
@@ -52,7 +52,7 @@ MonoBehaviour:
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
-        inputKey: healedCompanion
+        inputKey: self
         statusEffect: 0
         scale: 1
         getScaleFromKey: 0

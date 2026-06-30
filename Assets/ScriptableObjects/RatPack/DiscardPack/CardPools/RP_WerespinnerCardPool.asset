@@ -13,12 +13,14 @@ MonoBehaviour:
   m_Name: RP_WerespinnerCardPool
   m_EditorClassIdentifier: 
   commonCards:
-  - {fileID: 11400000, guid: 5773f300b2a3e451aa47d89a9c267ce2, type: 2}
+  - {fileID: 11400000, guid: b0d8c1f8fa34142abb8d7d301374a312, type: 2}
+  - {fileID: 11400000, guid: 8ffb8ccc3af994dc980fb4e04ab272dc, type: 2}
   uncommonCards:
   - {fileID: 11400000, guid: 186e240da97c14529a93fc6fb05d72f7, type: 2}
-  rareCards: []
+  - {fileID: 11400000, guid: 5773f300b2a3e451aa47d89a9c267ce2, type: 2}
+  rareCards:
+  - {fileID: 11400000, guid: 87569dc4a7ce84d19a32ce2058671816, type: 2}
   genericCardIconSprite: {fileID: 0}
   unlockableCommonCards: []
-  unlockableUncommonCards:
-  - {fileID: 11400000, guid: 87569dc4a7ce84d19a32ce2058671816, type: 2}
+  unlockableUncommonCards: []
   unlockableRareCards: []

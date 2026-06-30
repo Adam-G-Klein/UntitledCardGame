@@ -36,7 +36,7 @@ MonoBehaviour:
     lines:
     - title: Mab++
       description: Each turn, bleed 1 HP from adjacent rats unless they would die.
-        At the end of combat, give adjacent rats 15 max HP
+        At the end of combat, give adjacent rats 15 max HP & heal 15 HP
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
       iconDescriptionLine: []
@@ -86,7 +86,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: adj
         combatEffect: 9
-        scale: 0
+        scale: 15
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

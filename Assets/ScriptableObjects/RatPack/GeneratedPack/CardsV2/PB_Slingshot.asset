@@ -14,13 +14,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 25718ced-3a48-40fd-a9b3-22fd3edee887
   Name: Slingshot
-  Description: Exhaust any Charm card in hand & deal {rpl_damage} damage
-  IconDescription: []
-  IconDescriptionTooltipLines: []
+  Description: 
+  IconDescription:
+  - tokenType: 0
+    text: Exhaust a Charm card in hand as cost
+    icon: 0
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 0
+    text: '{rpl_damage}'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
+  - tokenType: 2
+    text: 
+    icon: 18
+  IconDescriptionTooltipLines:
+  - Choose a Charm card in hand to exhaust. This is a cost to play this card.
+  - Deal damage to a foe of your choice.
   defaultValues:
   - key: rpl_damage
-    value: 8
-  Cost: 1
+    value: 7
+  Cost: 0
   Artwork: {fileID: 21300000, guid: fccdd43ca64c8644fa54c06ab327bdd3, type: 3}
   cardCategory: 1
   packFrom: {fileID: 11400000, guid: 0d12b03c0c8754470a900cb4f78a9217, type: 2}
@@ -121,7 +138,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 0
-        scale: 8
+        scale: 7
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

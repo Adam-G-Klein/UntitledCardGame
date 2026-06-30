@@ -16,6 +16,8 @@ MonoBehaviour:
   Name: Eldritch Tuber
   Description: Unplayable. When drawn, deal damage to a random foe equal to the number
     of cards in own deck ({numCards} cards)
+  IconDescription: []
+  IconDescriptionTooltipLines: []
   defaultValues:
   - key: numCards
     value: 0
@@ -67,6 +69,8 @@ MonoBehaviour:
         specialTargetRule: 3
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 758315839196758414
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -91,6 +95,8 @@ MonoBehaviour:
         specialTargetRule: 6
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 758316092100444616
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -103,6 +109,8 @@ MonoBehaviour:
         specialTargetRule: 4
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 758316092100444617
       type: {class: CountCardsInDeck, ns: , asm: Assembly-CSharp}
       data:
@@ -111,6 +119,8 @@ MonoBehaviour:
         filter:
           cardCategoriesToInclude: 
           retainedCardsFilter: 0
+          manaCostFilter: 0
+          manaCost: 0
           exactCardType: {fileID: 0}
         includeDrawPile: 1
         includeDiscardPile: 1

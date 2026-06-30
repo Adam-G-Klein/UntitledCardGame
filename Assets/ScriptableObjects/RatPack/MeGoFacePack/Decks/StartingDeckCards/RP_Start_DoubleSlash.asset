@@ -36,7 +36,7 @@ MonoBehaviour:
   Cost: 2
   Artwork: {fileID: 21300000, guid: c22bda8e4471b44c898089214ba8c903, type: 3}
   cardCategory: 1
-  packFrom: {fileID: 0}
+  packFrom: {fileID: 11400000, guid: 908f28c6f48104c2d85d2fcbd973771e, type: 2}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
@@ -77,6 +77,7 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 9024302470308298776
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:

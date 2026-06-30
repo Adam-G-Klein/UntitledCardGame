@@ -85,11 +85,11 @@ public class EndEncounterView : MonoBehaviour
         totalGoldEarnedLabel.text = "0";
 
         if (this.bonusManaReward > 0 || this.bonusTeamSizeReward > 0) {
-            bonusEarnedContainer.style.display = DisplayStyle.None;
+            bonusEarnedContainer.style.display = DisplayStyle.Flex;
             Label bonusLabel = bonusEarnedContainer.Q<Label>("bonus-elite-reward-text");
             string bonusText = "";
             if (this.bonusManaReward > 0) {
-                bonusText = $"+{this.bonusManaReward} Energy";
+                bonusText = $"+{this.bonusManaReward} Élan per Turn";
             }
             if (this.bonusTeamSizeReward > 0) {
                 bonusText = $"+{this.bonusTeamSizeReward} Team Size";

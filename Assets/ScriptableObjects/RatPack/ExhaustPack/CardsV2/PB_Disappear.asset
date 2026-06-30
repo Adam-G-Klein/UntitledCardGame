@@ -17,6 +17,7 @@ MonoBehaviour:
   Description: Exhaust. Exhaust a random card in hand & permanently remove it from
     its source deck.
   IconDescription: []
+  IconDescriptionTooltipLines: []
   defaultValues: []
   Cost: 1
   Artwork: {fileID: -1830818641, guid: 55d5638d741203a4ca8817fb78e3a385, type: 3}
@@ -65,6 +66,8 @@ MonoBehaviour:
         specialTargetRule: 2
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 5602893017534169681
       type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
       data:

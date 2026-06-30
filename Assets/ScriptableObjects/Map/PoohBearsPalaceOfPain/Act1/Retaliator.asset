@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
-  m_Name: AngryEmmett
+  m_Name: Retaliator
   m_EditorClassIdentifier: 
   guid: e939cd7e-2c8b-40fc-a398-0be2edb2d5bc
-  displayName: Angry Emmett
-  maxHealth: 55
+  displayName: Butch Boxhound
+  maxHealth: 65
   baseAttackDamage: 0
   enemyDisplayType: 0
-  sprite: {fileID: 21300000, guid: 4eff3f79553794d909415243e5c40924, type: 3}
+  sprite: {fileID: 21300000, guid: ae85e8cc1b48d4a31b53deca7a5171e7, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
   morale: 0
@@ -51,10 +51,13 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Emmett's Ire
-      description: Whenever Emmett takes damage, he gains 1 temporary strength for
-        its next attack
+    - title: Read and React
+      description: Whenever Butch Boxhound takes damage, he gains 1 temporary strength
+        for the next attack
       relatedBehaviorIndex: 0
+      icon: {fileID: 0}
+      iconDescriptionLine: []
+      card: {fileID: 0}
   DEADLIER_ENEMY_BONUS_STR: 1
   HEALTHIER_ENEMY_BONUS_HEALTH: 15
   references:
@@ -94,6 +97,9 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 5280922829633617990
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -122,6 +128,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        toggleStatus: 0
     - rid: 5602893111447519608
       type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
       data:
@@ -146,6 +153,7 @@ MonoBehaviour:
         - rid: 8790164513324270204
         - rid: 8790164513324270166
         - rid: 8790164513324270167
+        weight: 0
     - rid: 8790164513324270166
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -157,6 +165,9 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 8790164513324270167
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -170,6 +181,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        toggleStatus: 0
     - rid: 8790164513324270204
       type: {class: EndWorkflowIfNoMapElement, ns: , asm: Assembly-CSharp}
       data:

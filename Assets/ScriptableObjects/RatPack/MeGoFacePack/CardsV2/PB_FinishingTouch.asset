@@ -15,6 +15,8 @@ MonoBehaviour:
   guid: fa075f23-684d-4b74-af7a-77e80ec342c5
   Name: Finishing Touch
   Description: Deal {rpl_damage} damage for each attack card played this turn ({numAttacksPlayed})
+  IconDescription: []
+  IconDescriptionTooltipLines: []
   defaultValues:
   - key: rpl_damage
     value: 3
@@ -71,6 +73,8 @@ MonoBehaviour:
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 5602892723852673316
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
