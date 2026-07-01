@@ -98,10 +98,10 @@ public class ShopEncounter : Encounter
         this.shopData = shopData;
     }
 
-    public ShopEncounter(ShopEncounterSerializable shopEncounterSerializable, SORegistry registry, ShopDataSO shopData) {
+    public ShopEncounter(ShopEncounterSerializable shopEncounterSerializable, SORegistry registry) {
         this.act = shopEncounterSerializable.act;
         this.encounterType = EncounterType.Shop;
-        this.shopData = shopData;
+        this.shopData = registry.GetAsset<ShopDataSO>(shopEncounterSerializable.shopDataGuid);
     }
 
     public void Build(
@@ -456,6 +456,9 @@ public class ShopEncounter : Encounter
 
 [System.Serializable]
 public class ShopEncounterSerializable : EncounterSerializable {
+    public string shopDataGuid;
     public ShopEncounterSerializable(ShopEncounter encounter) : base(encounter) {
+        this.shopDataGuid = encounter.shopData.GUID;
+
     }
 }

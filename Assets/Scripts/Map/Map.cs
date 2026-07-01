@@ -16,6 +16,6 @@ public class Map
 
     public Map(List<EncounterSerializable> encounters, SORegistry registry, ShopDataSO shopData) {
         this.encounters = encounters.Select<EncounterSerializable, Encounter>(encounter => encounter.encounterType == EncounterType.Enemy ?
-            new EnemyEncounter(encounter as EnemyEncounterSerializable, registry) : new ShopEncounter(encounter as ShopEncounterSerializable, registry, shopData)).ToList();
+            new EnemyEncounter(encounter as EnemyEncounterSerializable, registry) : new ShopEncounter(encounter as ShopEncounterSerializable, registry)).ToList();
     }
 }

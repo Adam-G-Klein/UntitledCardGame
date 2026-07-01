@@ -13,7 +13,7 @@ public enum ShopMode
     fileName = "Shop",
     menuName = "Encounters/Shop/New Shop")]
 [System.Serializable]
-public class ShopDataSO : ScriptableObject
+public class ShopDataSO : IdentifiableSO
 {
     public List<CrossPackCardPoolSO> activeCrossPackCardPools;
 
