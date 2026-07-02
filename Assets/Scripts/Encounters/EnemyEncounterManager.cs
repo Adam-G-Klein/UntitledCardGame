@@ -262,6 +262,12 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         gameState.activeEncounter.GetValue().isCompleted = true;
         Debug.Log("EndEncounterHandler called, activeEncounter is " + gameState.activeEncounter.GetValue().id + " isCompleted is " + gameState.activeEncounter.GetValue().isCompleted);
 
+        if (gameState.IsTutorialRun && !gameState.HasCompletedTutorialRun
+            && gameState.currentEncounterIndex >= GameStateVariableSO.TutorialPortionEncounterCount - 1)
+        {
+            gameState.CompleteTutorialPortion();
+        }
+
         // Gold interest calculation
         int baseGoldEarnedPerBattle = encounterConstants.goldEarnedPerBattle;
         int extraGold = Mathf.FloorToInt(encounterConstants.interestRate * gameState.playerData.GetValue().gold);
@@ -319,9 +325,9 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
             );
         }
 
-        // Skip the first post-combat screen for demo/convention builds — no rewards, go straight to shop.
+        // Skip the first post-combat screens of the demo/tutorial — no rewards, go straight to shop.
         // Still wait for endCombatScreenDelay so the victory popup (fired above) has time to play.
-        if (gameState.BuildTypeDemoOrConvention() && gameState.currentEncounterIndex <= 2)
+        if (gameState.InDemoTutorial() && gameState.currentEncounterIndex <= 2)
         {
             yield return new WaitForSeconds(endCombatScreenDelay);
             gameState.LoadNextLocation(); // COMBAT → POST_COMBAT
@@ -405,7 +411,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     {
         yield return new WaitForSeconds(endCombatScreenDelay);
         EndEncounterView endEncounterView = postCombatUI.GetComponent<EndEncounterView>();
-        if (gameState.BuildTypeDemoOrConvention() && !DemoDirector.Instance.IsStepCompleted(DemoStepName.PostCombatRewardsDialogue)) {
+        if (gameState.InDemoTutorial() && !DemoDirector.Instance.IsStepCompleted(DemoStepName.PostCombatRewardsDialogue)) {
             endEncounterView.Show(true);
             endEncounterView.DisableNextButton();
             FocusManager.Instance.Unfocus();
@@ -563,7 +569,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         {
             // Premature end turn reminder that helps the player not end turn when they still have cards to play.
             // Don't activate on the first onboarding combat.
-            if (gameState.BuildTypeDemoOrConvention()
+            if (gameState.InDemoTutorial()
                 && PlayerHand.Instance.StillEnoughManaToPlayCards(ManaManager.Instance.currentMana)
                 && !prematureEndTurnReminderDone
                 && gameState.currentEncounterIndex > 0)

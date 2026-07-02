@@ -77,8 +77,8 @@ public class ShopEncounter : Encounter
 {
     public ShopDataSO shopData;
     [Header("If set, the shop cards/companions will be static until rerolls are past the length")]
-    public List<StaticCardTypeGroup> staticCardItems = new List<StaticCardTypeGroup>();
-    public List<StaticCompanionTypeGroup> staticCompanionItems = new List<StaticCompanionTypeGroup>();
+    public List<StaticCardTypeGroup> staticCardGroups = new List<StaticCardTypeGroup>();
+    public List<StaticCompanionTypeGroup> staticCompanionGroups = new List<StaticCompanionTypeGroup>();
     public bool loopStaticShop = false;
 
     private List<CardInShopWithPrice> cardsInShop = new List<CardInShopWithPrice>();
@@ -96,6 +96,29 @@ public class ShopEncounter : Encounter
     public ShopEncounter(ShopDataSO shopData) {
         this.encounterType = EncounterType.Shop;
         this.shopData = shopData;
+    }
+
+    public ShopEncounter(ShopEncounter other) {
+        this.encounterType = EncounterType.Shop;
+        this.shopData = other.shopData;
+        this.act = other.act;
+        this.loopStaticShop = other.loopStaticShop;
+        this.staticCardGroups = new List<StaticCardTypeGroup>();
+        foreach (var group in other.staticCardGroups)
+        {
+            var newGroup = new StaticCardTypeGroup();
+            newGroup.cardTypes = new List<CardType>(group.cardTypes);
+            this.staticCardGroups.Add(newGroup);
+        }
+
+        this.staticCompanionGroups = new List<StaticCompanionTypeGroup>();
+        foreach (var group in other.staticCompanionGroups)
+        {
+            var newGroup = new StaticCompanionTypeGroup();
+            newGroup.companionTypes = new List<CompanionTypeSO>(group.companionTypes);
+            this.staticCompanionGroups.Add(newGroup);
+        }
+       
     }
 
     public ShopEncounter(ShopEncounterSerializable shopEncounterSerializable, SORegistry registry) {
@@ -117,7 +140,7 @@ public class ShopEncounter : Encounter
         this.encounterConstants = constants;
         this.encounterType = EncounterType.Shop;
 
-        if ((staticCardItems == null || staticCardItems.Count == 0) && (staticCompanionItems == null || staticCompanionItems.Count == 0)) staticShopIndex = -1;
+        if ((staticCardGroups == null || staticCardGroups.Count == 0) && (staticCompanionGroups == null || staticCompanionGroups.Count == 0)) staticShopIndex = -1;
         else staticShopIndex = 0;
 
         generateShopEncounter(shopLevel, companionList, shouldGenerateCards, shouldGenerateRats);
@@ -151,9 +174,9 @@ public class ShopEncounter : Encounter
     }
 
     private void generateCards(ShopLevel shopLevel, List<Companion> companionList) {
-        if (staticShopIndex != -1 && (staticShopIndex < staticCardItems.Count || loopStaticShop)) {
-            int index = staticShopIndex % staticCardItems.Count;
-            foreach (CardType cardType in staticCardItems[index].cardTypes) {
+        if (staticShopIndex != -1 && (staticShopIndex < staticCardGroups.Count || loopStaticShop)) {
+            int index = staticShopIndex % staticCardGroups.Count;
+            foreach (CardType cardType in staticCardGroups[index].cardTypes) {
                 Card.CardRarity rarity = DetermineCardRarity(cardType);
                 int price = GetCardPriceForRarity(rarity);
                 CardInShopWithPrice card = new CardInShopWithPrice(cardType, price, null, null, rarity, null);
@@ -235,9 +258,9 @@ public class ShopEncounter : Encounter
         //     return;
         // }
 
-        if (staticShopIndex != -1 && (staticShopIndex < staticCompanionItems.Count || loopStaticShop)) {
-            int index = staticShopIndex % staticCompanionItems.Count;
-            foreach (CompanionTypeSO companionType in staticCompanionItems[index].companionTypes) {
+        if (staticShopIndex != -1 && (staticShopIndex < staticCompanionGroups.Count || loopStaticShop)) {
+            int index = staticShopIndex % staticCompanionGroups.Count;
+            foreach (CompanionTypeSO companionType in staticCompanionGroups[index].companionTypes) {
                 CompanionRarity rarity = DetermineCompanionRarity(companionType);
                 int maxHealthBonus = shopLevel.ratBonusHealth;
                 CompanionInShopWithPrice keepsake = new CompanionInShopWithPrice(

@@ -18,6 +18,7 @@ public class PlayerProgressState
      private bool hasSeenCombatTutorial;
      private bool hasSeenShopTutorial;
      private bool hasSeenPackSelectTutorial;
+     private bool hasCompletedTutorialRun;
      private string nextTutorialID;
 
      public PlayerProgressState(List<AchievementSO> achievementSOList, GameStateVariableSO gameState, List<CardType> unlockedCards)
@@ -37,6 +38,7 @@ public class PlayerProgressState
           this.hasSeenCombatTutorial = gameState.HasSeenCombatTutorial;
           this.hasSeenPackSelectTutorial = gameState.HasSeenPackSelectTutorial;
           this.hasSeenShopTutorial = gameState.HasSeenAllShopTutorials;
+          this.hasCompletedTutorialRun = gameState.HasCompletedTutorialRun;
           this.nextTutorialID = TutorialManager.Instance.UpcomingTutorialID;
 
      }
@@ -72,6 +74,7 @@ public class PlayerProgressState
           gameState.HasSeenCombatTutorial = this.hasSeenCombatTutorial;
           gameState.HasSeenPackSelectTutorial = this.hasSeenPackSelectTutorial;
           gameState.HasSeenAllShopTutorials = this.hasSeenShopTutorial;
+          gameState.HasCompletedTutorialRun = this.hasCompletedTutorialRun;
           TutorialManager.Instance.SetUpcomingTutorialID(this.nextTutorialID);
 
           PrintPlayerProgress();

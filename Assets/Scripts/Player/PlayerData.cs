@@ -16,6 +16,8 @@ public class PlayerData
     public int storedCardRemovals = 0;
     public bool seenTutorial = false;
     public bool inTutorialRun = true;
+    // True when this run uses the static tutorial map whose act one is the demo experience
+    public bool isTutorialMapRun = false;
 
     public PlayerData() {}
 
@@ -29,6 +31,7 @@ public class PlayerData
         this.storedCardRemovals = playerDataSerializeable.storedCardRemovals;
         this.seenTutorial = playerDataSerializeable.seenTutorial;
         this.inTutorialRun = playerDataSerializeable.inTutorialRun;
+        this.isTutorialMapRun = playerDataSerializeable.isTutorialMapRun;
         this.numStartingRats = playerDataSerializeable.numStartingRats;
     }
 }
@@ -44,6 +47,7 @@ public class PlayerDataSerializable {
     public int storedCardRemovals;
     public bool seenTutorial;
     public bool inTutorialRun;
+    public bool isTutorialMapRun;
     public int numStartingRats;
 
     public PlayerDataSerializable(PlayerData playerData) {
@@ -56,6 +60,7 @@ public class PlayerDataSerializable {
         this.storedCardRemovals = playerData.storedCardRemovals;
         this.seenTutorial = playerData.seenTutorial;
         this.inTutorialRun = playerData.inTutorialRun;
+        this.isTutorialMapRun = playerData.isTutorialMapRun;
         this.numStartingRats = playerData.numStartingRats;
     }
 }

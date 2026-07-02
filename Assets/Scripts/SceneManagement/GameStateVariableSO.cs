@@ -100,6 +100,17 @@ public class GameStateVariableSO : ScriptableObject
             }
         }
     }
+    [SerializeField]
+    private bool hasCompletedTutorialRun = false;
+    public bool HasCompletedTutorialRun {
+        get => hasCompletedTutorialRun;
+        set {
+            hasCompletedTutorialRun = value;
+            if (value) {
+                SaveManager.Instance.SavePlayerProgress();
+            }
+        }
+    }
     public bool autoUpgrade = false;
     public BuildType buildType = BuildType.RELEASE;
     // True by default because fuck it we'll get way more data this way.
@@ -146,7 +157,7 @@ public class GameStateVariableSO : ScriptableObject
                     break;
                 }
 
-                if (!hasSeenCombatTutorial || BuildTypeDemoOrConvention()) {
+                if (!hasSeenCombatTutorial || BuildTypeDemoOrConvention() || IsTutorialRun) {
                     currentLocation = Location.INTRO_CUTSCENE;
                     break;
                 }
@@ -170,7 +181,7 @@ public class GameStateVariableSO : ScriptableObject
                 // Modified for Shortened Demo pre GDC 2026
                 // currentLocation = Location.TUTORIAL;
                 // Remove below and uncomment above to return to previous behavior
-                if (BuildTypeDemoOrConvention()) {
+                if (BuildTypeDemoOrConvention() || IsTutorialRun) {
                     currentLocation = Location.COMBAT;
                 } else {
                     currentLocation = Location.TUTORIAL;
@@ -191,7 +202,7 @@ public class GameStateVariableSO : ScriptableObject
                 Debug.Log("Leaving post combat, current location is: " + currentLocation);
                 // Modified for Shortened Demo pre GDC 2026
                 // if (skipTutorials || hasSeenShopTutorial) {
-                if (skipTutorials || hasSeenShopTutorial || BuildTypeDemoOrConvention()) {
+                if (skipTutorials || hasSeenShopTutorial || BuildTypeDemoOrConvention() || IsTutorialRun) {
                     currentLocation = Location.SHOP;
                     AdvanceEncounter();
                 } else {
@@ -218,7 +229,10 @@ public class GameStateVariableSO : ScriptableObject
         }
 
         if (currentLocation == Location.SHOP || currentLocation == Location.COMBAT) {
-            if (!debug) SaveManager.Instance.SaveHandler();
+            // No run saves during the tutorial run's demo portion: its static
+            // choose-N shop offerings don't survive serialization, so Continue
+            // is kept unavailable (dying or quitting restarts the tutorial run)
+            if (!debug && !InTutorialMapPortion) SaveManager.Instance.SaveHandler();
         }
 
         updateMusic(currentLocation, currentLocation == Location.COMBAT ? activeEncounter.GetValue().act : Act.One);
@@ -369,6 +383,40 @@ public class GameStateVariableSO : ScriptableObject
     public bool BuildTypeDemoOrConvention()
     {
         return buildType == BuildType.DEMO || buildType == BuildType.CONVENTION;
+    }
+
+    // The tutorial run's demo portion is the same shape as the shortened demo:
+    // combat, shop, combat, shop, combat, shop, elite combat (indices 0-6)
+    public const int TutorialPortionEncounterCount = 7;
+
+    public bool IsTutorialRun => playerData.GetValue() != null && playerData.GetValue().isTutorialMapRun;
+
+    public bool InTutorialMapPortion =>
+        IsTutorialRun && currentEncounterIndex < TutorialPortionEncounterCount;
+
+    // Gates all of the demo onboarding behavior (DemoDirector dialogue steps,
+    // choose-N static shops, reward screen skips). True for the whole run on
+    // demo/convention builds, and for the demo-copied act one of the release
+    // build's tutorial run.
+    public bool InDemoTutorial()
+    {
+        return BuildTypeDemoOrConvention() || InTutorialMapPortion;
+    }
+
+    // Applied when the tutorial run's demo portion is beaten so acts two and
+    // three offer the full game's companions and cards
+    public CompanionPoolSO postTutorialCompanionPool;
+    public List<PackSO> postTutorialActivePacks;
+
+    public void CompleteTutorialPortion()
+    {
+        HasCompletedTutorialRun = true;
+        if (postTutorialCompanionPool != null) {
+            PopulateCompanionPool(postTutorialCompanionPool);
+        }
+        if (postTutorialActivePacks != null && postTutorialActivePacks.Count > 0) {
+            activePacks = new List<PackSO>(postTutorialActivePacks);
+        }
     }
 
     public void PopulateCompanionPool(CompanionPoolSO basePool) {

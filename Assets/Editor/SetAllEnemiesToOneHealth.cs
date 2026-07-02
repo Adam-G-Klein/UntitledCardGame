@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEditor;
 
 public class SetAllEnemiesToOneHealth {
-    [MenuItem("Tools/Set All Enemies To One Health")]
+    [MenuItem("Tools/Set All Enemies To One Health &1")]
     public static void SetToOne()
     {
         if (!Application.isPlaying)

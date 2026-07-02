@@ -172,7 +172,7 @@ public class CompanionManagementView : IControlsReceiver {
         if (viewDelegate == null) return;
         if (viewDelegate.IsSellingCompanions() || viewDelegate.IsDraggingCompanion() || upgradeAnimationPlaying) return;
         CreateViewDeckButton();
-        if (!isSellingDisabled && (!ShopManager.Instance.gameState.BuildTypeDemoOrConvention() || ShopManager.Instance.getShopEncounter().shopData.shopMode != ShopMode.StaticChooseNDemo)) {
+        if (!isSellingDisabled && (!ShopManager.Instance.gameState.InDemoTutorial() || ShopManager.Instance.getShopEncounter().shopData.shopMode != ShopMode.StaticChooseNDemo)) {
             CreateSellCompanionButton();
         }
         CreateCompanionBoundingBox();
@@ -289,8 +289,8 @@ public class CompanionManagementView : IControlsReceiver {
     }
 
     public void SellCompanionButtonOnClick() {
-        // Don't allow selling companions in the demo.
-        if (ShopManager.Instance.gameState.BuildTypeDemoOrConvention() && ShopManager.Instance.getShopEncounter().shopData.shopMode == ShopMode.StaticChooseNDemo)
+        // Don't allow selling companions in the demo's choose-N shops.
+        if (ShopManager.Instance.gameState.InDemoTutorial() && ShopManager.Instance.getShopEncounter().shopData.shopMode == ShopMode.StaticChooseNDemo)
             return;
         RemoveCompanionHoverButtons();
         viewDelegate.SellCompanion(this);

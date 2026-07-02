@@ -84,7 +84,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
         bool shouldGenerateCards = true;
         bool shouldGenerateRats = true;
-        if(gameState.BuildTypeDemoOrConvention())
+        if(gameState.InDemoTutorial())
         {
             // Steal James's excellent game design decisions for the demo regardless of shop type :)
             shopIndex = gameState.currentEncounterIndex / 2;
@@ -123,7 +123,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         shopViewController.SetupUpgradeIncrements(encounterConstants.shopLevels.Count - 1 <= shopLevel.level);
 
         cinematicIntroComplete = true;
-        if (gameState.BuildTypeDemoOrConvention())
+        if (gameState.InDemoTutorial())
         {
             if(shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo)
             {
@@ -255,7 +255,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             shopViewController.DestroyAllTooltips();
 
             // Activate a tutorial on the second card bought this shop.
-            if (gameState.BuildTypeDemoOrConvention() &&
+            if (gameState.InDemoTutorial() &&
                 shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo &&
                 !DemoDirector.Instance.IsStepCompleted(DemoStepName.CardBuyingTutorial) &&
                 numCardsBoughtThisShop == 1) // we want to wait until the player has bought their first card to show the tutorial so that they have the context of buying a card before we show them how to click on a companion to give it to them
@@ -366,7 +366,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                     rerollShop();
 
                     if (numRatsBoughtThisShop >= shopEncounter.shopData.numRatsBuyPerShop &&
-                        gameState.BuildTypeDemoOrConvention())
+                        gameState.InDemoTutorial())
                     {
                         StartCoroutine(RunShopDialogueStep(ShopDemoEvent.CardOfferingTips, waitForReroll: true));
                     }
@@ -720,7 +720,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
         bool shouldGenerateCards = true;
         bool shouldGenerateRats = true;
-        if(gameState.BuildTypeDemoOrConvention() && shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo)
+        if(gameState.InDemoTutorial() && shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo)
         {
             shouldGenerateCards = currentDemoShopPhase == ShopPhase.CARD_BUYING_PHASE;
             shouldGenerateRats = currentDemoShopPhase == ShopPhase.RAT_BUYING_PHASE;

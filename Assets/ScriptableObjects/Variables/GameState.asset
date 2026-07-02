@@ -43,14 +43,15 @@ MonoBehaviour:
   activeEncounter: {fileID: 11400000, guid: deac3f5e60dfbd647ad11d47b5314123, type: 2}
   nextMapIndex: 1
   nextEncounter: {fileID: 11400000, guid: be6d9bd186c0c05468222dc18bd747fa, type: 2}
-  currentLocation: 1
+  currentLocation: 7
   hoveredCompanion: {fileID: 0}
   currentEncounterIndex: 0
   currentRunOutcome: 0
   skipTutorials: 0
-  hasSeenPackSelectTutorial: 1
-  hasSeenShopTutorial: 1
-  hasSeenCombatTutorial: 1
+  hasSeenPackSelectTutorial: 0
+  hasSeenShopTutorial: 0
+  hasSeenCombatTutorial: 0
+  hasCompletedTutorialRun: 0
   autoUpgrade: 0
   buildType: 0
   consentToDataCollection: 0
@@ -65,3 +66,10 @@ MonoBehaviour:
   bossFightLoopIndex: 6
   tutorialLoops: 2
   fullscreenEnabled: 1
+  postTutorialCompanionPool: {fileID: 11400000, guid: 1a5aa5f2c25ef434a822f87e97339f33, type: 2}
+  postTutorialActivePacks:
+  - {fileID: 11400000, guid: 908f28c6f48104c2d85d2fcbd973771e, type: 2}
+  - {fileID: 11400000, guid: 5f4300e0913784f05aeff0dd086d4338, type: 2}
+  - {fileID: 11400000, guid: 79e479ca9df7a4369ba7fa951e0af116, type: 2}
+  - {fileID: 11400000, guid: a87b5da767d4e4659b2965e31e340c58, type: 2}
+  - {fileID: 11400000, guid: 0d12b03c0c8754470a900cb4f78a9217, type: 2}

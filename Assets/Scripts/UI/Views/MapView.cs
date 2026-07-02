@@ -152,15 +152,18 @@ public class MapView
 
     private void PositionArrow() {
         List<VisualElement> mapIcons = mapIconContainer.Children().ToList();
+        if (mapIcons.Count == 0) return;
 
         Vector2 target;
-        if (isShopEncounter) {
+        if (isShopEncounter && previousEncounterIcon != null) {
             Vector2 prevPos = previousEncounterIcon.worldBound.center;
             int prevIndex = mapIcons.IndexOf(previousEncounterIcon);
-            Vector2 nextPos = mapIcons[prevIndex + 1].worldBound.center;
+            Vector2 nextPos = mapIcons[Mathf.Min(prevIndex + 1, mapIcons.Count - 1)].worldBound.center;
             target = prevPos + (nextPos - prevPos) * 0.5f;
-        } else {
+        } else if (activeEncounterIcon != null) {
             target = activeEncounterIcon.worldBound.center;
+        } else {
+            target = mapIcons[0].worldBound.center;
         }
         Vector2 pivot = VisualElementUtils.GetWorldPivot(arrow);
         Vector2 direction = target - pivot;

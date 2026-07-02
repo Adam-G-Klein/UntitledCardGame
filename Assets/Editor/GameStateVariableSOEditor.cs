@@ -106,6 +106,35 @@ public class GameStateVariableSOEditor : Editor {
         }
 
         EditorGUILayout.Space(20);
+        EditorGUILayout.LabelField("Save Data Controls");
+        EditorGUILayout.Space(10);
+
+        if (GUILayout.Button("Clear Save Data")) {
+            if (EditorUtility.DisplayDialog(
+                "Clear Save Data",
+                "Delete the current game save (savefile.dat)? This cannot be undone.",
+                "Clear", "Cancel")) {
+                SaveSystem.DeleteSave(SaveSystem.SaveType.GameState);
+                Debug.Log("Save data cleared.");
+            }
+        }
+
+        if (GUILayout.Button("Clear Player Progress Data")) {
+            if (EditorUtility.DisplayDialog(
+                "Clear Player Progress Data",
+                "Delete saved player progress (progress.dat) and reset tutorial flags? This cannot be undone.",
+                "Clear", "Cancel")) {
+                SaveSystem.DeleteSave(SaveSystem.SaveType.Progress);
+                gameStateVariableSO.HasSeenCombatTutorial = false;
+                gameStateVariableSO.HasSeenPackSelectTutorial = false;
+                gameStateVariableSO.HasSeenAllShopTutorials = false;
+                gameStateVariableSO.HasCompletedTutorialRun = false;
+                EditorUtility.SetDirty(gameStateVariableSO);
+                Debug.Log("Player progress data cleared and tutorial flags reset.");
+            }
+        }
+
+        EditorGUILayout.Space(20);
         EditorGUILayout.LabelField("Other");
         EditorGUILayout.Space(10);
         if (GUILayout.Button("Save For Building")) {

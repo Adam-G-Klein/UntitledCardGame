@@ -69,6 +69,7 @@ public class SaveManager : GenericSingleton<SaveManager>
         gameStateVariableSO.HasSeenCombatTutorial = false;
         gameStateVariableSO.HasSeenPackSelectTutorial = false;
         gameStateVariableSO.HasSeenAllShopTutorials = false;
+        gameStateVariableSO.HasCompletedTutorialRun = false;
         ProgressManager.Instance.progressSO.unlockedCards = new List<CardType>();
     }
 
@@ -107,6 +108,7 @@ public class SaveManager : GenericSingleton<SaveManager>
         PlayerProgressState playerProgressState = SaveSystem.Load<PlayerProgressState>(SaveSystem.SaveType.Progress);
         if (playerProgressState == null) {
             gameStateVariableSO.HasSeenCombatTutorial = false;
+            gameStateVariableSO.HasCompletedTutorialRun = false;
         }
         playerProgressState?.LoadToLocalPlayerProgress(gameStateVariableSO, soRegistry);
     }

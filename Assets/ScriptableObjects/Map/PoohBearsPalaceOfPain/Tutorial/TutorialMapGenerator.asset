@@ -1,0 +1,255 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e027aa1afefd4a1c945f0a7f433105a7, type: 3}
+  m_Name: TutorialMapGenerator
+  m_EditorClassIdentifier:
+  enemyEncounters:
+  - enemyEncounterType: {fileID: 11400000, guid: 6867bd29ad1934d54a83c0e571ac4bba, type: 2}
+    act: 0
+    bonusManaReward: 0
+    bonusTeamSizeReward: 0
+    isElite: 0
+  - enemyEncounterType: {fileID: 11400000, guid: eb6319a84b3d54474a75d847829ffb4f, type: 2}
+    act: 0
+    bonusManaReward: 0
+    bonusTeamSizeReward: 1
+    isElite: 0
+  - enemyEncounterType: {fileID: 11400000, guid: 370f2652d20fb483aaee6ba8b6975fb6, type: 2}
+    act: 0
+    bonusManaReward: 0
+    bonusTeamSizeReward: 0
+    isElite: 0
+  - enemyEncounterType: {fileID: 11400000, guid: c943de554e28b5d408e5601d8ff303b2, type: 2}
+    act: 0
+    bonusManaReward: 0
+    bonusTeamSizeReward: 0
+    isElite: 1
+  - enemyEncounterType: {fileID: 11400000, guid: 241368f980d424a2cae40cb0114edb79, type: 2}
+    act: 1
+    bonusManaReward: 0
+    bonusTeamSizeReward: 0
+    isElite: 0
+  - enemyEncounterType: {fileID: 11400000, guid: 0183e7cc846d340119c690737b4857dd, type: 2}
+    act: 1
+    bonusManaReward: 0
+    bonusTeamSizeReward: 0
+    isElite: 0
+  - enemyEncounterType: {fileID: 11400000, guid: 3ab00261514b3474b8888a460ca721fc, type: 2}
+    act: 1
+    bonusManaReward: 0
+    bonusTeamSizeReward: 0
+    isElite: 0
+  - enemyEncounterType: {fileID: 11400000, guid: 66b520e2a1a4949c9a7681f6883cd51d, type: 2}
+    act: 1
+    bonusManaReward: 0
+    bonusTeamSizeReward: 0
+    isElite: 0
+  - enemyEncounterType: {fileID: 11400000, guid: 0556d35dba62c46e088eac9d70a46ce6, type: 2}
+    act: 1
+    bonusManaReward: 1
+    bonusTeamSizeReward: 0
+    isElite: 1
+  - enemyEncounterType: {fileID: 11400000, guid: 81e90a05deddf4260867a6b8f8b85906, type: 2}
+    act: 2
+    bonusManaReward: 0
+    bonusTeamSizeReward: 0
+    isElite: 0
+  - enemyEncounterType: {fileID: 11400000, guid: a6a4055f8a6ae43e1bc171db2f57227f, type: 2}
+    act: 2
+    bonusManaReward: 0
+    bonusTeamSizeReward: 0
+    isElite: 0
+  - enemyEncounterType: {fileID: 11400000, guid: d1d074d5723c34825ac80e1d9cda1cdf, type: 2}
+    act: 2
+    bonusManaReward: 0
+    bonusTeamSizeReward: 0
+    isElite: 0
+  - enemyEncounterType: {fileID: 11400000, guid: bdedc0fd063b34c1fb86ed545c6b4476, type: 2}
+    act: 2
+    bonusManaReward: 0
+    bonusTeamSizeReward: 0
+    isElite: 1
+  shopEncounters:
+  - id: tutorialShopOne
+    isCompleted: 0
+    act: 0
+    shopData: {fileID: 11400000, guid: a5c4e616b7dc3410ca4e41246b491f30, type: 2}
+    staticCardItems:
+    - cardTypes:
+      - {fileID: 11400000, guid: 7e6350396084444459255fc60c94a107, type: 2}
+      - {fileID: 11400000, guid: 1b6d38a86c48c4179b61970edc9c42cd, type: 2}
+      - {fileID: 11400000, guid: f649a60c039604e9c8ca2ac7b6b4b080, type: 2}
+    - cardTypes:
+      - {fileID: 11400000, guid: 267fb80004b0441b4b9d2f3ce3a6b6ac, type: 2}
+      - {fileID: 11400000, guid: 9d41805a0463e4c8987042eea67ec59d, type: 2}
+      - {fileID: 11400000, guid: 669fceb31e8f041499156f09d0956821, type: 2}
+    staticCompanionItems:
+    - companionTypes:
+      - {fileID: 11400000, guid: bb82c6f907d7346c1b0aa5847e323c44, type: 2}
+      - {fileID: 11400000, guid: 8f16f5410550d4b59aca1f1dc6e5f733, type: 2}
+    - companionTypes:
+      - {fileID: 11400000, guid: 8f16f5410550d4b59aca1f1dc6e5f733, type: 2}
+      - {fileID: 11400000, guid: bb82c6f907d7346c1b0aa5847e323c44, type: 2}
+    - companionTypes:
+      - {fileID: 11400000, guid: c8d7d8ca579c743b59b1b87f3aae4ad6, type: 2}
+      - {fileID: 11400000, guid: d46a66f8d86b8413097eaca31924aa9b, type: 2}
+    - companionTypes:
+      - {fileID: 11400000, guid: 8f16f5410550d4b59aca1f1dc6e5f733, type: 2}
+      - {fileID: 11400000, guid: bb82c6f907d7346c1b0aa5847e323c44, type: 2}
+    loopStaticShop: 1
+  - id: tutorialShopTwo
+    isCompleted: 0
+    act: 0
+    shopData: {fileID: 11400000, guid: 63783fbefc1944b9853959fe6c2ffe47, type: 2}
+    staticCardItems:
+    - cardTypes:
+      - {fileID: 11400000, guid: 00b6c48730a8e4e01a0cb59ce90eeb27, type: 2}
+      - {fileID: 11400000, guid: 92c90c79acbcd4f13a466eda98ff7de6, type: 2}
+      - {fileID: 11400000, guid: 5d03e6f0eeb8a4a3982d1a81fc7336c7, type: 2}
+    - cardTypes:
+      - {fileID: 11400000, guid: c93bcf20c9fc9446e992121a666b1430, type: 2}
+      - {fileID: 11400000, guid: 92a513593dbd7405fbf9696539031bac, type: 2}
+      - {fileID: 11400000, guid: d00c1f19fdd8a4827a48eb6a9815833b, type: 2}
+    staticCompanionItems:
+    - companionTypes:
+      - {fileID: 11400000, guid: bb82c6f907d7346c1b0aa5847e323c44, type: 2}
+      - {fileID: 11400000, guid: c8d7d8ca579c743b59b1b87f3aae4ad6, type: 2}
+      - {fileID: 11400000, guid: d46a66f8d86b8413097eaca31924aa9b, type: 2}
+      - {fileID: 11400000, guid: 8f16f5410550d4b59aca1f1dc6e5f733, type: 2}
+    - companionTypes:
+      - {fileID: 11400000, guid: 260de4ccd12c947a39356f896e7514b5, type: 2}
+      - {fileID: 11400000, guid: c8d7d8ca579c743b59b1b87f3aae4ad6, type: 2}
+      - {fileID: 11400000, guid: e65d0392c4877436e8ce3c44d1e27ac5, type: 2}
+      - {fileID: 11400000, guid: dcd7118c5346a4522ac61110debabb1b, type: 2}
+    loopStaticShop: 1
+  - id: tutorialShopThree
+    isCompleted: 0
+    act: 0
+    shopData: {fileID: 11400000, guid: 683d8c1c96c655b448f5db17d6831be8, type: 2}
+    staticCardItems:
+    - cardTypes:
+      - {fileID: 11400000, guid: 492ef1c50c35f451a96fc9c574832ea2, type: 2}
+      - {fileID: 11400000, guid: 33e8287e2068441bfb1fcc3f4cea1501, type: 2}
+      - {fileID: 11400000, guid: b75233b3d310840309079ae0e5d3408a, type: 2}
+    - cardTypes:
+      - {fileID: 11400000, guid: 5d26b31f00c214cc1a3636a8c38915d3, type: 2}
+      - {fileID: 11400000, guid: 7e6350396084444459255fc60c94a107, type: 2}
+      - {fileID: 11400000, guid: 9145ab0910e6240e6ac8e36098ac3612, type: 2}
+    - cardTypes:
+      - {fileID: 11400000, guid: c3f3f271ed1294680b0c14f2a9579ce3, type: 2}
+      - {fileID: 11400000, guid: 9c247d50e5c6c4df0841b475be84cd47, type: 2}
+      - {fileID: 11400000, guid: a86952ee3992d49da8e3105090ef5ead, type: 2}
+    - cardTypes:
+      - {fileID: 11400000, guid: 9764dd03cdbc14a50b8692096740e023, type: 2}
+      - {fileID: 11400000, guid: 92a513593dbd7405fbf9696539031bac, type: 2}
+      - {fileID: 11400000, guid: 00b6c48730a8e4e01a0cb59ce90eeb27, type: 2}
+    - cardTypes:
+      - {fileID: 11400000, guid: 67f732cc25bd143238e16876b2a9ec4d, type: 2}
+      - {fileID: 11400000, guid: 5d03e6f0eeb8a4a3982d1a81fc7336c7, type: 2}
+      - {fileID: 11400000, guid: 8e9984bded72c43febaad09664515462, type: 2}
+    - cardTypes:
+      - {fileID: 11400000, guid: a7f8ad5c276284ebea2328012e272110, type: 2}
+      - {fileID: 11400000, guid: c93bcf20c9fc9446e992121a666b1430, type: 2}
+      - {fileID: 11400000, guid: f649a60c039604e9c8ca2ac7b6b4b080, type: 2}
+    - cardTypes:
+      - {fileID: 11400000, guid: 92c90c79acbcd4f13a466eda98ff7de6, type: 2}
+      - {fileID: 11400000, guid: e5c390e4dc4e94af9a1f0ae1af45e2f3, type: 2}
+      - {fileID: 11400000, guid: 1b6d38a86c48c4179b61970edc9c42cd, type: 2}
+    staticCompanionItems:
+    - companionTypes:
+      - {fileID: 11400000, guid: 8f16f5410550d4b59aca1f1dc6e5f733, type: 2}
+      - {fileID: 11400000, guid: 78fe07f26375b42c9bfd64f03469d871, type: 2}
+      - {fileID: 11400000, guid: dcd7118c5346a4522ac61110debabb1b, type: 2}
+    - companionTypes:
+      - {fileID: 11400000, guid: eee8f1da4c1704bb9aa5f1be418fd762, type: 2}
+      - {fileID: 11400000, guid: bb82c6f907d7346c1b0aa5847e323c44, type: 2}
+      - {fileID: 11400000, guid: d46a66f8d86b8413097eaca31924aa9b, type: 2}
+    - companionTypes:
+      - {fileID: 11400000, guid: c8d7d8ca579c743b59b1b87f3aae4ad6, type: 2}
+      - {fileID: 11400000, guid: e65d0392c4877436e8ce3c44d1e27ac5, type: 2}
+      - {fileID: 11400000, guid: 8950a2a36d4be461eaa44c386b13c760, type: 2}
+    - companionTypes:
+      - {fileID: 11400000, guid: d46a66f8d86b8413097eaca31924aa9b, type: 2}
+      - {fileID: 11400000, guid: 8f16f5410550d4b59aca1f1dc6e5f733, type: 2}
+      - {fileID: 11400000, guid: 260de4ccd12c947a39356f896e7514b5, type: 2}
+    - companionTypes:
+      - {fileID: 11400000, guid: bb82c6f907d7346c1b0aa5847e323c44, type: 2}
+      - {fileID: 11400000, guid: 260de4ccd12c947a39356f896e7514b5, type: 2}
+      - {fileID: 11400000, guid: e65d0392c4877436e8ce3c44d1e27ac5, type: 2}
+    - companionTypes:
+      - {fileID: 11400000, guid: 8f16f5410550d4b59aca1f1dc6e5f733, type: 2}
+      - {fileID: 11400000, guid: dcd7118c5346a4522ac61110debabb1b, type: 2}
+      - {fileID: 11400000, guid: c8d7d8ca579c743b59b1b87f3aae4ad6, type: 2}
+    loopStaticShop: 1
+  - id: tutorialShopFour
+    isCompleted: 0
+    act: 1
+    shopData: {fileID: 11400000, guid: 402504d01439944d38cdde89b319b463, type: 2}
+    staticCardItems: []
+    staticCompanionItems: []
+    loopStaticShop: 0
+  - id: tutorialShopFive
+    isCompleted: 0
+    act: 1
+    shopData: {fileID: 11400000, guid: 402504d01439944d38cdde89b319b463, type: 2}
+    staticCardItems: []
+    staticCompanionItems: []
+    loopStaticShop: 0
+  - id: tutorialShopSix
+    isCompleted: 0
+    act: 1
+    shopData: {fileID: 11400000, guid: 402504d01439944d38cdde89b319b463, type: 2}
+    staticCardItems: []
+    staticCompanionItems: []
+    loopStaticShop: 0
+  - id: tutorialShopSeven
+    isCompleted: 0
+    act: 1
+    shopData: {fileID: 11400000, guid: 402504d01439944d38cdde89b319b463, type: 2}
+    staticCardItems: []
+    staticCompanionItems: []
+    loopStaticShop: 0
+  - id: tutorialShopEight
+    isCompleted: 0
+    act: 1
+    shopData: {fileID: 11400000, guid: 402504d01439944d38cdde89b319b463, type: 2}
+    staticCardItems: []
+    staticCompanionItems: []
+    loopStaticShop: 0
+  - id: tutorialShopNine
+    isCompleted: 0
+    act: 2
+    shopData: {fileID: 11400000, guid: 402504d01439944d38cdde89b319b463, type: 2}
+    staticCardItems: []
+    staticCompanionItems: []
+    loopStaticShop: 0
+  - id: tutorialShopTen
+    isCompleted: 0
+    act: 2
+    shopData: {fileID: 11400000, guid: 402504d01439944d38cdde89b319b463, type: 2}
+    staticCardItems: []
+    staticCompanionItems: []
+    loopStaticShop: 0
+  - id: tutorialShopEleven
+    isCompleted: 0
+    act: 2
+    shopData: {fileID: 11400000, guid: 402504d01439944d38cdde89b319b463, type: 2}
+    staticCardItems: []
+    staticCompanionItems: []
+    loopStaticShop: 0
+  - id: tutorialShopTwelve
+    isCompleted: 0
+    act: 2
+    shopData: {fileID: 11400000, guid: 402504d01439944d38cdde89b319b463, type: 2}
+    staticCardItems: []
+    staticCompanionItems: []
+    loopStaticShop: 0

@@ -258,6 +258,11 @@ public class DemoDirector : GenericSingleton<DemoDirector>
         }
         DialogueView.Instance.Hide();
         demoDataSO.stepCompletion[DemoStepName.FullFeatureShopTutorialStep4] = true;
+        // On release tutorial runs this is the end of the full-feature shop
+        // tutorial, so later runs skip the legacy shop tutorial scene
+        if (!gameState.BuildTypeDemoOrConvention()) {
+            gameState.HasSeenAllShopTutorials = true;
+        }
     }
 
     public IEnumerator PostCombatRewardsDialogueStep() {

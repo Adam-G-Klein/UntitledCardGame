@@ -1098,13 +1098,13 @@ public class ShopViewController : MonoBehaviour,
     }
 
     public void StartNextCombatOnClick(ClickEvent evt) {
-        if (shopManager.gameState.BuildTypeDemoOrConvention()
+        if (shopManager.gameState.InDemoTutorial()
             && !DemoDirector.Instance.IsStepCompleted(DemoStepName.BuyCompanionReminder)
             && shopManager.HasEmptyTeamSlotAndCanAffordCompanion()) {
             StartCoroutine(RunPreNextCombatReminderStep(DemoStepName.BuyCompanionReminder));
             return;
         }
-        if (shopManager.gameState.BuildTypeDemoOrConvention()
+        if (shopManager.gameState.InDemoTutorial()
             && shopManager.HasNotSpentEnoughMoney()) {
             StartCoroutine(RunPreNextCombatReminderStep(DemoStepName.YouShouldSpendYourMoneyBozo));
             return;
