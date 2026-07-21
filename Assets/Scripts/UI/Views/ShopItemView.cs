@@ -11,8 +11,7 @@ public class ShopItemView : ICompanionViewDelegate {
     public CardInShopWithPrice cardInShop = null;
     private CompanionView companionView = null;
     private IShopItemViewDelegate viewDelegate;
-    private static string COIN = char.ConvertFromUtf32(0xE001);
-    
+    private static string COIN = char.ConvertFromUtf32(0xE001);    
     private bool interactionsEnabled = true;
 
     public ShopItemView(IShopItemViewDelegate viewDelegate, CompanionInShopWithPrice companion, VisualTreeAsset template = null) {
@@ -87,9 +86,37 @@ public class ShopItemView : ICompanionViewDelegate {
         visualElementFocusable.additionalUnfocusAction += () => OnPointerLeave(null);
 
         shopItemElement.Add(CreatePriceTagForShopItem(card.price, card.increasedPrice));
+		shopItemElement.Add(CreateCardSpawnIndicator(card));
 
         return shopItemElement;
     }
+
+	private VisualElement CreateCardSpawnIndicator(CardInShopWithPrice card) {
+		VisualElement cardSpawnIndicator = new VisualElement();
+		cardSpawnIndicator.AddToClassList("card_spawn_indicator_background");
+		Color color = card.packSO != null ? card.packSO.packColor : card.sourceCompanion.pack.packColor;
+		Color secondaryColor = card.packSO != null ? card.packSO.packSecondaryColor : card.sourceCompanion.pack.packSecondaryColor;
+		cardSpawnIndicator.style.backgroundColor = new StyleColor(color);
+		var c = new StyleColor(secondaryColor);
+		cardSpawnIndicator.style.borderTopColor = c;
+		cardSpawnIndicator.style.borderRightColor = c;
+		cardSpawnIndicator.style.borderBottomColor = c;
+		cardSpawnIndicator.style.borderLeftColor = c;
+		
+		VisualElement cardSpawnIndicatorIcon = new VisualElement();
+		cardSpawnIndicatorIcon.AddToClassList("card_spawn_indicator_icon");
+		Sprite sprite = null;
+		if (card.sourceCompanion != null) {
+			Debug.LogError("Card spawn indicator: " + card.sourceCompanion.name);
+			sprite = card.sourceCompanion.icon;
+		} else if (card.packSO != null) {
+			Debug.LogError("Card spawn indicator: " + card.packSO.name);
+			sprite = card.packSO.rareIcon;
+		}
+		cardSpawnIndicatorIcon.style.backgroundImage = new StyleBackground(sprite);
+		cardSpawnIndicator.Add(cardSpawnIndicatorIcon);
+		return cardSpawnIndicator;
+	}
 
     private VisualElement CreatePriceTagForShopItem(int price, bool increasedPrice = false) {
         VisualElement priceTag = new VisualElement();

@@ -96,13 +96,13 @@
 }
 
 .shop-item-price-tag-background {
-    flex-grow: 1;
     position: absolute;
     background-image: url("project://database/Assets/Sprites/UI/Shop/ShopScreen_CardPriceFrame.png?fileID=2800000&guid=1d310283061b9e84698a2eb551f87ec5&type=3#ShopScreen_CardPriceFrame");
     top: -22%;
-    bottom: 100%;
-    left: 80px;
-    right: 80px;
+    width: 84px;
+    height: 55px;
+    left: 50%;
+    translate: -50% 0;
     justify-content: center;
     align-items: center;
     -unity-background-scale-mode: scale-to-fit;
@@ -350,4 +350,34 @@
     width: 100%;
     flex-shrink: 0;
     height: 100%;
+}
+
+.card_spawn_indicator_background {
+    width: 120px;
+    height: 55px;
+    background-color: rgb(0, 87, 18);
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    border-top-width: 4px;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
+    border-left-width: 4px;
+    border-left-color: rgb(0, 53, 7);
+    border-right-color: rgb(0, 53, 7);
+    border-top-color: rgb(0, 53, 7);
+    border-bottom-color: rgb(0, 53, 7);
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 50%;
+    top: 105%;
+    translate: -50% 0;
+}
+
+.card_spawn_indicator_icon {
+    flex-grow: 1;
+    background-image: url("project://database/Assets/Sprites/Companions/Icons/Chunkrat_Icon.png?fileID=2800000&guid=4fe60b6f2dbb95a4dbf06706658b8412&type=3#Chunkrat_Icon");
+    min-width: 50px;
 }

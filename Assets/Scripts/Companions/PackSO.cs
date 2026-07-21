@@ -13,6 +13,7 @@ public class PackSO : ScriptableObject
     public CompanionPoolSO companionPoolSO;
     public CardPoolSO packCardPoolSO;
     public Color packColor;
+	public Color packSecondaryColor;
 
     [Header("Art Assets")]
     public Sprite cardBackCommon;
