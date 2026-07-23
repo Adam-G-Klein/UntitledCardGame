@@ -20,6 +20,15 @@ MonoBehaviour:
     text: Exhaust
     icon: 0
   - tokenType: 1
+    text: 
+    icon: 16
+  - tokenType: 2
+    text: 
+    icon: 16
+  - tokenType: 0
+    text: ': +1 Max HP'
+    icon: 16
+  - tokenType: 1
     text: Exhaust
     icon: 0
   - tokenType: 2
@@ -37,16 +46,10 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 11
-  - tokenType: 1
-    text: 
-    icon: 16
-  - tokenType: 2
-    text: 
-    icon: 16
-  - tokenType: 0
-    text: ': +1 max HP'
-    icon: 16
-  IconDescriptionTooltipLines: []
+  IconDescriptionTooltipLines:
+  - This card exhausts when played.
+  - When this card is exhausted, give the owner rat extra max HP.
+  - When this card is exhausted, heal the owner rat.
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: cf5aa02f77468564190f8694f7007ee1, type: 3}

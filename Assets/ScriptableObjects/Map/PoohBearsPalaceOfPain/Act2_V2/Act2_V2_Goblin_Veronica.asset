@@ -28,7 +28,7 @@ MonoBehaviour:
     - intent: 1
       enemyTargetMethod: 0
       targetsKey: target
-      displayValue: 8
+      displayValue: 6
       effectSteps:
       - rid: 3931529445166809421
       - rid: 173314522967966404
@@ -48,7 +48,7 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Punk Bat Power
-      description: Mighty attack targeting your leftmost rat
+      description: Attack targeting your leftmost rat
       relatedBehaviorIndex: -1
       icon: {fileID: 0}
       iconDescriptionLine: []
@@ -83,7 +83,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 0
-        scale: 8
+        scale: 6
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

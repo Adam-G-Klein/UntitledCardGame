@@ -56,6 +56,8 @@ MonoBehaviour:
         specialTargetRule: 1
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 2511000990761353369
       type: {class: GetNumberOfCardsInHand, ns: , asm: Assembly-CSharp}
       data:
@@ -82,7 +84,7 @@ MonoBehaviour:
       data:
         effectStepName: CombatEffectStep
         inputKey: enemies
-        combatEffect: 0
+        combatEffect: 14
         scale: 15
         getScaleFromKey: 0
         inputScaleKey: 
