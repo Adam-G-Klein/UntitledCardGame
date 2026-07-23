@@ -11,7 +11,7 @@ public class ShopItemView : ICompanionViewDelegate {
     public CardInShopWithPrice cardInShop = null;
     private CompanionView companionView = null;
     private IShopItemViewDelegate viewDelegate;
-    private static string COIN = char.ConvertFromUtf32(0xE001);    
+    private static string COIN = char.ConvertFromUtf32(0xE001);
     private bool interactionsEnabled = true;
 
     public ShopItemView(IShopItemViewDelegate viewDelegate, CompanionInShopWithPrice companion, VisualTreeAsset template = null) {
@@ -102,7 +102,7 @@ public class ShopItemView : ICompanionViewDelegate {
 		cardSpawnIndicator.style.borderRightColor = c;
 		cardSpawnIndicator.style.borderBottomColor = c;
 		cardSpawnIndicator.style.borderLeftColor = c;
-		
+
 		VisualElement cardSpawnIndicatorIcon = new VisualElement();
 		cardSpawnIndicatorIcon.AddToClassList("card_spawn_indicator_icon");
 		Sprite sprite = null;
@@ -111,7 +111,7 @@ public class ShopItemView : ICompanionViewDelegate {
 			sprite = card.sourceCompanion.icon;
 		} else if (card.packSO != null) {
 			Debug.LogError("Card spawn indicator: " + card.packSO.name);
-			sprite = card.packSO.rareIcon;
+			sprite = card.packSO.packColorIcon;
 		}
 		cardSpawnIndicatorIcon.style.backgroundImage = new StyleBackground(sprite);
 		cardSpawnIndicator.Add(cardSpawnIndicatorIcon);

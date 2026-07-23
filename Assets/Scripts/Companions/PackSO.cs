@@ -29,4 +29,5 @@ public class PackSO : ScriptableObject
     public Sprite commonIcon;
     public Sprite uncommonIcon;
     public Sprite rareIcon;
+    public Sprite packColorIcon;
 }

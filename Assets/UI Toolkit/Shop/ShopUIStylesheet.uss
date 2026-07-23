@@ -377,7 +377,10 @@
 }
 
 .card_spawn_indicator_icon {
-    flex-grow: 1;
+    width: 45px;
+    height: 45px;
     background-image: url("project://database/Assets/Sprites/Companions/Icons/Chunkrat_Icon.png?fileID=2800000&guid=4fe60b6f2dbb95a4dbf06706658b8412&type=3#Chunkrat_Icon");
-    min-width: 50px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
 }
