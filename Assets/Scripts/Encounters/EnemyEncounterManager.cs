@@ -524,6 +524,8 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
 
     public void SetCastingCard(bool isCasting) {
         castingCard = isCasting;
+        // If the player is casting a card, they cannot end their turn.
+        CanEndTurn(!castingCard);
     }
 
     public bool GetCastingCard() {

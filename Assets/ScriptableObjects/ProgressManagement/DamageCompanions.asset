@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d16a72e0e0a744b35b9551fb7d766634, type: 3}
   m_Name: DamageCompanions
   m_EditorClassIdentifier: 
-  description: Damaged Companions
+  description: Damaged Rats
   devDescription: A proportion of companions bought in store come with a random amount
     of damage
   ascensionType: 1
   ascensionModificationValues:
     entries:
     - Key: healthReductionMin
-      Value: 2
+      Value: 4
     - Key: healthReductionMax
-      Value: 8
+      Value: 10
     - Key: pctDamaged
       Value: 0.5

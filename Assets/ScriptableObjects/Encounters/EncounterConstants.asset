@@ -15,7 +15,7 @@ MonoBehaviour:
   goldEarnedPerBattle: 10
   interestRate: 0.2
   interestCap: 5
-  benchHealingAmount: 10
+  benchHealingAmount: 20
   postEliteHealingAmount: 10
   bossSpawnLocation: {x: 0, y: 1.5}
   shopLevels:
@@ -46,12 +46,12 @@ MonoBehaviour:
         iconDescriptionLine: []
         card: {fileID: 0}
   - level: 1
-    shopLevelIncrementsToUnlock: 8
-    upgradeIncrementCost: 3
+    shopLevelIncrementsToUnlock: 6
+    upgradeIncrementCost: 4
     numCardsToShow: 4
     numKeepsakesToShow: 2
-    commonCompanionPercentage: 69
-    uncommonCompanionPercentage: 30
+    commonCompanionPercentage: 65
+    uncommonCompanionPercentage: 34
     rareCompanionPercentage: 1
     commonCardPercentage: 55
     uncommonCardPercentage: 40

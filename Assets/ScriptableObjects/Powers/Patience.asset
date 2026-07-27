@@ -14,21 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerType: 18
   title: Patience
-  description: End of turn, choose 1 card in hand to retain
+  description: End of turn, retain all cards from self
   abilities:
   - rid: 754093991137640772
   displaySprite: {fileID: 21300000, guid: 292ee1eb3f315c9448b8c577d0e6a420, type: 3}
-  tooltip:
-    rid: 754093871974056657
-  stackable: 1
+  extraTooltip:
+    rid: 7189280543290425366
+  stackable: 0
+  cacheConfiguration:
+    key: 
+    display: 1
+    sprite: {fileID: 0}
+    startOfTurnValue: 0
+    setStartOfTurnValue: 0
+    startOfCombatValue: 0
+    setStartOfCombatValue: 0
   references:
     version: 2
     RefIds:
-    - rid: 754093871974056657
-      type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
-      data:
-        empty: 0
-        lines: []
     - rid: 754093991137640772
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
@@ -37,6 +40,7 @@ MonoBehaviour:
         - rid: 3054805490065474020
         - rid: 3054805490065474021
         - rid: 754093991137641208
+        - rid: 7189280543290425372
         - rid: 2511001254715195487
         - rid: 754093991137641211
         - rid: 754093991137641212
@@ -47,17 +51,19 @@ MonoBehaviour:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: card
-        validTargets: 03000000
+        outputKey: self
+        validTargets: 
         number: 1
-        specialTargetRule: 0
-        cantCancelTargetting: 1
-        cardSelectionHelperText: ' to retain'
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 754093991137641211
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: card
+        inputKey: myCards
         prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
         scale: 1
     - rid: 754093991137641212
@@ -69,7 +75,7 @@ MonoBehaviour:
       type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CardInHandEffect
-        inputKey: card
+        inputKey: myCards
         effect: 2
     - rid: 3054805490065474020
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -83,8 +89,29 @@ MonoBehaviour:
         specialTargetRule: 1
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 3054805490065474021
       type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EndWorkflowIfListEmpty
         inputKey1: allCardsInHand
+    - rid: 7189280543290425366
+      type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
+      data:
+        empty: 1
+        lines: []
+    - rid: 7189280543290425372
+      type: {class: FilterCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FilterCards
+        inputKey: allCardsInHand
+        companionInstanceKey: self
+        filter:
+          cardCategoriesToInclude: 
+          retainedCardsFilter: 0
+          manaCostFilter: 0
+          manaCost: 0
+          exactCardType: {fileID: 0}
+          companionInstanceFilterEnabled: 1
+        outputKey: myCards

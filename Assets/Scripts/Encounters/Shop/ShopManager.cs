@@ -113,7 +113,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         shopViewController.SetMoney(gameState.playerData.GetValue().gold);
         shopViewController.SetShopUpgradePrice(shopLevel.upgradeIncrementCost);
         shopViewController.SetShopRerollPrice(shopEncounter.shopData.rerollShopPrice, gameState.playerData.GetValue().storedRerolls);
-        shopViewController.SetShopSwitchDecksPrice(shopEncounter.shopData.switchDecksPrice);
+        // shopViewController.SetShopSwitchDecksPrice(shopEncounter.shopData.switchDecksPrice);
         shopViewController.SetShopCardRemovalPrice(
             GetCardRemovalPrice(gameState.playerData.GetValue().shopLevel, timesCardRemovedThisShop), gameState.playerData.GetValue().storedCardRemovals);
         shopViewController.RebuildUnitManagement(gameState.companions);
@@ -255,15 +255,17 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
     public void ProcessSwitchDecksRequest()
     {
-        if (gameState.playerData.GetValue().gold >= shopEncounter.shopData.switchDecksPrice)
-        {
-            this.switchingDecks = true;
-            shopViewController.SwitchDecksSetup();
-        }
-        else
-        {
-            shopViewController.NotEnoughMoney();
-        }
+        // For now, executive decision to make switching decks free :)
+
+        // if (gameState.playerData.GetValue().gold >= shopEncounter.shopData.switchDecksPrice)
+        // {
+        this.switchingDecks = true;
+        shopViewController.SwitchDecksSetup();
+        // }
+        // else
+        // {
+        //     shopViewController.NotEnoughMoney();
+        // }
     }
 
     public void ProcessCardBuyRequestV2(ShopItemView shopItemView, CardInShopWithPrice cardInShop) {
@@ -582,11 +584,11 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                 switchingDecksCompanion2 = companionView;
                 Assert.IsTrue(switchingDecksCompanion1 != switchingDecksCompanion2, "SwitchDecks: The same companion was selected twice.");
                 SwitchDecks(switchingDecksCompanion1.companion, switchingDecksCompanion2.companion);
-                gameState.playerData.GetValue().gold -= shopEncounter.shopData.switchDecksPrice;
-                shopViewController.SetMoney(gameState.playerData.GetValue().gold);
+                // gameState.playerData.GetValue().gold -= shopEncounter.shopData.switchDecksPrice;
+                // shopViewController.SetMoney(gameState.playerData.GetValue().gold);
                 shopViewController.StopSwitchDecks();
 
-                InstantiateShopVFX(moneySpentPrefab, shopViewController.GetSwitchDecksShopButton(), 1.5f);
+                // InstantiateShopVFX(moneySpentPrefab, shopViewController.GetSwitchDecksShopButton(), 1.5f);
                 // InstantiateShopVFX(switchDecksPrefab, switchingDecksCompanion1.container, 1.5f);
                 // InstantiateShopVFX(switchDecksPrefab, switchingDecksCompanion2.container, 1.5f);
             }

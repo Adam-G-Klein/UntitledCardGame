@@ -45,10 +45,11 @@ MonoBehaviour:
     icon: 1
   IconDescriptionTooltipLines:
   - Give block to a rat of your choice, which prevents damage until next turn.
-  - If owner rat lost HP this turn, deal extra damage to the foe.
+  - This card gains extra block N times.
+  - N equals the number of times the owner rat lost HP this turn.
   defaultValues:
   - key: rpl_block
-    value: 5
+    value: 3
   - key: numTimes
     value: 0
   Cost: 1
@@ -130,7 +131,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: rat
         statusEffect: 2
-        scale: 5
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0

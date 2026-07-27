@@ -130,7 +130,13 @@ public class EnemyInstance : MonoBehaviour, IUIEntity
     public void RetargetIntent()
     {
         Debug.Log("Retargeting intent for enemy: " + GetName());
-        currentIntent.UpdateTargets(ChooseTargets(currentIntent.enemyTargetMethod));
+        List<CompanionInstance> possibleTargetsForRandom = null;
+        if (currentIntent.enemyTargetMethod == EnemyTargetMethod.RandomCompanion)
+        {
+            possibleTargetsForRandom = CombatEntityManager.Instance.getCompanions();
+            possibleTargetsForRandom.RemoveAll(x => currentIntent.targets.Contains(x));
+        }
+        currentIntent.UpdateTargets(ChooseTargets(currentIntent.enemyTargetMethod, possibleTargetsForRandom));
 
         Debug.Log("Displaying new intent for enemy: " + GetName());
         StartCoroutine(enemyIntentArrows.displayIntent(this).GetEnumerator());
@@ -141,7 +147,7 @@ public class EnemyInstance : MonoBehaviour, IUIEntity
         return behaviorIndices.GetValueOrDefault(brain, new(0, 0)).Item1;
     }
 
-    private List<CompanionInstance> ChooseTargets(EnemyTargetMethod targetMethod)
+    private List<CompanionInstance> ChooseTargets(EnemyTargetMethod targetMethod, List<CompanionInstance> possibleTargetsForRandom = null)
     {
         List<CompanionInstance> targets = new();
         switch (targetMethod)
@@ -163,7 +169,12 @@ public class EnemyInstance : MonoBehaviour, IUIEntity
                 break;
 
             case EnemyTargetMethod.RandomCompanion:
-                targets.Add(CombatEntityManager.Instance.getCompanions()[UnityEngine.Random.Range(0, CombatEntityManager.Instance.getCompanions().Count)]);
+                List<CompanionInstance> randomTargets = CombatEntityManager.Instance.getCompanions();
+                if (possibleTargetsForRandom != null && possibleTargetsForRandom.Count > 0)
+                {
+                    randomTargets = possibleTargetsForRandom;
+                }
+                targets.Add(randomTargets[UnityEngine.Random.Range(0, randomTargets.Count)]);
                 break;
 
             // case EnemyTargetMethod.RandomEnemyNotSelf:

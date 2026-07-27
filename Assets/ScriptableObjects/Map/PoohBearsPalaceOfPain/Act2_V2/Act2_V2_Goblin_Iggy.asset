@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 13a4cbbc-a1a2-4479-8a12-e4e7836869b5
   displayName: Iggy
-  maxHealth: 20
+  maxHealth: 24
   baseAttackDamage: 0
   enemyDisplayType: 0
   sprite: {fileID: 21300000, guid: 0d84653d88719421da074d88f86b63be, type: 3}
@@ -53,8 +53,8 @@ MonoBehaviour:
       icon: {fileID: 0}
       iconDescriptionLine: []
       card: {fileID: 0}
-  DEADLIER_ENEMY_BONUS_STR: -1
-  HEALTHIER_ENEMY_BONUS_HEALTH: -1
+  DEADLIER_ENEMY_BONUS_STR: 1
+  HEALTHIER_ENEMY_BONUS_HEALTH: 4
   references:
     version: 2
     RefIds:

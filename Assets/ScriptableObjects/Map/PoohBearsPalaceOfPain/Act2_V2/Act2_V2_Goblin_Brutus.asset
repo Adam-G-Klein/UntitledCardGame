@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 7e40a320-f893-4fee-85b7-b0eb3a9f3c73
   displayName: Brutus
-  maxHealth: 20
+  maxHealth: 24
   baseAttackDamage: 0
   enemyDisplayType: 0
   sprite: {fileID: 21300000, guid: 6fcd9bd45921d4eb09854f66fc7dd931, type: 3}
@@ -53,8 +53,8 @@ MonoBehaviour:
       icon: {fileID: 0}
       iconDescriptionLine: []
       card: {fileID: 0}
-  DEADLIER_ENEMY_BONUS_STR: -1
-  HEALTHIER_ENEMY_BONUS_HEALTH: -1
+  DEADLIER_ENEMY_BONUS_STR: 1
+  HEALTHIER_ENEMY_BONUS_HEALTH: 4
   references:
     version: 2
     RefIds:

@@ -90,7 +90,7 @@ MonoBehaviour:
         inputKey: statusCards
         outputKey: card
         validTargets: 03000000
-        number: 1
+        number: 2
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
@@ -101,12 +101,14 @@ MonoBehaviour:
       data:
         effectStepName: FilterCards
         inputKey: allCards
+        companionInstanceKey: 
         filter:
           cardCategoriesToInclude: 04000000
           retainedCardsFilter: 0
           manaCostFilter: 0
           manaCost: 0
           exactCardType: {fileID: 0}
+          companionInstanceFilterEnabled: 0
         outputKey: statusCards
     - rid: 5602892561590779943
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}

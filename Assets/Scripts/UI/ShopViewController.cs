@@ -39,7 +39,6 @@ public class ShopViewController : MonoBehaviour,
     private VisualElement freeRerollsContainer;
     private Label freeRerollsLabel;
     private Button switchDecksButton;
-    private Label switchDecksPriceLabel;
     private Button cardRemovalButton;
     private VisualElement freeRemovalsContainer;
     private Label freeRemovalsLabel;
@@ -64,7 +63,6 @@ public class ShopViewController : MonoBehaviour,
     public Label draftingHelpLabel;
     private VisualElement upgradeButtonContainer;
     private VisualElement rerollContainer;
-    private VisualElement switchDecksContainer;
     private VisualElement cardRemovalContainer;
 
 
@@ -164,7 +162,6 @@ public class ShopViewController : MonoBehaviour,
 
         upgradeButtonContainer = uiDoc.rootVisualElement.Q("upgrade-button-container");
         rerollContainer = uiDoc.rootVisualElement.Q("reroll-button-container");
-        switchDecksContainer = uiDoc.rootVisualElement.Q("switch-decks-button-container");
         cardRemovalContainer = uiDoc.rootVisualElement.Q("card-removal-container");
 
         draftingHelpLabel = uiDoc.rootVisualElement.Q<Label>("drafting-help-label");
@@ -204,9 +201,6 @@ public class ShopViewController : MonoBehaviour,
         switchDecksButton.RegisterOnSelected(SwitchDecksButtonOnClick);
         FocusManager.Instance.RegisterFocusableTarget(switchDecksButton.AsFocusable());
         disableOnCompanionDrag.Add(switchDecksButton.AsFocusable());
-
-        switchDecksContainer = uiDoc.rootVisualElement.Q<VisualElement>("switch-decks-button-container");
-        switchDecksPriceLabel = uiDoc.rootVisualElement.Q<Label>("switch-decks-price-label");
 
         upgradeButton = uiDoc.rootVisualElement.Q<Button>("upgrade-button");
         upgradeButton.RegisterOnSelected(UpgradeButtonOnClick);
@@ -308,7 +302,6 @@ public class ShopViewController : MonoBehaviour,
 
         upgradeButtonContainer.style.display = DisplayStyle.None;
         rerollContainer.style.display = DisplayStyle.None;
-        switchDecksContainer.style.display = DisplayStyle.None;
         cardRemovalContainer.style.display = DisplayStyle.None;
     }
 
@@ -1080,13 +1073,11 @@ public class ShopViewController : MonoBehaviour,
 
         if (currentShopLevel.switchDecksEnabled)
         {
-            switchDecksContainer.style.display = DisplayStyle.Flex;
             switchDecksButton.SetEnabled(true);
             FocusManager.Instance.EnableFocusableTarget(switchDecksButton.AsFocusable());
         }
         else
         {
-            switchDecksContainer.style.display = DisplayStyle.None;
             switchDecksButton.SetEnabled(false);
             FocusManager.Instance.DisableFocusableTarget(switchDecksButton.AsFocusable());
         }
@@ -1681,10 +1672,6 @@ public class ShopViewController : MonoBehaviour,
             rerollPriceLabel.text = COIN + amount.ToString();
             freeRerollsContainer.style.visibility = Visibility.Hidden;
         }
-    }
-
-    public void SetShopSwitchDecksPrice(int amount) {
-        switchDecksPriceLabel.text = COIN + amount.ToString();
     }
 
     public void SetShopUpgradePrice(int amount) {

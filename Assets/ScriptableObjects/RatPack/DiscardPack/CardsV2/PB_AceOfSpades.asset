@@ -1,0 +1,138 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: PB_AceOfSpades
+  m_EditorClassIdentifier: 
+  guid: 07af79ad-61b5-4eec-92cc-88197537ed47
+  Name: Ace of Spades
+  Description: Unplayable. When discarded, deal damage based on number of extra cards
+    you drew this turn
+  IconDescription:
+  - tokenType: 0
+    text: Unplayable
+    icon: 0
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 15
+  - tokenType: 0
+    text: ': '
+    icon: 0
+  - tokenType: 0
+    text: '{ondiscard_rpl_damage}'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
+  - tokenType: 2
+    text: 
+    icon: 4
+  - tokenType: 0
+    text: xN
+    icon: 0
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 0
+    text: N = Number of extra cards you drew this turn ({numCards} cards)
+    icon: 0
+  IconDescriptionTooltipLines:
+  - This card cannot be played.
+  - When this card is discarded, deal damage to a random foe N times.
+  - N is equal to the number of extra cards you drew this turn.
+  defaultValues:
+  - key: numCards
+    value: 0
+  - key: ondiscard_rpl_damage
+    value: 4
+  Cost: 0
+  Artwork: {fileID: 21300000, guid: 5f66e07752da0d34ca5ca0b6a327d011, type: 3}
+  cardCategory: 2
+  packFrom: {fileID: 11400000, guid: 5f4300e0913784f05aeff0dd086d4338, type: 2}
+  vfxPrefab: {fileID: 0}
+  playable: 0
+  exhaustsWhenPlayed: 0
+  retain: 0
+  effectWorkflows:
+  - rid: 5602892533381726226
+  onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
+    rid: 7189280543290425344
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  onDrawEffectWorkflow:
+    rid: -2
+  tooltips: 
+  tooltipKeyword: 37
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 5602892533381726226
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps: []
+    - rid: 7189280543290425344
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 7189280543290425345
+        - rid: 7189280543290425346
+        - rid: 7189280543290425347
+        - rid: 7189280543290425348
+    - rid: 7189280543290425345
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: enemies
+        validTargets: 02000000
+        number: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
+    - rid: 7189280543290425346
+      type: {class: GetCombatEncounterStat, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetCombatEncounterStat
+        statOfInterest: 4
+        outputKey: numCards
+    - rid: 7189280543290425347
+      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetRandomItems
+        inputKey: enemies
+        scale: 1
+        scaleKey: numCards
+        getScaleFromKey: 1
+        outputKey: selected
+        withReplacement: 1
+    - rid: 7189280543290425348
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: selected
+        combatEffect: 0
+        scale: 4
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 1320532642761013391, guid: 4847f21b038e1aa42bceefe5c97ab1ab, type: 3}

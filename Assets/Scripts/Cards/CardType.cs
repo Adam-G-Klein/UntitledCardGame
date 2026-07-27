@@ -466,6 +466,9 @@ public class CardFilter
     // Match an exact card type.
     public CardType exactCardType = null;
 
+    // Match if belonging to the selected companion instance.
+    public bool companionInstanceFilterEnabled = false;
+
     // Returns true if the card is included by the filter.
     //
     public bool ApplyFilter(Card card)
@@ -497,13 +500,18 @@ public class CardFilter
         return includeCard;
     }
 
-    public bool ApplyFilter(PlayableCard card)
+    public bool ApplyFilter(PlayableCard card, List<CompanionInstance> companionInstancesToInclude = null)
     {
         bool includeCard = true;
         // Retained card filter only applies to PlayableCards.
         if (retainedCardsFilter != RetainedCardFilter.None)
         {
             includeCard &= retainedCardsFilter == RetainedCardFilter.OnlyRetainedCards == card.retained;
+        }
+        // Companion type filter only applies to PlayableCards.
+        if (companionInstancesToInclude != null && companionInstancesToInclude.Count > 0 && companionInstanceFilterEnabled)
+        {
+            includeCard &= companionInstancesToInclude.Select(ci => ci.deckInstance).Contains(card.deckFrom);
         }
         return includeCard && ApplyFilter(card.card);
     }

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: PB_StrongSetup
+  m_Name: PB_Flourish
   m_EditorClassIdentifier: 
   guid: 3d1965f0-8c87-4bff-bb48-8cee820a9931
-  Name: Strong Setup
+  Name: Flourish
   Description: Give any 1 temporary strength for each extra card you drew this turn
   IconDescription:
   - tokenType: 2
@@ -31,9 +31,19 @@ MonoBehaviour:
   - tokenType: 0
     text: N = Number of extra cards you drew this turn ({numCards} cards)
     icon: 0
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 13
+  - tokenType: 2
+    text: 
+    icon: 4
   IconDescriptionTooltipLines:
   - Give 1 temporary strength to a rat of your choice N times.
   - N is equal to the number of extra cards you drew this turn.
+  - Discard 1 card at random.
   defaultValues:
   - key: numCards
     value: 0
@@ -77,6 +87,9 @@ MonoBehaviour:
         - rid: 7189280385716453472
         - rid: 5602892533381726228
         - rid: 1274772082283774276
+        - rid: 7189280543290425352
+        - rid: 7189280543290425353
+        - rid: 7189280543290425354
     - rid: 5602892533381726227
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -111,3 +124,33 @@ MonoBehaviour:
         effectStepName: GetCombatEncounterStat
         statOfInterest: 4
         outputKey: numCards
+    - rid: 7189280543290425352
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: cards
+        validTargets: 03000000
+        number: 1
+        specialTargetRule: 2
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
+    - rid: 7189280543290425353
+      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetRandomItems
+        inputKey: cards
+        scale: 1
+        scaleKey: 
+        getScaleFromKey: 0
+        outputKey: toDiscard
+        withReplacement: 0
+    - rid: 7189280543290425354
+      type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardInHandEffect
+        inputKey: toDiscard
+        effect: 0

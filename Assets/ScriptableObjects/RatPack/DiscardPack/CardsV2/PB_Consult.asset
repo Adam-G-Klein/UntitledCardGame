@@ -14,8 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 0c789c1f-c086-445e-8be1-dc2b7bdd8f0f
   Name: Consult
-  Description: Draw 1 from any & discard a card in hand
+  Description: Draw 2 from any & discard 2 cards in hand
   IconDescription:
+  - tokenType: 2
+    text: 
+    icon: 3
   - tokenType: 2
     text: 
     icon: 3
@@ -30,8 +33,13 @@ MonoBehaviour:
     icon: 13
   - tokenType: 2
     text: 
+    icon: 13
+  - tokenType: 2
+    text: 
     icon: 18
-  IconDescriptionTooltipLines: []
+  IconDescriptionTooltipLines:
+  - Draw 2 cards from a rat of your choice.
+  - Choose 2 cards in hand to discard, returning them to the rats' discard piles.
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 7d13e867f4dd988488e4c5a179fa0857, type: 3}
@@ -66,7 +74,7 @@ MonoBehaviour:
         inputKey: 
         outputKey: targetCard
         validTargets: 03000000
-        number: 1
+        number: 2
         specialTargetRule: 5
         cantCancelTargetting: 1
         cardSelectionHelperText: 
@@ -114,7 +122,7 @@ MonoBehaviour:
         effectStepName: DrawCards
         inputKey: target
         outputKey: 
-        scale: 1
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         waitForDrawsToResolve: 1

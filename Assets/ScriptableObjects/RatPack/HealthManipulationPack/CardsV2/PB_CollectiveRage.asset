@@ -15,11 +15,31 @@ MonoBehaviour:
   guid: a832a2cd-717a-4e06-9036-205dbe3ee7e2
   Name: Collective Rage
   Description: Deal {rpl_damage} damage for each rat below half HP ({numComps} rats)
-  IconDescription: []
-  IconDescriptionTooltipLines: []
+  IconDescription:
+  - tokenType: 0
+    text: '{rpl_damage}'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
+  - tokenType: 2
+    text: 
+    icon: 18
+  - tokenType: 0
+    text: xN
+    icon: 0
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 0
+    text: N = Number of rats below half HP ({numComps} rats)
+    icon: 0
+  IconDescriptionTooltipLines:
+  - Deal damage to a foe of your choice N times.
+  - N is equal to the number of rats below half HP.
   defaultValues:
   - key: rpl_damage
-    value: 10
+    value: 15
   - key: numComps
     value: 0
   Cost: 2
@@ -121,7 +141,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: enemy
         combatEffect: 0
-        scale: 10
+        scale: 15
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

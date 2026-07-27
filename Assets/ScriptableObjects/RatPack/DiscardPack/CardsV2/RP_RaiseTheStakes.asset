@@ -16,8 +16,26 @@ MonoBehaviour:
   Name: Raise the Stakes
   Description: Gain 1 energy next turn & if you have 3 or less cards in hand, draw
     1 extra card from self next turn
-  IconDescription: []
-  IconDescriptionTooltipLines: []
+  IconDescription:
+  - tokenType: 0
+    text: "Gain 1 \xC9lan next turn"
+    icon: 0
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 30
+  - tokenType: 0
+    text: ': '
+    icon: 0
+  - tokenType: 0
+    text: Draw 1 extra card from self next turn
+    icon: 0
+  IconDescriptionTooltipLines:
+  - "Gain 1 \xC9lan next turn to spend on playing cards."
+  - If you have less than 3 cards in hand, also draw 1 extra card from the owner
+    rat next turn.
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 90fa2971dfe769a49a60ad648e956340, type: 3}

@@ -11,6 +11,8 @@ public class FilterCards : EffectStep, IEffectStepCalculation {
     [SerializeField]
     private string inputKey = "";
     [SerializeField]
+    private string companionInstanceKey = "";
+    [SerializeField]
     private CardFilter filter;
     [SerializeField]
     private string outputKey = "";
@@ -33,6 +35,10 @@ public class FilterCards : EffectStep, IEffectStepCalculation {
         if(document.map.ContainsValueWithKey<PlayableCard>(inputKey)) {
             inputPlayableCards = document.map.GetList<PlayableCard>(inputKey);
         }
+        List<CompanionInstance> companionInstances = new List<CompanionInstance>();
+        if(document.map.ContainsValueWithKey<CompanionInstance>(companionInstanceKey)) {
+            companionInstances = document.map.GetList<CompanionInstance>(companionInstanceKey);
+        }
         List<Card> outputCards = new List<Card>();
         List<PlayableCard> playableCards = new List<PlayableCard>();
         foreach (Card card in inputCards) {
@@ -45,7 +51,7 @@ public class FilterCards : EffectStep, IEffectStepCalculation {
             outputCards.Clear();
             foreach (PlayableCard card in inputPlayableCards)
             {
-                if (filter.ApplyFilter(card))
+                if (filter.ApplyFilter(card, companionInstances))
                 {
                     outputCards.Add(card.card);
                     playableCards.Add(card);

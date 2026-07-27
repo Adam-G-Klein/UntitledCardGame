@@ -14,17 +14,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: c365d496-a3e2-49c6-9775-5b3d808bbfbe
   Name: Monte Carlo
-  Description: Discard your hand & draw 1 card from 3 random rats
-  IconDescription: []
-  IconDescriptionTooltipLines: []
+  Description: Discard your hand & draw 1 card from all rats
+  IconDescription:
+  - tokenType: 0
+    text: Exhaust
+    icon: 0
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 0
+    text: Discard your hand
+    icon: 0
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 0
+    text: Draw 1 card from all rats
+    icon: 0
+  IconDescriptionTooltipLines:
+  - This card exhausts when played.
+  - Discard all the cards in your hand.
+  - Draw 1 card from every rat on your team.
   defaultValues: []
-  Cost: 1
+  Cost: 0
   Artwork: {fileID: 21300000, guid: 47602993e540997478144938c9b7ec9b, type: 3}
   cardCategory: 2
   packFrom: {fileID: 11400000, guid: 5f4300e0913784f05aeff0dd086d4338, type: 2}
   vfxPrefab: {fileID: 0}
   playable: 1
-  exhaustsWhenPlayed: 0
+  exhaustsWhenPlayed: 1
   retain: 0
   effectWorkflows:
   - rid: 5602892563578094203
@@ -43,21 +61,11 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 754093826381185171
-      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetRandomItems
-        inputKey: all
-        scale: 3
-        scaleKey: 
-        getScaleFromKey: 0
-        outputKey: random
-        withReplacement: 0
     - rid: 1274772038231786148
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: random
+        inputKey: all
         prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
         scale: 1.5
     - rid: 2034230108114649711
@@ -68,7 +76,7 @@ MonoBehaviour:
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DrawCards
-        inputKey: random
+        inputKey: all
         outputKey: 
         scale: 1
         getScaleFromKey: 0
@@ -115,6 +123,5 @@ MonoBehaviour:
         - rid: 2034230108114649716
         - rid: 2034230108114649717
         - rid: 4463205916933357570
-        - rid: 754093826381185171
         - rid: 2034230108114649715
         - rid: 1274772038231786148
