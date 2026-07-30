@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: d49a48fb-110c-43ea-a004-c20f84762448
   Name: Let's Ride
-  Description: Discount 2 random Attack cards in hand by 1 energy
+  Description: "Discount 2 random Attack cards in hand by 1 \xC9lan"
   IconDescription: []
   IconDescriptionTooltipLines: []
   defaultValues: []
@@ -70,12 +70,14 @@ MonoBehaviour:
       data:
         effectStepName: FilterCards
         inputKey: allCards
+        companionInstanceKey: 
         filter:
           cardCategoriesToInclude: 01000000
           retainedCardsFilter: 0
           manaCostFilter: 2
           manaCost: 1
           exactCardType: {fileID: 0}
+          companionInstanceFilterEnabled: 0
         outputKey: attacks
     - rid: 7082891692335694197
       type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}

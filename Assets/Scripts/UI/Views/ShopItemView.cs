@@ -107,10 +107,10 @@ public class ShopItemView : ICompanionViewDelegate {
 		cardSpawnIndicatorIcon.AddToClassList("card_spawn_indicator_icon");
 		Sprite sprite = null;
 		if (card.sourceCompanion != null) {
-			Debug.LogError("Card spawn indicator: " + card.sourceCompanion.name);
+			Debug.Log("Card spawn indicator: " + card.sourceCompanion.name);
 			sprite = card.sourceCompanion.icon;
 		} else if (card.packSO != null) {
-			Debug.LogError("Card spawn indicator: " + card.packSO.name);
+			Debug.Log("Card spawn indicator: " + card.packSO.name);
 			sprite = card.packSO.packColorIcon;
 		}
 		cardSpawnIndicatorIcon.style.backgroundImage = new StyleBackground(sprite);

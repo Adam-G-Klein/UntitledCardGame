@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: e4fdf3db-6773-4a13-87a0-6a6781eaa192
   Name: Groupthink
-  Description: Unplayable. When discarded, draw 1 card from 3 random rats
+  Description: Unplayable. When discarded, draw 1 card from 2 random rats
   IconDescription:
   - tokenType: 0
     text: Unplayable.
@@ -28,9 +28,6 @@ MonoBehaviour:
   - tokenType: 0
     text: ':'
     icon: 0
-  - tokenType: 2
-    text: 
-    icon: 3
   - tokenType: 2
     text: 
     icon: 3
@@ -74,7 +71,7 @@ MonoBehaviour:
       data:
         effectStepName: GetRandomItems
         inputKey: all
-        scale: 3
+        scale: 2
         scaleKey: 
         getScaleFromKey: 0
         outputKey: targets

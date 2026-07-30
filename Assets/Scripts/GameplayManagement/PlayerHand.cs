@@ -593,7 +593,8 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             return;
         }
         indexToHover = -1;
-        int nextHoverIndex = cardsInHand.Count <= lastHoveredIndex ? lastHoveredIndex - 1 : lastHoveredIndex;
+        int nextHoverIndex = cardsInHand.Count <= lastHoveredIndex ? cardsInHand.Count - 1 : lastHoveredIndex;
+        Debug.Log("PlayerHand: Hovering next card after cast, nextHoverIndex: " + nextHoverIndex + " lastHoveredIndex: " + lastHoveredIndex + " cardsInHand.Count: " + cardsInHand.Count);
 
         try
         {
@@ -774,15 +775,16 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
     // Do not call on whole hand, only call on individual cards
     // modifies the list of cards in hand
-    public IEnumerator ExhaustCard(PlayableCard card)
+    public IEnumerator ExhaustCard(PlayableCard card, bool cardCasted = false)
     {
-        // If statements are here to take into account if a card exhausts itself
-        // as part of its effect workflow
-        if (GetCardsOrdered().Contains(card) || (cardsInSelectionSpline != null && cardsInSelectionSpline.Contains(card)))
+        if (!cardCasted)
         {
-            yield return SafeRemoveCardFromHand(card);
+            if (GetCardsOrdered().Contains(card) || (cardsInSelectionSpline != null && cardsInSelectionSpline.Contains(card)))
+            {
+                yield return SafeRemoveCardFromHand(card);
+            }
+            yield return ResizeHand(card);
         }
-        yield return ResizeHand(card);
 
         if (card.card.cardType.onExhaustEffectWorkflow != null)
         {

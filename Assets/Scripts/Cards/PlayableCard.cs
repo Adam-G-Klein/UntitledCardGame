@@ -123,40 +123,25 @@ public class PlayableCard : MonoBehaviour,
         PlayerHand.Instance.SetHoverable(true);
         hoverable = false;
         yield return StartCoroutine(PlayerHand.Instance.OnCardCast(this));
+        // remove the card from the hand first so that resizing doesn't affect the card being cast
+        yield return StartCoroutine(PlayerHand.Instance.SafeRemoveCardFromHand(this));
 
+        EnemyEncounterManager.Instance.SetCastingCard(false);
+        PlayerHand.Instance.HoverNextCardAfterCast();
+
+        yield return StartCoroutine(PlayerHand.Instance.ResizeHand(this));
         if (card.cardType.exhaustsWhenPlayed)
         {
-            Debug.Log("STARTING exhaust when played coroutine");
-            yield return PlayerHand.Instance.ExhaustCard(this);
-            Debug.Log("DONE WITH exhaust when played coroutine");
-
-            EnemyEncounterManager.Instance.SetCastingCard(false);
-            PlayerHand.Instance.HoverNextCardAfterCast();
-
-            // Add a WaitForSeconds so that the target hovering does not break when using keyboard.
-            // yield return new WaitForSeconds(0.5f);
-            // Don't need to call ResizeHand, because ExhaustCard already does it!
+            yield return PlayerHand.Instance.ExhaustCard(this, cardCasted: true);
+        }
+        else if (card.cardType.cardCategory == CardCategory.Passive)
+        {
+            PassiveAppliedVFX();
+            cleanupAndDestroy();
         }
         else
         {
-            // remove the card from the hand first so that resizing doesn't affect the card being cast
-            yield return StartCoroutine(PlayerHand.Instance.SafeRemoveCardFromHand(this));
-
-            EnemyEncounterManager.Instance.SetCastingCard(false);
-            PlayerHand.Instance.HoverNextCardAfterCast();
-
-            yield return StartCoroutine(PlayerHand.Instance.ResizeHand(this));
-
-            // Non-power cards should discard to deck after they are played.
-            if (card.cardType.cardCategory == CardCategory.Passive)
-            {
-                PassiveAppliedVFX();
-                cleanupAndDestroy();
-            }
-            else
-            {
-                yield return StartCoroutine(PlayerHand.Instance.DiscardCard(this, true));
-            }
+            yield return StartCoroutine(PlayerHand.Instance.DiscardCard(this, true));
         }
 
         // If the hand is empty as a result of playing this card, invoke any subscribers.
