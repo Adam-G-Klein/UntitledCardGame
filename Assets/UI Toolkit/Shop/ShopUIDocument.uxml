@@ -82,11 +82,31 @@
                             <ui:Label tabindex="-1" text="Bench" parse-escape-sequences="true" display-tooltip-when-elided="true" style="width: 40%; height: 40%; -unity-text-align: middle-center; font-size: 22px; -unity-font-style: bold; margin-right: 0; background-image: url(&quot;project://database/Assets/Sprites/UI/Shop/ShopScreen_UnitManagementTitle.png?fileID=2800000&amp;guid=6b36e1dcbc5a3fa4d902796c2095e1ba&amp;type=3#ShopScreen_UnitManagementTitle&quot;); padding-bottom: 10px; padding-left: 23px;" />
                         </ui:VisualElement>
                         <ui:VisualElement name="bench-container" style="flex-direction: row; width: 70%; height: 95%; align-self: auto; align-items: center; justify-content: center;">
-                            <ui:VisualElement name="unit-container-0" class="single-unit-container" style="background-color: rgba(0, 0, 0, 0); border-top-left-radius: 10px; border-bottom-left-radius: 10px;" />
-                            <ui:VisualElement name="unit-container-1" class="single-unit-container" />
-                            <ui:VisualElement name="unit-container-2" class="single-unit-container" />
-                            <ui:VisualElement name="unit-container-3" class="single-unit-container" />
-                            <ui:VisualElement name="unit-container-4" class="single-unit-container" style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;" />
+                            <ui:VisualElement name="unit-container-0" class="single-unit-container" style="background-color: rgba(0, 0, 0, 0); border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
+                                <ui:VisualElement
+                                    name="bench-heal-icon"
+                                    class="shop-bench-heal-icon"/>
+                            </ui:VisualElement>
+                            <ui:VisualElement name="unit-container-1" class="single-unit-container">
+                                <ui:VisualElement
+                                    name="bench-heal-icon"
+                                    class="shop-bench-heal-icon"/>
+                            </ui:VisualElement>
+                            <ui:VisualElement name="unit-container-2" class="single-unit-container">
+                                <ui:VisualElement
+                                    name="bench-heal-icon"
+                                    class="shop-bench-heal-icon"/>
+                            </ui:VisualElement>
+                            <ui:VisualElement name="unit-container-3" class="single-unit-container">
+                                <ui:VisualElement
+                                    name="bench-heal-icon"
+                                    class="shop-bench-heal-icon"/>
+                            </ui:VisualElement>
+                            <ui:VisualElement name="unit-container-4" class="single-unit-container" style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+                                <ui:VisualElement
+                                    name="bench-heal-icon"
+                                    class="shop-bench-heal-icon"/>
+                            </ui:VisualElement>
                         </ui:VisualElement>
                         <ui:VisualElement style="flex-grow: 1; height: 40%; visibility: visible;">
                             <ui:Button text="Switch Decks" parse-escape-sequences="true" display-tooltip-when-elided="true" name="switch-decks-button" class="shopButton" style="font-size: 23px; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; width: 208px; background-image: url(&quot;project://database/Assets/Sprites/UI/Compendium_ExitButton.png?fileID=2800000&amp;guid=16eaf03e91b8db644b07b2d6d253cc63&amp;type=3#Compendium_ExitButton&quot;);" />

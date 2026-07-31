@@ -377,7 +377,9 @@ public class ShopViewController : MonoBehaviour,
             CompanionManagementSlotView slotView = new CompanionManagementSlotView(child,
                 slotNotHighlightColor,
                 slotHighlightColor,
-                slotUnavailableColor);
+                slotUnavailableColor,
+                isBenchSlot: true
+            );
             if (ProgressManager.Instance.IsFeatureEnabled(AscensionType.WORSE_BENCH) &&
                 i >= ProgressManager.Instance.GetAscensionSO(AscensionType.WORSE_BENCH).
                 ascensionModificationValues.GetValueOrDefault("numSlots", 3f)) {

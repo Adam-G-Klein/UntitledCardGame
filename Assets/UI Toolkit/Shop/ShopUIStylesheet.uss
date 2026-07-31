@@ -384,3 +384,11 @@
     background-position: center;
     background-repeat: no-repeat;
 }
+
+.shop-bench-heal-icon {
+    flex-grow: 1;
+    background-image: url("project://database/Assets/Sprites/CardIcons-New/CardEffect_Heal2.png?fileID=2800000&guid=1eee1697ed12d43bdaa8cd76c2026729&type=3#CardEffect_Heal2");
+    -unity-background-scale-mode: scale-to-fit;
+    width: 30%;
+    height: 30%;
+}

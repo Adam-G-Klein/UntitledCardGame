@@ -13,17 +13,22 @@ public class CompanionManagementSlotView {
     private Color defaultBackgroundColor;
     private Color highlightedColor;
     private Color blockedColor;
-    
+
+    private VisualElement benchHealIcon = null;
+
     public CompanionManagementSlotView(
             VisualElement slotRoot,
             Color defaultBackgroundColor,
             Color highlightedColor,
-            Color blockedColor) {
+            Color blockedColor,
+            bool isBenchSlot = false
+    ) {
         this.root = slotRoot;
         this.companionManagementView = null;
         this.defaultBackgroundColor = defaultBackgroundColor;
         this.highlightedColor = highlightedColor;
         this.blockedColor = blockedColor;
+        this.benchHealIcon = isBenchSlot ? slotRoot.Q<VisualElement>("bench-heal-icon") : null;
 
         this.veFocusable = root.AsFocusable();
         FocusManager.Instance.RegisterFocusableTarget(veFocusable);
@@ -38,8 +43,21 @@ public class CompanionManagementSlotView {
         veFocusable.SetInputAction(GFGInputAction.SELL_COMPANION, SellCompanionHandler);
     }
 
+    private void ShowBenchHealIcon() {
+        if (benchHealIcon != null) {
+            benchHealIcon.style.display = DisplayStyle.Flex;
+        }
+    }
+
+    private void HideBenchHealIcon() {
+        if (benchHealIcon != null) {
+            benchHealIcon.style.display = DisplayStyle.None;
+        }
+    }
+
     public void SetBlocked() {
         this.blocked = true;
+        HideBenchHealIcon();
         root.style.backgroundColor = blockedColor;
         FocusManager.Instance.DisableFocusableTarget(this.veFocusable);
     }
@@ -60,16 +78,26 @@ public class CompanionManagementSlotView {
         this.companionManagementView = companionManagementView;
         root.Add(companionManagementView.container);
         FocusManager.Instance.EnableFocusableTarget(this.veFocusable);
+        HideBenchHealIcon();
     }
 
     public void RemoveCompanion() {
+        if (benchHealIcon != null)
+        {
+            // The bench heal icon will be the first child of the root.
+            if (root.childCount >= 2)
+                root.RemoveAt(root.childCount - 1);
+        }
+        else
+        {
+            root.Clear();
+        }
         this.companionManagementView = null;
-        root.Clear();
+        ShowBenchHealIcon();
     }
 
     public void Reset() {
-        this.companionManagementView = null;
-        root.Clear();
+        RemoveCompanion();
         root.style.backgroundColor = defaultBackgroundColor;
         this.blocked = false;
         FocusManager.Instance.DisableFocusableTarget(this.veFocusable);
