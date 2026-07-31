@@ -32,6 +32,15 @@ public class CompanionStatTracker
         this.cardsBought = serializable.cardsBought.Select(c => new Card(c, registry)).ToList();
     }
 
+    public CompanionStatTracker RecordDeckSwitch(CompanionStatTracker other)
+    {
+        CompanionStatTracker newStats = new CompanionStatTracker();
+        newStats.numCardsRemoved =  other.numCardsRemoved;
+        newStats.cardsBought = other.cardsBought;
+        newStats.numDeaths = this.numDeaths;
+        return newStats;
+    }
+
     public void RecordCardBuy(Card card)
     {
         cardsBought.Add(card);

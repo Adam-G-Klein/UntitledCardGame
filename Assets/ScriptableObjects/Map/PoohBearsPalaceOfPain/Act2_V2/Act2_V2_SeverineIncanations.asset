@@ -138,12 +138,14 @@ MonoBehaviour:
       data:
         effectStepName: FilterCards
         inputKey: cardPlayed
+        companionInstanceKey: 
         filter:
           cardCategoriesToInclude: 02000000
           retainedCardsFilter: 0
           manaCostFilter: 0
           manaCost: 0
           exactCardType: {fileID: 0}
+          companionInstanceFilterEnabled: 0
         outputKey: nonAttackCardsPlayed
     - rid: 8790164555430887930
       type: {class: CountStep, ns: , asm: Assembly-CSharp}
@@ -207,7 +209,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 0
-        scale: 1
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0

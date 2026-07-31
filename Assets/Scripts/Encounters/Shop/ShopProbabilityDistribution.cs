@@ -49,6 +49,90 @@ public class ShopCardProbabilityDistBuilder {
     Dictionary<Card.CardRarity, double> rarityProb = new();
     Dictionary<CardSource, double> cardSourceProb = new();
 
+    public ShopCardProbabilityDistBuilder(
+        ShopDataSO shopData,
+        CompanionTypeSO dude,
+        int commonCardPct,
+        int uncommonCardPct,
+        int rareCardPct,
+        int cardPrice = -1
+    )
+    {
+        CardPoolSO pool = dude.cardPool;
+        PackSO packSO = dude.pack;
+        List<CardType> commonPool = pool.AllUnlockedCommonCards(ProgressManager.Instance.progressSO.unlockedCards, shopData.alwaysShowUnlockedCards);
+        List<CardType> uncommonPool = pool.AllUnlockedUncommonCards(ProgressManager.Instance.progressSO.unlockedCards, shopData.alwaysShowUnlockedCards);
+        List<CardType> rarePool = pool.AllUnlockedRareCards(ProgressManager.Instance.progressSO.unlockedCards, shopData.alwaysShowUnlockedCards);
+        List<CardWithWeight> cards = new();
+        foreach (CardType card in commonPool) {
+            CardInShopWithPrice c = new CardInShopWithPrice(card, cardPrice >= 0 ? cardPrice : shopData.commonCardPrice, dude, Card.CardRarity.COMMON, packSO);
+            cards.Add(new CardWithWeight(c, 1.0, c.rarity, CardSource.CompanionPool));
+        }
+        foreach (CardType card in uncommonPool) {
+            CardInShopWithPrice c = new CardInShopWithPrice(card, cardPrice >= 0 ? cardPrice : shopData.uncommonCardPrice, dude, Card.CardRarity.UNCOMMON, packSO);
+            cards.Add(new CardWithWeight(c, 1.0, c.rarity, CardSource.CompanionPool));
+        }
+        foreach (CardType card in rarePool) {
+            CardInShopWithPrice c = new CardInShopWithPrice(card, cardPrice >= 0 ? cardPrice : shopData.rareCardPrice, dude, Card.CardRarity.RARE, packSO);
+            cards.Add(new CardWithWeight(c, 1.0, c.rarity, CardSource.CompanionPool));
+        }
+        this.PopulateRarityProbabilities(commonCardPct, uncommonCardPct, rareCardPct);
+        cardSourceProb[CardSource.CompanionPool] = 1;
+
+        this.filteredCards = FilterCards(cards);
+    }
+
+    public ShopCardProbabilityDistBuilder(
+        ShopDataSO shopData,
+        PackSO packSO,
+        int commonCardPct,
+        int uncommonCardPct,
+        int rareCardPct,
+        int cardPrice = -1
+    )
+    {
+        CardPoolSO pool = packSO.packCardPoolSO;
+        List<CardType> commonPool = pool.AllUnlockedCommonCards(ProgressManager.Instance.progressSO.unlockedCards, shopData.alwaysShowUnlockedCards);
+        List<CardType> uncommonPool = pool.AllUnlockedUncommonCards(ProgressManager.Instance.progressSO.unlockedCards, shopData.alwaysShowUnlockedCards);
+        List<CardType> rarePool = pool.AllUnlockedRareCards(ProgressManager.Instance.progressSO.unlockedCards, shopData.alwaysShowUnlockedCards);
+        List<CardWithWeight> cards = new();
+        foreach (CardType card in commonPool) {
+            CardInShopWithPrice c = new CardInShopWithPrice(card, cardPrice >= 0 ? cardPrice : shopData.commonCardPrice, null, Card.CardRarity.COMMON, packSO);
+            cards.Add(new CardWithWeight(c, 1.0, c.rarity, CardSource.PackPool));
+        }
+        foreach (CardType card in uncommonPool) {
+            CardInShopWithPrice c = new CardInShopWithPrice(card, cardPrice >= 0 ? cardPrice : shopData.uncommonCardPrice, null, Card.CardRarity.UNCOMMON, packSO);
+            cards.Add(new CardWithWeight(c, 1.0, c.rarity, CardSource.PackPool));
+        }
+        foreach (CardType card in rarePool) {
+            CardInShopWithPrice c = new CardInShopWithPrice(card, cardPrice >= 0 ? cardPrice : shopData.rareCardPrice, null, Card.CardRarity.RARE, packSO);
+            cards.Add(new CardWithWeight(c, 1.0, c.rarity, CardSource.PackPool));
+        }
+        this.PopulateRarityProbabilities(commonCardPct, uncommonCardPct, rareCardPct);
+        cardSourceProb[CardSource.PackPool] = 1;
+
+        this.filteredCards = FilterCards(cards);
+    }
+
+    private void PopulateRarityProbabilities(ShopLevel shopLevel) {
+        rarityProb[Card.CardRarity.COMMON] = (double) shopLevel.commonCardPercentage / 100.0;
+        rarityProb[Card.CardRarity.UNCOMMON] = (double) shopLevel.uncommonCardPercentage / 100.0;
+        rarityProb[Card.CardRarity.RARE] = (double) shopLevel.rareCardPercentage / 100.0;
+    }
+
+    private void PopulateRarityProbabilities(int commonCardPct, int uncommonCardPct, int rareCardPct) {
+        rarityProb[Card.CardRarity.COMMON] = (double) commonCardPct / 100.0;
+        rarityProb[Card.CardRarity.UNCOMMON] = (double) uncommonCardPct / 100.0;
+        rarityProb[Card.CardRarity.RARE] = (double) rareCardPct / 100.0;
+    }
+
+    private void PopulateCardSourceProbabilities(ShopDataSO shopData) {
+        cardSourceProb[CardSource.CompanionPool] = (double) shopData.companionTypeCardPoolPct / 100.0;
+        cardSourceProb[CardSource.PackPool] = (double) shopData.packCardPoolPct / 100.0;
+        cardSourceProb[CardSource.CrossPackPool] = (double) shopData.crossPackCardPoolPct / 100.0;
+        cardSourceProb[CardSource.NeutralPool] = (double) shopData.neutralCardPoolPct / 100.0;
+    }
+
     public ShopCardProbabilityDistBuilder(ShopDataSO shopData, ShopLevel shopLevel, List<Companion> companionList) {
         // Add the card pools for each companion that is on your team.
         List<ValueTuple<CardPoolSO, CompanionTypeSO, PackSO>> companionCardPools = new();
@@ -116,19 +200,17 @@ public class ShopCardProbabilityDistBuilder {
         // There will likely be multiple of the same card pool in the list,
         // because you can have duplicate companions and even different companions will share
         // the same pack pool.
-        this.filteredCards = allCards
+        this.filteredCards = FilterCards(allCards);
+
+        this.PopulateRarityProbabilities(shopLevel);
+        this.PopulateCardSourceProbabilities(shopData);
+    }
+
+    private List<CardWithWeight> FilterCards(List<CardWithWeight> cards) {
+        return cards
             .GroupBy(x => x.card.cardType)
             .Select(g => g.First())
             .ToList();
-
-        rarityProb[Card.CardRarity.COMMON] = (double) shopLevel.commonCardPercentage / 100.0;
-        rarityProb[Card.CardRarity.UNCOMMON] = (double) shopLevel.uncommonCardPercentage / 100.0;
-        rarityProb[Card.CardRarity.RARE] = (double) shopLevel.rareCardPercentage / 100.0;
-
-        cardSourceProb[CardSource.CompanionPool] = (double) shopData.companionTypeCardPoolPct / 100.0;
-        cardSourceProb[CardSource.PackPool] = (double) shopData.packCardPoolPct / 100.0;
-        cardSourceProb[CardSource.CrossPackPool] = (double) shopData.crossPackCardPoolPct / 100.0;
-        cardSourceProb[CardSource.NeutralPool] = (double) shopData.neutralCardPoolPct / 100.0;
     }
 
     public static List<CardWithWeight> ExtractCardsFromPool(
@@ -143,15 +225,15 @@ public class ShopCardProbabilityDistBuilder {
         List<CardType> uncommonPool = pool.AllUnlockedUncommonCards(ProgressManager.Instance.progressSO.unlockedCards, shopData.alwaysShowUnlockedCards);
         List<CardType> rarePool = pool.AllUnlockedRareCards(ProgressManager.Instance.progressSO.unlockedCards, shopData.alwaysShowUnlockedCards);
         foreach (CardType card in commonPool) {
-            CardInShopWithPrice c = new CardInShopWithPrice(card, shopData.commonCardPrice, dude, pool, Card.CardRarity.COMMON, packSO);
+            CardInShopWithPrice c = new CardInShopWithPrice(card, shopData.commonCardPrice, dude, Card.CardRarity.COMMON, packSO);
             cards.Add(new CardWithWeight(c, 1.0, c.rarity, cardSource));
         }
         foreach (CardType card in uncommonPool) {
-            CardInShopWithPrice c = new CardInShopWithPrice(card, shopData.uncommonCardPrice, dude, pool, Card.CardRarity.UNCOMMON, packSO);
+            CardInShopWithPrice c = new CardInShopWithPrice(card, shopData.uncommonCardPrice, dude, Card.CardRarity.UNCOMMON, packSO);
             cards.Add(new CardWithWeight(c, 1.0, c.rarity, cardSource));
         }
         foreach (CardType card in rarePool) {
-            CardInShopWithPrice c = new CardInShopWithPrice(card, shopData.rareCardPrice, dude, pool, Card.CardRarity.RARE, packSO);
+            CardInShopWithPrice c = new CardInShopWithPrice(card, shopData.rareCardPrice, dude, Card.CardRarity.RARE, packSO);
             cards.Add(new CardWithWeight(c, 1.0, c.rarity, cardSource));
         }
         return cards;
@@ -273,4 +355,65 @@ public class ShopProbabilityDistribution {
         double totalProb = sortedDist.Select(c => c.weight).ToList().Sum();
         Debug.Log($"[Card Probability Distribution] Total Probability: {totalProb}");
     }
+}
+
+public class SimpleBoosterPackDistribution
+{
+    public class BoosterPackTypeWithWeight {
+        public BoosterPack.BoosterPackType boosterType;
+        public double weight;
+    }
+
+    private static System.Random rng = new System.Random();
+    private List<BoosterPackTypeWithWeight> boosterPackDistribution = new();
+
+    public SimpleBoosterPackDistribution(ShopLevel shopLevel)
+    {
+        foreach (BoosterPack.BoosterPackType boosterType in Enum.GetValues(typeof(BoosterPack.BoosterPackType)))
+        {
+            boosterPackDistribution.Add(new BoosterPackTypeWithWeight
+            {
+                boosterType = boosterType,
+                weight = (double) shopLevel.GetBoosterPackAppearancePct(boosterType) / 100.0
+            });
+        }
+    }
+
+    public List<BoosterPack> ChooseWithoutReplacement(List<BoosterPack> boosterPacks, int count)
+    {
+        List<BoosterPack> availablePacks = new List<BoosterPack>(boosterPacks);
+        availablePacks.Shuffle();
+        List<BoosterPack> chosenPacks = new();
+
+        while (chosenPacks.Count < count && availablePacks.Count > 0)
+        {
+            BoosterPack.BoosterPackType desiredType = randomDraw(boosterPackDistribution);
+            BoosterPack pack = availablePacks.Find(p => p.boosterType == desiredType);
+            // If none of that type remain, try again.
+            if (pack == null)
+                continue;
+
+            chosenPacks.Add(pack);
+            availablePacks.Remove(pack);
+        }
+
+        return chosenPacks;
+    }
+
+    private BoosterPack.BoosterPackType randomDraw(List<BoosterPackTypeWithWeight> boosterPackTypes)
+    {
+        double totalWeight = boosterPackTypes.Sum(c => (double)c.weight);
+        double sample = rng.NextDouble() * totalWeight;
+        double accum = 0.0;
+        for (int i = 0; i < boosterPackTypes.Count; i++)
+        {
+            accum += boosterPackTypes[i].weight;
+            if (sample <= accum)
+            {
+                return boosterPackTypes[i].boosterType;
+            }
+        }
+        return boosterPackTypes[boosterPackTypes.Count - 1].boosterType; // fallback instead of null
+    }
+
 }

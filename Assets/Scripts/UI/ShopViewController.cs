@@ -23,6 +23,10 @@ public class ShopViewController : MonoBehaviour,
     private ShopManager shopManager;
     private Dictionary<CardInShopWithPrice, ShopItemView> cardItemToViewMap;
     private Dictionary<CompanionInShopWithPrice, ShopItemView> companionItemToViewMap;
+    private Dictionary<CardInShopWithPrice, ShopItemView> cachedCardItemToViewMap;
+    private Dictionary<CompanionInShopWithPrice, ShopItemView> cachedCompanionItemToViewMap;
+    private Dictionary<BoosterPackInShopWithPrice, ShopItemView> boosterPackItemToViewMap;
+    private Dictionary<BoosterPackInShopWithPrice, ShopItemView> cachedBoosterPackItemToViewMap;
 
     // Specific shop VisualElement references
     private VisualElement shopGoodsAreaContainer;
@@ -124,6 +128,7 @@ public class ShopViewController : MonoBehaviour,
     private TooltipController tooltipController;
 
     private VisualElement draftingHelpContainer;
+    private VisualElement cachedShopGoodsArea;
 
     private bool doneWithReroll = true;
 
@@ -143,6 +148,10 @@ public class ShopViewController : MonoBehaviour,
 
         cardItemToViewMap = new Dictionary<CardInShopWithPrice, ShopItemView>();
         companionItemToViewMap = new Dictionary<CompanionInShopWithPrice, ShopItemView>();
+        boosterPackItemToViewMap = new Dictionary<BoosterPackInShopWithPrice, ShopItemView>();
+        cachedCardItemToViewMap = new Dictionary<CardInShopWithPrice, ShopItemView>();
+        cachedCompanionItemToViewMap = new Dictionary<CompanionInShopWithPrice, ShopItemView>();
+        cachedBoosterPackItemToViewMap = new Dictionary<BoosterPackInShopWithPrice, ShopItemView>();
 
         mapContainer = uiDoc.rootVisualElement.Q("mapContainer");
         SetupMap(shopManager);
@@ -277,6 +286,8 @@ public class ShopViewController : MonoBehaviour,
             FocusManager.Instance.RegisterFocusableTarget(focusable);
             FocusManager.Instance.DisableFocusableTarget(focusable);
         });
+
+        cachedShopGoodsArea = new VisualElement();
     }
 
     public void EnableDraftingHelp()
@@ -303,6 +314,32 @@ public class ShopViewController : MonoBehaviour,
         upgradeButtonContainer.style.display = DisplayStyle.None;
         rerollContainer.style.display = DisplayStyle.None;
         cardRemovalContainer.style.display = DisplayStyle.None;
+    }
+
+    public void DisableDraftingHelp()
+    {
+        draftingHelpContainer.style.display = DisplayStyle.None;
+
+        shopGoodsAreaContainer.RemoveFromClassList("shop-view-goods-area-container-narrower");
+        shopButtonsContainer.RemoveFromClassList("shop-view-button-container-wider");
+
+        shopButtonsContainerBg.visible = true;
+
+        rerollButton.SetEnabled(true);
+        FocusManager.Instance.EnableFocusableTarget(rerollButton.AsFocusable());
+
+        switchDecksButton.SetEnabled(true);
+        FocusManager.Instance.EnableFocusableTarget(switchDecksButton.AsFocusable());
+
+        upgradeButton.SetEnabled(true);
+        FocusManager.Instance.EnableFocusableTarget(upgradeButton.AsFocusable());
+
+        cardRemovalButton.SetEnabled(true);
+        FocusManager.Instance.EnableFocusableTarget(cardRemovalButton.AsFocusable());
+
+        upgradeButtonContainer.style.display = DisplayStyle.Flex;
+        rerollContainer.style.display = DisplayStyle.Flex;
+        cardRemovalContainer.style.display = DisplayStyle.Flex;
     }
 
     public void DisableNextCombatButton()
@@ -440,11 +477,90 @@ public class ShopViewController : MonoBehaviour,
         shopGoodsArea.Clear();
     }
 
+    public void CacheShopGoodsArea()
+    {
+        cachedShopGoodsArea.Clear();
+        foreach (VisualElement child in shopGoodsArea.Children().ToList())
+        {
+            shopGoodsArea.Remove(child);
+            cachedShopGoodsArea.Add(child);
+        }
+        cachedCardItemToViewMap.Clear();
+        foreach (var kvp in cardItemToViewMap)
+        {
+            cachedCardItemToViewMap.Add(kvp.Key, kvp.Value);
+            // Remove the focusable from the FocusManager since we removed it from the shopGoodsArea and re-added it
+            FocusManager.Instance.UnregisterFocusableTarget(kvp.Value.visualElementFocusable);
+            disableOnCompanionDrag.Remove(kvp.Value.visualElementFocusable);
+        }
+        cachedCompanionItemToViewMap.Clear();
+        foreach (var kvp in companionItemToViewMap)
+        {
+            cachedCompanionItemToViewMap.Add(kvp.Key, kvp.Value);
+            // Remove the focusable from the FocusManager since we removed it from the shopGoodsArea and re-added it
+            FocusManager.Instance.UnregisterFocusableTarget(kvp.Value.visualElementFocusable);
+            disableOnCompanionDrag.Remove(kvp.Value.visualElementFocusable);
+        }
+        cachedBoosterPackItemToViewMap.Clear();
+        foreach (var kvp in boosterPackItemToViewMap)
+        {
+            cachedBoosterPackItemToViewMap.Add(kvp.Key, kvp.Value);
+            // Remove the focusable from the FocusManager since we removed it from the shopGoodsArea and re-added it
+            FocusManager.Instance.UnregisterFocusableTarget(kvp.Value.visualElementFocusable);
+            disableOnCompanionDrag.Remove(kvp.Value.visualElementFocusable);
+        }
+    }
+
+    public void RestoreShopGoodsArea()
+    {
+        shopGoodsArea.Clear();
+        foreach (VisualElement child in cachedShopGoodsArea.Children().ToList())
+        {
+            cachedShopGoodsArea.Remove(child);
+            shopGoodsArea.Add(child);
+        }
+        cardItemToViewMap.Clear();
+        foreach (var kvp in cachedCardItemToViewMap)
+        {
+            cardItemToViewMap.Add(kvp.Key, kvp.Value);
+            // Make it focusable again since we removed it from the shopGoodsArea and re-added it
+            FocusManager.Instance.RegisterFocusableTarget(kvp.Value.visualElementFocusable);
+            disableOnCompanionDrag.Add(kvp.Value.visualElementFocusable);
+        }
+        companionItemToViewMap.Clear();
+        foreach (var kvp in cachedCompanionItemToViewMap)
+        {
+            companionItemToViewMap.Add(kvp.Key, kvp.Value);
+            // Make it focusable again since we removed it from the shopGoodsArea and re-added it
+            FocusManager.Instance.RegisterFocusableTarget(kvp.Value.visualElementFocusable);
+            disableOnCompanionDrag.Add(kvp.Value.visualElementFocusable);
+        }
+        boosterPackItemToViewMap.Clear();
+        foreach (var kvp in cachedBoosterPackItemToViewMap)
+        {
+            boosterPackItemToViewMap.Add(kvp.Key, kvp.Value);
+            // Make it focusable again since we removed it from the shopGoodsArea and re-added it
+            FocusManager.Instance.RegisterFocusableTarget(kvp.Value.visualElementFocusable);
+            disableOnCompanionDrag.Add(kvp.Value.visualElementFocusable);
+        }
+    }
+
     public void Clear()
     {
         ClearUnitManagement();
         shopGoodsArea.Clear();
         SetBlockedActiveSlotsIfNecessary(shopManager.gameState.companions.currentCompanionSlots);
+    }
+
+    public void AddBoosterPackToShopView(BoosterPackInShopWithPrice boosterPack) {
+        ShopItemView newBoosterPackItemView = new ShopItemView(this, boosterPack);
+
+        shopGoodsArea.Add(newBoosterPackItemView.shopItemElement);
+
+        boosterPackItemToViewMap.Add(boosterPack, newBoosterPackItemView);
+
+        FocusManager.Instance.RegisterFocusableTarget(newBoosterPackItemView.visualElementFocusable);
+        disableOnCompanionDrag.Add(newBoosterPackItemView.visualElementFocusable);
     }
 
     // Handles setting up cards on first entry, see Reroll function for rerolling
@@ -457,19 +573,6 @@ public class ShopViewController : MonoBehaviour,
 
         FocusManager.Instance.RegisterFocusableTarget(newCardItemView.visualElementFocusable);
         disableOnCompanionDrag.Add(newCardItemView.visualElementFocusable);
-    }
-
-    // Handles removing cards when bought, see Reroll for rerolling
-    public void RemoveCardFromShopView(CardInShopWithPrice card) {
-        ShopItemView shopItemView = cardItemToViewMap[card];
-
-        // TODO: Replace with sold out? Grey it out? Talk to Jasmine
-        shopItemView.Disable();
-
-        cardItemToViewMap.Remove(card);
-
-        FocusManager.Instance.UnregisterFocusableTarget(shopItemView.visualElementFocusable);
-        disableOnCompanionDrag.Remove(shopItemView.visualElementFocusable);
     }
 
     public void AnimateNewCompanionToSlot(CompanionInShopWithPrice companion, CompanionManagementSlotView companionManagementSlotView, bool isUpgrade = false, float delay = 0, Action onComplete = null)
@@ -510,6 +613,17 @@ public class ShopViewController : MonoBehaviour,
             {
                 companionView.container.style.height = initialHeight * val;
             });
+    }
+
+    public void BuyBoosterPack(ShopItemView shopItemView, BoosterPackInShopWithPrice boosterPack)
+    {
+        shopItemView.Disable();
+        FocusManager.Instance.UnregisterFocusableTarget(shopItemView.visualElementFocusable);
+        disableOnCompanionDrag.Remove(shopItemView.visualElementFocusable);
+
+        shopItemView.shopItemElement.Clear();
+
+        boosterPackItemToViewMap.Remove(boosterPack);
     }
 
     public void AnimateExistingCompanionToSlot(CompanionManagementSlotView startingSlotView, CompanionManagementSlotView endingSlotView, bool isUpgrade, float delay = 0, Action onComplete = null)
@@ -776,7 +890,7 @@ public class ShopViewController : MonoBehaviour,
     }
 
     // Handles both the VFX and setting up the new area
-    public void Reroll(List<CardInShopWithPrice> cards, List<CompanionInShopWithPrice> companions)
+    public void Reroll(List<CardInShopWithPrice> cards, List<CompanionInShopWithPrice> companions, List<BoosterPackInShopWithPrice> boosterPacks)
     {
         doneWithReroll = false;
         RemoveAllCompanionShineVFX();
@@ -791,7 +905,7 @@ public class ShopViewController : MonoBehaviour,
         VisualElement newItemsContainer = CreateTempContainer(shopGoodsArea.resolvedStyle.width, shopGoodsArea.resolvedStyle.height);
 
         // Manage cleanup of the maps
-        Dictionary<CardInShopWithPrice, ShopItemView> tempCardItemToViewMap = new Dictionary<CardInShopWithPrice, ShopItemView>(cardItemToViewMap);
+        Dictionary<CardInShopWithPrice, ShopItemView> tempCardItemToViewMap = new(cardItemToViewMap);
         foreach (KeyValuePair<CardInShopWithPrice, ShopItemView> pair in tempCardItemToViewMap)
         {
             FocusManager.Instance.UnregisterFocusableTarget(pair.Value.visualElementFocusable);
@@ -799,7 +913,7 @@ public class ShopViewController : MonoBehaviour,
             cardItemToViewMap.Remove(pair.Key);
         }
 
-        Dictionary<CompanionInShopWithPrice, ShopItemView> tempCompanionItemToViewMap = new Dictionary<CompanionInShopWithPrice, ShopItemView>(companionItemToViewMap);
+        Dictionary<CompanionInShopWithPrice, ShopItemView> tempCompanionItemToViewMap = new(companionItemToViewMap);
         foreach (KeyValuePair<CompanionInShopWithPrice, ShopItemView> pair in tempCompanionItemToViewMap)
         {
             FocusManager.Instance.UnregisterFocusableTarget(pair.Value.visualElementFocusable);
@@ -809,7 +923,7 @@ public class ShopViewController : MonoBehaviour,
 
         // Move over the stuff from shop goods area to temp container
         // This can't happen in the above foreach loops because dictionaries aren't ordered
-        List<VisualElement> tempChildren = new List<VisualElement>(shopGoodsArea.Children());
+        List<VisualElement> tempChildren = new(shopGoodsArea.Children());
         foreach (VisualElement ve in tempChildren)
         {
             shopGoodsArea.Remove(ve);
@@ -820,8 +934,16 @@ public class ShopViewController : MonoBehaviour,
         tempParentContainer.Add(newItemsContainer);
         newItemsContainer.style.top = 0;
 
+        List<ShopItemView> newBoosterPackItems = new();
+        foreach (BoosterPackInShopWithPrice boosterPack in boosterPacks)
+        {
+            ShopItemView newBoosterPackItemView = new ShopItemView(this, boosterPack);
+            newBoosterPackItemView.shopItemElement.style.top = -shopGoodsArea.resolvedStyle.height;
+            newItemsContainer.Add(newBoosterPackItemView.shopItemElement);
+            newBoosterPackItems.Add(newBoosterPackItemView);
+        }
 
-        List<ShopItemView> newCardItems = new List<ShopItemView>();
+        List<ShopItemView> newCardItems = new();
         foreach (CardInShopWithPrice card in cards)
         {
             ShopItemView newCardItemView = new ShopItemView(this, card);
@@ -830,14 +952,13 @@ public class ShopViewController : MonoBehaviour,
             newCardItems.Add(newCardItemView);
         }
 
-        List<ShopItemView> newCompanionItems = new List<ShopItemView>();
+        List<ShopItemView> newCompanionItems = new();
         foreach (CompanionInShopWithPrice companion in companions)
         {
             ShopItemView newCompanionItemView = new ShopItemView(this, companion, shopManager.encounterConstants.companionViewTemplate);
             newCompanionItemView.shopItemElement.style.top = -shopGoodsArea.resolvedStyle.height;
             newItemsContainer.Add(newCompanionItemView.shopItemElement);
             newCompanionItems.Add(newCompanionItemView);
-
         }
 
         int numItems = newItemsContainer.childCount;
@@ -857,10 +978,7 @@ public class ShopViewController : MonoBehaviour,
                 LeanTween.value(0f, 1f, rerollVfxTime)
                     .setDelay(delay)
                     .setEase(oldItemsCurve)
-                    .setOnUpdate((float value) =>
-                    {
-                        oldItem.style.top = 0f + (value * oldItemsContainer.resolvedStyle.height);
-                    })
+                    .setOnUpdate(value => oldItem.style.top = value * oldItemsContainer.resolvedStyle.height)
                     .setOnComplete(() =>
                     {
                         if (index != numItems - 1) return;
@@ -874,13 +992,18 @@ public class ShopViewController : MonoBehaviour,
             LeanTween.value(-1f, 0f, rerollVfxTime)
                 .setDelay(oldToNewDelay + delay)
                 .setEase(newItemsCurve)
-                .setOnUpdate((float value) =>
-                {
-                    newItem.style.top = 0f + (value * newItem.resolvedStyle.height);
-                })
+                .setOnUpdate(value => newItem.style.top = value * newItem.resolvedStyle.height)
                 .setOnComplete(() =>
                 {
                     if (index != numItems - 1) return;
+                    foreach (ShopItemView newBoosterPackItem in newBoosterPackItems)
+                    {
+                        newItemsContainer.Remove(newBoosterPackItem.shopItemElement);
+                        shopGoodsArea.Add(newBoosterPackItem.shopItemElement);
+                        boosterPackItemToViewMap.Add(newBoosterPackItem.boosterPackInShop, newBoosterPackItem);
+                        FocusManager.Instance.RegisterFocusableTarget(newBoosterPackItem.visualElementFocusable);
+                        disableOnCompanionDrag.Add(newBoosterPackItem.visualElementFocusable);
+                    }
                     foreach (ShopItemView newCardItem in newCardItems)
                     {
                         newItemsContainer.Remove(newCardItem.shopItemElement);
@@ -1125,6 +1248,10 @@ public class ShopViewController : MonoBehaviour,
         else if (shopItemView.cardInShop != null)
         {
             shopManager.ProcessCardBuyRequestV2(shopItemView, shopItemView.cardInShop);
+        }
+        else if (shopItemView.boosterPackInShop != null)
+        {
+            shopManager.ProcessBoosterPackBuyRequest(shopItemView, shopItemView.boosterPackInShop);
         }
     }
 

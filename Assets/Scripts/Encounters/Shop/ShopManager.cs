@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -34,6 +35,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     private bool buyingCard = false;
     private bool removingCard = false;
     private bool switchingDecks = false;
+    private bool buyingBoosterPack = false;
     private CompanionManagementView switchingDecksCompanion1;
     private CompanionManagementView switchingDecksCompanion2;
     private CardInShopWithPrice currentCardBuyRequest;
@@ -48,6 +50,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     private CompanionInShopWithPrice companionInShop;
     private Companion newCompanion;
     public GameObject tooltipPrefab;
+    private int numCardsLeftInBoosterPack = 0;
     private int timesRerolledThisShop = 0;
     private int timesCardRemovedThisShop = 0;
     private int numRatsBoughtThisShop = 0;
@@ -89,6 +92,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
         bool shouldGenerateCards = true;
         bool shouldGenerateRats = true;
+        bool shouldGenerateBoosterPacks = false;
         if(gameState.InDemoTutorial())
         {
             // Steal James's excellent game design decisions for the demo regardless of shop type :)
@@ -107,9 +111,21 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                 shopViewController.DisableNextCombatButton();
             }
         }
+        if (shopEncounter.shopData.shopMode == ShopMode.BoosterPacks)
+        {
+            shouldGenerateCards = false;
+            shouldGenerateBoosterPacks = true;
+        }
 
-
-        shopEncounter.Build(this, allCompanions, encounterConstants, this.shopLevel, shouldGenerateCards: shouldGenerateCards, shouldGenerateRats: shouldGenerateRats);
+        shopEncounter.Build(
+            this,
+            allCompanions,
+            encounterConstants,
+            this.shopLevel,
+            shouldGenerateCards: shouldGenerateCards,
+            shouldGenerateRats: shouldGenerateRats,
+            shouldGenerateBoosterPacks: shouldGenerateBoosterPacks
+        );
         shopViewController.SetMoney(gameState.playerData.GetValue().gold);
         shopViewController.SetShopUpgradePrice(shopLevel.upgradeIncrementCost);
         shopViewController.SetShopRerollPrice(shopEncounter.shopData.rerollShopPrice, gameState.playerData.GetValue().storedRerolls);
@@ -297,6 +313,32 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         //     cardInShop.cardPool == shopEncounter.shopData.neutralCardPool;
         // (James): experimental change in which we do not restrict which companion gets which card.
         return true;
+    }
+
+    public void ProcessBoosterPackBuyRequest(ShopItemView shopItemView, BoosterPackInShopWithPrice boosterPackInShop) {
+        if (gameState.playerData.GetValue().gold >= boosterPackInShop.price) {
+            Debug.Log("Processing booster pack buy request for " + boosterPackInShop.boosterPack.BoosterPackName());
+            List<CardInShopWithPrice> generatedCards = boosterPackInShop.boosterPack.GenerateCards(shopEncounter.shopData, shopLevel);
+
+            shopViewController.BuyBoosterPack(shopItemView, boosterPackInShop);
+            shopEncounter.OpenBoosterPack(boosterPackInShop.boosterPack, generatedCards);
+            numCardsLeftInBoosterPack = shopEncounter.shopData.boosterPackNumCardsToBuy;
+            SetBoosterPackHelpText(numCardsLeftInBoosterPack);
+            shopViewController.EnableDraftingHelp();
+
+            gameState.playerData.GetValue().gold -= boosterPackInShop.price;
+            shopViewController.SetMoney(gameState.playerData.GetValue().gold);
+            InstantiateShopVFX(moneySpentPrefab, shopItemView.shopItemElement, 1.5f);
+            MusicController.Instance.PlaySFX("event:/SFX/SFX_CompanionBuy");
+
+            buyingBoosterPack = true;
+        } else {
+            shopViewController.NotEnoughMoney();
+        }
+    }
+
+    private void SetBoosterPackHelpText(int numCardsLeftToBuy) {
+        shopViewController.SetDraftingHelpText("Choose " + numCardsLeftToBuy + " card" + (numCardsLeftToBuy > 1 ? "s" : "") + " from the booster pack for your rats");
     }
 
     public void ProcessCompanionBuyRequest(ShopItemView shopItemView, CompanionInShopWithPrice companionInShop) {
@@ -557,6 +599,21 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                     }
                 }
             }
+
+            if (buyingBoosterPack)
+            {
+                numCardsLeftInBoosterPack--;
+                if (numCardsLeftInBoosterPack > 0)
+                {
+                    SetBoosterPackHelpText(numCardsLeftInBoosterPack);
+                }
+                else
+                {
+                    buyingBoosterPack = false;
+                    shopEncounter.DoneWithBoosterPack();
+                    shopViewController.DisableDraftingHelp();
+                }
+            }
         }
 
         if (removingCard) {
@@ -610,6 +667,11 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         List<Card> tempDeck = companion1.deck.cards;
         companion1.deck.cards = companion2.deck.cards;
         companion2.deck.cards = tempDeck;
+
+        // Swap the tracking stats of the two companions for decks.
+        CompanionStatTracker newCompanion1Stats = companion1.trackingStats.RecordDeckSwitch(companion2.trackingStats);
+        companion2.trackingStats = companion2.trackingStats.RecordDeckSwitch(companion1.trackingStats);
+        companion1.trackingStats = newCompanion1Stats;
 
         // Update the UI to reflect the changes.
         shopViewController.RebuildUnitManagement(gameState.companions);
@@ -812,13 +874,19 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
         bool shouldGenerateCards = true;
         bool shouldGenerateRats = true;
+        bool shouldGenerateBoosterPacks = false;
         if(gameState.InDemoTutorial() && shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo)
         {
             shouldGenerateCards = currentDemoShopPhase == ShopPhase.CARD_BUYING_PHASE;
             shouldGenerateRats = currentDemoShopPhase == ShopPhase.RAT_BUYING_PHASE;
         }
+        if (shopEncounter.shopData.shopMode == ShopMode.BoosterPacks)
+        {
+            shouldGenerateBoosterPacks = true;
+            shouldGenerateCards = false;
+        }
 
-        shopEncounter.Reroll(allCompanions, this.shopLevel, shouldGenerateCards, shouldGenerateRats);
+        shopEncounter.Reroll(allCompanions, this.shopLevel, shouldGenerateCards, shouldGenerateRats, shouldGenerateBoosterPacks);
     }
 
     public void ProcessCardRemovalClick() {

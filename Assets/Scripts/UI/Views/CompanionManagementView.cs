@@ -34,6 +34,7 @@ public class CompanionManagementView : IControlsReceiver {
     private bool isHealthTweening = false;
 
     private static string HEALTH_LABEL_STRING = "{0}/{1}";
+    private static string COIN = char.ConvertFromUtf32(0xE001);
 
     public CompanionManagementView(Companion companion, VisualTreeAsset template, ICompanionManagementViewDelegate viewDelegate) {
         this.viewDelegate = viewDelegate;
@@ -268,11 +269,12 @@ public class CompanionManagementView : IControlsReceiver {
         sellCompanionButton.AddToClassList("companion-sell-button");
         sellCompanionButton.AddToClassList("icon-button-absolute");
         sellCompanionButton.SetIconHeight(1f);
-        sellCompanionButton.text = "Sell";
+        CompanionSellValue sellPrice = ShopManager.Instance.CalculateCompanionSellPrice(companion);
+        sellCompanionButton.text = "Sell " + COIN + sellPrice.Total().ToString();
         sellCompanionButton.SetIcon(GFGInputAction.SELL_COMPANION, ControlsManager.Instance.GetSpriteForGFGAction(GFGInputAction.SELL_COMPANION));
         ControlsManager.Instance.RegisterIconChanger(sellCompanionButton);
 
-        sellCompanionButton.style.width = container.worldBound.width * 0.45f;
+        sellCompanionButton.style.width = container.worldBound.width * 0.49f;
         sellCompanionButton.style.top = container.worldBound.yMin - container.worldBound.height * 0.3f;
         sellCompanionButton.style.left = container.worldBound.xMin + (container.worldBound.width * 0.5f) + 4;
         sellCompanionButton.style.height = container.worldBound.height * 0.3f;

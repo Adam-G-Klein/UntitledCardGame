@@ -10,8 +10,6 @@ public class CardInShopWithPrice
     public CardType cardType;
     public int price;
 
-    public CardPoolSO cardPool;
-
     // Nullable for neutral cards.
     public CompanionTypeSO sourceCompanion;
 
@@ -25,7 +23,6 @@ public class CardInShopWithPrice
         CardType cardType,
         int price,
         CompanionTypeSO companionType,
-        CardPoolSO cardPool,
         Card.CardRarity rarity,
         PackSO packSO
     )
@@ -33,7 +30,6 @@ public class CardInShopWithPrice
         this.cardType = cardType;
         this.price = price;
         this.sourceCompanion = companionType;
-        this.cardPool = cardPool;
         this.rarity = rarity;
         this.packSO = packSO;
         this.increasedPrice = false;
@@ -60,6 +56,23 @@ public class CompanionInShopWithPrice {
     }
 }
 
+
+[Serializable]
+public class BoosterPackInShopWithPrice
+{
+    public BoosterPack boosterPack;
+    public int price;
+    public bool increasedPrice;
+
+    public BoosterPackInShopWithPrice(BoosterPack boosterPack, int price)
+    {
+        this.boosterPack = boosterPack;
+        this.price = price;
+        this.increasedPrice = false;
+    }
+}
+
+
 [Serializable]
 public class StaticCardTypeGroup
 {
@@ -85,6 +98,8 @@ public class ShopEncounter : Encounter
     public List<CardInShopWithPrice> CardInShop => cardsInShop;
     private List<CompanionInShopWithPrice> companionsInShop = new List<CompanionInShopWithPrice>();
     public List<CompanionInShopWithPrice> CompanionsInShop => companionsInShop;
+    private List<BoosterPackInShopWithPrice> boosterPacksInShop = new List<BoosterPackInShopWithPrice>();
+    public List<BoosterPackInShopWithPrice> BoosterPacksInShop => boosterPacksInShop;
     private EncounterConstantsSO encounterConstants;
     private ShopManager shopManager;
     private int staticShopIndex;
@@ -118,7 +133,7 @@ public class ShopEncounter : Encounter
             newGroup.companionTypes = new List<CompanionTypeSO>(group.companionTypes);
             this.staticCompanionGroups.Add(newGroup);
         }
-       
+
     }
 
     public ShopEncounter(ShopEncounterSerializable shopEncounterSerializable, SORegistry registry) {
@@ -133,7 +148,8 @@ public class ShopEncounter : Encounter
             EncounterConstantsSO constants,
             ShopLevel shopLevel,
             bool shouldGenerateCards = true,
-            bool shouldGenerateRats = true
+            bool shouldGenerateRats = true,
+            bool shouldGenerateBoosterPacks = true
     )
     {
         this.shopManager = shopManager;
@@ -143,7 +159,8 @@ public class ShopEncounter : Encounter
         if ((staticCardGroups == null || staticCardGroups.Count == 0) && (staticCompanionGroups == null || staticCompanionGroups.Count == 0)) staticShopIndex = -1;
         else staticShopIndex = 0;
 
-        generateShopEncounter(shopLevel, companionList, shouldGenerateCards, shouldGenerateRats);
+        generateShopEncounter(shopLevel, companionList, shouldGenerateCards, shouldGenerateRats, shouldGenerateBoosterPacks);
+        boosterPacksInShop.ForEach(boosterPack => shopManager.shopViewController.AddBoosterPackToShopView(boosterPack));
         cardsInShop.ForEach(card => shopManager.shopViewController.AddCardToShopView(card));
         companionsInShop.ForEach(companion => shopManager.shopViewController.AddCompanionToShopView(companion));
         shopManager.shopViewController.AddCompanionShineAfterHeirarchyChanged();
@@ -154,23 +171,26 @@ public class ShopEncounter : Encounter
         List<Companion> companionList,
         ShopLevel shopLevel,
         bool shouldGenerateCards = true,
-        bool shouldGenerateRats = true
+        bool shouldGenerateRats = true,
+        bool shouldGenerateBoosterPacks = true
     ) {
         if (staticShopIndex != -1) staticShopIndex += 1;
-        generateShopEncounter(shopLevel, companionList, shouldGenerateCards, shouldGenerateRats);
-        shopManager.shopViewController.Reroll(cardsInShop, companionsInShop);
+        generateShopEncounter(shopLevel, companionList, shouldGenerateCards, shouldGenerateRats, shouldGenerateBoosterPacks);
+        shopManager.shopViewController.Reroll(cardsInShop, companionsInShop, boosterPacksInShop);
     }
 
     public override void BuildWithEncounterBuilder(IEncounterBuilder encounterBuilder) {
         encounterBuilder.BuildShopEncounter(this);
     }
 
-    private void generateShopEncounter(ShopLevel shopLevel, List<Companion> companionList, bool shouldGenerateCards = true, bool shouldGenerateRats = true) {
+    private void generateShopEncounter(ShopLevel shopLevel, List<Companion> companionList, bool shouldGenerateCards = true, bool shouldGenerateRats = true, bool shouldGenerateBoosterPacks = true) {
         cardsInShop = new List<CardInShopWithPrice>();
         companionsInShop = new List<CompanionInShopWithPrice>();
+        boosterPacksInShop = new List<BoosterPackInShopWithPrice>();
 
         if (shouldGenerateRats) generateKeepsakes(shopLevel, companionList);
         if (shouldGenerateCards) generateCards(shopLevel, companionList);
+        if (shouldGenerateBoosterPacks) generateBoosterPacks(shopLevel, companionList);
     }
 
     private void generateCards(ShopLevel shopLevel, List<Companion> companionList) {
@@ -179,7 +199,7 @@ public class ShopEncounter : Encounter
             foreach (CardType cardType in staticCardGroups[index].cardTypes) {
                 Card.CardRarity rarity = DetermineCardRarity(cardType);
                 int price = GetCardPriceForRarity(rarity);
-                CardInShopWithPrice card = new CardInShopWithPrice(cardType, price, null, null, rarity, null);
+                CardInShopWithPrice card = new CardInShopWithPrice(cardType, price, null, rarity, null);
                 int bonusCost = AddBonusCardCost();
                 card.price += bonusCost;
                 card.increasedPrice = bonusCost > 0;
@@ -356,6 +376,61 @@ public class ShopEncounter : Encounter
             companionsInShop.Add(keepsake);
             keepsakesOutOfPool.Add(selected);
         }
+    }
+
+    private HashSet<CompanionTypeSO> GetBaseCompanionTypeSOs(List<Companion> companionList) {
+        HashSet<CompanionTypeSO> companionTypeSOs = new HashSet<CompanionTypeSO>();
+        foreach (Companion companion in companionList.Where(companion => companion?.companionType != null)) {
+            if (companion.companionType.level != CompanionLevel.LevelOne) {
+                companionTypeSOs.Add(companion.companionType.baseCompanionType);
+            } else {
+                companionTypeSOs.Add(companion.companionType);
+            }
+        }
+        return companionTypeSOs;
+    }
+
+    private void generateBoosterPacks(ShopLevel shopLevel, List<Companion> companionList) {
+        HashSet<CompanionTypeSO> companionTypeSOs = GetBaseCompanionTypeSOs(companionList);
+
+        HashSet<PackSO> packsToShow = new HashSet<PackSO>();
+        foreach (Companion companion in companionList.Where(companion => companion?.companionType != null)) {
+            if (companion.companionType.pack != null) {
+                packsToShow.Add(companion.companionType.pack);
+            }
+        }
+
+        List<BoosterPack> boosterPacks = new();
+        foreach (PackSO pack in packsToShow) {
+            boosterPacks.Add(new PackBoosterPack(pack, BoosterPack.BoosterPackType.CommonPack));
+            boosterPacks.Add(new PackBoosterPack(pack, BoosterPack.BoosterPackType.UncommonRat));
+        }
+        foreach (CompanionTypeSO companionTypeSO in companionTypeSOs) {
+            boosterPacks.Add(new RatBoosterPackSO(companionTypeSO, BoosterPack.BoosterPackType.CommonRat));
+            boosterPacks.Add(new RatBoosterPackSO(companionTypeSO, BoosterPack.BoosterPackType.UncommonRat));
+        }
+        int numPacksToShow = Math.Min(shopLevel.numBoosterPacksToShow, boosterPacks.Count);
+
+        SimpleBoosterPackDistribution dist = new(shopLevel);
+        List<BoosterPack> chosen = dist.ChooseWithoutReplacement(boosterPacks, numPacksToShow);
+        Debug.Log("Booster packs num to show: " + numPacksToShow.ToString());
+        Debug.Log("Booster packs chosen for shop: " + string.Join(", ", chosen.Select(bp => bp.BoosterPackName())));
+
+        foreach (BoosterPack boosterPack in chosen) {
+            BoosterPackInShopWithPrice boosterPackInShop = new BoosterPackInShopWithPrice(boosterPack, boosterPack.GetBoosterPackPrice(shopData));
+            boosterPacksInShop.Add(boosterPackInShop);
+        }
+    }
+
+    public void OpenBoosterPack(BoosterPack boosterPack, List<CardInShopWithPrice> boosterPackCards) {
+        shopManager.shopViewController.CacheShopGoodsArea();
+        foreach (CardInShopWithPrice card in boosterPackCards) {
+            shopManager.shopViewController.AddCardToShopView(card);
+        }
+    }
+
+    public void DoneWithBoosterPack() {
+        shopManager.shopViewController.RestoreShopGoodsArea();
     }
 
     private int AddBonusRatCost()

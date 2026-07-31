@@ -392,3 +392,31 @@
     width: 30%;
     height: 30%;
 }
+
+.booster-pack-container {
+    width: 95%;
+    height: 95%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.booster-pack-icon {
+    width: 25%;
+    height: 25%;
+    aspect-ratio: 1;
+    background-image: url("project://database/Assets/Sprites/Companions/Icons/Cleavus_Icon.png?fileID=2800000&guid=77b68419a4224bb4e820c36bb2b879f8&type=3#Cleavus_Icon");
+    -unity-background-scale-mode: scale-to-fit;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.booster-pack-label {
+    font-size: 24px;
+    -unity-font-style: bold;
+    unity-text-align: middle-center;
+    flex-wrap: wrap;
+    -unity-text-align: middle-center;
+    white-space: normal;
+}

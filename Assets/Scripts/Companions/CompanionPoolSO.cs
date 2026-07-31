@@ -10,6 +10,10 @@ public class CompanionPoolSO: ScriptableObject {
     public List<CompanionTypeSO> commonCompanions;
     public List<CompanionTypeSO> uncommonCompanions;
     public List<CompanionTypeSO> rareCompanions;
+
+    public bool ContainsRat(CompanionTypeSO rat) {
+        return commonCompanions.Contains(rat) || uncommonCompanions.Contains(rat) || rareCompanions.Contains(rat);
+    }
 }
 
 /*

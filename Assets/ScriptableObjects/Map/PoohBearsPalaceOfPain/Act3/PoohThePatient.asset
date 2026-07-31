@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 73b4545e-7a72-4f20-8241-eb7a30a9876f
   displayName: Pooh the Patient
-  maxHealth: 90
+  maxHealth: 130
   baseAttackDamage: 0
+  enemyDisplayType: 0
   sprite: {fileID: 21300000, guid: ee68b8ed994d6413fbc2f7d6df902689, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
@@ -25,9 +26,9 @@ MonoBehaviour:
   enemyPattern:
     behaviors:
     - intent: 2
-      enemyTargetMethod: 6
+      enemyTargetMethod: 7
       targetsKey: 
-      displayValue: 0
+      displayValue: 10
       effectSteps:
       - rid: 2268260642759376989
       - rid: 2268260642759376990
@@ -54,6 +55,9 @@ MonoBehaviour:
     - title: Powering up
       description: Grows stronger until you piss him off (get him below half HP)
       relatedBehaviorIndex: -1
+      icon: {fileID: 0}
+      iconDescriptionLine: []
+      card: {fileID: 0}
   DEADLIER_ENEMY_BONUS_STR: -1
   HEALTHIER_ENEMY_BONUS_HEALTH: -1
   references:
@@ -75,19 +79,23 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 2268260642759376990
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 0
-        scale: 7
+        scale: 10
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        toggleStatus: 0
     - rid: 2268260642759376991
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -119,3 +127,6 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0

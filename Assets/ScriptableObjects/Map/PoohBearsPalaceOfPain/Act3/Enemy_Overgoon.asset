@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Enemy_Overgoon
   m_EditorClassIdentifier: 
   guid: fb16270c-d6a4-493f-8d6e-2e3f7a1bf5f5
-  displayName: Overgoon
-  maxHealth: 50
+  displayName: Overwyn
+  maxHealth: 75
   baseAttackDamage: 0
   enemyDisplayType: 0
-  sprite: {fileID: 21300000, guid: f79dcc815b5a343b4a73a502fb2292d0, type: 3}
+  sprite: {fileID: 21300000, guid: e1e7ebd578f2d4684bfcfb3f2cf1f3e5, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
   morale: 1
@@ -42,6 +42,7 @@ MonoBehaviour:
       - rid: 205828126246961605
       - rid: 205828126246961606
       - rid: 173314522967966410
+      - rid: 385751591190528417
     behaviorType: 0
   belowHalfHPEnemyPattern:
     behaviors: []
@@ -63,10 +64,13 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Ovegoon's Preference
-      description: At the end of each turn, if you played more than 5 cards, Overgoon
-        gives all enemies 3 strength for the rest of combat
+    - title: Overwyn's Trap
+      description: At the end of each turn, if you played more than 5 cards, Overwyn
+        and all enemies gain 3 strength for the rest of combat
       relatedBehaviorIndex: 0
+      icon: {fileID: 0}
+      iconDescriptionLine: []
+      card: {fileID: 0}
   DEADLIER_ENEMY_BONUS_STR: -1
   HEALTHIER_ENEMY_BONUS_HEALTH: -1
   references:
@@ -86,6 +90,7 @@ MonoBehaviour:
         - rid: 205828126246961458
         - rid: 205828126246961460
         - rid: 205828126246961461
+        weight: 0
     - rid: 205828126246961458
       type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
       data:
@@ -104,6 +109,9 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 205828126246961460
       type: {class: MathStep, ns: , asm: Assembly-CSharp}
       data:
@@ -135,6 +143,9 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 205828126246961606
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -148,6 +159,20 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 0}
+    - rid: 385751591190528417
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 0
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        toggleStatus: 0
     - rid: 1289961934975926472
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
@@ -162,6 +187,7 @@ MonoBehaviour:
         - rid: 1289961934975926506
         - rid: 1289961934975926477
         - rid: 1289961934975926478
+        weight: 0
     - rid: 1289961934975926473
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -173,6 +199,9 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 1289961934975926474
       type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
       data:
@@ -209,6 +238,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        toggleStatus: 0
     - rid: 1289961934975926478
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -227,6 +257,9 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 1
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 1289961934975926505
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -250,6 +283,9 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 8034950092883230786
       type: {class: ScriptableObjectEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -281,6 +317,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        toggleStatus: 0
     - rid: 8034950092883230789
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

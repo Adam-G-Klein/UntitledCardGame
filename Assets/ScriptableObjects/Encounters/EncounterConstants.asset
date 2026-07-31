@@ -24,12 +24,18 @@ MonoBehaviour:
     upgradeIncrementCost: 2
     numCardsToShow: 3
     numKeepsakesToShow: 2
+    numBoosterPacksToShow: 2
     commonCompanionPercentage: 100
     uncommonCompanionPercentage: 0
     rareCompanionPercentage: 0
     commonCardPercentage: 70
     uncommonCardPercentage: 30
     rareCardPercentage: 0
+    boosterPackPcts:
+    - boosterType: 0
+      appearancePct: 40
+    - boosterType: 2
+      appearancePct: 60
     ratBonusHealth: 0
     cardRemovalDiscount: 0
     numCardRemovalsAllowed: 1
@@ -40,7 +46,7 @@ MonoBehaviour:
       empty: 0
       lines:
       - title: Upgrade to Level 2
-        description: Increase shop rarity, +1 card available
+        description: Increase shop rarity, +1 rat available
         relatedBehaviorIndex: 0
         icon: {fileID: 0}
         iconDescriptionLine: []
@@ -49,13 +55,23 @@ MonoBehaviour:
     shopLevelIncrementsToUnlock: 6
     upgradeIncrementCost: 4
     numCardsToShow: 4
-    numKeepsakesToShow: 2
+    numKeepsakesToShow: 3
+    numBoosterPacksToShow: 2
     commonCompanionPercentage: 65
     uncommonCompanionPercentage: 34
     rareCompanionPercentage: 1
     commonCardPercentage: 55
     uncommonCardPercentage: 40
     rareCardPercentage: 5
+    boosterPackPcts:
+    - boosterType: 0
+      appearancePct: 30
+    - boosterType: 2
+      appearancePct: 40
+    - boosterType: 1
+      appearancePct: 10
+    - boosterType: 3
+      appearancePct: 20
     ratBonusHealth: 0
     cardRemovalDiscount: 0
     numCardRemovalsAllowed: 1
@@ -66,7 +82,7 @@ MonoBehaviour:
       empty: 0
       lines:
       - title: Upgrade to Level 3
-        description: Increase shop rarity, +1 rat available, bonus max HP
+        description: Increase shop rarity, +1 booster pack available, bonus max HP
         relatedBehaviorIndex: 0
         icon: {fileID: 0}
         iconDescriptionLine: []
@@ -76,12 +92,22 @@ MonoBehaviour:
     upgradeIncrementCost: 5
     numCardsToShow: 4
     numKeepsakesToShow: 3
+    numBoosterPacksToShow: 3
     commonCompanionPercentage: 50
     uncommonCompanionPercentage: 40
     rareCompanionPercentage: 10
     commonCardPercentage: 50
     uncommonCardPercentage: 40
     rareCardPercentage: 10
+    boosterPackPcts:
+    - boosterType: 0
+      appearancePct: 20
+    - boosterType: 2
+      appearancePct: 30
+    - boosterType: 1
+      appearancePct: 20
+    - boosterType: 3
+      appearancePct: 30
     ratBonusHealth: 5
     cardRemovalDiscount: 0
     numCardRemovalsAllowed: 1
@@ -92,7 +118,7 @@ MonoBehaviour:
       empty: 0
       lines:
       - title: Upgrade to Level 4
-        description: More rare rats, better card removal, better starting decks
+        description: Increase shop rarity, better card removal, better starting decks
         relatedBehaviorIndex: 0
         icon: {fileID: 0}
         iconDescriptionLine: []
@@ -102,12 +128,22 @@ MonoBehaviour:
     upgradeIncrementCost: 4
     numCardsToShow: 4
     numKeepsakesToShow: 3
+    numBoosterPacksToShow: 3
     commonCompanionPercentage: 30
     uncommonCompanionPercentage: 40
     rareCompanionPercentage: 30
     commonCardPercentage: 45
     uncommonCardPercentage: 40
     rareCardPercentage: 15
+    boosterPackPcts:
+    - boosterType: 0
+      appearancePct: 15
+    - boosterType: 2
+      appearancePct: 25
+    - boosterType: 1
+      appearancePct: 25
+    - boosterType: 3
+      appearancePct: 35
     ratBonusHealth: 5
     cardRemovalDiscount: 3
     numCardRemovalsAllowed: 3

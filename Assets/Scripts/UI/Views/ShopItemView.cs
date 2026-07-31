@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -9,6 +7,7 @@ public class ShopItemView : ICompanionViewDelegate {
     public VisualElementFocusable visualElementFocusable;
     public CompanionInShopWithPrice companionInShop = null;
     public CardInShopWithPrice cardInShop = null;
+    public BoosterPackInShopWithPrice boosterPackInShop = null;
     private CompanionView companionView = null;
     private IShopItemViewDelegate viewDelegate;
     private static string COIN = char.ConvertFromUtf32(0xE001);
@@ -16,36 +15,38 @@ public class ShopItemView : ICompanionViewDelegate {
 
     public ShopItemView(IShopItemViewDelegate viewDelegate, CompanionInShopWithPrice companion, VisualTreeAsset template = null) {
         this.viewDelegate = viewDelegate;
-        shopItemElement = makeCompanionShopItem(companion, template);
+        shopItemElement = MakeCompanionShopItem(companion, template);
         companionInShop = companion;
     }
 
     public ShopItemView(IShopItemViewDelegate viewDelegate, CardInShopWithPrice card) {
         this.viewDelegate = viewDelegate;
-        shopItemElement = makeCardShopItem(card);
+        shopItemElement = MakeCardShopItem(card);
         cardInShop = card;
     }
 
-    private VisualElement makeCompanionShopItem(CompanionInShopWithPrice companion, VisualTreeAsset template = null) {
-        VisualElement shopItemElement = new VisualElement();
+    public ShopItemView(IShopItemViewDelegate viewDelegate, BoosterPackInShopWithPrice boosterPack) {
+        this.viewDelegate = viewDelegate;
+        shopItemElement = MakeBoosterPackShopItem(boosterPack);
+        boosterPackInShop = boosterPack;
+    }
+
+    private VisualElement MakeCompanionShopItem(CompanionInShopWithPrice companion, VisualTreeAsset template = null) {
+        VisualElement shopItemElement = new();
         shopItemElement.AddToClassList("shop-item-container");
         shopItemElement.AddToClassList("focusable");
         shopItemElement.focusable = true;
         visualElementFocusable = shopItemElement.AsFocusable();
         visualElementFocusable.SetInputAction(GFGInputAction.VIEW_DECK, DisplayCards);
 
-        // Bit of a hack, but I don't feel like completely refactoring entity view right now
-        Companion tempCompanion = new Companion(companion.companionType);
+        Companion tempCompanion = new(companion.companionType);
         tempCompanion.combatStats.IncreaseMaxHealth(companion.maxHealthBonus);
         tempCompanion.combatStats.currentHealth = tempCompanion.combatStats.getMaxHealth() - companion.sustainedDamage;
         for (int i = 0; i < ShopManager.Instance.GetShopLevel().numLessCardsInStartingDeck; i++) {
             tempCompanion.deck.PurgeStarterDeckCard(ShopManager.Instance.getShopEncounter().shopData.baseCardsToRemoveOnUpgrade);
         }
-        // for (int i = 0; i < tempCompanion.deck.cards.Count; i++) {
-            // Debug.Log("Card at index " + i + " in temp companion deck: " + tempCompanion.deck.cards[i].cardType.name);
-        // }
 
-        companionView = new CompanionView(tempCompanion, template, 0, CompanionView.SHOP_CONTEXT, this);
+        companionView = new(tempCompanion, template, 0, CompanionView.SHOP_CONTEXT, this);
         shopItemElement.Add(companionView.container);
 
         shopItemElement.RegisterOnSelected(ShopItemViewOnClicked);
@@ -62,19 +63,16 @@ public class ShopItemView : ICompanionViewDelegate {
         return shopItemElement;
     }
 
-    private VisualElement makeCardShopItem(CardInShopWithPrice card) {
-        VisualElement shopItemElement = new VisualElement();
+    private VisualElement MakeCardShopItem(CardInShopWithPrice card) {
+        VisualElement shopItemElement = new();
         shopItemElement.AddToClassList("shop-item-container");
         shopItemElement.AddToClassList("focusable");
         shopItemElement.focusable = true;
         visualElementFocusable = shopItemElement.AsFocusable();
 
-        CardView cardView;
-        if (card.sourceCompanion != null) {
-            cardView = new CardView(card.cardType, card.sourceCompanion, card.rarity, true, card.packSO, true);
-        } else {
-            cardView = new CardView(card.cardType, null, card.rarity, true, card.packSO, true);
-        }
+        CardView cardView = card.sourceCompanion != null
+            ? new(card.cardType, card.sourceCompanion, card.rarity, true, card.packSO, true)
+            : new(card.cardType, null, card.rarity, true, card.packSO, true);
 
         shopItemElement.Add(cardView.cardContainer);
 
@@ -86,41 +84,64 @@ public class ShopItemView : ICompanionViewDelegate {
         visualElementFocusable.additionalUnfocusAction += () => OnPointerLeave(null);
 
         shopItemElement.Add(CreatePriceTagForShopItem(card.price, card.increasedPrice));
-		shopItemElement.Add(CreateCardSpawnIndicator(card));
+        shopItemElement.Add(CreateCardSpawnIndicator(card));
 
         return shopItemElement;
     }
 
-	private VisualElement CreateCardSpawnIndicator(CardInShopWithPrice card) {
-		VisualElement cardSpawnIndicator = new VisualElement();
-		cardSpawnIndicator.AddToClassList("card_spawn_indicator_background");
-		Color color = card.packSO != null ? card.packSO.packColor : card.sourceCompanion.pack.packColor;
-		Color secondaryColor = card.packSO != null ? card.packSO.packSecondaryColor : card.sourceCompanion.pack.packSecondaryColor;
-		cardSpawnIndicator.style.backgroundColor = new StyleColor(color);
-		var c = new StyleColor(secondaryColor);
-		cardSpawnIndicator.style.borderTopColor = c;
-		cardSpawnIndicator.style.borderRightColor = c;
-		cardSpawnIndicator.style.borderBottomColor = c;
-		cardSpawnIndicator.style.borderLeftColor = c;
+    private VisualElement MakeBoosterPackShopItem(BoosterPackInShopWithPrice boosterPack) {
+        VisualElement shopItemElement = new();
+        shopItemElement.AddToClassList("shop-item-container");
+        shopItemElement.AddToClassList("focusable");
+        shopItemElement.focusable = true;
+        visualElementFocusable = shopItemElement.AsFocusable();
 
-		VisualElement cardSpawnIndicatorIcon = new VisualElement();
-		cardSpawnIndicatorIcon.AddToClassList("card_spawn_indicator_icon");
-		Sprite sprite = null;
-		if (card.sourceCompanion != null) {
-			Debug.Log("Card spawn indicator: " + card.sourceCompanion.name);
-			sprite = card.sourceCompanion.icon;
-		} else if (card.packSO != null) {
-			Debug.Log("Card spawn indicator: " + card.packSO.name);
-			sprite = card.packSO.packColorIcon;
-		}
-		cardSpawnIndicatorIcon.style.backgroundImage = new StyleBackground(sprite);
-		cardSpawnIndicator.Add(cardSpawnIndicatorIcon);
-		return cardSpawnIndicator;
-	}
+        // Create booster pack display here (adjust based on your BoosterPackView implementation)
+        BoosterPackView boosterPackDisplay = new(boosterPack.boosterPack);
+        shopItemElement.Add(boosterPackDisplay.GetContainer());
+
+        shopItemElement.RegisterOnSelected(ShopItemViewOnClicked);
+        shopItemElement.RegisterCallback<PointerEnterEvent>(OnPointerEnter);
+        shopItemElement.RegisterCallback<PointerLeaveEvent>(OnPointerLeave);
+        shopItemElement.name = boosterPack.boosterPack.BoosterPackName();
+        visualElementFocusable.additionalFocusAction += () => OnPointerEnter(null);
+        visualElementFocusable.additionalUnfocusAction += () => OnPointerLeave(null);
+
+        shopItemElement.Add(CreatePriceTagForShopItem(boosterPack.price, boosterPack.increasedPrice));
+
+        return shopItemElement;
+    }
+
+    private VisualElement CreateCardSpawnIndicator(CardInShopWithPrice card) {
+        VisualElement cardSpawnIndicator = new();
+        cardSpawnIndicator.AddToClassList("card_spawn_indicator_background");
+        Color color = card.packSO != null ? card.packSO.packColor : card.sourceCompanion.pack.packColor;
+        Color secondaryColor = card.packSO != null ? card.packSO.packSecondaryColor : card.sourceCompanion.pack.packSecondaryColor;
+        cardSpawnIndicator.style.backgroundColor = new StyleColor(color);
+        var c = new StyleColor(secondaryColor);
+        cardSpawnIndicator.style.borderTopColor = c;
+        cardSpawnIndicator.style.borderRightColor = c;
+        cardSpawnIndicator.style.borderBottomColor = c;
+        cardSpawnIndicator.style.borderLeftColor = c;
+
+        VisualElement cardSpawnIndicatorIcon = new();
+        cardSpawnIndicatorIcon.AddToClassList("card_spawn_indicator_icon");
+        Sprite sprite = null;
+        if (card.sourceCompanion != null) {
+            Debug.Log("Card spawn indicator: " + card.sourceCompanion.name);
+            sprite = card.sourceCompanion.icon;
+        } else if (card.packSO != null) {
+            Debug.Log("Card spawn indicator: " + card.packSO.name);
+            sprite = card.packSO.packColorIcon;
+        }
+        cardSpawnIndicatorIcon.style.backgroundImage = new StyleBackground(sprite);
+        cardSpawnIndicator.Add(cardSpawnIndicatorIcon);
+        return cardSpawnIndicator;
+    }
 
     private VisualElement CreatePriceTagForShopItem(int price, bool increasedPrice = false) {
-        VisualElement priceTag = new VisualElement();
-        Label label = new Label();
+        VisualElement priceTag = new();
+        Label label = new();
         priceTag.AddToClassList("shop-item-price-tag-background");
         label.AddToClassList("shop-item-price-tag-label");
         label.text = COIN + price.ToString();
@@ -156,10 +177,14 @@ public class ShopItemView : ICompanionViewDelegate {
         viewDelegate.ShopItemViewHovered(this);
         if (companionInShop != null) {
             viewDelegate.DisplayTooltip(shopItemElement, companionInShop.companionType.GetTooltip(), TooltipContext.Shop);
-        } else {
+        } else if (cardInShop != null) {
             TooltipViewModel tvm = cardInShop.cardType.GetTooltip();
-            if (tvm.empty) return;
-            viewDelegate.DisplayTooltip(shopItemElement, tvm, TooltipContext.Shop);
+            if (!tvm.empty) {
+                viewDelegate.DisplayTooltip(shopItemElement, tvm, TooltipContext.Shop);
+            }
+        } else if (boosterPackInShop != null) {
+            // viewDelegate.DisplayTooltip(shopItemElement, boosterPackInShop.boosterPack..GetTooltip(), TooltipContext.Shop);
+            return; // TODO: Implement booster pack tooltip
         }
     }
 
@@ -172,23 +197,11 @@ public class ShopItemView : ICompanionViewDelegate {
         viewDelegate.DisplayCards(companionInShop.companionType);
     }
 
-    public Sprite GetStatusEffectSprite(StatusEffectType statusEffectType)
-    {
-        throw new NotImplementedException();
-    }
+    public Sprite GetStatusEffectSprite(StatusEffectType statusEffectType) => throw new System.NotImplementedException();
 
-    public Sprite GetEnemyIntentImage(EnemyIntentType enemyIntentType)
-    {
-        throw new NotImplementedException();
-    }
+    public Sprite GetEnemyIntentImage(EnemyIntentType enemyIntentType) => throw new System.NotImplementedException();
 
-    public CompanionView GetCompanionView()
-    {
-        return companionView;
-    }
+    public CompanionView GetCompanionView() => companionView;
 
-    public void ViewDeck(DeckViewType deckViewType, Companion companion = null, CompanionInstance companionInstance = null)
-    {
-        viewDelegate.DisplayCards(companionInShop.companionType);
-    }
+    public void ViewDeck(DeckViewType deckViewType, Companion companion = null, CompanionInstance companionInstance = null) => viewDelegate.DisplayCards(companionInShop.companionType);
 }

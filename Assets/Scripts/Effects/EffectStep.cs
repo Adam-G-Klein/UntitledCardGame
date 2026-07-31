@@ -14,6 +14,7 @@ public enum EffectStepName
     CardModificationEffect,
     ChangeEnemyIntent,
     CheckTypeOfMostRecentlyPlayedCard,
+    CheckCurrentTurnPhase,
     CombatEffectStep,
     CombatInstanceCacheLoad,
     CombatInstanceCacheStore,

@@ -7,6 +7,20 @@ public enum ShopMode
 {
     Default,
     StaticChooseNDemo,
+    BoosterPacks,
+}
+
+[Serializable]
+public class BoosterPackData
+{
+    public BoosterPack.BoosterPackType boosterType;
+    public int commonCardPct;
+    public int uncommonCardPct;
+    public int rareCardPct;
+    public int price;
+    public int numCards = 4;
+    public int ratBoosterPackNumCardsFromRatMin = 1;
+    public int ratBoosterPackNumCardsFromRatMax = 2;
 }
 
 [CreateAssetMenu(
@@ -61,8 +75,22 @@ public class ShopDataSO : IdentifiableSO
     public float numCardsBoughtSellFactor = 0.5f;
     public float numCardsRemovedSellFactor = 4f;
 
+    [Header("Booster pack data")]
+    public int boosterPackCardPrice = 0;
+    public int boosterPackNumCardsToBuy = 2;
+    public List<BoosterPackData> boosterPackPcts;
+
     [Header("Upgrade parameters")]
     public List<CardType> baseCardsToRemoveOnUpgrade;
+
+    public BoosterPackData GetBoosterPackDataForType(BoosterPack.BoosterPackType boosterType) {
+        foreach (BoosterPackData p in boosterPackPcts) {
+            if (p.boosterType == boosterType) {
+                return p;
+            }
+        }
+        throw new Exception("No booster pack data found for rarity: " + boosterType);
+    }
 }
 
 [Serializable]
@@ -73,6 +101,7 @@ public class ShopLevel {
     public int upgradeIncrementCost;
     public int numCardsToShow;
     public int numKeepsakesToShow;
+    public int numBoosterPacksToShow;
 
     [Space(10)]
     [Header("Percentage Manipulation")]
@@ -82,6 +111,13 @@ public class ShopLevel {
     public int commonCardPercentage;
     public int uncommonCardPercentage;
     public int rareCardPercentage;
+    [Serializable]
+    public class BoosterPackPcts
+    {
+        public BoosterPack.BoosterPackType boosterType;
+        public int appearancePct;
+    }
+    public List<BoosterPackPcts> boosterPackPcts;
 
     [Space(10)]
     [Header("Unique bonuses")]
@@ -106,5 +142,14 @@ public class ShopLevel {
         return commonCardPercentage +
             uncommonCardPercentage +
             rareCardPercentage;
+    }
+
+    public int GetBoosterPackAppearancePct(BoosterPack.BoosterPackType boosterType) {
+        foreach (BoosterPackPcts p in boosterPackPcts) {
+            if (p.boosterType == boosterType) {
+                return p.appearancePct;
+            }
+        }
+        return 0;
     }
 }
