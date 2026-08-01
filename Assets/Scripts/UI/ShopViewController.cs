@@ -530,7 +530,7 @@ public class ShopViewController : MonoBehaviour,
         tempContainer.style.alignItems = Align.Center;
 
         uiDoc.rootVisualElement.Add(tempContainer);
-        VisualElement companionElement = parentContainer.Children().FirstOrDefault();
+        VisualElement companionElement = parentContainer.Children().LastOrDefault();
         tempContainer.style.left = startPoint.x - parentContainer.resolvedStyle.width / 2;
         tempContainer.style.top = startPoint.y - parentContainer.resolvedStyle.height / 2;
 
