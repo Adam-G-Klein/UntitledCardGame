@@ -130,6 +130,12 @@ public class PowerSO : ScriptableObject
         DragonsBreath,
         // _: Whenever you exhaust a card from this rat, draw 1 card from a random rat.
         ExothermicReaction,
+        // _: Every 3rd attack deals double damage.
+        PerfectTiming,
+        // _: Every 3rd attack you play, draw 1 card from this rat.
+        Relentlessness,
+        // _: lone wolf: whenever you only have 1 Attack card in hand, attacks from this rat deal +3 damage
+        LoneWolf,
     }
 
     public TooltipViewModel GetTooltip(int stackCount)

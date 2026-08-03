@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 829d164f-3ab3-4b35-8818-e2f0e05812e9
   Name: Premonition
-  Description: Retain. Retain an Attack card in hand & gain 1 energy next turn
+  Description: "Retain. Retain an Attack card in hand & gain 1 \xC9lan next turn"
   IconDescription: []
   IconDescriptionTooltipLines: []
   defaultValues: []
@@ -67,12 +67,14 @@ MonoBehaviour:
       data:
         effectStepName: FilterCards
         inputKey: cards
+        companionInstanceKey: 
         filter:
           cardCategoriesToInclude: 01000000
           retainedCardsFilter: 0
           manaCostFilter: 0
           manaCost: 0
           exactCardType: {fileID: 0}
+          companionInstanceFilterEnabled: 0
         outputKey: onlyAttacks
     - rid: 2116895648763871336
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}

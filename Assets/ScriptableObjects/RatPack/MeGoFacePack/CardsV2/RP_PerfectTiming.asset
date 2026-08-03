@@ -10,38 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: PB_UltimateBlast
+  m_Name: RP_PerfectTiming
   m_EditorClassIdentifier: 
-  guid: a272cf9d-a633-4d5a-ab65-fd0028d11058
-  Name: Ultimate Blast
-  Description: Deal {rpl_damage} damage x7.
-  IconDescription:
-  - tokenType: 0
-    text: '{rpl_damage}'
-    icon: 0
-  - tokenType: 2
-    text: 
-    icon: 1
-  - tokenType: 2
-    text: 
-    icon: 18
-  - tokenType: 0
-    text: x7
-    icon: 0
+  guid: 05074f0b-0d76-4dcc-9e04-8e26d51bb943
+  Name: 
+  Description: 
+  IconDescription: []
   IconDescriptionTooltipLines: []
-  defaultValues:
-  - key: rpl_damage
-    value: 2
-  Cost: 3
-  Artwork: {fileID: -1102274441, guid: 33ba4bd24a9cc384c880d4c9d5443278, type: 3}
-  cardCategory: 1
+  defaultValues: []
+  Cost: 1
+  Artwork: {fileID: 0}
+  cardCategory: 5
   packFrom: {fileID: 11400000, guid: 908f28c6f48104c2d85d2fcbd973771e, type: 2}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
   retain: 0
   effectWorkflows:
-  - rid: 5602892675124822189
+  - rid: 754093991137641289
   onExhaustEffectWorkflow:
     rid: -2
   onDiscardEffectWorkflow:
@@ -51,42 +37,35 @@ MonoBehaviour:
   onDrawEffectWorkflow:
     rid: -2
   tooltips: 
-  tooltipKeyword: 0
+  tooltipKeyword: 37
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 5602892675124822189
+    - rid: 754093991137641289
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 5602892675124822190
-        - rid: 5602892675124822191
-    - rid: 5602892675124822190
+        - rid: 754093991137641290
+        - rid: 754093991137641291
+    - rid: 754093991137641290
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: enemy
-        validTargets: 02000000
+        outputKey: self
+        validTargets: 
         number: 1
-        specialTargetRule: 0
+        specialTargetRule: 4
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
         selectionCardCategory: 0
-    - rid: 5602892675124822191
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+    - rid: 754093991137641291
+      type: {class: ActivatePower, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: CombatEffectStep
-        inputKey: enemy
-        combatEffect: 0
-        scale: 2
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplicity: 7
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: 4847f21b038e1aa42bceefe5c97ab1ab, type: 3}
+        effectStepName: ActivatePower
+        inputKey: self
+        power: {fileID: 11400000, guid: db2e80b209562401997534cce557d7d8, type: 2}

@@ -203,6 +203,17 @@ public class Card : Entity, IEquatable<Card>
             int numDiscarded = EnemyEncounterManager.Instance.combatEncounterState.cardsDiscardedThisTurn.Count;
             newScale += numDiscarded * origin.GetNumStackOfPower(PowerSO.PowerType.HotStreak);
         }
+        // PerfectTiming: Every 3rd attack from this rat deals double damage.
+        if (origin.HasPower(PowerSO.PowerType.PerfectTiming) && cardType.cardCategory == CardCategory.Attack)
+        {
+            int numAttacks = origin.cachedEffectValues.intMap.GetValueOrDefault("attackCount", 0);
+            // If the number of attacks is 2, then the next attack will be the 3rd attack, and we should double the damage.
+            if (numAttacks == 2)
+            {
+                newScale *= 2 * origin.GetNumStackOfPower(PowerSO.PowerType.PerfectTiming);
+            }
+            // We will update the cache value for attackCount in the CombatInstance after the card is cast, so we don't need to do it here.
+        }
 
         // Making the choice to do fixed damage first, then multiplication. I don't think it will matter unless
         // both effects end up on one single card

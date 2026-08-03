@@ -73,12 +73,14 @@ MonoBehaviour:
       data:
         effectStepName: FilterCards
         inputKey: all
+        companionInstanceKey: 
         filter:
           cardCategoriesToInclude: 04000000
           retainedCardsFilter: 0
           manaCostFilter: 0
           manaCost: 0
           exactCardType: {fileID: 0}
+          companionInstanceFilterEnabled: 0
         outputKey: filtered
     - rid: 2268261004812222473
       type: {class: CountStep, ns: , asm: Assembly-CSharp}

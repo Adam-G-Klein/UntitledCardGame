@@ -85,7 +85,8 @@ public class CombatInstance : MonoBehaviour
             { StatusEffectType.MaxBlockToLoseAtEndOfTurn, -1 }, // 0 is a valid value so we need to use -1 to indicate a value hasn't been set
             { StatusEffectType.Burn, 0},
             { StatusEffectType.ExtraCardsToDealNextTurn, 0},
-            { StatusEffectType.FlippedUpsideDown, 0}
+            { StatusEffectType.FlippedUpsideDown, 0},
+            { StatusEffectType.DoubleDamageThisTurn, 0}
         };
 
     private Dictionary<StatusEffectType, int> statusEffects =
@@ -195,11 +196,12 @@ public class CombatInstance : MonoBehaviour
     }
 
     public int GetCurrentDamage() {
-        return Mathf.Max(0, (
-                combatStats.baseAttackDamage
+        int dmg = combatStats.baseAttackDamage
                 + statusEffects[StatusEffectType.Strength]
                 + statusEffects[StatusEffectType.TemporaryStrength]
-                - statusEffects[StatusEffectType.Weakness]));
+                - statusEffects[StatusEffectType.Weakness];
+        dmg *= statusEffects[StatusEffectType.DoubleDamageThisTurn] > 0 ? 2 : 1;
+        return Mathf.Max(0, dmg);
     }
 
 
@@ -421,6 +423,8 @@ public class CombatInstance : MonoBehaviour
         if (activated && numStacks == 1 && power.cacheConfiguration.Enabled())
         {
             cacheConfigs.Add(power.cacheConfiguration);
+            // Set the initial value for the cache key to 0 if it doesn't exist yet.
+            cachedEffectValues.intMap[power.cacheConfiguration.key] = 0;
         }
 
         UpdateView();
@@ -526,7 +530,10 @@ public class CombatInstance : MonoBehaviour
             // need special logic
             case StatusEffectType.MoneyOnDeath:
                 statusEffects[status] = DecrementStatus(statusEffects[status]);
-            break;
+                break;
+            case StatusEffectType.DoubleDamageThisTurn:
+                statusEffects[status] = DecrementStatus(statusEffects[status]);
+                break;
         }
         UpdateView();
     }

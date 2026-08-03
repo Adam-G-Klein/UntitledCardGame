@@ -10,38 +10,36 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: PB_Peptalk
+  m_Name: PB_Clobber
   m_EditorClassIdentifier: 
-  guid: 607ff063-5e85-4039-a2f5-01eaf93a9449
-  Name: Peptalk
-  Description: Give any 3 temporary strength
+  guid: dbed2fab-e031-4027-8d78-76835d6cbab8
+  Name: Clobber
+  Description: Deal {rpl_damage} damage
   IconDescription:
+  - tokenType: 0
+    text: '{rpl_damage}'
+    icon: 0
   - tokenType: 2
     text: 
-    icon: 8
-  - tokenType: 2
-    text: 
-    icon: 8
-  - tokenType: 2
-    text: 
-    icon: 8
+    icon: 1
   - tokenType: 2
     text: 
     icon: 18
   IconDescriptionTooltipLines:
-  - Give 3 temporary strength to a rat of your choice, which increases damage dealt
-    until next turn
-  defaultValues: []
-  Cost: 0
-  Artwork: {fileID: 21300000, guid: 5f66e07752da0d34ca5ca0b6a327d011, type: 3}
-  cardCategory: 2
+  - Deal damage to a foe of your choice. CLONK. That's the sound it will make.
+  defaultValues:
+  - key: rpl_damage
+    value: 17
+  Cost: 2
+  Artwork: {fileID: 21300000, guid: c22bda8e4471b44c898089214ba8c903, type: 3}
+  cardCategory: 1
   packFrom: {fileID: 11400000, guid: 908f28c6f48104c2d85d2fcbd973771e, type: 2}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
   retain: 0
   effectWorkflows:
-  - rid: 5602892533381726226
+  - rid: 2116895648763871351
   onExhaustEffectWorkflow:
     rid: -2
   onDiscardEffectWorkflow:
@@ -57,45 +55,36 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 1274772082283774276
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: targetCompanion
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
-        scale: 1.5
-    - rid: 5602892533381726226
+    - rid: 2116895648763871351
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 5602892533381726227
-        - rid: 5602892533381726228
-        - rid: 1274772082283774276
-    - rid: 5602892533381726227
+        - rid: 9024302470308298775
+        - rid: 9024302470308298776
+    - rid: 9024302470308298775
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: targetCompanion
-        validTargets: 00000000
+        outputKey: target
+        validTargets: 02000000
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
         selectionCardCategory: 0
-    - rid: 5602892533381726228
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+    - rid: 9024302470308298776
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: ApplyStatus
-        inputKey: targetCompanion
-        statusEffect: 6
-        scale: 3
+        effectStepName: CombatEffectStep
+        inputKey: target
+        combatEffect: 0
+        scale: 17
         getScaleFromKey: 0
         inputScaleKey: 
-        multiplyByNumAuraStacks: 0
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        toggleStatus: 0
+        vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}

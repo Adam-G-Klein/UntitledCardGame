@@ -16,8 +16,37 @@ MonoBehaviour:
   Name: Combo Piece
   Description: Deal {rpl_damage} damage & if the last card you played was an Attack,
     draw 1 card from 2 random rats
-  IconDescription: []
-  IconDescriptionTooltipLines: []
+  IconDescription:
+  - tokenType: 0
+    text: '{rpl_damage}'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
+  - tokenType: 2
+    text: 
+    icon: 18
+  - tokenType: 1
+    text: 
+    icon: 18
+  - tokenType: 2
+    text: 
+    icon: 28
+  - tokenType: 0
+    text: ': '
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 3
+  - tokenType: 2
+    text: 
+    icon: 3
+  - tokenType: 2
+    text: 
+    icon: 19
+  IconDescriptionTooltipLines:
+  - Deal damage to a foe of your choice.
+  - If the last card you played was an Attack, draw 1 card from 2 random rats.
   defaultValues:
   - key: rpl_damage
     value: 7

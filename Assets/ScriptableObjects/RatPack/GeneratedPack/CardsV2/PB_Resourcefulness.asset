@@ -84,12 +84,14 @@ MonoBehaviour:
       data:
         effectStepName: FilterCards
         inputKey: cards
+        companionInstanceKey: 
         filter:
           cardCategoriesToInclude: 04000000
           retainedCardsFilter: 0
           manaCostFilter: 0
           manaCost: 0
           exactCardType: {fileID: 0}
+          companionInstanceFilterEnabled: 0
         outputKey: charm
     - rid: 5280922841426165977
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}

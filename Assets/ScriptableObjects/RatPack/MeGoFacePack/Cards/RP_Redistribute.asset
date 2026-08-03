@@ -14,12 +14,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: ebd76872-7d98-45a6-b980-f6572a1dbe47
   Name: Redistribute
-  Description: Discard an Attack card. Create a "Dagger" in hand for adjacent
+  Description: 
+  IconDescription:
+  - tokenType: 0
+    text: Discard an Attack card
+    icon: 0
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 0
+    text: Create a Dagger in hand for adjacent rats
+    icon: 0
+  IconDescriptionTooltipLines:
+  - Choose an Attack card in hand to discard.
+  - Create a free Attack card in hand for the rats adjacent to the owner rat.
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 8b7f45e259d8a914ca69c92891ca4bf1, type: 3}
   cardCategory: 2
-  packFrom: {fileID: 0}
+  packFrom: {fileID: 11400000, guid: 908f28c6f48104c2d85d2fcbd973771e, type: 2}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
@@ -31,6 +44,8 @@ MonoBehaviour:
   onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  onDrawEffectWorkflow:
     rid: -2
   tooltips: 
   tooltipKeyword: 37
@@ -50,14 +65,22 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 2
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 1289961820425028207
       type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: FilterCards
         inputKey: cards
+        companionInstanceKey: 
         filter:
           cardCategoriesToInclude: 01000000
           retainedCardsFilter: 0
+          manaCostFilter: 0
+          manaCost: 0
+          exactCardType: {fileID: 0}
+          companionInstanceFilterEnabled: 0
         outputKey: attacks
     - rid: 1289961820425028208
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -70,6 +93,9 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 2
+        selectionCardCategory: 1
     - rid: 1289961820425028209
       type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
       data:
@@ -99,11 +125,15 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 4
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 8034949815888773199
       type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetAdjacentCompanions
         inputKey: self
+        includeInputCompanion: 0
         outputKey: adj
     - rid: 8034949815888773200
       type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}

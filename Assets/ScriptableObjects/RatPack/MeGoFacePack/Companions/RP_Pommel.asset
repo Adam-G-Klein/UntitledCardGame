@@ -155,12 +155,14 @@ MonoBehaviour:
       data:
         effectStepName: FilterCards
         inputKey: cardPlayed
+        companionInstanceKey: 
         filter:
           cardCategoriesToInclude: 02000000
           retainedCardsFilter: 0
           manaCostFilter: 0
           manaCost: 0
           exactCardType: {fileID: 0}
+          companionInstanceFilterEnabled: 0
         outputKey: attackCardPlayed
     - rid: 2034230176448512490
       type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}

@@ -28,6 +28,7 @@ public class EndEncounterView : MonoBehaviour
     private int interestCap;
     private int bonusTeamSizeReward;
     private int bonusManaReward;
+    private static string COIN = char.ConvertFromUtf32(0xE001);
 
 
     void OnEnable()
@@ -161,7 +162,7 @@ public class EndEncounterView : MonoBehaviour
 
     private Label MakeMoneyLabel() {
         Label label = new Label();
-        label.text = "$";
+        label.text = COIN;
         label.AddToClassList("post-combat-text");
         label.AddToClassList("post-combat-reward-dollar");
         return label;

@@ -10,17 +10,49 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: PB_DanceOfSteel
+  m_Name: PB_Slobber
   m_EditorClassIdentifier: 
-  guid: 9554a7d0-fcc9-4401-843f-ceb36e93366b
-  Name: Dance of Steel
-  Description: Deal {rpl_damage} damage & if the last card you played was an Attack,
-    draw 1 card from random x2
-  IconDescription: []
+  guid: 157a80d9-e926-4514-953e-989151a44ab5
+  Name: Slobber
+  Description: 
+  IconDescription:
+  - tokenType: 0
+    text: '{rpl_damage}'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
+  - tokenType: 2
+    text: 
+    icon: 33
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 28
+  - tokenType: 0
+    text: ': '
+    icon: 0
+  - tokenType: 0
+    text: '{rpl_damage_2}'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
+  - tokenType: 2
+    text: 
+    icon: 33
+  IconDescriptionTooltipLines:
+  - Deal damage to all foes.
+  - If the last card you played was an Attack, give the owner rat 1 strength, deal
+    more damage to all foes.
   defaultValues:
   - key: rpl_damage
     value: 7
-  Cost: 1
+  - key: rpl_damage_2
+    value: 5
+  Cost: 2
   Artwork: {fileID: 21300000, guid: b87c75bd71fd78540bcab566820366a8, type: 3}
   cardCategory: 1
   packFrom: {fileID: 11400000, guid: 908f28c6f48104c2d85d2fcbd973771e, type: 2}
@@ -45,44 +77,19 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 1289961820425028297
-      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
+    - rid: 385751591190528743
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: GetRandomItems
-        inputKey: target
-        scale: 2
-        scaleKey: 
-        getScaleFromKey: 0
-        outputKey: self
-        withReplacement: 0
-    - rid: 2034230176448512659
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: target
-        validTargets: 00000000
-        number: 1
-        specialTargetRule: 1
-        cantCancelTargetting: 0
-        cardSelectionHelperText: 
-    - rid: 2034230176448512660
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: self
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
-        scale: 1
-    - rid: 2034230176448512661
-      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DrawCards
-        inputKey: self
-        outputKey: 
-        scale: 1
+        effectStepName: CombatEffectStep
+        inputKey: enemy
+        combatEffect: 0
+        scale: 5
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 1320532642761013391, guid: 4847f21b038e1aa42bceefe5c97ab1ab, type: 3}
     - rid: 2511001503980847372
       type: {class: CheckTypeOfMostRecentlyPlayedCard, ns: , asm: Assembly-CSharp}
       data:
@@ -103,10 +110,7 @@ MonoBehaviour:
         - rid: 5602892675124822191
         - rid: 2511001503980847372
         - rid: 2511001503980847373
-        - rid: 2034230176448512659
-        - rid: 1289961820425028297
-        - rid: 2034230176448512661
-        - rid: 2034230176448512660
+        - rid: 385751591190528743
     - rid: 5602892675124822190
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -116,9 +120,11 @@ MonoBehaviour:
         outputKey: enemy
         validTargets: 02000000
         number: 1
-        specialTargetRule: 0
+        specialTargetRule: 1
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 5602892675124822191
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -131,4 +137,4 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
+        vfxPrefab: {fileID: 1320532642761013391, guid: 4847f21b038e1aa42bceefe5c97ab1ab, type: 3}

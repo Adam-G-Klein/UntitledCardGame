@@ -10,17 +10,37 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_BladeVolley
+  m_Name: PB_BladeVolley
   m_EditorClassIdentifier: 
   guid: 5d1431fa-1635-467c-8b35-8a3f0921f24d
   Name: Blade Volley
   Description: Deal {rpl_damage} damage for each of the cards in your hand ({numberOfCardsInHand}
     cards)
-  IconDescription: []
-  IconDescriptionTooltipLines: []
+  IconDescription:
+  - tokenType: 0
+    text: '{rpl_damage}'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
+  - tokenType: 2
+    text: 
+    icon: 18
+  - tokenType: 0
+    text: xN
+    icon: 0
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 0
+    text: N = Number of cards in your hand ({numberOfCardsInHand} cards)
+    icon: 0
+  IconDescriptionTooltipLines:
+  - Deal damage to a foe of your choice N times.
+  - N is equal to the number of cards you have in your hand.
   defaultValues:
   - key: rpl_damage
-    value: 2
+    value: 3
   - key: numberOfCardsInHand
     value: 0
   Cost: 2
@@ -82,7 +102,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: enemyTarget
         combatEffect: 0
-        scale: 2
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 0

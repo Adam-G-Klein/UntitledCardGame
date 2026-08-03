@@ -16,11 +16,38 @@ MonoBehaviour:
   Name: Followthrough
   Description: Deal {rpl_damage} damage & if the last card you played was an Attack,
     give self 1 strength
-  IconDescription: []
-  IconDescriptionTooltipLines: []
+  IconDescription:
+  - tokenType: 0
+    text: '{rpl_damage}'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
+  - tokenType: 2
+    text: 
+    icon: 18
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 28
+  - tokenType: 0
+    text: ': '
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 7
+  - tokenType: 2
+    text: 
+    icon: 11
+  IconDescriptionTooltipLines:
+  - Deal damage to a foe of your choice.
+  - If the last card you played was an Attack, give the owner rat 1 strength, increasing
+    damage dealt by attacks for the rest of combat.
   defaultValues:
   - key: rpl_damage
-    value: 5
+    value: 7
   Cost: 1
   Artwork: {fileID: 21300000, guid: b87c75bd71fd78540bcab566820366a8, type: 3}
   cardCategory: 1
@@ -124,7 +151,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: enemy
         combatEffect: 0
-        scale: 5
+        scale: 7
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

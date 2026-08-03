@@ -65,12 +65,14 @@ MonoBehaviour:
       data:
         effectStepName: FilterCards
         inputKey: cards
+        companionInstanceKey: 
         filter:
           cardCategoriesToInclude: 01000000
           retainedCardsFilter: 0
           manaCostFilter: 0
           manaCost: 0
           exactCardType: {fileID: 0}
+          companionInstanceFilterEnabled: 0
         outputKey: onlyAttacks
     - rid: 2116895648763871336
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}

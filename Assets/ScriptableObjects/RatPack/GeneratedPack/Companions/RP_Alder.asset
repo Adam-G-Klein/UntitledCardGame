@@ -138,12 +138,14 @@ MonoBehaviour:
       data:
         effectStepName: FilterCards
         inputKey: cardDrawn
+        companionInstanceKey: 
         filter:
           cardCategoriesToInclude: 04000000
           retainedCardsFilter: 0
           manaCostFilter: 0
           manaCost: 0
           exactCardType: {fileID: 0}
+          companionInstanceFilterEnabled: 0
         outputKey: statusCards
     - rid: 754093968382754845
       type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}

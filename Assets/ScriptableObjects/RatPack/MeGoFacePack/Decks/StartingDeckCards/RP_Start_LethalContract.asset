@@ -16,8 +16,25 @@ MonoBehaviour:
   Name: Lethal Contract
   Description: Deal {rpl_damage} damage & create a Dagger in hand for a random adjacent
     rat
-  IconDescription: []
-  IconDescriptionTooltipLines: []
+  IconDescription:
+  - tokenType: 0
+    text: '{rpl_damage} '
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
+  - tokenType: 2
+    text: 
+    icon: 18
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 0
+    text: Create a Dagger in hand for a random adjacent rat
+    icon: 0
+  IconDescriptionTooltipLines:
+  - Deal damage to a foe of your choice.
+  - Create a Dagger Attack in hand for a random rat adjacent to the owner rat.
   defaultValues:
   - key: rpl_damage
     value: 2

@@ -15,8 +15,25 @@ MonoBehaviour:
   guid: 73ee1130-494e-40ea-9676-29454994e725
   Name: Wedge Formation
   Description: Deal {rpl_damage} damage & create a Dagger for adjacent
-  IconDescription: []
-  IconDescriptionTooltipLines: []
+  IconDescription:
+  - tokenType: 0
+    text: '{rpl_damage}'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
+  - tokenType: 2
+    text: 
+    icon: 18
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 0
+    text: Create a Dagger in hand for adjacent rats
+    icon: 0
+  IconDescriptionTooltipLines:
+  - Deal damage to a foe of your choice.
+  - Create a Dagger card in hand for rats adjacent to the owner rat
   defaultValues:
   - key: rpl_damage
     value: 7

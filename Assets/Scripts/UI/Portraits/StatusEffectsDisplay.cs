@@ -26,7 +26,8 @@ public enum StatusEffectType
     MaxBlockToLoseAtEndOfTurn,
     Burn,
     ExtraCardsToDealNextTurn,
-    FlippedUpsideDown
+    FlippedUpsideDown,
+    DoubleDamageThisTurn
 }
 
 public class StatusEffectsDisplay: MonoBehaviour
