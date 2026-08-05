@@ -320,11 +320,9 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             Debug.Log("Processing booster pack buy request for " + boosterPackInShop.boosterPack.BoosterPackName());
             List<CardInShopWithPrice> generatedCards = boosterPackInShop.boosterPack.GenerateCards(shopEncounter.shopData, shopLevel);
 
-            shopViewController.BuyBoosterPack(shopItemView, boosterPackInShop);
-            shopEncounter.OpenBoosterPack(boosterPackInShop.boosterPack, generatedCards);
             numCardsLeftInBoosterPack = shopEncounter.shopData.boosterPackNumCardsToBuy;
             SetBoosterPackHelpText(numCardsLeftInBoosterPack);
-            shopViewController.EnableDraftingHelp();
+            shopViewController.BuyBoosterPack(shopItemView, boosterPackInShop, generatedCards);
 
             gameState.playerData.GetValue().gold -= boosterPackInShop.price;
             shopViewController.SetMoney(gameState.playerData.GetValue().gold);
@@ -610,8 +608,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                 else
                 {
                     buyingBoosterPack = false;
-                    shopEncounter.DoneWithBoosterPack();
-                    shopViewController.DisableDraftingHelp();
+                    shopViewController.DoneWithBoosterPack();
                 }
             }
         }

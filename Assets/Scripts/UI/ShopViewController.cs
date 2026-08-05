@@ -564,8 +564,9 @@ public class ShopViewController : MonoBehaviour,
     }
 
     // Handles setting up cards on first entry, see Reroll function for rerolling
-    public void AddCardToShopView(CardInShopWithPrice card) {
+    public ShopItemView AddCardToShopView(CardInShopWithPrice card, bool visible = true) {
         ShopItemView newCardItemView = new ShopItemView(this, card);
+        newCardItemView.shopItemElement.visible = visible;
 
         shopGoodsArea.Add(newCardItemView.shopItemElement);
 
@@ -573,6 +574,7 @@ public class ShopViewController : MonoBehaviour,
 
         FocusManager.Instance.RegisterFocusableTarget(newCardItemView.visualElementFocusable);
         disableOnCompanionDrag.Add(newCardItemView.visualElementFocusable);
+        return newCardItemView;
     }
 
     public void AnimateNewCompanionToSlot(CompanionInShopWithPrice companion, CompanionManagementSlotView companionManagementSlotView, bool isUpgrade = false, float delay = 0, Action onComplete = null)
@@ -613,17 +615,6 @@ public class ShopViewController : MonoBehaviour,
             {
                 companionView.container.style.height = initialHeight * val;
             });
-    }
-
-    public void BuyBoosterPack(ShopItemView shopItemView, BoosterPackInShopWithPrice boosterPack)
-    {
-        shopItemView.Disable();
-        FocusManager.Instance.UnregisterFocusableTarget(shopItemView.visualElementFocusable);
-        disableOnCompanionDrag.Remove(shopItemView.visualElementFocusable);
-
-        shopItemView.shopItemElement.Clear();
-
-        boosterPackItemToViewMap.Remove(boosterPack);
     }
 
     public void AnimateExistingCompanionToSlot(CompanionManagementSlotView startingSlotView, CompanionManagementSlotView endingSlotView, bool isUpgrade, float delay = 0, Action onComplete = null)
@@ -2267,5 +2258,203 @@ public class ShopViewController : MonoBehaviour,
             this.vfxGO = vfxGO;
             this.isUpgrade = isUpgrade;
         }
+    }
+
+    public void BuyBoosterPack(
+        ShopItemView shopItemView,
+        BoosterPackInShopWithPrice boosterPack,
+        List<CardInShopWithPrice> boosterPackCards
+    ) {
+        shopItemView.Disable();
+        FocusManager.Instance.UnregisterFocusableTarget(shopItemView.visualElementFocusable);
+        disableOnCompanionDrag.Remove(shopItemView.visualElementFocusable);
+
+        shopItemView.shopItemElement.Clear();
+
+        boosterPackItemToViewMap.Remove(boosterPack);
+
+        EnableDraftingHelp();
+        // Animate to their actual positions in the shop goods area.
+        CacheShopGoodsArea();
+        DisableAllUIPreserveAppearance();
+        List<ShopItemView> tempCardViews = new List<ShopItemView>();
+        for (int i = 0; i < boosterPackCards.Count; i++)
+        {
+            tempCardViews.Add(AddCardToShopView(boosterPackCards[i], false));
+        }
+
+        int remaining = tempCardViews.Count;
+        foreach (var card in tempCardViews)
+        {
+            card.shopItemElement.RegisterCallback<GeometryChangedEvent>(evt =>
+            {
+                remaining--;
+
+                // Assert that the card is not visible.
+                Debug.Assert(!card.shopItemElement.visible, "Card should not be visible initially");
+
+                if (remaining == 0)
+                {
+                    Debug.Log("All temp card views have been laid out, starting booster pack animation");
+                    AnimateBoosterPackOpening(shopItemView, tempCardViews, boosterPackCards, () =>
+                    {
+                        BoosterPackAnimationComplete(boosterPackCards);
+                    });
+                }
+            });
+        }
+
+        // CacheShopGoodsArea();
+        // foreach (CardInShopWithPrice card in boosterPackCards) {
+        //     AddCardToShopView(card);
+        // }
+    }
+
+    private void BoosterPackAnimationComplete(List<CardInShopWithPrice> cards)
+    {
+        Debug.Log("Booster pack animation complete");
+        // Now make the actual cards visible in the shop goods area.
+        for (int i = 0; i < cards.Count; i++)
+        {
+            shopGoodsArea.Children().ElementAt(i).visible = true;
+        }
+
+        EnableAllUI();
+    }
+
+    [SerializeField] private float boosterBurstRadiusPct = 0.2f;
+    [SerializeField] private float boosterBurstTime = 0.1f;
+    [SerializeField] private float boosterPentagonRadiusPct = 0.6f;
+    [SerializeField] private float boosterPentagonTime = 0.5f;
+    [SerializeField] private float boosterPauseTime = 2f;
+    [SerializeField] private float boosterShopGoodsTime = 0.5f;
+    [SerializeField] private float boosterCardDelay = .1f;
+
+    private void AnimateBoosterPackOpening(
+        ShopItemView packView,
+        List<ShopItemView> tempCardViews,
+        List<CardInShopWithPrice> cards,
+        Action onComplete)
+    {
+        // Wait a frame to allow the temp card views to be added to the hierarchy and have their layout computed.
+
+        Vector2 packCenter = VisualElementUtils.GetCenterOfVisualElement(packView.shopItemElement);
+
+        Vector2 screenCenter = new Vector2(Screen.width * 0.5f, Screen.height * 0.5f);
+        float screenRadius = Mathf.Min(Screen.width, Screen.height) * 0.5f;
+
+        VisualElement overlay = new VisualElement();
+        overlay.style.position = Position.Absolute;
+        overlay.style.width = Length.Percent(100);
+        overlay.style.height = Length.Percent(100);
+        overlay.style.top = 0;
+        overlay.style.left = 0;
+        overlay.style.overflow = Overflow.Visible;
+        uiDoc.rootVisualElement.Add(overlay);
+
+        List<(CardView tempView, Vector2 burstPos, Vector2 pentagonPos)> animatingCards = new();
+
+        // Create temp card views and compute target positions
+        float angleStep = 360f / cards.Count;
+        float initialAngleOffset = 30f;
+        for (int i = 0; i < cards.Count; i++)
+        {
+            CardInShopWithPrice card = cards[i];
+            CardView tempView = card.sourceCompanion != null
+                ? new(card.cardType, card.sourceCompanion, card.rarity, true, card.packSO, true)
+                : new(card.cardType, null, card.rarity, true, card.packSO, true);
+
+            tempView.cardContainer.style.position = Position.Absolute;
+            tempView.cardContainer.style.width = packView.shopItemElement.resolvedStyle.width;
+            tempView.cardContainer.style.height = packView.shopItemElement.resolvedStyle.height;
+            tempView.cardContainer.style.left = packCenter.x - tempView.cardContainer.resolvedStyle.width * 0.5f;
+            tempView.cardContainer.style.top = packCenter.y - tempView.cardContainer.resolvedStyle.height * 0.5f;
+
+            // We'll set the display style to be flex after the layout is computed, so that the card is not visible until the animation starts.
+            tempView.cardContainer.visible = false;
+
+            overlay.Add(tempView.cardContainer);
+
+            // Burst position (outward from pack)
+            float angle = angleStep * i * Mathf.Deg2Rad + initialAngleOffset * Mathf.Deg2Rad;
+            Vector2 burstPos = packCenter + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * screenRadius * boosterBurstRadiusPct;
+
+            // Pentagon position (final circle formation)
+            Vector2 pentagonPos = screenCenter + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * screenRadius * boosterPentagonRadiusPct;
+
+            animatingCards.Add((tempView, burstPos, pentagonPos));
+        }
+
+        // Animate burst outward
+        for (int i = 0; i < animatingCards.Count; i++)
+        {
+            var (tempView, burstPos, _) = animatingCards[i];
+            AnimateVisualElementPosition(
+                tempView.cardContainer,
+                packCenter,
+                burstPos,
+                boosterBurstTime,
+                LeanTweenType.easeOutQuad,
+                i * boosterCardDelay);
+        }
+
+        // Animate to pentagon formation
+        for (int i = 0; i < animatingCards.Count; i++)
+        {
+            var (tempView, _, pentagonPos) = animatingCards[i];
+            AnimateVisualElementPosition(
+                tempView.cardContainer,
+                animatingCards[i].burstPos,
+                pentagonPos,
+                boosterPentagonTime,
+                LeanTweenType.easeOutBack,
+                boosterBurstTime + i * boosterCardDelay);
+        }
+
+        // Animate to the shop goods area.
+        for (int i = 0; i < animatingCards.Count; i++)
+        {
+            var (tempView, _, _) = animatingCards[i];
+            Vector2 targetPos = VisualElementUtils.GetCenterOfVisualElement(tempCardViews[i].shopItemElement);
+            AnimateVisualElementPosition(
+                tempView.cardContainer,
+                animatingCards[i].pentagonPos,
+                targetPos,
+                boosterShopGoodsTime,
+                LeanTweenType.easeOutBack,
+                boosterPentagonTime + boosterPauseTime + boosterBurstTime + i * boosterCardDelay);
+        }
+
+        // Pause and then cleanup
+        uiDoc.rootVisualElement.schedule.Execute(() =>
+        {
+            overlay.RemoveFromHierarchy();
+            onComplete?.Invoke();
+        }).StartingIn((int)(boosterBurstTime + boosterPentagonTime + boosterPauseTime + boosterShopGoodsTime + animatingCards.Count * boosterCardDelay) * 1000);
+    }
+
+    private LTDescr AnimateVisualElementPosition(
+        VisualElement ve,
+        Vector2 start,
+        Vector2 end,
+        float time,
+        LeanTweenType ease,
+        float delay = 0)
+    {
+        return LeanTween.value(0f, 1f, time)
+            .setDelay(delay)
+            .setEase(ease)
+            .setOnUpdate(t =>
+            {
+                Vector2 p = Vector2.Lerp(start, end, t);
+                ve.style.left = p.x - ve.resolvedStyle.width * 0.5f;
+                ve.style.top = p.y - ve.resolvedStyle.height * 0.5f;
+                ve.visible = true;
+            });
+    }
+
+    public void DoneWithBoosterPack() {
+        RestoreShopGoodsArea();
+        DisableDraftingHelp();
     }
 }

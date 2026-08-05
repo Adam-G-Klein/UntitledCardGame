@@ -52,12 +52,6 @@ MonoBehaviour:
   numCompanionsSellFactor: 1.5
   numCardsBoughtSellFactor: 1
   numCardsRemovedSellFactor: 2
-  packBoosterPackPrice: 2
-  packBoosterPackNumCards: 4
-  ratBoosterPackPrice: 3
-  ratBoosterPackNumCards: 4
-  ratBoosterPackNumCardsFromRatMin: 2
-  ratBoosterPackNumCardsFromRatMax: 2
   boosterPackCardPrice: 0
   boosterPackNumCardsToBuy: 2
   boosterPackPcts:
@@ -66,21 +60,33 @@ MonoBehaviour:
     uncommonCardPct: 30
     rareCardPct: 0
     price: 3
+    numCards: 4
+    ratBoosterPackNumCardsFromRatMin: 2
+    ratBoosterPackNumCardsFromRatMax: 2
   - boosterType: 1
     commonCardPct: 0
     uncommonCardPct: 65
     rareCardPct: 35
     price: 5
+    numCards: 4
+    ratBoosterPackNumCardsFromRatMin: 2
+    ratBoosterPackNumCardsFromRatMax: 2
   - boosterType: 2
     commonCardPct: 70
     uncommonCardPct: 30
     rareCardPct: 0
     price: 2
+    numCards: 4
+    ratBoosterPackNumCardsFromRatMin: 1
+    ratBoosterPackNumCardsFromRatMax: 2
   - boosterType: 3
     commonCardPct: 0
     uncommonCardPct: 65
     rareCardPct: 35
     price: 4
+    numCards: 4
+    ratBoosterPackNumCardsFromRatMin: 1
+    ratBoosterPackNumCardsFromRatMax: 2
   baseCardsToRemoveOnUpgrade:
   - {fileID: 11400000, guid: 38df20cfa67a247b7ba206413d7f874e, type: 2}
   - {fileID: 11400000, guid: 2483a7d7534424a4498e2abb3572b2e0, type: 2}

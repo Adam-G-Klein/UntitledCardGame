@@ -422,17 +422,6 @@ public class ShopEncounter : Encounter
         }
     }
 
-    public void OpenBoosterPack(BoosterPack boosterPack, List<CardInShopWithPrice> boosterPackCards) {
-        shopManager.shopViewController.CacheShopGoodsArea();
-        foreach (CardInShopWithPrice card in boosterPackCards) {
-            shopManager.shopViewController.AddCardToShopView(card);
-        }
-    }
-
-    public void DoneWithBoosterPack() {
-        shopManager.shopViewController.RestoreShopGoodsArea();
-    }
-
     private int AddBonusRatCost()
     {
         if (!ProgressManager.Instance.IsFeatureEnabled(AscensionType.STINGY_CONCIERGE)) return 0;
