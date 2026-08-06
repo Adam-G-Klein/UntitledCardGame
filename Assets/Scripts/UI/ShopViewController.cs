@@ -2277,6 +2277,7 @@ public class ShopViewController : MonoBehaviour,
         // Animate to their actual positions in the shop goods area.
         CacheShopGoodsArea();
         DisableAllUIPreserveAppearance();
+        DestroyAllTooltips();
         List<ShopItemView> tempCardViews = new List<ShopItemView>();
         for (int i = 0; i < boosterPackCards.Count; i++)
         {
