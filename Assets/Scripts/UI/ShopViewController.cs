@@ -142,6 +142,11 @@ public class ShopViewController : MonoBehaviour,
             uiDoc = GetComponent<UIDocument>();
         }
 
+        uiDoc.rootVisualElement.RegisterCallback<PointerLeaveEvent>(evt =>
+        {
+            CancelCurrentInteraction();
+        });
+
         this.shopManager = shopManager;
 
         this.tooltipController = new TooltipController(shopManager.tooltipPrefab);
@@ -288,6 +293,24 @@ public class ShopViewController : MonoBehaviour,
         });
 
         cachedShopGoodsArea = new VisualElement();
+    }
+
+    void OnApplicationFocus(bool hasFocus)
+    {
+        if (!hasFocus)
+            CancelCurrentInteraction();
+    }
+
+    void OnApplicationPause(bool paused)
+    {
+        if (paused)
+            CancelCurrentInteraction();
+    }
+
+    private void CancelCurrentInteraction() {
+        if (isDraggingCompanion) {
+            CancelDraggingCompanion();
+        }
     }
 
     public void EnableDraftingHelp()
@@ -2125,18 +2148,25 @@ public class ShopViewController : MonoBehaviour,
         return;
     }
 
+    public void CancelDraggingCompanion()
+    {
+        if (!isDraggingCompanion) return;
+
+        FocusManager.Instance.UnstashFocusables(this.GetType().Name + COMPANION_MANAGEMENT);
+        // abort dragging companion in a *nice* way
+        VisualElement tempContainer = companionBeingDragged.container.parent;
+        originalSlot.InsertCompanion(companionBeingDragged);
+        originalSlot.SetNotHighlighted();
+        uiDoc.rootVisualElement.Remove(tempContainer);
+        isDraggingCompanion = false;
+        companionBeingDragged = null;
+        originalSlot = null;
+    }
+
     public void SwappedControlMethod(ControlsManager.ControlMethod controlMethod)
     {
         if (isDraggingCompanion) {
-            FocusManager.Instance.UnstashFocusables(this.GetType().Name + COMPANION_MANAGEMENT);
-            // abort dragging companion in a *nice* way
-            VisualElement tempContainer = companionBeingDragged.container.parent;
-            originalSlot.InsertCompanion(companionBeingDragged);
-            originalSlot.SetNotHighlighted();
-            uiDoc.rootVisualElement.Remove(tempContainer);
-            isDraggingCompanion = false;
-            companionBeingDragged = null;
-            originalSlot = null;
+            CancelDraggingCompanion();
         }
 
         foreach (CompanionManagementSlotView slotView in activeSlots) {
