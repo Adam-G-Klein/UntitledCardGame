@@ -82,16 +82,8 @@ public class CompanionManagementSlotView {
     }
 
     public void RemoveCompanion() {
-        if (benchHealIcon != null)
-        {
-            // The bench heal icon will be the first child of the root.
-            if (root.childCount >= 2)
-                root.RemoveAt(root.childCount - 1);
-        }
-        else
-        {
-            root.Clear();
-        }
+        if (companionManagementView == null) return;
+        root.Remove(companionManagementView.container);
         this.companionManagementView = null;
         ShowBenchHealIcon();
     }
