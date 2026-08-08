@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 207c2d14-3124-4054-87f0-cda50587e297
   Name: Doombloom
-  Description: Unplayable. When exhausted, deal {inhand_rpl_damage} damage to a random
+  Description: Exhaust. When exhausted, deal {inhand_rpl_damage} damage to a random
     foe. When drawn, give this card +6 damage
   IconDescription:
   - tokenType: 0
-    text: Unplayable
+    text: Exhaust
     icon: 0
   - tokenType: 1
     text: 
@@ -48,25 +48,25 @@ MonoBehaviour:
     text: ': '
     icon: 0
   - tokenType: 0
-    text: +8
+    text: 8
     icon: 0
   - tokenType: 2
     text: 
-    icon: 1
+    icon: 34
   IconDescriptionTooltipLines:
-  - This card is unplayable.
+  - This card exhausts when played.
   - When this card is exhausted, deal damage to a random foe.
-  - Whenever you draw this card, it gains extra damage.
+  - Whenever you draw this card, it gains extra damage for the rest of combat
   defaultValues:
   - key: onexhaust_rpl_damage
     value: 4
-  Cost: 0
+  Cost: 2
   Artwork: {fileID: 21300000, guid: a5b8c5dccafa78942bf687e9f47d4ce4, type: 3}
   cardCategory: 4
   packFrom: {fileID: 11400000, guid: 0d12b03c0c8754470a900cb4f78a9217, type: 2}
   vfxPrefab: {fileID: 0}
-  playable: 0
-  exhaustsWhenPlayed: 0
+  playable: 1
+  exhaustsWhenPlayed: 1
   retain: 0
   effectWorkflows:
   - rid: 2034230108114649328

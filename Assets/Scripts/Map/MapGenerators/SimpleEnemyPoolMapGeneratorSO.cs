@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [CreateAssetMenu(
@@ -16,12 +17,12 @@ public class SimpleEnemyPoolMapGeneratorSO: MapGeneratorSO {
     public List<ShopDataSO> shopDatas;
 
     public override Map generateMap() {
-        List<Encounter> encounters = new List<Encounter>();
         int actNumber = 1;
 
         // Deduplicate the pools so we can choose without replacement over the whole list.
         // We do not want to select multiple of the same enemy from the same pool.
         Dictionary<EnemyEncounterPoolSO, List<EnemyEncounterTypeSO>> enemyPools = new Dictionary<EnemyEncounterPoolSO, List<EnemyEncounterTypeSO>>();
+        List<EnemyEncounter> enemyEncounters = new List<EnemyEncounter>();
         for (int i = 0; i < enemyEncounterPools.Count; i++) {
             EnemyEncounterPoolSO pool = enemyEncounterPools[i];
             if (!enemyPools.ContainsKey(pool)) {
@@ -40,29 +41,64 @@ public class SimpleEnemyPoolMapGeneratorSO: MapGeneratorSO {
             givenPool.Remove(chosen);
 
             // TODO: James, do not mutate the state of the enemy pool with the choose without replacement.
-            EnemyEncounter EE = new EnemyEncounter(chosen);
-            EE.act = GetAct(actNumber);
+            EnemyEncounter EE = new EnemyEncounter(chosen)
+            {
+                act = GetAct(actNumber)
+            };
             EE.SetIsElite(pool.isElite);
             EE.SetBonusMana(pool.bonusManaReward);
             EE.SetBonusTeamSize(pool.bonusTeamSizeReward);
             if (pool.isElite || pool.incActNumber) {
                 actNumber += 1;
             }
-            encounters.Add(EE);
-            if (i != enemyEncounterPools.Count - 1) {
-                ShopDataSO currentShopData;
-                if(useDifferentShopDatas)
+            enemyEncounters.Add(EE);
+        }
+
+        // Insert all the shop encounters.
+        List<ShopEncounter> shopEncounters = new List<ShopEncounter>();
+        for (int i = 0; i < enemyEncounters.Count - 1; i++)
+        {
+            ShopDataSO currentShopData = shopData;
+            if (useDifferentShopDatas)
+            {
+                currentShopData = shopDatas[i];
+            }
+            ShopEncounter SE = new ShopEncounter(currentShopData)
+            {
+                // Shop takes the act number from the next enemy encounter.
+                act = enemyEncounters[i+1].act
+            };
+
+            // Find the next elite encounter in the enemy encounters.
+            int nextEliteEncounterIndex = -1;
+            for (int j = i + 1; j < enemyEncounters.Count; j++)
+            {
+                if (enemyEncounters[j].isEliteEncounter)
                 {
-                    currentShopData = shopDatas[i];
-                } else
-                {
-                    currentShopData = shopData;
+                    nextEliteEncounterIndex = j;
+                    break;
                 }
-                ShopEncounter SE = new ShopEncounter(currentShopData);
-                SE.act = GetAct(actNumber);
-                encounters.Add(SE);
+            }
+            // Add special enemy trash talk dialogue if the first shop of the act.
+            if (i == 0 || shopEncounters[i - 1].act != SE.act)
+            {
+                Enemy nextElite = enemyEncounters[nextEliteEncounterIndex].enemyList.FirstOrDefault();
+                if (nextElite != null && nextElite.enemyType != null && nextElite.enemyType.trashTalkDialogue != null && nextElite.enemyType.trashTalkDialogue.Count > 0)
+                {
+                    SE.trashTalk.AddRange(nextElite.enemyType.GetTrashTalkDialogue());
+                }
             }
 
+            shopEncounters.Add(SE);
+        }
+
+        // Zip the enemy encounters and shop encounters together.
+        List<Encounter> encounters = new List<Encounter>();
+        for (int i = 0; i < enemyEncounters.Count; i++)
+        {
+            encounters.Add(enemyEncounters[i]);
+            if (i < shopEncounters.Count)
+                encounters.Add(shopEncounters[i]);
         }
 
         return new Map(encounters);

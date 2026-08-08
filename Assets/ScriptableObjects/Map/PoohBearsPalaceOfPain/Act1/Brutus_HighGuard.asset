@@ -1,0 +1,196 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
+  m_Name: Brutus_HighGuard
+  m_EditorClassIdentifier: 
+  guid: e939cd7e-2c8b-40fc-a398-0be2edb2d5bc
+  displayName: Brutus
+  maxHealth: 65
+  baseAttackDamage: 0
+  enemyDisplayType: 0
+  sprite: {fileID: 21300000, guid: ae85e8cc1b48d4a31b53deca7a5171e7, type: 3}
+  backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
+  entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
+  trashTalkDialogue:
+  - dialogue: You bully a poor wombat and saunter up to the bar like it's nothing?
+    sprite: {fileID: 21300000, guid: ae85e8cc1b48d4a31b53deca7a5171e7, type: 3}
+    pause: 0
+  - dialogue: You need a lesson in respect. Come see me later.
+    sprite: {fileID: 21300000, guid: ae85e8cc1b48d4a31b53deca7a5171e7, type: 3}
+    pause: 0
+  morale: 0
+  abilities:
+  - rid: 8790164513324270165
+  cacheValueConfigs: []
+  enemyPattern:
+    behaviors:
+    - intent: 1
+      enemyTargetMethod: 0
+      targetsKey: target
+      displayValue: 4
+      effectSteps:
+      - rid: 3931529445166809429
+      - rid: 173314522967966397
+      - rid: 3931529445166809326
+      - rid: 5602893111447519606
+      - rid: 5602893111447519608
+      - rid: 5602893111447519609
+      - rid: 3443535291885027969
+      - rid: 5602893111447519607
+      - rid: 5280922829633617990
+    behaviorType: 0
+  belowHalfHPEnemyPattern:
+    behaviors: []
+    behaviorType: 0
+  adaptWhenAloneEnemyPattern:
+    behaviors: []
+    behaviorType: 0
+  initialStatuses: []
+  tooltip:
+    empty: 0
+    lines:
+    - title: Read and React
+      description: Whenever Butch Boxhound takes damage, he gains 1 temporary strength
+        for the next attack
+      relatedBehaviorIndex: 0
+      icon: {fileID: 0}
+      iconDescriptionLine: []
+      card: {fileID: 0}
+  DEADLIER_ENEMY_BONUS_STR: 2
+  HEALTHIER_ENEMY_BONUS_HEALTH: 20
+  references:
+    version: 2
+    RefIds:
+    - rid: 173314522967966397
+      type: {class: ScriptableObjectEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ScriptableObjectEffectStep
+        effectStepSO: {fileID: 11400000, guid: 46ac36b880e2ff14aa699c90b6e9f19c, type: 2}
+    - rid: 3443535291885027969
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.3
+    - rid: 3931529445166809326
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: target
+        combatEffect: 0
+        scale: 4
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}
+    - rid: 3931529445166809429
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
+    - rid: 5280922829633617990
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 4bed509d0589dae4d922d8eeb61a6292, type: 3}
+        scale: 1
+    - rid: 5602893111447519606
+      type: {class: CountStatusEffectsStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CountStatusEffectStep
+        inputKey: self
+        statusEffect: 0
+        onlyCountStatusOnce: 0
+        outputKey: numStrength
+    - rid: 5602893111447519607
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 0
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        toggleStatus: 0
+    - rid: 5602893111447519608
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 10
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 2
+        inputKey2: numStrength
+        outputKey: pastStrengthThreshold
+    - rid: 5602893111447519609
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: pastStrengthThreshold
+        conditionToEndOn: 1
+    - rid: 8790164513324270165
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 11
+        effectSteps:
+        - rid: 8790164513324270204
+        - rid: 8790164513324270166
+        - rid: 8790164513324270167
+        weight: 0
+    - rid: 8790164513324270166
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
+    - rid: 8790164513324270167
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 6
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        toggleStatus: 0
+    - rid: 8790164513324270204
+      type: {class: EndWorkflowIfNoMapElement, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfNoMapElement
+        keyToCheck: damagedEnemy

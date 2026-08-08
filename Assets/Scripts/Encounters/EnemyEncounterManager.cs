@@ -56,6 +56,13 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     private string encounterName;
     private bool prematureEndTurnReminderDone = false;
 
+    [SerializeField]
+    private Sprite postCombatSpeakerSprite;
+    [SerializeField]
+    private List<string> bonusManaRewardLines;
+    [SerializeField]
+    private List<string> bonusTeamSizeRewardLines;
+
 
     [SerializeField]
     [Header("Super hacky way to delay the end combat screen, this or\n" +
@@ -419,8 +426,39 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
             yield return new WaitForSeconds(0.5f);
             endEncounterView.EnableNextButton();
         }
+        else if (bonusTeamSizeReward > 0 || bonusManaReward > 0)
+        {
+            endEncounterView.Show(true);
+            endEncounterView.DisableNextButton();
+            FocusManager.Instance.Unfocus();
+            yield return PostCombatRewardsYapping();
+            endEncounterView.EnableNextButton();
+        }
         else endEncounterView.Show();
     }
+
+    private IEnumerator PostCombatRewardsYapping()
+    {
+        if (bonusTeamSizeReward > 0 && bonusTeamSizeRewardLines != null && bonusTeamSizeRewardLines.Count > 0)
+        {
+            foreach (string line in bonusTeamSizeRewardLines)
+            {
+                yield return DialogueView.Instance.SpeakLineCoroutine(postCombatSpeakerSprite, line, true);
+            }
+            DialogueView.Instance.Hide();
+            yield return new WaitForSeconds(0.5f);
+        }
+        if (bonusManaReward > 0 && bonusManaRewardLines != null && bonusManaRewardLines.Count > 0)
+        {
+            foreach (string line in bonusManaRewardLines)
+            {
+                yield return DialogueView.Instance.SpeakLineCoroutine(postCombatSpeakerSprite, line, true);
+            }
+            DialogueView.Instance.Hide();
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
     private IEnumerator displayVictoryUIAfterDelay() {
         yield return new WaitForSeconds(endCombatScreenDelay);
         victoryUI.GetComponent<VictoryView>().Show();

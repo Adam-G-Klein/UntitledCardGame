@@ -50,12 +50,17 @@ public class RatBoosterPackSO : BoosterPack
 
     public override string BoosterPackName()
     {
-        return ratSO.companionName + " " + GetBoosterPackTypeName(boosterType) + " Pack";
+        return ratSO.companionName + "\n" + GetBoosterPackTypeName(boosterType) + " Pack";
     }
 
     public override int GetBoosterPackPrice(ShopDataSO shopData)
     {
         BoosterPackData data = shopData.GetBoosterPackDataForType(boosterType);
         return data.price;
+    }
+
+    protected override string GetTooltipDescription()
+    {
+        return "Contains cards from the rat " + ratSO.companionName + "'s card pool and the " + ratSO.pack.packName + " card pool.";
     }
 }

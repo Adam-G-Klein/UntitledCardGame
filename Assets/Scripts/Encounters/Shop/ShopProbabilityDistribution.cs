@@ -388,6 +388,7 @@ public class SimpleBoosterPackDistribution
         while (chosenPacks.Count < count && availablePacks.Count > 0)
         {
             BoosterPack.BoosterPackType desiredType = randomDraw(boosterPackDistribution);
+            Debug.Log("Randomly drawn booster pack type: " + desiredType);
             BoosterPack pack = availablePacks.Find(p => p.boosterType == desiredType);
             // If none of that type remain, try again.
             if (pack == null)

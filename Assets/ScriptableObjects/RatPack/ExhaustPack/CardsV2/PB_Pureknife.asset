@@ -35,14 +35,14 @@ MonoBehaviour:
     text: ':'
     icon: 0
   - tokenType: 0
-    text: +5
+    text: 5
     icon: 0
   - tokenType: 2
     text: 
-    icon: 1
+    icon: 34
   IconDescriptionTooltipLines:
   - Deal damage to a foe of your choice
-  - Whenever this card is drawn from the owner rat's deck, it deals extra damage
+  - Whenever this card is drawn, it gains +5 damage for the rest of combat.
   defaultValues:
   - key: rpl_damage
     value: 3

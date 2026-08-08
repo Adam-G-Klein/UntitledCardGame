@@ -72,6 +72,14 @@ public class DemoDirector : GenericSingleton<DemoDirector>
     public List<string> prematureEndTurnReminderDialogueLines;
     [TextArea]
     public List<string> youShouldSpendYourMoneyBozoDialogueLines;
+    [TextArea]
+    public List<string> boosterPacksShopTutorialStep1Dialogue;
+    [TextArea]
+    public List<string> boosterPacksShopTutorialStep2Dialogue;
+    [TextArea]
+    public List<string> boosterPacksShopTutorialStep3Dialogue;
+    [TextArea]
+    public List<string> boosterPacksShopTutorialStep4Dialogue;
 
     // Shop demo dialogues for a specific shop (index 0 is the first shop, index 1 is the second shop, etc.)
     [SerializeField]
@@ -106,12 +114,12 @@ public class DemoDirector : GenericSingleton<DemoDirector>
         {
             Reset();
         }
-        if(stepName == DemoStepName.CombatTutorialStep 
+        if(stepName == DemoStepName.CombatTutorialStep
             && gameState.HasSeenCombatTutorial) {
             return true;
         }
 
-        
+
         if (!demoDataSO.stepCompletion.ContainsKey(stepName)) {
             return true;
         }
@@ -120,157 +128,93 @@ public class DemoDirector : GenericSingleton<DemoDirector>
     }
 
     public IEnumerator InvokeDemoStepCoroutine(DemoStepName demoStepName) {
+        // Special handling for combat tutorial step.
+        if (demoStepName == DemoStepName.CombatTutorialStep) {
+            yield return CombatTutorialStep();
+            yield break;
+        }
+        // Special handling for card buying tutorial step.
+        if (demoStepName == DemoStepName.CardBuyingTutorial) {
+            yield return CardBuyingTutorial();
+            yield break;
+        }
+
+        List<string> dialogueLines = new List<string>();
         switch (demoStepName) {
             case DemoStepName.BendingTheRules:
-                yield return BendingTheRulesStep();
+                dialogueLines = bendingTheRulesStepDialogue;
             break;
 
             case DemoStepName.MoreRewardsThanUsual:
-                yield return MoreRewardsThanUsualStep();
+                dialogueLines = moreRewardsThanUsualStepDialogue;
             break;
 
             case DemoStepName.StartOfFirstStaticChooseNShop:
-                yield return StartOfFirstStaticChooseNShopStep();
+                dialogueLines = startOfFirstStaticChooseNShopDialogue;
             break;
 
             case DemoStepName.StartOfSecondStaticChooseNShop:
-                yield return StartOfSecondStaticChooseNShopStep();
+                dialogueLines = startOfSecondStaticChooseNShopDialogue;
             break;
 
             case DemoStepName.BuyCompanionReminder:
-                yield return BuyCompanionReminderStep();
+                dialogueLines = buyCompanionReminderStepDialogue;
             break;
 
             case DemoStepName.FullFeatureShopTutorialStep1:
-                yield return FullFeatureShopTutorialStep1();
+                dialogueLines = secondShopTutorialStep1Dialogue;
             break;
 
             case DemoStepName.FullFeatureShopTutorialStep2:
-                yield return FullFeatureShopTutorialStep2();
+                dialogueLines = secondShopTutorialStep2Dialogue;
             break;
 
             case DemoStepName.FullFeatureShopTutorialStep3:
-                yield return FullFeatureShopTutorialStep3();
+                dialogueLines = secondShopTutorialStep3Dialogue;
             break;
 
             case DemoStepName.FullFeatureShopTutorialStep4:
-                yield return FullFeatureShopTutorialStep4();
+                dialogueLines = secondShopTutorialStep4Dialogue;
             break;
 
             case DemoStepName.PostCombatRewardsDialogue:
-                yield return PostCombatRewardsDialogueStep();
+                dialogueLines = postCombatRewardsDialogueDialogue;
             break;
 
             case DemoStepName.PrematureEndTurnReminder:
-                foreach (string line in prematureEndTurnReminderDialogueLines) {
-                    yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, line, true);
-                }
-                DialogueView.Instance.Hide();
-                demoDataSO.stepCompletion[DemoStepName.PrematureEndTurnReminder] = true;
+                dialogueLines = prematureEndTurnReminderDialogueLines;
             break;
 
             case DemoStepName.YouShouldSpendYourMoneyBozo:
-                foreach (string line in youShouldSpendYourMoneyBozoDialogueLines) {
-                    yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, line, true);
-                }
-                DialogueView.Instance.Hide();
-                demoDataSO.stepCompletion[DemoStepName.YouShouldSpendYourMoneyBozo] = true;
-                break;
-
-            case DemoStepName.CombatTutorialStep:
-                yield return CombatTutorialStep();
+                dialogueLines = youShouldSpendYourMoneyBozoDialogueLines;
             break;
 
-            case DemoStepName.CardBuyingTutorial:
-                yield return CardBuyingTutorial();
+            case DemoStepName.BoosterPackShopTutorialStep1:
+                dialogueLines = boosterPacksShopTutorialStep1Dialogue;
+            break;
+
+            case DemoStepName.BoosterPackShopTutorialStep2:
+                dialogueLines = boosterPacksShopTutorialStep2Dialogue;
+            break;
+
+            case DemoStepName.BoosterPackShopTutorialStep3:
+                dialogueLines = boosterPacksShopTutorialStep3Dialogue;
+            break;
+
+            case DemoStepName.BoosterPackShopTutorialStep4:
+                dialogueLines = boosterPacksShopTutorialStep4Dialogue;
             break;
         }
-        yield return null;
+
+        yield return GenericDemoStepCoroutine(demoStepName, dialogueLines);
     }
 
-    public IEnumerator BendingTheRulesStep() {
-        foreach (string line in bendingTheRulesStepDialogue) {
+    private IEnumerator GenericDemoStepCoroutine(DemoStepName demoStepName, List<string> dialogueLines) {
+        foreach (string line in dialogueLines) {
             yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, line, true);
         }
         DialogueView.Instance.Hide();
-        demoDataSO.stepCompletion[DemoStepName.BendingTheRules] = true;
-    }
-
-    public IEnumerator MoreRewardsThanUsualStep() {
-        foreach (string line in moreRewardsThanUsualStepDialogue) {
-            yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, line, true);
-        }
-        DialogueView.Instance.Hide();
-        demoDataSO.stepCompletion[DemoStepName.MoreRewardsThanUsual] = true;
-    }
-
-    public IEnumerator StartOfFirstStaticChooseNShopStep() {
-        foreach (string line in startOfFirstStaticChooseNShopDialogue) {
-            yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, line, true);
-        }
-        DialogueView.Instance.Hide();
-        demoDataSO.stepCompletion[DemoStepName.StartOfFirstStaticChooseNShop] = true;
-    }
-
-    public IEnumerator StartOfSecondStaticChooseNShopStep() {
-        foreach (string line in startOfSecondStaticChooseNShopDialogue) {
-            yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, line, true);
-        }
-        DialogueView.Instance.Hide();
-        demoDataSO.stepCompletion[DemoStepName.StartOfSecondStaticChooseNShop] = true;
-    }
-
-    public IEnumerator BuyCompanionReminderStep() {
-        foreach (string line in buyCompanionReminderStepDialogue) {
-            yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, line, true);
-        }
-        DialogueView.Instance.Hide();
-        demoDataSO.stepCompletion[DemoStepName.BuyCompanionReminder] = true;
-    }
-
-    public IEnumerator FullFeatureShopTutorialStep1() {
-        foreach (string line in secondShopTutorialStep1Dialogue) {
-            yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, line, true);
-        }
-        DialogueView.Instance.Hide();
-        demoDataSO.stepCompletion[DemoStepName.FullFeatureShopTutorialStep1] = true;
-    }
-
-    public IEnumerator FullFeatureShopTutorialStep2() {
-        foreach (string line in secondShopTutorialStep2Dialogue) {
-            yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, line, true);
-        }
-        DialogueView.Instance.Hide();
-        demoDataSO.stepCompletion[DemoStepName.FullFeatureShopTutorialStep2] = true;
-    }
-
-    public IEnumerator FullFeatureShopTutorialStep3() {
-        foreach (string line in secondShopTutorialStep3Dialogue) {
-            yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, line, true);
-        }
-        DialogueView.Instance.Hide();
-        demoDataSO.stepCompletion[DemoStepName.FullFeatureShopTutorialStep3] = true;
-    }
-
-    public IEnumerator FullFeatureShopTutorialStep4() {
-        foreach (string line in secondShopTutorialStep4Dialogue) {
-            yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, line, true);
-        }
-        DialogueView.Instance.Hide();
-        demoDataSO.stepCompletion[DemoStepName.FullFeatureShopTutorialStep4] = true;
-        // On release tutorial runs this is the end of the full-feature shop
-        // tutorial, so later runs skip the legacy shop tutorial scene
-        if (!gameState.BuildTypeDemoOrConvention()) {
-            gameState.HasSeenAllShopTutorials = true;
-        }
-    }
-
-    public IEnumerator PostCombatRewardsDialogueStep() {
-        foreach (string line in postCombatRewardsDialogueDialogue) {
-            yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, line, true);
-        }
-        DialogueView.Instance.Hide();
-        demoDataSO.stepCompletion[DemoStepName.PostCombatRewardsDialogue] = true;
+        demoDataSO.stepCompletion[demoStepName] = true;
     }
 
     public IEnumerator CombatTutorialStep() {
@@ -317,5 +261,9 @@ public enum DemoStepName {
     CombatTutorialStep,
     YouShouldSpendYourMoneyBozo,
     CardBuyingTutorialStep2, // Deprecated
-    CardBuyingTutorial
+    CardBuyingTutorial,
+    BoosterPackShopTutorialStep1,
+    BoosterPackShopTutorialStep2,
+    BoosterPackShopTutorialStep3,
+    BoosterPackShopTutorialStep4,
 }

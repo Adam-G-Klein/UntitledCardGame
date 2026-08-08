@@ -113,6 +113,9 @@ public class ShopItemView : ICompanionViewDelegate {
     }
 
     private VisualElement CreateCardSpawnIndicator(CardInShopWithPrice card) {
+        if (card.sourceCompanion == null && card.packSO == null) {
+            return new VisualElement(); // Return an empty element if there's no source companion or pack
+        }
         VisualElement cardSpawnIndicator = new();
         cardSpawnIndicator.AddToClassList("card_spawn_indicator_background");
         Color color = card.packSO != null ? card.packSO.packColor : card.sourceCompanion.pack.packColor;
@@ -183,8 +186,7 @@ public class ShopItemView : ICompanionViewDelegate {
                 viewDelegate.DisplayTooltip(shopItemElement, tvm, TooltipContext.Shop);
             }
         } else if (boosterPackInShop != null) {
-            // viewDelegate.DisplayTooltip(shopItemElement, boosterPackInShop.boosterPack..GetTooltip(), TooltipContext.Shop);
-            return; // TODO: Implement booster pack tooltip
+            viewDelegate.DisplayTooltip(shopItemElement, boosterPackInShop.boosterPack.GetTooltip(), TooltipContext.Shop);
         }
     }
 

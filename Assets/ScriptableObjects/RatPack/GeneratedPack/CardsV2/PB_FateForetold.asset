@@ -23,8 +23,13 @@ MonoBehaviour:
     text: 
     icon: 0
   - tokenType: 0
-    text: Scry N from any rat, where N = Number of cards in their draw pile ({numCards}
-      cards)
+    text: Scry N from any rat
+    icon: 0
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 0
+    text: N = Number of cards in their draw pile ({numCards} cards)
     icon: 0
   IconDescriptionTooltipLines:
   - This card exhausts when played.

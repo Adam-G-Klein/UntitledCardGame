@@ -33,9 +33,7 @@ MonoBehaviour:
     rareCardPercentage: 0
     boosterPackPcts:
     - boosterType: 0
-      appearancePct: 40
-    - boosterType: 2
-      appearancePct: 60
+      appearancePct: 100
     ratBonusHealth: 0
     cardRemovalDiscount: 0
     numCardRemovalsAllowed: 1
@@ -65,13 +63,13 @@ MonoBehaviour:
     rareCardPercentage: 5
     boosterPackPcts:
     - boosterType: 0
-      appearancePct: 30
+      appearancePct: 70
     - boosterType: 2
-      appearancePct: 40
+      appearancePct: 0
     - boosterType: 1
-      appearancePct: 10
+      appearancePct: 30
     - boosterType: 3
-      appearancePct: 20
+      appearancePct: 0
     ratBonusHealth: 0
     cardRemovalDiscount: 0
     numCardRemovalsAllowed: 1
@@ -101,13 +99,9 @@ MonoBehaviour:
     rareCardPercentage: 10
     boosterPackPcts:
     - boosterType: 0
-      appearancePct: 20
-    - boosterType: 2
-      appearancePct: 30
+      appearancePct: 50
     - boosterType: 1
-      appearancePct: 20
-    - boosterType: 3
-      appearancePct: 30
+      appearancePct: 50
     ratBonusHealth: 5
     cardRemovalDiscount: 0
     numCardRemovalsAllowed: 1
@@ -137,13 +131,9 @@ MonoBehaviour:
     rareCardPercentage: 15
     boosterPackPcts:
     - boosterType: 0
-      appearancePct: 15
-    - boosterType: 2
-      appearancePct: 25
+      appearancePct: 40
     - boosterType: 1
-      appearancePct: 25
-    - boosterType: 3
-      appearancePct: 35
+      appearancePct: 60
     ratBonusHealth: 5
     cardRemovalDiscount: 3
     numCardRemovalsAllowed: 3

@@ -14,13 +14,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: a9b6d0d0-55b4-42c1-99fa-2289245610a4
   Name: Boomflask
-  Description: Unplayable. When drawn, gain +5 damage. When exhausted, deal {onexhaust_rpl_damage}
-    damage to all foes
-  IconDescription: []
-  IconDescriptionTooltipLines: []
+  Description: 
+  IconDescription:
+  - tokenType: 0
+    text: Unplayable
+    icon: 0
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 16
+  - tokenType: 0
+    text: ': '
+    icon: 33
+  - tokenType: 0
+    text: '{onexhaust_rpl_damage}'
+    icon: 33
+  - tokenType: 2
+    text: 
+    icon: 1
+  - tokenType: 2
+    text: 
+    icon: 33
+  IconDescriptionTooltipLines:
+  - This card cannot be played.
+  - When this card is exhausted, deal damage to all foes.
   defaultValues:
   - key: onexhaust_rpl_damage
-    value: 4
+    value: 15
   Cost: 0
   Artwork: {fileID: 21300000, guid: b36bd4612398377409a80259b0f5a90a, type: 3}
   cardCategory: 4
@@ -49,48 +71,7 @@ MonoBehaviour:
     - rid: 758315839196758761
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
-        effectSteps:
-        - rid: 758315839196758762
-        - rid: 758315839196758763
-        - rid: 758315839196758764
-        - rid: 758315839196758765
-    - rid: 758315839196758762
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: card
-        validTargets: 03000000
-        number: 1
-        specialTargetRule: 3
-        cantCancelTargetting: 0
-        cardSelectionHelperText: 
-        selectionPurpose: 0
-        selectionCardCategory: 0
-    - rid: 758315839196758763
-      type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CardModificationEffect
-        inputKey: card
-        scale: 5
-        affectsAllCardsOfType: 0
-        cardTypeToModify: {fileID: 0}
-        getScaleFromKey: 0
-        scaleKey: 
-        modification: 0
-    - rid: 758315839196758764
-      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: WaitForSecondsEffect
-        seconds: 0.2
-    - rid: 758315839196758765
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: card
-        prefabToInstantiate: {fileID: 6137048663962808129, guid: 032e33b914ed32b418cdc1ed2f15fc6e, type: 3}
-        scale: 1
+        effectSteps: []
     - rid: 758315839196758766
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -117,7 +98,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: enemies
         combatEffect: 0
-        scale: 4
+        scale: 15
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

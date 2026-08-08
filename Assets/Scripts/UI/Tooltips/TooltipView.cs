@@ -7,6 +7,7 @@ using TMPro;
 using System.Linq;
 using System.Runtime.InteropServices;
 using Unity.VisualScripting;
+using System.Text.RegularExpressions;
 
 [System.Serializable]
 public class TooltipLine
@@ -57,6 +58,13 @@ public class TooltipLine
                     seen[token.icon] = true;
                 }
             }
+            if (titleLabelText == "" && iconDescriptionLine.Count == 1 && iconDescriptionLine[0].tokenType == DescriptionToken.TokenType.Text) {
+                MatchCollection matches = Regex.Matches(iconDescriptionLine[0].text, @"\w+");
+                if (matches.Count > 0) {
+                    titleLabelText = matches[0].Value + (matches.Count > 1 ? "..." : "");
+                }
+            }
+
             if (titleLabelText != "") {
                 titleLabel.text = titleLabelText;
                 tooltipTitleLabelContainer.Add(titleLabel);

@@ -56,8 +56,8 @@ MonoBehaviour:
   boosterPackNumCardsToBuy: 2
   boosterPackPcts:
   - boosterType: 0
-    commonCardPct: 70
-    uncommonCardPct: 30
+    commonCardPct: 75
+    uncommonCardPct: 25
     rareCardPct: 0
     price: 3
     numCards: 4
@@ -65,12 +65,12 @@ MonoBehaviour:
     ratBoosterPackNumCardsFromRatMax: 2
   - boosterType: 1
     commonCardPct: 0
-    uncommonCardPct: 65
-    rareCardPct: 35
+    uncommonCardPct: 60
+    rareCardPct: 40
     price: 5
-    numCards: 4
+    numCards: 5
     ratBoosterPackNumCardsFromRatMin: 2
-    ratBoosterPackNumCardsFromRatMax: 2
+    ratBoosterPackNumCardsFromRatMax: 3
   - boosterType: 2
     commonCardPct: 70
     uncommonCardPct: 30

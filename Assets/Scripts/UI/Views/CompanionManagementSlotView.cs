@@ -83,7 +83,8 @@ public class CompanionManagementSlotView {
 
     public void RemoveCompanion() {
         if (companionManagementView == null) return;
-        root.Remove(companionManagementView.container);
+        if (root.Contains(companionManagementView.container))
+            root.Remove(companionManagementView.container);
         this.companionManagementView = null;
         ShowBenchHealIcon();
     }

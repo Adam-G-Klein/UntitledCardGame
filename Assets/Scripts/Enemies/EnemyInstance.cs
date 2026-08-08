@@ -204,6 +204,20 @@ public class EnemyInstance : MonoBehaviour, IUIEntity
                 List<CompanionInstance> allCompanions = CombatEntityManager.Instance.getCompanions();
                 targets.AddRange(allCompanions);
                 break;
+
+            case EnemyTargetMethod.StrongestCompanion:
+                List<CompanionInstance> companionsList = CombatEntityManager.Instance.getCompanions();
+                companionsList.Shuffle(); // Shuffle to avoid bias in case of ties
+                CompanionInstance strongestTarget = companionsList[0];
+                foreach (CompanionInstance instance in companionsList)
+                {
+                    if (instance.combatInstance.GetTotalStrength() > strongestTarget.combatInstance.GetTotalStrength())
+                    {
+                        strongestTarget = instance;
+                    }
+                }
+                targets.Add(strongestTarget);
+                break;
         }
         return targets;
     }

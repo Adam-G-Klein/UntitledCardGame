@@ -916,7 +916,7 @@ MonoBehaviour:
   gameState: {fileID: 11400000, guid: 9e326417f60894341a96cc8d02868bbe, type: 2}
   speakerSprite: {fileID: 21300000, guid: 34af0ef08494934478eca248b698d0ec, type: 3}
   bendingTheRulesStepDialogue:
-  - "Normally, the starting team is left entirely to chance\u2026 However! "
+  - "Normally, the starting team is left entirely to chance\u2026 However."
   - "As this is your introduction to the delicate matter of reclaiming Hotel Bubeau,
     I\u2019ve taken the precaution of arranging a balanced crew who are, at the very
     least, on squeaking terms."
@@ -966,9 +966,28 @@ MonoBehaviour:
   - Forgive me, but you still have cards in your hand you can play. Are you sure
     you want to end your turn?
   youShouldSpendYourMoneyBozoDialogueLines:
-  - Before you face the Baron, be warned that he is exceptionally strong. Please
-    spend the money we gave you to make your team better because you can't keep it
-    for later...
+  - Please spend the money we gave you to make your team better because you cannot
+    spend it if you are dead.
+  boosterPacksShopTutorialStep1Dialogue:
+  - The invisible paw of the Paccarat market has returned. This is how you can expect
+    things to look from now on.
+  - We have extra fleur de cheese saved up for newcomers. Take it, please.
+  boosterPacksShopTutorialStep2Dialogue:
+  - Rats will show up at the shop randomly. You can recruit them with the fleur de
+    cheese you earn.
+  - You buy cards via opening up booster packs, which show up based on the rats on
+    your team.
+  - To see rarer rats and booster packs with more powerful cards, you need to invest
+    in upgrading the shop.
+  - It pays off in the long run. If you will allow me, I will demonstrate upgrading
+    the shop to Level Two.
+  boosterPacksShopTutorialStep3Dialogue:
+  - If you do not like what you see, you can reroll the shop.
+  - Here are a few free rerolls on the house.
+  boosterPacksShopTutorialStep4Dialogue:
+  - That should be enough to get you started.
+  - Good luck to you in your Paccarat games ahead. The rats of Hotel Bubeau are counting
+    on you.
   shopDemoDialogues:
   - shopDemoDialoguesForEvents:
     - shopDemoEvent: 1
@@ -1010,8 +1029,8 @@ MonoBehaviour:
   speakerSprite: {fileID: 21300000, guid: 34af0ef08494934478eca248b698d0ec, type: 3}
   dialogueLines:
   - <speed 25> Here we are, the Paccarat Game Board.
-  - Unfortunately, the terms of the contract specify you can't do this alone. These
-    brave souls have volunteered to assist you.
+  - The terms of your contract specify you can't do this alone. These brave souls
+    have volunteered to assist you.
   - Each rat has their own 'talent'.
   - As well as their own separate deck of cards.
   - Oh here they come...

@@ -58,6 +58,8 @@ public class DescriptionToken
         IfExhaustedCardThisTurn,
         WhenDrawn,
         AOETarget,
+        AttackBuff,
+        BlockBuff,
     }
     public TokenType tokenType;
     public string text;
@@ -150,9 +152,9 @@ public class CardType: IdentifiableSO, ITooltipProvider
             ActivatePower activateStep = effectWorkflows[0].effectSteps.OfType<ActivatePower>().ToList().FirstOrDefault();
             if (activateStep != null)
             {
-                string prefix = "Gain passive: ";
+                string prefix = "Gain passive:\n";
                 if (!activateStep.power.Stackable)
-                    prefix = "Gain unique passive: ";
+                    prefix = "Gain unique passive:\n";
                 return prefix + activateStep.power.description;
             }
         }

@@ -80,6 +80,7 @@ public class Enemy : Entity, ICombatStats, IUIEntity
         return "";
     }
 
+
     public CombatInstance GetCombatInstance()
     {
         return null;

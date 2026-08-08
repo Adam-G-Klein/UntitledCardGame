@@ -40,4 +40,9 @@ public class PackBoosterPack : BoosterPack
         BoosterPackData data = shopData.GetBoosterPackDataForType(boosterType);
         return data.price;
     }
+
+    protected override string GetTooltipDescription()
+    {
+        return "A booster pack containing cards from the " + ratPackSO.packName + " card pool.";
+    }
 }

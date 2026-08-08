@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 783b4acd-1fe8-4b40-8f20-00c7c1a736fe
   Name: Steam Cannon
-  Description: Deal {rpl_damage} damage. Gain +2 damage for each card you exhausted
+  Description: Deal {rpl_damage} damage. Gain +1 damage for each card you exhausted
     this combat ({numExhausted} cards)
   IconDescription:
   - tokenType: 0
@@ -30,11 +30,11 @@ MonoBehaviour:
     text: 
     icon: 18
   - tokenType: 0
-    text: +2
+    text: 1
     icon: 0
   - tokenType: 2
     text: 
-    icon: 1
+    icon: 34
   - tokenType: 0
     text: xN
     icon: 0
@@ -141,7 +141,7 @@ MonoBehaviour:
         inputKey: numExhausted
         operand2InputKey: UNUSED
         operation: 2
-        scale: 2
+        scale: 1
         outputKey: buff
     - rid: 7150943289421332662
       type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}

@@ -90,6 +90,8 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         allCompanions.AddRange(gameState.companions.activeCompanions);
         allCompanions.AddRange(gameState.companions.benchedCompanions);
 
+        shopViewController.ToggleShopButtonsForShopLevel(GetShopLevel());
+
         bool shouldGenerateCards = true;
         bool shouldGenerateRats = true;
         bool shouldGenerateBoosterPacks = false;
@@ -147,17 +149,51 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         cinematicIntroComplete = true;
         if (gameState.InDemoTutorial())
         {
-            if(shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo)
+            if(shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo && !gameState.HasSeenAllShopTutorials)
             {
                 StartCoroutine(RunShopDialogueStep(ShopDemoEvent.EnterShop));
             }
-            else if (!DemoDirector.Instance.IsStepCompleted(DemoStepName.FullFeatureShopTutorialStep1))
+            else if (gameState.BuildTypeDemoOrConvention() && !DemoDirector.Instance.IsStepCompleted(DemoStepName.FullFeatureShopTutorialStep1))
             {
                 StartCoroutine(RunShopTutorial(ShopTutorialDisplay.ShopTutorialToShow.FullFeatureShopTutorial));
             }
+            else if (shopEncounter.shopData.shopMode == ShopMode.BoosterPacks)
+            {
+                if (!gameState.HasSeenAllShopTutorials)
+                {
+                    StartCoroutine(RunShopTutorial(ShopTutorialDisplay.ShopTutorialToShow.BoosterPacksShopTutorial));
+                }
+                else
+                {
+                    StartCoroutine(RunShopTutorial(ShopTutorialDisplay.ShopTutorialToShow.DoneWithTutorialFreeMoney));
+                }
+            }
+        }
+        else
+        {
+            StartCoroutine(ShopTrashTalkDialogue());
+        }
+    }
+
+    private IEnumerator ShopTrashTalkDialogue()
+    {
+        if (shopEncounter.trashTalk == null || shopEncounter.trashTalk.Count == 0)
+        {
+            yield break;
         }
 
-        shopViewController.ToggleShopButtonsForShopLevel(GetShopLevel());
+        shopViewController.DisableAllUIPreserveAppearance();
+        yield return new WaitForSeconds(0.5f);
+        foreach (EliteTrashTalkDialogue dialogue in shopEncounter.trashTalk)
+        {
+            yield return DialogueView.Instance.SpeakLineCoroutine(dialogue.sprite, dialogue.dialogue, true);
+            if (dialogue.pause > 0)
+            {
+                yield return new WaitForSeconds(dialogue.pause);
+            }
+        }
+        DialogueView.Instance.Hide();
+        shopViewController.EnableAllUI();
     }
 
     public void CinematicIntroComplete()
@@ -176,7 +212,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         shopTutorialDisplay = GetComponent<ShopTutorialDisplay>();
         // this setup method is what plays the dialogue and then the timeline
         // has seen all shop tutorials is just used for debug rn
-        shopTutorialDisplay?.Setup(shopEncounter.shopData, encounterConstants, gameState.HasSeenAllShopTutorials ? ShopTutorialDisplay.ShopTutorialToShow.None : shopTutorialToShow);
+        shopTutorialDisplay?.Setup(shopEncounter.shopData, encounterConstants, shopTutorialToShow);
         cinematicIntroComplete = false;
         StartCoroutine(CinematicStartOfShopCoroutine());
     }
@@ -184,7 +220,6 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     private IEnumerator CinematicStartOfShopCoroutine()
     {
         Debug.Log("ShopManager: waiting for cinematic intro to complete");
-        shopViewController.DisableAllUIPreserveAppearance();
         yield return new WaitUntil(() => cinematicIntroComplete == true);
         shopViewController.EnableAllUI();
         Debug.Log("ShopManager: cinematic intro complete");
@@ -294,7 +329,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             shopViewController.DestroyAllTooltips();
 
             // Activate a tutorial on the second card bought this shop.
-            if (gameState.InDemoTutorial() &&
+            if (gameState.InDemoTutorial() && !gameState.HasSeenAllShopTutorials &&
                 shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo &&
                 !DemoDirector.Instance.IsStepCompleted(DemoStepName.CardBuyingTutorial) &&
                 numCardsBoughtThisShop == 1) // we want to wait until the player has bought their first card to show the tutorial so that they have the context of buying a card before we show them how to click on a companion to give it to them
@@ -430,7 +465,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                     rerollShop();
 
                     if (numRatsBoughtThisShop >= shopEncounter.shopData.numRatsBuyPerShop &&
-                        gameState.InDemoTutorial())
+                        gameState.InDemoTutorial() && !gameState.HasSeenAllShopTutorials)
                     {
                         StartCoroutine(RunShopDialogueStep(ShopDemoEvent.CardOfferingTips, waitForReroll: true));
                     }

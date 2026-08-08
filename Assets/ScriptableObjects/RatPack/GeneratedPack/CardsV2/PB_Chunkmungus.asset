@@ -15,8 +15,28 @@ MonoBehaviour:
   guid: 05e3f228-5ded-49bc-9886-18ca55078360
   Name: Chunkmungus
   Description: Deal {rpl_damage} damage for each card in own deck ({total} cards)
-  IconDescription: []
-  IconDescriptionTooltipLines: []
+  IconDescription:
+  - tokenType: 0
+    text: '{rpl_damage}'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
+  - tokenType: 2
+    text: 
+    icon: 18
+  - tokenType: 0
+    text: xN
+    icon: 0
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 0
+    text: N = Number of cards in own deck ({total} cards)
+    icon: 0
+  IconDescriptionTooltipLines:
+  - Deal damage to a foe of your choice N times.
+  - N is equal to the number cards in the owner rat's deck.
   defaultValues:
   - key: rpl_damage
     value: 2

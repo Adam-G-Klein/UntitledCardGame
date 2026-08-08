@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerType: 37
   title: Apocalypse
-  description: End of turn, if you exhausted at least 2 cards, deal 15 damage to
+  description: End of turn, if you exhausted at least 2 cards, deal 10 damage to
     all enemies
   abilities:
   - rid: 754093991137641276
@@ -80,6 +80,8 @@ MonoBehaviour:
         specialTargetRule: 3
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 758316092100444470
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -92,6 +94,8 @@ MonoBehaviour:
         specialTargetRule: 3
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 758316092100444471
       type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
       data:
@@ -131,7 +135,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: enemies
         combatEffect: 14
-        scale: 15
+        scale: 10
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
@@ -160,6 +164,8 @@ MonoBehaviour:
         specialTargetRule: 1
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 758316142852047272
       type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
       data:

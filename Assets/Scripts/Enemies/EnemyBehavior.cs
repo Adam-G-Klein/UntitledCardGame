@@ -21,5 +21,6 @@ public enum EnemyTargetMethod {
     RandomCompanion,
     LowestHealth,
     AllCompanions,
-    None
+    None,
+    StrongestCompanion,
 }

@@ -33,7 +33,10 @@ MonoBehaviour:
     text: 
     icon: 21
   - tokenType: 0
-    text: '{rpl_damage_2}'
+    text: ': '
+    icon: 0
+  - tokenType: 0
+    text: +{rpl_damage_2}
     icon: 0
   - tokenType: 2
     text: 

@@ -7,12 +7,16 @@ public class ShopTutorialDisplay : MonoBehaviour
     public enum ShopTutorialToShow
     {
         FullFeatureShopTutorial,
-        None
+        None,
+        BoosterPacksShopTutorial,
+        DoneWithTutorialFreeMoney,
     }
     private ShopDataSO shopData;
     private EncounterConstantsSO encounterConstants;
     [SerializeField]
     private float fullyUpgradeShopTime = 3f;
+    [SerializeField]
+    private float upgradeShopToLevelTwoTime = 1.5f;
 
     [SerializeField]
     private float postShopUpgradeDelay = 1f;
@@ -37,16 +41,47 @@ public class ShopTutorialDisplay : MonoBehaviour
 
     private IEnumerator RunTutorialWrapper(ShopTutorialToShow shopTutorialToShow)
     {
+        Debug.Log("Running shop tutorial: " + shopTutorialToShow.ToString());
         switch (shopTutorialToShow)
         {
             case ShopTutorialToShow.FullFeatureShopTutorial:
                 yield return FullFeatureShopTutorialCoroutine();
                 break;
+            case ShopTutorialToShow.BoosterPacksShopTutorial:
+                yield return BoosterPacksShopTutorialCoroutine();
+                break;
+            case ShopTutorialToShow.DoneWithTutorialFreeMoney:
+                yield return GiveFreeMoney();
+                yield return new WaitForSeconds(postFreeMoneyDelay);
+                yield return GiveFreeRerolls();
+                yield return new WaitForSeconds(postFreeRerollDelay);
+                break;
+
             default:
                 break;
         }
         CinematicIntroComplete();
     }
+
+    private IEnumerator BoosterPacksShopTutorialCoroutine()
+    {
+        // UI stays disabled from the call in ShopManager, it's waiting on cinematicIntroComplete = true;
+        int prevGold = ShopManager.Instance.gameState.playerData.GetValue().gold;
+        ShopManager.Instance.gameState.playerData.initialize(prevGold);
+        yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.BoosterPackShopTutorialStep1);
+        yield return GiveFreeMoney();
+        yield return new WaitForSeconds(postFreeMoneyDelay);
+        yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.BoosterPackShopTutorialStep2);
+        yield return UpgradeTheShopToLevelTwo();
+        yield return new WaitForSeconds(postShopUpgradeDelay);
+        yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.BoosterPackShopTutorialStep3);
+        yield return GiveFreeRerolls();
+        yield return new WaitForSeconds(postFreeRerollDelay);
+        yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.BoosterPackShopTutorialStep4);
+
+        ShopManager.Instance.gameState.HasSeenAllShopTutorials = true;
+    }
+
     // Called here, so we can wait on the first dialogue to finish before starting the cinematic
     public IEnumerator FullFeatureShopTutorialCoroutine()
     {
@@ -109,6 +144,20 @@ public class ShopTutorialDisplay : MonoBehaviour
         }
         totalIncrementsNeeded -= ShopManager.Instance.gameState.playerData.GetValue().shopLevelIncrementsEarned;
         float timePerIncrement = fullyUpgradeShopTime / totalIncrementsNeeded;
+        int incrementsApplied = 0;
+        while(incrementsApplied < totalIncrementsNeeded)
+        {
+            ShopManager.Instance.UpgradeShopForFree();
+            yield return new WaitForSeconds(timePerIncrement);
+            incrementsApplied += 1;
+        }
+    }
+
+    private IEnumerator UpgradeTheShopToLevelTwo()
+    {
+        int totalIncrementsNeeded = encounterConstants.shopLevels[0].shopLevelIncrementsToUnlock;
+        totalIncrementsNeeded -= ShopManager.Instance.gameState.playerData.GetValue().shopLevelIncrementsEarned;
+        float timePerIncrement = upgradeShopToLevelTwoTime / totalIncrementsNeeded;
         int incrementsApplied = 0;
         while(incrementsApplied < totalIncrementsNeeded)
         {

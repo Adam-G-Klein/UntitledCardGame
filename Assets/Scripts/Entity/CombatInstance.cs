@@ -204,6 +204,10 @@ public class CombatInstance : MonoBehaviour
         return Mathf.Max(0, dmg);
     }
 
+    public int GetTotalStrength()
+    {
+        return combatStats.baseAttackDamage + statusEffects[StatusEffectType.Strength] + statusEffects[StatusEffectType.TemporaryStrength];
+    }
 
     public void ApplyNonStatusCombatEffect(CombatEffect effect, int scale, CombatInstance effector, GameObject vfxPrefab, bool shouldShake = false, float screenShakeForce = 0.0f) {
         // All the non-status-effect combat effects are handled here

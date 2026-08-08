@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 46cfa9c9-d8bf-47bc-a2ed-f177772afdfa
   Name: Raise the Stakes
-  Description: Gain 1 energy next turn & if you have 3 or less cards in hand, draw
-    1 extra card from self next turn
+  Description: 
   IconDescription:
   - tokenType: 0
     text: "Gain 1 \xC9lan next turn"
@@ -29,13 +28,15 @@ MonoBehaviour:
   - tokenType: 0
     text: ': '
     icon: 0
-  - tokenType: 0
-    text: Draw 1 extra card from self next turn
-    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 3
+  - tokenType: 2
+    text: 
+    icon: 11
   IconDescriptionTooltipLines:
   - "Gain 1 \xC9lan next turn to spend on playing cards."
-  - If you have less than 3 cards in hand, also draw 1 extra card from the owner
-    rat next turn.
+  - If you have less than 3 cards in hand, draw 1 card from the owner rat
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 90fa2971dfe769a49a60ad648e956340, type: 3}
@@ -62,6 +63,16 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 385751798185984021
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: self
+        outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        waitForDrawsToResolve: 0
     - rid: 2268261022115299330
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -103,8 +114,8 @@ MonoBehaviour:
       data:
         effectStepName: InstantiatePrefab
         inputKey: self
-        prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
-        scale: 1.5
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1
     - rid: 5602892723852673195
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -115,7 +126,7 @@ MonoBehaviour:
         - rid: 2268261022115299332
         - rid: 7150943289421332749
         - rid: 2268261022115299333
-        - rid: 7150943289421332750
+        - rid: 385751798185984021
         - rid: 5280922841426165977
     - rid: 5602892723852673196
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -136,17 +147,3 @@ MonoBehaviour:
       data:
         effectStepName: 
         manaToAdd: 1
-    - rid: 7150943289421332750
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ApplyStatus
-        inputKey: self
-        statusEffect: 16
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplyByNumAuraStacks: 0
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-        toggleStatus: 0

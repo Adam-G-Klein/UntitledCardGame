@@ -90,8 +90,8 @@ public class ShopEncounter : Encounter
 {
     public ShopDataSO shopData;
     [Header("If set, the shop cards/companions will be static until rerolls are past the length")]
-    public List<StaticCardTypeGroup> staticCardGroups = new List<StaticCardTypeGroup>();
-    public List<StaticCompanionTypeGroup> staticCompanionGroups = new List<StaticCompanionTypeGroup>();
+    public List<StaticCardTypeGroup> staticCardItems = new List<StaticCardTypeGroup>();
+    public List<StaticCompanionTypeGroup> staticCompanionItems = new List<StaticCompanionTypeGroup>();
     public bool loopStaticShop = false;
 
     private List<CardInShopWithPrice> cardsInShop = new List<CardInShopWithPrice>();
@@ -103,6 +103,7 @@ public class ShopEncounter : Encounter
     private EncounterConstantsSO encounterConstants;
     private ShopManager shopManager;
     private int staticShopIndex;
+    public List<EliteTrashTalkDialogue> trashTalk = new List<EliteTrashTalkDialogue>();
 
     public ShopEncounter() {
         this.encounterType = EncounterType.Shop;
@@ -118,20 +119,20 @@ public class ShopEncounter : Encounter
         this.shopData = other.shopData;
         this.act = other.act;
         this.loopStaticShop = other.loopStaticShop;
-        this.staticCardGroups = new List<StaticCardTypeGroup>();
-        foreach (var group in other.staticCardGroups)
+        this.staticCardItems = new List<StaticCardTypeGroup>();
+        foreach (var group in other.staticCardItems)
         {
             var newGroup = new StaticCardTypeGroup();
             newGroup.cardTypes = new List<CardType>(group.cardTypes);
-            this.staticCardGroups.Add(newGroup);
+            this.staticCardItems.Add(newGroup);
         }
 
-        this.staticCompanionGroups = new List<StaticCompanionTypeGroup>();
-        foreach (var group in other.staticCompanionGroups)
+        this.staticCompanionItems = new List<StaticCompanionTypeGroup>();
+        foreach (var group in other.staticCompanionItems)
         {
             var newGroup = new StaticCompanionTypeGroup();
             newGroup.companionTypes = new List<CompanionTypeSO>(group.companionTypes);
-            this.staticCompanionGroups.Add(newGroup);
+            this.staticCompanionItems.Add(newGroup);
         }
 
     }
@@ -156,7 +157,7 @@ public class ShopEncounter : Encounter
         this.encounterConstants = constants;
         this.encounterType = EncounterType.Shop;
 
-        if ((staticCardGroups == null || staticCardGroups.Count == 0) && (staticCompanionGroups == null || staticCompanionGroups.Count == 0)) staticShopIndex = -1;
+        if ((staticCardItems == null || staticCardItems.Count == 0) && (staticCompanionItems == null || staticCompanionItems.Count == 0)) staticShopIndex = -1;
         else staticShopIndex = 0;
 
         generateShopEncounter(shopLevel, companionList, shouldGenerateCards, shouldGenerateRats, shouldGenerateBoosterPacks);
@@ -188,18 +189,27 @@ public class ShopEncounter : Encounter
         companionsInShop = new List<CompanionInShopWithPrice>();
         boosterPacksInShop = new List<BoosterPackInShopWithPrice>();
 
-        if (shouldGenerateRats) generateKeepsakes(shopLevel, companionList);
-        if (shouldGenerateCards) generateCards(shopLevel, companionList);
-        if (shouldGenerateBoosterPacks) generateBoosterPacks(shopLevel, companionList);
+        if (shouldGenerateRats) {
+            generateKeepsakes(shopLevel, companionList);
+            Debug.Log("ShopEncounter:generateShopEncounter: Generated " + companionsInShop.Count + " rats for the shop.");
+        }
+        if (shouldGenerateCards) {
+            generateCards(shopLevel, companionList);
+            Debug.Log("ShopEncounter:generateShopEncounter: Generated " + cardsInShop.Count + " cards for the shop.");
+        }
+        if (shouldGenerateBoosterPacks) {
+            generateBoosterPacks(shopLevel, companionList);
+            Debug.Log("ShopEncounter:generateShopEncounter: Generated " + boosterPacksInShop.Count + " booster packs for the shop.");
+        }
     }
 
     private void generateCards(ShopLevel shopLevel, List<Companion> companionList) {
-        if (staticShopIndex != -1 && (staticShopIndex < staticCardGroups.Count || loopStaticShop)) {
-            int index = staticShopIndex % staticCardGroups.Count;
-            foreach (CardType cardType in staticCardGroups[index].cardTypes) {
+        if (staticShopIndex != -1 && (staticShopIndex < staticCardItems.Count || loopStaticShop)) {
+            int index = staticShopIndex % staticCardItems.Count;
+            foreach (CardType cardType in staticCardItems[index].cardTypes) {
                 Card.CardRarity rarity = DetermineCardRarity(cardType);
                 int price = GetCardPriceForRarity(rarity);
-                CardInShopWithPrice card = new CardInShopWithPrice(cardType, price, null, rarity, null);
+                CardInShopWithPrice card = new CardInShopWithPrice(cardType, price, null, rarity, cardType.packFrom);
                 int bonusCost = AddBonusCardCost();
                 card.price += bonusCost;
                 card.increasedPrice = bonusCost > 0;
@@ -278,9 +288,9 @@ public class ShopEncounter : Encounter
         //     return;
         // }
 
-        if (staticShopIndex != -1 && (staticShopIndex < staticCompanionGroups.Count || loopStaticShop)) {
-            int index = staticShopIndex % staticCompanionGroups.Count;
-            foreach (CompanionTypeSO companionType in staticCompanionGroups[index].companionTypes) {
+        if (staticShopIndex != -1 && (staticShopIndex < staticCompanionItems.Count || loopStaticShop)) {
+            int index = staticShopIndex % staticCompanionItems.Count;
+            foreach (CompanionTypeSO companionType in staticCompanionItems[index].companionTypes) {
                 CompanionRarity rarity = DetermineCompanionRarity(companionType);
                 int maxHealthBonus = shopLevel.ratBonusHealth;
                 CompanionInShopWithPrice keepsake = new CompanionInShopWithPrice(
@@ -300,6 +310,10 @@ public class ShopEncounter : Encounter
         // All companion types on your team are not considered in the pool.
         List<CompanionTypeSO> keepsakesOutOfPool = team.Select(x => x.companionType).ToList();
 
+        // WITHOUT REPLACEMENT GENERATION.
+        List<CompanionTypeSO> commonRats = new(shopManager.gameState.companionPool.commonCompanions);
+        List<CompanionTypeSO> uncommonRats = new(shopManager.gameState.companionPool.uncommonCompanions);
+        List<CompanionTypeSO> rareRats = new(shopManager.gameState.companionPool.rareCompanions);
         for (int i = 0; i < numKeepsakesToGenerate; i++)
         {
             // Determine what the companion pool is for this single keepsake being generated
@@ -312,19 +326,19 @@ public class ShopEncounter : Encounter
                 shopManager.gameState.companionPool.rareCompanions.Count > 0
             );
 
-            List<CompanionTypeSO> companions = new List<CompanionTypeSO>();
+            List<CompanionTypeSO> companions = new();
             switch (rarity)
             {
                 case CompanionRarity.COMMON:
-                    companions = shopManager.gameState.companionPool.commonCompanions;
+                    companions = new(commonRats);
                     break;
 
                 case CompanionRarity.UNCOMMON:
-                    companions = shopManager.gameState.companionPool.uncommonCompanions;
+                    companions = new(uncommonRats);
                     break;
 
                 case CompanionRarity.RARE:
-                    companions = shopManager.gameState.companionPool.rareCompanions;
+                    companions = new(rareRats);
                     break;
             }
 
@@ -375,6 +389,11 @@ public class ShopEncounter : Encounter
             if (bonusCost > 0) keepsake.increasedPrice = true;
             companionsInShop.Add(keepsake);
             keepsakesOutOfPool.Add(selected);
+
+            // Remove all copies of the selected companion type from the sample distribution so that it cannot be selected again.
+            commonRats.Remove(selected);
+            uncommonRats.Remove(selected);
+            rareRats.Remove(selected);
         }
     }
 
@@ -403,7 +422,7 @@ public class ShopEncounter : Encounter
         List<BoosterPack> boosterPacks = new();
         foreach (PackSO pack in packsToShow) {
             boosterPacks.Add(new PackBoosterPack(pack, BoosterPack.BoosterPackType.CommonPack));
-            boosterPacks.Add(new PackBoosterPack(pack, BoosterPack.BoosterPackType.UncommonRat));
+            boosterPacks.Add(new PackBoosterPack(pack, BoosterPack.BoosterPackType.UncommonPack));
         }
         foreach (CompanionTypeSO companionTypeSO in companionTypeSOs) {
             boosterPacks.Add(new RatBoosterPackSO(companionTypeSO, BoosterPack.BoosterPackType.CommonRat));

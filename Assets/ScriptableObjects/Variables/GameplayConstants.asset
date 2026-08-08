@@ -36,7 +36,7 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 732abf9ab7098499c99007e9ce16d3fd, type: 3}
     iconName: Adjacent
   - iconType: 6
-    sprite: {fileID: 21300000, guid: 844a18f0b9e8942a3a393ecdd185d754, type: 3}
+    sprite: {fileID: 21300000, guid: 9035e4062bb61451e8422b4581e44673, type: 3}
     iconName: Leftmost
   - iconType: 7
     sprite: {fileID: 21300000, guid: d6d0d0c28ab7149d3b5670309f03342b, type: 3}
@@ -49,7 +49,7 @@ MonoBehaviour:
     iconName: Bleed
   - iconType: 10
     sprite: {fileID: 21300000, guid: b15528922f4ee4e6ab7c510f25fb0f49, type: 3}
-    iconName: Gain Elan
+    iconName: "Gain \xC9lan"
   - iconType: 11
     sprite: {fileID: 21300000, guid: de8d081d4dfad42369defad0dae98589, type: 3}
     iconName: Self
@@ -60,17 +60,17 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 7be12b1af8bcd4b10ad053ac9b16f2e1, type: 3}
     iconName: Discard
   - iconType: 14
-    sprite: {fileID: 21300000, guid: 2924b45635ab54462bb0b8fc31c5c220, type: 3}
+    sprite: {fileID: 21300000, guid: 9e528a1354fb34789ae1f52e5f4c0cba, type: 3}
     iconName: Exhaust
   - iconType: 15
-    sprite: {fileID: 21300000, guid: bfd161df3dde642faa70cfc7cc9b8a0c, type: 3}
+    sprite: {fileID: 21300000, guid: acf0ec52828c84baca81ab249e0f7e21, type: 3}
     iconName: When Discarded
   - iconType: 16
-    sprite: {fileID: 21300000, guid: ad8233585183e45efab446330dd6d3f7, type: 3}
+    sprite: {fileID: 21300000, guid: b1c91e441d7ec4f68976a5597b9818f1, type: 3}
     iconName: When Exhausted
   - iconType: 17
-    sprite: {fileID: 21300000, guid: 45d00031513d949dea074ec0d3e01857, type: 3}
-    iconName: 
+    sprite: {fileID: 21300000, guid: 998dc0a55769f4fdabb4a13a03ed895d, type: 3}
+    iconName: When In Hand End of Turn
   - iconType: 18
     sprite: {fileID: 21300000, guid: 682dc9914a4574577a1bafc5b678cf19, type: 3}
     iconName: Any
@@ -81,11 +81,11 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 1eee1697ed12d43bdaa8cd76c2026729, type: 3}
     iconName: Heal
   - iconType: 21
-    sprite: {fileID: 21300000, guid: 77259264fe24344feb4f776c6a84c06e, type: 3}
-    iconName: 
+    sprite: {fileID: 21300000, guid: a657607ca82e743ca8c4e2621e750942, type: 3}
+    iconName: If Below Half HP
   - iconType: 22
     sprite: {fileID: 21300000, guid: 52f62e90b62fa9249aac77854a45e7d5, type: 3}
-    iconName: 
+    iconName: If Lost HP This Turn
   - iconType: 23
     sprite: {fileID: 21300000, guid: a5b8c5dccafa78942bf687e9f47d4ce4, type: 3}
     iconName: 
@@ -103,19 +103,25 @@ MonoBehaviour:
     iconName: 
   - iconType: 28
     sprite: {fileID: 21300000, guid: d368c9ba74e98f7408c2a579fc6febcb, type: 3}
-    iconName: 
+    iconName: If Last Card Was Attack
   - iconType: 29
     sprite: {fileID: 21300000, guid: bc01e6303f5aef54696b1695ae9d1ce0, type: 3}
     iconName: 
   - iconType: 30
     sprite: {fileID: 21300000, guid: 04bf14070e798284f9f39ea08b676c4a, type: 3}
-    iconName: 
+    iconName: If 3 Cards or Less In Hand
   - iconType: 31
     sprite: {fileID: 21300000, guid: fccdd43ca64c8644fa54c06ab327bdd3, type: 3}
-    iconName: 
+    iconName: If Exhausted Card This Turn
   - iconType: 32
-    sprite: {fileID: 21300000, guid: be4b7ac2447b74c278120e997b73d6cf, type: 3}
+    sprite: {fileID: 21300000, guid: ffbed9cf626104d5ba0da0dc3fe8d45a, type: 3}
     iconName: When Drawn
   - iconType: 33
     sprite: {fileID: 21300000, guid: c960dda6c9034d84db2d28df9f348115, type: 3}
     iconName: AOE
+  - iconType: 34
+    sprite: {fileID: 21300000, guid: be600ec8ca37b4644968adaa60ffdf00, type: 3}
+    iconName: Attack Buff
+  - iconType: 35
+    sprite: {fileID: 21300000, guid: d3b4ea719507e411f88ba48f69c6efc3, type: 3}
+    iconName: Block Buff

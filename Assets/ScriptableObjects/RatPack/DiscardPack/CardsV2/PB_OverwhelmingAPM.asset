@@ -16,13 +16,33 @@ MonoBehaviour:
   Name: Overwhelming APM
   Description: Deal {rpl_damage} damage for each card you played this turn ({numPlayedCards}
     cards)
-  IconDescription: []
-  IconDescriptionTooltipLines: []
+  IconDescription:
+  - tokenType: 0
+    text: '{rpl_damage}'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
+  - tokenType: 2
+    text: 
+    icon: 18
+  - tokenType: 0
+    text: xN
+    icon: 18
+  - tokenType: 1
+    text: 
+    icon: 18
+  - tokenType: 0
+    text: N = Number of cards you played this turn ({numPlayedCards} cards)
+    icon: 18
+  IconDescriptionTooltipLines:
+  - Deal damage to a foe of your choice N times.
+  - N is the number of cards you played this turn.
   defaultValues:
   - key: numPlayedCards
     value: 0
   - key: rpl_damage
-    value: 1
+    value: 2
   Cost: 1
   Artwork: {fileID: 21300000, guid: a017db4444d2c7a4ab2166b6a232c480, type: 3}
   cardCategory: 1
@@ -54,7 +74,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 0
-        scale: 1
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

@@ -16,14 +16,43 @@ MonoBehaviour:
   Name: Detonate
   Description: Exhaust. Exhaust all cards in hand and deal {rpl_damage} to all enemies
     for each card exhausted.
-  IconDescription: []
-  IconDescriptionTooltipLines: []
+  IconDescription:
+  - tokenType: 0
+    text: Exhaust. Exhaust all cards in hand
+    icon: 0
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 0
+    text: '{rpl_damage}'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
+  - tokenType: 2
+    text: 
+    icon: 33
+  - tokenType: 0
+    text: xN
+    icon: 33
+  - tokenType: 1
+    text: 
+    icon: 33
+  - tokenType: 0
+    text: N = Number of cards exhausted ({numCards} cards)
+    icon: 33
+  IconDescriptionTooltipLines:
+  - This card exhausts when played. It exhausts all the other cards in hand.
+  - Deal damage to all foes N times.
+  - N is the number of other cards you exhausted playing this card.
   defaultValues:
   - key: rpl_damage
     value: 3
+  - key: numCards
+    value: 0
   Cost: 2
   Artwork: {fileID: 21300000, guid: 52f62e90b62fa9249aac77854a45e7d5, type: 3}
-  cardCategory: 2
+  cardCategory: 1
   packFrom: {fileID: 11400000, guid: 79e479ca9df7a4369ba7fa951e0af116, type: 2}
   vfxPrefab: {fileID: 0}
   playable: 1
@@ -60,31 +89,17 @@ MonoBehaviour:
         cardSelectionHelperText: 
         selectionPurpose: 0
         selectionCardCategory: 0
-    - rid: 1289961820425027791
-      type: {class: FilterCards, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FilterCards
-        inputKey: cards
-        companionInstanceKey: 
-        filter:
-          cardCategoriesToInclude: 
-          retainedCardsFilter: 0
-          manaCostFilter: 0
-          manaCost: 0
-          exactCardType: {fileID: 0}
-          companionInstanceFilterEnabled: 0
-        outputKey: statusCards
     - rid: 1289961820425027792
       type: {class: CountStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CountStep
-        inputKey: statusCards
-        outputKey: numStatus
+        inputKey: cards
+        outputKey: numCards
     - rid: 1289961820425027793
       type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CardInHandEffect
-        inputKey: statusCards
+        inputKey: cards
         effect: 1
     - rid: 1289961820425027794
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -111,14 +126,13 @@ MonoBehaviour:
         inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 1
-        inputMultiplicityKey: numStatus
+        inputMultiplicityKey: numCards
         vfxPrefab: {fileID: 1320532642761013391, guid: 4847f21b038e1aa42bceefe5c97ab1ab, type: 3}
     - rid: 2116895648763871336
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 1289961820425027790
-        - rid: 1289961820425027791
         - rid: 1289961820425027792
         - rid: 1289961820425027793
         - rid: 1289961820425027794

@@ -334,6 +334,9 @@ public class ShopViewController : MonoBehaviour,
         cardRemovalButton.SetEnabled(false);
         FocusManager.Instance.DisableFocusableTarget(cardRemovalButton.AsFocusable());
 
+        switchDecksButton.SetEnabled(false);
+        FocusManager.Instance.DisableFocusableTarget(switchDecksButton.AsFocusable());
+
         upgradeButtonContainer.style.display = DisplayStyle.None;
         rerollContainer.style.display = DisplayStyle.None;
         cardRemovalContainer.style.display = DisplayStyle.None;
@@ -359,6 +362,9 @@ public class ShopViewController : MonoBehaviour,
 
         cardRemovalButton.SetEnabled(true);
         FocusManager.Instance.EnableFocusableTarget(cardRemovalButton.AsFocusable());
+
+        switchDecksButton.SetEnabled(true);
+        FocusManager.Instance.EnableFocusableTarget(switchDecksButton.AsFocusable());
 
         upgradeButtonContainer.style.display = DisplayStyle.Flex;
         rerollContainer.style.display = DisplayStyle.Flex;
@@ -2207,6 +2213,10 @@ public class ShopViewController : MonoBehaviour,
             entry.DisableInteractions();
         }
 
+        foreach (ShopItemView entry in boosterPackItemToViewMap.Values) {
+            entry.DisableInteractions();
+        }
+
         foreach (CompanionManagementSlotView slot in activeSlots) {
             slot.DisableInteractions();
         }
@@ -2231,6 +2241,10 @@ public class ShopViewController : MonoBehaviour,
         }
 
         foreach (ShopItemView entry in companionItemToViewMap.Values) {
+            entry.DisableInteractions();
+        }
+
+        foreach (ShopItemView entry in boosterPackItemToViewMap.Values) {
             entry.DisableInteractions();
         }
 
@@ -2265,6 +2279,10 @@ public class ShopViewController : MonoBehaviour,
         }
 
         foreach (ShopItemView entry in companionItemToViewMap.Values) {
+            entry.EnableInteractions();
+        }
+
+        foreach (ShopItemView entry in boosterPackItemToViewMap.Values) {
             entry.EnableInteractions();
         }
 

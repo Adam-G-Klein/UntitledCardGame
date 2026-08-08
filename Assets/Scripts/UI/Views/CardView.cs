@@ -76,7 +76,6 @@ public class CardView {
                 DescriptionToken token = tokens[i];
                 int nextNewLineIndex = tokens.FindIndex(i + 1, t => t.tokenType == DescriptionToken.TokenType.NewLine);
                 int rowSize = (nextNewLineIndex == -1) ? tokens.Count - rowStartTokenIdx : nextNewLineIndex - rowStartTokenIdx;
-                Debug.Log("Icon desc current row size: " + rowSize + " for row starting at index: " + rowStartTokenIdx);
                 switch (token.tokenType)
                 {
                     case DescriptionToken.TokenType.Icon:
@@ -97,9 +96,9 @@ public class CardView {
                         textLbl.name = "iconDescText" + i;
 
                         // Font size logic to make sure the text fits in the row. This is a bit hacky, but it works for now.
-                        if (rowSize > 3)
+                        if (rowSize > 3 || token.text.Length > 2)
                         {
-                            textLbl.style.fontSize = 50;
+                            textLbl.style.fontSize = 45;
                         }
                         else if (rowSize == 1)
                         {
