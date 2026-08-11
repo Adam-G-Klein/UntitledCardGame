@@ -52,7 +52,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Mask_Tex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: e0998748419d0c243845731fd2500fdf, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _UV_Distorion_Mask_Tex:
@@ -81,10 +81,10 @@ Material:
     - _Cutoff_Softness: 1
     - _Cutoff_Value: 0
     - _Distort_the_Mask: 0
-    - _Distortion_Strength: 0
+    - _Distortion_Strength: 0.41
     - _DstBlend: 10
-    - _Fade_Tex_Pow: 1
-    - _Mask_Power: 1
+    - _Fade_Tex_Pow: 0
+    - _Mask_Power: 0
     - _Mask_Strength: 0
     - _Partcle_System: 1
     - _QueueControl: 0
@@ -103,7 +103,7 @@ Material:
     - _ZWriteControl: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Distortion_Speed: {r: 0.3, g: 0, b: 0, a: 0}
+    - _Distortion_Speed: {r: 0.5, g: 0, b: 0, a: 0}
     - _Fade_Tex_Speed: {r: 1, g: 0, b: 0, a: 0}
     - _Main_Text_Scroll_Speed: {r: 0, g: 0, b: 0, a: 0}
     - _Mask_Scroll_Speed: {r: 0, g: 0, b: 0, a: 0}
