@@ -464,13 +464,14 @@ MonoBehaviour:
   isBoss: 0
   postCombatSpeakerSprite: {fileID: 21300000, guid: 34af0ef08494934478eca248b698d0ec, type: 3}
   bonusManaRewardLines:
-  - Well done defeating her. She usually gets the better of us.
-  - "You are onto the high tables. The big players are here. You get one more \xC9lan
-    per turn so you can compete."
+  - "Well done defeating S\xE9verine. She usually gets the better of us."
+  - You are through to the high tables. The big players are here.
+  - "To make it more fair, you get one more \xC9lan each turn."
   bonusTeamSizeRewardLines:
-  - It's always a real fistfight against Brutus. Nice work.
-  - The next floor ahead has better players than you have seen so far. They allow
-    you to put one more rat on your team.
+  - It's always a real fistfight against Brutus.
+  - He's tough but unsophisticated. Expect greater competition on the next floor.
+  - As a demonstration of his all-encompassing generosity, the Baron grants you space
+    for one extra rat on your team.
   endCombatScreenDelay: 2.75
 --- !u!114 &5736324480777454308
 MonoBehaviour:

@@ -1317,6 +1317,7 @@ public class ShopViewController : MonoBehaviour,
         }
         if (shopManager.gameState.InDemoTutorial()
             && shopManager.HasNotSpentEnoughMoney()) {
+            Debug.Log("You should spend your money bozo");
             StartCoroutine(RunPreNextCombatReminderStep(DemoStepName.YouShouldSpendYourMoneyBozo));
             return;
         }

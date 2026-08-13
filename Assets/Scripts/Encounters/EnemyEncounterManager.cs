@@ -418,7 +418,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     {
         yield return new WaitForSeconds(endCombatScreenDelay);
         EndEncounterView endEncounterView = postCombatUI.GetComponent<EndEncounterView>();
-        if (gameState.InDemoTutorial() && !DemoDirector.Instance.IsStepCompleted(DemoStepName.PostCombatRewardsDialogue)) {
+        if (gameState.InDemoTutorial() && !DemoDirector.Instance.IsStepCompleted(DemoStepName.PostCombatRewardsDialogue) && !gameState.HasSeenAllShopTutorials) {
             endEncounterView.Show(true);
             endEncounterView.DisableNextButton();
             FocusManager.Instance.Unfocus();
