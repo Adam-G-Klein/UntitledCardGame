@@ -65,12 +65,27 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
             {
                 if (instance != null)
                 {
+                    // "Do something to another friendly" effects (e.g. heal an ally):
+                    // arc a precast trail from the caster to the target and defer the
+                    // impact VFX until it lands. Gameplay still applies immediately.
+                    bool trail = PrecastTrailController.ShouldTrail(originCombatInstance, instance);
+                    GameObject immediateVfx = trail ? null : vfxPrefab;
+
                     instance.ApplyNonStatusCombatEffect(combatEffect,
                         finalScale,
                         originCombatInstance,
-                        vfxPrefab,
+                        immediateVfx,
                         i == 0,
                         i / 4.0f); // TODO, elevate this logic for ethan to tune
+
+                    if (trail && vfxPrefab != null)
+                    {
+                        CombatInstance target = instance;
+                        PrecastTrailController.Instance.PlayTrailThenSpawn(
+                            originCombatInstance,
+                            target,
+                            () => { if (target != null) GameObject.Instantiate(vfxPrefab, target.transform.position, Quaternion.identity); });
+                    }
                 }
             }
 
