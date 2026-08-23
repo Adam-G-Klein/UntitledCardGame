@@ -42,8 +42,9 @@ public class CombatInstanceCacheLoad : EffectStep
         int sum = Convert.ToInt32(isBool) + Convert.ToInt32(isInt);
         if (sum == 0) {
             Debug.LogWarning("Cache key [" + currentWorkflowKey + "] not found in the bool or int map, using a default value of false for bool and 0 for int");
-            target.cachedEffectValues.boolMap[cacheKey] = false;
-            target.cachedEffectValues.intMap[cacheKey] = 0;
+            document.boolMap[currentWorkflowKey] = false;
+            document.intMap[currentWorkflowKey] = 0;
+            yield break;
         }
         if (sum > 1) {
             EffectError("Cache key [" + currentWorkflowKey + "] ambiguous because it exists in multiple maps, breaking!!!");

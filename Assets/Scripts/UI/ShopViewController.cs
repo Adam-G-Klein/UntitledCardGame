@@ -50,6 +50,7 @@ public class ShopViewController : MonoBehaviour,
     private Label notEnoughMoneyLabel;
     public VisualElement selectingCompanionVeil;
     public VisualElement selectingIndicator;
+    private Label companionSelectionLabel;
     public Button selectingCancelButton;
     private VisualElement selectingIndicatorForCardRemovalIndicator;
     // Cancel button shown specifically during the companion-selection "switch decks" flow
@@ -59,6 +60,7 @@ public class ShopViewController : MonoBehaviour,
 
     private Button cancelCardRemovalButton;
     private Button startNextCombatButton;
+    private Button boosterPackDoneButton;
 
     public Label upgradePriceLabel;
     public Label rerollPriceLabel;
@@ -109,6 +111,7 @@ public class ShopViewController : MonoBehaviour,
     [Header("Misc")]
     [SerializeField] private GameObject companionOnTeamVFX;
     [SerializeField] private GameObject companionWouldBeUpgradedVFX;
+    private bool suppressCompanionShineVFX = false;
 
     private IEnumerator notEnoughMoneyCoroutine;
     private IEnumerator upgradeButtonTooltipCoroutine = null;
@@ -169,6 +172,7 @@ public class ShopViewController : MonoBehaviour,
         notEnoughMoneyLabel = uiDoc.rootVisualElement.Q<Label>("not-enough-money-indicator");
         selectingCompanionVeil = uiDoc.rootVisualElement.Q("selecting-companion-veil");
         selectingIndicator = uiDoc.rootVisualElement.Q("companion-selection-indicator");
+        companionSelectionLabel = uiDoc.rootVisualElement.Q<Label>("companion-selection-label");
         selectingCancelButton = uiDoc.rootVisualElement.Q<Button>("companion-selection-cancel-button");
         upgradePriceLabel = uiDoc.rootVisualElement.Q<Label>("upgrade-price-label");
         rerollPriceLabel = uiDoc.rootVisualElement.Q<Label>("reroll-price-label");
@@ -258,6 +262,12 @@ public class ShopViewController : MonoBehaviour,
         startNextCombatButton.RegisterOnSelected(StartNextCombatOnClick);
         FocusManager.Instance.RegisterFocusableTarget(startNextCombatButton.AsFocusable());
         disableOnCompanionDrag.Add(startNextCombatButton.AsFocusable());
+
+        boosterPackDoneButton = uiDoc.rootVisualElement.Q<Button>("booster-pack-done-button");
+        boosterPackDoneButton.RegisterOnSelected(BoosterPackDoneButtonOnClick);
+        FocusManager.Instance.RegisterFocusableTarget(boosterPackDoneButton.AsFocusable());
+        FocusManager.Instance.DisableFocusableTarget(boosterPackDoneButton.AsFocusable());
+        disableOnCompanionDrag.Add(boosterPackDoneButton.AsFocusable());
 
         Button closeCompanionDeckViewButton = deckView.Q<Button>();
         closeCompanionDeckViewButton.RegisterOnSelected((evt) => CloseCompanionDeckView());
@@ -369,6 +379,8 @@ public class ShopViewController : MonoBehaviour,
         upgradeButtonContainer.style.display = DisplayStyle.Flex;
         rerollContainer.style.display = DisplayStyle.Flex;
         cardRemovalContainer.style.display = DisplayStyle.Flex;
+
+        ToggleShopButtonsForShopLevel(getCurrentShopLevel());
     }
 
     public void DisableNextCombatButton()
@@ -1090,6 +1102,8 @@ public class ShopViewController : MonoBehaviour,
     }
 
     public void AddCompanionShineVFX() {
+        if (suppressCompanionShineVFX) return;
+
         HashSet<CompanionTypeSO> baseTypes = new HashSet<CompanionTypeSO>();
         Dictionary<CompanionTypeSO, int> numTypes = new Dictionary<CompanionTypeSO, int>();
         foreach (Companion companion in shopManager.gameState.companions.activeCompanions) {
@@ -1201,6 +1215,9 @@ public class ShopViewController : MonoBehaviour,
         }
     }
 
+    private static float SHOP_BUTTON_CONTAINER_BG_HEIGHT_WITH_CARD_REMOVAL_PERCENT = 80f;
+    private static float SHOP_BUTTON_CONTAINER_BG_HEIGHT_WITHOUT_CARD_REMOVAL_PERCENT = 55f;
+
     public void ToggleShopButtonsForShopLevel(ShopLevel currentShopLevel)
     {
         if (currentShopLevel.cardRemovalEnabled)
@@ -1208,21 +1225,25 @@ public class ShopViewController : MonoBehaviour,
             cardRemovalContainer.style.display = DisplayStyle.Flex;
             cardRemovalButton.SetEnabled(true);
             FocusManager.Instance.EnableFocusableTarget(cardRemovalButton.AsFocusable());
+            shopButtonsContainerBg.style.height = Length.Percent(SHOP_BUTTON_CONTAINER_BG_HEIGHT_WITH_CARD_REMOVAL_PERCENT);
         }
         else
         {
             cardRemovalContainer.style.display = DisplayStyle.None;
             cardRemovalButton.SetEnabled(false);
             FocusManager.Instance.DisableFocusableTarget(cardRemovalButton.AsFocusable());
+            shopButtonsContainerBg.style.height = Length.Percent(SHOP_BUTTON_CONTAINER_BG_HEIGHT_WITHOUT_CARD_REMOVAL_PERCENT);
         }
 
         if (currentShopLevel.switchDecksEnabled)
         {
+            switchDecksButton.style.display = DisplayStyle.Flex;
             switchDecksButton.SetEnabled(true);
             FocusManager.Instance.EnableFocusableTarget(switchDecksButton.AsFocusable());
         }
         else
         {
+            switchDecksButton.style.display = DisplayStyle.None;
             switchDecksButton.SetEnabled(false);
             FocusManager.Instance.DisableFocusableTarget(switchDecksButton.AsFocusable());
         }
@@ -1322,6 +1343,10 @@ public class ShopViewController : MonoBehaviour,
             return;
         }
         shopManager.exitShop();
+    }
+
+    private void BoosterPackDoneButtonOnClick() {
+        shopManager.ProcessBoosterPackDoneClicked();
     }
 
     private IEnumerator RunPreNextCombatReminderStep(DemoStepName stepName) {
@@ -1652,7 +1677,7 @@ public class ShopViewController : MonoBehaviour,
         // Let's gray it out and make it non-focusable.
         firstCompanion.ShowNotApplicable();
         FocusManager.Instance.StashFocusableTarget(this.GetType().Name + "SwitchDecks", GetParentSlotViewForCompanion(firstCompanion).veFocusable);
-        switchingDecksSelectionLabel.text = "Select the second rat whose deck you want to switch";
+        switchingDecksSelectionLabel.text = "Swap non-starter deck cards: select the second rat for the swap";
     }
 
     public void SwitchDecksSetup()
@@ -1663,7 +1688,7 @@ public class ShopViewController : MonoBehaviour,
         StashNonCompanionViewFocusables(this.GetType().Name + "SwitchDecks");
         FocusManager.Instance.EnableFocusableTarget(switchDecksCancelButton.AsFocusable());
         DisableSellingForAll();
-        switchingDecksSelectionLabel.text = "Select the first rat whose deck you want to switch";
+        switchingDecksSelectionLabel.text = "Swap non-starter deck cards: select the first rat for the swap";
     }
 
     public void StopSwitchDecks()
@@ -1674,18 +1699,17 @@ public class ShopViewController : MonoBehaviour,
         FocusManager.Instance.DisableFocusableTarget(switchDecksCancelButton.AsFocusable());
         FocusManager.Instance.UnstashFocusables(this.GetType().Name + "SwitchDecks");
         EnableSellingForAll();
+        ResetApplicableForAll();
     }
 
     private void EnableSellingForAll() {
         foreach (CompanionManagementSlotView slotView in activeSlots) {
             if (slotView.IsEmpty()) continue;
-            slotView.companionManagementView.ResetApplicable();
-                slotView.EnableSelling();
+            slotView.EnableSelling();
         }
 
         foreach (CompanionManagementSlotView slotView in benchSlots) {
             if (slotView.IsEmpty()) continue;
-            slotView.companionManagementView.ResetApplicable();
             slotView.EnableSelling();
         }
     }
@@ -1702,13 +1726,54 @@ public class ShopViewController : MonoBehaviour,
         }
     }
 
+    private void ResetApplicableForAll()
+    {
+        foreach (CompanionManagementSlotView slotView in activeSlots) {
+            if (slotView.IsEmpty()) continue;
+            slotView.companionManagementView.ResetApplicable();
+        }
+
+        foreach (CompanionManagementSlotView slotView in benchSlots) {
+            if (slotView.IsEmpty()) continue;
+            slotView.companionManagementView.ResetApplicable();
+        }
+    }
+
     public void CardBuyingSetup(ShopItemView shopItemView, CardInShopWithPrice cardInShop) {
         canDragCompanions = false;
         selectingCompanionVeil.style.visibility = Visibility.Visible;
         selectingIndicator.style.visibility = Visibility.Visible;
+        if (shopManager.GetShopLevel().placeCardsAnywhere)
+        {
+            // TODO: fill in the text shown when the card can be placed on any rat.
+            companionSelectionLabel.text = "Shop Level " + (shopManager.GetShopLevel().level + 1) + ": you may give the card to any of your rats.";
+        }
+        else
+        {
+            // TODO: fill in the text shown when the card can only be placed on applicable rats.
+            companionSelectionLabel.text = "Shop Level " + (shopManager.GetShopLevel().level + 1) + ": you may give the card to a rat from the same tribe.";
+        }
         StashNonCompanionViewFocusables(this.GetType().Name + "CardBuying");
         FocusManager.Instance.EnableFocusableTarget(selectingCancelButton.AsFocusable());
         DisableSellingForAll();
+
+        // // If the card is not applicable, gray out the companion.
+        // This is only for the non booster packs shop!!!
+        if (shopManager.getShopEncounter().shopData.shopMode != ShopMode.BoosterPacks)
+        {
+            foreach (CompanionManagementSlotView slotView in activeSlots) {
+                if (slotView.IsEmpty()) continue;
+                if (!shopManager.IsApplicableCompanion(cardInShop, slotView.companionManagementView.companion)) {
+                    slotView.companionManagementView.ShowNotApplicable();
+                }
+            }
+            foreach (CompanionManagementSlotView slotView in benchSlots) {
+                if (slotView.IsEmpty()) continue;
+                if (!shopManager.IsApplicableCompanion(cardInShop, slotView.companionManagementView.companion)) {
+                    slotView.companionManagementView.ShowNotApplicable();
+                }
+            }
+        }
     }
 
     private void StashNonCompanionViewFocusables(string stashedBy) {
@@ -1728,6 +1793,7 @@ public class ShopViewController : MonoBehaviour,
         FocusManager.Instance.DisableFocusableTarget(selectingCancelButton.AsFocusable());
         FocusManager.Instance.UnstashFocusables(this.GetType().Name + "CardBuying");
         EnableSellingForAll();
+        ResetApplicableForAll();
     }
 
     private void CancelCardBuy(ClickEvent evt) {
@@ -2236,6 +2302,7 @@ public class ShopViewController : MonoBehaviour,
         upgradeButton.pickingMode = PickingMode.Ignore;
         cardRemovalButton.pickingMode = PickingMode.Ignore;
         startNextCombatButton.pickingMode = PickingMode.Ignore;
+        boosterPackDoneButton.pickingMode = PickingMode.Ignore;
 
         foreach (ShopItemView entry in cardItemToViewMap.Values) {
             entry.DisableInteractions();
@@ -2260,6 +2327,10 @@ public class ShopViewController : MonoBehaviour,
         FocusManager.Instance.StashFocusables(this.GetType().Name);
     }
 
+    private ShopLevel getCurrentShopLevel() {
+        return EncounterConstantsSingleton.Instance.encounterConstantsSO.GetShopLevel(shopManager.gameState.playerData.GetValue().shopLevel);
+    }
+
     public void EnableAllUI() {
         rerollButton.SetEnabled(true);
         rerollButton.pickingMode = PickingMode.Position;
@@ -2274,6 +2345,7 @@ public class ShopViewController : MonoBehaviour,
         cardRemovalButton.pickingMode = PickingMode.Position;
         startNextCombatButton.SetEnabled(true);
         startNextCombatButton.pickingMode = PickingMode.Position;
+        boosterPackDoneButton.pickingMode = PickingMode.Position;
 
         foreach (ShopItemView entry in cardItemToViewMap.Values) {
             entry.EnableInteractions();
@@ -2323,6 +2395,14 @@ public class ShopViewController : MonoBehaviour,
         boosterPackItemToViewMap.Remove(boosterPack);
 
         EnableDraftingHelp();
+
+        suppressCompanionShineVFX = true;
+        RemoveAllCompanionShineVFX();
+
+        boosterPackDoneButton.style.display = DisplayStyle.Flex;
+        boosterPackDoneButton.SetEnabled(true);
+        FocusManager.Instance.EnableFocusableTarget(boosterPackDoneButton.AsFocusable());
+
         // Animate to their actual positions in the shop goods area.
         CacheShopGoodsArea();
         DisableAllUIPreserveAppearance();
@@ -2354,10 +2434,24 @@ public class ShopViewController : MonoBehaviour,
             });
         }
 
-        // CacheShopGoodsArea();
-        // foreach (CardInShopWithPrice card in boosterPackCards) {
-        //     AddCardToShopView(card);
-        // }
+        // Veil the companions that are not applicable for any of the cards in the booster pack.
+        foreach (CompanionManagementSlotView slotView in activeSlots)
+        {
+            if (slotView.IsEmpty()) continue;
+            if (boosterPackCards.All(card => !shopManager.IsApplicableCompanion(card, slotView.companionManagementView.companion)))
+            {
+                slotView.companionManagementView.ShowNotApplicable();
+            }
+        }
+
+        foreach (CompanionManagementSlotView slotView in benchSlots)
+        {
+            if (slotView.IsEmpty()) continue;
+            if (boosterPackCards.All(card => !shopManager.IsApplicableCompanion(card, slotView.companionManagementView.companion)))
+            {
+                slotView.companionManagementView.ShowNotApplicable();
+            }
+        }
     }
 
     private void BoosterPackAnimationComplete(List<CardInShopWithPrice> cards)
@@ -2372,13 +2466,9 @@ public class ShopViewController : MonoBehaviour,
         EnableAllUI();
     }
 
-    [SerializeField] private float boosterBurstRadiusPct = 0.2f;
-    [SerializeField] private float boosterBurstTime = 0.1f;
-    [SerializeField] private float boosterPentagonRadiusPct = 0.6f;
-    [SerializeField] private float boosterPentagonTime = 0.5f;
-    [SerializeField] private float boosterPauseTime = 2f;
-    [SerializeField] private float boosterShopGoodsTime = 0.5f;
-    [SerializeField] private float boosterCardDelay = .1f;
+    [SerializeField] private float boosterStartScale = 0.2f;
+    [SerializeField] private float boosterAnimationMoveTime = 0.5f;
+    [SerializeField] private float boosterAnimationPerCardDelay = 0.05f;
 
     private void AnimateBoosterPackOpening(
         ShopItemView packView,
@@ -2386,12 +2476,7 @@ public class ShopViewController : MonoBehaviour,
         List<CardInShopWithPrice> cards,
         Action onComplete)
     {
-        // Wait a frame to allow the temp card views to be added to the hierarchy and have their layout computed.
-
         Vector2 packCenter = VisualElementUtils.GetCenterOfVisualElement(packView.shopItemElement);
-
-        Vector2 screenCenter = new Vector2(Screen.width * 0.5f, Screen.height * 0.5f);
-        float screenRadius = Mathf.Min(Screen.width, Screen.height) * 0.5f;
 
         VisualElement overlay = new VisualElement();
         overlay.style.position = Position.Absolute;
@@ -2402,14 +2487,13 @@ public class ShopViewController : MonoBehaviour,
         overlay.style.overflow = Overflow.Visible;
         uiDoc.rootVisualElement.Add(overlay);
 
-        List<(CardView tempView, Vector2 burstPos, Vector2 pentagonPos)> animatingCards = new();
+        List<CardView> animatingCards = new();
 
-        // Create temp card views and compute target positions
-        float angleStep = 360f / cards.Count;
-        float initialAngleOffset = 30f;
+        // Create temporary card views.
         for (int i = 0; i < cards.Count; i++)
         {
             CardInShopWithPrice card = cards[i];
+
             CardView tempView = card.sourceCompanion != null
                 ? new(card.cardType, card.sourceCompanion, card.rarity, true, card.packSO, true)
                 : new(card.cardType, null, card.rarity, true, card.packSO, true);
@@ -2417,79 +2501,52 @@ public class ShopViewController : MonoBehaviour,
             tempView.cardContainer.style.position = Position.Absolute;
             tempView.cardContainer.style.width = packView.shopItemElement.resolvedStyle.width;
             tempView.cardContainer.style.height = packView.shopItemElement.resolvedStyle.height;
-            tempView.cardContainer.style.left = packCenter.x - tempView.cardContainer.resolvedStyle.width * 0.5f;
-            tempView.cardContainer.style.top = packCenter.y - tempView.cardContainer.resolvedStyle.height * 0.5f;
+            tempView.cardContainer.style.left = packCenter.x - packView.shopItemElement.resolvedStyle.width * 0.5f;
+            tempView.cardContainer.style.top = packCenter.y - packView.shopItemElement.resolvedStyle.height * 0.5f;
 
-            // We'll set the display style to be flex after the layout is computed, so that the card is not visible until the animation starts.
+            tempView.cardContainer.transform.scale = new Vector3(boosterStartScale, boosterStartScale, 1);
             tempView.cardContainer.visible = false;
 
             overlay.Add(tempView.cardContainer);
-
-            // Burst position (outward from pack)
-            float angle = angleStep * i * Mathf.Deg2Rad + initialAngleOffset * Mathf.Deg2Rad;
-            Vector2 burstPos = packCenter + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * screenRadius * boosterBurstRadiusPct;
-
-            // Pentagon position (final circle formation)
-            Vector2 pentagonPos = screenCenter + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * screenRadius * boosterPentagonRadiusPct;
-
-            animatingCards.Add((tempView, burstPos, pentagonPos));
+            animatingCards.Add(tempView);
         }
 
-        // Animate burst outward
+        // Pause, then animate directly into the shop.
         for (int i = 0; i < animatingCards.Count; i++)
         {
-            var (tempView, burstPos, _) = animatingCards[i];
-            AnimateVisualElementPosition(
-                tempView.cardContainer,
-                packCenter,
-                burstPos,
-                boosterBurstTime,
-                LeanTweenType.easeOutQuad,
-                i * boosterCardDelay);
-        }
-
-        // Animate to pentagon formation
-        for (int i = 0; i < animatingCards.Count; i++)
-        {
-            var (tempView, _, pentagonPos) = animatingCards[i];
-            AnimateVisualElementPosition(
-                tempView.cardContainer,
-                animatingCards[i].burstPos,
-                pentagonPos,
-                boosterPentagonTime,
-                LeanTweenType.easeOutBack,
-                boosterBurstTime + i * boosterCardDelay);
-        }
-
-        // Animate to the shop goods area.
-        for (int i = 0; i < animatingCards.Count; i++)
-        {
-            var (tempView, _, _) = animatingCards[i];
             Vector2 targetPos = VisualElementUtils.GetCenterOfVisualElement(tempCardViews[i].shopItemElement);
-            AnimateVisualElementPosition(
-                tempView.cardContainer,
-                animatingCards[i].pentagonPos,
+            float delay = i * boosterAnimationPerCardDelay;
+
+            AnimateVisualElementPositionAndScale(
+                animatingCards[i].cardContainer,
+                packCenter,
                 targetPos,
-                boosterShopGoodsTime,
+                boosterStartScale,
+                1f,
+                boosterAnimationMoveTime,
                 LeanTweenType.easeOutBack,
-                boosterPentagonTime + boosterPauseTime + boosterBurstTime + i * boosterCardDelay);
+                delay);
         }
 
-        // Pause and then cleanup
+        float totalTime = boosterAnimationMoveTime +
+                        (animatingCards.Count - 1) * boosterAnimationPerCardDelay;
+
         uiDoc.rootVisualElement.schedule.Execute(() =>
         {
             overlay.RemoveFromHierarchy();
             onComplete?.Invoke();
-        }).StartingIn((int)(boosterBurstTime + boosterPentagonTime + boosterPauseTime + boosterShopGoodsTime + animatingCards.Count * boosterCardDelay) * 1000);
+        }).StartingIn(Mathf.CeilToInt(totalTime * 1000f));
     }
 
-    private LTDescr AnimateVisualElementPosition(
+    private LTDescr AnimateVisualElementPositionAndScale(
         VisualElement ve,
         Vector2 start,
         Vector2 end,
+        float startScale,
+        float endScale,
         float time,
         LeanTweenType ease,
-        float delay = 0)
+        float delay = 0f)
     {
         return LeanTween.value(0f, 1f, time)
             .setDelay(delay)
@@ -2497,14 +2554,37 @@ public class ShopViewController : MonoBehaviour,
             .setOnUpdate(t =>
             {
                 Vector2 p = Vector2.Lerp(start, end, t);
+                float scale = Mathf.Lerp(startScale, endScale, t);
+
                 ve.style.left = p.x - ve.resolvedStyle.width * 0.5f;
                 ve.style.top = p.y - ve.resolvedStyle.height * 0.5f;
+                ve.transform.scale = new Vector3(scale, scale, 1);
+
                 ve.visible = true;
             });
     }
-
     public void DoneWithBoosterPack() {
+        // Any booster-pack cards the player chose not to buy are still registered in
+        // cardItemToViewMap but not in cachedCardItemToViewMap (the pre-booster-pack snapshot).
+        // RestoreShopGoodsArea rebuilds cardItemToViewMap strictly from the cache, so unregister
+        // these leftovers' focusables first or they'd leak as dead FocusManager targets.
+        foreach (var kvp in cardItemToViewMap) {
+            if (!cachedCardItemToViewMap.ContainsKey(kvp.Key)) {
+                FocusManager.Instance.UnregisterFocusableTarget(kvp.Value.visualElementFocusable);
+                disableOnCompanionDrag.Remove(kvp.Value.visualElementFocusable);
+            }
+        }
+
         RestoreShopGoodsArea();
         DisableDraftingHelp();
+
+        boosterPackDoneButton.style.display = DisplayStyle.None;
+        boosterPackDoneButton.SetEnabled(false);
+        FocusManager.Instance.DisableFocusableTarget(boosterPackDoneButton.AsFocusable());
+
+        suppressCompanionShineVFX = false;
+        AddCompanionShineAfterHeirarchyChanged();
+
+        ResetApplicableForAll();
     }
 }

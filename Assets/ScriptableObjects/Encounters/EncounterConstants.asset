@@ -20,7 +20,7 @@ MonoBehaviour:
   bossSpawnLocation: {x: 0, y: 1.5}
   shopLevels:
   - level: 0
-    shopLevelIncrementsToUnlock: 6
+    shopLevelIncrementsToUnlock: 5
     upgradeIncrementCost: 2
     numCardsToShow: 3
     numKeepsakesToShow: 2
@@ -32,87 +32,87 @@ MonoBehaviour:
     uncommonCardPercentage: 30
     rareCardPercentage: 0
     boosterPackPcts:
-    - boosterType: 0
+    - boosterType: 5
       appearancePct: 100
     ratBonusHealth: 0
     cardRemovalDiscount: 0
     numCardRemovalsAllowed: 1
     numLessCardsInStartingDeck: 0
     switchDecksEnabled: 1
-    cardRemovalEnabled: 1
+    cardRemovalEnabled: 0
+    placeCardsAnywhere: 0
     upgradeTooltip:
       empty: 0
       lines:
       - title: Upgrade to Level 2
-        description: Increase shop rarity, +1 rat available
+        description: +1 rat available, uncommon rats, premium card envelopes
         relatedBehaviorIndex: 0
         icon: {fileID: 0}
         iconDescriptionLine: []
         card: {fileID: 0}
   - level: 1
-    shopLevelIncrementsToUnlock: 6
-    upgradeIncrementCost: 4
+    shopLevelIncrementsToUnlock: 5
+    upgradeIncrementCost: 3
     numCardsToShow: 4
     numKeepsakesToShow: 3
     numBoosterPacksToShow: 2
-    commonCompanionPercentage: 65
-    uncommonCompanionPercentage: 34
-    rareCompanionPercentage: 1
+    commonCompanionPercentage: 70
+    uncommonCompanionPercentage: 30
+    rareCompanionPercentage: 0
     commonCardPercentage: 55
     uncommonCardPercentage: 40
     rareCardPercentage: 5
     boosterPackPcts:
-    - boosterType: 0
-      appearancePct: 70
-    - boosterType: 2
-      appearancePct: 0
-    - boosterType: 1
-      appearancePct: 30
-    - boosterType: 3
-      appearancePct: 0
+    - boosterType: 5
+      appearancePct: 75
+    - boosterType: 6
+      appearancePct: 25
     ratBonusHealth: 0
     cardRemovalDiscount: 0
     numCardRemovalsAllowed: 1
     numLessCardsInStartingDeck: 0
     switchDecksEnabled: 1
-    cardRemovalEnabled: 1
+    cardRemovalEnabled: 0
+    placeCardsAnywhere: 0
     upgradeTooltip:
       empty: 0
       lines:
       - title: Upgrade to Level 3
-        description: Increase shop rarity, +1 booster pack available, bonus max HP
+        description: Place cards anywhere, rare rats, extra cards in all card envelopes
         relatedBehaviorIndex: 0
         icon: {fileID: 0}
         iconDescriptionLine: []
         card: {fileID: 0}
   - level: 2
-    shopLevelIncrementsToUnlock: 6
-    upgradeIncrementCost: 5
+    shopLevelIncrementsToUnlock: 5
+    upgradeIncrementCost: 4
     numCardsToShow: 4
     numKeepsakesToShow: 3
-    numBoosterPacksToShow: 3
-    commonCompanionPercentage: 50
-    uncommonCompanionPercentage: 40
-    rareCompanionPercentage: 10
+    numBoosterPacksToShow: 2
+    commonCompanionPercentage: 40
+    uncommonCompanionPercentage: 45
+    rareCompanionPercentage: 15
     commonCardPercentage: 50
     uncommonCardPercentage: 40
     rareCardPercentage: 10
     boosterPackPcts:
-    - boosterType: 0
-      appearancePct: 50
-    - boosterType: 1
-      appearancePct: 50
-    ratBonusHealth: 5
+    - boosterType: 7
+      appearancePct: 70
+    - boosterType: 8
+      appearancePct: 30
+    ratBonusHealth: 0
     cardRemovalDiscount: 0
     numCardRemovalsAllowed: 1
     numLessCardsInStartingDeck: 0
     switchDecksEnabled: 1
-    cardRemovalEnabled: 1
+    cardRemovalEnabled: 0
+    placeCardsAnywhere: 1
     upgradeTooltip:
       empty: 0
       lines:
       - title: Upgrade to Level 4
-        description: Increase shop rarity, better card removal, better starting decks
+        description: +1 card envelope available, stronger rats in shop, card removal
+          button
         relatedBehaviorIndex: 0
         icon: {fileID: 0}
         iconDescriptionLine: []
@@ -130,16 +130,17 @@ MonoBehaviour:
     uncommonCardPercentage: 40
     rareCardPercentage: 15
     boosterPackPcts:
-    - boosterType: 0
-      appearancePct: 40
-    - boosterType: 1
-      appearancePct: 60
-    ratBonusHealth: 5
+    - boosterType: 7
+      appearancePct: 70
+    - boosterType: 8
+      appearancePct: 30
+    ratBonusHealth: 15
     cardRemovalDiscount: 3
     numCardRemovalsAllowed: 3
     numLessCardsInStartingDeck: 1
     switchDecksEnabled: 1
     cardRemovalEnabled: 1
+    placeCardsAnywhere: 1
     upgradeTooltip:
       empty: 0
       lines: []

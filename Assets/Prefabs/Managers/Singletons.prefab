@@ -962,6 +962,8 @@ MonoBehaviour:
   - Well earned, your first Paccarat rewards!
   - The Cats are incentivised to keep us playing, so you'll be rewarded with some
     fleur de cheese upon each win.
+  - You also earn interest on any savings you have left over. The right balance between
+    saving and spending is a key part of Paccarat.
   prematureEndTurnReminderDialogueLines:
   - Forgive me, but you still have cards in your hand you can play. Are you sure
     you want to end your turn?
@@ -1006,14 +1008,12 @@ MonoBehaviour:
         decks is a critical element of success in Paccarat.
   - shopDemoDialoguesForEvents:
     - shopDemoEvent: 1
-      dialogueLines:
-      - Now you can take a break from the mayhem and prepare for the next table.
-        This time I pulled some strings so you have more cards and rats to choose
-        from.
+      dialogueLines: []
     - shopDemoEvent: 2
       dialogueLines:
       - You'll notice that certain rats and cards look similar. They are organized
-        into packs. Usually rats and cards from the same pack work well together.
+        by tribe.
+      - Rats and cards from the same tribe work well together.
 --- !u!114 &8559023735244229317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1034,11 +1034,11 @@ MonoBehaviour:
   - Each rat has their own 'talent'.
   - As well as their own separate deck of cards.
   - Oh here they come...
-  - This is how we lost the hotel, these bullies beating us at a game of their own
+  - This is how we lost the hotel - these bullies beat us at a game of their own
     making.
   - Drats, that's the Baron summoning me.
   - Quickly now, draw your first hand.
-  - "Here's your \xC9lan for this turn, you'll use this to play your cards."
+  - "Here's your \xC9lan for this turn - you'll use this to play your cards."
   - Now get em!
   - Yes! You got em good an-
   - Oh right. My apologies Baron! Right away!

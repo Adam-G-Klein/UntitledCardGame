@@ -400,14 +400,12 @@ public class ShopEncounter : Encounter
     private HashSet<CompanionTypeSO> GetBaseCompanionTypeSOs(List<Companion> companionList) {
         HashSet<CompanionTypeSO> companionTypeSOs = new HashSet<CompanionTypeSO>();
         foreach (Companion companion in companionList.Where(companion => companion?.companionType != null)) {
-            if (companion.companionType.level != CompanionLevel.LevelOne) {
-                companionTypeSOs.Add(companion.companionType.baseCompanionType);
-            } else {
-                companionTypeSOs.Add(companion.companionType);
-            }
+            companionTypeSOs.Add(companion.companionType.GetBaseCompanionType());
         }
         return companionTypeSOs;
     }
+
+
 
     private void generateBoosterPacks(ShopLevel shopLevel, List<Companion> companionList) {
         HashSet<CompanionTypeSO> companionTypeSOs = GetBaseCompanionTypeSOs(companionList);
@@ -421,13 +419,17 @@ public class ShopEncounter : Encounter
 
         List<BoosterPack> boosterPacks = new();
         foreach (PackSO pack in packsToShow) {
-            boosterPacks.Add(new PackBoosterPack(pack, BoosterPack.BoosterPackType.CommonPack));
-            boosterPacks.Add(new PackBoosterPack(pack, BoosterPack.BoosterPackType.UncommonPack));
+            // Get all the rats on the team that belong to this pack.
+            List<CompanionTypeSO> ratsInPack = companionTypeSOs.Where(rat => rat.pack == pack).ToList();
+            boosterPacks.Add(new PackBoosterPack(ratsInPack, BoosterPack.BoosterPackType.PackBasicBooster));
+            boosterPacks.Add(new PackBoosterPack(ratsInPack, BoosterPack.BoosterPackType.UpgradedPackBasicBooster));
+            boosterPacks.Add(new PackBoosterPack(ratsInPack, BoosterPack.BoosterPackType.PackDeluxeBooster));
+            boosterPacks.Add(new PackBoosterPack(ratsInPack, BoosterPack.BoosterPackType.UpgradedPackDeluxeBooster));
         }
-        foreach (CompanionTypeSO companionTypeSO in companionTypeSOs) {
-            boosterPacks.Add(new RatBoosterPackSO(companionTypeSO, BoosterPack.BoosterPackType.CommonRat));
-            boosterPacks.Add(new RatBoosterPackSO(companionTypeSO, BoosterPack.BoosterPackType.UncommonRat));
-        }
+        // foreach (CompanionTypeSO companionTypeSO in companionTypeSOs) {
+        //     boosterPacks.Add(new RatBoosterPackSO(companionTypeSO, BoosterPack.BoosterPackType.CommonRat));
+        //     boosterPacks.Add(new RatBoosterPackSO(companionTypeSO, BoosterPack.BoosterPackType.UncommonRat));
+        // }
         int numPacksToShow = Math.Min(shopLevel.numBoosterPacksToShow, boosterPacks.Count);
 
         SimpleBoosterPackDistribution dist = new(shopLevel);

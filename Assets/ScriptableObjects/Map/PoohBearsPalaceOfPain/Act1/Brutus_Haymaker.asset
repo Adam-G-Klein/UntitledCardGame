@@ -51,7 +51,6 @@ MonoBehaviour:
       displayValue: 2
       effectSteps:
       - rid: 2295167909047304423
-      - rid: 3931529445166809429
       - rid: 3931529445166809326
       - rid: 7189280385716453420
     behaviorType: 0
@@ -114,20 +113,6 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 6137048663962808129, guid: 418a03ccd75ca98409952e0384c196fd, type: 3}
-    - rid: 3931529445166809429
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: target
-        validTargets: 00000000
-        number: 1
-        specialTargetRule: 1
-        cantCancelTargetting: 0
-        cardSelectionHelperText: 
-        selectionPurpose: 0
-        selectionCardCategory: 0
     - rid: 5280922829633617990
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

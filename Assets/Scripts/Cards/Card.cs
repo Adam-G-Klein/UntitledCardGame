@@ -64,12 +64,16 @@ public class Card : Entity, IEquatable<Card>
     [SerializeReference]
     public CardType cardType;
 
-    public Card(CardType cardType, CompanionTypeSO companionFrom, CardRarity rarity = CardRarity.NONE)
+    // Starting deck card
+    public bool isStartingDeckCard = false;
+
+    public Card(CardType cardType, CompanionTypeSO companionFrom, CardRarity rarity = CardRarity.NONE, bool isStartingDeckCard = false)
     {
         this.cardType = cardType;
         this.shopRarity = rarity;
         this.id = Id.newGuid();
         this.setCompanionFrom(companionFrom);
+        this.isStartingDeckCard = isStartingDeckCard;
         ResetCardModifications();
     }
 
@@ -79,6 +83,7 @@ public class Card : Entity, IEquatable<Card>
         id = card.id;
         this.effectBuffs = card.effectBuffs;
         this.generated = card.generated;
+        this.isStartingDeckCard = card.isStartingDeckCard;
         this.setCompanionFrom(card.getCompanionFrom());
         ResetCardModifications();
     }
@@ -90,6 +95,7 @@ public class Card : Entity, IEquatable<Card>
         this.generated = cardSerializable.generated;
         this.setCompanionFrom(registry.GetAsset<CompanionTypeSO>(cardSerializable.companionFromGuid));
         this.shopRarity = cardSerializable.cardRarity;
+        this.isStartingDeckCard = cardSerializable.isStartingDeckCard;
     }
 
     public static bool operator !=(Card a, Card b) {
@@ -273,6 +279,7 @@ public class CardSerializable
     public string companionFromGuid;
     public bool generated;
     public Card.CardRarity cardRarity;
+    public bool isStartingDeckCard;
     public CardSerializable(Card card)
     {
         // TODO
@@ -281,5 +288,6 @@ public class CardSerializable
         this.companionFromGuid = card.getCompanionFrom().GUID;
         this.generated = card.generated;
         this.cardRarity = card.shopRarity;
+        this.isStartingDeckCard = card.isStartingDeckCard;
     }
 }

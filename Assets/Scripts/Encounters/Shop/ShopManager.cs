@@ -343,6 +343,18 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     }
 
     public bool IsApplicableCompanion(CardInShopWithPrice cardInShop, Companion companion) {
+        if (GetShopLevel().placeCardsAnywhere)
+        {
+            return true;
+        }
+        // if (cardInShop.sourceCompanion != null)
+        // {
+        //     return cardInShop.sourceCompanion == companion.companionType;
+        // }
+        if (cardInShop.packSO != null)
+        {
+            return cardInShop.packSO == companion.companionType.pack;
+        }
         // return cardInShop.cardPool == companion.companionType.cardPool ||
         //     cardInShop.cardPool == companion.companionType.pack.packCardPoolSO ||
         //     cardInShop.cardPool == shopEncounter.shopData.neutralCardPool;
@@ -355,8 +367,9 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             Debug.Log("Processing booster pack buy request for " + boosterPackInShop.boosterPack.BoosterPackName());
             List<CardInShopWithPrice> generatedCards = boosterPackInShop.boosterPack.GenerateCards(shopEncounter.shopData, shopLevel);
 
-            numCardsLeftInBoosterPack = shopEncounter.shopData.boosterPackNumCardsToBuy;
-            SetBoosterPackHelpText(numCardsLeftInBoosterPack);
+            BoosterPackData data = shopEncounter.shopData.GetBoosterPackDataForType(boosterPackInShop.boosterPack.boosterType);
+            SetBoosterPackHelpText(data.numCardsToBuy);
+
             shopViewController.BuyBoosterPack(shopItemView, boosterPackInShop, generatedCards);
 
             gameState.playerData.GetValue().gold -= boosterPackInShop.price;
@@ -371,7 +384,15 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     }
 
     private void SetBoosterPackHelpText(int numCardsLeftToBuy) {
-        shopViewController.SetDraftingHelpText("Choose " + numCardsLeftToBuy + " card" + (numCardsLeftToBuy > 1 ? "s" : "") + " from the booster pack for your rats");
+        shopViewController.SetDraftingHelpText("Choose up to " + numCardsLeftToBuy + " card" + (numCardsLeftToBuy > 1 ? "s" : "") + " from the envelope for your rats");
+    }
+
+    public void ProcessBoosterPackDoneClicked() {
+        if (!buyingBoosterPack) return;
+
+        buyingBoosterPack = false;
+        numCardsLeftInBoosterPack = 0;
+        shopViewController.DoneWithBoosterPack();
     }
 
     public void ProcessCompanionBuyRequest(ShopItemView shopItemView, CompanionInShopWithPrice companionInShop) {
@@ -638,7 +659,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                 numCardsLeftInBoosterPack--;
                 if (numCardsLeftInBoosterPack > 0)
                 {
-                    SetBoosterPackHelpText(numCardsLeftInBoosterPack);
+                    // SetBoosterPackHelpText(numCardsLeftInBoosterPack);
                 }
                 else
                 {
@@ -695,10 +716,14 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
         Debug.Log("Switching decks between " + companion1.companionType.name + " and " + companion2.companionType.name);
 
-        // Swap the decks of the two companions.
-        List<Card> tempDeck = companion1.deck.cards;
-        companion1.deck.cards = companion2.deck.cards;
-        companion2.deck.cards = tempDeck;
+        // Swap only the non-starter deck cards of the two companions; starting deck cards stay put.
+        List<Card> companion1StarterCards = companion1.deck.cards.Where(c => c.isStartingDeckCard).ToList();
+        List<Card> companion2StarterCards = companion2.deck.cards.Where(c => c.isStartingDeckCard).ToList();
+        List<Card> companion1NonStarterCards = companion1.deck.NonStartingDeckCards();
+        List<Card> companion2NonStarterCards = companion2.deck.NonStartingDeckCards();
+
+        companion1.deck.cards = companion1StarterCards.Concat(companion2NonStarterCards).ToList();
+        companion2.deck.cards = companion2StarterCards.Concat(companion1NonStarterCards).ToList();
 
         // Swap the tracking stats of the two companions for decks.
         CompanionStatTracker newCompanion1Stats = companion1.trackingStats.RecordDeckSwitch(companion2.trackingStats);

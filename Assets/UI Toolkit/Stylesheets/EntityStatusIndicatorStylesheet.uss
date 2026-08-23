@@ -58,3 +58,40 @@
     padding-left: 0;
     color: rgb(255, 255, 255);
 }
+
+.entity-view-health-bar-shield-indicator {
+    position: absolute;
+    left: -22%;
+    top: -40%;
+    width: 55%;
+    height: 170%;
+    display: none;
+}
+
+.entity-view-health-bar-shield-icon {
+    flex-grow: 1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -unity-background-scale-mode: scale-to-fit;
+    background-image: url("project://database/Assets/Sprites/CardIcons-New/CardEffect_Defense-Opaque.png?fileID=2800000&guid=19cc641e6717341e8adb01b927513f58&type=3#CardEffect_Defense-Opaque");
+}
+
+.entity-view-health-bar-shield-label {
+    -unity-text-align: middle-center;
+    width: 100%;
+    height: 100%;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    -unity-font-style: bold;
+}
+
+.entity-view-health-bar-fill {
+    background-image: url("project://database/Assets/Sprites/entityFrames/Companion/frames-DBF/Background_HealthBar.png?fileID=2800000&guid=5a6279273d32f4749ba8ea42dfd98e33&type=3#Background_HealthBar");
+}
+
+.entity-view-health-bar-fill-shielded {
+    background-image: url("project://database/Assets/Sprites/entityFrames/Enemy/Background_HealthBar-editing.png?fileID=2800000&guid=6741eb367a9fc4de8be2776dfc690c98&type=3#Background_HealthBar-editing");
+}

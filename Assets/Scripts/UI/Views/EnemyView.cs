@@ -40,6 +40,9 @@ public class EnemyView : IUIEventReceiver
     private VisualElement healthBarFillClip;
     private VisualElement healthBarParent;
     private Label healthBarLabel;
+    private VisualElement shieldIndicator;
+    private VisualElement shieldIcon;
+    private Label shieldLabel;
     private VisualElement selectedIndicator;
     private Label intentLabel;
     private VisualElement intentImage;
@@ -93,6 +96,7 @@ public class EnemyView : IUIEventReceiver
     public void UpdateView()
     {
         UpdateHealth();
+        UpdateShield();
         SetupStatusIndicators();
         if (enemyInstance) {
             SetupEnemyIntent();
@@ -109,6 +113,9 @@ public class EnemyView : IUIEventReceiver
         this.healthBarLabel = enemyRoot.Q<Label>("enemy-view-health-bar-label");
         this.healthBarFillClip = enemyRoot.Q<VisualElement>("enemy-view-health-bar-clip");
         this.healthBarParent = enemyRoot.Q<VisualElement>("enemy-view-health-bar-parent");
+        this.shieldIndicator = enemyRoot.Q<VisualElement>("enemy-view-shield-indicator");
+        this.shieldIcon = enemyRoot.Q<VisualElement>("enemy-view-shield-icon");
+        this.shieldLabel = enemyRoot.Q<Label>("enemy-view-shield-label");
         this.selectedIndicator = enemyRoot.Q<VisualElement>("enemy-view-selected-indicator");
         this.intentContainer = enemyRoot.Q<VisualElement>("enemy-view-intent-container");
         this.intentImage = enemyRoot.Q<VisualElement>("enemy-view-intent-image");
@@ -140,8 +147,16 @@ public class EnemyView : IUIEventReceiver
         this.spriteElement.style.display = DisplayStyle.None;
         this.spriteElement.style.backgroundImage = new StyleBackground(newSprite);
         this.spriteElement.style.display = DisplayStyle.Flex;
+
+        combatInstance.SetVisualElement(this.spriteElement);
+
         // Mark this as dirty so it's redrawn.
         this.spriteElement.MarkDirtyRepaint();
+
+        Debug.Log($"sprite={newSprite}, panel={spriteElement.panel}, " +
+          $"size={spriteElement.resolvedStyle.width}x{spriteElement.resolvedStyle.height}, " +
+          $"name={spriteElement.name}");
+
     }
 
     private void SetupName() {
@@ -163,6 +178,24 @@ public class EnemyView : IUIEventReceiver
         this.healthBarFillClip.style.width = Length.Percent(healthPercent * 100);
         lastHealthValue = currentHealth;
         container.RegisterCallback<GeometryChangedEvent>(SetHealthBarFillSize);
+
+        // this.shieldIcon.style.backgroundImage = new StyleBackground(viewDelegate.GetStatusEffectSprite(StatusEffectType.Defended));
+        UpdateShield();
+    }
+
+    private static string HEALTH_BAR_FILL_SHIELDED_CLASS = "entity-view-health-bar-fill-shielded";
+
+    private void UpdateShield() {
+        if (combatInstance == null) {
+            shieldIndicator.style.display = DisplayStyle.None;
+            healthBarFill.RemoveFromClassList(HEALTH_BAR_FILL_SHIELDED_CLASS);
+            return;
+        }
+
+        int shieldValue = combatInstance.GetStatus(StatusEffectType.Defended);
+        shieldLabel.text = shieldValue.ToString();
+        shieldIndicator.style.display = shieldValue > 0 ? DisplayStyle.Flex : DisplayStyle.None;
+        healthBarFill.EnableInClassList(HEALTH_BAR_FILL_SHIELDED_CLASS, shieldValue > 0);
     }
 
     private void SetHealthBarFillSize(GeometryChangedEvent evt) {
@@ -204,6 +237,8 @@ public class EnemyView : IUIEventReceiver
 
         foreach (KeyValuePair<StatusEffectType, int> kvp in combatInstance.GetDisplayedStatusEffects())
         {
+            // Shield is shown next to the health bar instead; see UpdateShield().
+            if (kvp.Key == StatusEffectType.Defended) continue;
             this.statusArea.Add(CreateStatusIndicator(viewDelegate.GetStatusEffectSprite(kvp.Key), kvp.Value.ToString()));
         }
 

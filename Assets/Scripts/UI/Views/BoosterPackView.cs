@@ -17,32 +17,38 @@ public class BoosterPackView
         VisualElement container = new VisualElement();
         container.AddToClassList("booster-pack-container");
 
-        // Set background color from pack's primary color
-        if (boosterPack.GetPackSO() != null)
+        if (boosterPack is PackBoosterPack packBoosterPack)
         {
-            Color packColor = boosterPack.GetPackSO().packColor;
-            container.style.backgroundColor = packColor;
+            // Set background image from the pack's sprite, looked up by booster pack type + PackSO
+            BoosterPack.BoosterPackType query = packBoosterPack.boosterType;
+            if (query == BoosterPack.BoosterPackType.UpgradedPackBasicBooster)
+                query = BoosterPack.BoosterPackType.PackBasicBooster;
+            if (query == BoosterPack.BoosterPackType.UpgradedPackDeluxeBooster)
+                query = BoosterPack.BoosterPackType.PackDeluxeBooster;
+
+            Sprite sprite = GameplayConstantsSingleton.Instance.gameplayConstants.GetBoosterPackSprite(query, packBoosterPack.GetPackSO());
+            container.style.backgroundImage = new StyleBackground(sprite);
         }
 
         // Add pack name label
-        Label packNameLabel = new Label();
-        packNameLabel.text = boosterPack.BoosterPackName();
-        packNameLabel.AddToClassList("booster-pack-label");
+        // Label packNameLabel = new Label();
+        // packNameLabel.text = boosterPack.BoosterPackName();
+        // packNameLabel.AddToClassList("booster-pack-label");
 
-        container.Add(packNameLabel);
+        // container.Add(packNameLabel);
 
         // Add an icon
-        VisualElement iconElement = new VisualElement();
-        iconElement.AddToClassList("booster-pack-icon");
-        if (boosterPack is RatBoosterPackSO ratBoosterPack)
-        {
-            iconElement.style.backgroundImage = new StyleBackground(ratBoosterPack.ratSO.icon);
-        }
-        else if (boosterPack.GetPackSO() != null)
-        {
-            iconElement.style.backgroundImage = new StyleBackground(boosterPack.GetPackSO().packColorIcon);
-        }
-        container.Add(iconElement);
+        // VisualElement iconElement = new VisualElement();
+        // iconElement.AddToClassList("booster-pack-icon");
+        // if (boosterPack is RatBoosterPackSO ratBoosterPack)
+        // {
+        //     iconElement.style.backgroundImage = new StyleBackground(ratBoosterPack.ratSO.icon);
+        // }
+        // else if (boosterPack.GetPackSO() != null)
+        // {
+        //     iconElement.style.backgroundImage = new StyleBackground(boosterPack.GetPackSO().packColorIcon);
+        // }
+        // container.Add(iconElement);
 
         return container;
     }

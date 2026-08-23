@@ -20,6 +20,7 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 90312fe27b6b1487bbb504ceb21997ca, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
+  trashTalkDialogue: []
   morale: 0
   abilities: []
   cacheValueConfigs: []
@@ -41,6 +42,7 @@ MonoBehaviour:
       - rid: 3931529445166809421
       - rid: 2268260642759377006
       - rid: 2268260642759377007
+      - rid: 2038553076039155782
     - intent: 6
       enemyTargetMethod: 6
       targetsKey: target
@@ -91,6 +93,13 @@ MonoBehaviour:
       data:
         effectStepName: ScriptableObjectEffectStep
         effectStepSO: {fileID: 11400000, guid: 46ac36b880e2ff14aa699c90b6e9f19c, type: 2}
+    - rid: 2038553076039155782
+      type: {class: SpriteSwap, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: SpriteSwap
+        newSprite: {fileID: 21300000, guid: b6cf1072ed69948d59063d56e6acb117, type: 3}
+        inputKey: 
+        flipOver: 0
     - rid: 2268260642759377006
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:

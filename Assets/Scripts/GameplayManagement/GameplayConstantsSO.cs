@@ -19,6 +19,9 @@ public class GameplayConstantsSO : ScriptableObject
     [SerializeField]
     private List<DescriptionIconEntry> descriptionIconList = new();
 
+    [SerializeField]
+    private List<BoosterPackSpriteEntry> boosterPackSpriteList = new();
+
     private Dictionary<DescriptionToken.DescriptionIconType, DescriptionIconInfo> _descriptionIconSprites;
     public Dictionary<DescriptionToken.DescriptionIconType, DescriptionIconInfo> descriptionIconSprites
     {
@@ -35,6 +38,21 @@ public class GameplayConstantsSO : ScriptableObject
             return _descriptionIconSprites;
         }
     }
+
+    private Dictionary<(BoosterPack.BoosterPackType, PackSO), Sprite> _boosterPackSprites;
+    public Sprite GetBoosterPackSprite(BoosterPack.BoosterPackType boosterPackType, PackSO packSO)
+    {
+        if (_boosterPackSprites == null)
+        {
+            _boosterPackSprites = new Dictionary<(BoosterPack.BoosterPackType, PackSO), Sprite>();
+            foreach (var entry in boosterPackSpriteList)
+            {
+                _boosterPackSprites[(entry.boosterPackType, entry.packSO)] = entry.sprite;
+            }
+        }
+        _boosterPackSprites.TryGetValue((boosterPackType, packSO), out Sprite sprite);
+        return sprite;
+    }
 }
 
 [Serializable]
@@ -50,4 +68,12 @@ public class DescriptionIconInfo
 {
     public Sprite sprite;
     public string iconName;
+}
+
+[Serializable]
+public class BoosterPackSpriteEntry
+{
+    public BoosterPack.BoosterPackType boosterPackType;
+    public PackSO packSO;
+    public Sprite sprite;
 }

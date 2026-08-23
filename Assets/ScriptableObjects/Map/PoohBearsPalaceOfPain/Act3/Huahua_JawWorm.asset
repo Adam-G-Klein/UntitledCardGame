@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
-  m_Name: Tattergeist
+  m_Name: Huahua_JawWorm
   m_EditorClassIdentifier: 
   guid: fdcfd110-22dc-4989-a339-f729638716e1
-  displayName: Armored Arwen
+  displayName: Hector H. Huahua
   maxHealth: 70
   baseAttackDamage: 0
   enemyDisplayType: 0
-  sprite: {fileID: 21300000, guid: 6f3dfb0fbdd284937a80a21d876f2fc3, type: 3}
+  sprite: {fileID: 21300000, guid: 237db0381be724595ad37988a69b030f, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
+  trashTalkDialogue: []
   morale: 0
   abilities: []
   cacheValueConfigs: []
@@ -55,14 +56,14 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Strike
-      description: Simple Attack
+    - title: I AM THE LAW
+      description: Big attack targeting the leftmost rat
       relatedBehaviorIndex: 1
       icon: {fileID: 0}
       iconDescriptionLine: []
       card: {fileID: 0}
-    - title: Guarded Strike
-      description: Attack & Block
+    - title: Delay, Deny, Defend
+      description: Blocks himself and attacks your leftmost rat
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
       iconDescriptionLine: []

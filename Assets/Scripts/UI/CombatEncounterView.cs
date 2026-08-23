@@ -321,6 +321,7 @@ public class CombatEncounterView : MonoBehaviour,
     private void SetupEnemies(VisualElement container, IEnumerable<EnemyInstance> enemyInstances)
     {
         var index = UIDocumentGameObjectPlacer.INITIAL_INDEX;
+        entityViews.Clear();
         foreach (EnemyInstance enemyInstance in enemyInstances)
         {
             // setupEnemy adds to the list
@@ -335,6 +336,7 @@ public class CombatEncounterView : MonoBehaviour,
             }
 
             index++;
+            entityViews.Add(enemyView);
         }
     }
 

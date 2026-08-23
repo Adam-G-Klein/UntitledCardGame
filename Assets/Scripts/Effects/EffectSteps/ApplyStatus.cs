@@ -157,7 +157,7 @@ public class ApplyStatus : EffectStep, ITooltipProvider, IEffectStepCalculation
          else if (KeywordTooltipProvider.Instance.HasTooltip(statusEffect)){
             return KeywordTooltipProvider.Instance.GetTooltip(statusEffect);
         }
-         else return new TooltipViewModel(empty: true);
+        else return new TooltipViewModel(empty: true);
     }
 
     public IEnumerator invokeForCalculation(EffectDocument document)

@@ -108,6 +108,7 @@ public class ShopItemView : ICompanionViewDelegate {
         visualElementFocusable.additionalUnfocusAction += () => OnPointerLeave(null);
 
         shopItemElement.Add(CreatePriceTagForShopItem(boosterPack.price, boosterPack.increasedPrice));
+        shopItemElement.Add(CreateCardSpawnIndicator(boosterPack.boosterPack));
 
         return shopItemElement;
     }
@@ -137,6 +138,28 @@ public class ShopItemView : ICompanionViewDelegate {
             Debug.Log("Card spawn indicator: " + card.packSO.name);
             sprite = card.packSO.packColorIcon;
         }
+        cardSpawnIndicatorIcon.style.backgroundImage = new StyleBackground(sprite);
+        cardSpawnIndicator.Add(cardSpawnIndicatorIcon);
+        return cardSpawnIndicator;
+    }
+
+    private VisualElement CreateCardSpawnIndicator(BoosterPack boosterPack) {
+        PackSO packSO = boosterPack.GetPackSO();
+        if (packSO == null) {
+            return new VisualElement(); // Return an empty element if there's no pack
+        }
+        VisualElement cardSpawnIndicator = new();
+        cardSpawnIndicator.AddToClassList("card_spawn_indicator_background");
+        cardSpawnIndicator.style.backgroundColor = new StyleColor(packSO.packColor);
+        var c = new StyleColor(packSO.packSecondaryColor);
+        cardSpawnIndicator.style.borderTopColor = c;
+        cardSpawnIndicator.style.borderRightColor = c;
+        cardSpawnIndicator.style.borderBottomColor = c;
+        cardSpawnIndicator.style.borderLeftColor = c;
+
+        VisualElement cardSpawnIndicatorIcon = new();
+        cardSpawnIndicatorIcon.AddToClassList("card_spawn_indicator_icon");
+        Sprite sprite = boosterPack is RatBoosterPackSO ratBoosterPack ? ratBoosterPack.ratSO.icon : packSO.packColorIcon;
         cardSpawnIndicatorIcon.style.backgroundImage = new StyleBackground(sprite);
         cardSpawnIndicator.Add(cardSpawnIndicatorIcon);
         return cardSpawnIndicator;

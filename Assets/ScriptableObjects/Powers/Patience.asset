@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerType: 18
   title: Patience
-  description: End of turn, retain all cards from self
+  description: End of turn, choose 1 card in hand to retain
   abilities:
   - rid: 754093991137640772
   displaySprite: {fileID: 21300000, guid: 292ee1eb3f315c9448b8c577d0e6a420, type: 3}
@@ -40,7 +40,6 @@ MonoBehaviour:
         - rid: 3054805490065474020
         - rid: 3054805490065474021
         - rid: 754093991137641208
-        - rid: 7189280543290425372
         - rid: 2511001254715195487
         - rid: 754093991137641211
         - rid: 754093991137641212
@@ -51,19 +50,19 @@ MonoBehaviour:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: self
-        validTargets: 
+        outputKey: target
+        validTargets: 03000000
         number: 1
-        specialTargetRule: 3
-        cantCancelTargetting: 0
+        specialTargetRule: 0
+        cantCancelTargetting: 1
         cardSelectionHelperText: 
-        selectionPurpose: 0
+        selectionPurpose: 3
         selectionCardCategory: 0
     - rid: 754093991137641211
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: myCards
+        inputKey: target
         prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
         scale: 1
     - rid: 754093991137641212
@@ -75,7 +74,7 @@ MonoBehaviour:
       type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CardInHandEffect
-        inputKey: myCards
+        inputKey: target
         effect: 2
     - rid: 3054805490065474020
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -101,17 +100,3 @@ MonoBehaviour:
       data:
         empty: 1
         lines: []
-    - rid: 7189280543290425372
-      type: {class: FilterCards, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FilterCards
-        inputKey: allCardsInHand
-        companionInstanceKey: self
-        filter:
-          cardCategoriesToInclude: 
-          retainedCardsFilter: 0
-          manaCostFilter: 0
-          manaCost: 0
-          exactCardType: {fileID: 0}
-          companionInstanceFilterEnabled: 1
-        outputKey: myCards

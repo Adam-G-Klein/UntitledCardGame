@@ -112,10 +112,8 @@ public class GameStateVariableSO : ScriptableObject
         }
     }
     public bool autoUpgrade = false;
+    public bool showStarterDeckCardsInShop = false;
     public BuildType buildType = BuildType.RELEASE;
-    // True by default because fuck it we'll get way more data this way.
-    // I feel like marky z
-    public bool consentToDataCollection = true;
 
     public List<PackSO> previouslySelectedPackSOs;
     public int ascensionLevel = -1;

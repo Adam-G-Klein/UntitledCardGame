@@ -31,7 +31,7 @@ MonoBehaviour:
     iconName: Draw
   - iconType: 4
     sprite: {fileID: 21300000, guid: f2010a7c948064ccfb017eb9a79453bf, type: 3}
-    iconName: Randomly
+    iconName: at Random
   - iconType: 5
     sprite: {fileID: 21300000, guid: 732abf9ab7098499c99007e9ce16d3fd, type: 3}
     iconName: Adjacent
@@ -40,10 +40,10 @@ MonoBehaviour:
     iconName: Leftmost
   - iconType: 7
     sprite: {fileID: 21300000, guid: d6d0d0c28ab7149d3b5670309f03342b, type: 3}
-    iconName: Buff
+    iconName: Strength Buff
   - iconType: 8
     sprite: {fileID: 21300000, guid: 235a632140e134487aac2ed5471512cf, type: 3}
-    iconName: Temp. Buff
+    iconName: Temp. Strength Buff
   - iconType: 9
     sprite: {fileID: 21300000, guid: faf8c7ece188946ed9fb59f37d3a6107, type: 3}
     iconName: Bleed
@@ -64,13 +64,13 @@ MonoBehaviour:
     iconName: Exhaust
   - iconType: 15
     sprite: {fileID: 21300000, guid: acf0ec52828c84baca81ab249e0f7e21, type: 3}
-    iconName: When Discarded
+    iconName: When Discarded,
   - iconType: 16
     sprite: {fileID: 21300000, guid: b1c91e441d7ec4f68976a5597b9818f1, type: 3}
-    iconName: When Exhausted
+    iconName: When Exhausted,
   - iconType: 17
     sprite: {fileID: 21300000, guid: 998dc0a55769f4fdabb4a13a03ed895d, type: 3}
-    iconName: When In Hand End of Turn
+    iconName: When In Hand End of Turn,
   - iconType: 18
     sprite: {fileID: 21300000, guid: 682dc9914a4574577a1bafc5b678cf19, type: 3}
     iconName: Any
@@ -82,10 +82,10 @@ MonoBehaviour:
     iconName: Heal
   - iconType: 21
     sprite: {fileID: 21300000, guid: a657607ca82e743ca8c4e2621e750942, type: 3}
-    iconName: If Below Half HP
+    iconName: If Below Half HP,
   - iconType: 22
     sprite: {fileID: 21300000, guid: 52f62e90b62fa9249aac77854a45e7d5, type: 3}
-    iconName: If Lost HP This Turn
+    iconName: If Lost HP This Turn,
   - iconType: 23
     sprite: {fileID: 21300000, guid: a5b8c5dccafa78942bf687e9f47d4ce4, type: 3}
     iconName: 
@@ -103,25 +103,56 @@ MonoBehaviour:
     iconName: 
   - iconType: 28
     sprite: {fileID: 21300000, guid: d368c9ba74e98f7408c2a579fc6febcb, type: 3}
-    iconName: If Last Card Was Attack
+    iconName: If Last Card Was Attack,
   - iconType: 29
     sprite: {fileID: 21300000, guid: bc01e6303f5aef54696b1695ae9d1ce0, type: 3}
     iconName: 
   - iconType: 30
     sprite: {fileID: 21300000, guid: 04bf14070e798284f9f39ea08b676c4a, type: 3}
-    iconName: If 3 Cards or Less In Hand
+    iconName: If 3 Cards or Less In Hand,
   - iconType: 31
     sprite: {fileID: 21300000, guid: fccdd43ca64c8644fa54c06ab327bdd3, type: 3}
-    iconName: If Exhausted Card This Turn
+    iconName: If Exhausted Card This Turn,
   - iconType: 32
     sprite: {fileID: 21300000, guid: ffbed9cf626104d5ba0da0dc3fe8d45a, type: 3}
-    iconName: When Drawn
+    iconName: When Drawn,
   - iconType: 33
     sprite: {fileID: 21300000, guid: c960dda6c9034d84db2d28df9f348115, type: 3}
     iconName: AOE
   - iconType: 34
     sprite: {fileID: 21300000, guid: be600ec8ca37b4644968adaa60ffdf00, type: 3}
-    iconName: Attack Buff
+    iconName: Damage Buff
   - iconType: 35
     sprite: {fileID: 21300000, guid: d3b4ea719507e411f88ba48f69c6efc3, type: 3}
     iconName: Block Buff
+  boosterPackSpriteList:
+  - boosterPackType: 5
+    packSO: {fileID: 11400000, guid: 908f28c6f48104c2d85d2fcbd973771e, type: 2}
+    sprite: {fileID: 21300000, guid: 886880dda61924f058ba18de9bd8f5f6, type: 3}
+  - boosterPackType: 6
+    packSO: {fileID: 11400000, guid: 908f28c6f48104c2d85d2fcbd973771e, type: 2}
+    sprite: {fileID: 21300000, guid: 4661c033e53b5444d9a226884de0ab56, type: 3}
+  - boosterPackType: 5
+    packSO: {fileID: 11400000, guid: 5f4300e0913784f05aeff0dd086d4338, type: 2}
+    sprite: {fileID: 21300000, guid: 42df26d823add431a96f674746d9ae41, type: 3}
+  - boosterPackType: 6
+    packSO: {fileID: 11400000, guid: 5f4300e0913784f05aeff0dd086d4338, type: 2}
+    sprite: {fileID: 21300000, guid: 05a5eeeaba8404a25829a2c1992be69f, type: 3}
+  - boosterPackType: 5
+    packSO: {fileID: 11400000, guid: 79e479ca9df7a4369ba7fa951e0af116, type: 2}
+    sprite: {fileID: 21300000, guid: e9bd612dfee834391acc0da7e8e435eb, type: 3}
+  - boosterPackType: 6
+    packSO: {fileID: 11400000, guid: 79e479ca9df7a4369ba7fa951e0af116, type: 2}
+    sprite: {fileID: 21300000, guid: 2902e7cd99c75439396147fda1d1778f, type: 3}
+  - boosterPackType: 5
+    packSO: {fileID: 11400000, guid: a87b5da767d4e4659b2965e31e340c58, type: 2}
+    sprite: {fileID: 21300000, guid: fc07c2db62cee41088a464a9a603b782, type: 3}
+  - boosterPackType: 6
+    packSO: {fileID: 11400000, guid: a87b5da767d4e4659b2965e31e340c58, type: 2}
+    sprite: {fileID: 21300000, guid: ba65e1b57d60f4c69af87730b914ec3c, type: 3}
+  - boosterPackType: 5
+    packSO: {fileID: 11400000, guid: 0d12b03c0c8754470a900cb4f78a9217, type: 2}
+    sprite: {fileID: 21300000, guid: f9c6c528ebaf74d92b244248d14969b9, type: 3}
+  - boosterPackType: 6
+    packSO: {fileID: 11400000, guid: 0d12b03c0c8754470a900cb4f78a9217, type: 2}
+    sprite: {fileID: 21300000, guid: 29236b345b7ab4d1d9f5daab95ffb0f4, type: 3}

@@ -39,7 +39,7 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
     private Button creditsButton;
     private Toggle fullscreenToggle;
     private Toggle autoUpgradeToggle;
-    private Toggle dataConsentToggle;
+    private Toggle showStarterCardsToggle;
     private DropdownField renderScaleDropdown;
     private DropdownField antiAliasingDropdown;
     [SerializeField]
@@ -85,11 +85,11 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
         gameState.autoUpgrade = value;
     }
 
-    public bool getIsDataCollectionEnabled() {
-        return gameState.consentToDataCollection;
+    public bool getShowStarterDeckCardsInShop() {
+        return gameState.showStarterDeckCardsInShop;
     }
-    public void setIsDataCollectionEnabled(bool value) {
-        gameState.consentToDataCollection = value;
+    public void setShowStarterDeckCardsInShop(bool value) {
+        gameState.showStarterDeckCardsInShop = value;
     }
 
     public int getRenderScaleDropdown() {
@@ -136,9 +136,9 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
         autoUpgradeToggle = optionsUIDocument.rootVisualElement.Q<Toggle>("auto-upgrade-toggle");
         autoUpgradeToggle.RegisterValueChangedCallback(AutoUpgradeToggleEvent);
         autoUpgradeToggle.value = gameState.autoUpgrade;
-        dataConsentToggle = optionsUIDocument.rootVisualElement.Q<Toggle>("data-consent-toggle");
-        dataConsentToggle.RegisterValueChangedCallback(DataConsentToggleEvent);
-        dataConsentToggle.value = gameState.consentToDataCollection;
+        showStarterCardsToggle = optionsUIDocument.rootVisualElement.Q<Toggle>("show-starter-cards-toggle");
+        showStarterCardsToggle.RegisterValueChangedCallback(ShowStarterCardsToggleEvent);
+        showStarterCardsToggle.value = gameState.showStarterDeckCardsInShop;
         renderScaleDropdown = optionsUIDocument.rootVisualElement.Q<DropdownField>("render-scale-dropdown");
         antiAliasingDropdown = optionsUIDocument.rootVisualElement.Q<DropdownField>("anti-aliasing-dropdown");
         renderScaleDropdown.RegisterValueChangedCallback(RenderScaleDropdownChanged);
@@ -280,10 +280,8 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
         gameState.autoUpgrade = evt.newValue;
     }
 
-    private void DataConsentToggleEvent(ChangeEvent<bool> evt)
-    {
-        gameState.consentToDataCollection = evt.newValue;
-        AnalyticsManager.Instance.ConfigureDataCollection();
+    private void ShowStarterCardsToggleEvent(ChangeEvent<bool> evt) {
+        gameState.showStarterDeckCardsInShop = evt.newValue;
     }
 
     public void ProcessGFGInputAction(GFGInputAction action)

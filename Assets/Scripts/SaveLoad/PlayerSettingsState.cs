@@ -11,7 +11,7 @@ public class PlayerSettingsState {
      private float gameSpeed;
      private bool fullScreen;
      private bool autoUpgrade;
-     private bool consentToDataCollection;
+     private bool showStarterDeckCardsInShop;
      private int renderScale;
 
      public PlayerSettingsState()
@@ -21,7 +21,7 @@ public class PlayerSettingsState {
           this.gameSpeed = OptionsViewController.Instance.getGameSpeedSliderValue();
           this.fullScreen = OptionsViewController.Instance.getIsFullScreened();
           this.autoUpgrade = OptionsViewController.Instance.getIsAutoUpgradeEnabled();
-          this.consentToDataCollection = OptionsViewController.Instance.getIsDataCollectionEnabled();
+          this.showStarterDeckCardsInShop = OptionsViewController.Instance.getShowStarterDeckCardsInShop();
           this.renderScale = OptionsViewController.Instance.getRenderScaleDropdown();
      }
 
@@ -32,7 +32,7 @@ public class PlayerSettingsState {
           OptionsViewController.Instance.setGameSpeedSliderValue(this.gameSpeed);
           OptionsViewController.Instance.setIsFullScreened(this.fullScreen);
           OptionsViewController.Instance.setIsAutoUpgradeEnabled(this.autoUpgrade);
-          OptionsViewController.Instance.setIsDataCollectionEnabled(this.consentToDataCollection);
+          OptionsViewController.Instance.setShowStarterDeckCardsInShop(this.showStarterDeckCardsInShop);
           OptionsViewController.Instance.setRenderScaleDropdown(this.renderScale);
      }
 }

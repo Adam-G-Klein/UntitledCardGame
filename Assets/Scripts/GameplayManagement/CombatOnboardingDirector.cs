@@ -100,7 +100,7 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
         yield return SpeakLineNoHide();
         yield return SpeakLine();
         CombatEntityManager.Instance.getCompanions().ForEach((companion) => {
-            companion.deckInstance.MoveCardToTopOfDrawPile("Scratch");
+            companion.deckInstance.MoveCardToTopOfDrawPile("Ratslap");
             companion.deckInstance.DealOneCard();
         });
         yield return new WaitUntil(() => PlayerHand.Instance.CardDealQueue.Count == 0);
@@ -315,7 +315,7 @@ public class CombatOnboardingDirector : GenericSingleton<CombatOnboardingDirecto
                 }
                 if (waitTime > 0f) yield return new WaitForSeconds(waitTime);
 
-                
+
                 yield return CutsceneFadeManager.Instance.Fade(1f);
                 LeanTween.cancel(virtualCamera.gameObject);
                 yield return new WaitForSeconds(cameraTourHoldInBlack);

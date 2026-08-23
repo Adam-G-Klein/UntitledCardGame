@@ -25,7 +25,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 24e688fb9bddd43af988a311dd8879b2, type: 2}
   - {fileID: 11400000, guid: 968e08e64774045e88eb7ebba74c9113, type: 2}
   rerollShopPrice: 2
-  incrementalRerollPriceIncrease: 0
+  incrementalRerollPriceIncrease: 1
   cardRemovalPrice: 6
   cardRemovalPriceIncrease: 4
   switchDecksPrice: 1
@@ -53,40 +53,43 @@ MonoBehaviour:
   numCardsBoughtSellFactor: 1
   numCardsRemovedSellFactor: 2
   boosterPackCardPrice: 0
-  boosterPackNumCardsToBuy: 2
   boosterPackPcts:
-  - boosterType: 0
-    commonCardPct: 75
-    uncommonCardPct: 25
-    rareCardPct: 0
-    price: 3
+  - boosterType: 6
+    commonCardPct: 15
+    uncommonCardPct: 50
+    rareCardPct: 35
+    price: 4
     numCards: 4
-    ratBoosterPackNumCardsFromRatMin: 2
-    ratBoosterPackNumCardsFromRatMax: 2
-  - boosterType: 1
-    commonCardPct: 0
-    uncommonCardPct: 60
-    rareCardPct: 40
-    price: 5
-    numCards: 5
-    ratBoosterPackNumCardsFromRatMin: 2
-    ratBoosterPackNumCardsFromRatMax: 3
-  - boosterType: 2
+    numCardsToBuy: 1
+    ratSourcePct: 40
+    packSourcePct: 60
+  - boosterType: 5
+    commonCardPct: 70
+    uncommonCardPct: 30
+    rareCardPct: 0
+    price: 1
+    numCards: 3
+    numCardsToBuy: 1
+    ratSourcePct: 30
+    packSourcePct: 70
+  - boosterType: 7
     commonCardPct: 70
     uncommonCardPct: 30
     rareCardPct: 0
     price: 2
     numCards: 4
-    ratBoosterPackNumCardsFromRatMin: 1
-    ratBoosterPackNumCardsFromRatMax: 2
-  - boosterType: 3
-    commonCardPct: 0
-    uncommonCardPct: 65
+    numCardsToBuy: 2
+    ratSourcePct: 30
+    packSourcePct: 70
+  - boosterType: 8
+    commonCardPct: 15
+    uncommonCardPct: 50
     rareCardPct: 35
-    price: 4
-    numCards: 4
-    ratBoosterPackNumCardsFromRatMin: 1
-    ratBoosterPackNumCardsFromRatMax: 2
+    price: 5
+    numCards: 5
+    numCardsToBuy: 2
+    ratSourcePct: 30
+    packSourcePct: 70
   baseCardsToRemoveOnUpgrade:
   - {fileID: 11400000, guid: 38df20cfa67a247b7ba206413d7f874e, type: 2}
   - {fileID: 11400000, guid: 2483a7d7534424a4498e2abb3572b2e0, type: 2}

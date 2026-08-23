@@ -2,11 +2,16 @@
     <Style src="project://database/Assets/UI/common.uss?fileID=7433441132597879392&amp;guid=8d0bc28a2ed710a44b762e4c857ac6f9&amp;type=3#common" />
     <Style src="project://database/Assets/fontStyling.uss?fileID=7433441132597879392&amp;guid=d0c0881f1c32747ecb649373600de095&amp;type=3#fontStyling" />
     <ui:VisualElement name="tooltip-background" class="tooltip-background" style="background-color: rgb(255, 243, 231);">
-        <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" class="tooltip-title" />
-        <ui:Label tabindex="-1" text="test test test test test test test test test test test test test test test" parse-escape-sequences="true" display-tooltip-when-elided="true" class="tooltip-text" />
-        <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" class="tooltip-title" />
-        <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" class="tooltip-text" />
-        <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" class="tooltip-title" />
-        <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" class="tooltip-text" />
+        <ui:VisualElement class="tooltip-line" style="flex-grow: 1;">
+            <ui:VisualElement name="title-container" class="tooltip-title-container" style="flex-grow: 1;">
+                <ui:VisualElement name="VisualElement" class="tooltip-title-title" style="flex-grow: 1; width: 60%;">
+                    <ui:Label tabindex="-1" text="When discarded, deal x damage to all foes" parse-escape-sequences="true" display-tooltip-when-elided="true" class="tooltip-icon-description-text" />
+                </ui:VisualElement>
+                <ui:VisualElement name="VisualElement" class="tooltip-title-icons" style="flex-grow: 1; min-width: auto; width: 40%;">
+                    <ui:VisualElement class="tooltip-icon-description-image" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/CardIcons/BleedIcon.png?fileID=2800000&amp;guid=1651f15b8fe0140c08bb0c6aee1ac076&amp;type=3#BleedIcon&quot;); width: 35%;" />
+                    <ui:VisualElement class="tooltip-icon-description-image" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/Z_OldPlaceholderSprites/block_vector.png?fileID=2800000&amp;guid=4b398c458377645acb90057ab391c591&amp;type=3#block_vector&quot;);" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

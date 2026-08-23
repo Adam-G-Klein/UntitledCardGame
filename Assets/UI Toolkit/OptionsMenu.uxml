@@ -38,14 +38,14 @@
                     <ui:VisualElement class="menu-option" style="flex-grow: 0; display: none;">
                         <ui:Toggle label="Auto Upgrade" name="auto-upgrade-toggle" class="focusable selected-sfx" style="font-size: 18px;" />
                     </ui:VisualElement>
+                    <ui:VisualElement class="menu-option" style="flex-grow: 0;">
+                        <ui:Toggle label="Show Starter Cards in Shop Deck View" name="show-starter-cards-toggle" class="focusable selected-sfx options-menu-toggle" />
+                    </ui:VisualElement>
                     <ui:VisualElement style="flex-grow: 1;">
                         <ui:DropdownField label="Render Scale" choices="1.0,1.5,2.0" index="2" name="render-scale-dropdown" style="font-size: 18px; width: 70%; align-items: auto; align-self: center; display: none;" />
                     </ui:VisualElement>
                     <ui:VisualElement style="flex-grow: 1; display: none;">
                         <ui:DropdownField label="Anti-Aliasing" choices="Disabled,2x,4x,8x" index="0" name="anti-aliasing-dropdown" style="font-size: 18px; width: 70%; align-items: auto; align-self: center;" />
-                    </ui:VisualElement>
-                    <ui:VisualElement class="menu-option" style="flex-grow: 0;">
-                        <ui:Toggle label="Consent to Metrics Collection" name="data-consent-toggle" value="true" class="focusable selected-sfx options-menu-toggle" />
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="VisualElement" class="menu-option">

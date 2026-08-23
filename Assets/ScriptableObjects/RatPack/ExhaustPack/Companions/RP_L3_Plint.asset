@@ -34,13 +34,14 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Plint++
-      description: Whenever you exhaust a card, give leftmost rat 3 block
+      description: Whenever you exhaust a card, give the leftmost rat 3 block
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
       iconDescriptionLine: []
       card: {fileID: 0}
   keepsakeTitle: Plint's Armor
   keepsakeDescription: Whenever you exhaust a card, give leftmost rat 3 block
+  tooltipTokens: 
   references:
     version: 2
     RefIds:
@@ -67,6 +68,7 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 2034230017118175365
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:

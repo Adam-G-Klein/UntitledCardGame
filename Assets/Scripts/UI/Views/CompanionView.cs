@@ -41,6 +41,9 @@ public class CompanionView : IUIEventReceiver
     private VisualElement drawPileIcon;
     private VisualElement discardPileIcon;
     private VisualElement healthBarBorder;
+    private VisualElement shieldIndicator;
+    private VisualElement shieldIcon;
+    private Label shieldLabel;
 
     private List<VisualElement> pickingModePositionList = new List<VisualElement>();
     private List<VisualElement> elementsKeepingHiddenContainerVisible = new List<VisualElement>();
@@ -107,6 +110,9 @@ public class CompanionView : IUIEventReceiver
         this.selectedIndicator = companionRoot.Q<VisualElement>("companion-view-selected-indicator");
         this.rarityIndicator = companionRoot.Q<VisualElement>("companion-view-rarity-icon");
         this.healthBarBorder = companionRoot.Q<VisualElement>("companion-view-health-bar-outline");
+        this.shieldIndicator = companionRoot.Q<VisualElement>("companion-view-shield-indicator");
+        this.shieldIcon = companionRoot.Q<VisualElement>("companion-view-shield-icon");
+        this.shieldLabel = companionRoot.Q<Label>("companion-view-shield-label");
 
         // Moving past the random VisualElement parent CloneTree() creates
         this.container = companionRoot.Children().First();
@@ -130,6 +136,7 @@ public class CompanionView : IUIEventReceiver
 
     public void UpdateView() {
         UpdateHealth();
+        UpdateShield();
         SetupStatusIndicators();
     }
 
@@ -330,6 +337,8 @@ public class CompanionView : IUIEventReceiver
 
         foreach (KeyValuePair<StatusEffectType, int> kvp in combatInstance.GetDisplayedStatusEffects())
         {
+            // Shield is shown next to the health bar instead; see UpdateShield().
+            if (kvp.Key == StatusEffectType.Defended) continue;
             this.statusArea.Add(CreateStatusIndicator(viewDelegate.GetStatusEffectSprite(kvp.Key), kvp.Value.ToString()));
         }
 
@@ -404,6 +413,24 @@ public class CompanionView : IUIEventReceiver
         HealthBarUtils.SetupHealth(currentHealth, maxHealth, healthBarFillClip, healthBarLabel);
         lastHealthValue = currentHealth;
         container.RegisterCallback<GeometryChangedEvent>(SetHealthBarFillSize);
+
+        // this.shieldIcon.style.backgroundImage = new StyleBackground(viewDelegate.GetStatusEffectSprite(StatusEffectType.Defended));
+        UpdateShield();
+    }
+
+    private static string HEALTH_BAR_FILL_SHIELDED_CLASS = "entity-view-health-bar-fill-shielded";
+
+    private void UpdateShield() {
+        if (combatInstance == null) {
+            shieldIndicator.style.display = DisplayStyle.None;
+            healthBarFill.RemoveFromClassList(HEALTH_BAR_FILL_SHIELDED_CLASS);
+            return;
+        }
+
+        int shieldValue = combatInstance.GetStatus(StatusEffectType.Defended);
+        shieldLabel.text = shieldValue.ToString();
+        shieldIndicator.style.display = shieldValue > 0 ? DisplayStyle.Flex : DisplayStyle.None;
+        healthBarFill.EnableInClassList(HEALTH_BAR_FILL_SHIELDED_CLASS, shieldValue > 0);
     }
 
     private void SetHealthBarFillSize(GeometryChangedEvent evt) {

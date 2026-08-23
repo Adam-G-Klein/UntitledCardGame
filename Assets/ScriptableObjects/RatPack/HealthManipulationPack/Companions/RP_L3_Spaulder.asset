@@ -42,8 +42,8 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Spaulder++
-      description: Start of turn, bleed Spaulder 1 HP. Whenever Spaulder loses HP,
-        give Spaulder and adjacent rats 3 block
+      description: Start of turn, bleed Spaulder 1 HP.\n\nWhenever Spaulder loses
+        HP, give Spaulder and adjacent rats 3 block
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
       iconDescriptionLine: []
@@ -192,7 +192,7 @@ MonoBehaviour:
       type: {class: FilterEntityByHP, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: FilterEntityByHP
-        inputKey: adj
+        inputKey: self
         percentThreshold: 0
         absoluteThreshold: 2
         useAbsoluteThreshold: 1

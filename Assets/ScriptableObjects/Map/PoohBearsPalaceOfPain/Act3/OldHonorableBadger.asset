@@ -1,0 +1,247 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
+  m_Name: OldHonorableBadger
+  m_EditorClassIdentifier: 
+  guid: 8aa699a0-e9bc-4503-a6d2-9bb110189e98
+  displayName: Grandbadger
+  maxHealth: 200
+  baseAttackDamage: 0
+  enemyDisplayType: 0
+  sprite: {fileID: 21300000, guid: 12a7dbb1ef94c43b39d420623a9ac71c, type: 3}
+  backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
+  entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
+  trashTalkDialogue: []
+  morale: 0
+  abilities:
+  - rid: 8790164580739055959
+  cacheValueConfigs:
+  - key: damagePerAttack
+    display: 1
+    sprite: {fileID: 21300000, guid: c22bda8e4471b44c898089214ba8c903, type: 3}
+    startOfTurnValue: 0
+    setStartOfTurnValue: 0
+    startOfCombatValue: 2
+    setStartOfCombatValue: 1
+  enemyPattern:
+    behaviors:
+    - intent: 1
+      enemyTargetMethod: 0
+      targetsKey: target
+      displayValue: 8
+      effectSteps:
+      - rid: 4463205916933358106
+      - rid: 173314522967966418
+      - rid: 4463205916933358108
+    - intent: 4
+      enemyTargetMethod: 7
+      targetsKey: 
+      displayValue: 1
+      effectSteps:
+      - rid: 4463205916933358106
+      - rid: 2038553392061350007
+      - rid: 2038553392061350009
+      - rid: 2038553392061350008
+      - rid: 754093646965899679
+    behaviorType: 0
+  belowHalfHPEnemyPattern:
+    behaviors: []
+    behaviorType: 0
+  adaptWhenAloneEnemyPattern:
+    behaviors: []
+    behaviorType: 0
+  initialStatuses: []
+  tooltip:
+    empty: 0
+    lines:
+    - title: Blind Retaliation
+      description: Whenever you play an Attack card, Edmund deals indicated damage
+        to a random rat.
+      relatedBehaviorIndex: -1
+      icon: {fileID: 0}
+      iconDescriptionLine: []
+      card: {fileID: 0}
+    - title: Destroy
+      description: Attacks your leftmost rat
+      relatedBehaviorIndex: 0
+      icon: {fileID: 0}
+      iconDescriptionLine: []
+      card: {fileID: 0}
+    - title: Contemplate Revenge
+      description: Buff how much damage he deals when you play attacks
+      relatedBehaviorIndex: 1
+      icon: {fileID: 0}
+      iconDescriptionLine: []
+      card: {fileID: 0}
+  DEADLIER_ENEMY_BONUS_STR: 3
+  HEALTHIER_ENEMY_BONUS_HEALTH: 50
+  references:
+    version: 2
+    RefIds:
+    - rid: 173314522967966418
+      type: {class: ScriptableObjectEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ScriptableObjectEffectStep
+        effectStepSO: {fileID: 11400000, guid: 46ac36b880e2ff14aa699c90b6e9f19c, type: 2}
+    - rid: 754093646965899679
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 4bed509d0589dae4d922d8eeb61a6292, type: 3}
+        scale: 1
+    - rid: 2038553392061350004
+      type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheLoad
+        inputCombatInstanceKey: self
+        cacheKey: damagePerAttack
+        currentWorkflowKey: damagePerAttack
+    - rid: 2038553392061350006
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+    - rid: 2038553392061350007
+      type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheLoad
+        inputCombatInstanceKey: self
+        cacheKey: damagePerAttack
+        currentWorkflowKey: damagePerAttack
+    - rid: 2038553392061350008
+      type: {class: CombatInstanceCacheStore, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheStore
+        inputCombatInstanceKey: self
+        hardCodedBool: 0
+        useHardCodedBool: 0
+        hardCodedInt: 0
+        useHardCodedInt: 0
+        currentWorkflowKey: damagePerAttack
+        cacheKey: damagePerAttack
+    - rid: 2038553392061350009
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: damagePerAttack
+        operand2InputKey: UNUSED
+        operation: 0
+        scale: 1
+        outputKey: damagePerAttack
+    - rid: 4463205916933358106
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
+    - rid: 4463205916933358108
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: target
+        combatEffect: 0
+        scale: 8
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
+    - rid: 8034949995316641850
+      type: {class: FilterCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FilterCards
+        inputKey: cardPlayed
+        companionInstanceKey: 
+        filter:
+          cardCategoriesToInclude: 01000000
+          retainedCardsFilter: 0
+          manaCostFilter: 0
+          manaCost: 0
+          exactCardType: {fileID: 0}
+          companionInstanceFilterEnabled: 0
+        outputKey: cardPlayedAttack
+    - rid: 8034949995316641852
+      type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfListEmpty
+        inputKey1: cardPlayedAttack
+    - rid: 8034949995316641853
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
+    - rid: 8034949995316641856
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 4bed509d0589dae4d922d8eeb61a6292, type: 3}
+        scale: 1
+    - rid: 8034949995316641860
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: target
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 6
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
+    - rid: 8034949995316641861
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: target
+        combatEffect: 14
+        scale: 0
+        getScaleFromKey: 1
+        inputScaleKey: damagePerAttack
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 6137048663962808129, guid: e8cc978481c22d74ea0ae0662e9db47a, type: 3}
+    - rid: 8790164580739055959
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 7
+        effectSteps:
+        - rid: 8034949995316641850
+        - rid: 8034949995316641852
+        - rid: 8034949995316641853
+        - rid: 8034949995316641856
+        - rid: 8034949995316641860
+        - rid: 2038553392061350004
+        - rid: 8034949995316641861
+        - rid: 2038553392061350006
+        weight: 0

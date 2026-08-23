@@ -31,7 +31,7 @@
                             <ui:VisualElement class="upgradeIncrement" />
                             <ui:VisualElement class="upgradeIncrement" />
                         </ui:VisualElement>
-                        <ui:Button text="Buy RP" parse-escape-sequences="true" display-tooltip-when-elided="true" name="upgrade-button" class="shopButton" style="margin-right: 0; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; padding-top: 12px; padding-right: 12px; padding-bottom: 12px; padding-left: 12px;" />
+                        <ui:Button text="Upgrade Shop" parse-escape-sequences="true" display-tooltip-when-elided="true" name="upgrade-button" class="shopButton" style="margin-right: 0; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; padding-top: 12px; padding-right: 12px; padding-bottom: 12px; padding-left: 12px;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="drafting-help-container" class="temp-required-buys-container" style="display: none;">
@@ -56,6 +56,7 @@
             </ui:VisualElement>
             <ui:VisualElement name="shop-view-goods-area-container" class="shop-view-goods-area-container" style="flex-grow: 1; justify-content: center;">
                 <ui:VisualElement name="shop-goods-area" style="flex-grow: 0; justify-content: center; flex-direction: row; align-self: auto; align-items: center; flex-shrink: 0; overflow: visible; height: 100%;" />
+                <ui:Button text="Done" parse-escape-sequences="true" display-tooltip-when-elided="true" name="booster-pack-done-button" class="shopButton" style="position: absolute; right: 2%; top: 50%; translate: 0 -50%; width: 180px; height: 90px; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; padding: 15px; display: none;" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="unit-management" style="flex-grow: 1; max-height: 40%; min-height: 40%;">
@@ -99,7 +100,7 @@
                             </ui:VisualElement>
                         </ui:VisualElement>
                         <ui:VisualElement style="flex-grow: 1; height: 40%; visibility: visible;">
-                            <ui:Button text="Switch Decks" parse-escape-sequences="true" display-tooltip-when-elided="true" name="switch-decks-button" class="shopButton" style="font-size: 23px; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; width: 208px; background-image: url(&quot;project://database/Assets/Sprites/UI/Compendium_ExitButton.png?fileID=2800000&amp;guid=16eaf03e91b8db644b07b2d6d253cc63&amp;type=3#Compendium_ExitButton&quot;);" />
+                            <ui:Button text="Swap Cards" parse-escape-sequences="true" display-tooltip-when-elided="true" name="switch-decks-button" class="shopButton" style="font-size: 23px; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; width: 208px; background-image: url(&quot;project://database/Assets/Sprites/UI/Compendium_ExitButton.png?fileID=2800000&amp;guid=16eaf03e91b8db644b07b2d6d253cc63&amp;type=3#Compendium_ExitButton&quot;);" />
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
@@ -111,7 +112,7 @@
             <ui:Button text="Cancel" parse-escape-sequences="true" display-tooltip-when-elided="true" name="companion-selection-for-card-removal-cancel-button" class="shopButton" style="width: 172px; height: 100%; margin-top: 0; margin-bottom: 0;" />
         </ui:VisualElement>
         <ui:VisualElement name="companion-selection-indicator" style="flex-grow: 1; position: absolute; height: 70px; width: auto; top: 568px; flex-direction: row; justify-content: center; visibility: hidden; display: flex; align-self: center;">
-            <ui:Label tabindex="-1" text="Select a rat to get the card." parse-escape-sequences="true" display-tooltip-when-elided="true" class="inlineMessageStyle" style="font-size: 32px; -unity-font-style: normal; padding-right: 4px; padding-left: 4px;" />
+            <ui:Label tabindex="-1" text="Select a rat to get the card." parse-escape-sequences="true" display-tooltip-when-elided="true" name="companion-selection-label" class="inlineMessageStyle" style="font-size: 32px; -unity-font-style: normal; padding-right: 4px; padding-left: 4px;" />
             <ui:Button text="Cancel" parse-escape-sequences="true" display-tooltip-when-elided="true" name="companion-selection-cancel-button" class="shopButton" style="margin-top: 0; margin-bottom: 0; height: 100%; width: 172px;" />
         </ui:VisualElement>
         <ui:VisualElement name="companion-selection-switch-decks-indicator" style="flex-grow: 1; position: absolute; height: 70px; width: auto; top: 568px; flex-direction: row; justify-content: center; visibility: hidden; display: flex; align-self: center;">

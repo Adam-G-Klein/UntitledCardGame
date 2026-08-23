@@ -17,14 +17,25 @@ public class AnalyticsManager : GenericSingleton<AnalyticsManager>
     // We do not want to keep initializing whenever we change scenes.
     public AnalyticsState state;
 
+    // Unity Analytics services connection is disabled.
+    private const bool analyticsServicesEnabled = false;
+
     public void RecordEvent(BaseAnalyticsEvent eventData)
     {
+        if (!state.analyticsServicesInitialized)
+        {
+            return;
+        }
         Debug.Log("[AnalyticsManager]: recording event " + eventData.GetType().Name);
         AnalyticsService.Instance.RecordEvent(eventData);
     }
 
     async void Start()
     {
+        if (!analyticsServicesEnabled)
+        {
+            return;
+        }
         await InitializeAnalyticsServices();
     }
 
@@ -50,7 +61,6 @@ public class AnalyticsManager : GenericSingleton<AnalyticsManager>
             Debug.Log("[AnalyticsManager]: Environment in use is " + envName);
             options.SetEnvironmentName(envName);
             await UnityServices.InitializeAsync(options);
-            ConfigureDataCollection();
 
             state.analyticsServicesInitialized = true;
             Debug.Log("[AnalyticsManager]: Analytics initialized successfully!");
@@ -58,20 +68,6 @@ public class AnalyticsManager : GenericSingleton<AnalyticsManager>
         catch (System.Exception ex)
         {
             Debug.LogError($"[AnalyticsManager]: Initialization failed — {ex.Message}");
-        }
-    }
-
-    public void ConfigureDataCollection()
-    {
-        // According to user consent setting, we start or stop collction.
-        Debug.Log($"[AnalyticsManager]: Configuring data collection to value {gameState.consentToDataCollection}");
-        if (gameState.consentToDataCollection)
-        {
-            AnalyticsService.Instance.StartDataCollection();
-        }
-        else
-        {
-            AnalyticsService.Instance.StopDataCollection();
         }
     }
 }

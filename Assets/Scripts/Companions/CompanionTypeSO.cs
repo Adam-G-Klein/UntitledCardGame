@@ -60,6 +60,15 @@ public class CompanionTypeSO : IdentifiableSO
 
     public List<DescriptionToken.DescriptionIconType> tooltipTokens = new();
 
+    public CompanionTypeSO GetBaseCompanionType()
+    {
+        if (this.level == CompanionLevel.LevelOne)
+        {
+            return this;
+        }
+        return baseCompanionType;
+    }
+
     public TooltipViewModel GetTooltip()
     {
         TooltipViewModel tooltipViewModel = new TooltipViewModel(tooltip.lines);

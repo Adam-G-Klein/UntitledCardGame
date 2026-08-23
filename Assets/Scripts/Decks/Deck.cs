@@ -11,12 +11,18 @@ public class Deck
     [SerializeField]
     public List<Card> cards = new List<Card>();
     public int cardsDealtPerTurn = 1;
+
+    public List<Card> NonStartingDeckCards()
+    {
+        return cards.Where(c => !c.isStartingDeckCard).ToList();
+    }
+
     public Deck(CompanionTypeSO companionType)
     {
         this.cardsDealtPerTurn = companionType.initialCardsDealtPerTurn;
         foreach(CardType cardType in companionType.startingDeck.cards)
         {
-            cards.Add(new Card(cardType, companionType));
+            cards.Add(new Card(cardType, companionType, isStartingDeckCard: true));
         }
     }
 
@@ -60,7 +66,7 @@ public class Deck
         List<Card> transformedDeck = new();
         foreach (Card card in cards) {
             if (card.cardType == targetCardType) {
-                transformedDeck.Add(new Card(cardTypeToTransformInto, card.getCompanionFrom()));
+                transformedDeck.Add(new Card(cardTypeToTransformInto, card.getCompanionFrom(), isStartingDeckCard: card.isStartingDeckCard));
             } else {
                 transformedDeck.Add(card);
             }

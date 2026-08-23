@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 85f67b0b-a47c-4438-b7e4-897480446381
   Name: Ferocity
-  Description: Bleed any rat 3 HP & give 2 strength
+  Description: Bleed any rat 2 HP & give 2 strength
   IconDescription:
   - tokenType: 0
-    text: 3
+    text: 2
     icon: 0
   - tokenType: 2
     text: 
@@ -32,7 +32,7 @@ MonoBehaviour:
     text: 
     icon: 18
   IconDescriptionTooltipLines:
-  - Bleed a rat of your choice 3 HP and give the rat 2 strength, which increases
+  - Bleed a rat of your choice 2 HP and give the rat 2 strength, which increases
     the damage of attacks
   defaultValues: []
   Cost: 1
@@ -101,7 +101,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 16
-        scale: 3
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

@@ -151,10 +151,15 @@ public class CardView {
     }
 
     private void setManaCost(Label manaCost, CardType card) {
-        if (cardInstance == null) {
-             manaCost.text = card.Cost.ToString();
-        } else {
-
+        if (!card.playable)
+        {
+            manaCost.text = "-";
+        }
+        else if (cardInstance == null)
+        {
+            manaCost.text = card.Cost.ToString();
+        }
+        else {
             int manaCostValue = cardInstance.GetManaCost();
             manaCost.text = manaCostValue.ToString();
             if (manaCostValue < card.Cost) {

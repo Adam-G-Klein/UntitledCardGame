@@ -19,8 +19,9 @@ public class BoosterPackData
     public int rareCardPct;
     public int price;
     public int numCards = 4;
-    public int ratBoosterPackNumCardsFromRatMin = 1;
-    public int ratBoosterPackNumCardsFromRatMax = 2;
+    public int numCardsToBuy = 1;
+    public int ratSourcePct = 50;
+    public int packSourcePct = 50;
 }
 
 [CreateAssetMenu(
@@ -77,7 +78,6 @@ public class ShopDataSO : IdentifiableSO
 
     [Header("Booster pack data")]
     public int boosterPackCardPrice = 0;
-    public int boosterPackNumCardsToBuy = 2;
     public List<BoosterPackData> boosterPackPcts;
 
     [Header("Upgrade parameters")]
@@ -127,6 +127,7 @@ public class ShopLevel {
     public int numLessCardsInStartingDeck;
     public bool switchDecksEnabled = true;
     public bool cardRemovalEnabled = true;
+    public bool placeCardsAnywhere = false;
 
     [Space(10)]
     [Header("Help the player understand this shit")]

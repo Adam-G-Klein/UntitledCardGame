@@ -10,22 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: PB_SerratedWaraxe
+  m_Name: PB_TribalWisdom
   m_EditorClassIdentifier: 
-  guid: d55ae73c-8ccf-4db5-9837-3891c2e46cd6
-  Name: Serrated Waraxe
-  Description: Deal {rpl_damage} damage & if self lost HP this turn, deal {rpl_damage_2}
-    damage
+  guid: 6492a1ff-c7bf-49d0-a90d-24e897004930
+  Name: Tribal Wisdom
+  Description: 
   IconDescription:
-  - tokenType: 0
-    text: '{rpl_damage}'
-    icon: 0
   - tokenType: 2
     text: 
-    icon: 1
+    icon: 3
   - tokenType: 2
     text: 
-    icon: 18
+    icon: 3
+  - tokenType: 2
+    text: 
+    icon: 19
   - tokenType: 1
     text: 
     icon: 18
@@ -35,23 +34,16 @@ MonoBehaviour:
   - tokenType: 0
     text: ': '
     icon: 18
-  - tokenType: 0
-    text: '{rpl_damage_2}'
-    icon: 18
   - tokenType: 2
     text: 
-    icon: 1
+    icon: 10
   IconDescriptionTooltipLines:
   - Deal damage to a foe of your choice.
   - If owner rat lost HP this turn, deal extra damage to the foe.
-  defaultValues:
-  - key: rpl_damage
-    value: 3
-  - key: rpl_damage_2
-    value: 4
+  defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 0f5ecf3627abce84490e1f8ec8e4f24f, type: 3}
-  cardCategory: 1
+  cardCategory: 2
   packFrom: {fileID: 11400000, guid: a87b5da767d4e4659b2965e31e340c58, type: 2}
   vfxPrefab: {fileID: 0}
   playable: 1
@@ -87,29 +79,17 @@ MonoBehaviour:
         effectStepName: EndWorkflowIfConditionMet
         inputKey1: tookDamage
         conditionToEndOn: 0
-    - rid: 758315839196758672
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatEffectStep
-        inputKey: enemy
-        combatEffect: 0
-        scale: 4
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
     - rid: 5602892949302281046
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 5602892949302281047
         - rid: 5602892949302281048
-        - rid: 5602892949302281049
+        - rid: 8966137042617237829
+        - rid: 8966137042617237830
         - rid: 758315839196758670
         - rid: 758315839196758671
-        - rid: 758315839196758672
+        - rid: 8966137042617237831
     - rid: 5602892949302281047
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -130,24 +110,38 @@ MonoBehaviour:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: enemy
-        validTargets: 02000000
+        outputKey: allrats
+        validTargets: 00000000
         number: 1
-        specialTargetRule: 0
+        specialTargetRule: 1
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
         selectionCardCategory: 0
-    - rid: 5602892949302281049
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+    - rid: 8966137042617237829
+      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: CombatEffectStep
-        inputKey: enemy
-        combatEffect: 0
-        scale: 3
+        effectStepName: GetRandomItems
+        inputKey: allrats
+        scale: 1
+        scaleKey: 
+        getScaleFromKey: 0
+        outputKey: target
+        withReplacement: 0
+    - rid: 8966137042617237830
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: target
+        outputKey: 
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
+        waitForDrawsToResolve: 0
+    - rid: 8966137042617237831
+      type: {class: ManaChange, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ManaChange
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 

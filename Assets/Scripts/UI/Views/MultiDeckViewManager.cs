@@ -145,7 +145,7 @@ public class MultiDeckViewManager : GenericSingleton<MultiDeckViewManager>, IMul
                 DeckTabSection section = new DeckTabSection
                 {
                     companion = activeCompanions[i],
-                    cards = activeCompanions[i].deck.cards
+                    cards = gameState.showStarterDeckCardsInShop ? activeCompanions[i].deck.cards : activeCompanions[i].deck.NonStartingDeckCards()
                 };
                 activeDeckTab.sections.Add(section);
             }
@@ -166,7 +166,7 @@ public class MultiDeckViewManager : GenericSingleton<MultiDeckViewManager>, IMul
                 DeckTabSection section = new DeckTabSection
                 {
                     companion = companion,
-                    cards = companion.deck.cards
+                    cards = gameState.showStarterDeckCardsInShop ? companion.deck.cards : companion.deck.NonStartingDeckCards()
                 };
                 benchDeckViewTab.sections.Add(section);
             }

@@ -35,7 +35,7 @@ public class CompanionStatTracker
     public CompanionStatTracker RecordDeckSwitch(CompanionStatTracker other)
     {
         CompanionStatTracker newStats = new CompanionStatTracker();
-        newStats.numCardsRemoved =  other.numCardsRemoved;
+        newStats.numCardsRemoved =  this.numCardsRemoved;
         newStats.cardsBought = other.cardsBought;
         newStats.numDeaths = this.numDeaths;
         return newStats;

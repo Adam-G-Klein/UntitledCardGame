@@ -324,11 +324,11 @@ public class CardType: IdentifiableSO, ITooltipProvider
                     descriptionLines.Add(new List<DescriptionToken>());
                     continue;
                 }
-                // Exclude tokens with default values.
-                if (token.tokenType == DescriptionToken.TokenType.Text && System.Text.RegularExpressions.Regex.IsMatch(token.text, @"\{.+\}"))
-                {
-                    continue;
-                }
+                // Exclude tokens that are only placeholders for default values.
+                // if (token.tokenType == DescriptionToken.TokenType.Text && System.Text.RegularExpressions.Regex.IsMatch(token.text, @"\{.+\}"))
+                // {
+                //     continue;
+                // }
                 descriptionLines.Last().Add(token);
             }
             // Remove lines without at least one icon token.
@@ -336,10 +336,18 @@ public class CardType: IdentifiableSO, ITooltipProvider
             for (int i = 0; i < descriptionLines.Count; i++)
             {
                 List<DescriptionToken> line = descriptionLines[i];
-                if (i < IconDescriptionTooltipLines.Count)
+                if (i >= IconDescriptionTooltipLines.Count)
                 {
-                    tooltip += new TooltipViewModel(IconDescriptionTooltipLines[i], line);
+                    continue;
                 }
+                string description = "";
+                // If the line has only one token and it's a text token, use that as the description.
+                if (line.Count == 1 && line[0].tokenType == DescriptionToken.TokenType.Text)
+                {
+                    description = IconDescriptionTooltipLines[i];
+                }
+
+                tooltip += new TooltipViewModel(description, line);
                 // Do not add the tooltips if they haven't been filled out yet.
                 // else
                 // {

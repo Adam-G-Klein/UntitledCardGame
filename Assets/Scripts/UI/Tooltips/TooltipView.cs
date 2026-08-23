@@ -34,13 +34,6 @@ public class TooltipLine
         titleContainer.AddToClassList("tooltip-title-container");
         ve.Add(titleContainer);
 
-        VisualElement tooltipTitleLabelContainer = new VisualElement();
-        tooltipTitleLabelContainer.AddToClassList("tooltip-title-title");
-        titleContainer.Add(tooltipTitleLabelContainer);
-
-        VisualElement tooltipTitleIcons = new VisualElement();
-        tooltipTitleIcons.AddToClassList("tooltip-title-icons");
-
         if (iconDescriptionLine != null && iconDescriptionLine.Count > 0)
         {
             Label titleLabel = new Label();
@@ -59,16 +52,28 @@ public class TooltipLine
                 }
             }
             if (titleLabelText == "" && iconDescriptionLine.Count == 1 && iconDescriptionLine[0].tokenType == DescriptionToken.TokenType.Text) {
-                MatchCollection matches = Regex.Matches(iconDescriptionLine[0].text, @"\w+");
-                if (matches.Count > 0) {
-                    titleLabelText = matches[0].Value + (matches.Count > 1 ? "..." : "");
+                string[] words = iconDescriptionLine[0].text.Split(new[] { ' ', '\t', '\n' }, System.StringSplitOptions.RemoveEmptyEntries);
+                // Debug.Log("TooltipLine: GetVisualElement: words: " + string.Join(", ", words));
+                if (words.Length > 0) {
+                    titleLabelText = string.Join(" ", words.Take(3));
+                }
+                if (words.Length > 3) {
+                    titleLabelText += "...";
                 }
             }
 
             if (titleLabelText != "") {
+                VisualElement tooltipTitleLabelContainer = new VisualElement();
+                tooltipTitleLabelContainer.AddToClassList("tooltip-title-title");
+                titleContainer.Add(tooltipTitleLabelContainer);
+
                 titleLabel.text = titleLabelText;
                 tooltipTitleLabelContainer.Add(titleLabel);
             }
+
+            VisualElement tooltipTitleIcons = new VisualElement();
+            tooltipTitleIcons.AddToClassList("tooltip-title-icons");
+
             foreach (var token in iconDescriptionLine)
             {
                 if (token.tokenType == DescriptionToken.TokenType.Icon)

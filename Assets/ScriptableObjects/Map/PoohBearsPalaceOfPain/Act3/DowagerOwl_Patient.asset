@@ -10,18 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
-  m_Name: PoohThePatient
+  m_Name: DowagerOwl_Patient
   m_EditorClassIdentifier: 
   guid: 73b4545e-7a72-4f20-8241-eb7a30a9876f
-  displayName: Pooh the Patient
+  displayName: Dowager Owl
   maxHealth: 130
   baseAttackDamage: 0
   enemyDisplayType: 0
-  sprite: {fileID: 21300000, guid: ee68b8ed994d6413fbc2f7d6df902689, type: 3}
+  sprite: {fileID: 21300000, guid: 90312fe27b6b1487bbb504ceb21997ca, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
+  trashTalkDialogue: []
   morale: 0
-  abilities: []
+  abilities:
+  - rid: 2038553076039155808
   cacheValueConfigs: []
   enemyPattern:
     behaviors:
@@ -52,8 +54,8 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Powering up
-      description: Grows stronger until you piss him off (get him below half HP)
+    - title: Naptime
+      description: Grows stronger until you get her below half HP
       relatedBehaviorIndex: -1
       icon: {fileID: 0}
       iconDescriptionLine: []
@@ -68,6 +70,52 @@ MonoBehaviour:
       data:
         effectStepName: ScriptableObjectEffectStep
         effectStepSO: {fileID: 11400000, guid: 46ac36b880e2ff14aa699c90b6e9f19c, type: 2}
+    - rid: 2038553076039155808
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 2
+        effectSteps:
+        - rid: 2038553076039155809
+        - rid: 2038553076039155810
+        - rid: 2038553076039155811
+        - rid: 2038553076039155812
+        weight: 0
+    - rid: 2038553076039155809
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
+    - rid: 2038553076039155810
+      type: {class: FilterEntityByHP, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FilterEntityByHP
+        inputKey: self
+        percentThreshold: 0.5
+        absoluteThreshold: 0
+        useAbsoluteThreshold: 0
+        outputKey: 
+        below: 1
+    - rid: 2038553076039155811
+      type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfListEmpty
+        inputKey1: self
+    - rid: 2038553076039155812
+      type: {class: SpriteSwap, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: SpriteSwap
+        newSprite: {fileID: 21300000, guid: 631828c666fc64698a291c043c666028, type: 3}
+        inputKey: 
+        flipOver: 0
     - rid: 2268260642759376989
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
