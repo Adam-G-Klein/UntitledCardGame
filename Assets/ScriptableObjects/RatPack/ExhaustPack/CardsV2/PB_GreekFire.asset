@@ -14,51 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 31c22698-2156-4d77-8dbe-0a0e0d84c307
   Name: Greek Fire
-  Description: Exhaust. When exhausted, deal {onexhaust_rpl_damage} damage to a random
-    enemy and create a Greek Fire for and draw 1 from a random rat
-  IconDescription:
-  - tokenType: 0
-    text: Exhaust
-    icon: 0
-  - tokenType: 1
-    text: 
-    icon: 0
-  - tokenType: 2
-    text: 
-    icon: 16
-  - tokenType: 0
-    text: ':'
-    icon: 0
-  - tokenType: 0
-    text: '{onexhaust_rpl_damage}'
-    icon: 0
-  - tokenType: 2
-    text: 
-    icon: 1
-  - tokenType: 2
-    text: 
-    icon: 4
-  - tokenType: 1
-    text: 
-    icon: 0
-  - tokenType: 2
-    text: 
-    icon: 16
-  - tokenType: 0
-    text: ':'
-    icon: 0
-  - tokenType: 2
-    text: 
-    icon: 23
-  - tokenType: 2
-    text: 
-    icon: 24
-  - tokenType: 2
-    text: 
-    icon: 3
-  - tokenType: 2
-    text: 
-    icon: 19
+  Description: Exhaust. When exhausted, deal {onexhaust_rpl_damage} damage randomly,
+    shuffle a Greek Fire into a random rat's deck and draw 1 card from them
+  IconDescription: []
   IconDescriptionTooltipLines:
   - This card exhausts when played, removing it for the rest of combat.
   - When this card is exhausted, it deals X damage to a random foe.

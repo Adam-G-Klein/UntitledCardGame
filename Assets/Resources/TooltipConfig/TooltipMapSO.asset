@@ -312,18 +312,11 @@ MonoBehaviour:
     description: Choose any rat, card, or foe
   abilityTriggerDescriptionIconMappings:
   - abilityTrigger: 9
-    title: On Exhaust
+    title: Exhaust
     descriptionIconType: 14
-    description: Rat ability synergizes with Exhaust effects
-  - abilityTrigger: 11
-    title: On Bleed
-    descriptionIconType: 9
-    description: Rat ability synergizes with Bleed effects
+    description: Select a card in your hand and remove it for the rest of combat
   - abilityTrigger: 16
-    title: On Discard
+    title: Discard
     descriptionIconType: 13
-    description: Rat ability synergizes with Discard effects
-  - abilityTrigger: 19
-    title: On Draw
-    descriptionIconType: 3
-    description: Rat ability synergizes with Draw effects
+    description: Select a card in your hand and move it to the discard pile of the
+      owner rat

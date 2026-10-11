@@ -14,9 +14,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 6032e67b-d067-4f18-9489-f49ae66516b3
   Name: Dagger+
-  Description: Exhaust. Deal {rpl_damage} damage.
-  IconDescription: []
-  IconDescriptionTooltipLines: []
+  Description: 
+  IconDescription:
+  - tokenType: 0
+    text: Exhaust
+    icon: 0
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 0
+    text: '{rpl_damage}'
+    icon: 18
+  - tokenType: 2
+    text: 
+    icon: 1
+  - tokenType: 2
+    text: 
+    icon: 18
+  IconDescriptionTooltipLines:
+  - This card exhausts when played.
+  - deal
   defaultValues:
   - key: rpl_damage
     value: 5
@@ -72,6 +89,7 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 5602892563578094212
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:

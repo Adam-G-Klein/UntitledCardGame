@@ -34,8 +34,8 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Sykes+
-      description: Each turn, create a "Dagger" in hand for a random adjacent companion
-        x2
+      description: Each turn, create a Dagger card in hand for a random adjacent
+        companion twice
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
       iconDescriptionLine: []
@@ -43,6 +43,7 @@ MonoBehaviour:
   keepsakeTitle: Level 2 Daggermunk
   keepsakeDescription: Each turn, create a 0 mana "Dagger" card in hand for a random
     adjacent companion x2
+  tooltipTokens: 
   references:
     version: 2
     RefIds:
@@ -71,6 +72,7 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 1289961820425028203
       type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
       data:

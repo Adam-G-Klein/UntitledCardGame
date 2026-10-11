@@ -28,6 +28,9 @@ MonoBehaviour:
   - tokenType: 2
     text: '{rpl_damage}'
     icon: 1
+  - tokenType: 2
+    text: '{rpl_damage}'
+    icon: 18
   IconDescriptionTooltipLines:
   - Dagger exhausts when played, so it is removed for the rest of combat
   - It deals X damage to a foe of your choice
@@ -86,6 +89,7 @@ MonoBehaviour:
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 5602892563578094212
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
