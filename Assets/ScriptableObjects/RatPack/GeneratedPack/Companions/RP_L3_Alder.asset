@@ -34,15 +34,15 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Alder++
-      description: Whenever you draw a Charm card from Alder or a rat adjacent to
-        Alder, draw 1 card from that rat
+      description: Whenever you exhaust a Charm card from Alder or a rat adjacent
+        to Alder, draw 1 card from that rat
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
       iconDescriptionLine: []
       card: {fileID: 0}
   keepsakeTitle: Hidden Cache
-  keepsakeDescription: Whenever you draw a Charm card from another rat's deck, draw
-    1 card from that rat.
+  keepsakeDescription: Whenever you exhaust a Charm card from another rat's deck,
+    draw 1 card from that rat.
   tooltipTokens: 
   references:
     version: 2
@@ -50,7 +50,7 @@ MonoBehaviour:
     - rid: 754093871974056128
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
-        abilityTrigger: 19
+        abilityTrigger: 9
         effectSteps:
         - rid: 758316142852047367
         - rid: 754093871974056130
@@ -78,13 +78,15 @@ MonoBehaviour:
       type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: FilterCards
-        inputKey: cardDrawn
+        inputKey: cardExhausted
+        companionInstanceKey: 
         filter:
           cardCategoriesToInclude: 04000000
           retainedCardsFilter: 0
           manaCostFilter: 0
           manaCost: 0
           exactCardType: {fileID: 0}
+          companionInstanceFilterEnabled: 0
         outputKey: statusCards
     - rid: 754093968382754845
       type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
@@ -105,7 +107,7 @@ MonoBehaviour:
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DrawCards
-        inputKey: companionCardPlayedFrom
+        inputKey: companionExhaustedFrom
         outputKey: 
         scale: 1
         getScaleFromKey: 0
@@ -115,6 +117,6 @@ MonoBehaviour:
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: companionCardPlayedFrom
+        inputKey: companionExhaustedFrom
         prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
         scale: 1

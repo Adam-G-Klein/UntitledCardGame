@@ -41,15 +41,15 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Alder
-      description: The first 3 times you draw a Charm card from Alder or a rat adjacent
-        to Alder each turn, draw 1 card from that rat
+      description: The first 3 times you exhaust a Charm card from Alder or a rat
+        adjacent to Alder each turn, draw 1 card from that rat
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
       iconDescriptionLine: []
       card: {fileID: 0}
   keepsakeTitle: Hidden Cache
-  keepsakeDescription: The first 3 times you draw a Charm card from Alder or an adjacent
-    rat each turn, draw 1 card from that rat
+  keepsakeDescription: The first 3 times you exhaust a Charm card from Alder or a
+    rat adjacent to Alder each turn, draw 1 card from that rat
   tooltipTokens: 
   references:
     version: 2
@@ -57,7 +57,7 @@ MonoBehaviour:
     - rid: 754093871974056128
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
-        abilityTrigger: 19
+        abilityTrigger: 9
         effectSteps:
         - rid: 758316142852047365
         - rid: 754093871974056130
@@ -137,7 +137,7 @@ MonoBehaviour:
       type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: FilterCards
-        inputKey: cardDrawn
+        inputKey: cardExhausted
         companionInstanceKey: 
         filter:
           cardCategoriesToInclude: 04000000
@@ -162,7 +162,7 @@ MonoBehaviour:
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DrawCards
-        inputKey: companionCardPlayedFrom
+        inputKey: companionExhaustedFrom
         outputKey: 
         scale: 1
         getScaleFromKey: 0
@@ -172,6 +172,6 @@ MonoBehaviour:
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: companionCardPlayedFrom
+        inputKey: companionExhaustedFrom
         prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
         scale: 1
