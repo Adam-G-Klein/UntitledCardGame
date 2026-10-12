@@ -53,6 +53,8 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     private int numCardsLeftInBoosterPack = 0;
     private int timesRerolledThisShop = 0;
     private int timesCardRemovedThisShop = 0;
+    private bool hasSwitchedDecksThisShop = false;
+    public bool HasSwitchedDecksThisShop => hasSwitchedDecksThisShop;
     private int numRatsBoughtThisShop = 0;
     private int numCardsBoughtThisShop = 0;
     private enum ShopPhase {
@@ -306,6 +308,8 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
     public void ProcessSwitchDecksRequest()
     {
+        if (hasSwitchedDecksThisShop) return;
+
         // For now, executive decision to make switching decks free :)
 
         // if (gameState.playerData.GetValue().gold >= shopEncounter.shopData.switchDecksPrice)
@@ -733,6 +737,10 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
         // Update the UI to reflect the changes.
         shopViewController.RebuildUnitManagement(gameState.companions);
+
+        // Only allow switching decks once per shop.
+        hasSwitchedDecksThisShop = true;
+        shopViewController.DisableSwitchDecksButton();
 
         // Reset the switching decks state.
         ResetSwitchDecksState();
