@@ -102,13 +102,13 @@ MonoBehaviour:
         percentThreshold: 0.5
         absoluteThreshold: 0
         useAbsoluteThreshold: 0
-        outputKey: 
+        outputKey: belowHP
         below: 1
     - rid: 2038553076039155811
       type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EndWorkflowIfListEmpty
-        inputKey1: self
+        inputKey1: belowHP
     - rid: 2038553076039155812
       type: {class: SpriteSwap, ns: , asm: Assembly-CSharp}
       data:
@@ -163,7 +163,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 0}
+        vfxPrefab: {fileID: 6137048663962808129, guid: 418a03ccd75ca98409952e0384c196fd, type: 3}
     - rid: 2268260642759376994
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
