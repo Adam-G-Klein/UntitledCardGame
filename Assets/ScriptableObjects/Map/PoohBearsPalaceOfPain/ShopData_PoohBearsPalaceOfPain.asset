@@ -55,10 +55,10 @@ MonoBehaviour:
   boosterPackCardPrice: 0
   boosterPackPcts:
   - boosterType: 6
-    commonCardPct: 15
-    uncommonCardPct: 50
-    rareCardPct: 35
-    price: 4
+    commonCardPct: 10
+    uncommonCardPct: 45
+    rareCardPct: 45
+    price: 5
     numCards: 4
     numCardsToBuy: 1
     ratSourcePct: 40
@@ -67,11 +67,11 @@ MonoBehaviour:
     commonCardPct: 70
     uncommonCardPct: 30
     rareCardPct: 0
-    price: 1
+    price: 2
     numCards: 3
     numCardsToBuy: 1
-    ratSourcePct: 30
-    packSourcePct: 70
+    ratSourcePct: 40
+    packSourcePct: 60
   - boosterType: 7
     commonCardPct: 70
     uncommonCardPct: 30
@@ -79,17 +79,17 @@ MonoBehaviour:
     price: 2
     numCards: 3
     numCardsToBuy: 2
-    ratSourcePct: 30
-    packSourcePct: 70
+    ratSourcePct: 40
+    packSourcePct: 60
   - boosterType: 8
-    commonCardPct: 15
-    uncommonCardPct: 50
-    rareCardPct: 35
+    commonCardPct: 10
+    uncommonCardPct: 45
+    rareCardPct: 45
     price: 5
     numCards: 4
     numCardsToBuy: 2
-    ratSourcePct: 30
-    packSourcePct: 70
+    ratSourcePct: 40
+    packSourcePct: 60
   baseCardsToRemoveOnUpgrade:
   - {fileID: 11400000, guid: 38df20cfa67a247b7ba206413d7f874e, type: 2}
   - {fileID: 11400000, guid: 2483a7d7534424a4498e2abb3572b2e0, type: 2}

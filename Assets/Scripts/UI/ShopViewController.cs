@@ -366,8 +366,11 @@ public class ShopViewController : MonoBehaviour,
 
         if (!shopManager.HasSwitchedDecksThisShop) EnableSwitchDecksButton();
 
-        upgradeButton.SetEnabled(true);
-        FocusManager.Instance.EnableFocusableTarget(upgradeButton.AsFocusable());
+        if (shopManager.gameState.playerData.GetValue().shopLevel < shopManager.encounterConstants.shopLevels.Count - 1)
+        {
+            upgradeButton.SetEnabled(true);
+            FocusManager.Instance.EnableFocusableTarget(upgradeButton.AsFocusable());
+        }
 
         cardRemovalButton.SetEnabled(true);
         FocusManager.Instance.EnableFocusableTarget(cardRemovalButton.AsFocusable());

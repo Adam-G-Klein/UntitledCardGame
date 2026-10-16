@@ -20,7 +20,7 @@ MonoBehaviour:
   bossSpawnLocation: {x: 0, y: 1.5}
   shopLevels:
   - level: 0
-    shopLevelIncrementsToUnlock: 5
+    shopLevelIncrementsToUnlock: 7
     upgradeIncrementCost: 2
     numCardsToShow: 3
     numKeepsakesToShow: 2
@@ -51,7 +51,7 @@ MonoBehaviour:
         iconDescriptionLine: []
         card: {fileID: 0}
   - level: 1
-    shopLevelIncrementsToUnlock: 5
+    shopLevelIncrementsToUnlock: 7
     upgradeIncrementCost: 3
     numCardsToShow: 4
     numKeepsakesToShow: 3
@@ -84,7 +84,7 @@ MonoBehaviour:
         iconDescriptionLine: []
         card: {fileID: 0}
   - level: 2
-    shopLevelIncrementsToUnlock: 5
+    shopLevelIncrementsToUnlock: 7
     upgradeIncrementCost: 4
     numCardsToShow: 4
     numKeepsakesToShow: 3
