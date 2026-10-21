@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_Start_LethalContract
+  m_Name: RP_Start_PointyTeeth
   m_EditorClassIdentifier: 
   guid: 5307cd84-5c6e-46f4-b1de-e6ab32cef467
-  Name: Lethal Contract
+  Name: Pointy Teeth
   Description: Deal {rpl_damage} damage & create a Dagger in hand for a random adjacent
     rat
   IconDescription:
@@ -30,11 +30,11 @@ MonoBehaviour:
     text: 
     icon: 0
   - tokenType: 0
-    text: Create a Dagger in hand for a random adjacent rat
+    text: Create a Dagger in hand for self
     icon: 0
   IconDescriptionTooltipLines:
   - Deal damage to a foe of your choice.
-  - Create a Dagger Attack in hand for a random rat adjacent to the owner rat.
+  - Create a Dagger Attack in hand for the owner rat
   defaultValues:
   - key: rpl_damage
     value: 2
@@ -108,7 +108,7 @@ MonoBehaviour:
       type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: AddCardsToHand
-        entityFromKey: out
+        entityFromKey: self
         cardTypes:
         - {fileID: 11400000, guid: 224034c097974444fa35170919327ce6, type: 2}
         getCardsFromKey: 0
