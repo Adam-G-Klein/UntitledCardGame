@@ -41,8 +41,8 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Alder
-      description: The first 3 times you draw a Charm card from Alder or a rat adjacent
-        to Alder each turn, draw 1 card from that rat
+      description: The first 3 times you draw a Charm card each turn, draw a card
+        from a random rat
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
       iconDescriptionLine: []
@@ -59,7 +59,6 @@ MonoBehaviour:
       data:
         abilityTrigger: 19
         effectSteps:
-        - rid: 758316142852047365
         - rid: 754093871974056130
         - rid: 754093968382754844
         - rid: 754093968382754845
@@ -69,6 +68,7 @@ MonoBehaviour:
         - rid: 754093968382754838
         - rid: 754093968382754842
         - rid: 754093968382754843
+        - rid: 8966137386555146257
         - rid: 2511001095643857206
         - rid: 6567162537147629631
         weight: 0
@@ -152,17 +152,11 @@ MonoBehaviour:
       data:
         effectStepName: EndWorkflowIfListEmpty
         inputKey1: statusCards
-    - rid: 758316142852047365
-      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EndWorkflowIfConditionMet
-        inputKey1: fromSelfOrAdjacent
-        conditionToEndOn: 0
     - rid: 2511001095643857206
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DrawCards
-        inputKey: companionCardPlayedFrom
+        inputKey: random
         outputKey: 
         scale: 1
         getScaleFromKey: 0
@@ -172,6 +166,20 @@ MonoBehaviour:
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: companionCardPlayedFrom
+        inputKey: random
         prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
         scale: 1
+    - rid: 8966137386555146257
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: random
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 6
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
