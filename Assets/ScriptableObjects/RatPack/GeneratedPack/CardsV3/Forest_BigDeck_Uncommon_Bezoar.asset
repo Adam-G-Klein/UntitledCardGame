@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: a0fd61ee-ec04-4c11-906b-d46460c3565e
   Name: Bezoar
-  Description: Unplayable. When drawn, give self and adjacent block equal to the
-    number of cards in own deck ({numCards} cards)
+  Description: Unplayable. When in hand end of turn, give self and adjacent block
+    equal to the number of cards in own deck ({numCards} cards)
   IconDescription:
   - tokenType: 0
     text: Unplayable
@@ -25,7 +25,7 @@ MonoBehaviour:
     icon: 32
   - tokenType: 2
     text: 
-    icon: 32
+    icon: 17
   - tokenType: 0
     text: ': '
     icon: 32
@@ -76,42 +76,24 @@ MonoBehaviour:
     - rid: 758315839196758411
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
+        effectSteps: []
+    - rid: 2034230108114649328
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps: []
+    - rid: 5602892561590779904
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
         effectSteps:
-        - rid: 758315839196758412
-        - rid: 758315839196758415
-        - rid: 758315839196758414
-        - rid: 758316092100444616
-        - rid: 758316092100444617
-        - rid: 7150943289421332802
-        - rid: 7150943289421332803
-        - rid: 7150943289421332804
-    - rid: 758315839196758412
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: thisCard
-        validTargets: 
-        number: 1
-        specialTargetRule: 3
-        cantCancelTargetting: 0
-        cardSelectionHelperText: 
-        selectionPurpose: 0
-        selectionCardCategory: 0
-    - rid: 758315839196758414
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: thisCard
-        prefabToInstantiate: {fileID: 6137048663962808129, guid: 032e33b914ed32b418cdc1ed2f15fc6e, type: 3}
-        scale: 1
-    - rid: 758315839196758415
-      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: WaitForSecondsEffect
-        seconds: 0.25
-    - rid: 758316092100444616
+        - rid: 8966137386555146431
+        - rid: 8966137386555146432
+        - rid: 8966137386555146433
+        - rid: 8966137386555146434
+        - rid: 8966137386555146435
+        - rid: 8966137386555146436
+        - rid: 8966137386555146437
+        - rid: 8966137386555146438
+    - rid: 8966137386555146431
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
@@ -125,7 +107,40 @@ MonoBehaviour:
         cardSelectionHelperText: 
         selectionPurpose: 0
         selectionCardCategory: 0
-    - rid: 758316092100444617
+    - rid: 8966137386555146432
+      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetAdjacentCompanions
+        inputKey: self
+        includeInputCompanion: 1
+        outputKey: adj
+    - rid: 8966137386555146433
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: thisCard
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
+    - rid: 8966137386555146434
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: thisCard
+        prefabToInstantiate: {fileID: 6137048663962808129, guid: 032e33b914ed32b418cdc1ed2f15fc6e, type: 3}
+        scale: 1
+    - rid: 8966137386555146435
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.2
+    - rid: 8966137386555146436
       type: {class: CountCardsInDeck, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CountCardsInDeck
@@ -141,22 +156,7 @@ MonoBehaviour:
         includeDiscardPile: 1
         includeCardsInHand: 1
         outputKey: numCards
-    - rid: 2034230108114649328
-      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
-      data:
-        effectSteps: []
-    - rid: 5602892561590779904
-      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
-      data:
-        effectSteps: []
-    - rid: 7150943289421332802
-      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetAdjacentCompanions
-        inputKey: self
-        includeInputCompanion: 1
-        outputKey: adj
-    - rid: 7150943289421332803
+    - rid: 8966137386555146437
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
@@ -170,7 +170,7 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         toggleStatus: 0
-    - rid: 7150943289421332804
+    - rid: 8966137386555146438
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab

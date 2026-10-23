@@ -138,6 +138,8 @@ public class PowerSO : ScriptableObject
         LoneWolf,
         // _: whenever a rat shuffles its deck, it gains block equal to the number of cards it has.
         TreeRings,
+        // _: end of turn, shuffle a Biggness card into a random rat's deck.
+        Biggness
     }
 
     public TooltipViewModel GetTooltip(int stackCount)

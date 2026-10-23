@@ -324,15 +324,9 @@ public class CardType: IdentifiableSO, ITooltipProvider
                     descriptionLines.Add(new List<DescriptionToken>());
                     continue;
                 }
-                // Exclude tokens that are only placeholders for default values.
-                // if (token.tokenType == DescriptionToken.TokenType.Text && System.Text.RegularExpressions.Regex.IsMatch(token.text, @"\{.+\}"))
-                // {
-                //     continue;
-                // }
                 descriptionLines.Last().Add(token);
             }
             // Remove lines without at least one icon token.
-            // descriptionLines = descriptionLines.Where(line => line.Any(token => token.tokenType == DescriptionToken.TokenType.Icon)).ToList();
             for (int i = 0; i < descriptionLines.Count; i++)
             {
                 List<DescriptionToken> line = descriptionLines[i];
@@ -348,26 +342,9 @@ public class CardType: IdentifiableSO, ITooltipProvider
                 }
 
                 tooltip += new TooltipViewModel(description, line);
-                // Do not add the tooltips if they haven't been filled out yet.
-                // else
-                // {
-                //     tooltip += new TooltipViewModel("TODO", line);
-                // }
             }
-
-            /*
-            // Add this if we want to see tooltips for individual icons.
-            List<DescriptionToken.DescriptionIconType> uniqueIconTokens = tokens.Where(t => t.tokenType == DescriptionToken.TokenType.Icon).Select(t => t.icon).Distinct().ToList();
-            foreach (DescriptionToken.DescriptionIconType tokenType in uniqueIconTokens)
-            {
-                if (KeywordTooltipProvider.Instance.HasTooltip(tokenType))
-                {
-                    // Don't include the description, only the title and icon.
-                    tooltip += KeywordTooltipProvider.Instance.GetTooltip(tokenType, includeDescription: false);
-                }
-            }
-            */
         }
+
         List<TooltipKeyword> tooltipKeywords = new();
         tooltipKeywords.AddRange(tooltips);
         if (!tooltipKeywords.Contains(TooltipKeyword.Exhaust) && exhaustsWhenPlayed)
