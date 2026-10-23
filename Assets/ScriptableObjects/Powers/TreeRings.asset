@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ac8d29b7a56d46539bdf7eeb2d1260a, type: 3}
+  m_Name: TreeRings
+  m_EditorClassIdentifier: 
+  powerType: 45
+  title: Tree Rings
+  description: Whenever a rat shuffles their deck, they gain block equal to the number
+    of cards in their deck.
+  abilities:
+  - rid: 754093991137640772
+  displaySprite: {fileID: 21300000, guid: 27219c2682ae3af4fa76a9968109666f, type: 3}
+  extraTooltip:
+    rid: 8966137386555146333
+  stackable: 1
+  cacheConfiguration:
+    key: 
+    display: 1
+    sprite: {fileID: 0}
+    startOfTurnValue: 0
+    setStartOfTurnValue: 0
+    startOfCombatValue: 0
+    setStartOfCombatValue: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 754093991137640772
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 10
+        effectSteps:
+        - rid: 758315839196758782
+        - rid: 8966137386555146334
+        - rid: 8966137386555146335
+        - rid: 8966137386555146336
+        weight: 0
+    - rid: 758315839196758782
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+    - rid: 8966137386555146333
+      type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
+      data:
+        empty: 1
+        lines: []
+    - rid: 8966137386555146334
+      type: {class: CountCardsInDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CountCardsInDeck
+        inputDeckKey: companionDeckFrom
+        filter:
+          cardCategoriesToInclude: 
+          retainedCardsFilter: 0
+          manaCostFilter: 0
+          manaCost: 0
+          exactCardType: {fileID: 0}
+          companionInstanceFilterEnabled: 0
+        includeDrawPile: 1
+        includeDiscardPile: 1
+        includeCardsInHand: 1
+        outputKey: numCards
+    - rid: 8966137386555146335
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: companionDeckFrom
+        statusEffect: 2
+        scale: 0
+        getScaleFromKey: 1
+        inputScaleKey: numCards
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        toggleStatus: 0
+    - rid: 8966137386555146336
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: companionDeckFrom
+        prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
+        scale: 1

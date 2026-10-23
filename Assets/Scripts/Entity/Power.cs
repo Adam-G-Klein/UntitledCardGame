@@ -136,6 +136,8 @@ public class PowerSO : ScriptableObject
         Relentlessness,
         // _: lone wolf: whenever you only have 1 Attack card in hand, attacks from this rat deal +3 damage
         LoneWolf,
+        // _: whenever a rat shuffles its deck, it gains block equal to the number of cards it has.
+        TreeRings,
     }
 
     public TooltipViewModel GetTooltip(int stackCount)

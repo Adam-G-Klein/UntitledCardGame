@@ -368,23 +368,20 @@ public class CardType: IdentifiableSO, ITooltipProvider
             }
             */
         }
-        else
+        List<TooltipKeyword> tooltipKeywords = new();
+        tooltipKeywords.AddRange(tooltips);
+        if (!tooltipKeywords.Contains(TooltipKeyword.Exhaust) && exhaustsWhenPlayed)
         {
-            List<TooltipKeyword> tooltipKeywords = new();
-            tooltipKeywords.AddRange(tooltips);
-            if (!tooltipKeywords.Contains(TooltipKeyword.Exhaust) && exhaustsWhenPlayed)
-            {
-                tooltipKeywords.Add(TooltipKeyword.Exhaust);
-            }
-            if (!tooltipKeywords.Contains(TooltipKeyword.Retain) && retain)
-            {
-                tooltipKeywords.Add(TooltipKeyword.Retain);
-            }
-            foreach (TooltipKeyword keyword in tooltipKeywords)
-            {
-                Debug.Log("CardType.GetTooltip(): Adding tooltip keyword " + keyword);
-                tooltip += KeywordTooltipProvider.Instance.GetTooltip(keyword);
-            }
+            tooltipKeywords.Add(TooltipKeyword.Exhaust);
+        }
+        if (!tooltipKeywords.Contains(TooltipKeyword.Retain) && retain)
+        {
+            tooltipKeywords.Add(TooltipKeyword.Retain);
+        }
+        foreach (TooltipKeyword keyword in tooltipKeywords)
+        {
+            Debug.Log("CardType.GetTooltip(): Adding tooltip keyword " + keyword);
+            tooltip += KeywordTooltipProvider.Instance.GetTooltip(keyword);
         }
 
         List<EffectWorkflow> tooltipWorkflows = new();
