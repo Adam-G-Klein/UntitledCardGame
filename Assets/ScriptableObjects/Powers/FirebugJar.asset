@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ac8d29b7a56d46539bdf7eeb2d1260a, type: 3}
-  m_Name: ThistleberryHarvest
+  m_Name: FirebugJar
   m_EditorClassIdentifier: 
   powerType: 4
-  title: Thistleberry Harvest
-  description: Each turn, gain +1 energy and create a Thistlethorn in hand for self
+  title: Firebug Jar
+  description: Start of turn, create a Firebug Charm in hand
   abilities:
   - rid: 758315839196758594
-  displaySprite: {fileID: 21300000, guid: 6cb44060d9d637b44a6b0567dd3ff92f, type: 3}
+  displaySprite: {fileID: 21300000, guid: ad6b6375253fe49239649399f0dd5554, type: 3}
   extraTooltip:
     rid: 758316142852047275
   stackable: 1
@@ -38,7 +38,6 @@ MonoBehaviour:
         abilityTrigger: 12
         effectSteps:
         - rid: 7150943403050008585
-        - rid: 7150943403050008583
         - rid: 7150943403050008584
         - rid: 7150943403050008586
         weight: 0
@@ -47,20 +46,13 @@ MonoBehaviour:
       data:
         empty: 1
         lines: []
-    - rid: 7150943403050008583
-      type: {class: ManaChange, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ManaChange
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
     - rid: 7150943403050008584
       type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: AddCardsToHand
         entityFromKey: self
         cardTypes:
-        - {fileID: 11400000, guid: abc3151d1b91f4baab6dea7588e19b0d, type: 2}
+        - {fileID: 11400000, guid: 5440422b876894b02b3f6448099f1a23, type: 2}
         getCardsFromKey: 0
         inputCardsKey: 
         scale: 1
@@ -79,6 +71,8 @@ MonoBehaviour:
         specialTargetRule: 3
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 7150943403050008586
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
