@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98c54fe17bbfaba4697c85c1618843f4, type: 3}
+  m_Name: Forest_V3_CardPool
+  m_EditorClassIdentifier: 
+  commonCards:
+  - {fileID: 11400000, guid: fa09d264c97624abb8896aad5161cae2, type: 2}
+  - {fileID: 11400000, guid: 81f0a0d3e2d1a43bd958986eb60cebc1, type: 2}
+  - {fileID: 11400000, guid: 83c34e80f9a894543bba6e59dbd92e92, type: 2}
+  uncommonCards:
+  - {fileID: 11400000, guid: eb0cde4e20f524c54aaebc7c06f49235, type: 2}
+  - {fileID: 11400000, guid: d77646bb05b76419c827331c668790fb, type: 2}
+  - {fileID: 11400000, guid: d95e10825a9de413e9bbf5510df3e699, type: 2}
+  - {fileID: 11400000, guid: 9f72fbb6e987e411f88bd2e3232a70b1, type: 2}
+  rareCards:
+  - {fileID: 11400000, guid: fee31618f5743448cba43d88249642d4, type: 2}
+  genericCardIconSprite: {fileID: 0}
+  unlockableCommonCards: []
+  unlockableUncommonCards: []
+  unlockableRareCards: []
