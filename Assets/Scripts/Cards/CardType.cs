@@ -347,9 +347,9 @@ public class CardType: IdentifiableSO, ITooltipProvider
 
         List<TooltipKeyword> tooltipKeywords = new();
         tooltipKeywords.AddRange(tooltips);
-        if (!tooltipKeywords.Contains(TooltipKeyword.Exhaust) && exhaustsWhenPlayed)
+        if (!tooltipKeywords.Contains(TooltipKeyword.ExhaustsWhenPlayed) && exhaustsWhenPlayed)
         {
-            tooltipKeywords.Add(TooltipKeyword.Exhaust);
+            tooltipKeywords.Add(TooltipKeyword.ExhaustsWhenPlayed);
         }
         if (!tooltipKeywords.Contains(TooltipKeyword.Retain) && retain)
         {
@@ -375,32 +375,7 @@ public class CardType: IdentifiableSO, ITooltipProvider
         {
             tooltipWorkflows.Add(onDiscardEffectWorkflow);
         }
-        foreach (EffectWorkflow workflow in tooltipWorkflows)
-        {
-            if (workflow == null)
-            {
-                continue;
-            }
-            foreach (EffectStep step in workflow.effectSteps)
-            {
-                if (step is ITooltipProvider)
-                {
-                    Debug.Log("CardType.GetTooltip(): Found effect step " + step.effectStepName + " that provides a tooltip, adding it to the card tooltip");
-                    ITooltipProvider tooltipProvider = (ITooltipProvider)step;
-                    // + is overridden in Tooltip class to concatenate plaintext strings
-                    // this code should stay operable when images are added if we update the
-                    // operation override
-                    TooltipViewModel stepTooltip = tooltipProvider.GetTooltip();
-                    if (HasIconDescription() && IconDescriptionTooltipLines.Count > 0 && !stepTooltip.lines.Any(line => line.card != null))
-                    {
-                        Debug.Log("CardType.GetTooltip(): Skipping adding tooltip from effect step " + step.effectStepName + " because it doesn't have a card associated with it and this card has an icon description with custom tooltip lines");
-                        continue;
-                    }
-                    tooltip += stepTooltip;
-                    Debug.Log("CardType.GetTooltip(): Added tooltip " + tooltip.plainText);
-                }
-            }
-        }
+        tooltip += EffectWorkflow.GetEffectStepTooltips(tooltipWorkflows, x => true);
         return tooltip;
     }
 }
