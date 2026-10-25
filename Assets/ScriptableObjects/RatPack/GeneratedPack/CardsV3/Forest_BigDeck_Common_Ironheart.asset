@@ -54,19 +54,6 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 758315839196758812
-      type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: AddCardsToHand
-        entityFromKey: selected
-        cardTypes:
-        - {fileID: 11400000, guid: 459c5dd6544c348489ac942b4b1e59dc, type: 2}
-        getCardsFromKey: 0
-        inputCardsKey: 
-        scale: 3
-        getScaleFromKey: 0
-        inputScaleKey: 
-        outputKey: 
     - rid: 5280922841426165942
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -87,7 +74,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 5280922841426165942
         - rid: 5602892561590779944
-        - rid: 758315839196758812
+        - rid: 8966137386555146574
         - rid: 8966137386555146354
         - rid: 8966137386555146355
     - rid: 5602892561590779944
@@ -108,7 +95,7 @@ MonoBehaviour:
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DrawCards
-        inputKey: selected
+        inputKey: target
         outputKey: 
         scale: 1
         getScaleFromKey: 0
@@ -129,3 +116,17 @@ MonoBehaviour:
         gameobjectMappingList: []
         vePositionMappingList: []
         veMappingList: []
+    - rid: 8966137386555146574
+      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToDeck
+        inputKey: target
+        cardTypes:
+        - {fileID: 11400000, guid: 459c5dd6544c348489ac942b4b1e59dc, type: 2}
+        addToDeckMethod: 1
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        outputKey: 

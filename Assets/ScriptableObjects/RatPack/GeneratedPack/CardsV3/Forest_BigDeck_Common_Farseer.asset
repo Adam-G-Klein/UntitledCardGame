@@ -72,7 +72,6 @@ MonoBehaviour:
         - rid: 3931529445166809458
         - rid: 3931529445166809459
         - rid: 758315839196758535
-        - rid: 7150943289421332677
     - rid: 3931529445166809456
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -119,17 +118,4 @@ MonoBehaviour:
         inputDeckKey: target
         effect: 2
         cardToTransformInto: {fileID: 0}
-        outputKey: 
-    - rid: 7150943289421332677
-      type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: AddCardsToHand
-        entityFromKey: self
-        cardTypes:
-        - {fileID: 11400000, guid: e5aefb6a1e4354d73910a59bd8677cf0, type: 2}
-        getCardsFromKey: 0
-        inputCardsKey: 
-        scale: 0
-        getScaleFromKey: 0
-        inputScaleKey: 
         outputKey: 

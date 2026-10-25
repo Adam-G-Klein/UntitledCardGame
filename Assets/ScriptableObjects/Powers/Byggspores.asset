@@ -72,13 +72,14 @@ MonoBehaviour:
         effectStepName: AddCardsToDeck
         inputKey: random
         cardTypes:
-        - {fileID: 11400000, guid: e5aefb6a1e4354d73910a59bd8677cf0, type: 2}
+        - {fileID: 11400000, guid: 7f6d7b7541cbd4b0c815e5b8d987a6a6, type: 2}
         addToDeckMethod: 1
         getCardsFromKey: 0
         inputCardsKey: 
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        outputKey: 
     - rid: 8966137386555146407
       type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
       data:

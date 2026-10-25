@@ -139,7 +139,11 @@ public class PowerSO : ScriptableObject
         // _: whenever a rat shuffles its deck, it gains block equal to the number of cards it has.
         TreeRings,
         // _: end of turn, shuffle a Biggness card into a random rat's deck.
-        Biggness
+        Biggness,
+        // _: end of turn, if you exhausted a Charm card this turn, shuffle a Serpentine Charm into a random rat's deck.
+        SerpentsNest,
+        // _: every 4 Charm cards you draw, gain 1 energy
+
     }
 
     public TooltipViewModel GetTooltip(int stackCount)

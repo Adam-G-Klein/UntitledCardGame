@@ -37,7 +37,7 @@ MonoBehaviour:
   IconDescriptionTooltipLines: []
   defaultValues:
   - key: inhand_rpl_damage
-    value: 0
+    value: 7
   Cost: 0
   Artwork: {fileID: 21300000, guid: a5b8c5dccafa78942bf687e9f47d4ce4, type: 3}
   cardCategory: 4
@@ -126,7 +126,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: random
         combatEffect: 14
-        scale: 8
+        scale: 7
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
