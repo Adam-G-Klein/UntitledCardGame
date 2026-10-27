@@ -98,11 +98,15 @@ public class AreaEffect : MonoBehaviour
     {
         var list = new List<Vector3>();
         if (Application.isPlaying && companionRow)
+        {
             foreach (CompanionInstance c in FindObjectsOfType<CompanionInstance>())
                 if (c != null && c.gameObject.activeInHierarchy) list.Add(c.transform.position);
+        }
         else if (Application.isPlaying)
+        {
             foreach (EnemyInstance e in FindObjectsOfType<EnemyInstance>())
                 if (e != null && e.gameObject.activeInHierarchy) list.Add(e.transform.position);
+        }
         if (list.Count == 0 && PreviewTargets != null) list.AddRange(PreviewTargets);
         if (list.Count == 0) list.Add(transform.position);
         return list;
