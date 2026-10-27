@@ -133,6 +133,11 @@ public class ShopLevel {
     [Header("Help the player understand this shit")]
     public TooltipViewModel upgradeTooltip;
 
+    [Space(10)]
+    [Header("Extra bonus lines shown in the generated upgrade tooltip\n" +
+            "(the % stats are generated automatically; put non-percentage perks here, e.g. \"Place cards anywhere\")")]
+    public List<string> upgradeBonusLines;
+
     public int GetTotalCompanionPercentage() {
         return commonCompanionPercentage +
             uncommonCompanionPercentage +

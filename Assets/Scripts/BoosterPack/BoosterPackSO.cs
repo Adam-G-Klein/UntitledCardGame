@@ -30,7 +30,7 @@ public abstract class BoosterPack : ITooltipProvider
 
     public abstract int GetBoosterPackPrice(ShopDataSO shopData);
 
-    protected static string GetBoosterPackTypeName(BoosterPackType boosterType)
+    public static string GetBoosterPackTypeName(BoosterPackType boosterType)
     {
         switch (boosterType)
         {

@@ -1865,7 +1865,8 @@ public class ShopViewController : MonoBehaviour,
     }
 
     private void ShowUpgradeButtonTooltip() {
-        VisualElement tooltip = shopManager.GetShopUpgradeTooltip().GetVisualElement();
+        // Tooltip is generated...
+        VisualElement tooltip = shopManager.GetGeneratedShopUpgradeTooltip().GetVisualElement();
 
         VisualElement background = new VisualElement();
 
