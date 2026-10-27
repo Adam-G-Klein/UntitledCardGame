@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: PB_Hemosurge
+  m_Name: Health_Drip_Uncommon_Hemosurge
   m_EditorClassIdentifier: 
   guid: bfdd45a8-0ce2-4bc1-a152-0484f9ff90c5
   Name: Hemosurge
@@ -63,20 +63,12 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 5280922841426165969
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: self
-        prefabToInstantiate: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
-        scale: 1
     - rid: 5602892949302281051
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 5602892949302281052
         - rid: 5602892949302281053
-        - rid: 5280922841426165969
         - rid: 5602892949302281054
     - rid: 5602892949302281052
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -104,7 +96,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 0}
+        vfxPrefab: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
     - rid: 5602892949302281054
       type: {class: ManaChange, ns: , asm: Assembly-CSharp}
       data:
