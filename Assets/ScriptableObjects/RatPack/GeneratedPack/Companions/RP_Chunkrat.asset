@@ -22,6 +22,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 4fe60b6f2dbb95a4dbf06706658b8412, type: 3}
   startingDeck: {fileID: 11400000, guid: aa042ebbd52a14c809592880711cfb35, type: 2}
   rarity: 0
+  startingTeamWeight: 10
   baseCompanionType: {fileID: 0}
   cacheValueConfigs: []
   cardPool: {fileID: 11400000, guid: 59b17a3fd7e314a7b8db8673d584fead, type: 2}
@@ -42,9 +43,6 @@ MonoBehaviour:
   keepsakeTitle: Chunkrat's Bulk
   keepsakeDescription: End of combat, permanently add a "Yummy Snack" to this deck.
   tooltipTokens: 
-  attackCardPool: {fileID: 11400000, guid: 59b17a3fd7e314a7b8db8673d584fead, type: 2}
-  defenseCardPool: {fileID: 11400000, guid: 59b17a3fd7e314a7b8db8673d584fead, type: 2}
-  utilityCardPool: {fileID: 0}
   references:
     version: 2
     RefIds:
@@ -85,6 +83,7 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        outputKey: 
     - rid: 205828126246961707
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

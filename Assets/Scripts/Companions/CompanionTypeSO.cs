@@ -32,6 +32,10 @@ public class CompanionTypeSO : IdentifiableSO
     public StartingDeck startingDeck;
     public CompanionRarity rarity;
 
+    [Header("Starting team ordering")]
+    [Tooltip("Determines placement order when a starting team is assembled. Higher values are placed further forward (e.g. tanks should have a higher weight).")]
+    public int startingTeamWeight = 0;
+
     [Header("Base level one companion (empty if this is L1)")]
     public CompanionTypeSO baseCompanionType;
 
