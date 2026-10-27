@@ -73,7 +73,7 @@ MonoBehaviour:
         effectStepName: InstantiatePrefab
         inputKey: target
         prefabToInstantiate: {fileID: 3850217184923880746, guid: 604f6efaa1e828d4bacfc84a25dfbd7a, type: 3}
-        scale: 1.5
+        scale: 1
     - rid: 2268261004812222481
       type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
       data:
@@ -107,6 +107,7 @@ MonoBehaviour:
         - rid: 5602892561590779944
         - rid: 2268261004812222482
         - rid: 2268261004812222481
+        - rid: 8022201127594533960
         - rid: 1274772082283774706
         - rid: 7112866130419515426
         - rid: 7112866130419515425
@@ -153,3 +154,10 @@ MonoBehaviour:
         cardSelectionHelperText: 
         selectionPurpose: 0
         selectionCardCategory: 0
+    - rid: 8022201127594533960
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 2482105388608096720, guid: c0f016f2a98701241b1fbda8b3b1e4c2, type: 3}
+        scale: 1

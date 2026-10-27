@@ -78,6 +78,7 @@ MonoBehaviour:
         - rid: 2038553076039155809
         - rid: 2038553076039155810
         - rid: 2038553076039155811
+        - rid: 1700682198445196028
         - rid: 2038553076039155812
         weight: 0
     - rid: 2038553076039155809
@@ -178,3 +179,9 @@ MonoBehaviour:
         cardSelectionHelperText: 
         selectionPurpose: 0
         selectionCardCategory: 0
+    - rid: 1700682198445196028
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}

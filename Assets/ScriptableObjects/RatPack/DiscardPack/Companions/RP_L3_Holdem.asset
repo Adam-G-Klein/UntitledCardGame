@@ -50,7 +50,10 @@ MonoBehaviour:
       data:
         abilityTrigger: 16
         effectSteps:
+        - rid: 1700682198445195788
         - rid: 7401433059192471555
+        - rid: 1700682198445195786
+        - rid: 1700682198445195787
         - rid: 7401433059192471557
         - rid: 754093848945229859
         weight: 0
@@ -83,4 +86,38 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
+        vfxPrefab: {fileID: 0}
+    - rid: 1700682198445195786
+      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FXEffectStep
+        waitForEffect: 0
+        fXExperiencePrefab: {fileID: 7894954944730908058, guid: 8100fd38e98a0b3439d2173583b7d764, type: 3}
+        rootLocationGameObjectKey: 
+        positionMappingList:
+        - fromWorkflow: shooter
+          toFxExperience: self
+        - fromWorkflow: randomEnemy
+          toFxExperience: target
+        gameobjectMappingList: []
+        vePositionMappingList: []
+        veMappingList: []
+    - rid: 1700682198445195787
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.16
+    - rid: 1700682198445195788
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: shooter
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0

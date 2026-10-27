@@ -50,8 +50,8 @@ MonoBehaviour:
       data:
         effectStepName: InstantiatePrefab
         inputKey: enemy
-        prefabToInstantiate: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
-        scale: 1.5
+        prefabToInstantiate: {fileID: 3558735091311190292, guid: 3562185cbdab87e46ae649607f94daa5, type: 3}
+        scale: 1
     - rid: 1488501614819147776
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -88,6 +88,7 @@ MonoBehaviour:
         - rid: 1488501614819147776
         - rid: 1488501614819147777
         - rid: 5592738912264781840
+        - rid: 1700682291002736676
         - rid: 1274772082283774576
         - rid: 5280922841426165938
         - rid: 5280922841426165940
@@ -134,3 +135,9 @@ MonoBehaviour:
         effectStepName: ConvertPlayableCardToCard
         inputKey: playableCard
         outputKey: card
+    - rid: 1700682291002736676
+      type: {class: CardsChangedVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardsChangedVFX
+        inputKey: card
+        vfxPrefab: {fileID: 1872837941943473356, guid: c1728413e5bf48543b46f1ce54f452c5, type: 3}

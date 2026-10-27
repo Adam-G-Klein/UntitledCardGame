@@ -508,4 +508,13 @@ public class EnemyView : IUIEventReceiver
         spriteCopy.style.height = new Length(100, LengthUnit.Percent);
         yield return EntityAbilityInstance.GenericAbilityTriggeredVFX(this.spriteElement, spriteCopy);
     }
+
+    // Names what just triggered over this enemy: its passive's tooltip title, unless the step gives one.
+    public IEnumerator AbilityTriggeredBadge(string label, Sprite icon) {
+        if (string.IsNullOrEmpty(label)) {
+            TooltipViewModel tooltip = this.enemy.enemyType.tooltip;
+            if (tooltip != null && tooltip.lines != null && tooltip.lines.Count > 0) label = tooltip.lines[0].title;
+        }
+        yield return AbilityTriggerBadge.Show(this.spriteElement, icon, label, this.statusArea);
+    }
 }

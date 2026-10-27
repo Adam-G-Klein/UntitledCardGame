@@ -547,6 +547,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeTime: 0.25
   fadeColor: {r: 0, g: 0, b: 0, a: 1}
+  revealMaterial: {fileID: 2100000, guid: 781448195a2147341aeefdd2bd741803, type: 2}
+  revealTime: 0.6
+  coverLeftToRight: 1
+  revealContinuesAcross: 1
+  revealClearCutoff: 0.52
+  holdOnBlack: 0.1
+  maxSettleTime: 1.2
 --- !u!4 &990583649
 Transform:
   m_ObjectHideFlags: 0

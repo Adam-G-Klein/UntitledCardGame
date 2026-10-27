@@ -65,6 +65,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 7082891692335694183
         - rid: 7082891692335694184
+        - rid: 1700682291002736658
         - rid: 7082891692335694185
     - rid: 7082891692335694183
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -103,3 +104,8 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         outputKey: 
+    - rid: 1700682291002736658
+      type: {class: CardTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardTriggeredVFX
+        vfxPrefab: {fileID: 3402153693038389984, guid: a3b6b31a75a68b1498be5837432eabd6, type: 3}

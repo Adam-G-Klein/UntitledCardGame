@@ -38,6 +38,7 @@ MonoBehaviour:
         - rid: 2511001254715195664
         - rid: 2511001254715195665
         - rid: 2511001254715195666
+        - rid: 1700682198445196039
         - rid: 2511001254715195667
     - rid: 2511001254715195664
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -86,3 +87,9 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
+    - rid: 1700682198445196039
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: Crushing Weight
+        icon: {fileID: 21300000, guid: da1a1978bec27b446a94d96c66f7fb55, type: 3}

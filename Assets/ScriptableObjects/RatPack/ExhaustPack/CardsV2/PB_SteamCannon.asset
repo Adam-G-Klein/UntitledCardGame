@@ -93,12 +93,16 @@ MonoBehaviour:
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
+        - rid: 1700682198445195776
         - rid: 5602892675124822190
         - rid: 2034230176448512659
+        - rid: 1700682198445195774
+        - rid: 1700682198445195775
         - rid: 5602892675124822191
         - rid: 7150943289421332659
         - rid: 7150943289421332661
         - rid: 7150943289421332662
+        - rid: 1700682291002736668
         - rid: 7150943289421332663
         - rid: 7150943289421332664
     - rid: 5602892675124822190
@@ -127,7 +131,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
+        vfxPrefab: {fileID: 0}
     - rid: 7150943289421332659
       type: {class: GetCombatEncounterStat, ns: , asm: Assembly-CSharp}
       data:
@@ -166,3 +170,43 @@ MonoBehaviour:
       data:
         effectStepName: WaitForSecondsEffect
         seconds: 0.3
+    - rid: 1700682198445195774
+      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FXEffectStep
+        waitForEffect: 0
+        fXExperiencePrefab: {fileID: 8506809162363077141, guid: 3f88ec0f39c7cad44998210b3a8813e5, type: 3}
+        rootLocationGameObjectKey: 
+        positionMappingList:
+        - fromWorkflow: shooter
+          toFxExperience: self
+        - fromWorkflow: enemy
+          toFxExperience: target
+        gameobjectMappingList: []
+        vePositionMappingList: []
+        veMappingList: []
+    - rid: 1700682198445195775
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.26
+    - rid: 1700682198445195776
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: shooter
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
+    - rid: 1700682291002736668
+      type: {class: CardsChangedVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardsChangedVFX
+        inputKey: thisCard
+        vfxPrefab: {fileID: 1872837941943473356, guid: c1728413e5bf48543b46f1ce54f452c5, type: 3}

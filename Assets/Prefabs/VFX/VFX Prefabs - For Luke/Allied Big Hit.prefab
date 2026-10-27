@@ -24475,6 +24475,7 @@ GameObject:
   - component: {fileID: 2521887976559883313}
   - component: {fileID: 2109335050751565614}
   - component: {fileID: -1497648498836265182}
+  - component: {fileID: 8583060142043403485}
   m_Layer: 0
   m_Name: Allied Big Hit
   m_TagString: Untagged
@@ -29326,6 +29327,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seconds: 6
+--- !u!114 &8583060142043403485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1320532642761013391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5b857abb1dd9e541b2ba3ccb79518da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxAngle: 30
 --- !u!1 &1457282016417770841
 GameObject:
   m_ObjectHideFlags: 0
@@ -53769,7 +53783,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4e567bbb113820a4983690199be4ff29, type: 2}
+  - {fileID: 2100000, guid: e2a830c9a54c3344cb57cbb13ee44cb8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -58698,7 +58712,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: cab314db49546b541ae600ca38d79eba, type: 2}
+  - {fileID: 2100000, guid: 1f54bc2b1b50a744abfaac9235e86f27, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

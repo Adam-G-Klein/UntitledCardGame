@@ -60,6 +60,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 205828032053379075
         - rid: 205828032053379073
+        - rid: 1700682198445196002
         - rid: 2034229587402555393
         - rid: 205828107393564676
     - rid: 205828032053379073
@@ -99,3 +100,9 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+    - rid: 1700682198445196002
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}

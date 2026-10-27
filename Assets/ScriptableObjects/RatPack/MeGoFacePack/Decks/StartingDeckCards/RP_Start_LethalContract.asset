@@ -89,7 +89,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
+        vfxPrefab: {fileID: 0}
     - rid: 2034230020176347209
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -122,6 +122,9 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 758316092100444258
+        - rid: 5652846374206848438
+        - rid: 5652055186112041452
+        - rid: 3811070702553105451
         - rid: 758316092100444259
         - rid: 2034230020176347209
         - rid: 7150943289421332967
@@ -144,3 +147,37 @@ MonoBehaviour:
         getScaleFromKey: 0
         outputKey: out
         withReplacement: 0
+    - rid: 3811070702553105451
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.24
+    - rid: 5652055186112041452
+      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FXEffectStep
+        waitForEffect: 0
+        fXExperiencePrefab: {fileID: 4718147213966508192, guid: dff7b432715db1d41aefd2f6e94b96c0, type: 3}
+        rootLocationGameObjectKey: 
+        positionMappingList:
+        - fromWorkflow: thrower
+          toFxExperience: self
+        - fromWorkflow: target
+          toFxExperience: target
+        gameobjectMappingList: []
+        vePositionMappingList: []
+        veMappingList: []
+    - rid: 5652846374206848438
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: thrower
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0

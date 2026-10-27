@@ -87,6 +87,7 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 7401433308100034879
+        - rid: 1700682291002736647
         - rid: 7401433308100034880
     - rid: 7189280385716453524
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -114,7 +115,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
+        vfxPrefab: {fileID: 0}
     - rid: 7189280385716453754
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -177,14 +178,56 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
+        vfxPrefab: {fileID: 8842018153899722763, guid: 33fb972d1906aee4aaf993b3ba08ebee, type: 3}
     - rid: 8034949815888773120
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
+        - rid: 1700682198445195762
         - rid: 7189280385716453754
         - rid: 7189280385716453755
         - rid: 7189280385716453756
         - rid: 7189280385716453757
         - rid: 7189280385716453524
+        - rid: 1700682198445195760
+        - rid: 1700682198445195761
         - rid: 7189280385716453525
+    - rid: 1700682198445195760
+      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FXEffectStep
+        waitForEffect: 0
+        fXExperiencePrefab: {fileID: 3842050353916743118, guid: 8d7af9463aef94e4b9ff95b2629b4600, type: 3}
+        rootLocationGameObjectKey: 
+        positionMappingList:
+        - fromWorkflow: shooter
+          toFxExperience: self
+        - fromWorkflow: target
+          toFxExperience: target
+        gameobjectMappingList: []
+        vePositionMappingList: []
+        veMappingList: []
+    - rid: 1700682198445195761
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.16
+    - rid: 1700682198445195762
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: shooter
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
+    - rid: 1700682291002736647
+      type: {class: CardTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardTriggeredVFX
+        vfxPrefab: {fileID: 3402153693038389984, guid: a3b6b31a75a68b1498be5837432eabd6, type: 3}

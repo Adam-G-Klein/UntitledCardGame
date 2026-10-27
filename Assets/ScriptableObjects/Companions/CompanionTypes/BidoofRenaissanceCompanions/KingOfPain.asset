@@ -55,6 +55,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 8790164513324270201
         - rid: 205828107393564791
+        - rid: 1700682198445195967
         - rid: 205828107393564792
         - rid: 205828107393564793
     - rid: 205828107393564791
@@ -81,10 +82,16 @@ MonoBehaviour:
       data:
         effectStepName: InstantiatePrefab
         inputKey: damagedCompanion
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
+        prefabToInstantiate: {fileID: 2620088698237070065, guid: 1e45bd8777e328c4898ce50d5a1df398, type: 3}
         scale: 1
     - rid: 8790164513324270201
       type: {class: EndWorkflowIfNoMapElement, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EndWorkflowIfNoMapElement
         keyToCheck: damagedCompanion
+    - rid: 1700682198445195967
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}

@@ -32,6 +32,7 @@ MonoBehaviour:
       effectSteps:
       - rid: 5280922829633618019
       - rid: 5602892723852673492
+      - rid: 4393896291227307020
       - rid: 5280922829633618018
     behaviorType: 0
   belowHalfHPEnemyPattern:
@@ -127,3 +128,10 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+    - rid: 4393896291227307020
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: randomCompanion
+        prefabToInstantiate: {fileID: 5466705246177039183, guid: 1a8f1abab5093804688a9fb55d6d4f27, type: 3}
+        scale: 1

@@ -79,8 +79,8 @@ MonoBehaviour:
       data:
         effectStepName: InstantiatePrefab
         inputKey: target
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
-        scale: 1.2
+        prefabToInstantiate: {fileID: 8681211938008986442, guid: c2ca57976627f8742adf817c70f519b2, type: 3}
+        scale: 1
     - rid: 5602892675124822081
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -116,7 +116,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
+        vfxPrefab: {fileID: 1320532642761013391, guid: f2880129efe84e249b6550440c43546b, type: 3}
     - rid: 5602892675124822085
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:

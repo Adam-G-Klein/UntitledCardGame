@@ -92,6 +92,7 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 758315839196758742
+        - rid: 1700682291002736686
         - rid: 758315839196758744
         - rid: 758315839196758745
     - rid: 758315839196758742
@@ -159,6 +160,7 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 5602892561590779905
+        - rid: 1700682291002736687
         - rid: 758315839196758746
         - rid: 758315839196758747
     - rid: 5602892561590779905
@@ -175,3 +177,13 @@ MonoBehaviour:
         cardSelectionHelperText: 
         selectionPurpose: 0
         selectionCardCategory: 0
+    - rid: 1700682291002736686
+      type: {class: CardTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardTriggeredVFX
+        vfxPrefab: {fileID: 3402153693038389984, guid: a3b6b31a75a68b1498be5837432eabd6, type: 3}
+    - rid: 1700682291002736687
+      type: {class: CardTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardTriggeredVFX
+        vfxPrefab: {fileID: 3402153693038389984, guid: a3b6b31a75a68b1498be5837432eabd6, type: 3}

@@ -100,6 +100,7 @@ MonoBehaviour:
         - rid: 385751591190528389
         - rid: 385751591190528390
         - rid: 385751591190528360
+        - rid: 4201180788321140600
         - rid: 385751591190528361
         - rid: 385751591190528362
         - rid: 385751591190528363
@@ -193,7 +194,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
+        vfxPrefab: {fileID: 2996464071188463190, guid: 7c61231a79e7e3541a6d2c8310b528a6, type: 3}
     - rid: 5633448308126777345
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -228,3 +229,10 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
+    - rid: 4201180788321140600
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: damagedCompanion
+        prefabToInstantiate: {fileID: 4952004986573060435, guid: b201aeac7260d55419771debbeaecea8, type: 3}
+        scale: 1

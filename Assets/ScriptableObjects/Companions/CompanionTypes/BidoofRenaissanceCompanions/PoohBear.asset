@@ -64,6 +64,7 @@ MonoBehaviour:
         - rid: 8790164555430888174
         - rid: 8790164555430888175
         - rid: 8790164555430888176
+        - rid: 1700682198445196003
         - rid: 205828032053379558
         - rid: 8441470952357494994
     - rid: 205828032053379554
@@ -72,6 +73,7 @@ MonoBehaviour:
         abilityTrigger: 0
         effectSteps:
         - rid: 205828032053379556
+        - rid: 1700682198445196004
         - rid: 205828032053379557
         - rid: 8441470952357494993
     - rid: 205828032053379555
@@ -165,3 +167,15 @@ MonoBehaviour:
         effectStepName: EndWorkflowIfConditionMet
         inputKey1: hasOrb
         conditionToEndOn: 0
+    - rid: 1700682198445196003
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}
+    - rid: 1700682198445196004
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}

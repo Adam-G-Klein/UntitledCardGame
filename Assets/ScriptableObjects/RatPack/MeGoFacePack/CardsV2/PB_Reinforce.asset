@@ -66,6 +66,7 @@ MonoBehaviour:
         - rid: 7082891827957727346
         - rid: 7082891692335694196
         - rid: 7082891692335694198
+        - rid: 1700682291002736697
     - rid: 7082891692335694196
       type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
@@ -122,3 +123,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         waitForDrawsToResolve: 0
+    - rid: 1700682291002736697
+      type: {class: CardsChangedVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardsChangedVFX
+        inputKey: attacks
+        vfxPrefab: {fileID: 1872837941943473356, guid: c1728413e5bf48543b46f1ce54f452c5, type: 3}

@@ -40,6 +40,7 @@ MonoBehaviour:
         - rid: 754094139776958570
         - rid: 754094139776958568
         - rid: 754094139776958569
+        - rid: 1700682198445196057
         - rid: 754094139776958571
         weight: 0
     - rid: 754094139776958568
@@ -77,9 +78,15 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: 4847f21b038e1aa42bceefe5c97ab1ab, type: 3}
+        vfxPrefab: {fileID: 7236432277257098806, guid: 854e4c1790c11984a8bd2dfec0fe99ea, type: 3}
     - rid: 758316142852047303
       type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
       data:
         empty: 1
         lines: []
+    - rid: 1700682198445196057
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: Retaliation
+        icon: {fileID: 21300000, guid: b8234437e62f749a9b907d6e36c2e1e1, type: 3}

@@ -39,6 +39,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 754094139776958549
         - rid: 2511000990761353348
+        - rid: 1700682198445196040
         - rid: 2511000990761353349
         - rid: 2511000990761353350
         weight: 0
@@ -86,3 +87,9 @@ MonoBehaviour:
         inputKey: adj
         prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
         scale: 1
+    - rid: 1700682198445196040
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: Rat Warleader
+        icon: {fileID: 21300000, guid: e0ab2143b8408423ab692d481858408a, type: 3}

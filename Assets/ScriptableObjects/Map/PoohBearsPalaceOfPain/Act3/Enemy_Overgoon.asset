@@ -184,6 +184,7 @@ MonoBehaviour:
         - rid: 1289961934975926475
         - rid: 1289961934975926476
         - rid: 1289961934975926479
+        - rid: 1700682198445196031
         - rid: 1289961934975926505
         - rid: 1289961934975926506
         - rid: 1289961934975926477
@@ -246,7 +247,7 @@ MonoBehaviour:
         effectStepName: InstantiatePrefab
         inputKey: all
         prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
-        scale: 1.5
+        scale: 1
     - rid: 1289961934975926479
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -326,3 +327,9 @@ MonoBehaviour:
         inputKey: self
         prefabToInstantiate: {fileID: 3850217184923880746, guid: 4bed509d0589dae4d922d8eeb61a6292, type: 3}
         scale: 1
+    - rid: 1700682198445196031
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}

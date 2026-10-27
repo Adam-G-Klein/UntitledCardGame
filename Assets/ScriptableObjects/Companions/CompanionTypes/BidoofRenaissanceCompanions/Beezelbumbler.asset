@@ -61,6 +61,7 @@ MonoBehaviour:
         - rid: 2034229587402555797
         - rid: 2034229587402555798
         - rid: 2034229587402555801
+        - rid: 1700682198445195962
         - rid: 2034229587402555799
         - rid: 2034229587402555800
     - rid: 2034229587402555794
@@ -132,3 +133,9 @@ MonoBehaviour:
         effectStepName: DialogueStep
         line: Power through the pain >:)
         lineTime: 2
+    - rid: 1700682198445195962
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}

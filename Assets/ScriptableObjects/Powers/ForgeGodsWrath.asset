@@ -39,7 +39,9 @@ MonoBehaviour:
         - rid: 2511001254715195602
         - rid: 2511001254715195603
         - rid: 2511001254715195604
+        - rid: 1700682198445196045
         - rid: 2511001254715195606
+        - rid: 4323044117240122021
         - rid: 2511001254715195608
         - rid: 2511001371140161599
     - rid: 2511001254715195601
@@ -112,3 +114,16 @@ MonoBehaviour:
         getScaleFromKey: 0
         scaleKey: 
         modification: 0
+    - rid: 1700682198445196045
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: Forge God's Wrath
+        icon: {fileID: 21300000, guid: c22bda8e4471b44c898089214ba8c903, type: 3}
+    - rid: 4323044117240122021
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 7436311061350229817, guid: 109d97cbe2a2df8469b92e79db0f3866, type: 3}
+        scale: 1

@@ -75,6 +75,7 @@ MonoBehaviour:
         - rid: 7707884639552274977
         - rid: 7401433128868512212
         - rid: 7150943289421332713
+        - rid: 3390401522998813997
         - rid: 7150943289421332714
         weight: 0
     - rid: 7401433128868512212
@@ -95,3 +96,10 @@ MonoBehaviour:
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
+    - rid: 3390401522998813997
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 7436311061350229817, guid: 109d97cbe2a2df8469b92e79db0f3866, type: 3}
+        scale: 1

@@ -181,6 +181,7 @@ MonoBehaviour:
         - rid: 6567162444329517089
         - rid: 6567162444329517090
         - rid: 6567162444329517092
+        - rid: 3483368626584951072
         - rid: 6567162444329517093
         weight: 0
     - rid: 6567162444329517089
@@ -229,3 +230,10 @@ MonoBehaviour:
           toFxExperience: end
         vePositionMappingList: []
         veMappingList: []
+    - rid: 3483368626584951072
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 2482105388608096720, guid: c0f016f2a98701241b1fbda8b3b1e4c2, type: 3}
+        scale: 1

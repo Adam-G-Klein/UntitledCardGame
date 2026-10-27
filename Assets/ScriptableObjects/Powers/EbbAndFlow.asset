@@ -42,6 +42,7 @@ MonoBehaviour:
         - rid: 2511001254715195658
         - rid: 2511001254715195656
         - rid: 2511001254715195660
+        - rid: 1700682198445196042
         - rid: 2511001254715195659
         - rid: 2511001254715195662
         weight: 0
@@ -118,3 +119,9 @@ MonoBehaviour:
       data:
         empty: 1
         lines: []
+    - rid: 1700682198445196042
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: Ebb and Flow
+        icon: {fileID: 21300000, guid: 8c16952da6b2cfa4181be941e4a49469, type: 3}

@@ -45,17 +45,19 @@ MonoBehaviour:
         effectStepName: InstantiatePrefab
         inputKey: target
         prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
-        scale: 1.5
+        scale: 1
     - rid: 5602892561590779943
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 5602892561590779944
         - rid: 8034950120506655438
+        - rid: 1295162167002303596
+        - rid: 1274772082283774706
+        - rid: 1700682185020014659
         - rid: 8034950120506655439
         - rid: 8034950120506655440
         - rid: 8034950120506655441
-        - rid: 1274772082283774706
     - rid: 5602892561590779944
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -113,3 +115,15 @@ MonoBehaviour:
         effect: 2
         cardToTransformInto: {fileID: 0}
         outputKey: 
+    - rid: 1295162167002303596
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 7436311061350229817, guid: 109d97cbe2a2df8469b92e79db0f3866, type: 3}
+        scale: 1
+    - rid: 1700682185020014659
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.5

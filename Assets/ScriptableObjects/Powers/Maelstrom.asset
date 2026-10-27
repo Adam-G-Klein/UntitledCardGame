@@ -38,6 +38,7 @@ MonoBehaviour:
         abilityTrigger: 7
         effectSteps:
         - rid: 754093871974056663
+        - rid: 1700682198445196049
         - rid: 2511000990761353347
         weight: 0
     - rid: 754093871974056663
@@ -70,3 +71,9 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 1320532642761013391, guid: 4847f21b038e1aa42bceefe5c97ab1ab, type: 3}
+    - rid: 1700682198445196049
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: Maelstrom
+        icon: {fileID: 21300000, guid: 5f4a5816818fe0841957c1e340e8a570, type: 3}

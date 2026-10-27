@@ -111,6 +111,8 @@ public class ShopViewController : MonoBehaviour,
     [Header("Misc")]
     [SerializeField] private GameObject companionOnTeamVFX;
     [SerializeField] private GameObject companionWouldBeUpgradedVFX;
+    [Tooltip("Sheen laid over premium (deluxe) card envelopes. Authored 1x1 world unit; scaled to the envelope. Leave empty for none.")]
+    [SerializeField] private GameObject premiumEnvelopeVFX;
     private bool suppressCompanionShineVFX = false;
 
     private IEnumerator notEnoughMoneyCoroutine;
@@ -747,6 +749,8 @@ public class ShopViewController : MonoBehaviour,
         LTSeq sequence = LeanTween.sequence();
         float height = -100f;
         MusicController.Instance.PlaySFX("event:/MX/MX_CompanionUpgradeStinger");
+        // star level-up effect, timed to this animation: peaks on the swap (1.5s), done by the thud
+        shopManager.UpgradeLevelVFX(visualElement, companion.companionType.level);
         // raise up
         LeanTween.value(0f, 1f, 1.5f)
             .setEase(LeanTweenType.easeOutSine)
@@ -1162,10 +1166,34 @@ public class ShopViewController : MonoBehaviour,
             ShopItemVFX itemVfx = new ShopItemVFX(vfx, isUpgrade);
             companionItemToViewMap[companion].shopItemElement.SetUserData<ShopItemVFX>(itemVfx);
         }
+
+        AddPremiumEnvelopeVFX();
+    }
+
+    // Lays the sheen over each premium envelope in the shop, kept to the envelope's size on screen
+    // (including its hover/focus scale).
+    private void AddPremiumEnvelopeVFX() {
+        if (premiumEnvelopeVFX == null) return;
+        foreach (KeyValuePair<BoosterPackInShopWithPrice, ShopItemView> kvp in boosterPackItemToViewMap) {
+            if (!IsPremiumEnvelope(kvp.Key.boosterPack)) continue;
+            VisualElement itemElement = kvp.Value.shopItemElement;
+            if (itemElement.HasUserData<ShopItemVFX>()) continue;
+
+            VisualElement envelope = itemElement.Q(className: "booster-pack-container") ?? itemElement;
+            GameObject vfx = Instantiate(premiumEnvelopeVFX);
+            vfx.AddComponent<FollowVisualElementBounds>().Follow(envelope);
+            itemElement.SetUserData<ShopItemVFX>(new ShopItemVFX(vfx, false));
+        }
+    }
+
+    private static bool IsPremiumEnvelope(BoosterPack boosterPack) {
+        return boosterPack != null
+            && (boosterPack.boosterType == BoosterPack.BoosterPackType.PackDeluxeBooster
+                || boosterPack.boosterType == BoosterPack.BoosterPackType.UpgradedPackDeluxeBooster);
     }
 
     private void RemoveAllCompanionShineVFX() {
-        foreach (ShopItemView itemView in companionItemToViewMap.Values) {
+        foreach (ShopItemView itemView in companionItemToViewMap.Values.Concat(boosterPackItemToViewMap.Values)) {
             if (itemView.shopItemElement.HasUserData<ShopItemVFX>()) {
                 GameObject vfxGO = itemView.shopItemElement.GetUserData<ShopItemVFX>().vfxGO;
                 itemView.shopItemElement.ClearUserData<ShopItemVFX>();
@@ -2392,6 +2420,8 @@ public class ShopViewController : MonoBehaviour,
 
         shopItemView.shopItemElement.Clear();
 
+        // drop this envelope's sheen before it leaves the map the shine cleanup walks
+        RemoveCompanionShineVFX(shopItemView);
         boosterPackItemToViewMap.Remove(boosterPack);
 
         EnableDraftingHelp();

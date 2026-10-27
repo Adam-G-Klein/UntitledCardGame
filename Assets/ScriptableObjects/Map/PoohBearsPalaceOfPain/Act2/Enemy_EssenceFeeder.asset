@@ -76,6 +76,7 @@ MonoBehaviour:
         - rid: 205828126246961461
         - rid: 205828126246961463
         - rid: 205828126246961464
+        - rid: 1700682198445196023
         - rid: 205828126246961465
         - rid: 205828126246961466
         - rid: 8034949928137261285
@@ -205,3 +206,9 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+    - rid: 1700682198445196023
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}

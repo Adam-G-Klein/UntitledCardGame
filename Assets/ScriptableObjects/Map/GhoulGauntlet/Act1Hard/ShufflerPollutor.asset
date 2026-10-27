@@ -31,6 +31,7 @@ MonoBehaviour:
       effectSteps:
       - rid: 5280922829633618003
       - rid: 4463205916933358110
+      - rid: 395277623551256203
       - rid: 5280922829633618002
     behaviorType: 0
   belowHalfHPEnemyPattern:
@@ -118,3 +119,10 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 0}
+    - rid: 395277623551256203
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 5466705246177039183, guid: 1a8f1abab5093804688a9fb55d6d4f27, type: 3}
+        scale: 1

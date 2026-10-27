@@ -108,7 +108,10 @@ MonoBehaviour:
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
+        - rid: 1700682198445195773
         - rid: 4463205916933357570
+        - rid: 1700682198445195771
+        - rid: 1700682198445195772
         - rid: 7401433308100034878
         - rid: 8034949928137261274
         - rid: 7082891488814170849
@@ -166,7 +169,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
+        vfxPrefab: {fileID: 0}
     - rid: 8034949928137261274
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -202,3 +205,37 @@ MonoBehaviour:
         effectStepName: EndWorkflowIfConditionMet
         inputKey1: lessThan1
         conditionToEndOn: 0
+    - rid: 1700682198445195771
+      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FXEffectStep
+        waitForEffect: 0
+        fXExperiencePrefab: {fileID: 3842050353916743118, guid: 8d7af9463aef94e4b9ff95b2629b4600, type: 3}
+        rootLocationGameObjectKey: 
+        positionMappingList:
+        - fromWorkflow: shooter
+          toFxExperience: self
+        - fromWorkflow: enemy
+          toFxExperience: target
+        gameobjectMappingList: []
+        vePositionMappingList: []
+        veMappingList: []
+    - rid: 1700682198445195772
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.16
+    - rid: 1700682198445195773
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: shooter
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0

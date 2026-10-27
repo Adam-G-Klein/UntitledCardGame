@@ -96,12 +96,17 @@ MonoBehaviour:
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
+        - rid: 1700682198445195770
         - rid: 4463205916933357570
+        - rid: 1700682198445195768
+        - rid: 1700682198445195769
         - rid: 7401433308100034878
         - rid: 8034949928137261274
         - rid: 8034949928137261275
         - rid: 8034949928137261276
         - rid: 8034949928137261277
+        - rid: 1700682198445195766
+        - rid: 1700682198445195767
         - rid: 5633447986213158970
     - rid: 5633447986213158970
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
@@ -115,7 +120,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
+        vfxPrefab: {fileID: 0}
     - rid: 7401433308100034878
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -128,7 +133,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
+        vfxPrefab: {fileID: 0}
     - rid: 8034949928137261274
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -165,3 +170,57 @@ MonoBehaviour:
         effectStepName: EndWorkflowIfConditionMet
         inputKey1: lessThan3
         conditionToEndOn: 0
+    - rid: 1700682198445195766
+      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FXEffectStep
+        waitForEffect: 0
+        fXExperiencePrefab: {fileID: 6722141530795459777, guid: 9f89899361a1e4c48ae5e3a71f981f43, type: 3}
+        rootLocationGameObjectKey: 
+        positionMappingList:
+        - fromWorkflow: shooter
+          toFxExperience: self
+        - fromWorkflow: enemy
+          toFxExperience: target
+        gameobjectMappingList: []
+        vePositionMappingList: []
+        veMappingList: []
+    - rid: 1700682198445195767
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.16
+    - rid: 1700682198445195768
+      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FXEffectStep
+        waitForEffect: 0
+        fXExperiencePrefab: {fileID: 7970021797073058691, guid: a490456a6514973459446421c991abfb, type: 3}
+        rootLocationGameObjectKey: 
+        positionMappingList:
+        - fromWorkflow: shooter
+          toFxExperience: self
+        - fromWorkflow: enemy
+          toFxExperience: target
+        gameobjectMappingList: []
+        vePositionMappingList: []
+        veMappingList: []
+    - rid: 1700682198445195769
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.16
+    - rid: 1700682198445195770
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: shooter
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0

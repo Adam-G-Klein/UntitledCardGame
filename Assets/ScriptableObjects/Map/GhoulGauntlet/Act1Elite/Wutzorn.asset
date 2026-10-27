@@ -153,6 +153,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 8790164513324270204
         - rid: 8790164513324270166
+        - rid: 1700682198445196013
         - rid: 8790164513324270167
     - rid: 8790164513324270166
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -180,3 +181,9 @@ MonoBehaviour:
       data:
         effectStepName: EndWorkflowIfNoMapElement
         keyToCheck: damagedEnemy
+    - rid: 1700682198445196013
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}

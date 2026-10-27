@@ -62,6 +62,7 @@ MonoBehaviour:
         abilityTrigger: 14
         effectSteps:
         - rid: 8790164555430887928
+        - rid: 1700682198445196019
         - rid: 8790164580739055616
         - rid: 8790164580739055617
     - rid: 8790164555430887928
@@ -139,7 +140,7 @@ MonoBehaviour:
       data:
         effectStepName: InstantiatePrefab
         inputKey: self
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
+        prefabToInstantiate: {fileID: 2620088698237070065, guid: 1e45bd8777e328c4898ce50d5a1df398, type: 3}
         scale: 1
     - rid: 8790164580739055825
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
@@ -148,3 +149,9 @@ MonoBehaviour:
         inputKey: self
         prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
         scale: 1
+    - rid: 1700682198445196019
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}

@@ -304,12 +304,16 @@ public class EnemyInstance : MonoBehaviour, IUIEntity
 
     private IEnumerable ClearBlock()
     {
+        if (combatInstance.GetStatus(StatusEffectType.Defended) > 0)
+            combatInstance.SpawnBlockExpireVfx();
         combatInstance.SetStatusEffect(StatusEffectType.Defended, 0);
         yield return null;
     }
 
     private IEnumerable ClearTemporaryStrength()
     {
+        if (combatInstance.GetStatus(StatusEffectType.TemporaryStrength) > 0)
+            CombatEntityManager.Instance.SpawnStatusVfx(combatInstance, CombatEntityManager.Instance.encounterConstants.temporaryStrengthExpireVFX);
         combatInstance.SetStatusEffect(StatusEffectType.TemporaryStrength, 0);
         yield return null;
     }

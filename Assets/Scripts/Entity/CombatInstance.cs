@@ -244,6 +244,7 @@ public class CombatInstance : MonoBehaviour
                 }
                 if (shouldShake) AddShake(damageTaken);
                 if (damageTaken > 0) EnemyEncounterManager.Instance.DamageIndicator(this, damageTaken);
+                CombatEntityManager.Instance.PlayHitWeight(this, effector, damageTaken);
                 break;
             case CombatEffect.Heal:
                 MusicController.Instance.PlaySFX("event:/SFX/SFX_PositiveEffect");
@@ -278,7 +279,14 @@ public class CombatInstance : MonoBehaviour
             Debug.Log("TakeDamage called with 'killed=true'; this can habit on multihit moves, returning early.");
             return 0;
         }
+        int blockBefore = statusEffects[StatusEffectType.Defended];
         int damageAfterDefense = DamageAfterDefense(combatEffect, damage);
+        if (blockBefore > statusEffects[StatusEffectType.Defended]) {
+            EncounterConstantsSO constants = CombatEntityManager.Instance.encounterConstants;
+            CombatEntityManager.Instance.SpawnStatusVfx(this,
+                statusEffects[StatusEffectType.Defended] == 0 ? constants.blockBreakVFX : constants.blockAbsorbVFX);
+            lastBlockHitVfxTime = Time.time;
+        }
 
         if (damageAfterDefense > 0) {
             // If there are on-damage effects from companion abilities,
@@ -374,6 +382,8 @@ public class CombatInstance : MonoBehaviour
         {
             MusicController.Instance.PlaySFX("event:/VO/VO_CompanionDeathMedium");
         }
+        // slow-mo with the death VFX itself; OnDeath waits for the card effect to finish first
+        CombatEntityManager.Instance.PlayLastKillIfFinalEnemy(this);
         CombatEntityManager.Instance.SpawnEntityOnDeathVfx(this);
         if (destroyOnDeath) Destroy(this.gameObject);
         yield return null;
@@ -391,6 +401,7 @@ public class CombatInstance : MonoBehaviour
         if (statusEffects[StatusEffectType.MoneyOnDeath] > 0) {
             PlayerData playerData = EnemyEncounterManager.Instance.gameState.playerData.GetValue();
             playerData.gold += statusEffects[StatusEffectType.MoneyOnDeath];
+            CombatEntityManager.Instance.SpawnStatusVfx(this, CombatEntityManager.Instance.encounterConstants.moneyOnDeathVFX);
         }
         UpdateView();
     }
@@ -477,6 +488,7 @@ public class CombatInstance : MonoBehaviour
     }
 
     private void UpdateStatusEffect(StatusEffectType status) {
+        int before = statusEffects[status];
         switch (status)
         {
             case StatusEffectType.Defended:
@@ -492,6 +504,8 @@ public class CombatInstance : MonoBehaviour
                 {
                     statusEffects[status] = 0;
                 }
+                if (before > 0 && statusEffects[status] == 0)
+                    SpawnBlockExpireVfx();
                 break;
             case StatusEffectType.MaxBlockToLoseAtEndOfTurn:
                 statusEffects[status] = -1;
@@ -504,6 +518,8 @@ public class CombatInstance : MonoBehaviour
                 break;
             case StatusEffectType.TemporaryStrength:
                 statusEffects[status] = 0;
+                if (before > 0)
+                    CombatEntityManager.Instance.SpawnStatusVfx(this, CombatEntityManager.Instance.encounterConstants.temporaryStrengthExpireVFX);
                 break;
             case StatusEffectType.Invulnerability:
                 statusEffects[status] = 0;
@@ -569,6 +585,17 @@ public class CombatInstance : MonoBehaviour
 
     private void AddShake(int damageTaken) {
         onDamageHandler.Invoke(damageTaken);
+    }
+
+    // Leftover block can be cleared right after a hit soaked into it (companion block clears as the
+    // player's turn starts, straight after the enemy attack). Skip the expire VFX then, so it doesn't
+    // stack on the absorb/break VFX that's still playing.
+    private float lastBlockHitVfxTime = -10f;
+    private const float BlockExpireSkipWindow = 0.6f;
+
+    public void SpawnBlockExpireVfx() {
+        if (Time.time - lastBlockHitVfxTime < BlockExpireSkipWindow) return;
+        CombatEntityManager.Instance.SpawnStatusVfx(this, CombatEntityManager.Instance.encounterConstants.blockExpireVFX);
     }
 
     private void UpdateView() {

@@ -57,6 +57,8 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 3931529445166809456
+        - rid: 3780421103657473226
+        - rid: 1700682185020014661
         - rid: 3931529445166809457
         - rid: 3931529445166809458
         - rid: 3931529445166809459
@@ -137,3 +139,15 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
+    - rid: 1700682185020014661
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.5
+    - rid: 3780421103657473226
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 98836261379580132, guid: a041841b3ef3cd143989ca9ee38a85d7, type: 3}
+        scale: 1

@@ -64,6 +64,7 @@ MonoBehaviour:
         - rid: 205828126246961458
         - rid: 205828126246961460
         - rid: 205828126246961461
+        - rid: 1700682198445196014
         - rid: 205828126246961462
         - rid: 205828126246961463
         - rid: 205828126246961464
@@ -229,3 +230,9 @@ MonoBehaviour:
         gameobjectMappingList:
         - fromWorkflow: self
           toFxExperience: enemy
+    - rid: 1700682198445196014
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}

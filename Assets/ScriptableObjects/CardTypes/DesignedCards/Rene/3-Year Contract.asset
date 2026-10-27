@@ -57,6 +57,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 3931529445166809456
         - rid: 1488501494564519949
+        - rid: 4340149115603030006
         - rid: 3931529445166809457
         - rid: 3931529445166809458
         - rid: 3931529445166809459
@@ -104,3 +105,10 @@ MonoBehaviour:
         effect: 2
         cardToTransformInto: {fileID: 0}
         outputKey: 
+    - rid: 4340149115603030006
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 7436311061350229817, guid: 109d97cbe2a2df8469b92e79db0f3866, type: 3}
+        scale: 1

@@ -1000,6 +1000,8 @@ MonoBehaviour:
   healPrefab: {fileID: 0}
   sparklePrefab: {fileID: 0}
   bigSparklePrefab: {fileID: 0}
+  upgradeTwoStarPrefab: {fileID: 2729960547564495472, guid: c7add761d08ebf345b024295f1b24f7f, type: 3}
+  upgradeThreeStarPrefab: {fileID: 2729960547564495472, guid: fcab9fd239700b840be98fb43960f2a0, type: 3}
   shopTutorialDisplay: {fileID: 0}
   tooltipPrefab: {fileID: 6007338781981315851, guid: fb50e2e263898e24cbb2b01b146179b6, type: 3}
 --- !u!114 &730168205578750882
@@ -1179,6 +1181,7 @@ MonoBehaviour:
   rerollTimeBetweenItems: 0.1
   companionOnTeamVFX: {fileID: 0}
   companionWouldBeUpgradedVFX: {fileID: 0}
+  premiumEnvelopeVFX: {fileID: 3628846811363785795, guid: 0a1864a3488b04c488a7bb8f396adcf8, type: 3}
   isBuyingDisabled: 0
   tutorialShopUIDoc: {fileID: 9197481963319205126, guid: eb992eec49264d0bb49fdecebef35d56, type: 3}
   normalShopUIDoc: {fileID: 9197481963319205126, guid: fe978814c803d5e4b90046d64a349880, type: 3}
@@ -1694,6 +1697,7 @@ GameObject:
   - component: {fileID: 270181158933858068}
   - component: {fileID: 771166422343963965}
   - component: {fileID: 7563074980695544724}
+  - component: {fileID: 5033842814724420900}
   m_Layer: 5
   m_Name: ShopCanvas
   m_TagString: Untagged
@@ -1753,8 +1757,8 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -1746327665
+  m_SortingOrder: 5
   m_TargetDisplay: 0
 --- !u!114 &771166422343963965
 MonoBehaviour:
@@ -2876,3 +2880,16 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 271131787034329511, guid: ca8ac3afee1caca46b523947423b4816, type: 3}
   m_PrefabInstance: {fileID: 4623105776190909312}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5033842814724420900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6649195418733374106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14be52fc48f4ef64eab71ef6198854b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 270181158933858068}

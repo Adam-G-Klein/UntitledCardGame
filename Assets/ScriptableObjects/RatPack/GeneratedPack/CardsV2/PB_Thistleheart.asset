@@ -60,6 +60,7 @@ MonoBehaviour:
         - rid: 7150943289421332672
         - rid: 7150943289421332673
         - rid: 1289961959942521120
+        - rid: 1700682291002736688
         - rid: 1289961959942521121
     - rid: 1289961959942521118
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -126,3 +127,8 @@ MonoBehaviour:
         effectStepName: CountStep
         inputKey: charms
         outputKey: numCharms
+    - rid: 1700682291002736688
+      type: {class: CardTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardTriggeredVFX
+        vfxPrefab: {fileID: 3402153693038389984, guid: a3b6b31a75a68b1498be5837432eabd6, type: 3}

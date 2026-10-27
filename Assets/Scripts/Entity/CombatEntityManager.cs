@@ -236,6 +236,42 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
         }
     }
 
+    // Status moments that have no card of their own to play VFX (block soaking or breaking, statuses
+    // wearing off, payouts). Prefabs come from the encounter constants; an empty slot plays nothing.
+    public void SpawnStatusVfx(CombatInstance combatInstance, GameObject vfxPrefab)
+    {
+        if (vfxPrefab == null || combatInstance == null) return;
+        Instantiate(vfxPrefab, combatInstance.transform.position, Quaternion.identity);
+    }
+
+    // Extra weight for big hits, on top of the hit's own VFX: an impact layer, screen shake and a
+    // short hit-stop, tiered by the damage actually dealt. Self-inflicted damage (costs, burn) is skipped.
+    public void PlayHitWeight(CombatInstance target, CombatInstance attacker, int damageDealt)
+    {
+        if (target == null || attacker == null || attacker == target) return;
+        bool massive = damageDealt >= encounterConstants.massiveHitDamage;
+        bool heavy = massive || damageDealt >= encounterConstants.heavyHitDamage;
+        if (!heavy) return;
+
+        GameObject vfx = massive ? encounterConstants.massiveHitVFX : encounterConstants.heavyHitVFX;
+        if (vfx != null) Instantiate(vfx, target.transform.position, Quaternion.identity);
+        ScreenShakeManager.Instance.ShakeWithForce(massive ? encounterConstants.massiveHitShake : encounterConstants.heavyHitShake);
+        if (encounterConstants.useHitStop)
+            HitStop.Freeze(massive ? encounterConstants.massiveHitStop : encounterConstants.heavyHitStop);
+    }
+
+    // A short slow-mo when the blow that ends the fight lands.
+    public void PlayLastKillIfFinalEnemy(CombatInstance killed)
+    {
+        if (!encounterConstants.useLastKillSlowMo || killed == null) return;
+        if (!killed.TryGetComponent<EnemyInstance>(out EnemyInstance killedEnemy)) return;
+        foreach (EnemyInstance enemy in enemies)
+        {
+            if (enemy != null && enemy != killedEnemy && enemy.combatInstance.combatStats.getCurrentHealth() > 0) return;
+        }
+        HitStop.SlowMo(encounterConstants.lastKillSlowMoTime, encounterConstants.lastKillSlowMoScale);
+    }
+
     public IEnumerator ReviveCompanions(List<Companion> companionsToRevive, GameObject vfxPrefab, float waitTime)
     {
         foreach (Companion companion in companionsToRevive)

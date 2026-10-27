@@ -70,6 +70,7 @@ MonoBehaviour:
         - rid: 5602893017534169564
         - rid: 5602893017534169565
         - rid: 5602893017534169566
+        - rid: 1700682291002736692
         - rid: 5602893017534169567
         - rid: 1274772082283774711
         - rid: 5280922841426165948
@@ -125,4 +126,10 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 0}
+        vfxPrefab: {fileID: 1320532642761013391, guid: f2880129efe84e249b6550440c43546b, type: 3}
+    - rid: 1700682291002736692
+      type: {class: CardsChangedVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardsChangedVFX
+        inputKey: otherCards
+        vfxPrefab: {fileID: 1872837941943473356, guid: c1728413e5bf48543b46f1ce54f452c5, type: 3}

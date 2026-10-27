@@ -40,6 +40,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 754093991137640773
         - rid: 2511000960759496707
+        - rid: 4768239377739079786
         - rid: 7150943403050008623
         - rid: 7150943403050008622
         weight: 0
@@ -77,6 +78,8 @@ MonoBehaviour:
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
+        icon: {fileID: 21300000, guid: fccdd43ca64c8644fa54c06ab327bdd3, type: 3}
+        label: Eternal Flame
     - rid: 7150943403050008623
       type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
       data:
@@ -88,3 +91,10 @@ MonoBehaviour:
         getScaleFromKey: 0
         scaleKey: 
         modification: 0
+    - rid: 4768239377739079786
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 7436311061350229817, guid: 109d97cbe2a2df8469b92e79db0f3866, type: 3}
+        scale: 1

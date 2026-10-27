@@ -671,6 +671,17 @@ public class CompanionView : IUIEventReceiver
         yield return EntityAbilityInstance.GenericAbilityTriggeredVFX(this.spriteElement, spriteCopy);
     }
 
+    // Names what just triggered over this rat: a relic passes its own title and icon; without one it's the
+    // rat's own passive (its keepsake title, or its name).
+    public IEnumerator AbilityTriggeredBadge(string label, Sprite icon) {
+        CompanionTypeSO type = this.companion.companionType;
+        if (string.IsNullOrEmpty(label)) {
+            label = !string.IsNullOrEmpty(type.keepsakeTitle) ? type.keepsakeTitle : type.companionName;
+            if (icon == null) icon = type.icon;
+        }
+        yield return AbilityTriggerBadge.Show(this.spriteElement, icon, label, this.statusArea);
+    }
+
     public IEnumerator ShuffleDiscardIntoDrawVFX(int cardsShuffled) {
         Vector2 start = GetElementCenterInParentSpace(discardPileIcon, container);
         Vector2 end = GetElementCenterInParentSpace(drawPileIcon, container);

@@ -40,6 +40,7 @@ MonoBehaviour:
         - rid: 2511001254715195777
         - rid: 2511001254715195857
         - rid: 2511001254715195858
+        - rid: 1700682198445196055
         - rid: 2511001254715195778
         - rid: 2511001254715195779
         weight: 0
@@ -66,7 +67,7 @@ MonoBehaviour:
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: healedCompanion
+        inputKey: self
         prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
         scale: 1
     - rid: 2511001254715195857
@@ -95,3 +96,9 @@ MonoBehaviour:
       data:
         empty: 1
         lines: []
+    - rid: 1700682198445196055
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: Rejuvenation
+        icon: {fileID: 21300000, guid: 8b7f45e259d8a914ca69c92891ca4bf1, type: 3}

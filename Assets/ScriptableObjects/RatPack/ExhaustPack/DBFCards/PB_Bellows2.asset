@@ -73,14 +73,7 @@ MonoBehaviour:
       data:
         effectStepName: InstantiatePrefab
         inputKey: targetCompanion
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
-        scale: 1.5
-    - rid: 1274772082283774362
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: cardToExhaust
-        prefabToInstantiate: {fileID: 7939549763701254822, guid: e84fb44c2a5a75e49a192002a9096046, type: 3}
+        prefabToInstantiate: {fileID: 9028122300360462519, guid: 9a51d49c5066ce74cb95e42b96240249, type: 3}
         scale: 1
     - rid: 2116895648763871336
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
@@ -91,7 +84,6 @@ MonoBehaviour:
         - rid: 1274772082283774361
         - rid: 9024302470308298797
         - rid: 9024302470308298800
-        - rid: 1274772082283774362
         - rid: 9024302470308298799
     - rid: 9024302470308298797
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}

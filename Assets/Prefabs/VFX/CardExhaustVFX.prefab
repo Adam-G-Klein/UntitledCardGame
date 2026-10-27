@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 282977433353908299}
   - component: {fileID: 8416405502557960418}
   - component: {fileID: 1619176934813133329}
+  - component: {fileID: 8283374340654527136}
   m_Layer: 0
   m_Name: CardExhaustVFX
   m_TagString: Untagged
@@ -73,6 +74,19 @@ MonoBehaviour:
   playableDirector: {fileID: 8416405502557960418}
   locations: []
   veMappings: []
+--- !u!114 &8283374340654527136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6841246063235012224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4781a0dd6ca664848a4ead5855316535, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeTexture: {fileID: 2800000, guid: 79510919aa73bdf40beff4c7a9322b2b, type: 3}
 --- !u!1001 &4821561247416451286
 PrefabInstance:
   m_ObjectHideFlags: 0

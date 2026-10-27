@@ -55,6 +55,7 @@ MonoBehaviour:
         abilityTrigger: 0
         effectSteps:
         - rid: 205827988172308705
+        - rid: 1700682198445195963
         - rid: 205827988172308706
         - rid: 205827988172308707
     - rid: 205827988172308705
@@ -100,3 +101,9 @@ MonoBehaviour:
         effectStepName: DialogueStep
         line: Bidoof now has the strength of 4 Bidoofs!
         lineTime: 3
+    - rid: 1700682198445195963
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}

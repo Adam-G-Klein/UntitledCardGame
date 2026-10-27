@@ -50,6 +50,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 7082891692335694167
         - rid: 5602892533381726228
+        - rid: 1700682309101420550
         - rid: 7150943403050008624
     - rid: 5602892533381726228
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
@@ -89,3 +90,10 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 3850217184923880746, guid: 604f6efaa1e828d4bacfc84a25dfbd7a, type: 3}
+    - rid: 1700682309101420550
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
+        scale: 1

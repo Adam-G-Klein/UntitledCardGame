@@ -53,6 +53,8 @@ MonoBehaviour:
         effectSteps:
         - rid: 5602892723852673314
         - rid: 5602892723852673315
+        - rid: 3829773090659657548
+        - rid: 5986105388908715011
         - rid: 5602892723852673316
     - rid: 5602892723852673314
       type: {class: QuantityOfCardTypePlayedThisTurn, ns: , asm: Assembly-CSharp}
@@ -87,3 +89,15 @@ MonoBehaviour:
         getMultiplicityFromKey: 1
         inputMultiplicityKey: numAttacksPlayed
         vfxPrefab: {fileID: 1320532642761013391, guid: 4847f21b038e1aa42bceefe5c97ab1ab, type: 3}
+    - rid: 3829773090659657548
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: enemy
+        prefabToInstantiate: {fileID: 1320532642761013391, guid: 2c2e40260edec1f4aad8975773f3c2dd, type: 3}
+        scale: 1
+    - rid: 5986105388908715011
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.5

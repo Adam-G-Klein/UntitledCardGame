@@ -148,8 +148,25 @@ MonoBehaviour:
   enemyPrefab: {fileID: 1818299386461833425, guid: 34d1fb5b688453b4a919a06abb42f422, type: 3}
   SmokeAndArmsBossPrefab: {fileID: 1818299386461833425, guid: a99d3923036e772438f69e7c8b5fba7a, type: 3}
   cardPrefab: {fileID: 2953694679348611399, guid: 8054bb662069f4b18b9d1e4d99a9215e, type: 3}
-  companionDeathPrefab: {fileID: 8951890979739316548, guid: 8f3e57ef6a6132f41b32f01797dd5c1d, type: 3}
-  enemyDeathPrefab: {fileID: 8951890979739316548, guid: 0ffc05750d6ba26408fbf4b4226fcbed, type: 3}
-  companionRevivePrefab: {fileID: 3850217184923880746, guid: 604f6efaa1e828d4bacfc84a25dfbd7a, type: 3}
+  companionDeathPrefab: {fileID: 8219072781149469958, guid: f021d1ef7c564354e8c033a7246f4a47, type: 3}
+  enemyDeathPrefab: {fileID: 2914638496314358092, guid: ca68473e60271a8489f0139bac44b5e1, type: 3}
+  companionRevivePrefab: {fileID: 748962699175436874, guid: e32f9c50b534e0a4499e0328f62dcf60, type: 3}
   companionViewTemplate: {fileID: 9197481963319205126, guid: 8e3e49aec6740ff40b77016be06d711a, type: 3}
   companionManagementViewTemplate: {fileID: 9197481963319205126, guid: 9e42a3de37ad1e5459462df38bdffddd, type: 3}
+  blockAbsorbVFX: {fileID: 6154584777641070920, guid: 950eef25cece2ac418ce3bb34d0dbd5c, type: 3}
+  blockBreakVFX: {fileID: 6563513327840888072, guid: 51e7203cbbfb8c84fb9e700553a33e66, type: 3}
+  blockExpireVFX: {fileID: 1995435317451201187, guid: 7706309436588264b80ff902775a051e, type: 3}
+  temporaryStrengthExpireVFX: {fileID: 7166213755515137498, guid: f8dae2e855a0e574fa62ec43af4a0ad7, type: 3}
+  moneyOnDeathVFX: {fileID: 2729960547564495472, guid: 00a32241486477143a2bdaa446871bb8, type: 3}
+  heavyHitDamage: 8
+  massiveHitDamage: 15
+  heavyHitVFX: {fileID: 6252106911550278670, guid: 2781f08f4237fc841b6ec21022b507e0, type: 3}
+  massiveHitVFX: {fileID: 411611013252260325, guid: 653561517b56ddc43bebff8cdae1b692, type: 3}
+  heavyHitShake: 0.15
+  massiveHitShake: 0.3
+  useHitStop: 1
+  heavyHitStop: 0.05
+  massiveHitStop: 0.09
+  useLastKillSlowMo: 1
+  lastKillSlowMoScale: 0.3
+  lastKillSlowMoTime: 0.6

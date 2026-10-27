@@ -78,10 +78,12 @@ MonoBehaviour:
         - rid: 8790164555430887929
         - rid: 8790164555430887930
         - rid: 8790164555430887931
+        - rid: 1700682198445196025
         - rid: 8790164555430888040
         - rid: 8790164555430887932
         - rid: 8790164555430887928
         - rid: 8790164555430887925
+        - rid: 7015984152568664743
         - rid: 8790164555430887927
     - rid: 8790164555430887925
       type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
@@ -206,3 +208,16 @@ MonoBehaviour:
         ints: 1
         strings: 1
         bools: 1
+    - rid: 1700682198445196025
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}
+    - rid: 7015984152568664743
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: companionCardPlayedFrom
+        prefabToInstantiate: {fileID: 5466705246177039183, guid: 1a8f1abab5093804688a9fb55d6d4f27, type: 3}
+        scale: 1

@@ -90,7 +90,9 @@ public class PrecastTrailController : MonoBehaviour
     // instance, and a trail prefab is assigned for that team.
     public static bool ShouldTrail(CombatInstance caster, CombatInstance target)
     {
-        if (Instance == null || caster == null || target == null) return false;
+        // A disabled/inactive controller can't run the trail coroutine, so treat it as
+        // "feature off" and let the caller spawn its VFX immediately instead.
+        if (Instance == null || !Instance.isActiveAndEnabled || caster == null || target == null) return false;
         if (caster == target) return false;
         if (caster.parentType != target.parentType) return false;
         return Instance.TrailPrefabFor(caster) != null;
@@ -102,7 +104,9 @@ public class PrecastTrailController : MonoBehaviour
     public void PlayTrailThenSpawn(CombatInstance caster, CombatInstance target, Action onArrival)
     {
         GameObject trailPrefab = TrailPrefabFor(caster);
-        if (trailPrefab == null || caster == null || target == null)
+        // StartCoroutine silently does nothing on an inactive object, which would drop the
+        // payload VFX on the floor - so fall back to spawning it straight away.
+        if (!isActiveAndEnabled || trailPrefab == null || caster == null || target == null)
         {
             onArrival?.Invoke();
             return;

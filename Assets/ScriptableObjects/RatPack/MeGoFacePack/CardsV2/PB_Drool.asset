@@ -66,6 +66,7 @@ MonoBehaviour:
         - rid: 7082891692335694195
         - rid: 7082891692335694196
         - rid: 7082891692335694198
+        - rid: 1700682291002736693
         - rid: 385751591190528744
         - rid: 385751591190528745
     - rid: 7082891692335694195
@@ -107,3 +108,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         scaleKey: 
         modification: 2
+    - rid: 1700682291002736693
+      type: {class: CardsChangedVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardsChangedVFX
+        inputKey: expensiveCards
+        vfxPrefab: {fileID: 1872837941943473356, guid: c1728413e5bf48543b46f1ce54f452c5, type: 3}

@@ -59,11 +59,14 @@ MonoBehaviour:
       data:
         abilityTrigger: 16
         effectSteps:
+        - rid: 1700682198445195785
         - rid: 7401433558763438181
         - rid: 754093826381185265
         - rid: 754093826381185266
         - rid: 754093826381185267
         - rid: 7401433059192471555
+        - rid: 1700682198445195783
+        - rid: 1700682198445195784
         - rid: 7401433059192471557
         - rid: 754093826381185268
         - rid: 754093826381185269
@@ -142,7 +145,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: 4847f21b038e1aa42bceefe5c97ab1ab, type: 3}
+        vfxPrefab: {fileID: 0}
     - rid: 7401433558763438181
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -150,6 +153,40 @@ MonoBehaviour:
         useInputToLimitOptions: 0
         inputKey: 
         outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
+    - rid: 1700682198445195783
+      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FXEffectStep
+        waitForEffect: 0
+        fXExperiencePrefab: {fileID: 3222610507665031230, guid: e6f935667f9df8e4686ad0f89aace3d3, type: 3}
+        rootLocationGameObjectKey: 
+        positionMappingList:
+        - fromWorkflow: shooter
+          toFxExperience: self
+        - fromWorkflow: randomEnemy
+          toFxExperience: target
+        gameobjectMappingList: []
+        vePositionMappingList: []
+        veMappingList: []
+    - rid: 1700682198445195784
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.16
+    - rid: 1700682198445195785
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: shooter
         validTargets: 
         number: 1
         specialTargetRule: 3

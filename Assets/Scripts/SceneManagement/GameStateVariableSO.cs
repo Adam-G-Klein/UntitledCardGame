@@ -280,7 +280,7 @@ public class GameStateVariableSO : ScriptableObject
             return;
         }
         if(locationToScene[currentLocation] != SceneManager.GetActiveScene().name) {
-            SceneTransitionManager.LoadScene(locationToScene[currentLocation], .5f);
+            SceneTransitionManager.LoadSceneWithReveal(locationToScene[currentLocation], .5f);
         }
     }
 

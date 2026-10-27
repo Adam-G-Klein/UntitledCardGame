@@ -173,6 +173,7 @@ MonoBehaviour:
         - rid: 6567162444329517062
         - rid: 6567162444329517064
         - rid: 6567162444329517061
+        - rid: 6358791851119600343
         - rid: 6567162444329517063
         weight: 0
     - rid: 6567162444329517061
@@ -237,3 +238,10 @@ MonoBehaviour:
         effectStepName: EndWorkflowIfConditionMet
         inputKey1: alreadyZero
         conditionToEndOn: 1
+    - rid: 6358791851119600343
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 2482105388608096720, guid: c0f016f2a98701241b1fbda8b3b1e4c2, type: 3}
+        scale: 1

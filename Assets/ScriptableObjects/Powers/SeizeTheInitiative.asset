@@ -46,6 +46,7 @@ MonoBehaviour:
         - rid: 754093991137641282
         - rid: 758316142852046939
         - rid: 754093991137641284
+        - rid: 1700682198445196058
         - rid: 754093991137641279
         - rid: 2511001254715195972
         - rid: 758316142852046940
@@ -122,3 +123,9 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+    - rid: 1700682198445196058
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: Seize the Initiative
+        icon: {fileID: 0}

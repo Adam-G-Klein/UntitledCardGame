@@ -54,6 +54,7 @@ MonoBehaviour:
         abilityTrigger: 13
         effectSteps:
         - rid: 205828032053379741
+        - rid: 1700682198445195959
         - rid: 205828032053379742
         - rid: 205828032053379743
         - rid: 8441470952357494967
@@ -82,7 +83,7 @@ MonoBehaviour:
       data:
         effectStepName: InstantiatePrefab
         inputKey: randomGuy
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        prefabToInstantiate: {fileID: 9028122300360462519, guid: 9a51d49c5066ce74cb95e42b96240249, type: 3}
         scale: 1
     - rid: 8441470952357494967
       type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
@@ -90,3 +91,9 @@ MonoBehaviour:
         effectStepName: DialogueStep
         line: o_o
         lineTime: 1
+    - rid: 1700682198445195959
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}
