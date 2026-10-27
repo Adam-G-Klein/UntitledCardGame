@@ -476,11 +476,18 @@ public class CombatInstance : MonoBehaviour
         }
     }
 
+    // Note this is <=
+    private bool BelowHalfHP()
+    {
+        float threshold = combatStats.maxHealth * 0.5f;
+        return combatStats.currentHealth <= threshold;
+    }
+
     private void UpdateStatusEffect(StatusEffectType status) {
         switch (status)
         {
             case StatusEffectType.Defended:
-                if (HasPower(PowerSO.PowerType.Barricade))
+                if (HasPower(PowerSO.PowerType.Unyielding) && BelowHalfHP())
                 {
                     break;
                 }

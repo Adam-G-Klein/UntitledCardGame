@@ -49,8 +49,8 @@ public class PowerSO : ScriptableObject
     public enum PowerType
     {
         None,
-        // Barricade: do not lose leftover Block end of turn
-        Barricade,
+        // Unyielding: do not lose leftover Block end of turn if below half HP
+        Unyielding,
         // DoubleDamage: all attacks played from this companion deal double damage
         DoubleDamage,
         // EveryAttackBlock: gain block each time you play an attack

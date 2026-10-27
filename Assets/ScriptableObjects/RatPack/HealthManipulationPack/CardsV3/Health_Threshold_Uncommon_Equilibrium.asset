@@ -10,12 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: PB_Equilibrium
+  m_Name: Health_Threshold_Uncommon_Equilibrium
   m_EditorClassIdentifier: 
   guid: 0a656fd0-f93a-4c85-8667-248d5a6b1a6c
   Name: Equilibrium
   Description: Exhaust. Set any to half HP x2 & draw 1 card from self
-  IconDescription: []
+  IconDescription:
+  - tokenType: 0
+    text: Exhaust
+    icon: 0
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 0
+    text: Set a rat to half HP x2
+    icon: 0
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 3
+  - tokenType: 2
+    text: 
+    icon: 11
   IconDescriptionTooltipLines: []
   defaultValues: []
   Cost: 1

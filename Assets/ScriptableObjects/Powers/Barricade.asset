@@ -13,18 +13,26 @@ MonoBehaviour:
   m_Name: Barricade
   m_EditorClassIdentifier: 
   powerType: 1
-  title: Salvaged Defense
-  description: This companion does not lose remaining block at the end of turn
+  title: Unyielding
+  description: Rats below half HP do not lose Block at the end of turn
   abilities: []
   displaySprite: {fileID: 21300000, guid: 4b398c458377645acb90057ab391c591, type: 3}
-  tooltip:
-    rid: 754093871974056656
+  extraTooltip:
+    rid: 8966137386555146498
   stackable: 0
+  cacheConfiguration:
+    key: 
+    display: 1
+    sprite: {fileID: 0}
+    startOfTurnValue: 0
+    setStartOfTurnValue: 0
+    startOfCombatValue: 0
+    setStartOfCombatValue: 0
   references:
     version: 2
     RefIds:
-    - rid: 754093871974056656
+    - rid: 8966137386555146498
       type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
       data:
-        empty: 0
+        empty: 1
         lines: []
