@@ -828,7 +828,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         if (card.card.cardType.cardCategory == CardCategory.Attack)
         {
             yield return StartCoroutine(onAttackCardCastDispatcher.Invoke(card).GetEnumerator());
-            MusicController.Instance.PlayCorrectAttackSound(card.card.cardType.Name);
+            // MusicController.Instance.PlayCorrectAttackSound(card.card.cardType.Name);
         }
     }
 

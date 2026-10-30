@@ -77,6 +77,15 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
                         immediateVfx,
                         i == 0,
                         i / 4.0f); // TODO, elevate this logic for ethan to tune
+                        PlayableCard originPlayableCard = document.map.TryGetItem<PlayableCard>(EffectDocument.ORIGIN, 0);
+                        if (originPlayableCard != null && originPlayableCard.card != null)
+                        {
+                            Card originCard = originPlayableCard.card;
+                            if (originCard.cardType.cardCategory == CardCategory.Attack)
+                            {
+                                MusicController.Instance.PlayCorrectAttackSound(originCard.cardType.Name);
+                            }
+                        }
 
                     if (trail && vfxPrefab != null)
                     {
