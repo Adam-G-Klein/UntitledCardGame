@@ -227,7 +227,7 @@ public class CombatInstance : MonoBehaviour
                 }
                 if (effector.GetComponent<CompanionInstance>() != null)
                 {
-                    MusicController.Instance.PlaySFX("event:/SFX/SFX_BasicAttack");
+                    // MusicController.Instance.PlaySFX("event:/SFX/SFX_BasicAttack");
                     MusicController.Instance.PlaySFX("event:/VO/Combat/Attacks/VO_CombatBarks_AttacksMedium");
                 }
                 else if (effector.GetComponent<EnemyInstance>() != null)

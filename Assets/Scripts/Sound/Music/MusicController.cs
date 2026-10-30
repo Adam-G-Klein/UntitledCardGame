@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using FMODUnity;
@@ -63,6 +64,29 @@ public class MusicController : GenericSingleton<MusicController>
             SceneManager.sceneLoaded -= OnSceneLoaded;
             Destroy(this.gameObject);
         }
+    }
+
+    public void PlayCorrectAttackSound(String cardName)
+    {
+        switch (cardName)
+        {
+            case "Pyrotechnics":
+                PlaySFX("event:/SFX/SFX_GreekFire");
+                break;
+            case "Greek Fire":
+                PlaySFX("event:/SFX/SFX_GreekFire");
+                break;
+            case "Detonate":
+                PlaySFX("event:/SFX/SFX_Detonate");
+                break;
+            case "Pew Pew":
+                PlaySFX("event:/SFX/SFX_Gunshot");
+                break;
+            default:
+                PlaySFX("event:/SFX/SFX_BasicAttack");
+                break;
+        }
+
     }
     
     public void PlayMusicLocation(Location location, Act act = Act.One)
