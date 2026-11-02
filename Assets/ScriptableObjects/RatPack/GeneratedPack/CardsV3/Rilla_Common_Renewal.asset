@@ -10,37 +10,48 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: Alder_Uncommon_ProphecyOfGiants
+  m_Name: Rilla_Common_Renewal
   m_EditorClassIdentifier: 
-  guid: 82d8a068-e75b-405b-b0b4-bb78c731e7d8
-  Name: Prophecy of Giants
+  guid: b74f59ba-a0ae-4b90-b737-e380bf62691a
+  Name: ...
   Description: 
   IconDescription:
   - tokenType: 0
-    text: Exhaust
+    text: Unplayable
     icon: 0
   - tokenType: 1
     text: 
     icon: 0
+  - tokenType: 2
+    text: 
+    icon: 16
   - tokenType: 0
-    text: Add a Byggshroom at the bottom of each rat's deck
-    icon: 0
+    text: ': '
+    icon: 16
+  - tokenType: 0
+    text: 
+    icon: 3
+  - tokenType: 2
+    text: 
+    icon: 3
+  - tokenType: 2
+    text: 
+    icon: 19
   IconDescriptionTooltipLines:
-  - 
-  - 
+  - This card is not playable
+  - When this card is exhausted, give block to all rats
   defaultValues: []
-  Cost: 1
-  Artwork: {fileID: 21300000, guid: fe5748b149e8b274ab967608681b48c4, type: 3}
-  cardCategory: 2
+  Cost: 0
+  Artwork: {fileID: 21300000, guid: 46c78f719703f154f896d900ed853b52, type: 3}
+  cardCategory: 4
   packFrom: {fileID: 11400000, guid: 0d12b03c0c8754470a900cb4f78a9217, type: 2}
   vfxPrefab: {fileID: 0}
-  playable: 1
-  exhaustsWhenPlayed: 1
+  playable: 0
+  exhaustsWhenPlayed: 0
   retain: 0
-  effectWorkflows:
-  - rid: 5602892561590779943
+  effectWorkflows: []
   onExhaustEffectWorkflow:
-    rid: -2
+    rid: 6567162351591620633
   onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
@@ -54,41 +65,40 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 1274772082283774706
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+    - rid: 3226456462082179072
+      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: InstantiatePrefab
-        inputKey: target
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
-        scale: 1.5
-    - rid: 2268261004812222481
-      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
+        effectStepName: GetRandomItems
+        inputKey: all
+        scale: 2
+        scaleKey: rat
+        getScaleFromKey: 0
+        outputKey: 
+        withReplacement: 0
+    - rid: 3226456462082179073
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: AddCardsToDeck
-        inputKey: target
-        cardTypes:
-        - {fileID: 11400000, guid: 7f6d7b7541cbd4b0c815e5b8d987a6a6, type: 2}
-        addToDeckMethod: 2
-        getCardsFromKey: 0
-        inputCardsKey: 
+        effectStepName: DrawCards
+        inputKey: rat
+        outputKey: 
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-        outputKey: 
-    - rid: 5602892561590779943
+        waitForDrawsToResolve: 0
+    - rid: 6567162351591620633
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 5602892561590779944
-        - rid: 2268261004812222481
-        - rid: 1274772082283774706
-    - rid: 5602892561590779944
+        - rid: 6567162351591620634
+        - rid: 3226456462082179072
+        - rid: 3226456462082179073
+    - rid: 6567162351591620634
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: target
+        outputKey: all
         validTargets: 00000000
         number: 1
         specialTargetRule: 1
