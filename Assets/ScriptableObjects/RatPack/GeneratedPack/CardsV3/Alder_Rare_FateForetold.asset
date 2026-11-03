@@ -17,6 +17,12 @@ MonoBehaviour:
   Description: 
   IconDescription:
   - tokenType: 0
+    text: Exhaust
+    icon: 0
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 0
     text: Scry N
     icon: 0
   - tokenType: 2
@@ -37,13 +43,13 @@ MonoBehaviour:
   defaultValues:
   - key: numCards
     value: 0
-  Cost: 1
+  Cost: 0
   Artwork: {fileID: 21300000, guid: 27219c2682ae3af4fa76a9968109666f, type: 3}
   cardCategory: 2
   packFrom: {fileID: 11400000, guid: 0d12b03c0c8754470a900cb4f78a9217, type: 2}
   vfxPrefab: {fileID: 0}
   playable: 1
-  exhaustsWhenPlayed: 0
+  exhaustsWhenPlayed: 1
   retain: 0
   effectWorkflows:
   - rid: 3931529445166809455
@@ -62,6 +68,16 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 3226456462082179210
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: target
+        outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        waitForDrawsToResolve: 0
     - rid: 3931529445166809455
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -71,6 +87,7 @@ MonoBehaviour:
         - rid: 6567162537147629878
         - rid: 3931529445166809458
         - rid: 3931529445166809459
+        - rid: 3226456462082179210
     - rid: 3931529445166809456
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

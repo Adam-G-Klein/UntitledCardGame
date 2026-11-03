@@ -13,7 +13,7 @@ using UnityEngine;
             otherwise will just get the entire deck
         - NumberOfCardsToGet: The number of cards to retrieve and store from the draw pile
 */
-public class GetCardsFromDeck : EffectStep {
+public class GetCardsFromDeck : EffectStep, IEffectStepCalculation {
     [Header("Accepts a list of entities with decks")]
     [SerializeField]
     private string inputKey = "";
@@ -108,5 +108,13 @@ public class GetCardsFromDeck : EffectStep {
         }
 
         cardList.AddRange(deckInstance.drawPile.GetRange(0, num));
+    }
+
+    public IEnumerator invokeForCalculation(EffectDocument document)
+    {
+        if (shuffleIfEmpty)
+            yield break;
+
+        yield return invoke(document);
     }
 }
