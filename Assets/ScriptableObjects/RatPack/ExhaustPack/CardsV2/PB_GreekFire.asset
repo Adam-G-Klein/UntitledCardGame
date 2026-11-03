@@ -15,7 +15,7 @@ MonoBehaviour:
   guid: 31c22698-2156-4d77-8dbe-0a0e0d84c307
   Name: Greek Fire
   Description: Exhaust. When exhausted, deal {onexhaust_rpl_damage} damage randomly,
-    shuffle a Greek Fire into a random rat's deck and draw 1 card from them
+    add a Greek Fire to a random rat's discard and draw 1 card from them
   IconDescription: []
   IconDescriptionTooltipLines:
   - This card exhausts when played, removing it for the rest of combat.
@@ -57,12 +57,13 @@ MonoBehaviour:
         inputKey: random
         cardTypes:
         - {fileID: 11400000}
-        addToDeckMethod: 1
+        addToDeckMethod: 4
         getCardsFromKey: 0
         inputCardsKey: 
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        outputKey: 
     - rid: 578314858522476878
       type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
       data:
