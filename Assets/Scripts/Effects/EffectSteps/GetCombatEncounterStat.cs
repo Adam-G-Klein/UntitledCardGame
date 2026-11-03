@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GetCombatEncounterStat : EffectStep, IEffectStepCalculation
@@ -10,7 +11,8 @@ public class GetCombatEncounterStat : EffectStep, IEffectStepCalculation
         NumCardsPlayedThisTurn,
         NumCardsExhaustedThisTurn,
         NumCardsExhaustedThisCombat,
-        NumExtraCardsDrawnThisTurn
+        NumExtraCardsDrawnThisTurn,
+        NumCharmsExhaustedThisCombat
     }
 
     [SerializeField]
@@ -43,6 +45,11 @@ public class GetCombatEncounterStat : EffectStep, IEffectStepCalculation
             case StatType.NumExtraCardsDrawnThisTurn:
                 document.intMap[outputKey] = EnemyEncounterManager.Instance.combatEncounterState.GetNumExtraCardsDrawnThisTurn();
                 break;
+            case StatType.NumCharmsExhaustedThisCombat:
+                document.intMap[outputKey] = EnemyEncounterManager.Instance.combatEncounterState.cardsExhaustThisCombat
+                    .Count(card => card.cardType.cardCategory == CardCategory.Charm);
+                break;
+
             default:
                 Debug.LogError("Unhandled stat type: " + statOfInterest);
                 break;

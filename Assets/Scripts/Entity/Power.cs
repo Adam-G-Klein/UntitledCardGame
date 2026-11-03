@@ -144,6 +144,8 @@ public class PowerSO : ScriptableObject
         SerpentsNest,
         // _: every 4 Charm cards you draw, gain 1 energy
 
+        // _: every 3 Charm cards you exhaust, draw 1 card from this rat & create a Bitterbark in hand
+        Floodwaters,
     }
 
     public TooltipViewModel GetTooltip(int stackCount)
