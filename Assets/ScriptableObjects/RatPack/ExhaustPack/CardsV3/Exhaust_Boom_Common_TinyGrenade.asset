@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Exhaust_Boom_Common_TinyGrenade
   m_EditorClassIdentifier: 
   guid: 53ee48ae-c249-40bb-85d9-2747d404354d
-  Name: TODO
+  Name: Halogen Lamp
   Description: Deal {rpl_damage} damage. When exhausted, deal more damage
   IconDescription:
   - tokenType: 0
@@ -34,6 +34,9 @@ MonoBehaviour:
   - tokenType: 0
     text: ': '
     icon: 4
+  - tokenType: 2
+    text: 
+    icon: 3
   - tokenType: 2
     text: 
     icon: 3
