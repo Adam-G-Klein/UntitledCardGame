@@ -76,10 +76,40 @@ public class MusicController : GenericSingleton<MusicController>
             case "Greek Fire":
                 PlaySFX("event:/SFX/SFX_GreekFire");
                 break;
+            case "Bezoar":
+                PlaySFX("event:/SFX/SFX_GreekFire");
+                break;
+            case "Boomflask":
+                PlaySFX("event:/SFX/SFX_GreekFire");
+                break;
             case "Detonate":
                 PlaySFX("event:/SFX/SFX_Detonate");
                 break;
             case "Pew Pew":
+                PlaySFX("event:/SFX/SFX_Gunshot");
+                break;
+            case "Peashooter":
+                PlaySFX("event:/SFX/SFX_Gunshot");
+                break;
+            case "Fire from the Hip":
+                PlaySFX("event:/SFX/SFX_Gunshot");
+                break;
+            case "Sniper Rifle":
+                PlaySFX("event:/SFX/SFX_Gunshot");
+                break;
+            case "Hyperfocus":
+                PlaySFX("event:/SFX/SFX_Gunshot");
+                break;
+            case "Gunslinger":
+                PlaySFX("event:/SFX/SFX_Gunshot");
+                break;
+            case "Steam Cannon":
+                PlaySFX("event:/SFX/SFX_Gunshot");
+                break;
+            case "Howitzer":
+                PlaySFX("event:/SFX/SFX_Gunshot");
+                break;
+            case "Holdem":
                 PlaySFX("event:/SFX/SFX_Gunshot");
                 break;
             default:
