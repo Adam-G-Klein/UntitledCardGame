@@ -16,6 +16,12 @@ MonoBehaviour:
   Name: Syzygy
   Description: 
   IconDescription:
+  - tokenType: 0
+    text: Exhaust
+    icon: 18
+  - tokenType: 1
+    text: 
+    icon: 18
   - tokenType: 2
     text: 
     icon: 10
@@ -34,13 +40,13 @@ MonoBehaviour:
   defaultValues:
   - key: numStatusCards
     value: 0
-  Cost: 1
+  Cost: 0
   Artwork: {fileID: 21300000, guid: 5500487feb715b54490f91e1c9796e9c, type: 3}
   cardCategory: 2
   packFrom: {fileID: 11400000, guid: 0d12b03c0c8754470a900cb4f78a9217, type: 2}
   vfxPrefab: {fileID: 0}
   playable: 1
-  exhaustsWhenPlayed: 0
+  exhaustsWhenPlayed: 1
   retain: 0
   effectWorkflows:
   - rid: 5602892874868589218
