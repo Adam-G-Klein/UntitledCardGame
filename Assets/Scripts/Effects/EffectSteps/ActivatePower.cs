@@ -40,7 +40,7 @@ public class ActivatePower : EffectStep, ITooltipProvider
         TooltipViewModel tooltip = new TooltipViewModel("Passive", "Passive cards are rest-of-combat passive effects applied to individual rats");
         if (power != null)
         {
-            tooltip += power.GetTooltip(stackCount: 1);
+            tooltip += power.GetActivatePowerTooltip();
         }
         return tooltip;
     }

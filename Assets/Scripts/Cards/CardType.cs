@@ -66,6 +66,14 @@ public class DescriptionToken
     public DescriptionIconType icon;
 }
 
+[Serializable]
+public class IconDescriptionTooltipLineOverride
+{
+    public int lineIndex;
+    public string bonusText = "";
+    public bool hidden = false;
+}
+
 [CreateAssetMenu(
     fileName ="New Card",
     menuName = "Cards/New Card Type")]
@@ -76,7 +84,11 @@ public class CardType: IdentifiableSO, ITooltipProvider
     public string Description;
     // Experimental field for a description with hieroglyphic shorthand.
     public List<DescriptionToken> IconDescription = new();
-    public List<string> IconDescriptionTooltipLines = new();
+
+    [Header("Per-line control over icon description tooltip lines.\n" +
+            "By default every line gets a tooltip with empty text; add an entry here to\n" +
+            "give a specific line (by index) bonus explanatory text, or to hide it entirely.")]
+    public List<IconDescriptionTooltipLineOverride> IconDescriptionTooltipLineOverrides = new();
 
     public List<CardValue> defaultValues = new();
     public int Cost;
@@ -309,6 +321,16 @@ public class CardType: IdentifiableSO, ITooltipProvider
     {
         TooltipViewModel tooltip = new TooltipViewModel(empty: true);
 
+        if (exhaustsWhenPlayed)
+        {
+            tooltip += KeywordTooltipProvider.Instance.GetTooltip(TooltipKeyword.ExhaustsWhenPlayed);
+
+        }
+        if (retain)
+        {
+            tooltip += KeywordTooltipProvider.Instance.GetTooltip(TooltipKeyword.Retain);
+        }
+
         if (HasIconDescription())
         {
             Debug.Log("CardType.GetTooltip(): Generating icon description tooltip");
@@ -326,36 +348,21 @@ public class CardType: IdentifiableSO, ITooltipProvider
                 }
                 descriptionLines.Last().Add(token);
             }
-            // Remove lines without at least one icon token.
             for (int i = 0; i < descriptionLines.Count; i++)
             {
                 List<DescriptionToken> line = descriptionLines[i];
-                if (i >= IconDescriptionTooltipLines.Count)
+                IconDescriptionTooltipLineOverride lineOverride = IconDescriptionTooltipLineOverrides
+                    .FirstOrDefault(o => o.lineIndex == i);
+                if (lineOverride != null && lineOverride.hidden)
                 {
                     continue;
                 }
-                string description = "";
-                // If the line has only one token and it's a text token, use that as the description.
-                if (line.Count == 1 && line[0].tokenType == DescriptionToken.TokenType.Text)
-                {
-                    description = IconDescriptionTooltipLines[i];
-                }
-
+                string description = lineOverride?.bonusText ?? "";
                 tooltip += new TooltipViewModel(description, line);
             }
         }
 
-        List<TooltipKeyword> tooltipKeywords = new();
-        tooltipKeywords.AddRange(tooltips);
-        if (!tooltipKeywords.Contains(TooltipKeyword.ExhaustsWhenPlayed) && exhaustsWhenPlayed)
-        {
-            tooltipKeywords.Add(TooltipKeyword.ExhaustsWhenPlayed);
-        }
-        if (!tooltipKeywords.Contains(TooltipKeyword.Retain) && retain)
-        {
-            tooltipKeywords.Add(TooltipKeyword.Retain);
-        }
-        foreach (TooltipKeyword keyword in tooltipKeywords)
+        foreach (TooltipKeyword keyword in tooltips)
         {
             Debug.Log("CardType.GetTooltip(): Adding tooltip keyword " + keyword);
             tooltip += KeywordTooltipProvider.Instance.GetTooltip(keyword);

@@ -23,11 +23,12 @@ MonoBehaviour:
     text: 
     icon: 0
   - tokenType: 0
-    text: Add a Byggshroom at the bottom of each rat's deck
+    text: Add a Byggshroom to the bottom of each rat's deck
     icon: 0
-  IconDescriptionTooltipLines:
-  - 
-  - 
+  IconDescriptionTooltipLineOverrides:
+  - lineIndex: 0
+    bonusText: 
+    hidden: 1
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: fe5748b149e8b274ab967608681b48c4, type: 3}

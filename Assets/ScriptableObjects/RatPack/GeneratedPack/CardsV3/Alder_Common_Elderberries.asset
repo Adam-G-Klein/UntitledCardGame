@@ -41,6 +41,13 @@ MonoBehaviour:
   - This card exhausts when played.
   - Heal a rat of your choice 10 HP.
   - Then, shuffle a Bitterbark Charm card into their deck.
+  IconDescriptionTooltipLineOverrides:
+  - lineIndex: 0
+    bonusText: 
+    hidden: 1
+  - lineIndex: 2
+    bonusText: Bitterbark is a useless Charm card
+    hidden: 0
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: fe5748b149e8b274ab967608681b48c4, type: 3}

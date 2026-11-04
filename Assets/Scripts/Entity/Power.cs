@@ -156,10 +156,15 @@ public class PowerSO : ScriptableObject
         TooltipLine basePowerTooltip = new TooltipLine(modTitle, description);
         TooltipViewModel baseTooltip = new TooltipViewModel(new List<TooltipLine> {basePowerTooltip} );
 
+        return baseTooltip + extraTooltip;
+    }
+
+    public TooltipViewModel GetActivatePowerTooltip()
+    {
         TooltipViewModel abilityTooltips = EffectWorkflow.GetEffectStepTooltips(
             abilities?.Select(a => a.effectWorkflow) ?? Enumerable.Empty<EffectWorkflow>());
 
-        return baseTooltip + abilityTooltips + extraTooltip;
+        return abilityTooltips + extraTooltip;
     }
 }
 
