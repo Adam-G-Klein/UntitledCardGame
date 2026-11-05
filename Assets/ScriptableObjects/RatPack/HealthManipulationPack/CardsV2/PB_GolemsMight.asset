@@ -15,10 +15,27 @@ MonoBehaviour:
   guid: 75f3719e-db2a-46d3-ac2f-91dd00e125f8
   Name: Golem's Might
   Description: Deal damage equal to this rat's missing HP ({rpl_damage} damage)
-  IconDescription: []
-  IconDescriptionTooltipLines: []
+  IconDescription:
+  - tokenType: 0
+    text: N
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
+  - tokenType: 2
+    text: 
+    icon: 18
+  - tokenType: 1
+    text: 
+    icon: 18
+  - tokenType: 0
+    text: N = This rat's missing HP ({missingHP} missing HP, {rpl_damage} damage)
+    icon: 18
+  IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: rpl_damage
+    value: 0
+  - key: missingHP
     value: 0
   Cost: 2
   Artwork: {fileID: 21300000, guid: b6a3a72ddfbd65c429c809259c81ca0b, type: 3}
@@ -74,7 +91,7 @@ MonoBehaviour:
         inputKey: self
         outputMaxHPKey: 
         outputCurrentHPKey: 
-        outputMissingHPKey: dmg
+        outputMissingHPKey: missingHP
     - rid: 2034230108114649622
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -83,11 +100,12 @@ MonoBehaviour:
         combatEffect: 0
         scale: 0
         getScaleFromKey: 1
-        inputScaleKey: dmg
+        inputScaleKey: missingHP
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
+        damageDealtOutputKey: 
     - rid: 2034230108114649623
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

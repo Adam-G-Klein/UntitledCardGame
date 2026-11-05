@@ -24,16 +24,14 @@ MonoBehaviour:
     icon: 19
   - tokenType: 0
     text: xN
-    icon: 10
+    icon: 0
   - tokenType: 1
     text: 
     icon: 18
   - tokenType: 0
     text: N = Number of times this rat lost HP this turn ({numTimes} times)
     icon: 22
-  IconDescriptionTooltipLines:
-  - Deal damage to a foe of your choice.
-  - If owner rat lost HP this turn, deal extra damage to the foe.
+  IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: numTimes
     value: 0
@@ -69,6 +67,7 @@ MonoBehaviour:
         inputCombatInstanceKey: self
         outputKey: tookDamage
         numTimesOutputKey: numTimes
+        numRatsWhoLostHPOutputKey: 
     - rid: 5602892949302281046
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:

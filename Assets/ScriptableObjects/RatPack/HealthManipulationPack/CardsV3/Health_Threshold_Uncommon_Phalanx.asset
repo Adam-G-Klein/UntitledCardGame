@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: Health_Threshold_Uncommon_CrushingPhalanx
+  m_Name: Health_Threshold_Uncommon_Phalanx
   m_EditorClassIdentifier: 
   guid: 63093a68-6c1e-4334-8979-e7b2855c09e2
-  Name: Crushing Phalanx
+  Name: Phalanx
   Description: 
   IconDescription:
   - tokenType: 0
@@ -32,7 +32,7 @@ MonoBehaviour:
     text: N = Total block across all rats below half HP ({numBlock} block, {rpl_damage}
       damage)
     icon: 0
-  IconDescriptionTooltipLines: []
+  IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: rpl_damage
     value: 0

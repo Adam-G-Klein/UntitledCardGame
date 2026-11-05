@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: Mab_Uncommon_Rejuvenation
+  m_Name: Hex_Rare_FinalForm
   m_EditorClassIdentifier: 
-  guid: 188f1196-37c1-4c06-b184-b32903ec60bb
+  guid: 5599b2c4-7f92-4a68-b4e0-1190f48a4703
   Name: 
   Description: 
   IconDescription: []
-  IconDescriptionTooltipLines: []
+  IconDescriptionTooltipLineOverrides: []
   defaultValues: []
-  Cost: 1
+  Cost: 2
   Artwork: {fileID: 0}
   cardCategory: 5
   packFrom: {fileID: 11400000, guid: a87b5da767d4e4659b2965e31e340c58, type: 2}
@@ -68,4 +68,4 @@ MonoBehaviour:
       data:
         effectStepName: ActivatePower
         inputKey: self
-        power: {fileID: 11400000, guid: e4b2b5c60d1df42709834a25feaeb4e3, type: 2}
+        power: {fileID: 11400000, guid: f810d7fd7da1e439aa92dedf479b7a7a, type: 2}
