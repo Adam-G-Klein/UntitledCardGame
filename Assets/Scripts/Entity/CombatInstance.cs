@@ -209,12 +209,13 @@ public class CombatInstance : MonoBehaviour
         return combatStats.baseAttackDamage + statusEffects[StatusEffectType.Strength] + statusEffects[StatusEffectType.TemporaryStrength];
     }
 
-    public void ApplyNonStatusCombatEffect(CombatEffect effect, int scale, CombatInstance effector, GameObject vfxPrefab, bool shouldShake = false, float screenShakeForce = 0.0f) {
+    public int ApplyNonStatusCombatEffect(CombatEffect effect, int scale, CombatInstance effector, GameObject vfxPrefab, bool shouldShake = false, float screenShakeForce = 0.0f) {
         // All the non-status-effect combat effects are handled here
         // status effects are handled in applyCombatEffects
         if (vfxPrefab != null) {
             PlayVFX(vfxPrefab);
         }
+        int effectiveScaleApplied = 0;
         switch (effect)
         {
             case CombatEffect.Damage:
@@ -244,6 +245,7 @@ public class CombatInstance : MonoBehaviour
                 }
                 if (shouldShake) AddShake(damageTaken);
                 if (damageTaken > 0) EnemyEncounterManager.Instance.DamageIndicator(this, damageTaken);
+                effectiveScaleApplied = damageTaken;
                 break;
             case CombatEffect.Heal:
                 MusicController.Instance.PlaySFX("event:/SFX/SFX_PositiveEffect");
@@ -253,6 +255,7 @@ public class CombatInstance : MonoBehaviour
                 {
                     StartCoroutine(CombatEntityManager.Instance.OnHeal(this));
                 }
+                effectiveScaleApplied = diff;
                 break;
             case CombatEffect.DrawFrom:
                 // This no longer needs to be here, completely handled by DeckInstance
@@ -270,6 +273,7 @@ public class CombatInstance : MonoBehaviour
                 break;
         }
         UpdateView();
+        return effectiveScaleApplied;
     }
 
     private int TakeDamage(CombatEffect combatEffect, int damage, CombatInstance attacker) {

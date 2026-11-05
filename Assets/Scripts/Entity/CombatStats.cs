@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 [System.Serializable]
 public class CombatStats
@@ -39,6 +41,19 @@ public class CombatStats
         // Strategically choosing not to set the current health to
         // the new max, if we want to do this whoever called this method
         // should do it.
+    }
+
+    public void SetMaxHealth(int newMaxHP)
+    {
+        int diff = newMaxHP - maxHealth;
+        if (diff > 0)
+            IncreaseMaxHealth(diff);
+        else if (diff < 0)
+        {
+            this.maxHealth = newMaxHP;
+            this.maxHealthBuffs -= diff;
+            setCurrentHealth(Math.Min(this.maxHealth, getCurrentHealth()));
+        }
     }
 
     public void IncreaseBaseAttackDamage(int scale)

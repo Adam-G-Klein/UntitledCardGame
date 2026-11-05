@@ -48,12 +48,15 @@ public class PermanentStatIncrease : EffectStep {
         switch(statIncreaseType) {
             case StatIncreaseType.AttackDamage:
                 increaseAttackDamage(instances, finalScale);
-                UpdateView();
             break;
 
             case StatIncreaseType.Health:
                 increaseHealth(instances, finalScale);
-                UpdateView();
+            break;
+
+            case StatIncreaseType.SetMaxHealth:
+                setMaxHealth(instances, finalScale);
+
             break;
 
             default:
@@ -61,6 +64,7 @@ public class PermanentStatIncrease : EffectStep {
                     " not yet supported");
             break;
         }
+        UpdateView();
         yield return null;
     }
 
@@ -92,8 +96,17 @@ public class PermanentStatIncrease : EffectStep {
         }
     }
 
+    private void setMaxHealth(List<CombatInstance> instances, int scale)
+    {
+        foreach (CombatInstance instance in instances) {
+            Debug.Log("Setting " + instance.GetCompanionInstance()?.GetName() + " max health to " + scale);
+            instance.combatStats.SetMaxHealth(scale);
+        }
+    }
+
     public enum StatIncreaseType {
         AttackDamage,
         Health,
+        SetMaxHealth,
     }
 }

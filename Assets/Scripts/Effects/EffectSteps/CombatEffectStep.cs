@@ -38,6 +38,8 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
     private GameObject vfxPrefab = null;
     private CombatInstance originCombatInstance;
     private int baseMultiplicity;
+    [SerializeField]
+    private string damageDealtOutputKey = "";
     public CombatEffectStep()
     {
         effectStepName = "CombatEffectStep";
@@ -57,6 +59,7 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
 
         const float delayIncrement = 1f;
 
+        int totalEffectiveScaleApplied = 0;
         // Update loop to do each instance of damage as the outer loop so that they can be timed across companions
         // taking damage from the same effect
         for (int i = 0; i < baseMultiplicity; i++)
@@ -65,12 +68,13 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
             {
                 if (instance != null)
                 {
-                    instance.ApplyNonStatusCombatEffect(combatEffect,
+                    int scaleApplied = instance.ApplyNonStatusCombatEffect(combatEffect,
                         finalScale,
                         originCombatInstance,
                         vfxPrefab,
                         i == 0,
                         i / 4.0f); // TODO, elevate this logic for ethan to tune
+                    totalEffectiveScaleApplied += scaleApplied;
                 }
             }
 
@@ -79,6 +83,9 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
                 yield return new WaitForSeconds(delayIncrement / baseMultiplicity);
             }
         }
+
+        if (damageDealtOutputKey != "")
+            document.intMap[damageDealtOutputKey] = totalEffectiveScaleApplied;
     }
 
     private int getFinalScale(EffectDocument document)

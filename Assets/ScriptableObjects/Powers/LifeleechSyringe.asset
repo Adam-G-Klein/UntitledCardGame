@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ac8d29b7a56d46539bdf7eeb2d1260a, type: 3}
-  m_Name: Rejuvenation
+  m_Name: LifeleechSyringe
   m_EditorClassIdentifier: 
   powerType: 31
-  title: Rejuvenation
-  description: Whenever any rat heals HP, give self 1 strength
+  title: Lifeleech Syringe
+  description: Whenever any rat heals HP, deal 4 damage to a random foe
   abilities:
   - rid: 2511001254715195776
   displaySprite: {fileID: 21300000, guid: 8b7f45e259d8a914ca69c92891ca4bf1, type: 3}
@@ -39,57 +39,41 @@ MonoBehaviour:
         effectSteps:
         - rid: 2511001254715195777
         - rid: 2511001254715195857
-        - rid: 2511001254715195858
-        - rid: 2511001254715195778
-        - rid: 2511001254715195779
+        - rid: 3226456462082179404
         weight: 0
     - rid: 2511001254715195777
       type: {class: EndWorkflowIfNoMapElement, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EndWorkflowIfNoMapElement
         keyToCheck: healedCompanion
-    - rid: 2511001254715195778
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ApplyStatus
-        inputKey: self
-        statusEffect: 0
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplyByNumAuraStacks: 0
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-        toggleStatus: 0
-    - rid: 2511001254715195779
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: healedCompanion
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
-        scale: 1
     - rid: 2511001254715195857
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: self
-        validTargets: 
+        outputKey: random
+        validTargets: 02000000
         number: 1
-        specialTargetRule: 3
+        specialTargetRule: 6
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
         selectionCardCategory: 0
-    - rid: 2511001254715195858
-      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+    - rid: 3226456462082179404
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: GetAdjacentCompanions
-        inputKey: self
-        includeInputCompanion: 0
-        outputKey: adj
+        effectStepName: CombatEffectStep
+        inputKey: enemy
+        combatEffect: 14
+        scale: 4
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
+        damageDealtOutputKey: 
     - rid: 6567162537147629579
       type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
       data:
