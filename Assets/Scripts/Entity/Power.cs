@@ -146,6 +146,7 @@ public class PowerSO : ScriptableObject
 
         // _: every 3 Charm cards you exhaust, draw 1 card from this rat & create a Bitterbark in hand
         Floodwaters,
+        // _: anastasia's fury, rawr. whenever this rat dies, deal 50 damage to ALL rats and enemies.
     }
 
     public TooltipViewModel GetTooltip(int stackCount)

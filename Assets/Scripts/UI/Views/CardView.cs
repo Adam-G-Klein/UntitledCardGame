@@ -118,6 +118,17 @@ public class CardView {
                         iconDescContainer.Add(row);
                         rowStartTokenIdx = i + 1;
                         break;
+                    case DescriptionToken.TokenType.NewLineHorizontalDiv:
+                        // Add a divider
+                        VisualElement divider = new VisualElement();
+                        divider.AddToClassList("iconDescDivider");
+                        iconDescContainer.Add(divider);
+
+                        row = new VisualElement();
+                        row.AddToClassList("iconDescRow");
+                        iconDescContainer.Add(row);
+                        rowStartTokenIdx = i + 1;
+                        break;
                 }
             }
         } else

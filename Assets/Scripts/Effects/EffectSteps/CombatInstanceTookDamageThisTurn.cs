@@ -33,9 +33,13 @@ public class CombatInstanceTookDamageThisTurn : EffectStep, IEffectStepCalculati
         }
         CombatInstance target = instances[0];
 
-        int numTimes = EnemyEncounterManager.Instance.combatEncounterState.GetNumTimesCombatInstanceTookDamageThisTurn(target);
         if (numTimesOutputKey != "") {
-            document.intMap[numTimesOutputKey] = numTimes;
+            int count = 0;
+            foreach (CombatInstance instance in instances)
+            {
+                count += EnemyEncounterManager.Instance.combatEncounterState.GetNumTimesCombatInstanceTookDamageThisTurn(instance);
+            }
+            document.intMap[numTimesOutputKey] = count;
         }
         if (numRatsWhoLostHPOutputKey != "")
         {
@@ -48,7 +52,7 @@ public class CombatInstanceTookDamageThisTurn : EffectStep, IEffectStepCalculati
             }
             document.intMap[numRatsWhoLostHPOutputKey] = count;
         }
-        document.boolMap[outputKey] = numTimes > 0;
+        document.boolMap[outputKey] = EnemyEncounterManager.Instance.combatEncounterState.GetNumTimesCombatInstanceTookDamageThisTurn(target) > 0;
         yield return null;
     }
 

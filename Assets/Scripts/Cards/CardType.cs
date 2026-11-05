@@ -20,6 +20,7 @@ public class DescriptionToken
         Text,
         NewLine,
         Icon,
+        NewLineHorizontalDiv,
     }
 
     public enum DescriptionIconType
@@ -341,7 +342,7 @@ public class CardType: IdentifiableSO, ITooltipProvider
             List<List<DescriptionToken>> descriptionLines = new List<List<DescriptionToken>> { new List<DescriptionToken>() };
             foreach (DescriptionToken token in tokens)
             {
-                if (token.tokenType == DescriptionToken.TokenType.NewLine)
+                if (token.tokenType == DescriptionToken.TokenType.NewLine || token.tokenType == DescriptionToken.TokenType.NewLineHorizontalDiv)
                 {
                     descriptionLines.Add(new List<DescriptionToken>());
                     continue;
