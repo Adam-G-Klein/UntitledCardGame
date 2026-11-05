@@ -31,9 +31,7 @@ MonoBehaviour:
   - tokenType: 0
     text: N = Number of cards in own deck ({rpl_damage} damage)
     icon: 0
-  IconDescriptionTooltipLines:
-  - 
-  - N is equal to the number cards in the owner rat's deck.
+  IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: rpl_damage
     value: 0
