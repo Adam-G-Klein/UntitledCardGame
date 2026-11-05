@@ -1,0 +1,154 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: Cleavus_Rare_...
+  m_EditorClassIdentifier: 
+  guid: 3dc7bdaf-6d50-4f14-9e4c-d9a67863e098
+  Name: 
+  Description: deal dmg gain block equal to dmg dealt
+  IconDescription:
+  - tokenType: 0
+    text: '{rpl_damage}'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
+  - tokenType: 2
+    text: 
+    icon: 18
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 0
+    text: 'N '
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 2
+  - tokenType: 2
+    text: 
+    icon: 12
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 0
+    text: N = Damage dealt
+    icon: 0
+  IconDescriptionTooltipLineOverrides: []
+  defaultValues:
+  - key: rpl_damage
+    value: 15
+  Cost: 2
+  Artwork: {fileID: -1102274441, guid: 33ba4bd24a9cc384c880d4c9d5443278, type: 3}
+  cardCategory: 1
+  packFrom: {fileID: 11400000, guid: 908f28c6f48104c2d85d2fcbd973771e, type: 2}
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
+  effectWorkflows:
+  - rid: 5602892675124822189
+  onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  onDrawEffectWorkflow:
+    rid: -2
+  tooltips: 
+  tooltipKeyword: 37
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 3226456462082179499
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: adj
+        statusEffect: 2
+        scale: 0
+        getScaleFromKey: 1
+        inputScaleKey: dealt
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        toggleStatus: 0
+    - rid: 3226456462082179500
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
+    - rid: 3226456462082179501
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: adj
+        prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
+        scale: 1
+    - rid: 3226456462082179502
+      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetAdjacentCompanions
+        inputKey: self
+        includeInputCompanion: 1
+        outputKey: adj
+    - rid: 5602892675124822189
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 5602892675124822190
+        - rid: 5602892675124822191
+        - rid: 3226456462082179500
+        - rid: 3226456462082179502
+        - rid: 3226456462082179499
+        - rid: 3226456462082179501
+    - rid: 5602892675124822190
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: enemy
+        validTargets: 02000000
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
+    - rid: 5602892675124822191
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: enemy
+        combatEffect: 0
+        scale: 15
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
+        damageDealtOutputKey: dealt

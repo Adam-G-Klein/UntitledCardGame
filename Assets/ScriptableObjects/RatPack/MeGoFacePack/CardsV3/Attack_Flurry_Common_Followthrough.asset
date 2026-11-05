@@ -26,7 +26,7 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 18
-  - tokenType: 1
+  - tokenType: 3
     text: 
     icon: 0
   - tokenType: 0
@@ -41,10 +41,7 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 11
-  IconDescriptionTooltipLines:
-  - Deal damage to a foe of your choice.
-  - If the last card you played was an Attack, give the owner rat 1 strength, increasing
-    damage dealt by attacks for the rest of combat.
+  IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: rpl_damage
     value: 4
@@ -158,3 +155,4 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
+        damageDealtOutputKey: 

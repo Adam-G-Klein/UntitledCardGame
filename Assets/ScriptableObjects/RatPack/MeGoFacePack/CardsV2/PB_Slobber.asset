@@ -25,28 +25,19 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 33
-  - tokenType: 1
+  - tokenType: 3
     text: 
     icon: 0
-  - tokenType: 2
-    text: 
+  - tokenType: 0
+    text: 'If the last card you played was an Attack:'
     icon: 28
   - tokenType: 0
-    text: ': '
-    icon: 0
-  - tokenType: 0
-    text: '{rpl_damage_2}'
+    text: +{rpl_damage_2}
     icon: 0
   - tokenType: 2
     text: 
     icon: 1
-  - tokenType: 2
-    text: 
-    icon: 33
-  IconDescriptionTooltipLines:
-  - Deal damage to all foes.
-  - If the last card you played was an Attack, give the owner rat 1 strength, deal
-    more damage to all foes.
+  IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: rpl_damage
     value: 7
@@ -90,6 +81,7 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 1320532642761013391, guid: 4847f21b038e1aa42bceefe5c97ab1ab, type: 3}
+        damageDealtOutputKey: 
     - rid: 2511001503980847372
       type: {class: CheckTypeOfMostRecentlyPlayedCard, ns: , asm: Assembly-CSharp}
       data:
@@ -138,3 +130,4 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 1320532642761013391, guid: 4847f21b038e1aa42bceefe5c97ab1ab, type: 3}
+        damageDealtOutputKey: 

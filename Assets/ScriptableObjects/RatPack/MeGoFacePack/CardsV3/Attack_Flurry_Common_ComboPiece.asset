@@ -26,7 +26,7 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 18
-  - tokenType: 1
+  - tokenType: 3
     text: 
     icon: 18
   - tokenType: 0
@@ -44,10 +44,7 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 19
-  IconDescriptionTooltipLines:
-  - Deal damage to a foe of your choice.
-  - If the last card you played was an Attack, draw 1 card from 2 random rats.
-  - If the last card you played was an Attack, draw 1 card from 2 random rats.
+  IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: rpl_damage
     value: 7
@@ -168,3 +165,4 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
+        damageDealtOutputKey: 

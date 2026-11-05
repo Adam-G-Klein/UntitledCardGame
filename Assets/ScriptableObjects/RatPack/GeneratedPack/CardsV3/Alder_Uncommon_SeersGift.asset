@@ -14,25 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: f0cb46e9-8076-4fdd-97e6-729c10e3a1f9
   Name: Seer's Gift
-  Description: Scry 2 from any & draw 2
+  Description: scry 4 draw 1
   IconDescription:
   - tokenType: 0
-    text: Scry 2
+    text: Scry 4
     icon: 0
-  - tokenType: 1
-    text: 
-    icon: 0
-  - tokenType: 2
-    text: 
-    icon: 3
   - tokenType: 2
     text: 
     icon: 3
   - tokenType: 2
     text: 
     icon: 18
-  IconDescriptionTooltipLines:
-  - 
+  IconDescriptionTooltipLineOverrides: []
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 27219c2682ae3af4fa76a9968109666f, type: 3}
@@ -72,7 +65,7 @@ MonoBehaviour:
         effectStepName: DrawCards
         inputKey: target
         outputKey: 
-        scale: 2
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
         waitForDrawsToResolve: 0
@@ -106,7 +99,7 @@ MonoBehaviour:
         effectStepName: GetCardsFromDeck
         inputKey: target
         getLimitedNumber: 1
-        numberOfCardsToGet: 2
+        numberOfCardsToGet: 4
         shuffleIfEmpty: 0
         outputKey: topCard
         getAllCardsFromEntities: 0
@@ -120,7 +113,7 @@ MonoBehaviour:
         outputKey: discarded
         promptText: Choose card(s) to discard.
         minTargets: 0
-        maxTargets: 2
+        maxTargets: 1
         getNumberOfTargetsFromKey: 0
         inputNumberOfTargetsKey: 
         randomizeOrder: 0

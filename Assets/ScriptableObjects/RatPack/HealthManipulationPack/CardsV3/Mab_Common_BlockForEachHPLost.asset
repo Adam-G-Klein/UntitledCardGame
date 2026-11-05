@@ -13,36 +13,34 @@ MonoBehaviour:
   m_Name: Mab_Common_BlockForEachHPLost
   m_EditorClassIdentifier: 
   guid: 4f3d5450-824d-4a47-98fe-3a319def982b
-  Name: ...
+  Name: Stand Together
   Description: 
   IconDescription:
   - tokenType: 0
     text: 2
-    icon: 1
+    icon: 0
   - tokenType: 2
     text: 
     icon: 2
-  - tokenType: 2
-    text: 
-    icon: 18
   - tokenType: 0
     text: xN
     icon: 0
+  - tokenType: 2
+    text: 
+    icon: 18
   - tokenType: 1
     text: 
     icon: 18
   - tokenType: 0
-    text: N = Number of times  lost HP this turn ({numTimes} times)
+    text: N = Number of times your rats lost HP this turn ({numTimes} times)
     icon: 22
   IconDescriptionTooltipLineOverrides: []
   defaultValues:
-  - key: rpl_damage
-    value: 4
   - key: numTimes
     value: 0
-  Cost: 1
+  Cost: 2
   Artwork: {fileID: 21300000, guid: 0f5ecf3627abce84490e1f8ec8e4f24f, type: 3}
-  cardCategory: 1
+  cardCategory: 2
   packFrom: {fileID: 11400000, guid: a87b5da767d4e4659b2965e31e340c58, type: 2}
   vfxPrefab: {fileID: 0}
   playable: 1
@@ -69,10 +67,24 @@ MonoBehaviour:
       type: {class: CombatInstanceTookDamageThisTurn, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatInstanceTookDamageThisTurn
-        inputCombatInstanceKey: self
-        outputKey: tookDamage
+        inputCombatInstanceKey: all
+        outputKey: 
         numTimesOutputKey: numTimes
-        numRatsWhoLostHPOutputKey: numRats
+        numRatsWhoLostHPOutputKey: 
+    - rid: 3226456462082179497
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: target
+        statusEffect: 2
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 1
+        inputMultiplicityKey: numTimes
+        toggleStatus: 0
     - rid: 5602892949302281046
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -80,7 +92,7 @@ MonoBehaviour:
         - rid: 5602892949302281047
         - rid: 5602892949302281048
         - rid: 758315839196758670
-        - rid: 8966137386555146815
+        - rid: 3226456462082179497
     - rid: 5602892949302281047
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -88,7 +100,7 @@ MonoBehaviour:
         useInputToLimitOptions: 0
         inputKey: 
         outputKey: target
-        validTargets: 02000000
+        validTargets: 00000000
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
@@ -101,25 +113,11 @@ MonoBehaviour:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: self
+        outputKey: all
         validTargets: 00000000
         number: 1
-        specialTargetRule: 4
+        specialTargetRule: 1
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
         selectionCardCategory: 0
-    - rid: 8966137386555146815
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatEffectStep
-        inputKey: target
-        combatEffect: 0
-        scale: 4
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplicity: 1
-        getMultiplicityFromKey: 1
-        inputMultiplicityKey: numTimes
-        vfxPrefab: {fileID: 1320532642761013391, guid: 4847f21b038e1aa42bceefe5c97ab1ab, type: 3}
-        damageDealtOutputKey: 

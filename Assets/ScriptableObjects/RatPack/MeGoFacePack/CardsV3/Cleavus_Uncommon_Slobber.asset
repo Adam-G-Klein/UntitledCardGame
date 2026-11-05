@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: Attack_Patient_Common_BloodthirstyBlade
+  m_Name: Cleavus_Uncommon_Slobber
   m_EditorClassIdentifier: 
-  guid: 76dff15a-a36c-4978-a059-d3ce0d5bbe28
-  Name: Bloodthirsty Blade
+  guid: 2d5b410e-f600-4416-a5a8-65dc6ee3e303
+  Name: Slobber
   Description: 
   IconDescription:
   - tokenType: 0
@@ -24,34 +24,27 @@ MonoBehaviour:
     icon: 1
   - tokenType: 2
     text: 
-    icon: 18
-  - tokenType: 0
-    text: x3
-    icon: 0
-  - tokenType: 1
+    icon: 33
+  - tokenType: 3
     text: 
+    icon: 0
+  - tokenType: 0
+    text: 'If the last card you played was an Attack:'
+    icon: 28
+  - tokenType: 0
+    text: +{rpl_damage_2}
     icon: 0
   - tokenType: 2
     text: 
-    icon: 17
-  - tokenType: 0
-    text: ': '
-    icon: 17
-  - tokenType: 0
-    text: 1
-    icon: 17
-  - tokenType: 2
-    text: 
-    icon: 34
-  IconDescriptionTooltipLines:
-  - Deal damage to a foe of your choice.
-  - If this card is still in hand at the end of turn, it gains damage for the rest
-    of combat.
+    icon: 1
+  IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: rpl_damage
-    value: 4
+    value: 7
+  - key: rpl_damage_2
+    value: 5
   Cost: 2
-  Artwork: {fileID: 21300000, guid: 977664b7b0443cc4682f0fb74f848cd1, type: 3}
+  Artwork: {fileID: 21300000, guid: b87c75bd71fd78540bcab566820366a8, type: 3}
   cardCategory: 1
   packFrom: {fileID: 11400000, guid: 908f28c6f48104c2d85d2fcbd973771e, type: 2}
   vfxPrefab: {fileID: 0}
@@ -65,7 +58,7 @@ MonoBehaviour:
   onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
-    rid: 758316142852046941
+    rid: -2
   onDrawEffectWorkflow:
     rid: -2
   tooltips: 
@@ -75,51 +68,41 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 758316142852046941
-      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+    - rid: 385751591190528743
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
-        effectSteps:
-        - rid: 758316142852046942
-        - rid: 758316142852046943
-        - rid: 758316142852046944
-    - rid: 758316142852046942
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: self
-        validTargets: 
-        number: 1
-        specialTargetRule: 3
-        cantCancelTargetting: 0
-        cardSelectionHelperText: 
-        selectionPurpose: 0
-        selectionCardCategory: 0
-    - rid: 758316142852046943
-      type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CardModificationEffect
-        inputKey: self
-        scale: 1
-        affectsAllCardsOfType: 0
-        cardTypeToModify: {fileID: 0}
+        effectStepName: CombatEffectStep
+        inputKey: enemy
+        combatEffect: 0
+        scale: 5
         getScaleFromKey: 0
-        scaleKey: 
-        modification: 0
-    - rid: 758316142852046944
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 1320532642761013391, guid: 4847f21b038e1aa42bceefe5c97ab1ab, type: 3}
+        damageDealtOutputKey: 
+    - rid: 2511001503980847372
+      type: {class: CheckTypeOfMostRecentlyPlayedCard, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: InstantiatePrefab
-        inputKey: self
-        prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
-        scale: 1
+        effectStepName: CheckTypeOfMostRecentlyPlayedCard
+        cardCategory: 1
+        outputKey: isAttack
+    - rid: 2511001503980847373
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: isAttack
+        conditionToEndOn: 0
     - rid: 5602892675124822189
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 5602892675124822190
         - rid: 5602892675124822191
+        - rid: 2511001503980847372
+        - rid: 2511001503980847373
+        - rid: 385751591190528743
     - rid: 5602892675124822190
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -129,7 +112,7 @@ MonoBehaviour:
         outputKey: enemy
         validTargets: 02000000
         number: 1
-        specialTargetRule: 0
+        specialTargetRule: 1
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
@@ -140,10 +123,11 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: enemy
         combatEffect: 0
-        scale: 4
+        scale: 7
         getScaleFromKey: 0
         inputScaleKey: 
-        multiplicity: 3
+        multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 1320532642761013391, guid: 4847f21b038e1aa42bceefe5c97ab1ab, type: 3}
+        damageDealtOutputKey: 
