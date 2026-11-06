@@ -227,7 +227,7 @@ public class Card : Entity, IEquatable<Card>
             int numAttacks = origin.cachedEffectValues.intMap.GetValueOrDefault("attackCount", 0);
             if (numAttacks < 1)
             {
-                newScale += 3 * frontFootStacks;
+                newScale += 2 * frontFootStacks;
             }
         }
 
