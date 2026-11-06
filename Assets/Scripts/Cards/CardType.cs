@@ -336,7 +336,7 @@ public class CardType: IdentifiableSO, ITooltipProvider
         {
             Debug.Log("CardType.GetTooltip(): Generating icon description tooltip");
             // Loop through the description tokens with icons.
-            List<DescriptionToken> tokens = GetIconDescriptionTokens(fillDefaultValues: false);
+            List<DescriptionToken> tokens = GetIconDescriptionTokens(fillDefaultValues: true);
 
             // Split across newlines
             List<List<DescriptionToken>> descriptionLines = new List<List<DescriptionToken>> { new List<DescriptionToken>() };
