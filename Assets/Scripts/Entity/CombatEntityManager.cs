@@ -60,6 +60,16 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
         return new List<CompanionInstance>(companions);
     }
 
+    public int GetStacksOfPowerAcrossCompanions(PowerSO.PowerType power)
+    {
+        int count = 0;
+        foreach (CompanionInstance i in companions)
+        {
+            count += i.combatInstance.GetNumStackOfPower(power);
+        }
+        return count;
+    }
+
     // position 0 is front
     // position -1 is back
     public CompanionInstance GetCompanionInstanceAtPosition(int position)
