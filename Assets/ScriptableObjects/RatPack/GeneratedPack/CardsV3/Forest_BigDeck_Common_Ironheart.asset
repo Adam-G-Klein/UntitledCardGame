@@ -25,9 +25,7 @@ MonoBehaviour:
   - tokenType: 0
     text: Shuffle 3 Ironseeds into any rat's deck and draw 1 from them
     icon: 18
-  IconDescriptionTooltipLines:
-  - This card exhausts when played.
-  - Shuffle 3 Ironseed Charm cards that help block into a rat's deck.
+  IconDescriptionTooltipLineOverrides: []
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 46c78f719703f154f896d900ed853b52, type: 3}
@@ -126,7 +124,7 @@ MonoBehaviour:
         addToDeckMethod: 1
         getCardsFromKey: 0
         inputCardsKey: 
-        scale: 1
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         outputKey: 
