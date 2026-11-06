@@ -55,6 +55,13 @@ public class CardView {
         Label description = container.Q<Label>("cardDesc");
         description.text = card.GetDescription();
 
+        // TODO: eek we need a neutral card back as well for cards without a PackSO :thinking:
+        PackSO packFrom = packSO;
+        if (packSO == null) {
+            if (card.packFrom != null)  packFrom = card.packFrom;
+            else if (companionType != null) packFrom = companionType.pack;
+        }
+
         VisualElement iconDescContainer = container.Q<VisualElement>("cardIconDesc");
         if (card.HasIconDescription())
         {
@@ -122,6 +129,7 @@ public class CardView {
                         // Add a divider
                         VisualElement divider = new VisualElement();
                         divider.AddToClassList("iconDescDivider");
+                        if (packFrom != null) divider.style.backgroundColor = packFrom.packSecondaryColor * new Color(0.6f, 0.6f, 0.6f, 1f);
                         iconDescContainer.Add(divider);
 
                         row = new VisualElement();
@@ -134,13 +142,6 @@ public class CardView {
         } else
         {
             iconDescContainer.visible = false;
-        }
-
-        // TODO: eek we need a neutral card back as well for cards without a PackSO :thinking:
-        PackSO packFrom = packSO;
-        if (packSO == null) {
-            if (card.packFrom != null)  packFrom = card.packFrom;
-            else if (companionType != null) packFrom = companionType.pack;
         }
 
         if (packFrom != null)
