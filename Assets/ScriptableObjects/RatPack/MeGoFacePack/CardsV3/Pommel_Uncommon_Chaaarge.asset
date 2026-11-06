@@ -1,0 +1,114 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: Pommel_Uncommon_Chaaarge
+  m_EditorClassIdentifier: 
+  guid: 088999d0-41e3-4edf-a32c-1620b7abceef
+  Name: Chaaaarge!
+  Description: 
+  IconDescription:
+  - tokenType: 0
+    text: Exhaust
+    icon: 18
+  - tokenType: 1
+    text: 
+    icon: 18
+  - tokenType: 2
+    text: 
+    icon: 10
+  - tokenType: 0
+    text: xN
+    icon: 0
+  - tokenType: 1
+    text: 
+    icon: 18
+  - tokenType: 0
+    text: N = Number of Attack cards in hand ({numStatusCards} cards)
+    icon: 18
+  IconDescriptionTooltipLineOverrides: []
+  defaultValues:
+  - key: numStatusCards
+    value: 0
+  Cost: 1
+  Artwork: {fileID: 21300000, guid: 5500487feb715b54490f91e1c9796e9c, type: 3}
+  cardCategory: 2
+  packFrom: {fileID: 11400000, guid: 908f28c6f48104c2d85d2fcbd973771e, type: 2}
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  exhaustsWhenPlayed: 1
+  retain: 0
+  effectWorkflows:
+  - rid: 5602892874868589218
+  onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  onDrawEffectWorkflow:
+    rid: -2
+  tooltips: 
+  tooltipKeyword: 37
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 2268261004812222470
+      type: {class: FilterCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FilterCards
+        inputKey: all
+        companionInstanceKey: 
+        filter:
+          cardCategoriesToInclude: 01000000
+          retainedCardsFilter: 0
+          manaCostFilter: 0
+          manaCost: 0
+          exactCardType: {fileID: 0}
+          companionInstanceFilterEnabled: 0
+        outputKey: filtered
+    - rid: 2268261004812222473
+      type: {class: CountStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CountStep
+        inputKey: filtered
+        outputKey: numStatusCards
+    - rid: 3226456462082179088
+      type: {class: ManaChange, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ManaChange
+        scale: 0
+        getScaleFromKey: 1
+        inputScaleKey: numStatusCards
+    - rid: 4463206079571951821
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: all
+        validTargets: 03000000
+        number: 1
+        specialTargetRule: 2
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
+    - rid: 5602892874868589218
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 4463206079571951821
+        - rid: 2268261004812222470
+        - rid: 2268261004812222473
+        - rid: 3226456462082179088

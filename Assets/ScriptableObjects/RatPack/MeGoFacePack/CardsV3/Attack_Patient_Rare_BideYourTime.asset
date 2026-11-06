@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 7fb38e91-9b48-473f-af6e-c170f2872d4e
   Name: Bide Your Time
-  Description: Retain all Attack cards in hand & give any 3 block for each card retained
-    ({numAttacks} cards)
+  Description: retain all attacks & give block for each retained
   IconDescription:
   - tokenType: 0
     text: Retain all Attack cards in hand
@@ -41,10 +40,7 @@ MonoBehaviour:
   - tokenType: 0
     text: N = Number of Attack cards retained ({numAttacks} cards)
     icon: 0
-  IconDescriptionTooltipLines:
-  - Keep all Attack cards in hand for the next turn.
-  - Give a rat of your choice 3 block N times.
-  - N is equal to the number of Attack cards in your hand.
+  IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: numAttacks
     value: 0
