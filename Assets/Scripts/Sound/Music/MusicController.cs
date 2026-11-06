@@ -112,6 +112,24 @@ public class MusicController : GenericSingleton<MusicController>
             case "Holdem":
                 PlaySFX("event:/SFX/SFX_Gunshot");
                 break;
+            case "Flamethrower":
+                PlaySFX("event:/SFX/SFX_Flamethrower");
+                break;
+            case "World Eater":
+                PlaySFX("event:/SFX/SFX_MagicBoom");
+                break;
+            case "Forest's Might":
+                PlaySFX("event:/SFX/SFX_MagicBoom");
+                break;
+            // case "Overwhelming APM": // this is probably best as sword sound
+            //     PlaySFX("event:/SFX/SFX_MagicBoom");
+            //     break;
+            // case "Ebb and Flow":// was never able to test this one
+            //     PlaySFX("event:/SFX/SFX_MagicBoom");
+            //     break;
+            case "Slobber": 
+                PlaySFX("event:/SFX/SFX_Slobber");
+                break;
             default:
                 PlaySFX("event:/SFX/SFX_BasicAttack");
                 break;
