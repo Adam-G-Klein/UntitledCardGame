@@ -58,15 +58,16 @@ public class TooltipLine
                         DescriptionIconInfo descriptionIconInfo = GameplayConstantsSingleton.Instance.gameplayConstants.descriptionIconSprites[token.icon];
                         if (descriptionIconInfo.iconName != "" && !seen.ContainsKey(token.icon)) {
                             titleLabelText += descriptionIconInfo.iconName;
+                            if (titleLabelText != "") titleLabelText += " ";
                         }
                         seen[token.icon] = true;
                     }
                     else if (token.tokenType == DescriptionToken.TokenType.Text)
                     {
                         titleLabelText += token.text;
+                        // Add a space after each icon / text.
+                        if (titleLabelText != "") titleLabelText += " ";
                     }
-                    // Add a space after each icon / text.
-                    if (titleLabelText != "") titleLabelText += " ";
                 }
             }
 
