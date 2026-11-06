@@ -17,6 +17,7 @@ MonoBehaviour:
   maxHealth: 130
   baseAttackDamage: 0
   enemyDisplayType: 0
+  big: 1
   sprite: {fileID: 21300000, guid: 3a4dd62a7f92a4c9c9902af9646d7316, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
@@ -210,6 +211,7 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 0}
+        damageDealtOutputKey: 
     - rid: 8790164555430887940
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
