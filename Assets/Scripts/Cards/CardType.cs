@@ -351,6 +351,13 @@ public class CardType: IdentifiableSO, ITooltipProvider
             }
             for (int i = 0; i < descriptionLines.Count; i++)
             {
+                // Do not make tooltips for pure text on cards.
+                // The text should be able to explain itself.
+                if (descriptionLines[i].Count == 1 && descriptionLines[i].First().tokenType == DescriptionToken.TokenType.Text)
+                {
+                    continue;
+                }
+
                 List<DescriptionToken> line = descriptionLines[i];
                 IconDescriptionTooltipLineOverride lineOverride = IconDescriptionTooltipLineOverrides
                     .FirstOrDefault(o => o.lineIndex == i);
