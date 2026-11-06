@@ -438,9 +438,23 @@ public class ShopEncounter : Encounter
         Debug.Log("Booster packs chosen for shop: " + string.Join(", ", chosen.Select(bp => bp.BoosterPackName())));
 
         foreach (BoosterPack boosterPack in chosen) {
-            BoosterPackInShopWithPrice boosterPackInShop = new BoosterPackInShopWithPrice(boosterPack, boosterPack.GetBoosterPackPrice(shopData));
+            int bonusCost = AddBonusBoosterPackCost();
+            BoosterPackInShopWithPrice boosterPackInShop = new BoosterPackInShopWithPrice(boosterPack, boosterPack.GetBoosterPackPrice(shopData) + bonusCost);
+            boosterPackInShop.increasedPrice = bonusCost > 0;
             boosterPacksInShop.Add(boosterPackInShop);
         }
+    }
+
+    private int AddBonusBoosterPackCost()
+    {
+        if (!ProgressManager.Instance.IsFeatureEnabled(AscensionType.COSTLY_REROLLS)) return 0;
+
+        var ratio = ProgressManager.Instance.GetAscensionSO(AscensionType.COSTLY_REROLLS).
+            ascensionModificationValues.GetValueOrDefault("expensiveBoosterPackRatio", 0.25f);
+        if (UnityEngine.Random.Range(0f, 1f) >= ratio) return 0;
+
+        return (int) ProgressManager.Instance.GetAscensionSO(AscensionType.COSTLY_REROLLS).
+            ascensionModificationValues.GetValueOrDefault("boosterPackCostIncrease", 1f);
     }
 
     private int AddBonusRatCost()
