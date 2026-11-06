@@ -29,7 +29,8 @@ public enum BuildType
 {
     RELEASE, // eventually used for the release version
     DEMO, // shows "warning" message about art not being done and gates player progress
-    CONVENTION // resets progress/tutorials after each run
+    CONVENTION, // resets progress/tutorials after each run
+    CARD_TEST // skips straight to a repeating test combat, for testing new cards
 }
 
 public enum RunOutcome {
@@ -146,6 +147,11 @@ public class GameStateVariableSO : ScriptableObject
                 nextEncounter.SetValue(map.GetValue().encounters[nextMapIndex]);
                 AdvanceEncounter();
 
+                if (buildType == BuildType.CARD_TEST) {
+                    currentLocation = Location.COMBAT;
+                    break;
+                }
+
                 // The following is only necessary while we don't want the pack selection tutorial early in the experience as it currently looks bad
                 if (skipTutorials && !BuildTypeDemoOrConvention()) {
                     currentLocation = Location.PACK_SELECT;
@@ -198,6 +204,11 @@ public class GameStateVariableSO : ScriptableObject
                 break;
             case Location.POST_COMBAT:
                 Debug.Log("Leaving post combat, current location is: " + currentLocation);
+                if (buildType == BuildType.CARD_TEST) {
+                    currentLocation = Location.COMBAT;
+                    AdvanceEncounter();
+                    break;
+                }
                 // Modified for Shortened Demo pre GDC 2026
                 // if (skipTutorials || hasSeenShopTutorial) {
                 if (skipTutorials || hasSeenShopTutorial || BuildTypeDemoOrConvention() || IsTutorialRun) {
@@ -230,7 +241,7 @@ public class GameStateVariableSO : ScriptableObject
             // No run saves during the tutorial run's demo portion: its static
             // choose-N shop offerings don't survive serialization, so Continue
             // is kept unavailable (dying or quitting restarts the tutorial run)
-            if (!debug && !InTutorialMapPortion) SaveManager.Instance.SaveHandler();
+            if (!debug && !InTutorialMapPortion && buildType != BuildType.CARD_TEST) SaveManager.Instance.SaveHandler();
         }
 
         updateMusic(currentLocation, currentLocation == Location.COMBAT ? activeEncounter.GetValue().act : Act.One);

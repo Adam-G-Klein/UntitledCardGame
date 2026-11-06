@@ -17,9 +17,10 @@ MonoBehaviour:
   maxHealth: 140
   baseAttackDamage: 0
   enemyDisplayType: 0
-  sprite: {fileID: 21300000, guid: 610959c6eb969430188e6c6317075511, type: 3}
+  sprite: {fileID: 21300000, guid: fdbd38259027a458da88d5cb9026888f, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
+  trashTalkDialogue: []
   morale: 0
   abilities:
   - rid: 205828126246961421
@@ -52,9 +53,8 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Card Counting
-      description: "Every time you play 4 cards, S\xE9verine gains 1 strength and
-        4 block"
+    - title: Your Time is Up, Sweetie
+      description: "Every 4 cards you play, S\xE9verine gains 1 strength and 4 block"
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
       iconDescriptionLine: []

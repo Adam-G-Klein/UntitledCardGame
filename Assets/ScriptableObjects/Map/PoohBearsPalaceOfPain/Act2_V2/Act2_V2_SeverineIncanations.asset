@@ -17,9 +17,10 @@ MonoBehaviour:
   maxHealth: 130
   baseAttackDamage: 0
   enemyDisplayType: 0
-  sprite: {fileID: 21300000, guid: 610959c6eb969430188e6c6317075511, type: 3}
+  sprite: {fileID: 21300000, guid: 3a4dd62a7f92a4c9c9902af9646d7316, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
+  trashTalkDialogue: []
   morale: 0
   abilities:
   - rid: 8790164555430887889
@@ -48,16 +49,21 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Overpowering Intellect
-      description: Whenever you play a Skill card, Pooh shuffles an Incantation into
-        the owner rat's deck. Meow. Don't mess.
+    - title: Secondhand Smoke
+      description: "Whenever you play a Skill card, S\xE9verine gives the rat who
+        played it a useless Charm card"
       relatedBehaviorIndex: -1
       icon: {fileID: 0}
       iconDescriptionLine: []
       card: {fileID: 0}
-    - title: Meow
-      description: Strong attack targetting the first rat. Pooh buffs himself after
-        because he's a weapon  >:)
+    - title: 
+      description: 
+      relatedBehaviorIndex: -1
+      icon: {fileID: 0}
+      iconDescriptionLine: []
+      card: {fileID: 11400000, guid: 1d778d4184ce44ae3b5f16f43e14c5b7, type: 2}
+    - title: Severity
+      description: "S\xE9verine attacks the leftmost rat and grows in strength"
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
       iconDescriptionLine: []
@@ -99,13 +105,14 @@ MonoBehaviour:
         effectStepName: AddCardsToDeck
         inputKey: companionCardPlayedFrom
         cardTypes:
-        - {fileID: 11400000, guid: f992bdca6dbe7416e9a300608fce37a9, type: 2}
+        - {fileID: 11400000, guid: 1d778d4184ce44ae3b5f16f43e14c5b7, type: 2}
         addToDeckMethod: 1
         getCardsFromKey: 0
         inputCardsKey: 
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        outputKey: 
     - rid: 8790164555430887927
       type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
       data:

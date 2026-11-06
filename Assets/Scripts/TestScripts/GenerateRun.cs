@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 /*
@@ -29,9 +30,18 @@ public class GenerateRun : MonoBehaviour
     public int demoStartingTeamSize;
     public int demoNumStartingRats;
     public int demoStartingGold;
+    [Header("Card Test Build")]
+    public MapGeneratorSO cardTestMapGenerator;
+    public List<CompanionTypeSO> testStaticCompanions;
+    public StartingDeckSO testOverrideStartingDeck;
+    public int testTeamSize;
+    public int testStartingGold;
 
     public void generateMapAndChangeScenes() {
-        if (gameState.BuildTypeDemoOrConvention()) {
+        if (gameState.buildType == BuildType.CARD_TEST) {
+            initializeCardTestRun();
+            gameState.StartNewRun(cardTestMapGenerator);
+        } else if (gameState.BuildTypeDemoOrConvention()) {
             initializeDemoStyleRun();
             gameState.StartNewRun(demoMapGenerator);
         } else if (!gameState.HasCompletedTutorialRun && !gameState.skipTutorials) {
@@ -60,6 +70,22 @@ public class GenerateRun : MonoBehaviour
         gameState.playerData.initialize(demoStartingGold);
         gameState.playerData.GetValue().teamSize = demoStartingTeamSize;
         gameState.playerData.GetValue().numStartingRats = demoNumStartingRats;
+    }
+
+    private void initializeCardTestRun() {
+        gameState.companions.respawn(testTeamSize);
+        foreach (CompanionTypeSO companionType in testStaticCompanions) {
+            Companion companion = new Companion(companionType);
+            companion.deck = new Deck(
+                testOverrideStartingDeck.cards
+                    .Select(cardType => new Card(cardType, companionType, isStartingDeckCard: true))
+                    .ToList(),
+                companionType.initialCardsDealtPerTurn);
+            gameState.companions.activeCompanions.Add(companion);
+        }
+        gameState.playerData.initialize(testStartingGold);
+        gameState.playerData.GetValue().teamSize = testTeamSize;
+        gameState.playerData.GetValue().numStartingRats = testStaticCompanions.Count;
     }
 
 }
