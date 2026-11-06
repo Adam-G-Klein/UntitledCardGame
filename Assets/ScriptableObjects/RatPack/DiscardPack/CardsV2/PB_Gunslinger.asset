@@ -18,24 +18,6 @@ MonoBehaviour:
   IconDescription:
   - tokenType: 2
     text: 
-    icon: 30
-  - tokenType: 0
-    text: ': '
-    icon: 0
-  - tokenType: 0
-    text: '{rpl_damage}'
-    icon: 0
-  - tokenType: 2
-    text: 
-    icon: 1
-  - tokenType: 2
-    text: 
-    icon: 18
-  - tokenType: 1
-    text: 
-    icon: 0
-  - tokenType: 2
-    text: 
     icon: 15
   - tokenType: 0
     text: ':'
@@ -49,9 +31,25 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 33
-  IconDescriptionTooltipLines:
-  - If you have 3 or less cards in hand, deal damage to a foe of your choice.
-  - When this card is discarded, deal damage to all foes.
+  - tokenType: 3
+    text: 
+    icon: 0
+  - tokenType: 0
+    text: 'If you have less than 3 cards in hand:'
+    icon: 0
+  - tokenType: 1
+    text: 
+    icon: 18
+  - tokenType: 0
+    text: '{rpl_damage}'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
+  - tokenType: 2
+    text: 
+    icon: 18
+  IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: rpl_damage
     value: 11
@@ -115,6 +113,7 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
+        damageDealtOutputKey: 
     - rid: 7189280385716453754
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -178,6 +177,7 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
+        damageDealtOutputKey: 
     - rid: 8034949815888773120
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
