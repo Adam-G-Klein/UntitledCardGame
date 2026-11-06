@@ -37,9 +37,17 @@ public class ActivatePower : EffectStep, ITooltipProvider
 
     public TooltipViewModel GetTooltip()
     {
-        TooltipViewModel tooltip = new TooltipViewModel("Passive", "Passive cards are rest-of-combat passive effects applied to individual rats");
+        TooltipViewModel tooltip = new TooltipViewModel();
         if (power != null)
         {
+            if (power.Stackable)
+            {
+                tooltip = new TooltipViewModel("Passive", "Passive cards are rest-of-combat passive effects for individual rats");
+            }
+            else
+            {
+                tooltip = new TooltipViewModel("Unique Passive", "Unique passive cards are rest-of-combat passive effects for individual rats. Each rat can only have one stack of a unique passive.");
+            }
             tooltip += power.GetActivatePowerTooltip();
         }
         return tooltip;

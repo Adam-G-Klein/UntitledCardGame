@@ -24,11 +24,6 @@ public class CardInHandEffect : EffectStep, ITooltipProvider
         {CardInHandEffectName.Retain, TooltipKeyword.Retain},
     };
 
-    private static Dictionary<CardInHandEffectName, DescriptionToken.DescriptionIconType> descriptionIconMapping = new Dictionary<CardInHandEffectName, DescriptionToken.DescriptionIconType>() {
-        {CardInHandEffectName.Discard, DescriptionToken.DescriptionIconType.Discard},
-        {CardInHandEffectName.Exhaust, DescriptionToken.DescriptionIconType.Exhaust},
-    };
-
     public CardInHandEffect() {
         effectStepName = "CardInHandEffect";
     }
@@ -92,10 +87,7 @@ public class CardInHandEffect : EffectStep, ITooltipProvider
     }
 
     public TooltipViewModel GetTooltip(){
-        if (descriptionIconMapping.ContainsKey(effect) && KeywordTooltipProvider.Instance.HasTooltip(descriptionIconMapping[effect])){
-            return KeywordTooltipProvider.Instance.GetTooltip(descriptionIconMapping[effect]);
-        }
-         else if (tooltipMapping.ContainsKey(effect) && KeywordTooltipProvider.Instance.HasTooltip(tooltipMapping[effect])){
+        if (tooltipMapping.ContainsKey(effect) && KeywordTooltipProvider.Instance.HasTooltip(tooltipMapping[effect])){
             return KeywordTooltipProvider.Instance.GetTooltip(tooltipMapping[effect]);
         }
         else return new TooltipViewModel(empty: true);
