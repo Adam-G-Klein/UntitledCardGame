@@ -21,16 +21,20 @@ MonoBehaviour:
     icon: 3
   - tokenType: 2
     text: 
-    icon: 12
+    icon: 3
+  - tokenType: 2
+    text: 
+    icon: 3
+  - tokenType: 2
+    text: 
+    icon: 19
   - tokenType: 1
     text: 
     icon: 0
   - tokenType: 0
     text: If you didn't draw any Charm cards, create a Toadstool in hand for self
     icon: 0
-  IconDescriptionTooltipLines:
-  - 
-  - 
+  IconDescriptionTooltipLineOverrides: []
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 04a1d976953825d4db586e6147348356, type: 3}
@@ -106,6 +110,16 @@ MonoBehaviour:
           exactCardType: {fileID: 0}
           companionInstanceFilterEnabled: 0
         outputKey: charm
+    - rid: 3226456462082179646
+      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetRandomItems
+        inputKey: all
+        scale: 3
+        scaleKey: 
+        getScaleFromKey: 0
+        outputKey: drawTargets
+        withReplacement: 0
     - rid: 5280922841426165977
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -118,7 +132,7 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 5602892723852673196
-        - rid: 7082891405856866304
+        - rid: 3226456462082179646
         - rid: 5602892723852673197
         - rid: 5280922841426165977
         - rid: 2034229587402555941
@@ -132,10 +146,10 @@ MonoBehaviour:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: self
-        validTargets: 
+        outputKey: all
+        validTargets: 00000000
         number: 1
-        specialTargetRule: 4
+        specialTargetRule: 1
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
@@ -150,10 +164,3 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         waitForDrawsToResolve: 0
-    - rid: 7082891405856866304
-      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetAdjacentCompanions
-        inputKey: self
-        includeInputCompanion: 1
-        outputKey: drawTargets
