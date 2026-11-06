@@ -64,9 +64,12 @@ public class TooltipLine
                     }
                     else if (token.tokenType == DescriptionToken.TokenType.Text)
                     {
-                        titleLabelText += token.text;
-                        // Add a space after each icon / text.
-                        if (titleLabelText != "") titleLabelText += " ";
+                        string trimmedText = token.text.Trim();
+                        if (trimmedText.Any(char.IsLetterOrDigit)) {
+                            titleLabelText += trimmedText;
+                            // Add a space after each icon / text.
+                            if (titleLabelText != "") titleLabelText += " ";
+                        }
                     }
                 }
             }
