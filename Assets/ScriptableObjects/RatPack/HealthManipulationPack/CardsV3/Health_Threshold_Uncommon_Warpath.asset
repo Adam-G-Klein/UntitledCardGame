@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: Health_Drip_Uncommon_ChanneledFury
+  m_Name: Health_Threshold_Uncommon_Warpath
   m_EditorClassIdentifier: 
-  guid: b7969c19-f8df-4454-a6a3-b0446b6badca
-  Name: Channeled Fury
-  Description: 
+  guid: a832a2cd-717a-4e06-9036-205dbe3ee7e2
+  Name: Warpath
+  Description: Deal {rpl_damage} damage for each rat below half HP ({numComps} rats)
   IconDescription:
   - tokenType: 0
     text: '{rpl_damage}'
-    icon: 1
+    icon: 0
   - tokenType: 2
     text: 
     icon: 1
@@ -27,23 +27,23 @@ MonoBehaviour:
     icon: 18
   - tokenType: 0
     text: xN
-    icon: 10
+    icon: 0
   - tokenType: 1
     text: 
-    icon: 18
+    icon: 0
   - tokenType: 0
-    text: N = Number of rats that lost HP this turn ({numRats} rats)
-    icon: 22
+    text: N = Number of rats below half HP ({numComps} rats)
+    icon: 0
   IconDescriptionTooltipLines:
-  - Deal damage to a foe of your choice.
-  - If owner rat lost HP this turn, deal extra damage to the foe.
+  - Deal damage to a foe of your choice N times.
+  - N is equal to the number of rats below half HP.
   defaultValues:
   - key: rpl_damage
-    value: 5
-  - key: numRats
+    value: 6
+  - key: numComps
     value: 0
   Cost: 1
-  Artwork: {fileID: 21300000, guid: 0f5ecf3627abce84490e1f8ec8e4f24f, type: 3}
+  Artwork: {fileID: 21300000, guid: 87ca436f7312bd8438886b00d3e2e69d, type: 3}
   cardCategory: 1
   packFrom: {fileID: 11400000, guid: a87b5da767d4e4659b2965e31e340c58, type: 2}
   vfxPrefab: {fileID: 0}
@@ -67,32 +67,56 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 758315839196758670
-      type: {class: CombatInstanceTookDamageThisTurn, ns: , asm: Assembly-CSharp}
+    - rid: 1289961820425028160
+      type: {class: FilterEntityByHP, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: CombatInstanceTookDamageThisTurn
-        inputCombatInstanceKey: allrats
-        outputKey: tookDamage
-        numTimesOutputKey: 
-        numRatsWhoLostHPOutputKey: numRats
+        effectStepName: FilterEntityByHP
+        inputKey: allies
+        percentThreshold: 0.5
+        absoluteThreshold: 0
+        useAbsoluteThreshold: 0
+        outputKey: belowHalf
+        below: 1
+    - rid: 2295167909047304310
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: allies
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
+    - rid: 2295167909047304311
+      type: {class: CountStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CountStep
+        inputKey: belowHalf
+        outputKey: numComps
     - rid: 5602892949302281046
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 5602892949302281047
+        - rid: 2295167909047304310
         - rid: 5602892949302281048
-        - rid: 758315839196758670
-        - rid: 8966137386555146815
+        - rid: 1289961820425028160
+        - rid: 2295167909047304311
+        - rid: 5602892949302281049
     - rid: 5602892949302281047
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: target
-        validTargets: 02000000
+        outputKey: self
+        validTargets: 
         number: 1
-        specialTargetRule: 0
+        specialTargetRule: 4
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
@@ -103,24 +127,24 @@ MonoBehaviour:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: allrats
-        validTargets: 00000000
+        outputKey: enemy
+        validTargets: 02000000
         number: 1
-        specialTargetRule: 1
+        specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
         selectionCardCategory: 0
-    - rid: 8966137386555146815
+    - rid: 5602892949302281049
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
-        inputKey: target
+        inputKey: enemy
         combatEffect: 0
-        scale: 5
+        scale: 6
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 1
-        inputMultiplicityKey: numRats
+        inputMultiplicityKey: numComps
         vfxPrefab: {fileID: 1320532642761013391, guid: 4847f21b038e1aa42bceefe5c97ab1ab, type: 3}

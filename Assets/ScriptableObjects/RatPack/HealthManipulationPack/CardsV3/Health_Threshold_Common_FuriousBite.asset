@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: Health_Threshold_Common_Warpath
+  m_Name: Health_Threshold_Common_FuriousBite
   m_EditorClassIdentifier: 
-  guid: a832a2cd-717a-4e06-9036-205dbe3ee7e2
-  Name: Warpath
-  Description: Deal {rpl_damage} damage for each rat below half HP ({numComps} rats)
+  guid: 27b15e0c-3fe8-4233-8ce6-0fe972dc67e8
+  Name: Furious Bite
+  Description: deal dmg if self below half draw 1 card
   IconDescription:
   - tokenType: 0
     text: '{rpl_damage}'
@@ -25,25 +25,27 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 18
-  - tokenType: 0
-    text: xN
-    icon: 0
-  - tokenType: 1
+  - tokenType: 3
     text: 
     icon: 0
   - tokenType: 0
-    text: N = Number of rats below half HP ({numComps} rats)
+    text: 'If this rat is below half HP:'
     icon: 0
-  IconDescriptionTooltipLines:
-  - Deal damage to a foe of your choice N times.
-  - N is equal to the number of rats below half HP.
+  - tokenType: 1
+    text: 
+    icon: 11
+  - tokenType: 2
+    text: 
+    icon: 3
+  - tokenType: 2
+    text: 
+    icon: 11
+  IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: rpl_damage
-    value: 6
-  - key: numComps
-    value: 0
+    value: 7
   Cost: 1
-  Artwork: {fileID: 21300000, guid: 87ca436f7312bd8438886b00d3e2e69d, type: 3}
+  Artwork: {fileID: 21300000, guid: bc01e6303f5aef54696b1695ae9d1ce0, type: 3}
   cardCategory: 1
   packFrom: {fileID: 11400000, guid: a87b5da767d4e4659b2965e31e340c58, type: 2}
   vfxPrefab: {fileID: 0}
@@ -71,42 +73,46 @@ MonoBehaviour:
       type: {class: FilterEntityByHP, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: FilterEntityByHP
-        inputKey: allies
+        inputKey: self
         percentThreshold: 0.5
         absoluteThreshold: 0
         useAbsoluteThreshold: 0
         outputKey: belowHalf
         below: 1
-    - rid: 2295167909047304310
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: allies
-        validTargets: 00000000
-        number: 1
-        specialTargetRule: 1
-        cantCancelTargetting: 0
-        cardSelectionHelperText: 
-        selectionPurpose: 0
-        selectionCardCategory: 0
     - rid: 2295167909047304311
       type: {class: CountStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CountStep
         inputKey: belowHalf
-        outputKey: numComps
+        outputKey: numBelowHalf
+    - rid: 2295167909047304312
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 1
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 2
+        inputKey2: numBelowHalf
+        outputKey: enough
+    - rid: 2295167909047304313
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: enough
+        conditionToEndOn: 0
     - rid: 5602892949302281046
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 5602892949302281047
-        - rid: 2295167909047304310
         - rid: 5602892949302281048
+        - rid: 5602892949302281049
         - rid: 1289961820425028160
         - rid: 2295167909047304311
-        - rid: 5602892949302281049
+        - rid: 2295167909047304312
+        - rid: 2295167909047304313
+        - rid: 8966137042617237820
     - rid: 5602892949302281047
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -141,10 +147,21 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: enemy
         combatEffect: 0
-        scale: 6
+        scale: 7
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
-        getMultiplicityFromKey: 1
-        inputMultiplicityKey: numComps
-        vfxPrefab: {fileID: 1320532642761013391, guid: 4847f21b038e1aa42bceefe5c97ab1ab, type: 3}
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
+        damageDealtOutputKey: 
+    - rid: 8966137042617237820
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: self
+        outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        waitForDrawsToResolve: 0
