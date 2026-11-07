@@ -19,10 +19,11 @@ MonoBehaviour:
   abilities:
   - rid: 754093991137641276
   displaySprite: {fileID: -708212254, guid: a858744b83e5a80448c69680deac9279, type: 3}
-  tooltip:
-    rid: 754093871974056657
+  extraTooltip:
+    rid: 3226456462082179560
+  stackable: 0
   cacheConfiguration:
-    key: perpetualMotionActivated
+    key: seizeTheInitiative
     display: 1
     sprite: {fileID: 21300000, guid: ee68b8ed994d6413fbc2f7d6df902689, type: 3}
     startOfTurnValue: 1
@@ -32,11 +33,6 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 754093871974056657
-      type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
-      data:
-        empty: 0
-        lines: []
     - rid: 754093991137641276
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
@@ -60,6 +56,7 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        waitForDrawsToResolve: 0
     - rid: 754093991137641281
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -72,13 +69,15 @@ MonoBehaviour:
         specialTargetRule: 3
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 754093991137641282
       type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatInstanceCacheLoad
         inputCombatInstanceKey: self
-        cacheKey: perpetualMotionActivated
-        currentWorkflowKey: perpetualMotionActivated
+        cacheKey: seizeTheInitiative
+        currentWorkflowKey: seizeTheInitiative
     - rid: 754093991137641283
       type: {class: CombatInstanceCacheStore, ns: , asm: Assembly-CSharp}
       data:
@@ -88,8 +87,8 @@ MonoBehaviour:
         useHardCodedBool: 0
         hardCodedInt: 0
         useHardCodedInt: 0
-        currentWorkflowKey: perpetualMotionActivated
-        cacheKey: perpetualMotionActivated
+        currentWorkflowKey: seizeTheInitiative
+        cacheKey: seizeTheInitiative
     - rid: 754093991137641284
       type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
       data:
@@ -104,17 +103,17 @@ MonoBehaviour:
         useHardCodedInputKey1: 1
         inputKey1: 
         operation: 0
-        inputKey2: perpetualMotionActivated
+        inputKey2: seizeTheInitiative
         outputKey: done
     - rid: 758316142852046940
       type: {class: MathStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: MathStep
-        inputKey: perpetualMotionActivated
+        inputKey: seizeTheInitiative
         operand2InputKey: UNUSED
         operation: 1
         scale: 1
-        outputKey: perpetualMotionActivated
+        outputKey: seizeTheInitiative
     - rid: 2511001254715195972
       type: {class: ManaChange, ns: , asm: Assembly-CSharp}
       data:
@@ -122,3 +121,8 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+    - rid: 3226456462082179560
+      type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
+      data:
+        empty: 1
+        lines: []
