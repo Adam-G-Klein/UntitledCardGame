@@ -38,9 +38,7 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 18
-  IconDescriptionTooltipLines:
-  - Draw 1 card from owner rat and adjacent rats.
-  - If you exhausted a card this turn, then choose 1 card in hand to exhaust.
+  IconDescriptionTooltipLineOverrides: []
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 109c4464923594f4bb2478d2624dcf1a, type: 3}
@@ -141,15 +139,15 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-        waitForDrawsToResolve: 0
+        waitForDrawsToResolve: 1
     - rid: 5602892675124822189
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 5602892675124822190
         - rid: 758315839196758772
-        - rid: 2034230176448512661
         - rid: 2034230176448512660
+        - rid: 2034230176448512661
         - rid: 758315839196758267
         - rid: 758315839196758268
         - rid: 758315839196758771

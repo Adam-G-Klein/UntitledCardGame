@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: Exhaust_Boom_Common_Flintlock
+  m_Name: Exhaust_Boom_Common_TinyMusket
   m_EditorClassIdentifier: 
   guid: 11b955c1-c990-4fc4-8588-64848e66b98e
-  Name: Flintlock
+  Name: Tiny Musket
   Description: Deal {rpl_damage} damage & exhaust a random card in hand
   IconDescription:
   - tokenType: 0
@@ -34,9 +34,7 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 4
-  IconDescriptionTooltipLines:
-  - Deal damage to a foe of your choice
-  - Exhaust 1 card from hand at random, removing it for the rest of combat.
+  IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: rpl_damage
     value: 9
@@ -92,6 +90,7 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
+        damageDealtOutputKey: 
     - rid: 2034230108114649172
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

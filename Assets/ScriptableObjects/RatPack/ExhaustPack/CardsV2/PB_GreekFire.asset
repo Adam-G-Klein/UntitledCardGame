@@ -17,11 +17,7 @@ MonoBehaviour:
   Description: Exhaust. When exhausted, deal {onexhaust_rpl_damage} damage randomly,
     add a Greek Fire to a random rat's discard and draw 1 card from them
   IconDescription: []
-  IconDescriptionTooltipLines:
-  - This card exhausts when played, removing it for the rest of combat.
-  - When this card is exhausted, it deals X damage to a random foe.
-  - When this card is exhausted, it also shuffles a copy of Greek Fire into and draws
-    1 from a random rat's deck
+  IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: onexhaust_rpl_damage
     value: 5
@@ -163,6 +159,7 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 0}
+        damageDealtOutputKey: 
     - rid: 5602892561590780065
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:

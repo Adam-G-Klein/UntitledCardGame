@@ -25,7 +25,7 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 12
-  - tokenType: 1
+  - tokenType: 3
     text: 
     icon: 0
   - tokenType: 0
@@ -39,13 +39,11 @@ MonoBehaviour:
     icon: 2
   - tokenType: 2
     text: 
-    icon: 35
+    icon: 2
   - tokenType: 2
     text: 
     icon: 12
-  IconDescriptionTooltipLines:
-  - 
-  - 
+  IconDescriptionTooltipLineOverrides: []
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 109c4464923594f4bb2478d2624dcf1a, type: 3}

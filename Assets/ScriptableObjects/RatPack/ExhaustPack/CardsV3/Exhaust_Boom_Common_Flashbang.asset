@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: Exhaust_Boom_Common_TinyGrenade
+  m_Name: Exhaust_Boom_Common_Flashbang
   m_EditorClassIdentifier: 
   guid: 53ee48ae-c249-40bb-85d9-2747d404354d
-  Name: Halogen Lamp
-  Description: Deal {rpl_damage} damage. When exhausted, deal more damage
+  Name: Flashbang
+  Description: 
   IconDescription:
   - tokenType: 0
     text: '{rpl_damage}'
@@ -43,9 +43,7 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 4
-  IconDescriptionTooltipLines:
-  - Deal damage to a foe of your choice
-  - 
+  IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: rpl_damage
     value: 5
@@ -101,6 +99,7 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
+        damageDealtOutputKey: 
     - rid: 2034230108114649172
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

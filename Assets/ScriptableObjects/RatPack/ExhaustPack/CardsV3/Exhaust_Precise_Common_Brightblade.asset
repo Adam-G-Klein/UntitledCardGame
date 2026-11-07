@@ -26,7 +26,7 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 18
-  - tokenType: 1
+  - tokenType: 3
     text: 
     icon: 0
   - tokenType: 0
@@ -41,9 +41,7 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 11
-  IconDescriptionTooltipLines:
-  - Deal damage to a foe of your choice.
-  - If you exhausted a card this turn, draw 1 card from the owner rat.
+  IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: rpl_damage
     value: 8
@@ -153,3 +151,4 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
+        damageDealtOutputKey: 
