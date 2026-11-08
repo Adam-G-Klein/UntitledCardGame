@@ -70,6 +70,7 @@ public class SaveManager : GenericSingleton<SaveManager>
         gameStateVariableSO.HasSeenAllShopTutorials = false;
         gameStateVariableSO.HasCompletedTutorialRun = false;
         ProgressManager.Instance.progressSO.unlockedCards = new List<CardType>();
+        ProgressManager.Instance.progressSO.totalXP = 0;
     }
 
     [ContextMenu("Unlock all Achievements and Ascensions")]

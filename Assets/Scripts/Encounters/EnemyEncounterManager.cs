@@ -364,8 +364,8 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         AnalyticsManager.Instance.RecordEvent(winGameEvent);
 
         ProgressManager.Instance.ReportProgressEvent(GameActionType.WIN_A_RUN, 1);
-        ProgressManager.Instance.SetMaxAscensionUnlocked(gameState.ascensionLevel + 1); // when you win at ascension level x, you unlock ascension level x + 1
-        ProgressManager.Instance.UnlockCards();
+        bool newStakeUnlocked = ProgressManager.Instance.SetMaxAscensionUnlocked(gameState.ascensionLevel + 1); // when you win at ascension level x, you unlock ascension level x + 1
+        ProgressManager.Instance.AwardRunXP(true, newStakeUnlocked);
         SaveManager.Instance.SavePlayerProgress(); // lock in values now in case of crash/player quits before progression screen
         EntityVictoryStatsManager.Instance.ReportWin(gameState.companions.activeCompanions, gameState.ascensionLevel);
         SaveManager.Instance.DeleteSaveData();
@@ -388,9 +388,8 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         };
         AnalyticsManager.Instance.RecordEvent(loseGameEvent);
 
-        if (gameState.currentEncounterIndex >= 7) {
-            ProgressManager.Instance.UnlockCards();
-        }
+        ProgressManager.Instance.AwardRunXP(false, false);
+        SaveManager.Instance.SavePlayerProgress(); // lock in values now in case of crash/player quits before progression screen
 
         gameState.currentRunOutcome = RunOutcome.Defeat;
         SaveManager.Instance.DeleteSaveData();

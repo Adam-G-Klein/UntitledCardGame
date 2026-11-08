@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 726261615}
   - component: {fileID: 726261614}
   - component: {fileID: 726261618}
+  - component: {fileID: 726261619}
   m_Layer: 5
   m_Name: EndOfRunProgressScreenUI
   m_TagString: Untagged
@@ -240,7 +241,80 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameState: {fileID: 11400000, guid: 9e326417f60894341a96cc8d02868bbe, type: 2}
   endOfRunProgressUIDocument: {fileID: 726261611}
-  progressBarTemplate: {fileID: 9197481963319205126, guid: 7ea0f33e61c8f46418e792a93d6453f3, type: 3}
+  cardUnlockView: {fileID: 726261619}
+  debugUnlockedCards:
+  - {fileID: 11400000, guid: 464e89a8c841f49148985bdf0ea9fef4, type: 2}
+  - {fileID: 11400000, guid: 1b8ec19db61c546e08f4e68a520d53c5, type: 2}
+  - {fileID: 11400000, guid: f9ed123c90af645d28644a45640bc705, type: 2}
+  victoryTitle: Victory!
+  defeatTitle: Defeat
+  unlockButtonText: Unlock!
+  noUnlockButtonText: Progress
+  maxLevelText: Max Level
+  unlocksRemainingFormat: '{0} unlocks remaining'
+  oneUnlockRemainingText: 1 unlock remaining
+  initialDelay: 0.5
+  rowDropDistance: 30
+  rowDropDuration: 0.4
+  rowStagger: 0.15
+  rowDropEase: 2
+  pauseBeforeCountUp: 0.2
+  countUpDuration: 1
+  countUpEase: 2
+  pauseBeforeStakeUnlock: 0.3
+  pauseBeforeProgressBar: 0.4
+  fullBarFillDuration: 1.2
+  minFillDuration: 0.3
+  pauseOnLevelUp: 0.3
+  fillEase: 4
+  fillStartFraction: 0.067
+  fillEndFraction: 0.956
+  progressScreenFadeDuration: 0.3
+--- !u!114 &726261619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726261610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b768910f281424437aa117e209d21eca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameState: {fileID: 11400000, guid: 9e326417f60894341a96cc8d02868bbe, type: 2}
+  endOfRunProgressUIDocument: {fileID: 726261611}
+  titleText: New Cards!
+  continueButtonText: Continue
+  commonEnvelopeType: 5
+  uncommonEnvelopeType: 5
+  rareEnvelopeType: 6
+  fallbackEnvelopeSprite: {fileID: 21300000, guid: 886880dda61924f058ba18de9bd8f5f6, type: 3}
+  envelopeSize: {x: 243, y: 338}
+  envelopeSpacing: 67
+  maxEnvelopesPerRow: 5
+  rowSpacing: 30
+  multiRowScale: 0.8
+  screenFadeDuration: 0.3
+  dropDistance: 30
+  dropDuration: 0.4
+  dropStagger: 0.12
+  dropEase: 2
+  shakeIntervalMin: 0.8
+  shakeIntervalMax: 2
+  shakeDuration: 0.5
+  shakeAngle: 6
+  shakeCount: 3
+  openPunchScale: 1.15
+  openPunchDuration: 0.12
+  envelopeFadeDuration: 0.25
+  envelopeFadeScale: 1.3
+  cardStartScale: 0.6
+  cardRevealDuration: 0.45
+  cardRevealEase: 27
+  openSfx: 
+  pauseBeforeContinue: 0.3
+  continueFadeDuration: 0.3
 --- !u!1001 &917753632
 PrefabInstance:
   m_ObjectHideFlags: 0

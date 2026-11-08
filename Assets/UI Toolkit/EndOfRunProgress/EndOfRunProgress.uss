@@ -1,0 +1,124 @@
+.eor-text.unity-label {
+    -unity-font-definition: initial;
+    -unity-font: resource('fonts/Jost-VariableFont_wght');
+    color: rgb(255, 255, 255);
+    font-size: 32px;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    -unity-text-align: middle-left;
+    white-space: nowrap;
+}
+
+.eor-title.unity-label {
+    font-size: 64px;
+    height: 81px;
+    width: 100%;
+    -unity-text-align: middle-center;
+}
+
+.eor-row {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 41px;
+    margin-bottom: 10px;
+}
+
+.eor-row-value.unity-label {
+    -unity-text-align: middle-right;
+}
+
+.eor-divider {
+    height: 4px;
+    margin-top: -4px;
+    margin-bottom: 10px;
+    background-color: rgb(255, 255, 255);
+}
+
+.eor-bar-layer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    -unity-background-scale-mode: stretch-to-fill;
+}
+
+.eor-bar-label.unity-label {
+    position: absolute;
+    top: 203px;
+    height: 41px;
+}
+
+.eor-screen {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1920px;
+    height: 1080px;
+}
+
+.eor-envelope-area {
+    position: absolute;
+    left: 0;
+    top: 296px;
+    width: 100%;
+    height: 630px;
+    justify-content: center;
+    align-items: center;
+}
+
+.eor-envelope-row {
+    flex-direction: row;
+    justify-content: center;
+}
+
+.eor-envelope.unity-button,
+.eor-envelope.unity-button:hover,
+.eor-envelope.unity-button:focus,
+.eor-envelope.unity-button:active {
+    background-color: rgba(0, 0, 0, 0);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+}
+
+.eor-envelope-layer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.eor-button.unity-button {
+    -unity-font-definition: initial;
+    -unity-font: resource('fonts/Jost-VariableFont_wght');
+    position: absolute;
+    left: 769px;
+    top: 949px;
+    width: 381px;
+    height: 98px;
+    font-size: 48px;
+    color: rgb(0, 0, 0);
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+}

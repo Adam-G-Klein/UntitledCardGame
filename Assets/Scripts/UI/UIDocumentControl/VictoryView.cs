@@ -46,13 +46,7 @@ public class VictoryView : MonoBehaviour
                 SceneTransitionManager.LoadScene("DemoEndOfRun");
                 return;
             }
-            // go to end of run progress scene if there are any achievements to display
-            if (ProgressManager.Instance.achievementSOList.Exists(x => x.lockedInProgress < x.target)) {
-                SceneTransitionManager.LoadScene("EndOfRunProgressScene");
-                return;
-            }
-            // otherwise go to main menu
-            SceneTransitionManager.LoadScene("MainMenu");
+            SceneTransitionManager.LoadScene("EndOfRunProgressScene");
         });
     }
 

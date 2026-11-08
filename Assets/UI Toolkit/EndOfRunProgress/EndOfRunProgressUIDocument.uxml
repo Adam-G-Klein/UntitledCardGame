@@ -1,17 +1,55 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:Template name="ProgressBarUIDocument" src="project://database/Assets/UI%20Toolkit/EndOfRunProgress/ProgressBarUIDocument.uxml?fileID=9197481963319205126&amp;guid=7ea0f33e61c8f46418e792a93d6453f3&amp;type=3#ProgressBarUIDocument" />
-    <Style src="project://database/Assets/endOfGameProgressScreen.uss?fileID=7433441132597879392&amp;guid=395a717e2188445808d28306a8610d49&amp;type=3#endOfGameProgressScreen" />
-    <Style src="project://database/Assets/fontStyling.uss?fileID=7433441132597879392&amp;guid=d0c0881f1c32747ecb649373600de095&amp;type=3#fontStyling" />
+    <Style src="project://database/Assets/UI/common.uss?fileID=7433441132597879392&amp;guid=8d0bc28a2ed710a44b762e4c857ac6f9&amp;type=3#common" />
     <Style src="project://database/Assets/UI%20Toolkit/Stylesheets/ButtonStyle.uss?fileID=7433441132597879392&amp;guid=acefe7eb60f7cac43a283bde6352a710&amp;type=3#ButtonStyle" />
-    <ui:VisualElement name="endOfRunProgressScreenContainer" style="width: 100%; height: 100%; background-color: rgb(140, 140, 140); align-items: center; padding-top: 60px; padding-right: 60px; padding-bottom: 60px; padding-left: 60px; background-image: url(&quot;project://database/Assets/Sprites/UI/HotelLobbyWholeBlurred.png?fileID=2800000&amp;guid=a927115b60d685841bc27f7a1856b978&amp;type=3#HotelLobbyWholeBlurred&quot;); -unity-background-image-tint-color: rgb(87, 87, 87);">
-        <ui:Label tabindex="-1" text="Unlockable Pack Progress!" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 54px; color: rgb(255, 255, 255); -unity-font-style: bold;" />
-        <ui:VisualElement name="demo-no-progress" style="flex-grow: 1; flex-direction: row; display: none; margin-bottom: -45px;">
-            <ui:Label tabindex="-1" text="!" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" style="background-color: rgb(255, 67, 67); color: rgb(255, 255, 255); border-top-left-radius: 167px; border-top-right-radius: 167px; border-bottom-right-radius: 167px; border-bottom-left-radius: 167px; width: 36px; height: 36px; -unity-text-align: middle-center; justify-content: flex-start; align-self: center; font-size: 29px; margin-right: 12px;" />
-            <ui:Label tabindex="-1" text="Progress does not unlock new items in the demo.&#10;Buy the full game to experience new unlocks!" parse-escape-sequences="true" display-tooltip-when-elided="true" style="align-self: auto; align-items: auto; -unity-text-align: upper-center; font-size: 24px; color: rgb(255, 255, 255);" />
+    <Style src="project://database/Assets/UI%20Toolkit/EndOfRunProgress/EndOfRunProgress.uss?fileID=7433441132597879392&amp;guid=cd2e92e471c3e4c5d8c1b316d59f1502&amp;type=3#EndOfRunProgress" />
+    <ui:VisualElement name="endOfRunProgressScreenContainer" style="width: 100%; height: 100%; overflow: hidden;">
+        <ui:VisualElement name="environmentArt" picking-mode="Ignore" style="position: absolute; left: 0; top: 0; width: 1920px; height: 1080px;">
+            <ui:VisualElement name="hotelLobbyBack" picking-mode="Ignore" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; background-image: url(&quot;project://database/Assets/Sprites/Environments/HotelLobbyReviseBack2.png?fileID=2800000&amp;guid=ba70f47cb16de0c4c96fe7caa611a447&amp;type=3#HotelLobbyReviseBack2&quot;); -unity-background-scale-mode: scale-and-crop;" />
+            <ui:VisualElement name="hotelLobbyFront" picking-mode="Ignore" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; background-image: url(&quot;project://database/Assets/Sprites/Environments/HotelLobbyReviseFront2.png?fileID=2800000&amp;guid=cda92d128204b4f428b606bc6555f36c&amp;type=3#HotelLobbyReviseFront2&quot;); -unity-background-scale-mode: scale-and-crop;" />
         </ui:VisualElement>
-        <ui:VisualElement name="progressBarsContainer" style="width: 80%; height: 75%; margin-top: 60px;">
-            <ui:Instance template="ProgressBarUIDocument" name="ProgressBarUIDocument" />
+        <ui:VisualElement name="dimOverlay" picking-mode="Ignore" style="position: absolute; left: 0; top: 0; width: 1920px; height: 1081px; background-color: rgb(0, 0, 0); opacity: 0.5;" />
+        <ui:VisualElement name="progressScreen" picking-mode="Ignore" class="eor-screen">
+            <ui:VisualElement name="content" picking-mode="Ignore" style="position: absolute; left: 453px; top: 163px; width: 1014.649px; align-items: center;">
+                <ui:Label text="Victory!" name="titleLabel" class="eor-text eor-title" style="margin-bottom: 60px;" />
+                <ui:VisualElement name="statsRows" picking-mode="Ignore" style="width: 898px; height: 306px; justify-content: flex-end;">
+                    <ui:VisualElement name="combatRow" class="eor-row">
+                        <ui:Label text="Combats Won" name="combatRowLabel" class="eor-text" />
+                        <ui:Label text="0" name="combatRowValue" class="eor-text eor-row-value" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="bossRow" class="eor-row">
+                        <ui:Label text="Bosses Defeated" name="bossRowLabel" class="eor-text" />
+                        <ui:Label text="0" name="bossRowValue" class="eor-text eor-row-value" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="stakeBonusRow" class="eor-row">
+                        <ui:Label text="Stake Bonus" name="stakeBonusRowLabel" class="eor-text" />
+                        <ui:Label text="0" name="stakeBonusRowValue" class="eor-text eor-row-value" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="divider" class="eor-divider" />
+                    <ui:VisualElement name="totalRow" class="eor-row">
+                        <ui:Label text="Points" name="totalRowLabel" class="eor-text" />
+                        <ui:Label text="0" name="totalRowValue" class="eor-text eor-row-value" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="stakeUnlockRow" class="eor-row" style="margin-bottom: 0;">
+                        <ui:Label text="Boss Defeated" name="stakeUnlockRowLabel" class="eor-text" />
+                        <ui:Label text="New Stake Unlocked!" name="stakeUnlockRowValue" class="eor-text eor-row-value" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="progressBar" picking-mode="Ignore" style="width: 1014.649px; height: 317.078px;">
+                    <ui:VisualElement name="progressBarBase" picking-mode="Ignore" class="eor-bar-layer" style="background-image: url(&quot;project://database/Assets/Sprites/Nov26-UIArt/1_ProgressBar_Base.png?fileID=2800000&amp;guid=274368ff68fc44fd0b2a6aa78e3d8c7b&amp;type=3#1_ProgressBar_Base&quot;);" />
+                    <ui:VisualElement name="progressBarFillMask" picking-mode="Ignore" style="position: absolute; left: 0; top: 0; width: 0; height: 100%; overflow: hidden;">
+                        <ui:VisualElement name="progressBarFill" picking-mode="Ignore" class="eor-bar-layer" style="width: 1014.649px; height: 317.078px; background-image: url(&quot;project://database/Assets/Sprites/Nov26-UIArt/2_ProgressBar_Fill.png?fileID=2800000&amp;guid=73a24628fafb543b49b60d7924e065d4&amp;type=3#2_ProgressBar_Fill&quot;);" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="progressBarTail" picking-mode="Ignore" class="eor-bar-layer" style="background-image: url(&quot;project://database/Assets/Sprites/Nov26-UIArt/3_ProgressBar_Tail.png?fileID=2800000&amp;guid=55891cc9b9d224aed95482c2b99dc282&amp;type=3#3_ProgressBar_Tail&quot;);" />
+                    <ui:Label text="[0/0]" name="xpLabel" class="eor-text eor-bar-label" style="left: 71px;" />
+                    <ui:Label text="0 unlocks remaining" name="unlocksRemainingLabel" class="eor-text eor-bar-label eor-row-value" style="right: 58.649px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:Button text="Unlock!" name="continueButton" class="main-menu-button focusable eor-button" />
         </ui:VisualElement>
-        <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="exitButton" class="end-of-game-progress-exit-button" />
+        <ui:VisualElement name="cardUnlockScreen" picking-mode="Ignore" class="eor-screen" style="display: none;">
+            <ui:Label text="New Cards!" name="cardUnlockTitle" class="eor-text eor-title" style="position: absolute; left: 0; top: 191px;" />
+            <ui:VisualElement name="envelopeArea" picking-mode="Ignore" class="eor-envelope-area" />
+            <ui:Button text="Continue" name="cardUnlockContinueButton" class="main-menu-button focusable eor-button" />
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

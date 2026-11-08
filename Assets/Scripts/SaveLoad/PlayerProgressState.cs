@@ -16,6 +16,8 @@ public class PlayerProgressState
      private int maxAscensionUnlocked;
      [OptionalField]
      private int ascensionIndexVersion;
+     [OptionalField]
+     private int totalXP;
      private List<string> unlockedCardGuids;
      private bool skipTutorials;
      private bool hasSeenCombatTutorial;
@@ -29,6 +31,7 @@ public class PlayerProgressState
           this.hasWonRun = new AchievementSerializable(achievementSOList.Find(x => x.gameActionType == GameActionType.WIN_A_RUN));
           this.maxAscensionUnlocked = ProgressManager.Instance.ascensionInfo.playersMaxAscensionUnlocked;
           this.ascensionIndexVersion = AscensionInfo.AscensionIndexVersion;
+          this.totalXP = ProgressManager.Instance.progressSO.totalXP;
 
           // Not yet implemented
           //this.numCardsDiscarded = new AchievementSerializable(achievementSOList.Find(x => x.gameActionType == GameActionType.DISCARD_A_CARD));
@@ -41,7 +44,10 @@ public class PlayerProgressState
           this.hasSeenCombatTutorial = gameState.HasSeenCombatTutorial;
           this.hasSeenShopTutorial = gameState.HasSeenAllShopTutorials;
           this.hasCompletedTutorialRun = gameState.HasCompletedTutorialRun;
-          this.nextTutorialID = TutorialManager.Instance.UpcomingTutorialID;
+          // TutorialManager only exists once the main menu or a combat has loaded, e.g. not when playing a scene directly
+          this.nextTutorialID = TutorialManager.Instance != null
+               ? TutorialManager.Instance.UpcomingTutorialID
+               : SaveSystem.Load<PlayerProgressState>(SaveSystem.SaveType.Progress)?.nextTutorialID;
 
      }
 
@@ -57,6 +63,8 @@ public class PlayerProgressState
 
           ProgressManager.Instance.ascensionInfo.playersMaxAscensionUnlocked =
                this.ascensionIndexVersion < AscensionInfo.AscensionIndexVersion ? this.maxAscensionUnlocked + 1 : this.maxAscensionUnlocked;
+
+          ProgressManager.Instance.progressSO.totalXP = this.totalXP;
 
           ProgressManager.Instance.progressSO.unlockedCards = new List<CardType>();
           // Backwards compatability, not actually sure if this if is necessary
@@ -77,7 +85,7 @@ public class PlayerProgressState
           gameState.HasSeenCombatTutorial = this.hasSeenCombatTutorial;
           gameState.HasSeenAllShopTutorials = this.hasSeenShopTutorial;
           gameState.HasCompletedTutorialRun = this.hasCompletedTutorialRun;
-          TutorialManager.Instance.SetUpcomingTutorialID(this.nextTutorialID);
+          if (TutorialManager.Instance != null) TutorialManager.Instance.SetUpcomingTutorialID(this.nextTutorialID);
 
           PrintPlayerProgress();
      }
@@ -99,6 +107,7 @@ public class PlayerProgressState
           // PrintAchievementProgress(ProgressManager.Instance.achievementSOList.Find(x => x.gameActionType == GameActionType.HEALTH_GAINED));
           // PrintAchievementProgress(ProgressManager.Instance.achievementSOList.Find(x => x.gameActionType == GameActionType.STATUS_CARDS_GAINED));
           Debug.Log($"ProgressManager - Max Ascension Unlocked: {ProgressManager.Instance.ascensionInfo.playersMaxAscensionUnlocked}");
+          Debug.Log($"ProgressManager - Total XP: {ProgressManager.Instance.progressSO.totalXP}");
      }
 
      private void PrintAchievementProgress(AchievementSO achievementSO)
