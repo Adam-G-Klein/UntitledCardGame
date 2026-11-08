@@ -12,8 +12,7 @@ Saving that UX problem for V2*/
 public enum TutorialType
 {
     Shop,
-    Combat,
-    PackSelection
+    Combat
 }
 
 public class TutorialManager : MonoBehaviour
@@ -188,9 +187,6 @@ public class TutorialManager : MonoBehaviour
         {
             case TutorialType.Combat:
                 gameState.HasSeenCombatTutorial = true;
-                break;
-            case TutorialType.PackSelection:
-                gameState.HasSeenPackSelectTutorial = true;
                 break;
             case TutorialType.Shop:
                 gameState.HasSeenAllShopTutorials = true;

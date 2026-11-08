@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using UnityEngine;
 
 
@@ -17,6 +18,8 @@ public class SaveState
     private int currentCompanionSlots;
     private PlayerDataSerializable playerData;
     private int ascensionLevel;
+    [OptionalField]
+    private int ascensionIndexVersion;
 
      public SaveState(string saveName, GameStateVariableSO gameState)
      {
@@ -41,6 +44,7 @@ public class SaveState
 
           this.playerData = new PlayerDataSerializable(gameState.playerData.GetValue());
           this.ascensionLevel = gameState.ascensionLevel;
+          this.ascensionIndexVersion = AscensionInfo.AscensionIndexVersion;
      }
 
      public void LoadToGameState(GameStateVariableSO gameState, SORegistry registry)
@@ -60,7 +64,8 @@ public class SaveState
 
           gameState.playerData.SetValue(new PlayerData(this.playerData));
           gameState.companions.currentCompanionSlots = this.currentCompanionSlots;
-          gameState.ascensionLevel = this.ascensionLevel;
+          gameState.ascensionLevel =
+               this.ascensionIndexVersion < AscensionInfo.AscensionIndexVersion ? this.ascensionLevel + 1 : this.ascensionLevel;
     }
 
     public void Print() {

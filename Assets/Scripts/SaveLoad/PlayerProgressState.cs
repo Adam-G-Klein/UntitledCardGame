@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using UnityEngine;
 
 
@@ -13,11 +14,12 @@ public class PlayerProgressState
      private AchievementSerializable healthGained;
      private AchievementSerializable statusCardsGained;
      private int maxAscensionUnlocked;
+     [OptionalField]
+     private int ascensionIndexVersion;
      private List<string> unlockedCardGuids;
      private bool skipTutorials;
      private bool hasSeenCombatTutorial;
      private bool hasSeenShopTutorial;
-     private bool hasSeenPackSelectTutorial;
      private bool hasCompletedTutorialRun;
      private string nextTutorialID;
 
@@ -26,6 +28,7 @@ public class PlayerProgressState
           this.numAttackCardsPlayed = new AchievementSerializable(achievementSOList.Find(x => x.gameActionType == GameActionType.ZERO_COST_ATTACKS_PLAYED));
           this.hasWonRun = new AchievementSerializable(achievementSOList.Find(x => x.gameActionType == GameActionType.WIN_A_RUN));
           this.maxAscensionUnlocked = ProgressManager.Instance.ascensionInfo.playersMaxAscensionUnlocked;
+          this.ascensionIndexVersion = AscensionInfo.AscensionIndexVersion;
 
           // Not yet implemented
           //this.numCardsDiscarded = new AchievementSerializable(achievementSOList.Find(x => x.gameActionType == GameActionType.DISCARD_A_CARD));
@@ -36,7 +39,6 @@ public class PlayerProgressState
 
           this.skipTutorials = gameState.skipTutorials;
           this.hasSeenCombatTutorial = gameState.HasSeenCombatTutorial;
-          this.hasSeenPackSelectTutorial = gameState.HasSeenPackSelectTutorial;
           this.hasSeenShopTutorial = gameState.HasSeenAllShopTutorials;
           this.hasCompletedTutorialRun = gameState.HasCompletedTutorialRun;
           this.nextTutorialID = TutorialManager.Instance.UpcomingTutorialID;
@@ -53,7 +55,8 @@ public class PlayerProgressState
           // CopyAchievementProgress(this.healthGained, ProgressManager.Instance.achievementSOList.Find(x => x.gameActionType == GameActionType.HEALTH_GAINED));
           // CopyAchievementProgress(this.statusCardsGained, ProgressManager.Instance.achievementSOList.Find(x => x.gameActionType == GameActionType.STATUS_CARDS_GAINED));
 
-          ProgressManager.Instance.ascensionInfo.playersMaxAscensionUnlocked = this.maxAscensionUnlocked;
+          ProgressManager.Instance.ascensionInfo.playersMaxAscensionUnlocked =
+               this.ascensionIndexVersion < AscensionInfo.AscensionIndexVersion ? this.maxAscensionUnlocked + 1 : this.maxAscensionUnlocked;
 
           ProgressManager.Instance.progressSO.unlockedCards = new List<CardType>();
           // Backwards compatability, not actually sure if this if is necessary
@@ -72,7 +75,6 @@ public class PlayerProgressState
 
           gameState.skipTutorials = this.skipTutorials;
           gameState.HasSeenCombatTutorial = this.hasSeenCombatTutorial;
-          gameState.HasSeenPackSelectTutorial = this.hasSeenPackSelectTutorial;
           gameState.HasSeenAllShopTutorials = this.hasSeenShopTutorial;
           gameState.HasCompletedTutorialRun = this.hasCompletedTutorialRun;
           TutorialManager.Instance.SetUpcomingTutorialID(this.nextTutorialID);
