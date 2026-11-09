@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: Discard_BigHand_Common_cyclingBlock
+  m_Name: Discard_Common_Discardandblock
   m_EditorClassIdentifier: 
   guid: 2c683e26-26c0-40df-8ee2-0d4b1c0d6662
   Name: ...
@@ -34,21 +34,6 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 6
-  - tokenType: 1
-    text: 
-    icon: 0
-  - tokenType: 2
-    text: 
-    icon: 15
-  - tokenType: 0
-    text: ': '
-    icon: 18
-  - tokenType: 2
-    text: 
-    icon: 3
-  - tokenType: 2
-    text: 
-    icon: 4
   IconDescriptionTooltipLineOverrides: []
   defaultValues: []
   Cost: 1
@@ -137,33 +122,7 @@ MonoBehaviour:
     - rid: 3226456610657009707
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
-        effectSteps:
-        - rid: 3226456610657009708
-        - rid: 3226456610657009709
-    - rid: 3226456610657009708
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: out
-        validTargets: 00000000
-        number: 1
-        specialTargetRule: 6
-        cantCancelTargetting: 0
-        cardSelectionHelperText: 
-        selectionPurpose: 0
-        selectionCardCategory: 0
-    - rid: 3226456610657009709
-      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DrawCards
-        inputKey: out
-        outputKey: 
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-        waitForDrawsToResolve: 0
+        effectSteps: []
     - rid: 3226456610657009711
       type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
       data:

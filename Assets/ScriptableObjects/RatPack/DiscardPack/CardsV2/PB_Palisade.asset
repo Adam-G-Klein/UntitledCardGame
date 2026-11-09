@@ -15,10 +15,30 @@ MonoBehaviour:
   guid: 9fc6cb20-0247-4562-9be7-94b7ef0f26c3
   Name: Palisade
   Description: Give any 2 block for each card in hand ({block} block)
-  IconDescription: []
-  IconDescriptionTooltipLines: []
+  IconDescription:
+  - tokenType: 0
+    text: 2
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 2
+  - tokenType: 0
+    text: xN
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 18
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 0
+    text: N = Number of cards in hand ({numCards} cards)
+    icon: 0
+  IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: block
+    value: 0
+  - key: numCards
     value: 0
   Cost: 2
   Artwork: {fileID: 21300000, guid: 45525ee67521e6646bc3c798eabca14a, type: 3}

@@ -36,11 +36,11 @@ MonoBehaviour:
     icon: 1
   - tokenType: 2
     text: 
-    icon: 18
+    icon: 4
   IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: rpl_damage
-    value: 10
+    value: 11
   Cost: 1
   Artwork: {fileID: 21300000, guid: 50bbe2ab14b04f54c96e28c3e3f8e313, type: 3}
   cardCategory: 1
@@ -86,7 +86,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 0
-        scale: 10
+        scale: 11
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
@@ -103,7 +103,7 @@ MonoBehaviour:
         outputKey: target
         validTargets: 02000000
         number: 1
-        specialTargetRule: 0
+        specialTargetRule: 6
         cantCancelTargetting: 1
         cardSelectionHelperText: 
         selectionPurpose: 0

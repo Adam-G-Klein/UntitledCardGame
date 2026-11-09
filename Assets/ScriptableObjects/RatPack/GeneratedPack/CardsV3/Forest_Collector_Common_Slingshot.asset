@@ -30,10 +30,8 @@ MonoBehaviour:
     icon: 1
   - tokenType: 2
     text: 
-    icon: 18
-  IconDescriptionTooltipLines:
-  - Choose a Charm card in hand to exhaust. This is a cost to play this card.
-  - Deal damage to a foe of your choice.
+    icon: 4
+  IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: rpl_damage
     value: 9
@@ -129,8 +127,8 @@ MonoBehaviour:
         outputKey: target
         validTargets: 02000000
         number: 1
-        specialTargetRule: 0
-        cantCancelTargetting: 1
+        specialTargetRule: 6
+        cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
         selectionCardCategory: 0
@@ -147,3 +145,4 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
+        damageDealtOutputKey: 

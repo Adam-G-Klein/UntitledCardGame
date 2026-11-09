@@ -14,10 +14,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 0cde8ec5-caa8-4a4d-a53d-78f9af98a2d9
   Name: Redeal
-  Description: Draw 1 from a random rat until you have 6 cards in hand
-  IconDescription: []
+  Description: Draw 1 from a random rat until you have 7 cards in hand
+  IconDescription:
+  - tokenType: 2
+    text: 
+    icon: 3
+  - tokenType: 2
+    text: 
+    icon: 4
+  - tokenType: 0
+    text: xN
+    icon: 4
+  - tokenType: 1
+    text: 
+    icon: 4
+  - tokenType: 0
+    text: N = Number you need to get 7 cards in hand ({numCardsToDraw} cards)
+    icon: 4
   IconDescriptionTooltipLineOverrides: []
-  defaultValues: []
+  defaultValues:
+  - key: numCardsToDraw
+    value: 0
   Cost: 1
   Artwork: {fileID: 21300000, guid: 04a1d976953825d4db586e6147348356, type: 3}
   cardCategory: 2
@@ -84,7 +101,7 @@ MonoBehaviour:
         inputKey: numCardsInHand
         operand2InputKey: UNUSED
         operation: 1
-        scale: 6
+        scale: 7
         outputKey: out
     - rid: 2295168569757139750
       type: {class: MathStep, ns: , asm: Assembly-CSharp}
