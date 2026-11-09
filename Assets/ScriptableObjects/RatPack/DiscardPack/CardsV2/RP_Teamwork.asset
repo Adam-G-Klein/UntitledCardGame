@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RP_Teamwork
   m_EditorClassIdentifier: 
   guid: 660190eb-004a-4729-9055-1d6883375ab5
-  Name: Teamwork
+  Name: Teamfight
   Description: Draw 1 card from 4 random rats
   IconDescription:
   - tokenType: 2
@@ -31,7 +31,7 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 19
-  IconDescriptionTooltipLines: []
+  IconDescriptionTooltipLineOverrides: []
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 04bf14070e798284f9f39ea08b676c4a, type: 3}

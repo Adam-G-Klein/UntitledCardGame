@@ -23,11 +23,17 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 1
+  - tokenType: 0
+    text: xN
+    icon: 4
+  - tokenType: 2
+    text: 
+    icon: 18
   - tokenType: 1
     text: 
     icon: 0
   - tokenType: 0
-    text: for each card in hand ({numberOfCardsInHand} cards)
+    text: N = Number of cards in hand ({numberOfCardsInHand} cards)
     icon: 0
   - tokenType: 1
     text: 
@@ -41,7 +47,7 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 4
-  IconDescriptionTooltipLines: []
+  IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: rpl_damage
     value: 2
@@ -113,6 +119,7 @@ MonoBehaviour:
         getMultiplicityFromKey: 1
         inputMultiplicityKey: numberOfCardsInHand
         vfxPrefab: {fileID: 1320532642761013391, guid: 4847f21b038e1aa42bceefe5c97ab1ab, type: 3}
+        damageDealtOutputKey: 
     - rid: 2116895648763871330
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:

@@ -16,6 +16,12 @@ MonoBehaviour:
   Name: Powernap
   Description: Give any 3 strength
   IconDescription:
+  - tokenType: 0
+    text: Exhaust
+    icon: 0
+  - tokenType: 1
+    text: 
+    icon: 18
   - tokenType: 2
     text: 
     icon: 7
@@ -36,7 +42,7 @@ MonoBehaviour:
   packFrom: {fileID: 11400000, guid: 908f28c6f48104c2d85d2fcbd973771e, type: 2}
   vfxPrefab: {fileID: 0}
   playable: 1
-  exhaustsWhenPlayed: 0
+  exhaustsWhenPlayed: 1
   retain: 0
   effectWorkflows:
   - rid: 5602892533381726226
