@@ -447,14 +447,14 @@ public class ShopEncounter : Encounter
 
     private int AddBonusBoosterPackCost()
     {
-        if (!ProgressManager.Instance.IsFeatureEnabled(AscensionType.COSTLY_REROLLS)) return 0;
+        if (!ProgressManager.Instance.IsFeatureEnabled(AscensionType.STINGY_CONCIERGE)) return 0;
 
-        var ratio = ProgressManager.Instance.GetAscensionSO(AscensionType.COSTLY_REROLLS).
+        var ratio = ProgressManager.Instance.GetAscensionSO(AscensionType.STINGY_CONCIERGE).
             ascensionModificationValues.GetValueOrDefault("expensiveBoosterPackRatio", 0.25f);
         if (UnityEngine.Random.Range(0f, 1f) >= ratio) return 0;
 
-        return (int) ProgressManager.Instance.GetAscensionSO(AscensionType.COSTLY_REROLLS).
-            ascensionModificationValues.GetValueOrDefault("boosterPackCostIncrease", 1f);
+        return (int) ProgressManager.Instance.GetAscensionSO(AscensionType.STINGY_CONCIERGE).
+            ascensionModificationValues.GetValueOrDefault("costIncrease", 1f);
     }
 
     private int AddBonusRatCost()
