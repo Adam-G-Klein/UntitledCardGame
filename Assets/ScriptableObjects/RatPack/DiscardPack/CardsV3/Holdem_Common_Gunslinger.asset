@@ -16,24 +16,6 @@ MonoBehaviour:
   Name: Gunslinger
   Description: 
   IconDescription:
-  - tokenType: 2
-    text: 
-    icon: 15
-  - tokenType: 0
-    text: ':'
-    icon: 0
-  - tokenType: 0
-    text: '{ondiscard_rpl_damage}'
-    icon: 0
-  - tokenType: 2
-    text: 
-    icon: 1
-  - tokenType: 2
-    text: 
-    icon: 33
-  - tokenType: 3
-    text: 
-    icon: 0
   - tokenType: 0
     text: 'If you have 3 or less cards in hand:'
     icon: 0
@@ -49,6 +31,24 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 18
+  - tokenType: 3
+    text: 
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 15
+  - tokenType: 0
+    text: ':'
+    icon: 0
+  - tokenType: 0
+    text: '{ondiscard_rpl_damage}'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
+  - tokenType: 2
+    text: 
+    icon: 33
   IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: rpl_damage

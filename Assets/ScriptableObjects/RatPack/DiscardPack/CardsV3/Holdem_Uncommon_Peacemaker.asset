@@ -16,24 +16,6 @@ MonoBehaviour:
   Name: Peacemaker
   Description: 
   IconDescription:
-  - tokenType: 2
-    text: 
-    icon: 15
-  - tokenType: 0
-    text: ':'
-    icon: 0
-  - tokenType: 0
-    text: '{ondiscard_rpl_damage}'
-    icon: 0
-  - tokenType: 2
-    text: 
-    icon: 1
-  - tokenType: 2
-    text: 
-    icon: 4
-  - tokenType: 3
-    text: 
-    icon: 0
   - tokenType: 0
     text: 'If you have 3 or less cards in hand:'
     icon: 30
@@ -49,6 +31,24 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 19
+  - tokenType: 3
+    text: 
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 15
+  - tokenType: 0
+    text: ':'
+    icon: 0
+  - tokenType: 0
+    text: '{ondiscard_rpl_damage}'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
+  - tokenType: 2
+    text: 
+    icon: 4
   IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: ondiscard_rpl_damage
