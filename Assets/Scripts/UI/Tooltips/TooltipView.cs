@@ -72,6 +72,7 @@ public class TooltipLine
                         }
                     }
                 }
+                titleLabelText = titleLabelText.Trim();
             }
 
             if (titleLabelText != "") {
