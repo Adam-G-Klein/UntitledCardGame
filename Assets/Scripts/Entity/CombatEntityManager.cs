@@ -139,14 +139,13 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
     {
         List<CompanionInstance> adjacentCompanions = new List<CompanionInstance>();
         int companionIndex = companions.IndexOf(instance);
-        // Check if the companion is on the left (0 index)
-        if (companionIndex == 0 && companions.Count >= 2) {
-            adjacentCompanions.Add(companions[1]);
-        } else if (companionIndex == companions.Count - 1) {
-            adjacentCompanions.Add(companions[companionIndex - 1]);
-        } else if (companionIndex > 0 && companionIndex < companions.Count - 1) {
-            adjacentCompanions.Add(companions[companionIndex - 1]);
-            adjacentCompanions.Add(companions[companionIndex + 1]);
+        if (companionIndex != -1) {
+            if (companionIndex > 0) {
+                adjacentCompanions.Add(companions[companionIndex - 1]);
+            }
+            if (companionIndex < companions.Count - 1) {
+                adjacentCompanions.Add(companions[companionIndex + 1]);
+            }
         }
 
         if (includeInputCompanion) {
