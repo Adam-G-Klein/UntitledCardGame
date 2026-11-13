@@ -41,19 +41,15 @@ MonoBehaviour:
     text: ': '
     icon: 17
   - tokenType: 0
-    text: 2
+    text: 1
     icon: 17
   - tokenType: 2
     text: 
     icon: 34
-  IconDescriptionTooltipLines:
-  - This card is not discarded at the end of turn.
-  - Deal damage to a foe of your choice.
-  - If this card is still in hand at the end of turn, it gains +2 damage for the
-    rest of combat.
+  IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: rpl_damage
-    value: 5
+    value: 6
   Cost: 1
   Artwork: {fileID: 21300000, guid: 977664b7b0443cc4682f0fb74f848cd1, type: 3}
   cardCategory: 1
@@ -91,6 +87,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 
@@ -105,7 +102,7 @@ MonoBehaviour:
       data:
         effectStepName: CardModificationEffect
         inputKey: self
-        scale: 2
+        scale: 1
         affectsAllCardsOfType: 0
         cardTypeToModify: {fileID: 0}
         getScaleFromKey: 0
@@ -129,6 +126,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: enemy
         validTargets: 02000000
@@ -144,10 +142,11 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: enemy
         combatEffect: 0
-        scale: 5
+        scale: 6
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
+        damageDealtOutputKey: 
