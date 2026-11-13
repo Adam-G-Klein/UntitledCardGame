@@ -15,7 +15,7 @@ MonoBehaviour:
   guid: 9cebb6e3-7ea2-44a6-8469-cdf4a5a5c346
   Name: Collective Rage
   Description: Deal {rpl_damage} to target enemy for each companion on your team
-    below half HP ({numComps} companions)
+    at or below half HP ({numComps} companions)
   defaultValues:
   - key: rpl_damage
     value: 10

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 477ada89-345e-4c4e-942f-f369c37887b7
   Name: Vengeful Slash
-  Description: Deal {rpl_damage} damage & if self below half HP, deal {rpl_damage_2}
+  Description: Deal {rpl_damage} damage & if self at or below half HP, deal {rpl_damage_2}
     damage
   IconDescription:
   - tokenType: 0
@@ -43,7 +43,7 @@ MonoBehaviour:
     icon: 1
   IconDescriptionTooltipLines:
   - Deal damage to a foe of your choice
-  - If the owner rat is below half HP, deal an extra Y damage to the targeted foe
+  - If the owner rat is at or below half HP, deal an extra Y damage to the targeted foe
   defaultValues:
   - key: rpl_damage
     value: 7

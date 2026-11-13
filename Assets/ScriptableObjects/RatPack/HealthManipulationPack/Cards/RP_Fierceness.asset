@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: e37e8078-2d79-4f62-a166-5f8b7acdeaf5
   Name: Fierceness
-  Description: Deal {rpl_damage} damage. Gain 5 block if self below half HP
+  Description: Deal {rpl_damage} damage. Gain 5 block if self at or below half HP
   defaultValues:
   - key: rpl_damage
     value: 7

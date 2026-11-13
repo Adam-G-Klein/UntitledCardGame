@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: a832a2cd-717a-4e06-9036-205dbe3ee7e2
   Name: Warpath
-  Description: Deal {rpl_damage} damage for each rat below half HP ({numComps} rats)
+  Description: Deal {rpl_damage} damage for each rat at or below half HP ({numComps} rats)
   IconDescription:
   - tokenType: 0
     text: '{rpl_damage}'
@@ -32,11 +32,11 @@ MonoBehaviour:
     text: 
     icon: 0
   - tokenType: 0
-    text: N = Number of rats below half HP ({numComps} rats)
+    text: N = Number of rats at or below half HP ({numComps} rats)
     icon: 0
   IconDescriptionTooltipLines:
   - Deal damage to a foe of your choice N times.
-  - N is equal to the number of rats below half HP.
+  - N is equal to the number of rats at or below half HP.
   defaultValues:
   - key: rpl_damage
     value: 6

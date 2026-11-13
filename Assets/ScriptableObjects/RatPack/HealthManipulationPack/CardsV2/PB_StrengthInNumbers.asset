@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: fb452e89-702b-4099-9857-6eec5bd8c3a5
   Name: Strength in Numbers
-  Description: Exhaust. Give all rats 1 strength & if self below half HP, give +1
+  Description: Exhaust. Give all rats 1 strength & if self at or below half HP, give +1
     strength
   IconDescription:
   - tokenType: 0
@@ -44,7 +44,7 @@ MonoBehaviour:
   IconDescriptionTooltipLines:
   - This card exhausts when played.
   - Give all rats on your team 1 strength, increasing damage from Attacks.
-  - If owner rat below half HP, gain 1 energy
+  - If owner rat at or below half HP, gain 1 energy
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: bc01e6303f5aef54696b1695ae9d1ce0, type: 3}

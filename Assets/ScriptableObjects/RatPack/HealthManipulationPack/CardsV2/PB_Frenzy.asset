@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 28c11b02-e61c-453c-bb2b-8fb68fd7868e
   Name: Frenzy
-  Description: Deal {rpl_damage} damage & if self below half HP, draw 1 card from
+  Description: Deal {rpl_damage} damage & if self at or below half HP, draw 1 card from
     self
   IconDescription:
   - tokenType: 0
@@ -43,7 +43,7 @@ MonoBehaviour:
     icon: 11
   IconDescriptionTooltipLines:
   - Deal damage to a foe of your choice
-  - If the owner rat is below half HP, deal an extra Y damage to the targeted foe
+  - If the owner rat is at or below half HP, deal an extra Y damage to the targeted foe
   defaultValues:
   - key: rpl_damage
     value: 9

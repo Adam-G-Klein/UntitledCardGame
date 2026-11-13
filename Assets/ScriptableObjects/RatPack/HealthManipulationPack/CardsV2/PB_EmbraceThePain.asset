@@ -45,7 +45,7 @@ MonoBehaviour:
     icon: 12
   IconDescriptionTooltipLines:
   - Give owner rat and adjacent rats block, preventing damage until next turn.
-  - If the owner rat is below half HP, give extra block.
+  - If the owner rat is at or below half HP, give extra block.
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: bc01e6303f5aef54696b1695ae9d1ce0, type: 3}
