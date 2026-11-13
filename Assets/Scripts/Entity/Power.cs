@@ -49,7 +49,7 @@ public class PowerSO : ScriptableObject
     public enum PowerType
     {
         None,
-        // Unyielding: do not lose leftover Block end of turn if below half HP
+        // Unyielding: do not lose leftover Block end of turn if at or below half HP
         Unyielding,
         // DoubleDamage: all attacks played from this companion deal double damage
         DoubleDamage,
@@ -106,13 +106,13 @@ public class PowerSO : ScriptableObject
         ForestProphet,
         // TotalMeltdown: add Firebreath cards to each deck
         TotalMeltdown,
-        // BalancedTemper: self damage until below half HP
+        // BalancedTemper: self damage until at or below half HP
         BalancedTemper,
         // _: whenever heals, they gain 3 block
         Rejuvenation,
         // _: Whenever a companion gains block, bleed self 1 HP and draw a card from self
         OldGodsSanctuary,
-        // _: Whenever a companion gains block, if self below half HP, heal 2 HP and deal 7 damage to random enemy
+        // _: Whenever a companion gains block, if self at or below half HP, heal 2 HP and deal 7 damage to random enemy
         UncheckedVitality,
         // _: End of turn, retain an Attack card and give it +3 damage
         Whetstone,
