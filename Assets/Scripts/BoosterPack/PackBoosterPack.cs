@@ -55,7 +55,7 @@ public class PackBoosterPack : BoosterPack
 
     public override string BoosterPackName()
     {
-        return GetBoosterPackTypeName(boosterType) + " Card Envelope";
+        return GetBoosterPackTypeName(boosterType) + " Booster Pack";
     }
 
     public override int GetBoosterPackPrice(ShopDataSO shopData)

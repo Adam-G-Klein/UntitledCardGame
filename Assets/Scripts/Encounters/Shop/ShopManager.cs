@@ -390,7 +390,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     }
 
     private void SetBoosterPackHelpText(int numCardsLeftToBuy) {
-        shopViewController.SetDraftingHelpText("Choose up to " + numCardsLeftToBuy + " card" + (numCardsLeftToBuy > 1 ? "s" : "") + " from the envelope for your rats");
+        shopViewController.SetDraftingHelpText("Choose up to " + numCardsLeftToBuy + " card" + (numCardsLeftToBuy > 1 ? "s" : "") + " from the booster pack for your rats");
     }
 
     public void ProcessBoosterPackDoneClicked() {
@@ -1053,7 +1053,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             .Select(p => {
                 string typeName = BoosterPack.GetBoosterPackTypeName(p.boosterType);
                 string lowerFirstTypeName = char.ToLower(typeName[0]) + typeName[1..];
-                return $"{p.appearancePct}% {lowerFirstTypeName} card envelopes";
+                return $"{p.appearancePct}% {lowerFirstTypeName} booster packs";
             }));
         if (!string.IsNullOrEmpty(envelopeLine)) {
             descriptionLines.Add(envelopeLine);

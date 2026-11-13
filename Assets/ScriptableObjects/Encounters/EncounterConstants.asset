@@ -38,7 +38,7 @@ MonoBehaviour:
     cardRemovalDiscount: 0
     numCardRemovalsAllowed: 1
     numLessCardsInStartingDeck: 0
-    switchDecksEnabled: 1
+    switchDecksEnabled: 0
     cardRemovalEnabled: 0
     placeCardsAnywhere: 0
     upgradeTooltip:
@@ -73,7 +73,7 @@ MonoBehaviour:
     cardRemovalDiscount: 0
     numCardRemovalsAllowed: 1
     numLessCardsInStartingDeck: 0
-    switchDecksEnabled: 1
+    switchDecksEnabled: 0
     cardRemovalEnabled: 0
     placeCardsAnywhere: 1
     upgradeTooltip:
@@ -123,7 +123,8 @@ MonoBehaviour:
         iconDescriptionLine: []
         card: {fileID: 0}
     upgradeBonusLines:
-    - Take +1 card from card envelopes
+    - Take +1 card from booster packs
+    - Swap cards between rats
   - level: 3
     shopLevelIncrementsToUnlock: 0
     upgradeIncrementCost: 4
@@ -154,7 +155,7 @@ MonoBehaviour:
     upgradeBonusLines:
     - Card removal button
     - Stronger rats in shop
-    - +1 card envelope available
+    - +1 booster pack available
   companionPrefab: {fileID: 5285687428135354733, guid: 24f62d5c366ae1e488c1f12d6dd09200, type: 3}
   enemyPrefab: {fileID: 1818299386461833425, guid: 34d1fb5b688453b4a919a06abb42f422, type: 3}
   SmokeAndArmsBossPrefab: {fileID: 1818299386461833425, guid: a99d3923036e772438f69e7c8b5fba7a, type: 3}
