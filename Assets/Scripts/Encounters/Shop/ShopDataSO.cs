@@ -67,6 +67,7 @@ public class ShopDataSO : IdentifiableSO
     public int freeRerolls = 6;
     public int freeCardRemovals = 2;
     public int maximumMoneyLeftBeforeNextCombat = 10;
+    public bool showCardBuyingTutorialOnFirstCardOfShop = false;
 
     [Header("Neutral cards")]
     public CardPoolSO neutralCardPool;
