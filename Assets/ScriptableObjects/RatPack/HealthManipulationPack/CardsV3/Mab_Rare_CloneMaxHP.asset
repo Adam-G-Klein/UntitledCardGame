@@ -23,12 +23,11 @@ MonoBehaviour:
     text: 
     icon: 0
   - tokenType: 0
-    text: Choose two rats. Set their max HP equal to the greater max HP between the
-      two
+    text: Choose two rats. Set their max HP to the sum of of the their max HP
     icon: 0
   IconDescriptionTooltipLineOverrides: []
   defaultValues: []
-  Cost: 1
+  Cost: 2
   Artwork: {fileID: 21300000, guid: db26ea4bdc4531f4a9d89b36175475e6, type: 3}
   cardCategory: 2
   packFrom: {fileID: 11400000, guid: a87b5da767d4e4659b2965e31e340c58, type: 2}
@@ -59,9 +58,9 @@ MonoBehaviour:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: targets
+        outputKey: target1
         validTargets: 00000000
-        number: 2
+        number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
@@ -85,25 +84,25 @@ MonoBehaviour:
         scale: 0
         getScaleFromKey: 1
         inputScaleKey: maxOfMaxHealth
-    - rid: 3226456462082179387
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+    - rid: 3226456700144582722
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: CombatEffectStep
-        inputKey: targets
-        combatEffect: 16
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-        vfxPrefab: {fileID: 6137048663962808129, guid: 418a03ccd75ca98409952e0384c196fd, type: 3}
-        damageDealtOutputKey: 
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: target2
+        validTargets: 
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 5602893017534169574
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 1289961820425028156
-        - rid: 3226456462082179387
+        - rid: 3226456700144582722
         - rid: 2034230108114649708
         - rid: 3226456462082179382
