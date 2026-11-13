@@ -29,8 +29,11 @@ MonoBehaviour:
     text: 
     icon: 18
   - tokenType: 0
-    text: 'If the last card you played this turn was an Attack:'
+    text: 'If the last card you played was an Attack:'
     icon: 0
+  - tokenType: 1
+    text: 
+    icon: 11
   - tokenType: 2
     text: 
     icon: 3
@@ -86,6 +89,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 00000000
@@ -141,6 +145,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: drawTarget
         validTargets: 00000000
