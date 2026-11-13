@@ -120,6 +120,21 @@ MonoBehaviour:
         getScaleFromKey: 0
         outputKey: drawTargets
         withReplacement: 0
+    - rid: 3226456700144582827
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 5280922841426165977
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -133,18 +148,20 @@ MonoBehaviour:
         effectSteps:
         - rid: 5602892723852673196
         - rid: 3226456462082179646
-        - rid: 5602892723852673197
         - rid: 5280922841426165977
+        - rid: 5602892723852673197
         - rid: 2034229587402555941
         - rid: 758316142852047577
         - rid: 758316142852047578
         - rid: 758316142852047579
+        - rid: 3226456700144582827
         - rid: 758316142852047573
     - rid: 5602892723852673196
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: all
         validTargets: 00000000
@@ -163,4 +180,4 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-        waitForDrawsToResolve: 0
+        waitForDrawsToResolve: 1
