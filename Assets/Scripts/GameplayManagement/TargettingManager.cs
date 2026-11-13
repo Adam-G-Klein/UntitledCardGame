@@ -38,7 +38,7 @@ public class TargettingManager : GenericSingleton<TargettingManager>
             string promptText,
             int minCardsToSelect,
             int maxCardsToSelect,
-            List<Card> output 
+            List<Card> output
             ) {
         GameObject gameObject = GameObject.Instantiate(
             cardSelectionUIPrefab,

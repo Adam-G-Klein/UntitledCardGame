@@ -119,23 +119,34 @@ public class GetTargets : EffectStep, IEffectStepCalculation
             GetTargetsRandomly(document);
         } else {
             cancelled = false;
+            bool stashedFocusables = false;
             // if we're here then we need to user to click something on the screen
             // FocusManager.Instance.StashFocusablesNotOfTargetType(validTargets, this.GetType().Name);
             // UIStateManager.Instance.setState(UIState.EFFECT_TARGETTING);
             if (validTargets.Count == 1 && validTargets.Contains(Targetable.TargetType.Card)) {
-                FocusManager.Instance.StashFocusablesNotOfTargetType(validTargets, this.GetType().Name);
-                UIStateManager.Instance.setState(UIState.EFFECT_TARGETTING);
-                bool selected = false;
-                bool forceExactNumber = selectionPurpose == SelectionPurposeEnum.ExhaustAsACost || selectionPurpose == SelectionPurposeEnum.DiscardAsACost;
-                // TODO (James): would be nice to wait until the draw queue is empty before resolving the card selection.
-                PlayerHand.Instance.SelectCardsFromHand(number, disallowedTargets, limitOptions, CancelHandler, (List<PlayableCard> selectedCards) => {
-                    foreach (PlayableCard card in selectedCards) {
-                        targetsList.Add(card.GetComponent<Targetable>());
-                    }
-                    selected = true;
-                }, originCard, !cantCancelTargetting, cardSelectionHelperText, selectionPurpose, selectionCardCategory, forceExactNumber);
-                yield return new WaitUntil(() => selected == true || (!cantCancelTargetting && cancelled));
+                bool isCostSelection = selectionPurpose == SelectionPurposeEnum.ExhaustAsACost || selectionPurpose == SelectionPurposeEnum.DiscardAsACost;
+                if (isCostSelection && !cantCancelTargetting && !HasSelectableCardsInHand()) {
+                    // Nothing in hand satisfies this cost (e.g. no charm cards to exhaust/discard).
+                    // Short circuit instead of putting up a selection UI the player could never complete.
+                    ShowNoValidCostCardsDialogue();
+                    CancelHandler(new CancelContext());
+                } else {
+                    stashedFocusables = true;
+                    FocusManager.Instance.StashFocusablesNotOfTargetType(validTargets, this.GetType().Name);
+                    UIStateManager.Instance.setState(UIState.EFFECT_TARGETTING);
+                    bool selected = false;
+                    bool forceExactNumber = isCostSelection;
+                    // TODO (James): would be nice to wait until the draw queue is empty before resolving the card selection.
+                    PlayerHand.Instance.SelectCardsFromHand(number, disallowedTargets, limitOptions, CancelHandler, (List<PlayableCard> selectedCards) => {
+                        foreach (PlayableCard card in selectedCards) {
+                            targetsList.Add(card.GetComponent<Targetable>());
+                        }
+                        selected = true;
+                    }, originCard, !cantCancelTargetting, cardSelectionHelperText, selectionPurpose, selectionCardCategory, forceExactNumber);
+                    yield return new WaitUntil(() => selected == true || (!cantCancelTargetting && cancelled));
+                }
             } else {
+                stashedFocusables = true;
                 TargettingManager.Instance.targetSuppliedHandler += TargetSuppliedHandler;
                 TargettingManager.Instance.cancelTargettingHandler += CancelHandler;
                 TargettingArrowsController.Instance.createTargettingArrow(validTargets, self);
@@ -146,7 +157,9 @@ public class GetTargets : EffectStep, IEffectStepCalculation
                 TargettingManager.Instance.cancelTargettingHandler -= CancelHandler;
             }
 
-            FocusManager.Instance.UnstashFocusables(this.GetType().Name);
+            if (stashedFocusables) {
+                FocusManager.Instance.UnstashFocusables(this.GetType().Name);
+            }
             // If the user cancelled the effect workflow, we should interrupt it.
             // Also, disable the callback so the card doesn't finish casting :)
             if (!cantCancelTargetting && cancelled) {
@@ -157,6 +170,24 @@ public class GetTargets : EffectStep, IEffectStepCalculation
         }
 
         yield return null;
+    }
+
+    private void ShowNoValidCostCardsDialogue() {
+        if (originCard == null || !originCard.deckFrom.TryGetComponent(out CompanionInstance companionInstance)) {
+            return;
+        }
+        string message = "We don't have enough " + selectionCardCategory + " cards in hand to play this card.";
+        DialogueView.Instance.gameObject.SetActive(true);
+        DialogueView.Instance.SpeakLine(companionInstance.companion.companionType.fullSprite, message);
+    }
+
+    private bool HasSelectableCardsInHand() {
+        foreach (PlayableCard card in PlayerHand.Instance.GetCardsOrdered()) {
+            if (disallowedTargets != null && disallowedTargets.Contains(card.gameObject)) continue;
+            if (limitOptions != null && !limitOptions.Contains(card.gameObject)) continue;
+            return true;
+        }
+        return false;
     }
 
     private void AddTargetsToDocument(EffectDocument document) {
