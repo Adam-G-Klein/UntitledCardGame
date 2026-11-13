@@ -451,6 +451,6 @@ public class PlayableCard : MonoBehaviour,
 
     public void ToggleDarkOverlay(bool turnOn)
     {
-        docCard.ToggleDarkOverlay(turnOn);
+        docCard?.ToggleDarkOverlay(turnOn);
     }
 }
