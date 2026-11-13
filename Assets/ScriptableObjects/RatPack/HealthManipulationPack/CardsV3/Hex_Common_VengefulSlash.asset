@@ -29,11 +29,11 @@ MonoBehaviour:
   - tokenType: 1
     text: 
     icon: 0
-  - tokenType: 2
-    text: 
-    icon: 21
   - tokenType: 0
-    text: ': '
+    text: 'If this rat is at or below half HP:'
+    icon: 21
+  - tokenType: 1
+    text: 
     icon: 0
   - tokenType: 0
     text: +{rpl_damage_2}
@@ -41,9 +41,7 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 1
-  IconDescriptionTooltipLines:
-  - Deal damage to a foe of your choice
-  - If the owner rat is at or below half HP, deal an extra Y damage to the targeted foe
+  IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: rpl_damage
     value: 7
@@ -97,6 +95,7 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
+        damageDealtOutputKey: 
     - rid: 2295167909047304311
       type: {class: CountStep, ns: , asm: Assembly-CSharp}
       data:
@@ -136,6 +135,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 
@@ -150,6 +150,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: enemy
         validTargets: 02000000
@@ -172,3 +173,4 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
+        damageDealtOutputKey: 

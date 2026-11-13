@@ -29,7 +29,7 @@ MonoBehaviour:
     text: 
     icon: 12
   - tokenType: 0
-    text: 'If self at or below half HP:'
+    text: 'If this rat is at or below half HP:'
     icon: 21
   - tokenType: 1
     text: ': '
@@ -40,9 +40,7 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 2
-  IconDescriptionTooltipLines:
-  - 
-  - 
+  IconDescriptionTooltipLineOverrides: []
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 5e40f858eddaed340a6366c33c4e216f, type: 3}
@@ -162,6 +160,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 
@@ -176,6 +175,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: target
         validTargets: 00000000

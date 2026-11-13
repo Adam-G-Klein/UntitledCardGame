@@ -28,7 +28,7 @@ MonoBehaviour:
   - tokenType: 3
     text: 
     icon: 12
-  - tokenType: 2
+  - tokenType: 0
     text: 'If this rat is at or at or below half HP:'
     icon: 21
   - tokenType: 1
@@ -162,6 +162,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 

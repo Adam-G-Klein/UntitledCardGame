@@ -35,7 +35,7 @@ MonoBehaviour:
     text: 
     icon: 18
   - tokenType: 0
-    text: N = Number of cards in their deck ({numCards} cards)
+    text: N = Number of cards in this rat's deck ({numCards} cards)
     icon: 0
   IconDescriptionTooltipLineOverrides: []
   defaultValues:
@@ -84,7 +84,7 @@ MonoBehaviour:
       type: {class: CountCardsInDeck, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CountCardsInDeck
-        inputDeckKey: target
+        inputDeckKey: self
         filter:
           cardCategoriesToInclude: 
           retainedCardsFilter: 0
@@ -96,10 +96,26 @@ MonoBehaviour:
         includeDiscardPile: 1
         includeCardsInHand: 1
         outputKey: numCards
+    - rid: 3226456700144582818
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 5602892561590779943
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
+        - rid: 3226456700144582818
         - rid: 5602892561590779944
         - rid: 3226456462082179353
         - rid: 2268261004812222482
@@ -108,6 +124,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: target
         validTargets: 00000000
