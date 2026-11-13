@@ -56,6 +56,7 @@ public class CompanionView : IUIEventReceiver
     private List<Sprite> animationFrames;
 
     private int lastHealthValue;
+    private int lastMaxHealthValue;
     private bool isHealthTweening = false;
     private float currentRotationDegrees = 0f;
 
@@ -388,13 +389,14 @@ public class CompanionView : IUIEventReceiver
             maxHealth = this.combatInstance.combatStats.maxHealth;
         }
 
-        if (currentHealth == lastHealthValue) return;
+        if (currentHealth == lastHealthValue && maxHealth == lastMaxHealthValue) return;
 
         isHealthTweening = true;
 
         HealthBarUtils.UpdateHealth(lastHealthValue, currentHealth, maxHealth, healthBarFillClip, healthBarLabel, () => {
                 isHealthTweening = false;
                 lastHealthValue = currentHealth;
+                lastMaxHealthValue = maxHealth;
                 // In case multiple instances of damage come through in close timing
                 UpdateHealth();
             });
@@ -412,6 +414,7 @@ public class CompanionView : IUIEventReceiver
         }
         HealthBarUtils.SetupHealth(currentHealth, maxHealth, healthBarFillClip, healthBarLabel);
         lastHealthValue = currentHealth;
+        lastMaxHealthValue = maxHealth;
         container.RegisterCallback<GeometryChangedEvent>(SetHealthBarFillSize);
 
         // this.shieldIcon.style.backgroundImage = new StyleBackground(viewDelegate.GetStatusEffectSprite(StatusEffectType.Defended));

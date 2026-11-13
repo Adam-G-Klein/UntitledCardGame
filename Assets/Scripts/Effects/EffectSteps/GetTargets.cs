@@ -12,6 +12,9 @@ using UnityEngine;
         - UseInputToLimitOptions: If checked, will limit the targetting system
             to only allow the player to target what was taken from a previous
             step, saved to the key designated by the InputKey field
+        - UseInputToExcludeOptions: If checked, will allow the player to target
+            anything valid EXCEPT what was taken from a previous step, saved
+            to the key designated by the InputKey field
         - ValidTargets: What type of entities can be targetted,
             and will hence be stored under the output key
         - Number: If no special targetting rules, how many targets are required
@@ -35,6 +38,8 @@ public class GetTargets : EffectStep, IEffectStepCalculation
 {
     [SerializeField]
     private bool useInputToLimitOptions = false;
+    [SerializeField]
+    private bool useInputToExcludeOptions = false;
     [SerializeField]
     private string inputKey = "";
     [Tooltip(
@@ -96,6 +101,9 @@ public class GetTargets : EffectStep, IEffectStepCalculation
         limitOptions = null;
         if (useInputToLimitOptions) {
             limitOptions = document.GetGameObjects(inputKey);
+        }
+        if (useInputToExcludeOptions) {
+            disallowedTargets.AddRange(document.GetGameObjects(inputKey));
         }
 
         if (specialTargetRule == SpecialTargetRule.TargetAllValidTargets ||

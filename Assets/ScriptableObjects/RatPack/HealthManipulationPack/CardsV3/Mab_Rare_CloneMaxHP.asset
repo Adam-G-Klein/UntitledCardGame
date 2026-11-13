@@ -27,7 +27,7 @@ MonoBehaviour:
     icon: 0
   IconDescriptionTooltipLineOverrides: []
   defaultValues: []
-  Cost: 2
+  Cost: 3
   Artwork: {fileID: 21300000, guid: db26ea4bdc4531f4a9d89b36175475e6, type: 3}
   cardCategory: 2
   packFrom: {fileID: 11400000, guid: a87b5da767d4e4659b2965e31e340c58, type: 2}
@@ -57,6 +57,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: target1
         validTargets: 00000000
@@ -70,8 +71,8 @@ MonoBehaviour:
       type: {class: GetHPStatistics, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetHPStatistics
-        inputKey: targets
-        outputMaxHPKey: maxHP
+        inputKey: target1
+        outputMaxHPKey: maxHP1
         outputCurrentHPKey: 
         outputMissingHPKey: 
         outputMaximumOfMaxHP: maxOfMaxHealth
@@ -79,25 +80,67 @@ MonoBehaviour:
       type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: PermanentStatIncrease
-        inputKey: targets
+        inputKey: target1
         statIncreaseType: 2
         scale: 0
         getScaleFromKey: 1
-        inputScaleKey: maxOfMaxHealth
+        inputScaleKey: sum
     - rid: 3226456700144582722
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
-        inputKey: 
+        useInputToExcludeOptions: 1
+        inputKey: target1
         outputKey: target2
-        validTargets: 
+        validTargets: 00000000
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
         selectionCardCategory: 0
+    - rid: 3226456700144582723
+      type: {class: GetHPStatistics, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetHPStatistics
+        inputKey: target2
+        outputMaxHPKey: maxHP2
+        outputCurrentHPKey: 
+        outputMissingHPKey: 
+        outputMaximumOfMaxHP: 
+    - rid: 3226456700144582791
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: maxHP1
+        operand2InputKey: maxHP2
+        operation: 0
+        scale: 0
+        outputKey: sum
+    - rid: 3226456700144582792
+      type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: PermanentStatIncrease
+        inputKey: target2
+        statIncreaseType: 2
+        scale: 0
+        getScaleFromKey: 1
+        inputScaleKey: sum
+    - rid: 3226456700144582793
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target1
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+        scale: 1
+    - rid: 3226456700144582794
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target2
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+        scale: 1
     - rid: 5602893017534169574
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -105,4 +148,9 @@ MonoBehaviour:
         - rid: 1289961820425028156
         - rid: 3226456700144582722
         - rid: 2034230108114649708
+        - rid: 3226456700144582723
+        - rid: 3226456700144582791
         - rid: 3226456462082179382
+        - rid: 3226456700144582792
+        - rid: 3226456700144582793
+        - rid: 3226456700144582794
