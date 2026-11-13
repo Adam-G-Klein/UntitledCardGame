@@ -21,7 +21,16 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: fdbd38259027a458da88d5cb9026888f, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
-  trashTalkDialogue: []
+  trashTalkDialogue:
+  - dialogue: Hey sweetheart, can you tell me what time it is?
+    sprite: {fileID: 21300000, guid: fdbd38259027a458da88d5cb9026888f, type: 3}
+    pause: 0
+  - dialogue: No, no. It's your time.
+    sprite: {fileID: 21300000, guid: fdbd38259027a458da88d5cb9026888f, type: 3}
+    pause: 0
+  - dialogue: It's nearly up.
+    sprite: {fileID: 21300000, guid: fdbd38259027a458da88d5cb9026888f, type: 3}
+    pause: 0
   morale: 0
   abilities:
   - rid: 205828126246961421

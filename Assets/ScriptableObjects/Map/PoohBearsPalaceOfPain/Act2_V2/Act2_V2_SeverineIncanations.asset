@@ -21,7 +21,17 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 3a4dd62a7f92a4c9c9902af9646d7316, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
-  trashTalkDialogue: []
+  trashTalkDialogue:
+  - dialogue: Ahh, so you're the one everyone's talking about?
+    sprite: {fileID: 21300000, guid: 3a4dd62a7f92a4c9c9902af9646d7316, type: 3}
+    pause: 0
+  - dialogue: I was expecting someone more impressive. Pity.
+    sprite: {fileID: 21300000, guid: 3a4dd62a7f92a4c9c9902af9646d7316, type: 3}
+    pause: 0
+  - dialogue: Nevertheless, I will enjoy tearing your and your little friends to
+      tiny pieces.
+    sprite: {fileID: 21300000, guid: 3a4dd62a7f92a4c9c9902af9646d7316, type: 3}
+    pause: 0
   morale: 0
   abilities:
   - rid: 8790164555430887889
