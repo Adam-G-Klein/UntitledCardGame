@@ -17,7 +17,7 @@ MonoBehaviour:
   Description: 
   IconDescription:
   - tokenType: 0
-    text: Discard an Attack card in hand
+    text: Discard an Attack card in hand as cost
     icon: 0
   - tokenType: 1
     text: 
@@ -57,6 +57,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: cards
         validTargets: 03000000
@@ -85,6 +86,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 1
+        useInputToExcludeOptions: 0
         inputKey: attacks
         outputKey: attackCard
         validTargets: 03000000
@@ -92,7 +94,7 @@ MonoBehaviour:
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
-        selectionPurpose: 2
+        selectionPurpose: 6
         selectionCardCategory: 1
     - rid: 1289961820425028209
       type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
@@ -117,6 +119,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 
