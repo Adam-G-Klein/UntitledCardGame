@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerType: 34
   title: Whetstone
-  description: End of turn, choose an Attack card in hand and give it +2 damage
+  description: End of turn, choose an Attack card in hand to retain and give +2 damage
   abilities:
   - rid: 754093991137640772
   displaySprite: {fileID: 21300000, guid: bc01e6303f5aef54696b1695ae9d1ce0, type: 3}
@@ -37,6 +37,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 1
+        useInputToExcludeOptions: 0
         inputKey: attacks
         outputKey: cardToRetain
         validTargets: 03000000
@@ -64,6 +65,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: cards
         validTargets: 03000000
