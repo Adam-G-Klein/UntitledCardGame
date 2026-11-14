@@ -33,7 +33,6 @@ MonoBehaviour:
       - rid: 5280922829633618019
       - rid: 5602892723852673492
       - rid: 7364365662660284892
-      - rid: 5280922829633618018
     behaviorType: 0
   belowHalfHPEnemyPattern:
     behaviors: []
@@ -82,27 +81,12 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
+        vfxPrefab: {fileID: 2088516068117912119, guid: b9dc6b402fe99ef4b97ddceeb485394c, type: 3}
     - rid: 754093826381185271
       type: {class: ScriptableObjectEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ScriptableObjectEffectStep
         effectStepSO: {fileID: 11400000, guid: 46ac36b880e2ff14aa699c90b6e9f19c, type: 2}
-    - rid: 5280922829633618018
-      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FXEffectStep
-        waitForEffect: 1
-        fXExperiencePrefab: {fileID: 4075960956037802917, guid: ec7b1a1529f9141458320888bf8e3d96, type: 3}
-        rootLocationGameObjectKey: 
-        positionMappingList:
-        - fromWorkflow: randomCompanion
-          toFxExperience: end
-        - fromWorkflow: self
-          toFxExperience: start
-        gameobjectMappingList: []
-        vePositionMappingList: []
-        veMappingList: []
     - rid: 5280922829633618019
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

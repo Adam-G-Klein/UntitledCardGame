@@ -53,6 +53,7 @@ MonoBehaviour:
         - rid: 5602893017534169682
         - rid: 5602893017534169684
         - rid: 1749966585238224497
+        - rid: 1752642047469411521
         - rid: 5602893017534169681
         - rid: 5602893017534169683
     - rid: 5602893017534169680
@@ -75,6 +76,12 @@ MonoBehaviour:
         effectStepName: CardInHandEffect
         inputKey: target
         effect: 1
+    - rid: 1752642047469411521
+      type: {class: UseRemovalVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: UseRemovalVFX
+        inputKey: target
+        removalVFXPrefab: {fileID: 6841246063235012224, guid: 1352775812e44cf49b2aafd8c2d3d60c, type: 3}
     - rid: 5602893017534169682
       type: {class: ConvertPlayableCardToCard, ns: , asm: Assembly-CSharp}
       data:

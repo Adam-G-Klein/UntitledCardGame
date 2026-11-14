@@ -2001,6 +2001,8 @@ public class ShopViewController : MonoBehaviour,
         cards.ForEach((card) => {
             companion.deck.PurgeCard(card.id);
             companion.trackingStats.RecordCardRemoval();
+            // VFX: the removed card is shown and consumed (the removal look from combat)
+            if (cardRemovalVFX != null) cardRemovalVFX.Play(uiDoc.rootVisualElement, card);
         });
 
         shopManager.ProcessCardRemoval();
@@ -2418,6 +2420,12 @@ public class ShopViewController : MonoBehaviour,
         FocusManager.Instance.UnregisterFocusableTarget(shopItemView.visualElementFocusable);
         disableOnCompanionDrag.Remove(shopItemView.visualElementFocusable);
 
+        // VFX: remember the envelope's look and place before the slot is cleared, for its opening animation
+        VisualElement openedEnvelope = shopItemView.shopItemElement.Q(className: "booster-pack-container");
+        Rect openedEnvelopeBounds = openedEnvelope != null ? openedEnvelope.worldBound : shopItemView.shopItemElement.worldBound;
+        StyleBackground openedEnvelopeImage = openedEnvelope != null ? openedEnvelope.style.backgroundImage : new StyleBackground();
+        bool openedPremium = IsPremiumEnvelope(boosterPack.boosterPack);
+
         shopItemView.shopItemElement.Clear();
 
         // drop this envelope's sheen before it leaves the map the shine cleanup walks
@@ -2459,7 +2467,7 @@ public class ShopViewController : MonoBehaviour,
                     AnimateBoosterPackOpening(shopItemView, tempCardViews, boosterPackCards, () =>
                     {
                         BoosterPackAnimationComplete(boosterPackCards);
-                    });
+                    }, openedEnvelopeBounds, openedEnvelopeImage, openedPremium);
                 }
             });
         }
@@ -2499,12 +2507,19 @@ public class ShopViewController : MonoBehaviour,
     [SerializeField] private float boosterStartScale = 0.2f;
     [SerializeField] private float boosterAnimationMoveTime = 0.5f;
     [SerializeField] private float boosterAnimationPerCardDelay = 0.05f;
+    [Tooltip("VFX: the envelope's opening (bigger for premium packs). The cards fly out when it bursts.")]
+    [SerializeField] private BoosterPackOpeningVFX boosterPackOpening = new BoosterPackOpeningVFX();
+    [Tooltip("VFX: the card removed from a deck is shown and consumed.")]
+    [SerializeField] private CardRemovalVFX cardRemovalVFX = new CardRemovalVFX();
 
     private void AnimateBoosterPackOpening(
         ShopItemView packView,
         List<ShopItemView> tempCardViews,
         List<CardInShopWithPrice> cards,
-        Action onComplete)
+        Action onComplete,
+        Rect envelopeBounds = default,
+        StyleBackground envelopeImage = default,
+        bool premium = false)
     {
         Vector2 packCenter = VisualElementUtils.GetCenterOfVisualElement(packView.shopItemElement);
 
@@ -2516,6 +2531,11 @@ public class ShopViewController : MonoBehaviour,
         overlay.style.left = 0;
         overlay.style.overflow = Overflow.Visible;
         uiDoc.rootVisualElement.Add(overlay);
+
+        // VFX: the envelope opens first (the screen darkens, it flies to the centre of the screen, trembles and bursts);
+        // the cards are thrown out from there
+        float openDelay = boosterPackOpening != null ? boosterPackOpening.Play(envelopeBounds, envelopeImage, premium) : 0f;
+        if (openDelay > 0f) packCenter = boosterPackOpening.StageCentre;
 
         List<CardView> animatingCards = new();
 
@@ -2545,7 +2565,7 @@ public class ShopViewController : MonoBehaviour,
         for (int i = 0; i < animatingCards.Count; i++)
         {
             Vector2 targetPos = VisualElementUtils.GetCenterOfVisualElement(tempCardViews[i].shopItemElement);
-            float delay = i * boosterAnimationPerCardDelay;
+            float delay = openDelay + i * boosterAnimationPerCardDelay;
 
             AnimateVisualElementPositionAndScale(
                 animatingCards[i].cardContainer,
@@ -2558,7 +2578,7 @@ public class ShopViewController : MonoBehaviour,
                 delay);
         }
 
-        float totalTime = boosterAnimationMoveTime +
+        float totalTime = openDelay + boosterAnimationMoveTime +
                         (animatingCards.Count - 1) * boosterAnimationPerCardDelay;
 
         uiDoc.rootVisualElement.schedule.Execute(() =>

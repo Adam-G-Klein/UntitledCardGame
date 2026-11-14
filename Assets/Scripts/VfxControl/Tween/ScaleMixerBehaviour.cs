@@ -28,7 +28,9 @@ public class ScaleMixerBehaviour : PlayableBehaviour
             ScriptPlayable<ScaleBehaviour> inputPlayable = (ScriptPlayable<ScaleBehaviour>)playable.GetInput(i);
             ScaleBehaviour input = inputPlayable.GetBehaviour();
 
-            float clipMultiplier = Mathf.Lerp(input.startingScale, input.endingScale, (float)(inputPlayable.GetTime() / inputPlayable.GetDuration()));
+            float progress = (float)(inputPlayable.GetTime() / inputPlayable.GetDuration());
+            if (input.curve != null && input.curve.length > 0) progress = input.curve.Evaluate(progress);   // eases, where the clip has a curve
+            float clipMultiplier = Mathf.Lerp(input.startingScale, input.endingScale, progress);
             blendedMultiplier += clipMultiplier * inputWeight;
             totalWeight += inputWeight;
         }

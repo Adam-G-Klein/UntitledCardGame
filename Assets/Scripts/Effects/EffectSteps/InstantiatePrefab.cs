@@ -44,8 +44,11 @@ public class InstantiatePrefab : EffectStep
             if (PrecastTrailController.ShouldTrail(caster, target)) {
                 // "Do something to another friendly": arc a trail from caster to target,
                 // then play the payload prefab on arrival.
+                HitTiming.Expect(target, prefabToInstantiate, PrecastTrailController.Instance.FlightTime);   // HitTiming
                 PrecastTrailController.Instance.PlayTrailThenSpawn(caster, target, spawn);
             } else {
+                // HitTiming: the target's hit feedback from the next steps waits until this effect strikes
+                HitTiming.Expect(target, prefabToInstantiate);
                 spawn();
             }
         }

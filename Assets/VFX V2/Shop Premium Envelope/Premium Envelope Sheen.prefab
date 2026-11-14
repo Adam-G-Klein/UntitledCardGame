@@ -288,7 +288,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.9
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -341,7 +341,7 @@ ParticleSystem:
     startSizeY:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.92
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -4844,11 +4844,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textureProperty: _MainTex
-  offStart: 0.22
-  offEnd: 0.56
+  offStart: 0.25
+  offEnd: 0.53
   sweepTime: 0.55
   pauseRange: {x: 3.5, y: 5}
   firstDelay: 0.8
+  edgeFade: 0.42
+  colourProperty: _Color
 --- !u!1 &3628846811363785795
 GameObject:
   m_ObjectHideFlags: 0
@@ -5433,8 +5435,8 @@ ParticleSystem:
         m_RotationOrder: 4
     startRotation:
       serializedVersion: 2
-      minMaxState: 3
-      scalar: 0.2617994
+      minMaxState: 0
+      scalar: 0
       minScalar: -0.2617994
       maxCurve:
         serializedVersion: 2
@@ -5554,7 +5556,7 @@ ParticleSystem:
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 0.85, y: 0.85, z: 1}
+    m_Scale: {x: 0.64, y: 0.66, z: 1}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -6083,7 +6085,7 @@ ParticleSystem:
         m_RotationOrder: 4
     separateAxes: 0
   RotationModule:
-    enabled: 1
+    enabled: 0
     x:
       serializedVersion: 2
       minMaxState: 3

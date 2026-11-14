@@ -175,7 +175,7 @@ MonoBehaviour:
       data:
         effectStepName: FXEffectStep
         waitForEffect: 0
-        fXExperiencePrefab: {fileID: 8506809162363077141, guid: 3f88ec0f39c7cad44998210b3a8813e5, type: 3}
+        fXExperiencePrefab: {fileID: 166372752271642552, guid: f80963ce88d847a49bb82ecb6cb75117, type: 3}
         rootLocationGameObjectKey: 
         positionMappingList:
         - fromWorkflow: shooter
@@ -189,7 +189,7 @@ MonoBehaviour:
       type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: WaitForSecondsEffect
-        seconds: 0.26
+        seconds: 0.54
     - rid: 1700682198445195776
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

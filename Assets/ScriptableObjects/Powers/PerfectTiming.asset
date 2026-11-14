@@ -47,8 +47,10 @@ MonoBehaviour:
         - rid: 385751591190528691
         - rid: 385751591190528709
         - rid: 385751591190528710
+        - rid: 385751591190528714
         - rid: 385751591190528708
         - rid: 385751591190528711
+        - rid: 385751591190528715
         - rid: 385751591190528712
         - rid: 385751591190528713
         weight: 0
@@ -132,3 +134,17 @@ MonoBehaviour:
         useHardCodedInt: 1
         currentWorkflowKey: attackCount
         cacheKey: attackCount
+    - rid: 385751591190528714
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 3711616238409005905, guid: 8686fb6f6c6dba243bd1243f892810c5, type: 3}
+        scale: 1
+    - rid: 385751591190528715
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 3980082339695959107, guid: dfe6c746c36a6ca4d94232c62ff95e30, type: 3}
+        scale: 1

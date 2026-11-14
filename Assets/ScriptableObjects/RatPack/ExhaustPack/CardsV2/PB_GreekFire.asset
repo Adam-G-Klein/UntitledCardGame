@@ -63,21 +63,6 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 578314858522476878
-      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FXEffectStep
-        waitForEffect: 0
-        fXExperiencePrefab: {fileID: 4075960956037802917, guid: ec7b1a1529f9141458320888bf8e3d96, type: 3}
-        rootLocationGameObjectKey: 
-        positionMappingList:
-        - fromWorkflow: self
-          toFxExperience: start
-        - fromWorkflow: random
-          toFxExperience: end
-        gameobjectMappingList: []
-        vePositionMappingList: []
-        veMappingList: []
     - rid: 578314858522476879
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -138,7 +123,6 @@ MonoBehaviour:
         - rid: 578314858522476877
         - rid: 3058273632481041762
         - rid: 578314858522476879
-        - rid: 578314858522476878
     - rid: 5602892557111787553
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -209,5 +193,5 @@ MonoBehaviour:
       data:
         effectStepName: InstantiatePrefab
         inputKey: random
-        prefabToInstantiate: {fileID: 2482105388608096720, guid: c0f016f2a98701241b1fbda8b3b1e4c2, type: 3}
+        prefabToInstantiate: {fileID: 7436311061350229817, guid: 109d97cbe2a2df8469b92e79db0f3866, type: 3}
         scale: 1

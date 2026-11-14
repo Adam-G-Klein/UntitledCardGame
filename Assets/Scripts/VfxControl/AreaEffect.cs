@@ -46,6 +46,9 @@ public class AreaEffect : MonoBehaviour
     private static readonly Dictionary<string, int> lastCastFrame = new Dictionary<string, int>();
     private bool done;
 
+    // Seconds until the area reaches this copy's target (HitTiming waits this long before its hit feedback).
+    public float TargetHitDelay { get; private set; }
+
     private void Awake() { Setup(); }
 
     public void Setup()
@@ -86,6 +89,7 @@ public class AreaEffect : MonoBehaviour
             float distance = travelFromLeft ? transform.position.x - startX : Mathf.Abs(transform.position.x - areaPos.x);
             delay += Mathf.Max(0f, distance) / travelSpeed;
         }
+        TargetHitDelay = delay;
         if (hit != null && delay > 0f) DelayAll(hit, delay);
         DestroyAfterSeconds destroy = GetComponent<DestroyAfterSeconds>();
         if (destroy != null) destroy.seconds += Mathf.CeilToInt(delay);

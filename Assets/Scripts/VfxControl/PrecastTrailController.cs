@@ -24,6 +24,10 @@ using UnityEngine;
     caster so its intro plays there, and arcDuration should be long enough that the
     system is emitting for the whole journey.
 
+    The same arc also carries an ability's strike across the board (CombatEffectStep's casterTrail), so a hit on a
+    distant enemy reads as coming from the rat that caused it. Those fire often, so they fly much faster
+    (PlayQuickTrail), each in its own trail prefab.
+
     Setup: drop this component on a GameObject in the combat scene and assign the
     Ally / Enemy Precast Trail prefabs. If it is absent, ShouldTrail returns false
     everywhere and effects spawn their VFX immediately, exactly as before.
@@ -118,7 +122,24 @@ public class PrecastTrailController : MonoBehaviour
                       $"{target.gameObject.name} {target.transform.position}");
         }
 
-        StartCoroutine(TrailRoutine(trailPrefab, caster.transform, target.transform, onArrival));
+        StartCoroutine(TrailRoutine(trailPrefab, caster.transform, target.transform, onArrival, leadInDelay, arcDuration, arcHeight));
+    }
+
+    // Seconds from starting a trail until its payload spawns (HitTiming waits this long before the hit feedback).
+    public float FlightTime => leadInDelay + arcDuration;
+
+    private const float QuickLeadIn = 0.03f, QuickArc = 0.26f, QuickHeight = 0.9f;
+    public const float QuickFlightTime = QuickLeadIn + QuickArc;
+
+    public static bool CanQuickTrail(CombatInstance caster, CombatInstance target)
+    {
+        return Instance != null && Instance.isActiveAndEnabled && caster != null && target != null && caster != target;
+    }
+
+    // An ability's strike from caster to target, in its own trail, then onArrival spawns the hit.
+    public void PlayQuickTrail(GameObject trailPrefab, CombatInstance caster, CombatInstance target, Action onArrival)
+    {
+        StartCoroutine(TrailRoutine(trailPrefab, caster.transform, target.transform, onArrival, QuickLeadIn, QuickArc, QuickHeight));
     }
 
     private GameObject TrailPrefabFor(CombatInstance caster)
@@ -129,7 +150,7 @@ public class PrecastTrailController : MonoBehaviour
             : enemyPrecastTrail;
     }
 
-    private IEnumerator TrailRoutine(GameObject trailPrefab, Transform casterTf, Transform targetTf, Action onArrival)
+    private IEnumerator TrailRoutine(GameObject trailPrefab, Transform casterTf, Transform targetTf, Action onArrival, float leadIn, float arc, float height)
     {
         Vector3 start = WithZOffset(casterTf.position);
         GameObject trail = Instantiate(trailPrefab, start, Quaternion.identity);
@@ -141,7 +162,7 @@ public class PrecastTrailController : MonoBehaviour
         // Hold at the caster so the prefab's start delay / intro burst reads as
         // originating from the caster rather than appearing mid-flight.
         float held = 0f;
-        while (held < leadInDelay)
+        while (held < leadIn)
         {
             held += Time.deltaTime;
             if (trail == null) yield break;
@@ -155,13 +176,13 @@ public class PrecastTrailController : MonoBehaviour
 
         // Quadratic bezier control point: lofted above the midpoint so the path
         // arcs up toward the center of the screen instead of travelling in a straight line.
-        Vector3 control = (start + end) * 0.5f + Vector3.up * arcHeight;
+        Vector3 control = (start + end) * 0.5f + Vector3.up * height;
 
         float t = 0f;
         Vector3 prev = start;
         while (t < 1f)
         {
-            t += (arcDuration > 0f) ? Time.deltaTime / arcDuration : 1f;
+            t += (arc > 0f) ? Time.deltaTime / arc : 1f;
             float progress = travelCurve.Evaluate(Mathf.Clamp01(t));
             Vector3 pos = QuadraticBezier(start, control, end, progress);
 

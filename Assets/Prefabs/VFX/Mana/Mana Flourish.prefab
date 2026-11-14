@@ -870,7 +870,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.35
+      scalar: 0.7
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -4891,9 +4891,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outOfManaVFX: {fileID: 8524743385441008593, guid: 720594146db70e148b59a30fbabccc50, type: 3}
+  refillVFX: {fileID: 4469808568537606336, guid: b7ce7e3e151f8504b874e9244ff694c1, type: 3}
   gainVFX: {fileID: 283188237519491688, guid: 3219805c4fde4d243963c266b8c02e6a, type: 3}
   gainTrailsVFX: {fileID: 3189970532393075407, guid: 8e13dd0737d2c834fade754bb39f6747, type: 3}
   trailTravelTime: 0.5
+  ambient:
+  - {fileID: 7298369321291014302}
+  - {fileID: 5033563975710744791}
+  - {fileID: 1638385445328528947}
 --- !u!114 &4231000482230062701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9716,7 +9721,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a859030489f28be4997d060cf3bb82a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drawnGlowVFX: {fileID: 5128861022887006144, guid: 1cc90e4be1000ec4b90745fe0246cb0c, type: 3}
+  glowTint: {r: 1, g: 0.86, b: 0.52, a: 1}
+  glowEmission: 1.3
+  glowTime: 0.75
   waitForHand: 5
 --- !u!1 &5546274557470040002
 GameObject:
@@ -9940,8 +9947,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 0.7254902, g: 0.63529414, b: 0.9490196, a: 0.4}
-      maxColor: {r: 1, g: 0.8509804, b: 0.5411765, a: 0.35}
+      minColor: {r: 0.7254902, g: 0.63529414, b: 0.9490196, a: 0.7}
+      maxColor: {r: 1, g: 0.8509804, b: 0.5411765, a: 0.62}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -10004,8 +10011,8 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     startSize:
       serializedVersion: 2
-      minMaxState: 3
-      scalar: 1.3
+      minMaxState: 0
+      scalar: 1.45
       minScalar: 1.3
       maxCurve:
         serializedVersion: 2
@@ -14835,8 +14842,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.26
-      minScalar: 0.14
+      scalar: 0.32
+      minScalar: 0.18
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -15418,7 +15425,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1.6
+      scalar: 3
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -19364,7 +19371,7 @@ ParticleSystemRenderer:
   m_ShadowBias: 0
   m_RenderAlignment: 0
   m_Pivot: {x: 0, y: 0, z: 0}
-  m_Flip: {x: 0, y: 0, z: 0}
+  m_Flip: {x: 0.5, y: 0.5, z: 0}
   m_EnableGPUInstancing: 1
   m_ApplyActiveColorSpace: 1
   m_AllowRoll: 1

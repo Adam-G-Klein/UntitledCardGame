@@ -148,8 +148,8 @@ MonoBehaviour:
   enemyPrefab: {fileID: 1818299386461833425, guid: 34d1fb5b688453b4a919a06abb42f422, type: 3}
   SmokeAndArmsBossPrefab: {fileID: 1818299386461833425, guid: a99d3923036e772438f69e7c8b5fba7a, type: 3}
   cardPrefab: {fileID: 2953694679348611399, guid: 8054bb662069f4b18b9d1e4d99a9215e, type: 3}
-  companionDeathPrefab: {fileID: 8219072781149469958, guid: f021d1ef7c564354e8c033a7246f4a47, type: 3}
-  enemyDeathPrefab: {fileID: 2914638496314358092, guid: ca68473e60271a8489f0139bac44b5e1, type: 3}
+  companionDeathPrefab: {fileID: 2409778721959904117, guid: dd15fcf594fbe8c4d9b0ad1cae58ebe7, type: 3}
+  enemyDeathPrefab: {fileID: 2959916962355241998, guid: c474fb31142c6a0449dcff75333a9069, type: 3}
   companionRevivePrefab: {fileID: 748962699175436874, guid: e32f9c50b534e0a4499e0328f62dcf60, type: 3}
   companionViewTemplate: {fileID: 9197481963319205126, guid: 8e3e49aec6740ff40b77016be06d711a, type: 3}
   companionManagementViewTemplate: {fileID: 9197481963319205126, guid: 9e42a3de37ad1e5459462df38bdffddd, type: 3}
@@ -160,13 +160,20 @@ MonoBehaviour:
   moneyOnDeathVFX: {fileID: 2729960547564495472, guid: 00a32241486477143a2bdaa446871bb8, type: 3}
   heavyHitDamage: 8
   massiveHitDamage: 15
-  heavyHitVFX: {fileID: 6252106911550278670, guid: 2781f08f4237fc841b6ec21022b507e0, type: 3}
-  massiveHitVFX: {fileID: 411611013252260325, guid: 653561517b56ddc43bebff8cdae1b692, type: 3}
+  heavyHitVFX: {fileID: 8336752690038713872, guid: fb033fdee986ccc44b9f08a5a2bcb6ec, type: 3}
+  massiveHitVFX: {fileID: 4081431459084005715, guid: f907ac48cde82ba488bc649b7c2ec6a9, type: 3}
   heavyHitShake: 0.15
   massiveHitShake: 0.3
   useHitStop: 1
   heavyHitStop: 0.05
   massiveHitStop: 0.09
+  reshuffleTrailVFX: {fileID: 6795432970769161552, guid: cff810b7b6c5bf74daf937f0986068f2, type: 3}
+  syncHitFeedbackToVfx: 1
   useLastKillSlowMo: 1
   lastKillSlowMoScale: 0.3
   lastKillSlowMoTime: 0.6
+  useLastDeathImpactFrame: 1
+  impactFrameTime: 0.6
+  impactFrameSplashVFX: {fileID: 6945089363102449464, guid: 66406e64fca5c91489cb6789b442b889, type: 3}
+  bossInkBorderVFX: {fileID: 0}
+  lowHealthBorderVFX: {fileID: 0}

@@ -384,7 +384,7 @@ public class CompanionView : IUIEventReceiver
             currentHealth = this.companion.GetCurrentHealth();
             maxHealth = this.companion.GetCombatStats().getMaxHealth();
         } else {
-            currentHealth = this.combatInstance.combatStats.currentHealth;
+            currentHealth = HitTiming.ShownHealth(this.combatInstance);   // HitTiming: holds until the hit's effect lands
             maxHealth = this.combatInstance.combatStats.maxHealth;
         }
 
@@ -695,6 +695,9 @@ public class CompanionView : IUIEventReceiver
             card.style.width = discardPileIcon.resolvedStyle.width;
             card.style.height = discardPileIcon.resolvedStyle.height;
             container.Add(card);
+            // VFX: a trail rides each card from the discard pile to the draw pile
+            if (!CombatEntityManager.isDestroyed)
+                UIElementTrail.Attach(CombatEntityManager.Instance.encounterConstants.reshuffleTrailVFX, card, companion.companionType.pack.packColor);
             float arcHeight = UnityEngine.Random.Range(5, 35);
             cardsInDiscard -= 1;
             tweens.Add(card);

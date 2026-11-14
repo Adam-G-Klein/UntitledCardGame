@@ -9,11 +9,11 @@ using UnityEngine.UIElements;
     with a runtime copy of the worldspace card's material, follows the particle's authored motion and
     size, and erodes it with the card shader's own cutoff.
 
-    The face arrives washed in the shuffler's colour (red for an enemy, blue for an ally: the particle's
-    start colour) and fades to the card itself, keeping a light faceTint. The blank particle is hidden.
+    The face arrives tinted with the shuffler's colour (red for an enemy, blue for an ally: the particle's
+    start colour, at washStrength so the card still reads) and fades to the card itself, keeping a light faceTint. The blank particle is hidden.
 
-    If anything it needs is missing (no recent add, no free card texture, no card look to copy) it does
-    nothing and the original particle plays as authored.
+    If anything it needs is missing (no recent add, no free card texture, no card look to copy) the blank
+    particle is hidden and only the rest of the VFX (the ink) plays.
 */
 [RequireComponent(typeof(ParticleSystem))]
 public class ShuffleCardFace : MonoBehaviour
@@ -49,7 +49,9 @@ public class ShuffleCardFace : MonoBehaviour
     [Tooltip("Tint the face settles to (white = untouched).")]
     [SerializeField] private Color faceTint = Color.white;
     [Tooltip("Fraction of the particle's life over which the shuffler's colour fades into the card.")]
-    [SerializeField] private float colourFadeEnd = 0.45f;
+    [SerializeField] private float colourFadeEnd = 0.3f;
+    [Tooltip("How strongly the shuffler's colour washes the face when it arrives (1 = a solid block of that colour, which hides the card behind the hit's damage number).")]
+    [Range(0f, 1f)] [SerializeField] private float washStrength = 0.45f;
 
     private Color washColour = Color.white;
 
@@ -70,12 +72,15 @@ public class ShuffleCardFace : MonoBehaviour
     {
         ps = GetComponent<ParticleSystem>();
         psRenderer = GetComponent<ParticleSystemRenderer>();
+        // Without a card to show, the blank particle reads as a solid box over the rat (an enemy that spawns two
+        // shuffle VFX for one added card, as Meowthra does, leaves one of them empty), so it is hidden and only
+        // the ink plays.
         RecentAdd? add = TakeRecentAdd();
-        if (add == null) return;
+        if (add == null) { psRenderer.enabled = false; return; }
         SpriteRenderer template = cardTemplate != null ? cardTemplate : FindHandCardRenderer();
-        if (template == null || CardPanelSettingsPooler.Instance == null) return;
+        if (template == null || CardPanelSettingsPooler.Instance == null) { psRenderer.enabled = false; return; }
         panelSettings = CardPanelSettingsPooler.Instance.GetPanelSettings();
-        if (panelSettings == null) return;
+        if (panelSettings == null) { psRenderer.enabled = false; return; }
 
         // render the added card into the pooled texture
         docObject = new GameObject("ShuffleCardFaceDoc");
@@ -102,6 +107,7 @@ public class ShuffleCardFace : MonoBehaviour
         ParticleSystem.MinMaxGradient start = ps.main.startColor;
         washColour = start.mode == ParticleSystemGradientMode.Color ? start.color : start.colorMax;
         washColour.a = 1f;
+        washColour = Color.Lerp(faceTint, washColour, washStrength);
         face.color = washColour;
         psRenderer.enabled = false;
         face.sortingLayerID = psRenderer.sortingLayerID;

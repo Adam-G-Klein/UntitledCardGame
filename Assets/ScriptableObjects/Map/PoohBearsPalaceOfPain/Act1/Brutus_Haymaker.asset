@@ -52,7 +52,6 @@ MonoBehaviour:
       effectSteps:
       - rid: 2295167909047304423
       - rid: 3931529445166809326
-      - rid: 7189280385716453420
     behaviorType: 0
   belowHalfHPEnemyPattern:
     behaviors: []
@@ -158,8 +157,3 @@ MonoBehaviour:
         effectStepName: EndWorkflowIfConditionMet
         inputKey1: pastStrengthThreshold
         conditionToEndOn: 1
-    - rid: 7189280385716453420
-      type: {class: ScriptableObjectEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ScriptableObjectEffectStep
-        effectStepSO: {fileID: 11400000, guid: 46ac36b880e2ff14aa699c90b6e9f19c, type: 2}

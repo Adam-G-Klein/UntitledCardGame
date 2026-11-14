@@ -213,7 +213,7 @@ public class EnemyView : IUIEventReceiver
             currentHealth = this.enemy.GetCurrentHealth();
             maxHealth = this.enemy.GetCombatStats().getMaxHealth();
         } else {
-            currentHealth = this.combatInstance.combatStats.currentHealth;
+            currentHealth = HitTiming.ShownHealth(this.combatInstance);   // HitTiming: holds until the hit's effect lands
             maxHealth = this.combatInstance.combatStats.maxHealth;
         }
 

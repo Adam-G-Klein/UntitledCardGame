@@ -97,7 +97,6 @@ MonoBehaviour:
         - rid: 8790164555430887928
         - rid: 8790164555430887925
         - rid: 7277427003467276995
-        - rid: 8790164555430887927
         weight: 0
     - rid: 8790164555430887925
       type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
@@ -113,21 +112,6 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         outputKey: 
-    - rid: 8790164555430887927
-      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FXEffectStep
-        waitForEffect: 1
-        fXExperiencePrefab: {fileID: 4075960956037802917, guid: ec7b1a1529f9141458320888bf8e3d96, type: 3}
-        rootLocationGameObjectKey: 
-        positionMappingList:
-        - fromWorkflow: companionCardPlayedFrom
-          toFxExperience: end
-        - fromWorkflow: self
-          toFxExperience: start
-        gameobjectMappingList: []
-        vePositionMappingList: []
-        veMappingList: []
     - rid: 8790164555430887928
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -211,7 +195,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 0}
+        vfxPrefab: {fileID: 6137048663962808129, guid: 418a03ccd75ca98409952e0384c196fd, type: 3}
     - rid: 8790164555430887940
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:

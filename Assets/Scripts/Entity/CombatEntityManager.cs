@@ -48,6 +48,9 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
     public void registerCompanion(CompanionInstance companion)
     {
         companions.Add(companion);
+        // VFX: the boss ink border (it only shows in boss fights) and the low-health border come in with the party
+        BossInkBorder.Ensure(encounterConstants.bossInkBorderVFX);
+        LowHealthBorder.Ensure(encounterConstants.lowHealthBorderVFX);
     }
 
     public void registerEnemy(EnemyInstance enemy)
@@ -260,16 +263,32 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
             HitStop.Freeze(massive ? encounterConstants.massiveHitStop : encounterConstants.heavyHitStop);
     }
 
-    // A short slow-mo when the blow that ends the fight lands.
-    public void PlayLastKillIfFinalEnemy(CombatInstance killed)
+    // The last death of the fight, on either side (the last enemy, or the last ally): a short slow-mo and an
+    // impact frame as it lands.
+    public void PlayLastKill(CombatInstance killed)
     {
-        if (!encounterConstants.useLastKillSlowMo || killed == null) return;
-        if (!killed.TryGetComponent<EnemyInstance>(out EnemyInstance killedEnemy)) return;
-        foreach (EnemyInstance enemy in enemies)
+        if (killed == null || !IsLastOfItsSide(killed)) return;
+        if (encounterConstants.useLastKillSlowMo)
+            HitStop.SlowMo(encounterConstants.lastKillSlowMoTime, encounterConstants.lastKillSlowMoScale);
+        if (encounterConstants.useLastDeathImpactFrame)
+            ImpactFrame.Play(killed.transform.position, encounterConstants.impactFrameSplashVFX, encounterConstants.impactFrameTime);
+    }
+
+    private bool IsLastOfItsSide(CombatInstance killed)
+    {
+        if (killed.TryGetComponent<EnemyInstance>(out EnemyInstance killedEnemy))
         {
-            if (enemy != null && enemy != killedEnemy && enemy.combatInstance.combatStats.getCurrentHealth() > 0) return;
+            foreach (EnemyInstance enemy in enemies)
+                if (enemy != null && enemy != killedEnemy && enemy.combatInstance.combatStats.getCurrentHealth() > 0) return false;
+            return true;
         }
-        HitStop.SlowMo(encounterConstants.lastKillSlowMoTime, encounterConstants.lastKillSlowMoScale);
+        if (killed.TryGetComponent<CompanionInstance>(out CompanionInstance killedCompanion))
+        {
+            foreach (CompanionInstance companion in companions)
+                if (companion != null && companion != killedCompanion && companion.combatInstance.combatStats.getCurrentHealth() > 0) return false;
+            return true;
+        }
+        return false;
     }
 
     public IEnumerator ReviveCompanions(List<Companion> companionsToRevive, GameObject vfxPrefab, float waitTime)

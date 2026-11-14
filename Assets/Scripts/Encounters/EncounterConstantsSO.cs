@@ -52,12 +52,36 @@ public class EncounterConstantsSO : ScriptableObject {
     public float heavyHitStop = 0.05f;
     public float massiveHitStop = 0.09f;
 
+    [Header("Deck VFX")]
+    [Tooltip("Trail drawn behind each little card that flies from the discard pile to the draw pile on a reshuffle " +
+             "(UIElementTrail, tinted the pack's colour). Leave empty for none.")]
+    public GameObject reshuffleTrailVFX;
+
+    [Header("Hit Timing")]
+    [Tooltip("The hit sound, damage number, shake and health bar wait until the card's effect visibly strikes " +
+             "(see HitTiming). Gameplay is unchanged either way. Off: they play when the damage is applied.")]
+    public bool syncHitFeedbackToVfx = true;
+
     [Header("Last Kill")]
     public bool useLastKillSlowMo = true;
     [Tooltip("Game speed during the slow-mo, relative to the player's speed setting.")]
     public float lastKillSlowMoScale = 0.3f;
     [Tooltip("Real seconds of slow-mo, eased back to full speed over the last third.")]
     public float lastKillSlowMoTime = 0.6f;
+    [Tooltip("On the last death of a fight (ally or enemy) the screen eases to stark grey and white and back " +
+             "while an ink splash bursts on the one who fell (ImpactFrame).")]
+    public bool useLastDeathImpactFrame = true;
+    [Tooltip("Real seconds the impact frame takes, easing in and out. Keep it long enough that it doesn't read as a flash.")]
+    public float impactFrameTime = 0.6f;
+    public GameObject impactFrameSplashVFX;
+
+    [Header("Screen Borders")]
+    [Tooltip("The dark watercolour ink around the screen in boss fights (elite encounters, not Meothra's) (BossInkBorder). " +
+             "Leave empty for none.")]
+    public GameObject bossInkBorderVFX;
+    [Tooltip("The red border that wicks in from the screen's edges when the party is low on health, in every fight " +
+             "(LowHealthBorder). Leave empty for none.")]
+    public GameObject lowHealthBorderVFX;
 
     public ShopLevel GetShopLevel(int level)
     {

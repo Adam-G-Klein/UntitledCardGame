@@ -43,6 +43,11 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 7082891692335694186
+      type: {class: CardTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardTriggeredVFX
+        vfxPrefab: {fileID: 3402153693038389984, guid: a3b6b31a75a68b1498be5837432eabd6, type: 3}
     - rid: 7082891692335694181
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -51,6 +56,7 @@ MonoBehaviour:
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
+        - rid: 7082891692335694186
         - rid: 7082891692335694183
         - rid: 7082891692335694184
         - rid: 7082891692335694185

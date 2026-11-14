@@ -66,6 +66,7 @@ MonoBehaviour:
         - rid: 7401433308100034732
         - rid: 7401433308100034733
         - rid: 7401433308100034734
+        - rid: 7401433308100034735
         - rid: 754093848945229865
         weight: 0
     - rid: 754093848945229865
@@ -139,3 +140,10 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         waitForDrawsToResolve: 0
+    - rid: 7401433308100034735
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 9028122300360462519, guid: 9a51d49c5066ce74cb95e42b96240249, type: 3}
+        scale: 1

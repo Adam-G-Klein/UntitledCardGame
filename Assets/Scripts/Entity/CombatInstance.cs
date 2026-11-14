@@ -144,16 +144,21 @@ public class CombatInstance : MonoBehaviour
         {
             statusEffects[statusEffect] += scale;
         }
+        // HitTiming: the status sound waits until this target's effect lands (now, for effects without a wind-up)
         if(statusEffect != StatusEffectType.Defended && statusEffect != StatusEffectType.Orb && statusEffect != StatusEffectType.Strength && statusEffect != StatusEffectType.TemporaryStrength) {
-            //PlaySFX();
-            MusicController.Instance.PlaySFX("event:/SFX/SFX_NegativeEffect");
-            MusicController.Instance.PlaySFX("event:/VO/Combat/Status/VO_NegativeStatus_Medium");
-            AddVFX();
+            HitTiming.AtImpact(this, HitTiming.Take(this), () => {
+                //PlaySFX();
+                MusicController.Instance.PlaySFX("event:/SFX/SFX_NegativeEffect");
+                MusicController.Instance.PlaySFX("event:/VO/Combat/Status/VO_NegativeStatus_Medium");
+                AddVFX();
+            });
         }
         else
         {
-            MusicController.Instance.PlaySFX("event:/SFX/SFX_PositiveEffect");
-            MusicController.Instance.PlaySFX("event:/VO/Combat/Status/VO_PositiveStatus_Medium");
+            HitTiming.AtImpact(this, HitTiming.Take(this), () => {
+                MusicController.Instance.PlaySFX("event:/SFX/SFX_PositiveEffect");
+                MusicController.Instance.PlaySFX("event:/VO/Combat/Status/VO_PositiveStatus_Medium");
+            });
         }
         UpdateView();
         onStatusEffectChangeHandler?.Invoke();
@@ -220,35 +225,53 @@ public class CombatInstance : MonoBehaviour
             case CombatEffect.Damage:
             case CombatEffect.FixedDamageWithCardModifications:
             case CombatEffect.FixedDamageThatIgnoresBlock:
+                // HitTiming: the damage applies now, as before; its feedback (sound, number, shake, hit-stop,
+                // health bar) waits until this target's effect visibly strikes. 0 = no wind-up, plays now.
+                float damageDelay = HitTiming.Take(this);
+                HitTiming.HoldHealthBar(this, damageDelay);
+                hitDelay = damageDelay;   // read by TakeDamage for the block absorb/break VFX
                 int damageTaken = TakeDamage(effect, scale, effector);
-                if (screenShakeForce > 0.0f)
-                {
-                    ScreenShakeManager.Instance.ShakeWithForce(screenShakeForce);
-                }
-                if (effector.GetComponent<CompanionInstance>() != null)
-                {
-                    // MusicController.Instance.PlaySFX("event:/SFX/SFX_BasicAttack");
-                    MusicController.Instance.PlaySFX("event:/VO/Combat/Attacks/VO_CombatBarks_AttacksMedium");
-                }
-                else if (effector.GetComponent<EnemyInstance>() != null)
-                {
-                    if (damageTaken <= 0 && !killed)
+                hitDelay = 0f;
+                bool fromCompanion = effector.GetComponent<CompanionInstance>() != null;
+                bool fromEnemy = effector.GetComponent<EnemyInstance>() != null;
+                bool fullBlock = damageTaken <= 0 && !killed;
+                HitTiming.AtImpact(this, damageDelay, () => {
+                    if (screenShakeForce > 0.0f)
                     {
-                        MusicController.Instance.PlaySFX("event:/SFX/SFX_FullBlock");
+                        ScreenShakeManager.Instance.ShakeWithForce(screenShakeForce);
                     }
-                    else
+                    if (fromCompanion)
                     {
-                        MusicController.Instance.PlaySFX("event:/SFX/SFX_EnemyAttack");
-                        MusicController.Instance.PlaySFX("event:/VO/Combat/Damage/VO_CombatBarks_DamageMedium");
+                        // MusicController.Instance.PlaySFX("event:/SFX/SFX_BasicAttack");
+                        MusicController.Instance.PlaySFX("event:/VO/Combat/Attacks/VO_CombatBarks_AttacksMedium");
                     }
-                }
-                if (shouldShake) AddShake(damageTaken);
-                if (damageTaken > 0) EnemyEncounterManager.Instance.DamageIndicator(this, damageTaken);
-                CombatEntityManager.Instance.PlayHitWeight(this, effector, damageTaken);
+                    else if (fromEnemy)
+                    {
+                        if (fullBlock)
+                        {
+                            MusicController.Instance.PlaySFX("event:/SFX/SFX_FullBlock");
+                        }
+                        else
+                        {
+                            MusicController.Instance.PlaySFX("event:/SFX/SFX_EnemyAttack");
+                            MusicController.Instance.PlaySFX("event:/VO/Combat/Damage/VO_CombatBarks_DamageMedium");
+                        }
+                    }
+                    if (shouldShake) AddShake(damageTaken);
+                    if (damageTaken > 0) EnemyEncounterManager.Instance.DamageIndicator(this, damageTaken);
+                    CombatEntityManager.Instance.PlayHitWeight(this, effector, damageTaken);
+                    UpdateView();
+                });
                 break;
             case CombatEffect.Heal:
-                MusicController.Instance.PlaySFX("event:/SFX/SFX_PositiveEffect");
-                MusicController.Instance.PlaySFX("event:/VO/Combat/Status/VO_PositiveStatus_Medium");
+                // HitTiming: healed now; the heal sound and health bar wait for the effect (e.g. a precast trail)
+                float healDelay = HitTiming.Take(this);
+                HitTiming.HoldHealthBar(this, healDelay);
+                HitTiming.AtImpact(this, healDelay, () => {
+                    MusicController.Instance.PlaySFX("event:/SFX/SFX_PositiveEffect");
+                    MusicController.Instance.PlaySFX("event:/VO/Combat/Status/VO_PositiveStatus_Medium");
+                    UpdateView();
+                });
                 int diff = combatStats.Heal(scale);
                 if (diff > 0)
                 {
@@ -283,9 +306,10 @@ public class CombatInstance : MonoBehaviour
         int damageAfterDefense = DamageAfterDefense(combatEffect, damage);
         if (blockBefore > statusEffects[StatusEffectType.Defended]) {
             EncounterConstantsSO constants = CombatEntityManager.Instance.encounterConstants;
-            CombatEntityManager.Instance.SpawnStatusVfx(this,
-                statusEffects[StatusEffectType.Defended] == 0 ? constants.blockBreakVFX : constants.blockAbsorbVFX);
-            lastBlockHitVfxTime = Time.time;
+            GameObject blockVfx = statusEffects[StatusEffectType.Defended] == 0 ? constants.blockBreakVFX : constants.blockAbsorbVFX;
+            // HitTiming: the block absorb/break plays when the effect strikes
+            HitTiming.AtImpact(this, hitDelay, () => CombatEntityManager.Instance.SpawnStatusVfx(this, blockVfx));
+            lastBlockHitVfxTime = Time.time + hitDelay;
         }
 
         if (damageAfterDefense > 0) {
@@ -362,6 +386,8 @@ public class CombatInstance : MonoBehaviour
         Debug.Log("OnDeath: waiting for all effects running to resolve");
         killed = true;
         yield return new WaitUntil(() => EffectManager.Instance.IsEffectRunning() == false);
+        // HitTiming: let the killing blow's effect land (sound, number, health bar) before the death plays
+        yield return HitTiming.WaitForPendingHits(this);
         string blockerId = Id.newGuid();
         TurnManager.Instance.addTurnPhaseBlocker(blockerId);
         ProcessOnDeathStatusEffects(killer);
@@ -383,7 +409,7 @@ public class CombatInstance : MonoBehaviour
             MusicController.Instance.PlaySFX("event:/VO/VO_CompanionDeathMedium");
         }
         // slow-mo with the death VFX itself; OnDeath waits for the card effect to finish first
-        CombatEntityManager.Instance.PlayLastKillIfFinalEnemy(this);
+        CombatEntityManager.Instance.PlayLastKill(this);
         CombatEntityManager.Instance.SpawnEntityOnDeathVfx(this);
         if (destroyOnDeath) Destroy(this.gameObject);
         yield return null;
@@ -580,8 +606,13 @@ public class CombatInstance : MonoBehaviour
     }
 
     private void PlayVFX(GameObject vfxPrefab) {
-        if (vfxPrefab != null) Instantiate(vfxPrefab, transform.position, Quaternion.identity);
+        if (vfxPrefab == null) return;
+        GameObject vfx = Instantiate(vfxPrefab, transform.position, Quaternion.identity);
+        HitTiming.Expect(this, vfx);   // HitTiming: this hit's feedback waits until the effect strikes
     }
+
+    // HitTiming: seconds the current hit's feedback waits (set around TakeDamage, 0 otherwise)
+    private float hitDelay = 0f;
 
     private void AddShake(int damageTaken) {
         onDamageHandler.Invoke(damageTaken);

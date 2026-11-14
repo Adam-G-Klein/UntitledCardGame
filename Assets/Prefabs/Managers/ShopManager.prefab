@@ -1182,6 +1182,15 @@ MonoBehaviour:
   companionOnTeamVFX: {fileID: 0}
   companionWouldBeUpgradedVFX: {fileID: 0}
   premiumEnvelopeVFX: {fileID: 3628846811363785795, guid: 0a1864a3488b04c488a7bb8f396adcf8, type: 3}
+  boosterPackOpening:
+    basicBurstVFX: {fileID: 6725611280450200369, guid: db3fff56a7dbbc1479d75d44a1083070, type: 3}
+    premiumOpenVFX: {fileID: 3679375972914244323, guid: c18e07ea2a84b4b4fb22f1c3f9fde018, type: 3}
+    designEnvelopeHeight: 4
+    basicBurstAt: 0.8
+    premiumBurstAt: 1.3
+  cardRemovalVFX:
+    consumeVFX: {fileID: 6841246063235012224, guid: 1352775812e44cf49b2aafd8c2d3d60c, type: 3}
+    cardHeight: 0.46
   isBuyingDisabled: 0
   tutorialShopUIDoc: {fileID: 9197481963319205126, guid: eb992eec49264d0bb49fdecebef35d56, type: 3}
   normalShopUIDoc: {fileID: 9197481963319205126, guid: fe978814c803d5e4b90046d64a349880, type: 3}

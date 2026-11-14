@@ -1,17 +1,23 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 /*
-    A card an effect draws mid-turn (not the start-of-turn deal) glows gold for a few seconds once it lands in the
-    hand, so it's clear which cards just arrived. Like RetainedCardsVFX it only watches game state, so it needs no
+    A card an effect draws mid-turn (not the start-of-turn deal) glows gold for a moment once it lands in the hand,
+    so it's clear which cards just arrived: the card itself warms to gold and brightens, then settles back (its own
+    material's colour and emission, the way the exhaust colours a card), rather than a separate effect around it. Like RetainedCardsVFX it only watches game state, so it needs no
     hooks in the draw or hand code: the encounter counts every extra draw, and the cards drawn are the PlayableCards
     that appeared with it (they're created when queued, before they reach the hand). Each one gets the glow when
     PlayerHand has it.
 */
 public class DrawnCardsVFX : MonoBehaviour
 {
-    [Tooltip("Played on each drawn card when it reaches the hand; it rides the card and ends by itself.")]
-    [SerializeField] private GameObject drawnGlowVFX;
+    [Tooltip("The colour the drawn card warms to (multiplied over its face).")]
+    [SerializeField] private Color glowTint = new Color(1f, 0.86f, 0.52f, 1f);
+    [Tooltip("The card's emission at the height of the glow (its own is 1).")]
+    [SerializeField] private float glowEmission = 1.8f;
+    [Tooltip("Seconds of the glow: it warms up quickly, holds a beat and settles back.")]
+    [SerializeField] private float glowTime = 1.3f;
     [Tooltip("A drawn card that hasn't reached the hand by then (hand full, discarded) is let go.")]
     [SerializeField] private float waitForHand = 5f;
 
@@ -23,7 +29,7 @@ public class DrawnCardsVFX : MonoBehaviour
     private void Update()
     {
         // isDestroyed only reads the singletons (Instance would create them outside combat)
-        if (drawnGlowVFX == null || EnemyEncounterManager.isDestroyed || PlayerHand.isDestroyed) return;
+        if (EnemyEncounterManager.isDestroyed || PlayerHand.isDestroyed) return;
         CombatEncounterState state = EnemyEncounterManager.Instance.combatEncounterState;
         if (state == null) return;
 
@@ -51,10 +57,34 @@ public class DrawnCardsVFX : MonoBehaviour
         {
             PlayableCard card = entry.Key;
             bool inHand = card != null && PlayerHand.Instance.ContainsPlayableCard(card);
-            if (inHand) CardVFX.Play(drawnGlowVFX, card, follow: true);
+            if (inHand) StartCoroutine(GoldGlow(card));
             if (inHand || card == null || Time.time > entry.Value) (done ??= new List<PlayableCard>()).Add(card);
         }
         if (done != null) foreach (PlayableCard card in done) pending.Remove(card);
+    }
+
+    private static readonly int ColorId = Shader.PropertyToID("_Color"), EmissionId = Shader.PropertyToID("_Emission_Power");
+
+    private IEnumerator GoldGlow(PlayableCard card)
+    {
+        SpriteRenderer face = card.GetComponent<SpriteRenderer>();
+        if (face == null) yield break;
+        Material m = face.material;   // the card's own instance
+        Color baseColour = m.GetColor(ColorId);
+        float baseEmission = m.HasProperty(EmissionId) ? m.GetFloat(EmissionId) : 1f;
+        for (float t = 0f; t < glowTime; t += Time.deltaTime)
+        {
+            if (card == null || face == null) yield break;
+            float u = t / glowTime;
+            // up over the first 15%, held to 35%, then eased back down
+            float k = u < 0.15f ? u / 0.15f : u < 0.35f ? 1f : 1f - Mathf.SmoothStep(0f, 1f, (u - 0.35f) / 0.65f);
+            m.SetColor(ColorId, Color.Lerp(baseColour, baseColour * glowTint, k));
+            if (m.HasProperty(EmissionId)) m.SetFloat(EmissionId, Mathf.Lerp(baseEmission, glowEmission, k));
+            yield return null;
+        }
+        if (face == null) yield break;
+        m.SetColor(ColorId, baseColour);
+        if (m.HasProperty(EmissionId)) m.SetFloat(EmissionId, baseEmission);
     }
 
     private void RememberAllCards()

@@ -32,7 +32,6 @@ MonoBehaviour:
       displayValue: 5
       effectSteps:
       - rid: 3931529445166809421
-      - rid: 173314522967966481
       - rid: 3931529445166809422
     - intent: 0
       enemyTargetMethod: 0
@@ -138,20 +137,12 @@ MonoBehaviour:
         selectionPurpose: 0
         selectionCardCategory: 0
     - rid: 385751591190528362
-      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: FXEffectStep
-        waitForEffect: 0
-        fXExperiencePrefab: {fileID: 4075960956037802917, guid: ec7b1a1529f9141458320888bf8e3d96, type: 3}
-        rootLocationGameObjectKey: 
-        positionMappingList:
-        - fromWorkflow: self
-          toFxExperience: start
-        - fromWorkflow: damagedCompanion
-          toFxExperience: end
-        gameobjectMappingList: []
-        vePositionMappingList: []
-        veMappingList: []
+        effectStepName: InstantiatePrefab
+        inputKey: damagedCompanion
+        prefabToInstantiate: {fileID: 5466705246177039183, guid: 1a8f1abab5093804688a9fb55d6d4f27, type: 3}
+        scale: 1
     - rid: 385751591190528363
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:

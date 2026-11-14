@@ -66,75 +66,60 @@ public class MusicController : GenericSingleton<MusicController>
         }
     }
 
+    // Attack sounds by card (or rat) name. Names are matched without trailing "+" or spaces, so an upgraded card
+    // ("Greek Fire+") or rat ("Holdem+") shares its base sound. Anything not listed plays the basic attack.
+    private const string GreekFire = "event:/SFX/SFX_GreekFire", Detonate = "event:/SFX/SFX_Detonate", Gunshot = "event:/SFX/SFX_Gunshot",
+        Flamethrower = "event:/SFX/SFX_Flamethrower", MagicBoom = "event:/SFX/SFX_MagicBoom", Slobber = "event:/SFX/SFX_Slobber",
+        CardHandle = "event:/SFX/SFX_CardHandle", BasicAttack = "event:/SFX/SFX_BasicAttack";
+
+    private static readonly Dictionary<string, string> AttackSounds = new Dictionary<string, string>
+    {
+        { "Pyrotechnics", GreekFire },
+        { "Greek Fire", GreekFire },     // a Charm: plays through HasOwnAttackSound
+        { "Bezoar", GreekFire },         // a Charm
+        { "Boomflask", GreekFire },      // a Charm
+        { "Detonate", Detonate },
+        { "Golem's Might", Detonate },   // a stone fist slam
+        { "Pew Pew", Gunshot },
+        { "Peashooter", Gunshot },
+        { "Fire from the Hip", Gunshot },
+        { "Sniper Rifle", Gunshot },
+        { "Hyperfocus", Gunshot },
+        { "Gunslinger", Gunshot },
+        { "Steam Cannon", Gunshot },
+        { "Howitzer", Gunshot },
+        { "Holdem", Gunshot },           // the Hold'em rat's own gun ability (no card): plays through HasOwnAttackSound
+        { "Peacemaker", Gunshot },
+        { "Flamethrower", Flamethrower },
+        { "World Eater", MagicBoom },
+        { "Forest's Might", MagicBoom },
+        // the attacks whose hit is a magic hit (Allied Small/Big Magic Hit, Nature Big Magic Hit, the storm, the tide)
+        { "Careful Move", MagicBoom },
+        { "Deadly Precision", MagicBoom },
+        { "Enmity", MagicBoom },
+        { "Only Way Out", MagicBoom },
+        { "Resonant Shot", MagicBoom },
+        { "Deferred Doom", MagicBoom },
+        { "Massive Damage", MagicBoom },
+        { "The Chosen One", MagicBoom },
+        { "Nature's Arsenal", MagicBoom },
+        { "Brainstorm", MagicBoom },
+        { "Ebb and Flow", MagicBoom },
+        // "Overwhelming APM": probably best as the sword sound (the default)
+        { "Slobber", Slobber },
+        { "Gnaw", Slobber },             // a bite
+        { "Wrist Flick", CardHandle },   // flicked cards
+    };
+
+    private static string SoundKey(string name) => name == null ? "" : name.Trim().TrimEnd('+').Trim();
+
+    // whether a name has a sound of its own (not just the basic attack): lets Charms and rat abilities that deal
+    // damage play theirs too
+    public static bool HasOwnAttackSound(string name) => AttackSounds.ContainsKey(SoundKey(name));
+
     public void PlayCorrectAttackSound(String cardName)
     {
-        switch (cardName)
-        {
-            case "Pyrotechnics":
-                PlaySFX("event:/SFX/SFX_GreekFire");
-                break;
-            case "Greek Fire":
-                PlaySFX("event:/SFX/SFX_GreekFire");
-                break;
-            case "Bezoar":
-                PlaySFX("event:/SFX/SFX_GreekFire");
-                break;
-            case "Boomflask":
-                PlaySFX("event:/SFX/SFX_GreekFire");
-                break;
-            case "Detonate":
-                PlaySFX("event:/SFX/SFX_Detonate");
-                break;
-            case "Pew Pew":
-                PlaySFX("event:/SFX/SFX_Gunshot");
-                break;
-            case "Peashooter":
-                PlaySFX("event:/SFX/SFX_Gunshot");
-                break;
-            case "Fire from the Hip":
-                PlaySFX("event:/SFX/SFX_Gunshot");
-                break;
-            case "Sniper Rifle":
-                PlaySFX("event:/SFX/SFX_Gunshot");
-                break;
-            case "Hyperfocus":
-                PlaySFX("event:/SFX/SFX_Gunshot");
-                break;
-            case "Gunslinger":
-                PlaySFX("event:/SFX/SFX_Gunshot");
-                break;
-            case "Steam Cannon":
-                PlaySFX("event:/SFX/SFX_Gunshot");
-                break;
-            case "Howitzer":
-                PlaySFX("event:/SFX/SFX_Gunshot");
-                break;
-            case "Holdem":
-                PlaySFX("event:/SFX/SFX_Gunshot");
-                break;
-            case "Flamethrower":
-                PlaySFX("event:/SFX/SFX_Flamethrower");
-                break;
-            case "World Eater":
-                PlaySFX("event:/SFX/SFX_MagicBoom");
-                break;
-            case "Forest's Might":
-                PlaySFX("event:/SFX/SFX_MagicBoom");
-                break;
-            // case "Overwhelming APM": // this is probably best as sword sound
-            //     PlaySFX("event:/SFX/SFX_MagicBoom");
-            //     break;
-            // case "Ebb and Flow":// was never able to test this one
-            //     PlaySFX("event:/SFX/SFX_MagicBoom");
-            //     break;
-            case "Slobber": 
-                PlaySFX("event:/SFX/SFX_Slobber");
-                break;
-            default:
-                PlaySFX("event:/SFX/SFX_BasicAttack");
-                break;
-        }
-
+        PlaySFX(AttackSounds.TryGetValue(SoundKey(cardName), out string sfx) ? sfx : BasicAttack);
     }
     
     public void PlayMusicLocation(Location location, Act act = Act.One)

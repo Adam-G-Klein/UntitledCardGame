@@ -19557,6 +19557,7 @@ GameObject:
   - component: {fileID: 7613224536537369968}
   - component: {fileID: 4885690554791690059}
   - component: {fileID: -9011877118083967768}
+  - component: {fileID: 6103905072683499956}
   m_Layer: 0
   m_Name: Filler Fill x Draw x Create x Scry x Gain
   m_TagString: Untagged
@@ -24404,6 +24405,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seconds: 6
+--- !u!114 &6103905072683499956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2729960547564495472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88eab300aebbdf046997b5255ea0e2c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  impactAt: 0.6
 --- !u!1 &3239291663001355714
 GameObject:
   m_ObjectHideFlags: 0
@@ -29565,9 +29579,9 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     startSize:
       serializedVersion: 2
-      minMaxState: 0
-      scalar: 0.66
-      minScalar: 0.1
+      minMaxState: 3
+      scalar: 0.82500005
+      minScalar: 0.462
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -34819,8 +34833,8 @@ ParticleSystem:
     startRotation:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.2617994
-      minScalar: -0.2617994
+      scalar: 6.2831855
+      minScalar: -6.2831855
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -39141,7 +39155,7 @@ ParticleSystemRenderer:
   m_ShadowBias: 0
   m_RenderAlignment: 0
   m_Pivot: {x: 0, y: 0, z: 0}
-  m_Flip: {x: 0, y: 0, z: 0}
+  m_Flip: {x: 0.5, y: 0.5, z: 0}
   m_EnableGPUInstancing: 1
   m_ApplyActiveColorSpace: 1
   m_AllowRoll: 1
@@ -39712,8 +39726,8 @@ ParticleSystem:
     startRotation:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.2617994
-      minScalar: -0.2617994
+      scalar: 6.2831855
+      minScalar: -6.2831855
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -44034,7 +44048,7 @@ ParticleSystemRenderer:
   m_ShadowBias: 0
   m_RenderAlignment: 0
   m_Pivot: {x: 0, y: 0, z: 0}
-  m_Flip: {x: 0, y: 0, z: 0}
+  m_Flip: {x: 0.5, y: 0.5, z: 0}
   m_EnableGPUInstancing: 1
   m_ApplyActiveColorSpace: 1
   m_AllowRoll: 1

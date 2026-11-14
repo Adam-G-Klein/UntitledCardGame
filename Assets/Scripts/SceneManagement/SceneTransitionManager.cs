@@ -19,6 +19,8 @@ public class SceneTransitionManager : MonoBehaviour
     [SerializeField] private bool revealContinuesAcross = true;
     [Tooltip("Cutoff at which the screen is fully clear. Depends on the dissolve texture; re-measure if you swap it.")]
     [SerializeField] private float revealClearCutoff = 0.52f;
+    [Tooltip("VFX: gold and pink flakes thrown across the screen with each wipe (VFX Retool / Build screen wipe extras). Leave empty for none.")]
+    [SerializeField] private GameObject wipeFlakesVFX;
 
     [Header("Hold On Black")]
     [Tooltip("A short beat on black between covering and revealing, so the swap reads as one motion.")]
@@ -53,7 +55,7 @@ public class SceneTransitionManager : MonoBehaviour
         screenFader.fadeTime = fadeTime;
         screenFader.fadeColor = fadeColor;
         screenFader.Initialize();
-        screenFader.InitializeWipe(revealMaterial);
+        screenFader.InitializeWipe(revealMaterial, wipeFlakesVFX);
     }
 
     // Used for moving between locations within a run (map, combat, shop, events). Menus and
@@ -85,6 +87,8 @@ public class SceneTransitionManager : MonoBehaviour
     private void OnSceneLoadedReveal(Scene scene, LoadSceneMode mode)
     {
         SceneManager.sceneLoaded -= OnSceneLoadedReveal;
+        // VFX: before the new scene's first frame, so the covered wipe never draws without a camera
+        screenFader.HoldWipeCovered();
         fadeCoroutine = StartCoroutine(RevealWhenSettled());
     }
 

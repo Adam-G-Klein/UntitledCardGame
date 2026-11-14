@@ -42,6 +42,12 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 7082891692335694202
+      type: {class: CardsChangedVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardsChangedVFX
+        inputKey: selected
+        vfxPrefab: {fileID: 1872837941943473356, guid: c1728413e5bf48543b46f1ce54f452c5, type: 3}
     - rid: 7082891692335694194
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -50,6 +56,7 @@ MonoBehaviour:
         - rid: 7082891692335694196
         - rid: 7082891692335694201
         - rid: 7082891692335694198
+        - rid: 7082891692335694202
     - rid: 7082891692335694195
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

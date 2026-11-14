@@ -47,11 +47,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _LERP_Mask_Texture:
-        m_Texture: {fileID: 2800000, guid: 0b88e7df6747e4a44a61f816802ce3e0, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0ae5d39b9aae86a469831c696c91cffa, type: 3}
         m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0.28}
+        m_Offset: {x: 0, y: 0}
     - _LERP_Texture:
-        m_Texture: {fileID: 2800000, guid: 592720d899ca71a4bb528c63e6c86c0e, type: 3}
+        m_Texture: {fileID: 2800000, guid: ed0571eb5d8282a4db02f18e5278c66b, type: 3}
         m_Scale: {x: 0.5, y: 0.75}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -100,7 +100,7 @@ Material:
     - _Fade_Tex_Pow: 1
     - _Fresnel: 0
     - _Fresnel_Thickness: 2.11
-    - _Intensity: 3.24
+    - _Intensity: 1.7
     - _Mask_Animation: 0
     - _Mask_Power: 1
     - _Mask_Strength: 0.3
@@ -133,7 +133,7 @@ Material:
     - _Fade_Tex_Speed: {r: -0.015, g: 0, b: 0, a: 0}
     - _Fresnel_Color: {r: 1, g: 1, b: 1, a: 0}
     - _Fresnel_Speed: {r: 0, g: 0, b: 0, a: 0}
-    - _LERP_Texture_Scroll: {r: 0.25, g: -0.25, b: 0, a: 0}
+    - _LERP_Texture_Scroll: {r: 0, g: -0.25, b: 0, a: 0}
     - _Main_Tex_Colour: {r: 47.937256, g: 47.937256, b: 47.937256, a: 1}
     - _Main_Text_Scroll_Speed: {r: 0, g: 0, b: 0, a: 0}
     - _Mask_Scroll_Speed: {r: 0, g: 0, b: 0, a: 0}

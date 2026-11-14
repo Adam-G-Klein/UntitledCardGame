@@ -47,15 +47,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _LERP_Mask_Texture:
-        m_Texture: {fileID: 2800000, guid: 0b88e7df6747e4a44a61f816802ce3e0, type: 3}
+        m_Texture: {fileID: 2800000, guid: 58f59ec594411b0419b129ec82d88c9f, type: 3}
         m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0.28}
+        m_Offset: {x: 0, y: 0}
     - _LERP_Texture:
         m_Texture: {fileID: 2800000, guid: 592720d899ca71a4bb528c63e6c86c0e, type: 3}
         m_Scale: {x: 0.5, y: 0.75}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 4ca328a59391678428eaf8fda25e8c8f, type: 3}
+        m_Texture: {fileID: 2800000, guid: 992240673745a64419224d7553c17113, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Mask_Tex:
@@ -126,8 +126,8 @@ Material:
     - _ZWriteControl: 0
     m_Colors:
     - _Color: {r: 1.4980392, g: 1.4980392, b: 1.4980392, a: 1}
-    - _Colour_A: {r: 0.7807843, g: 0.5992157, b: 0.4192157, a: 1}
-    - _Colour_B: {r: 0.6901961, g: 0.47843137, b: 0.2901961, a: 1}
+    - _Colour_A: {r: 1, g: 1, b: 1, a: 1}
+    - _Colour_B: {r: 0.6039216, g: 0.44705883, b: 0.8156863, a: 1}
     - _Dissolve_Speed: {r: -0.1, g: 0, b: 0, a: 0}
     - _Distortion_Speed: {r: 0.015, g: 0, b: 0, a: 0}
     - _Fade_Tex_Speed: {r: 0.15, g: 0, b: 0, a: 0}
