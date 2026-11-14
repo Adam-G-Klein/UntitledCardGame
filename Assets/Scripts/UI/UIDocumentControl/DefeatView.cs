@@ -46,13 +46,7 @@ public class DefeatView : MonoBehaviour
                 SceneTransitionManager.LoadScene("DemoEndOfRun");
                 return;
             }
-            // go to end of run progress scene if there are any achievements to display
-            if (ProgressManager.Instance.achievementSOList.Exists(x => x.lockedInProgress < x.target)) {
-                SceneTransitionManager.LoadScene("EndOfRunProgressScene", .5f);
-                return;
-            }
-            // otherwise go to main menu
-            SceneTransitionManager.LoadScene("MainMenu", .5f);
+            SceneTransitionManager.LoadScene("EndOfRunProgressScene", .5f);
         });
         FocusManager.Instance.RegisterFocusableTarget(button.AsFocusable());
     }

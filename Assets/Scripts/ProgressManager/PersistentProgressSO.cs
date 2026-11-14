@@ -11,4 +11,7 @@ using UnityEngine;
 public class PersistentProgressSO : ScriptableObject {
     public List<CardType> unlockedCards;
     public List<CardType> cardsUnlockedThisRun;
+    public int totalXP;
+    [NonSerialized]
+    public RunProgressSummary lastRunSummary;
 }

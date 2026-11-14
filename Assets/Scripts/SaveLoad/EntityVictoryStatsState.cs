@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using UnityEngine;
 
 
@@ -8,15 +9,19 @@ using UnityEngine;
 public class EntityVictoryStatsState
 {
      private Dictionary<string, EntityVictoryStats> entityVictoryStatsDictionary = new();
+     [OptionalField]
+     private int ascensionIndexVersion;
 
      public EntityVictoryStatsState(Dictionary<string, EntityVictoryStats> entityVictoryStatsDictionary)
      {
           this.entityVictoryStatsDictionary = entityVictoryStatsDictionary;
+          this.ascensionIndexVersion = AscensionInfo.AscensionIndexVersion;
      }
 
      public void LoadToLocalEntityVictoryState()
      {
-          EntityVictoryStatsManager.Instance.entityVictoryStatsDictionary = entityVictoryStatsDictionary.ToDictionary(entry => entry.Key, entry => new EntityVictoryStats(entry.Value.runsRunWith, entry.Value.maxAscensionWonWith));
+          int ascensionOffset = ascensionIndexVersion < AscensionInfo.AscensionIndexVersion ? 1 : 0;
+          EntityVictoryStatsManager.Instance.entityVictoryStatsDictionary = entityVictoryStatsDictionary.ToDictionary(entry => entry.Key, entry => new EntityVictoryStats(entry.Value.runsRunWith, entry.Value.maxAscensionWonWith + ascensionOffset));
 
           // PrintForDebugging(); // Uncomment for debugging purposes
      }

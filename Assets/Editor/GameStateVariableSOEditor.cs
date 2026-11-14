@@ -126,7 +126,6 @@ public class GameStateVariableSOEditor : Editor {
                 "Clear", "Cancel")) {
                 SaveSystem.DeleteSave(SaveSystem.SaveType.Progress);
                 gameStateVariableSO.HasSeenCombatTutorial = false;
-                gameStateVariableSO.HasSeenPackSelectTutorial = false;
                 gameStateVariableSO.HasSeenAllShopTutorials = false;
                 gameStateVariableSO.HasCompletedTutorialRun = false;
                 EditorUtility.SetDirty(gameStateVariableSO);

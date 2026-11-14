@@ -6,9 +6,7 @@ using UnityEngine;
     fileName = "RandomCardUnlocker", 
     menuName = "Cards/Card Unlocker/Random Card Unlocker")]
 public class RandomCardUnlockerSO : CardUnlockerSO {
-    public int numberToUnlock;
-
-    public override List<CardType> ChooseCardsToUnlock(GameStateVariableSO gameState, List<CardType> unlockedCards) {
+    public override List<CardType> ChooseCardsToUnlock(GameStateVariableSO gameState, List<CardType> unlockedCards, int numberToUnlock) {
         List<CardType> cardsToUnlock = new List<CardType>();
 
         List<PackSO> activePacks = gameState.activePacks;

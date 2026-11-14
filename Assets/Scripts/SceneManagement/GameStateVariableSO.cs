@@ -21,8 +21,9 @@ public enum Location
     INTRO_CUTSCENE,
     TUTORIAL,
     SHOP_TUTORIAL,
-    PACK_SELECT,
-    PACK_SELECT_TUTORIAL,
+    PACK_SELECT, // Legacy
+    PACK_SELECT_TUTORIAL, // Legacy
+    ASCENSION_SELECT,
 }
 
 public enum BuildType
@@ -67,17 +68,6 @@ public class GameStateVariableSO : ScriptableObject
     public RunOutcome currentRunOutcome;
     [SerializeField]
     public bool skipTutorials = false;
-    [SerializeField]
-    private bool hasSeenPackSelectTutorial = false;
-    public bool HasSeenPackSelectTutorial {
-        get => hasSeenPackSelectTutorial;
-        set {
-            hasSeenPackSelectTutorial = value;
-            if (value) {
-                SaveManager.Instance.SavePlayerProgress();
-            }
-        }
-    }
     [Header("DO NOT COMMIT A CHANGE TO THESE VALUES")]
     [SerializeField]
     private bool hasSeenShopTutorial = false;
@@ -117,14 +107,13 @@ public class GameStateVariableSO : ScriptableObject
     public BuildType buildType = BuildType.RELEASE;
 
     public List<PackSO> previouslySelectedPackSOs;
-    public int ascensionLevel = -1;
+    public int ascensionLevel = 0;
     public Dictionary<Location, string> locationToScene = new Dictionary<Location, string>() {
         {Location.MAIN_MENU, "MainMenu"},
         {Location.STARTING_TEAM, "StartingTeam"},
         {Location.TUTORIAL, "TutorialScene"},
-        {Location.PACK_SELECT_TUTORIAL, "PackSelectionTutorialScene"},
         {Location.SHOP_TUTORIAL, "ShopTutorialScene"},
-        {Location.PACK_SELECT, "PackSelectionScene"},
+        {Location.ASCENSION_SELECT, "AscensionSelectScene"},
         {Location.TEAM_SELECT, "TeamSelect"},
         {Location.PRE_COMBAT_SPLASH, "PreCombatSplash"},
         {Location.COMBAT, "CombatScene"},
@@ -152,9 +141,8 @@ public class GameStateVariableSO : ScriptableObject
                     break;
                 }
 
-                // The following is only necessary while we don't want the pack selection tutorial early in the experience as it currently looks bad
                 if (skipTutorials && !BuildTypeDemoOrConvention()) {
-                    currentLocation = Location.PACK_SELECT;
+                    currentLocation = Location.ASCENSION_SELECT;
                     break;
                 } else if (skipTutorials) {
                     currentLocation = Location.STARTING_TEAM;
@@ -167,19 +155,10 @@ public class GameStateVariableSO : ScriptableObject
                 }
 
                 if (hasSeenCombatTutorial && hasSeenShopTutorial && !BuildTypeDemoOrConvention()) {
-                    if (hasSeenPackSelectTutorial) {
-                        currentLocation = Location.PACK_SELECT;
-                    }
-                    else {
-                        currentLocation = Location.PACK_SELECT_TUTORIAL;
-                    }
-                    break;
+                    currentLocation = Location.ASCENSION_SELECT;
                 } else {
                     currentLocation = Location.STARTING_TEAM;
                 }
-                break;
-            case Location.PACK_SELECT_TUTORIAL:
-                currentLocation = Location.PACK_SELECT;
                 break;
             case Location.INTRO_CUTSCENE:
                 // Modified for Shortened Demo pre GDC 2026
@@ -229,7 +208,7 @@ public class GameStateVariableSO : ScriptableObject
                 EndTutorialLoop();
                 AdvanceEncounter();
                 break;
-            case Location.PACK_SELECT:
+            case Location.ASCENSION_SELECT:
                 currentLocation = Location.STARTING_TEAM;
                 break;
             default:
