@@ -57,6 +57,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 8790164513324270202
         - rid: 8790164583925416397
+        - rid: 1700682198445195977
         - rid: 205828107393564792
         - rid: 205828107393564793
     - rid: 205828107393564792
@@ -90,3 +91,9 @@ MonoBehaviour:
         effectStepName: EndWorkflowIfConditionMet
         inputKey1: selfDamaged
         conditionToEndOn: 0
+    - rid: 1700682198445195977
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}

@@ -49,7 +49,6 @@ MonoBehaviour:
       displayValue: 2
       effectSteps:
       - rid: 3931529445166809421
-      - rid: 173314522967966399
       - rid: 3931529445166809422
       - rid: 7150943289421333095
       - rid: 7150943289421333096
@@ -88,11 +87,6 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 173314522967966399
-      type: {class: ScriptableObjectEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ScriptableObjectEffectStep
-        effectStepSO: {fileID: 11400000, guid: 46ac36b880e2ff14aa699c90b6e9f19c, type: 2}
     - rid: 2038553076039155782
       type: {class: SpriteSwap, ns: , asm: Assembly-CSharp}
       data:
@@ -119,7 +113,7 @@ MonoBehaviour:
       data:
         effectStepName: InstantiatePrefab
         inputKey: self
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
+        prefabToInstantiate: {fileID: 7061810456412778628, guid: 056feea5b40bdc841b884fff65bf7722, type: 3}
         scale: 1
     - rid: 3931529445166809421
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -147,7 +141,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 6137048663962808129, guid: 418a03ccd75ca98409952e0384c196fd, type: 3}
+        vfxPrefab: {fileID: 7653236696634270727, guid: 06cb95438569b864b9c211e17409078e, type: 3}
     - rid: 7150943289421333095
       type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
       data:

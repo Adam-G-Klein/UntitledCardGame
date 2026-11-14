@@ -113,6 +113,8 @@ public class AddCardsToDeck : EffectStep, ITooltipProvider {
                     deckInstance.AddCardsToDiscard(cards);
                     break;
             }
+            // lets the shuffle-into-deck VFX show the real card instead of a blank card shape
+            ShuffleCardFace.NotifyCardsAdded(deckInstance, cards);
         }
     }
 

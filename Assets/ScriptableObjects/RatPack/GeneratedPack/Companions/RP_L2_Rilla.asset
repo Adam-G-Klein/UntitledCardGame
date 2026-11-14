@@ -166,6 +166,7 @@ MonoBehaviour:
         - rid: 6567162537147629911
         - rid: 6567162537147629912
         - rid: 6567162537147629913
+        - rid: 1700682198445196007
         - rid: 6567162537147629914
         weight: -2
     - rid: 6567162537147629908
@@ -233,6 +234,7 @@ MonoBehaviour:
         - rid: 6567162537147629920
         - rid: 6567162537147629921
         - rid: 6567162537147629922
+        - rid: 1700682198445196008
         - rid: 6567162537147629924
         weight: 0
     - rid: 6567162537147629917
@@ -324,3 +326,15 @@ MonoBehaviour:
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
+    - rid: 1700682198445196007
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}
+    - rid: 1700682198445196008
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}

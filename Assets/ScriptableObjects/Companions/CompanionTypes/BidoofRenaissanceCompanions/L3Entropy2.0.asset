@@ -59,6 +59,7 @@ MonoBehaviour:
         - rid: 205828032053380026
         - rid: 205828032053380027
         - rid: 205828032053380028
+        - rid: 1700682198445195991
         - rid: 205828032053380029
         - rid: 205828032053380030
     - rid: 205828032053380026
@@ -116,6 +117,7 @@ MonoBehaviour:
       data:
         abilityTrigger: 9
         effectSteps:
+        - rid: 1700682198445195992
         - rid: 205828032053380032
         - rid: 205828032053380033
     - rid: 205828032053380032
@@ -123,7 +125,7 @@ MonoBehaviour:
       data:
         effectStepName: InstantiatePrefab
         inputKey: companionExhaustedFrom
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        prefabToInstantiate: {fileID: 9028122300360462519, guid: 9a51d49c5066ce74cb95e42b96240249, type: 3}
         scale: 1
     - rid: 205828032053380033
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
@@ -134,3 +136,15 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+    - rid: 1700682198445195991
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}
+    - rid: 1700682198445195992
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}

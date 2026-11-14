@@ -47,6 +47,7 @@ MonoBehaviour:
         - rid: 7150943289421332747
         - rid: 7150943289421332748
         - rid: 7150943289421332746
+        - rid: 7150943289421332749
         weight: 0
     - rid: 7150943289421332745
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -87,3 +88,10 @@ MonoBehaviour:
         operation: 0
         scale: 1
         outputKey: numDiscarded
+    - rid: 7150943289421332749
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 1249116963354319070, guid: cd3c90ad4daffb64980ec31c50d99f23, type: 3}
+        scale: 1

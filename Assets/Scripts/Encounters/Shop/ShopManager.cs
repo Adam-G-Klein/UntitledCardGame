@@ -28,6 +28,8 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     public GameObject healPrefab;
     public GameObject sparklePrefab;
     public GameObject bigSparklePrefab;
+    public GameObject upgradeTwoStarPrefab;
+    public GameObject upgradeThreeStarPrefab;
     public GameObject switchDecksPrefab;
 
     private ShopEncounter shopEncounter;
@@ -537,6 +539,13 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     public void UpgradeSparkle(VisualElement ve)
     {
         InstantiateShopVFX(bigSparklePrefab, ve, 1.0f);
+    }
+
+    public void UpgradeLevelVFX(VisualElement ve, CompanionLevel resultingLevel)
+    {
+        GameObject prefab = resultingLevel == CompanionLevel.LevelThree ? upgradeThreeStarPrefab : upgradeTwoStarPrefab;
+        if (prefab == null) return;
+        InstantiateShopVFX(prefab, ve, 1.0f);
     }
 
     private void ScaleGameObjectAndChildren(GameObject obj, float scale)

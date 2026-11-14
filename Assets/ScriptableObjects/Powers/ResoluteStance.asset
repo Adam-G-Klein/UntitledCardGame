@@ -39,6 +39,7 @@ MonoBehaviour:
         - rid: 2511001254715195848
         - rid: 2511001254715195852
         - rid: 2511001254715195849
+        - rid: 1700682198445196056
         - rid: 2511001254715195851
         weight: 0
     - rid: 2511001254715195847
@@ -91,3 +92,9 @@ MonoBehaviour:
       data:
         effectStepName: EndWorkflowIfListEmpty
         inputKey1: belowHalf
+    - rid: 1700682198445196056
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: Resolute Stance
+        icon: {fileID: 0}

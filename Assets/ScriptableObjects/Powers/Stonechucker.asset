@@ -96,7 +96,10 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 1320532642761013391, guid: 4847f21b038e1aa42bceefe5c97ab1ab, type: 3}
+        casterTrail: {fileID: 3512837281690300094, guid: 177637e31229a3945ada8ebde354819a, type: 3}
     - rid: 758316142852047572
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
+        icon: {fileID: 21300000, guid: d368c9ba74e98f7408c2a579fc6febcb, type: 3}
+        label: Stonechucker

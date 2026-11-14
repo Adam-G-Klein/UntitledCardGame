@@ -45,7 +45,7 @@ MonoBehaviour:
         effectStepName: InstantiatePrefab
         inputKey: target
         prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
-        scale: 1.5
+        scale: 1
     - rid: 5602892561590779943
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -53,6 +53,7 @@ MonoBehaviour:
         - rid: 5602892561590779944
         - rid: 8034950120506655436
         - rid: 8034950120506655437
+        - rid: 1767008872030966815
         - rid: 1274772082283774706
     - rid: 5602892561590779944
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -91,3 +92,10 @@ MonoBehaviour:
         scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
+    - rid: 1767008872030966815
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 7436311061350229817, guid: 109d97cbe2a2df8469b92e79db0f3866, type: 3}
+        scale: 1

@@ -70,6 +70,7 @@ MonoBehaviour:
         - rid: 7401433558763438430
         - rid: 7401433558763438398
         - rid: 7707884639552274901
+        - rid: 8790164513324270202
         - rid: 7082891692335693828
         - rid: 7082891692335693827
         - rid: 578314858522476544
@@ -205,3 +206,10 @@ MonoBehaviour:
       data:
         effectStepName: EndWorkflowIfNoMapElement
         keyToCheck: damagedCompanion
+    - rid: 8790164513324270202
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 1130309664883422626, guid: ae7da500b761d2c48a5fe9f1ad01b581, type: 3}
+        scale: 1

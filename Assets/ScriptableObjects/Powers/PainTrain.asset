@@ -55,6 +55,8 @@ MonoBehaviour:
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
+        icon: {fileID: 21300000, guid: b6a3a72ddfbd65c429c809259c81ca0b, type: 3}
+        label: Pain Train
     - rid: 2511001254715195609
       type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
       data:
@@ -74,3 +76,4 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 1320532642761013391, guid: e49a68dc032bc894aafd8af2fcb8483b, type: 3}
+        casterTrail: {fileID: 3171343891902045044, guid: c9c550e20bc312c43acfef3a1351a0e2, type: 3}

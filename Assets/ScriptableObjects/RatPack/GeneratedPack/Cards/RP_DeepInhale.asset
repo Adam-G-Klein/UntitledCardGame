@@ -46,6 +46,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 4463206030013890565
         - rid: 8034949815888773123
+        - rid: 1548308785219226589
         - rid: 4463206030013890568
         - rid: 5280922841426165947
     - rid: 4463206030013890565
@@ -90,3 +91,10 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+    - rid: 1548308785219226589
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 7436311061350229817, guid: 109d97cbe2a2df8469b92e79db0f3866, type: 3}
+        scale: 1

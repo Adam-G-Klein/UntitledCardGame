@@ -55,6 +55,7 @@ MonoBehaviour:
       data:
         abilityTrigger: 10
         effectSteps:
+        - rid: 1700682198445195981
         - rid: 205828032053379551
         - rid: 205828032053379552
         - rid: 8441470952357494981
@@ -84,3 +85,9 @@ MonoBehaviour:
         effectStepName: DialogueStep
         line: Shields Engage!
         lineTime: 2
+    - rid: 1700682198445195981
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}

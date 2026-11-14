@@ -48,6 +48,9 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
     public void registerCompanion(CompanionInstance companion)
     {
         companions.Add(companion);
+        // VFX: the boss ink border (it only shows in boss fights) and the low-health border come in with the party
+        BossInkBorder.Ensure(encounterConstants.bossInkBorderVFX);
+        LowHealthBorder.Ensure(encounterConstants.lowHealthBorderVFX);
     }
 
     public void registerEnemy(EnemyInstance enemy)
@@ -234,6 +237,58 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
             GameObject deathVFX = Instantiate(encounterConstants.enemyDeathPrefab, combatInstance.transform.position, Quaternion.identity);
             deathVFX.ScaleSelfAndChildren(1.1f);
         }
+    }
+
+    // Status moments that have no card of their own to play VFX (block soaking or breaking, statuses
+    // wearing off, payouts). Prefabs come from the encounter constants; an empty slot plays nothing.
+    public void SpawnStatusVfx(CombatInstance combatInstance, GameObject vfxPrefab)
+    {
+        if (vfxPrefab == null || combatInstance == null) return;
+        Instantiate(vfxPrefab, combatInstance.transform.position, Quaternion.identity);
+    }
+
+    // Extra weight for big hits, on top of the hit's own VFX: an impact layer, screen shake and a
+    // short hit-stop, tiered by the damage actually dealt. Self-inflicted damage (costs, burn) is skipped.
+    public void PlayHitWeight(CombatInstance target, CombatInstance attacker, int damageDealt)
+    {
+        if (target == null || attacker == null || attacker == target) return;
+        bool massive = damageDealt >= encounterConstants.massiveHitDamage;
+        bool heavy = massive || damageDealt >= encounterConstants.heavyHitDamage;
+        if (!heavy) return;
+
+        GameObject vfx = massive ? encounterConstants.massiveHitVFX : encounterConstants.heavyHitVFX;
+        if (vfx != null) Instantiate(vfx, target.transform.position, Quaternion.identity);
+        ScreenShakeManager.Instance.ShakeWithForce(massive ? encounterConstants.massiveHitShake : encounterConstants.heavyHitShake);
+        if (encounterConstants.useHitStop)
+            HitStop.Freeze(massive ? encounterConstants.massiveHitStop : encounterConstants.heavyHitStop);
+    }
+
+    // The last death of the fight, on either side (the last enemy, or the last ally): a short slow-mo and an
+    // impact frame as it lands.
+    public void PlayLastKill(CombatInstance killed)
+    {
+        if (killed == null || !IsLastOfItsSide(killed)) return;
+        if (encounterConstants.useLastKillSlowMo)
+            HitStop.SlowMo(encounterConstants.lastKillSlowMoTime, encounterConstants.lastKillSlowMoScale);
+        if (encounterConstants.useLastDeathImpactFrame)
+            ImpactFrame.Play(killed.transform.position, encounterConstants.impactFrameSplashVFX, encounterConstants.impactFrameTime);
+    }
+
+    private bool IsLastOfItsSide(CombatInstance killed)
+    {
+        if (killed.TryGetComponent<EnemyInstance>(out EnemyInstance killedEnemy))
+        {
+            foreach (EnemyInstance enemy in enemies)
+                if (enemy != null && enemy != killedEnemy && enemy.combatInstance.combatStats.getCurrentHealth() > 0) return false;
+            return true;
+        }
+        if (killed.TryGetComponent<CompanionInstance>(out CompanionInstance killedCompanion))
+        {
+            foreach (CompanionInstance companion in companions)
+                if (companion != null && companion != killedCompanion && companion.combatInstance.combatStats.getCurrentHealth() > 0) return false;
+            return true;
+        }
+        return false;
     }
 
     public IEnumerator ReviveCompanions(List<Companion> companionsToRevive, GameObject vfxPrefab, float waitTime)

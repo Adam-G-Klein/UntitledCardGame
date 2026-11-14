@@ -56,6 +56,7 @@ MonoBehaviour:
         abilityTrigger: 11
         effectSteps:
         - rid: 8790164513324270203
+        - rid: 1700682198445195994
         - rid: 8790164583925416398
         - rid: 205828107393564793
     - rid: 205828107393564793
@@ -83,3 +84,9 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+    - rid: 1700682198445195994
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}

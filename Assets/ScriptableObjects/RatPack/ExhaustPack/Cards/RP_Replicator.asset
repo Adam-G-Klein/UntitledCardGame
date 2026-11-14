@@ -48,14 +48,14 @@ MonoBehaviour:
         effectStepName: InstantiatePrefab
         inputKey: rand
         prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
-        scale: 1.5
+        scale: 1
     - rid: 5280922841426165974
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
         inputKey: enemy
         prefabToInstantiate: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
-        scale: 1.5
+        scale: 1
     - rid: 5602893017534169660
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -66,6 +66,7 @@ MonoBehaviour:
         - rid: 5602893017534169663
         - rid: 5280922841426165973
         - rid: 5602893017534169665
+        - rid: 5676129298078753670
         - rid: 5602893017534169666
     - rid: 5602893017534169661
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -126,3 +127,10 @@ MonoBehaviour:
         getScaleFromKey: 0
         scaleKey: 
         modification: 0
+    - rid: 5676129298078753670
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: rand
+        prefabToInstantiate: {fileID: 7436311061350229817, guid: 109d97cbe2a2df8469b92e79db0f3866, type: 3}
+        scale: 1

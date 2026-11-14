@@ -84,10 +84,12 @@ MonoBehaviour:
         - rid: 5602892949302281047
         - rid: 5602892949302281048
         - rid: 7189280385716453564
+        - rid: 1700682309101420548
         - rid: 7189280385716453563
         - rid: 7189280385716453565
         - rid: 7189280385716453567
         - rid: 7189280385716453566
+        - rid: 1700682291002736691
         - rid: 7189280385716453568
         - rid: 7189280385716453569
     - rid: 5602892949302281047
@@ -185,3 +187,16 @@ MonoBehaviour:
       data:
         effectStepName: WaitForSecondsEffect
         seconds: 0.25
+    - rid: 1700682291002736691
+      type: {class: CardsChangedVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardsChangedVFX
+        inputKey: thisCard
+        vfxPrefab: {fileID: 1872837941943473356, guid: c1728413e5bf48543b46f1ce54f452c5, type: 3}
+    - rid: 1700682309101420548
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: rat
+        prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
+        scale: 1

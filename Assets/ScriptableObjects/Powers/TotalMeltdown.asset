@@ -36,7 +36,9 @@ MonoBehaviour:
         abilityTrigger: 2
         effectSteps:
         - rid: 754093991137641208
+        - rid: 1700682198445196060
         - rid: 2511001254715195668
+        - rid: 4393744489672254947
         - rid: 2511001254715195669
         - rid: 754093991137641210
         weight: 0
@@ -81,4 +83,17 @@ MonoBehaviour:
         effectStepName: InstantiatePrefab
         inputKey: targets
         prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1
+    - rid: 1700682198445196060
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: Total Meltdown
+        icon: {fileID: 0}
+    - rid: 4393744489672254947
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: targets
+        prefabToInstantiate: {fileID: 7436311061350229817, guid: 109d97cbe2a2df8469b92e79db0f3866, type: 3}
         scale: 1

@@ -14,6 +14,8 @@ public class CardInHandSelectionView
     public IconButton cancelButton;
     private VisualElement cardCastLocationVisualElement;
 
+    private int fadeTween = -1;
+    private const float FadeTime = 0.3f;
     private Action onConfirmHandler = null;
     private Action onCancelHandler = null;
     private static List<Targetable.TargetType> PLAYABLE_CARD_TARGET = new List<Targetable.TargetType>() { Targetable.TargetType.Card };
@@ -46,6 +48,9 @@ public class CardInHandSelectionView
             this.cancelButton.pickingMode = PickingMode.Position;
         }
         this.rootElement.style.display = DisplayStyle.Flex;
+        // VFX: the selection's dark backdrop fades in (and out, in DisableSelection) rather than snapping the whole
+        // board dark in one frame, which read as a flash when a draw card asks you to pick a card
+        Fade(this.rootElement.resolvedStyle.opacity < 1f ? this.rootElement.resolvedStyle.opacity : 0f, 1f, null);
         this.label.text = text;
         this.confirmButton.pickingMode = PickingMode.Position;
 
@@ -64,7 +69,19 @@ public class CardInHandSelectionView
         FocusManager.Instance.DisableFocusableTarget(this.confirmButton.AsFocusable());
         FocusManager.Instance.DisableFocusableTarget(this.cancelButton.AsFocusable());
         this.cancelButton.style.display = DisplayStyle.None;
-        this.rootElement.style.display = DisplayStyle.None;
+        this.confirmButton.pickingMode = PickingMode.Ignore;
+        // VFX: fades out, then hides (a new selection before then cancels the fade and fades back in)
+        Fade(this.rootElement.resolvedStyle.opacity, 0f, () => this.rootElement.style.display = DisplayStyle.None);
+    }
+
+    private void Fade(float from, float to, Action onDone)
+    {
+        if (fadeTween >= 0) LeanTween.cancel(fadeTween);
+        this.rootElement.style.opacity = from;
+        LTDescr tween = LeanTween.value(from, to, FadeTime).setEaseInOutSine().setIgnoreTimeScale(true)
+            .setOnUpdate(a => this.rootElement.style.opacity = a);
+        if (onDone != null) tween.setOnComplete(onDone);
+        fadeTween = tween.uniqueId;
     }
 
     public void UpdateLabelText(string text)

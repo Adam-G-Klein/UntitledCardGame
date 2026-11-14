@@ -107,7 +107,7 @@ public class TooltipOnHover : MonoBehaviour,
         List<TooltipView> viewsToDestroy = new List<TooltipView>(instantaitedViews);
         foreach (TooltipView view in viewsToDestroy) {
             instantaitedViews.Remove(view);
-            view.Hide();
+            if (view != null) view.Hide();   // already gone with its parent
         }
     }
 

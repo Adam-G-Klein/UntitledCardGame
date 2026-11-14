@@ -54,6 +54,7 @@ MonoBehaviour:
         - rid: 754093991137641208
         - rid: 754093991137641209
         - rid: 385751591190528742
+        - rid: 1700682198445196061
         - rid: 754093991137641210
         - rid: 754093991137641211
         - rid: 2511001254715195970
@@ -121,3 +122,9 @@ MonoBehaviour:
         effectStepName: CardInHandEffect
         inputKey: cardToRetain
         effect: 2
+    - rid: 1700682198445196061
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: Whetstone
+        icon: {fileID: 21300000, guid: bc01e6303f5aef54696b1695ae9d1ce0, type: 3}

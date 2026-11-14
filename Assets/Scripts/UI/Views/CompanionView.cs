@@ -384,7 +384,7 @@ public class CompanionView : IUIEventReceiver
             currentHealth = this.companion.GetCurrentHealth();
             maxHealth = this.companion.GetCombatStats().getMaxHealth();
         } else {
-            currentHealth = this.combatInstance.combatStats.currentHealth;
+            currentHealth = HitTiming.ShownHealth(this.combatInstance);   // HitTiming: holds until the hit's effect lands
             maxHealth = this.combatInstance.combatStats.maxHealth;
         }
 
@@ -671,6 +671,17 @@ public class CompanionView : IUIEventReceiver
         yield return EntityAbilityInstance.GenericAbilityTriggeredVFX(this.spriteElement, spriteCopy);
     }
 
+    // Names what just triggered over this rat: a relic passes its own title and icon; without one it's the
+    // rat's own passive (its keepsake title, or its name).
+    public IEnumerator AbilityTriggeredBadge(string label, Sprite icon) {
+        CompanionTypeSO type = this.companion.companionType;
+        if (string.IsNullOrEmpty(label)) {
+            label = !string.IsNullOrEmpty(type.keepsakeTitle) ? type.keepsakeTitle : type.companionName;
+            if (icon == null) icon = type.icon;
+        }
+        yield return AbilityTriggerBadge.Show(this.spriteElement, icon, label, this.statusArea);
+    }
+
     public IEnumerator ShuffleDiscardIntoDrawVFX(int cardsShuffled) {
         Vector2 start = GetElementCenterInParentSpace(discardPileIcon, container);
         Vector2 end = GetElementCenterInParentSpace(drawPileIcon, container);
@@ -684,6 +695,9 @@ public class CompanionView : IUIEventReceiver
             card.style.width = discardPileIcon.resolvedStyle.width;
             card.style.height = discardPileIcon.resolvedStyle.height;
             container.Add(card);
+            // VFX: a trail rides each card from the discard pile to the draw pile
+            if (!CombatEntityManager.isDestroyed)
+                UIElementTrail.Attach(CombatEntityManager.Instance.encounterConstants.reshuffleTrailVFX, card, companion.companionType.pack.packColor);
             float arcHeight = UnityEngine.Random.Range(5, 35);
             cardsInDiscard -= 1;
             tweens.Add(card);

@@ -32,7 +32,6 @@ MonoBehaviour:
       displayValue: 5
       effectSteps:
       - rid: 3931529445166809421
-      - rid: 173314522967966481
       - rid: 3931529445166809422
     - intent: 0
       enemyTargetMethod: 0
@@ -100,6 +99,7 @@ MonoBehaviour:
         - rid: 385751591190528389
         - rid: 385751591190528390
         - rid: 385751591190528360
+        - rid: 4201180788321140600
         - rid: 385751591190528361
         - rid: 385751591190528362
         - rid: 385751591190528363
@@ -137,20 +137,12 @@ MonoBehaviour:
         selectionPurpose: 0
         selectionCardCategory: 0
     - rid: 385751591190528362
-      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: FXEffectStep
-        waitForEffect: 0
-        fXExperiencePrefab: {fileID: 4075960956037802917, guid: ec7b1a1529f9141458320888bf8e3d96, type: 3}
-        rootLocationGameObjectKey: 
-        positionMappingList:
-        - fromWorkflow: self
-          toFxExperience: start
-        - fromWorkflow: damagedCompanion
-          toFxExperience: end
-        gameobjectMappingList: []
-        vePositionMappingList: []
-        veMappingList: []
+        effectStepName: InstantiatePrefab
+        inputKey: damagedCompanion
+        prefabToInstantiate: {fileID: 5466705246177039183, guid: 1a8f1abab5093804688a9fb55d6d4f27, type: 3}
+        scale: 1
     - rid: 385751591190528363
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
@@ -193,7 +185,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
+        vfxPrefab: {fileID: 2996464071188463190, guid: 7c61231a79e7e3541a6d2c8310b528a6, type: 3}
     - rid: 5633448308126777345
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -228,3 +220,10 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
+    - rid: 4201180788321140600
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: damagedCompanion
+        prefabToInstantiate: {fileID: 4952004986573060435, guid: b201aeac7260d55419771debbeaecea8, type: 3}
+        scale: 1

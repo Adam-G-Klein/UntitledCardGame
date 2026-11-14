@@ -33,6 +33,12 @@ public class ManaChange : EffectStep
         }
 
         ManaManager.Instance.updateMana(finalScale);
+        // show where the Élan came from: ink trails from the card played (or the rat) into the emblem
+        if (finalScale > 0) {
+            Component from = document.map.ContainsValueWithKey<PlayableCard>(EffectDocument.ORIGIN) ? document.map.TryGetItem<PlayableCard>(EffectDocument.ORIGIN, 0)
+                : document.map.ContainsValueWithKey<CompanionInstance>(EffectDocument.ORIGIN) ? (Component)document.map.TryGetItem<CompanionInstance>(EffectDocument.ORIGIN, 0) : null;
+            if (from != null) ManaDisplayVFX.PlayGainFrom(from.transform.position);
+        }
 
         yield return null;
     }

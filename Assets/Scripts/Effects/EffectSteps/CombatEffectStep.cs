@@ -36,6 +36,9 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
     private string inputMultiplicityKey = "";
     [SerializeField]
     private GameObject vfxPrefab = null;
+    [Tooltip("VFX: flies from the caster to each target just before vfxPrefab plays, so a strike across the board reads as coming from its caster. Purely visual.")]
+    [SerializeField]
+    private GameObject casterTrail = null;
     private CombatInstance originCombatInstance;
     private int baseMultiplicity;
     public CombatEffectStep()
@@ -65,12 +68,61 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
             {
                 if (instance != null)
                 {
+                    // "Do something to another friendly" effects (e.g. heal an ally):
+                    // arc a precast trail from the caster to the target and defer the
+                    // impact VFX until it lands. Gameplay still applies immediately.
+                    bool trail = PrecastTrailController.ShouldTrail(originCombatInstance, instance);
+                    // VFX: an ability striking across the board flies its own quick trail from the caster
+                    bool quickTrail = casterTrail != null && vfxPrefab != null && PrecastTrailController.CanQuickTrail(originCombatInstance, instance);
+                    GameObject immediateVfx = trail || quickTrail ? null : vfxPrefab;
+                    // HitTiming: with a trail, the feedback waits for the flight plus the effect's own wind-up
+                    if (quickTrail) HitTiming.Expect(instance, vfxPrefab, PrecastTrailController.QuickFlightTime);
+                    else if (trail && vfxPrefab != null) HitTiming.Expect(instance, vfxPrefab, PrecastTrailController.Instance.FlightTime);
+
                     instance.ApplyNonStatusCombatEffect(combatEffect,
                         finalScale,
                         originCombatInstance,
-                        vfxPrefab,
+                        immediateVfx,
                         i == 0,
                         i / 4.0f); // TODO, elevate this logic for ethan to tune
+                        PlayableCard originPlayableCard = document.map.TryGetItem<PlayableCard>(EffectDocument.ORIGIN, 0);
+                        // the attack sound: attack cards always; other cards (the damaging Charms: Greek Fire, Bezoar,
+                        // Boomflask) and rat abilities (Hold'em's gun) only when they have a sound of their own
+                        string attackName = null;
+                        if (originPlayableCard != null && originPlayableCard.card != null)
+                        {
+                            Card originCard = originPlayableCard.card;
+                            if (originCard.cardType.cardCategory == CardCategory.Attack || MusicController.HasOwnAttackSound(originCard.cardType.Name))
+                                attackName = originCard.cardType.Name;
+                        }
+                        else if (originCombatInstance != null)
+                        {
+                            CompanionInstance rat = originCombatInstance.GetComponentInParent<CompanionInstance>();
+                            string ratName = rat != null && rat.companion != null && rat.companion.companionType != null ? rat.companion.companionType.companionName : null;
+                            if (MusicController.HasOwnAttackSound(ratName)) attackName = ratName;
+                        }
+                        if (attackName != null)
+                        {
+                            // HitTiming: the attack sound plays when the effect strikes this target, with the rest of the hit
+                            string sound = attackName;
+                            HitTiming.AtImpact(instance, HitTiming.CurrentDelay(instance),
+                                () => MusicController.Instance.PlayCorrectAttackSound(sound));
+                        }
+
+                    if (quickTrail)
+                    {
+                        CombatInstance target = instance;
+                        PrecastTrailController.Instance.PlayQuickTrail(casterTrail, originCombatInstance, target,
+                            () => { if (target != null) GameObject.Instantiate(vfxPrefab, target.transform.position, Quaternion.identity); });
+                    }
+                    else if (trail && vfxPrefab != null)
+                    {
+                        CombatInstance target = instance;
+                        PrecastTrailController.Instance.PlayTrailThenSpawn(
+                            originCombatInstance,
+                            target,
+                            () => { if (target != null) GameObject.Instantiate(vfxPrefab, target.transform.position, Quaternion.identity); });
+                    }
                 }
             }
 

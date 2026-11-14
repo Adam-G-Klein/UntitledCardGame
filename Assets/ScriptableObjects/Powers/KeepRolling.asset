@@ -48,6 +48,7 @@ MonoBehaviour:
         - rid: 2511001503980847366
         - rid: 2511001503980847367
         - rid: 2511001503980847368
+        - rid: 2511001503980847370
         - rid: 2511001503980847369
         weight: 0
     - rid: 2511001503980847364
@@ -100,3 +101,12 @@ MonoBehaviour:
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
+        icon: {fileID: 21300000, guid: 04bf14070e798284f9f39ea08b676c4a, type: 3}
+        label: Keep Rolling
+    - rid: 2511001503980847370
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 6403594553390488074, guid: fc2cd5ece918f7549b8bb3ffb39956c2, type: 3}
+        scale: 1

@@ -101,6 +101,8 @@ MonoBehaviour:
         - rid: 5602892563578093569
         - rid: 2268261004812222464
         - rid: 5602892563578093571
+        - rid: 2378230696685765971
+        - rid: 4876919265646050931
         - rid: 2268261004812222469
     - rid: 5602892563578093569
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -132,3 +134,23 @@ MonoBehaviour:
         includeDiscardPile: 1
         includeCardsInHand: 1
         outputKey: total
+    - rid: 2378230696685765971
+      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FXEffectStep
+        waitForEffect: 0
+        fXExperiencePrefab: {fileID: 4718147213966508192, guid: 6a7a6a1acbca3aa4eb2e67b67246a93d, type: 3}
+        rootLocationGameObjectKey: 
+        positionMappingList:
+        - fromWorkflow: self
+          toFxExperience: self
+        - fromWorkflow: target
+          toFxExperience: target
+        gameobjectMappingList: []
+        vePositionMappingList: []
+        veMappingList: []
+    - rid: 4876919265646050931
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.45

@@ -39,6 +39,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 2511001254715195612
         - rid: 6567162444329517721
+        - rid: 1700682198445196046
         - rid: 2511001254715195613
         - rid: 2511001254715195614
         weight: 0
@@ -89,3 +90,9 @@ MonoBehaviour:
         inputKey: self
         includeInputCompanion: 1
         outputKey: all
+    - rid: 1700682198445196046
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: Heat Vents
+        icon: {fileID: 21300000, guid: 52f62e90b62fa9249aac77854a45e7d5, type: 3}

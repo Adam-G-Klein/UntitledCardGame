@@ -329,7 +329,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8951890979739316548, guid: 3c2b2c8ed4388464b91d1a70f9680cb5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7100000346353409656}
   m_SourcePrefab: {fileID: 100100000, guid: 3c2b2c8ed4388464b91d1a70f9680cb5, type: 3}
 --- !u!4 &613603799493993731 stripped
 Transform:
@@ -341,3 +344,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8951890979739316548, guid: 3c2b2c8ed4388464b91d1a70f9680cb5, type: 3}
   m_PrefabInstance: {fileID: 4859129716611651067}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7100000346353409656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4563441446422324415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7f1716c02419054e926b7042b4d8109, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelTwoFlair: {fileID: 5109395497985288656, guid: 92fabc671b46a9141b2078f6a72a443a, type: 3}
+  levelThreeFlair: {fileID: 2282690578862355514, guid: b308f2fec0c0f1d4bb0363510b0aa06c, type: 3}

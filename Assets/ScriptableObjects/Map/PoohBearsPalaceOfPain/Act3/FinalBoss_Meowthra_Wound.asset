@@ -76,7 +76,7 @@ MonoBehaviour:
         effectStepName: InstantiatePrefab
         inputKey: self
         prefabToInstantiate: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
-        scale: 1.5
+        scale: 1
     - rid: 5280922829633617984
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -96,7 +96,7 @@ MonoBehaviour:
       data:
         effectStepName: InstantiatePrefab
         inputKey: card
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        prefabToInstantiate: {fileID: 3402153693038389984, guid: a3b6b31a75a68b1498be5837432eabd6, type: 3}
         scale: 1
     - rid: 5602892563578093590
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}

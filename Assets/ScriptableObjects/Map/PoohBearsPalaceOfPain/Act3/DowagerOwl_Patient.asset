@@ -78,6 +78,7 @@ MonoBehaviour:
         - rid: 2038553076039155809
         - rid: 2038553076039155810
         - rid: 2038553076039155811
+        - rid: 1700682198445196028
         - rid: 2038553076039155812
         weight: 0
     - rid: 2038553076039155809
@@ -149,7 +150,7 @@ MonoBehaviour:
       data:
         effectStepName: InstantiatePrefab
         inputKey: self
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
+        prefabToInstantiate: {fileID: 7061810456412778628, guid: 056feea5b40bdc841b884fff65bf7722, type: 3}
         scale: 1
     - rid: 2268260642759376992
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
@@ -163,7 +164,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 0}
+        vfxPrefab: {fileID: 6137048663962808129, guid: 418a03ccd75ca98409952e0384c196fd, type: 3}
     - rid: 2268260642759376994
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -178,3 +179,9 @@ MonoBehaviour:
         cardSelectionHelperText: 
         selectionPurpose: 0
         selectionCardCategory: 0
+    - rid: 1700682198445196028
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}

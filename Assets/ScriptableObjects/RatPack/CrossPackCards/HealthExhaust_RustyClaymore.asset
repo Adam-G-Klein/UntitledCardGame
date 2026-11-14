@@ -107,7 +107,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
+        vfxPrefab: {fileID: 7134749997336796944, guid: 46f1a29389bbbff4a846db746f527001, type: 3}
     - rid: 7150943403050008576
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -154,4 +154,4 @@ MonoBehaviour:
         effectStepName: InstantiatePrefab
         inputKey: thisCard
         prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
-        scale: 5
+        scale: 1

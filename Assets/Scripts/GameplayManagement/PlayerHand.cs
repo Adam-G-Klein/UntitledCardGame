@@ -452,10 +452,11 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             LeanTween.rotate(cardTab.gameObject, targetRotation, rotationTime)
                     .setEase(LeanTweenType.easeInOutQuad);
             Vector3 modifiedPosition = new Vector3(position.x - (cardToMove == hoveredCard ? .8f : 0), position.y, position.z + 0.1f);
-            LeanTween.moveLocal(cardTab.gameObject, modifiedPosition, isNewCard ? dealMoveTime : moveTime);
+            LeanTween.moveLocal(cardTab.gameObject, modifiedPosition, isNewCard ? dealMoveTime : moveTime).setEase(LeanTweenType.easeInOutQuad);   // VFX: eases in and out
         }
 
         LeanTween.moveLocal(moveGO, position, isNewCard ? dealMoveTime : moveTime)
+                .setEase(LeanTweenType.easeInOutQuad)   // VFX: eases in and out
                 .setOnComplete(() =>
                 {
                     if (!isNewCard) return;
@@ -828,6 +829,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         if (card.card.cardType.cardCategory == CardCategory.Attack)
         {
             yield return StartCoroutine(onAttackCardCastDispatcher.Invoke(card).GetEnumerator());
+            // MusicController.Instance.PlayCorrectAttackSound(card.card.cardType.Name);
         }
     }
 

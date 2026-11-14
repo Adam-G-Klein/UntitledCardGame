@@ -79,6 +79,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 2034230108114649752
         - rid: 758316073527279616
+        - rid: 1700682291002736645
         - rid: 7401433308100035072
         - rid: 2034230108114649755
     - rid: 2034230108114649752
@@ -100,7 +101,7 @@ MonoBehaviour:
       data:
         effectStepName: InstantiatePrefab
         inputKey: adj
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
+        prefabToInstantiate: {fileID: 7061810456412778628, guid: 056feea5b40bdc841b884fff65bf7722, type: 3}
         scale: 1
     - rid: 5602892563578094203
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
@@ -120,3 +121,8 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         toggleStatus: 0
+    - rid: 1700682291002736645
+      type: {class: CardTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardTriggeredVFX
+        vfxPrefab: {fileID: 3402153693038389984, guid: a3b6b31a75a68b1498be5837432eabd6, type: 3}

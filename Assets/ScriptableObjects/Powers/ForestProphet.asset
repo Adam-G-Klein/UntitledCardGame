@@ -41,7 +41,9 @@ MonoBehaviour:
         abilityTrigger: 2
         effectSteps:
         - rid: 2511001254715195654
+        - rid: 1700682198445196044
         - rid: 2511001254715195655
+        - rid: 2008532712983524129
         weight: 0
     - rid: 2511001254715195654
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -68,3 +70,16 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+    - rid: 1700682198445196044
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: Forest Prophet
+        icon: {fileID: 21300000, guid: d1ea56d5b7ea8407faebb13c56ed8e92, type: 3}
+    - rid: 2008532712983524129
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 7436311061350229817, guid: 109d97cbe2a2df8469b92e79db0f3866, type: 3}
+        scale: 1

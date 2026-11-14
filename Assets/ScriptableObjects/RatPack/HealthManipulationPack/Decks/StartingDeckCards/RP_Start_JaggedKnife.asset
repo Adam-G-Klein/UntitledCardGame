@@ -74,6 +74,8 @@ MonoBehaviour:
         effectSteps:
         - rid: 5602892949302281047
         - rid: 5602892949302281048
+        - rid: 3202352618090251016
+        - rid: 7056819578272366935
         - rid: 5602892949302281049
         - rid: 5602892949302281050
     - rid: 5602892949302281047
@@ -116,7 +118,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
+        vfxPrefab: {fileID: 0}
     - rid: 5602892949302281050
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -129,4 +131,24 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
+        vfxPrefab: {fileID: 1320532642761013391, guid: f2880129efe84e249b6550440c43546b, type: 3}
+    - rid: 3202352618090251016
+      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FXEffectStep
+        waitForEffect: 0
+        fXExperiencePrefab: {fileID: 4718147213966508192, guid: e1b2e593dd9672245aaf958fdfe8e271, type: 3}
+        rootLocationGameObjectKey: 
+        positionMappingList:
+        - fromWorkflow: target
+          toFxExperience: self
+        - fromWorkflow: enemy
+          toFxExperience: target
+        gameobjectMappingList: []
+        vePositionMappingList: []
+        veMappingList: []
+    - rid: 7056819578272366935
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.24

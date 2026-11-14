@@ -61,6 +61,7 @@ MonoBehaviour:
         - rid: 2034229587402555797
         - rid: 2034229587402555798
         - rid: 2034229587402555801
+        - rid: 1700682198445195988
         - rid: 2034229587402555836
         - rid: 2034229587402555800
     - rid: 2034229587402555794
@@ -111,8 +112,8 @@ MonoBehaviour:
       data:
         effectStepName: InstantiatePrefab
         inputKey: self
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
-        scale: 1.5
+        prefabToInstantiate: {fileID: 7061810456412778628, guid: 056feea5b40bdc841b884fff65bf7722, type: 3}
+        scale: 1
     - rid: 2034229587402555801
       type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
       data:
@@ -128,3 +129,9 @@ MonoBehaviour:
         scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
+    - rid: 1700682198445195988
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}

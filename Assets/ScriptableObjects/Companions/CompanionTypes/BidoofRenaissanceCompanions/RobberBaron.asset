@@ -59,6 +59,7 @@ MonoBehaviour:
       data:
         abilityTrigger: 12
         effectSteps:
+        - rid: 1700682198445196005
         - rid: 8790165036689784832
     - rid: 8790165036689784832
       type: {class: ManaChange, ns: , asm: Assembly-CSharp}
@@ -74,6 +75,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 8790165036689784837
         - rid: 8790165036689784834
+        - rid: 1700682198445196006
         - rid: 8790165036689784835
         - rid: 8790165036689784836
     - rid: 8790165036689784834
@@ -113,3 +115,15 @@ MonoBehaviour:
         effectStepName: DialogueStep
         line: Ah, you see, someone must pay for it.
         lineTime: 2
+    - rid: 1700682198445196005
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}
+    - rid: 1700682198445196006
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}

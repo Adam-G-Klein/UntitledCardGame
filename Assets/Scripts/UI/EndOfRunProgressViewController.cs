@@ -55,6 +55,16 @@ public class EndOfRunProgressViewController : MonoBehaviour
     [Header("Card unlock transition")]
     [SerializeField] private float progressScreenFadeDuration = 0.3f;
 
+    [Header("Card Unlock VFX")]
+    [Tooltip("Plays over the screen when the unlocked cards are revealed. Leave empty for no effect.")]
+    [SerializeField] private GameObject cardsUnlockedVFXPrefab;
+    [Tooltip("Size multiplier on top of fitting the effect to the screen.")]
+    [SerializeField] private float cardsUnlockedVFXScale = 1f;
+
+    // VFX are authored against the standard orthographic camera size, so the effect is
+    // scaled by this scene's camera size to cover the screen the same way.
+    private const float VFX_REFERENCE_ORTHO_SIZE = 5f;
+
     private RunProgressSummary summary;
     private PlayerLevelingSO leveling;
 
@@ -292,5 +302,18 @@ public class EndOfRunProgressViewController : MonoBehaviour
         yield return Tween(1f, 0f, progressScreenFadeDuration, LeanTweenType.linear, value => progressScreen.style.opacity = value);
         progressScreen.style.display = DisplayStyle.None;
         cardUnlockView.Show(summary.cardsUnlocked);
+        PlayCardsUnlockedVFX(summary.cardsUnlocked);
+    }
+
+    private void PlayCardsUnlockedVFX(List<CardType> unlocked)
+    {
+        if (cardsUnlockedVFXPrefab == null || unlocked == null || unlocked.Count == 0) return;
+
+        Camera cam = Camera.main;
+        Vector3 position = cam != null ? new Vector3(cam.transform.position.x, cam.transform.position.y, 0f) : Vector3.zero;
+        float screenScale = (cam != null && cam.orthographic) ? cam.orthographicSize / VFX_REFERENCE_ORTHO_SIZE : 1f;
+
+        GameObject vfx = Instantiate(cardsUnlockedVFXPrefab, position, Quaternion.identity);
+        vfx.ScaleSelfAndChildren(screenScale * cardsUnlockedVFXScale);
     }
 }

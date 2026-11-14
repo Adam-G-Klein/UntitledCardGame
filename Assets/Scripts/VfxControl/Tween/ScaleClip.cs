@@ -18,6 +18,7 @@ public class ScaleClip : PlayableAsset
 
         scale.startingScale = startingScale;
         scale.endingScale = endingScale;
+        scale.curve = curve;
         return playable;
     }
 }

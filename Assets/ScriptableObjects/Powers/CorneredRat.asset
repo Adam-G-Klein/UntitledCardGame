@@ -41,6 +41,8 @@ MonoBehaviour:
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
+        icon: {fileID: 21300000, guid: e0ab2143b8408423ab692d481858408a, type: 3}
+        label: Cornered Rat
     - rid: 2511001254715195769
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
@@ -98,5 +100,5 @@ MonoBehaviour:
       data:
         effectStepName: InstantiatePrefab
         inputKey: self
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
+        prefabToInstantiate: {fileID: 7061810456412778628, guid: 056feea5b40bdc841b884fff65bf7722, type: 3}
         scale: 1

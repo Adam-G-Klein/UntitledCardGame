@@ -43,7 +43,7 @@ MonoBehaviour:
         effectStepName: InstantiatePrefab
         inputKey: targetCompanion
         prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
-        scale: 1.5
+        scale: 1
     - rid: 2034230108114649098
       type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
       data:
@@ -64,6 +64,7 @@ MonoBehaviour:
         - rid: 9024302470308298798
         - rid: 1274772082283774361
         - rid: 2034230108114649098
+        - rid: 1377938991526306569
         - rid: 2511001254715196068
         - rid: 2511001254715196067
     - rid: 2511001254715196067
@@ -97,3 +98,10 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 1
         cantCancelTargetting: 0
+    - rid: 1377938991526306569
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: targetCompanion
+        prefabToInstantiate: {fileID: 7436311061350229817, guid: 109d97cbe2a2df8469b92e79db0f3866, type: 3}
+        scale: 1

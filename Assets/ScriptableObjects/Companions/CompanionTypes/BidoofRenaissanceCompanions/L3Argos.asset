@@ -60,6 +60,7 @@ MonoBehaviour:
         abilityTrigger: 13
         effectSteps:
         - rid: 205828032053379780
+        - rid: 1700682198445195984
         - rid: 205828032053379781
         - rid: 205828032053379782
         - rid: 8441470952357494985
@@ -88,7 +89,7 @@ MonoBehaviour:
       data:
         effectStepName: InstantiatePrefab
         inputKey: randoms
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        prefabToInstantiate: {fileID: 9028122300360462519, guid: 9a51d49c5066ce74cb95e42b96240249, type: 3}
         scale: 1
     - rid: 205828032053379783
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
@@ -97,6 +98,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 205828032053379784
         - rid: 205828032053379785
+        - rid: 1700682198445195985
         - rid: 205828032053379786
         - rid: 8441470952357494986
         - rid: 8441470952357494984
@@ -149,3 +151,15 @@ MonoBehaviour:
         effectStepName: DialogueStep
         line: The Eye Sees All!
         lineTime: 2
+    - rid: 1700682198445195984
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}
+    - rid: 1700682198445195985
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}

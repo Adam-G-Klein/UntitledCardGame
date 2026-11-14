@@ -146,8 +146,18 @@ public class MeothraAnimationController: MonoBehaviour
         animator.Play("Idle");
         StartCoroutine(BackToIdlePositions());
         StartCoroutine(ZoomCamera(normalOrthoSize, backToIdleTime));
-        //Destroy(leftHandSpline); // clean up clean up everybody do your share
-    
+        // clean up clean up everybody do your share: the strike splines are spawned fresh for every strike
+        CleanUpSplines(instantiateSplineToHandleMap.Keys, leftHandSpline);
+    }
+
+    // Removes a strike's spline objects once their tweens have finished (a short delay so the last tween update
+    // never reads a destroyed spline).
+    private void CleanUpSplines(IEnumerable<GameObject> splines, GameObject leftHandSpline)
+    {
+        float delay = 0.25f;
+        foreach (GameObject spline in splines)
+            if (spline != null) Destroy(spline, delay);
+        if (leftHandSpline != null) Destroy(leftHandSpline, delay);
     }
 
     private IEnumerator ZoomCamera(float toValue, float zoomTime)
@@ -309,6 +319,7 @@ public class MeothraAnimationController: MonoBehaviour
         animator.Play("Idle");
         StartCoroutine(BackToIdlePositions());
         StartCoroutine(ZoomCamera(normalOrthoSize, backToIdleTime));
+        CleanUpSplines(instantiateSplineToHandleMap.Keys, leftHandSpline);
     }
 
     public void PlayHurtAnimation()

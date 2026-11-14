@@ -40,6 +40,7 @@ MonoBehaviour:
         - rid: 3054805490065474020
         - rid: 3054805490065474021
         - rid: 754093991137641208
+        - rid: 1700682198445196052
         - rid: 2511001254715195487
         - rid: 754093991137641211
         - rid: 754093991137641212
@@ -100,3 +101,9 @@ MonoBehaviour:
       data:
         empty: 1
         lines: []
+    - rid: 1700682198445196052
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: Patience
+        icon: {fileID: 21300000, guid: 292ee1eb3f315c9448b8c577d0e6a420, type: 3}

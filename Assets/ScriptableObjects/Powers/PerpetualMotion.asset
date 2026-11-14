@@ -34,6 +34,13 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 1700682198445196054
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 9028122300360462519, guid: 9a51d49c5066ce74cb95e42b96240249, type: 3}
+        scale: 1
     - rid: 754093991137641276
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
@@ -43,7 +50,9 @@ MonoBehaviour:
         - rid: 754093991137641282
         - rid: 754093991137641284
         - rid: 754093991137641278
+        - rid: 1700682198445196053
         - rid: 754093991137641279
+        - rid: 1700682198445196054
         - rid: 754093991137641280
         - rid: 754093991137641283
         weight: 0
@@ -144,3 +153,9 @@ MonoBehaviour:
       data:
         empty: 1
         lines: []
+    - rid: 1700682198445196053
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: Perpetual Motion
+        icon: {fileID: 21300000, guid: 5e40f858eddaed340a6366c33c4e216f, type: 3}

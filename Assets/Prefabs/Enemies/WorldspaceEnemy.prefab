@@ -344,13 +344,93 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8951890979739316548, guid: 3c2b2c8ed4388464b91d1a70f9680cb5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3503180628863581215}
+    - targetCorrespondingSourceObject: {fileID: 8951890979739316548, guid: 3c2b2c8ed4388464b91d1a70f9680cb5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2251742099169855296}
   m_SourcePrefab: {fileID: 100100000, guid: 3c2b2c8ed4388464b91d1a70f9680cb5, type: 3}
 --- !u!1 &5745614873364373811 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8951890979739316548, guid: 3c2b2c8ed4388464b91d1a70f9680cb5, type: 3}
   m_PrefabInstance: {fileID: 3712944267320561783}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3503180628863581215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5745614873364373811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05aed8a5504beaa4298f5492728539ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  looks:
+  - name: Chalk dust (Brutus, a boxer)
+    spriteKeywords:
+    - Bloodseeker
+    - Earthshaker
+    - Retaliator
+    breakup: {fileID: 2800000, guid: 00f53d52329d4534928b4f5c58b351ed, type: 3}
+    drift: {x: -0.01, y: -0.06}
+    cutoff: 0.28
+  - name: Powder (Dowager Owl)
+    spriteKeywords:
+    - Channeler
+    breakup: {fileID: 2800000, guid: 00f53d52329d4534928b4f5c58b351ed, type: 3}
+    drift: {x: 0.005, y: -0.05}
+    cutoff: 0.28
+  - name: Cigarette smoke (Severine)
+    spriteKeywords:
+    - Severine
+    breakup: {fileID: 2800000, guid: 2c15e01c451748d9b954acd570692de2, type: 3}
+    drift: {x: -0.015, y: -0.1}
+    cutoff: 0.28
+  - name: Smog (the weasels)
+    spriteKeywords:
+    - Pollutor
+    breakup: {fileID: 2800000, guid: ab88101b2ff041c89e8e39d250469405, type: 3}
+    drift: {x: 0.01, y: -0.05}
+    cutoff: 0.28
+  - name: Tattered (the bats)
+    spriteKeywords:
+    - Goblin
+    breakup: {fileID: 2800000, guid: 01abbff955924b93bab1d0db6290d04f, type: 3}
+    drift: {x: -0.01, y: -0.075}
+    cutoff: 0.28
+  - name: Soup (the geese)
+    spriteKeywords:
+    - Goose
+    breakup: {fileID: 2800000, guid: 33906a71fd144799abbafde24161b949, type: 3}
+    drift: {x: 0.03, y: -0.04}
+    cutoff: 0.28
+  - name: Paperwork (Mr. Huahua)
+    spriteKeywords:
+    - Shieldbearer
+    breakup: {fileID: 2800000, guid: 66d556d7a7f243efbf103631fc5ce5ee, type: 3}
+    drift: {x: -0.01, y: -0.06}
+    cutoff: 0.28
+--- !u!114 &2251742099169855296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5745614873364373811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 493d04bc20e0bb143834b313379ca85d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameState: {fileID: 11400000, guid: 9e326417f60894341a96cc8d02868bbe, type: 2}
+  eliteFlair: {fileID: 601129110311030508, guid: 14b75fadc2e7c89438b6a9e579994f36, type: 3}
+  headlinerOnly: 1
+  screenVignette: {fileID: 6237719490985458671, guid: 628a805712b7ef44e907af012374599d, type: 3}
+  vignetteHeight: 11.5
 --- !u!4 &8677287490378457231 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5471009176790888696, guid: 3c2b2c8ed4388464b91d1a70f9680cb5, type: 3}

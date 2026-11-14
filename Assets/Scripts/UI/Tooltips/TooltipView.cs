@@ -351,7 +351,9 @@ public class TooltipView : MonoBehaviour
 
     public void Hide()
     {
-        background.Clear();
+        // background is only set in Start; a tooltip hidden on the frame it was made (e.g. its enemy died) has none yet,
+        // and throwing here would skip the Destroy and leave the tooltip stuck on screen
+        if (background != null) background.Clear();
         Destroy(gameObject);
     }
 }

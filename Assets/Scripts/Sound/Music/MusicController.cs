@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using FMODUnity;
@@ -63,6 +64,62 @@ public class MusicController : GenericSingleton<MusicController>
             SceneManager.sceneLoaded -= OnSceneLoaded;
             Destroy(this.gameObject);
         }
+    }
+
+    // Attack sounds by card (or rat) name. Names are matched without trailing "+" or spaces, so an upgraded card
+    // ("Greek Fire+") or rat ("Holdem+") shares its base sound. Anything not listed plays the basic attack.
+    private const string GreekFire = "event:/SFX/SFX_GreekFire", Detonate = "event:/SFX/SFX_Detonate", Gunshot = "event:/SFX/SFX_Gunshot",
+        Flamethrower = "event:/SFX/SFX_Flamethrower", MagicBoom = "event:/SFX/SFX_MagicBoom", Slobber = "event:/SFX/SFX_Slobber",
+        CardHandle = "event:/SFX/SFX_CardHandle", BasicAttack = "event:/SFX/SFX_BasicAttack";
+
+    private static readonly Dictionary<string, string> AttackSounds = new Dictionary<string, string>
+    {
+        { "Pyrotechnics", GreekFire },
+        { "Greek Fire", GreekFire },     // a Charm: plays through HasOwnAttackSound
+        { "Bezoar", GreekFire },         // a Charm
+        { "Boomflask", GreekFire },      // a Charm
+        { "Detonate", Detonate },
+        { "Golem's Might", Detonate },   // a stone fist slam
+        { "Pew Pew", Gunshot },
+        { "Peashooter", Gunshot },
+        { "Fire from the Hip", Gunshot },
+        { "Sniper Rifle", Gunshot },
+        { "Hyperfocus", Gunshot },
+        { "Gunslinger", Gunshot },
+        { "Steam Cannon", Gunshot },
+        { "Howitzer", Gunshot },
+        { "Holdem", Gunshot },           // the Hold'em rat's own gun ability (no card): plays through HasOwnAttackSound
+        { "Peacemaker", Gunshot },
+        { "Flamethrower", Flamethrower },
+        { "World Eater", MagicBoom },
+        { "Forest's Might", MagicBoom },
+        // the attacks whose hit is a magic hit (Allied Small/Big Magic Hit, Nature Big Magic Hit, the storm, the tide)
+        { "Careful Move", MagicBoom },
+        { "Deadly Precision", MagicBoom },
+        { "Enmity", MagicBoom },
+        { "Only Way Out", MagicBoom },
+        { "Resonant Shot", MagicBoom },
+        { "Deferred Doom", MagicBoom },
+        { "Massive Damage", MagicBoom },
+        { "The Chosen One", MagicBoom },
+        { "Nature's Arsenal", MagicBoom },
+        { "Brainstorm", MagicBoom },
+        { "Ebb and Flow", MagicBoom },
+        // "Overwhelming APM": probably best as the sword sound (the default)
+        { "Slobber", Slobber },
+        { "Gnaw", Slobber },             // a bite
+        { "Wrist Flick", CardHandle },   // flicked cards
+    };
+
+    private static string SoundKey(string name) => name == null ? "" : name.Trim().TrimEnd('+').Trim();
+
+    // whether a name has a sound of its own (not just the basic attack): lets Charms and rat abilities that deal
+    // damage play theirs too
+    public static bool HasOwnAttackSound(string name) => AttackSounds.ContainsKey(SoundKey(name));
+
+    public void PlayCorrectAttackSound(String cardName)
+    {
+        PlaySFX(AttackSounds.TryGetValue(SoundKey(cardName), out string sfx) ? sfx : BasicAttack);
     }
     
     public void PlayMusicLocation(Location location, Act act = Act.One)

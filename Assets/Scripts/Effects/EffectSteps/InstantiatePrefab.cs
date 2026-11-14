@@ -19,16 +19,37 @@ public class InstantiatePrefab : EffectStep
     public override IEnumerator invoke(EffectDocument document) {
         List<GameObject> objects = document.GetGameObjects(inputKey);
         List<GameObject> distinctObjects = objects.Distinct().ToList();
-        
+
+        // The caster, when this effect originates from a combat entity. Used to decide
+        // whether the prefab should be preceded by a precast trail (ally->ally / enemy->enemy).
+        CombatInstance caster = PrecastTrailController.GetCasterFromDocument(document);
+
         foreach (GameObject obj in distinctObjects) {
-            Vector3 location = obj.transform.position;
-            GameObject gameObject = GameObject.Instantiate(
-                prefabToInstantiate,
-                location,
-                Quaternion.identity);
-            gameObject.transform.localScale *= scale;
-            foreach (Transform child in gameObject.transform) {
-                child.localScale *= scale;
+            GameObject targetObj = obj;
+
+            // Spawn exactly as before; captured so it can either fire now or when the trail lands.
+            System.Action spawn = () => {
+                if (targetObj == null) return;
+                GameObject spawned = GameObject.Instantiate(
+                    prefabToInstantiate,
+                    targetObj.transform.position,
+                    Quaternion.identity);
+                spawned.transform.localScale *= scale;
+                foreach (Transform child in spawned.transform) {
+                    child.localScale *= scale;
+                }
+            };
+
+            CombatInstance target = targetObj.GetComponent<CombatInstance>();
+            if (PrecastTrailController.ShouldTrail(caster, target)) {
+                // "Do something to another friendly": arc a trail from caster to target,
+                // then play the payload prefab on arrival.
+                HitTiming.Expect(target, prefabToInstantiate, PrecastTrailController.Instance.FlightTime);   // HitTiming
+                PrecastTrailController.Instance.PlayTrailThenSpawn(caster, target, spawn);
+            } else {
+                // HitTiming: the target's hit feedback from the next steps waits until this effect strikes
+                HitTiming.Expect(target, prefabToInstantiate);
+                spawn();
             }
         }
 

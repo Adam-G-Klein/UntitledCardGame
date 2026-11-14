@@ -65,8 +65,8 @@ MonoBehaviour:
       data:
         effectStepName: InstantiatePrefab
         inputKey: target
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
-        scale: 1.5
+        prefabToInstantiate: {fileID: 3256666915137446097, guid: 80b0419054a198d4698d4c5de562cdb9, type: 3}
+        scale: 1
     - rid: 1289961959942521193
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
@@ -100,7 +100,7 @@ MonoBehaviour:
         - rid: 1274772082283774706
         - rid: 1289961959942521193
         - rid: 6567162537147630218
-        - rid: 6567162537147630219
+        - rid: 245885050539295401
     - rid: 5602892561590779944
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -128,18 +128,10 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 6567162537147630219
-      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+    - rid: 245885050539295401
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: FXEffectStep
-        waitForEffect: 0
-        fXExperiencePrefab: {fileID: 4075960956037802917, guid: ec7b1a1529f9141458320888bf8e3d96, type: 3}
-        rootLocationGameObjectKey: 
-        positionMappingList: []
-        gameobjectMappingList:
-        - fromWorkflow: self
-          toFxExperience: start
-        - fromWorkflow: self
-          toFxExperience: end
-        vePositionMappingList: []
-        veMappingList: []
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 7436311061350229817, guid: 109d97cbe2a2df8469b92e79db0f3866, type: 3}
+        scale: 1

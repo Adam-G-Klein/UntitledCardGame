@@ -184,6 +184,7 @@ MonoBehaviour:
         - rid: 1289961934975926475
         - rid: 1289961934975926476
         - rid: 1289961934975926479
+        - rid: 1700682198445196032
         - rid: 1289961934975926508
         - rid: 1289961934975926507
         - rid: 1289961934975926477
@@ -245,8 +246,8 @@ MonoBehaviour:
       data:
         effectStepName: InstantiatePrefab
         inputKey: all
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
-        scale: 1.5
+        prefabToInstantiate: {fileID: 2620088698237070065, guid: 1e45bd8777e328c4898ce50d5a1df398, type: 3}
+        scale: 1
     - rid: 1289961934975926479
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -272,7 +273,7 @@ MonoBehaviour:
         effectStepName: InstantiatePrefab
         inputKey: self
         prefabToInstantiate: {fileID: 3850217184923880746, guid: 4bed509d0589dae4d922d8eeb61a6292, type: 3}
-        scale: 1.5
+        scale: 1
     - rid: 8034950092883230790
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -326,3 +327,9 @@ MonoBehaviour:
       data:
         effectStepName: ScriptableObjectEffectStep
         effectStepSO: {fileID: 11400000, guid: 46ac36b880e2ff14aa699c90b6e9f19c, type: 2}
+    - rid: 1700682198445196032
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}

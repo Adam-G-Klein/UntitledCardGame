@@ -126,6 +126,7 @@ MonoBehaviour:
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
+        vfxPrefab: {fileID: 0}
         inputKey: target
         combatEffect: 0
         scale: 10
@@ -138,6 +139,7 @@ MonoBehaviour:
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
+        vfxPrefab: {fileID: 0}
         inputKey: target
         combatEffect: 0
         scale: 27
@@ -162,7 +164,7 @@ MonoBehaviour:
         effectStepName: InstantiatePrefab
         inputKey: self
         prefabToInstantiate: {fileID: 98836261379580132, guid: 2966b1c84e69765449eba50d57d74158, type: 3}
-        scale: 2
+        scale: 1
     - rid: 5280922829633617999
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
