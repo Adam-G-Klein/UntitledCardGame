@@ -16,6 +16,7 @@ MonoBehaviour:
   Name: Earned Retribution
   Description: Create a Dagger for each rat below half HP ({numComps} rats)
   IconDescription: []
+  IconDescriptionTooltipLines: []
   defaultValues:
   - key: numComps
     value: 0
@@ -44,6 +45,13 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 1152423760517922918
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: belowHalf
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1
     - rid: 1289961820425028160
       type: {class: FilterEntityByHP, ns: , asm: Assembly-CSharp}
       data:
@@ -66,6 +74,8 @@ MonoBehaviour:
         specialTargetRule: 1
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 2295167909047304311
       type: {class: CountStep, ns: , asm: Assembly-CSharp}
       data:
@@ -80,6 +90,7 @@ MonoBehaviour:
         - rid: 1289961820425028160
         - rid: 2295167909047304311
         - rid: 7082891692335694166
+        - rid: 1152423760517922918
     - rid: 7082891692335694166
       type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
       data:

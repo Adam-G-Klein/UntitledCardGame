@@ -41,13 +41,23 @@ public class CardLightingMaps : MonoBehaviour
     private static readonly int ShineMaskId = Shader.PropertyToID("_ShineMask");
     private static readonly int ShineColorId = Shader.PropertyToID("_Shine_Color");
 
+    [Tooltip("Seconds the shine takes to go out once the card starts casting (it read on for a beat after the card was played).")]
+    [SerializeField] private float castFadeTime = 0.1f;
+
+    private PlayableCard playable;
+    private Material shineMaterial;
+    private Color shineColor;
+    private float shineLevel = 1f;
+    private bool castStarted;
+
     private void Start()
     {
-        PlayableCard playable = GetComponent<PlayableCard>();
+        playable = GetComponent<PlayableCard>();
         if (playable == null || playable.card == null) return;
 
-        Material shineMaterial = GetComponent<SpriteRenderer>().material;
-        if (shineMaterial.HasProperty(ShineColorId)) shineMaterial.SetColor(ShineColorId, ShineFor(playable.card.shopRarity));
+        shineMaterial = GetComponent<SpriteRenderer>().material;
+        shineColor = ShineFor(playable.card.shopRarity);
+        if (shineMaterial.HasProperty(ShineColorId)) shineMaterial.SetColor(ShineColorId, shineColor);
 
         PackSO pack = playable.card.cardType.packFrom;
         if (pack == null && playable.deckFrom != null && playable.deckFrom.GetCompanionTypeSO() != null)
@@ -59,6 +69,20 @@ public class CardLightingMaps : MonoBehaviour
 
         if (maps.normal != null) shineMaterial.SetTexture(NormalId, maps.normal);
         if (maps.shineMask != null) shineMaterial.SetTexture(ShineMaskId, maps.shineMask);
+    }
+
+    // the shine goes out as soon as the card starts casting (not when it lands), and comes back if the cast is
+    // cancelled and the card returns to the hand
+    private void Update()
+    {
+        if (playable == null || shineMaterial == null || !shineMaterial.HasProperty(ShineColorId)) return;
+        if (playable.currentlyCastingCard) castStarted = true;
+        else if (castStarted && PlayerHand.Instance != null && PlayerHand.Instance.ContainsPlayableCard(playable)) castStarted = false;   // cancelled
+        bool off = castStarted;
+        float target = off ? 0f : 1f;
+        if (Mathf.Approximately(shineLevel, target)) return;
+        shineLevel = Mathf.MoveTowards(shineLevel, target, Time.deltaTime / Mathf.Max(castFadeTime, 0.01f));
+        shineMaterial.SetColor(ShineColorId, shineColor * shineLevel);
     }
 
     private Color ShineFor(Card.CardRarity rarity)

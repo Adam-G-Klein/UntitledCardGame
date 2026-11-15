@@ -309,10 +309,8 @@ public class MeothraAnimationController: MonoBehaviour
         StartCoroutine(ZoomCamera(minOrthoSize, strikeTime));
         yield return new WaitForSeconds(strikeTime / 2);
 
-        foreach (Vector3 target in targets)
-        {
-            GameObject.Instantiate(strikeVFX, target, Quaternion.identity);
-        }
+        // no strikeVFX here: it is the single-target claw rake, and the team strike's own effect (the intent's
+        // Boss Row Sweep) already hits every target, so spawning both played the single and the AOE attack together
         MusicController.Instance.PlaySFX("event:/SFX/BossFight/SFX_MeothraAttack");
         yield return new WaitForSeconds(strikeTime / 2);
 
