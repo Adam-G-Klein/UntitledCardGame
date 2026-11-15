@@ -88,7 +88,15 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
+        vfxPrefab: {fileID: 1513247741832479331, guid: 839421bc3c3a85041a2fd045b2614c77, type: 3}
+        casterTrail: {fileID: 0}
+    - rid: 1152423760517922926
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: adj
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1
     - rid: 2034230020176347209
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -125,6 +133,7 @@ MonoBehaviour:
         - rid: 2034230020176347209
         - rid: 7082891827957727343
         - rid: 2034230020176347211
+        - rid: 1152423760517922926
     - rid: 7082891827957727343
       type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
       data:

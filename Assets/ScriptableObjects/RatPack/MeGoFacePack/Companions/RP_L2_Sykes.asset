@@ -57,6 +57,7 @@ MonoBehaviour:
         - rid: 2511001254715195861
         - rid: 1289961820425028203
         - rid: 2034230017118175327
+        - rid: 1152423760517922927
         - rid: 7150943289421332710
         weight: 0
     - rid: 205828032053379329
@@ -73,6 +74,13 @@ MonoBehaviour:
         cardSelectionHelperText: 
         selectionPurpose: 0
         selectionCardCategory: 0
+    - rid: 1152423760517922927
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: targets
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1
     - rid: 1289961820425028203
       type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
       data:
@@ -107,7 +115,11 @@ MonoBehaviour:
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}
     - rid: 7707884639552274893
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}

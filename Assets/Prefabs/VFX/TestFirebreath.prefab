@@ -77,6 +77,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playableDirector: {fileID: 2654208471473440241}
   locations: []
+  veMappings: []
 --- !u!198 &2016725399138199094
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -5180,6 +5181,94 @@ PrefabInstance:
     - target: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
       propertyPath: m_Name
       value: Allied Buff
+      objectReference: {fileID: 0}
+    - target: {fileID: 4032848777841041121, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+      propertyPath: m_Flip.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4032848777841041121, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+      propertyPath: m_Flip.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4032848777841041121, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e593ca79df6a7ce46869aa13a309a3eb, type: 2}
+    - target: {fileID: 4358305758776672570, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+      propertyPath: m_Flip.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4358305758776672570, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+      propertyPath: m_Flip.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4358305758776672570, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e593ca79df6a7ce46869aa13a309a3eb, type: 2}
+    - target: {fileID: 6203882404058450033, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+      propertyPath: UVModule.cycles
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6203882404058450033, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+      propertyPath: UVModule.tilesX
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6203882404058450033, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+      propertyPath: UVModule.tilesY
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6203882404058450033, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+      propertyPath: UVModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6203882404058450033, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+      propertyPath: UVModule.startFrame.scalar
+      value: 0.9999
+      objectReference: {fileID: 0}
+    - target: {fileID: 6203882404058450033, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+      propertyPath: UVModule.frameOverTime.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6203882404058450033, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+      propertyPath: UVModule.startFrame.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6203882404058450033, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+      propertyPath: UVModule.frameOverTime.minMaxState
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210525205128851937, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+      propertyPath: UVModule.cycles
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210525205128851937, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+      propertyPath: UVModule.tilesX
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210525205128851937, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+      propertyPath: UVModule.tilesY
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210525205128851937, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+      propertyPath: UVModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210525205128851937, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+      propertyPath: UVModule.startFrame.scalar
+      value: 0.9999
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210525205128851937, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+      propertyPath: UVModule.frameOverTime.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210525205128851937, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+      propertyPath: UVModule.startFrame.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210525205128851937, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+      propertyPath: UVModule.frameOverTime.minMaxState
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

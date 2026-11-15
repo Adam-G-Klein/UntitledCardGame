@@ -90,6 +90,14 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 0}
+        casterTrail: {fileID: 0}
+    - rid: 1152423760517922930
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: out
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1
     - rid: 2034230020176347209
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -117,6 +125,11 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         outputKey: 
+    - rid: 3811070702553105451
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.24
     - rid: 5602892723852673313
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -130,28 +143,7 @@ MonoBehaviour:
         - rid: 7150943289421332967
         - rid: 7150943289421332968
         - rid: 2034230020176347211
-    - rid: 7150943289421332967
-      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetAdjacentCompanions
-        inputKey: self
-        includeInputCompanion: 0
-        outputKey: adj
-    - rid: 7150943289421332968
-      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetRandomItems
-        inputKey: adj
-        scale: 1
-        scaleKey: 
-        getScaleFromKey: 0
-        outputKey: out
-        withReplacement: 0
-    - rid: 3811070702553105451
-      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: WaitForSecondsEffect
-        seconds: 0.24
+        - rid: 1152423760517922930
     - rid: 5652055186112041452
       type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -181,3 +173,20 @@ MonoBehaviour:
         cardSelectionHelperText: 
         selectionPurpose: 0
         selectionCardCategory: 0
+    - rid: 7150943289421332967
+      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetAdjacentCompanions
+        inputKey: self
+        includeInputCompanion: 0
+        outputKey: adj
+    - rid: 7150943289421332968
+      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetRandomItems
+        inputKey: adj
+        scale: 1
+        scaleKey: 
+        getScaleFromKey: 0
+        outputKey: out
+        withReplacement: 0

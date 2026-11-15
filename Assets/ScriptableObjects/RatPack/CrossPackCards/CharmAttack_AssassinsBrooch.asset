@@ -16,6 +16,7 @@ MonoBehaviour:
   Name: Assassin's Brooch
   Description: Unplayable. When exhausted, create 2 Daggers in hand for self
   IconDescription: []
+  IconDescriptionTooltipLines: []
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 27219c2682ae3af4fa76a9968109666f, type: 3}
@@ -42,11 +43,13 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 7150943403050008602
-      type: {class: CardTriggeredVFX, ns: , asm: Assembly-CSharp}
+    - rid: 1152423760517922916
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: CardTriggeredVFX
-        vfxPrefab: {fileID: 3402153693038389984, guid: a3b6b31a75a68b1498be5837432eabd6, type: 3}
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1
     - rid: 7150943403050008598
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -58,6 +61,7 @@ MonoBehaviour:
         - rid: 7150943403050008602
         - rid: 7150943403050008600
         - rid: 7150943403050008601
+        - rid: 1152423760517922916
     - rid: 7150943403050008600
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -70,6 +74,8 @@ MonoBehaviour:
         specialTargetRule: 4
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 7150943403050008601
       type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
       data:
@@ -83,3 +89,8 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         outputKey: 
+    - rid: 7150943403050008602
+      type: {class: CardTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardTriggeredVFX
+        vfxPrefab: {fileID: 3402153693038389984, guid: a3b6b31a75a68b1498be5837432eabd6, type: 3}
