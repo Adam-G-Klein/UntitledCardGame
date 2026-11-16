@@ -244,6 +244,12 @@ public class Card : Entity, IEquatable<Card>
             newScale *= (int) Math.Pow(2, origin.GetNumStackOfPower(PowerSO.PowerType.DoubleDamage));
         }
 
+        // Double the damage if the combat instance has the status effect.
+        if (origin.GetStatusEffects()[StatusEffectType.DoubleDamageThisTurn] > 0)
+        {
+            newScale *= 2;
+        }
+
         return newScale;
     }
 

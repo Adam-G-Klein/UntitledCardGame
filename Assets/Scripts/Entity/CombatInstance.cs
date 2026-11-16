@@ -205,7 +205,6 @@ public class CombatInstance : MonoBehaviour
                 + statusEffects[StatusEffectType.Strength]
                 + statusEffects[StatusEffectType.TemporaryStrength]
                 - statusEffects[StatusEffectType.Weakness];
-        dmg *= statusEffects[StatusEffectType.DoubleDamageThisTurn] > 0 ? 2 : 1;
         return Mathf.Max(0, dmg);
     }
 
