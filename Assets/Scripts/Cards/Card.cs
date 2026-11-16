@@ -253,6 +253,15 @@ public class Card : Entity, IEquatable<Card>
         return newScale;
     }
 
+    public void ResetCardModificationsForEndOfTurn()
+    {
+        if (cardModifications == null)
+        {
+            ResetCardModifications();
+        }
+        cardModifications[CardModification.UntilLeavesHandManaDecrease] = 0;
+    }
+
 
     public void ResetCardModifications() {
         cardModifications = new Dictionary<CardModification, int>();
