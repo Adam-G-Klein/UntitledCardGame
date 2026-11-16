@@ -453,6 +453,9 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                     .setEase(LeanTweenType.easeInOutQuad);
             Vector3 modifiedPosition = new Vector3(position.x - (cardToMove == hoveredCard ? .8f : 0), position.y, position.z + 0.1f);
             LeanTween.moveLocal(cardTab.gameObject, modifiedPosition, isNewCard ? dealMoveTime : moveTime).setEase(LeanTweenType.easeInOutQuad);   // VFX: eases in and out
+            // Existing cards (e.g. retained ones) that lead their deck should keep the tab visible.
+            // New cards show the tab once their deal animation completes (below).
+            if (!isNewCard) cardTab.Show();
         }
 
         LeanTween.moveLocal(moveGO, position, isNewCard ? dealMoveTime : moveTime)
@@ -674,7 +677,10 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
             cardsInHand = retainedCards;
             UpdateCardPositions();
-            foreach (CardTab cardTab in companionGOToCardTab.Values) {
+            // Only hide tabs for companions that have no retained cards left in hand.
+            foreach (DeckInstance deckInstance in orderedDeckInstances) {
+                if (!companionGOToCardTab.TryGetValue(deckInstance.gameObject, out CardTab cardTab)) continue;
+                if (retainedCards.Any(c => c.deckFrom == deckInstance)) continue;
                 cardTab.Hide();
             }
         }

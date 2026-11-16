@@ -20,6 +20,7 @@ public class CardTab : MonoBehaviour
     private CompanionInstance companionInstance;
     private Vector3 baseTabPosition;
     private Vector3 loweredTabPosition;
+    private bool isShown = false;
 
     void Awake() {
         baseTabPosition = uiDoc.transform.localPosition;
@@ -56,12 +57,19 @@ public class CardTab : MonoBehaviour
     }
 
     public void Show() {
+        if (isShown) return;
+        isShown = true;
+        // Cancel any in-flight Hide so its onComplete can't disable the image after we show.
+        LeanTween.cancel(uiDoc.gameObject);
         rawImage.enabled = true;
         LeanTween.moveLocal(uiDoc.gameObject, baseTabPosition, 0.35f)
             .setEase(LeanTweenType.easeInOutQuad);
     }
 
     public void Hide() {
+        if (!isShown) return;
+        isShown = false;
+        LeanTween.cancel(uiDoc.gameObject);
         LeanTween.moveLocal(uiDoc.gameObject, loweredTabPosition, 0.35f)
             .setEase(LeanTweenType.easeInOutQuad)
             .setOnComplete(() => rawImage.enabled = false);
