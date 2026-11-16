@@ -17,7 +17,7 @@ MonoBehaviour:
   Description: Draw 2 cards from any & choose 1 card in hand to exhaust.
   IconDescription:
   - tokenType: 2
-    text: 2
+    text: 
     icon: 3
   - tokenType: 2
     text: 
@@ -34,9 +34,7 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 18
-  IconDescriptionTooltipLines:
-  - Draw 2 cards from a rat of your choice.
-  - Then, choose a card in hand to exhaust, removing it for the rest of combat.
+  IconDescriptionTooltipLineOverrides: []
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 90fa2971dfe769a49a60ad648e956340, type: 3}
@@ -94,6 +92,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: targetCompanion
         validTargets: 00000000
@@ -114,6 +113,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: cardToExhaust
         validTargets: 03000000

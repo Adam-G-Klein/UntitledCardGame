@@ -27,9 +27,6 @@ MonoBehaviour:
     icon: 3
   - tokenType: 2
     text: 
-    icon: 3
-  - tokenType: 2
-    text: 
     icon: 11
   - tokenType: 1
     text: 
@@ -43,10 +40,7 @@ MonoBehaviour:
   - tokenType: 2
     text: 2
     icon: 11
-  IconDescriptionTooltipLines:
-  - This card exhausts when played.
-  - Draw 2 cards from the owner rat
-  - Then, bleed 2 HP from the owner rat.
+  IconDescriptionTooltipLineOverrides: []
   defaultValues: []
   Cost: 0
   Artwork: {fileID: -1654676150, guid: f32701b9e6adece4a8eeacbe035e0b1e, type: 3}
@@ -85,6 +79,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 
@@ -107,6 +102,8 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 1320532642761013391, guid: de12413eab204f14984bef06b165e14b, type: 3}
+        casterTrail: {fileID: 0}
+        damageDealtOutputKey: 
     - rid: 7150943289421333055
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:

@@ -30,11 +30,9 @@ MonoBehaviour:
     text: 
     icon: 0
   - tokenType: 0
-    text: Create a Dagger in hand for self
+    text: Create a Dagger in hand for this rat
     icon: 0
-  IconDescriptionTooltipLines:
-  - Deal damage to a foe of your choice.
-  - Create a Dagger Attack in hand for the owner rat
+  IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: rpl_damage
     value: 2
@@ -68,6 +66,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: target
         validTargets: 02000000
@@ -91,6 +90,7 @@ MonoBehaviour:
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 0}
         casterTrail: {fileID: 0}
+        damageDealtOutputKey: 
     - rid: 1152423760517922930
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -103,6 +103,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 00000000
@@ -164,6 +165,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: thrower
         validTargets: 

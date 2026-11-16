@@ -33,10 +33,8 @@ MonoBehaviour:
     icon: 3
   - tokenType: 2
     text: 
-    icon: 19
-  IconDescriptionTooltipLines:
-  - Deal damage to a foe of your choice
-  - Then, draw 1 card from a randomly selected rat
+    icon: 4
+  IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: rpl_damage
     value: 6
@@ -80,6 +78,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: target
         validTargets: 00000000
@@ -121,6 +120,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: enemy
         validTargets: 02000000
@@ -143,3 +143,5 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 6420528002867312003, guid: 92419f055ef540d498301f9dfbae5955, type: 3}
+        casterTrail: {fileID: 0}
+        damageDealtOutputKey: 
