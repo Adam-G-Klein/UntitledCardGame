@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Discard_SmallHand_Uncommon_2discardblock
   m_EditorClassIdentifier: 
   guid: 5d5a041d-0087-43ec-81c2-89c1351ccbe7
-  Name: Wrist Flick
+  Name: idk block?
   Description: discard 2 cards in hand & block leftmost
   IconDescription:
   - tokenType: 2
@@ -69,6 +69,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: cards
         validTargets: 03000000
@@ -83,6 +84,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: left
         validTargets: 00000000
