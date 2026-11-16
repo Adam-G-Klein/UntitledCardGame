@@ -636,7 +636,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             foreach (PlayableCard card in cardsInHand)
             {
                 IEnumerator callback = null;
-                card.card.ResetCardModificationsForEndOfTurn();
+                card.ResetCardModificationsForEndOfTurn();
                 // Do not destroy the card if it is retained.
                 if (card.retained)
                 {

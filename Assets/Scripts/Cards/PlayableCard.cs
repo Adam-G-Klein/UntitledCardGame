@@ -329,6 +329,12 @@ public class PlayableCard : MonoBehaviour,
         }
     }
 
+    public void ResetCardModificationsForEndOfTurn()
+    {
+        card.ResetCardModificationsForEndOfTurn();
+        docCard?.UpdateManaCost();
+    }
+
     public void cleanupAndDestroy()
     {
         docCard.Cleanup(() =>

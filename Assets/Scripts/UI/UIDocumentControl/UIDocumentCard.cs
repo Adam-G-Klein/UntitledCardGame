@@ -101,6 +101,11 @@ public class UIDocumentCard : MonoBehaviour
         cardView.SetHighlight(document.boolMap.ContainsKey("highlightCard") && document.boolMap["highlightCard"]);
     }
 
+    public void UpdateManaCost()
+    {
+        cardView?.UpdateManaCost();
+    }
+
     void OnExitPlaymode()
     {
         //doc.panelSettings.targetTexture = defaultTexture;
