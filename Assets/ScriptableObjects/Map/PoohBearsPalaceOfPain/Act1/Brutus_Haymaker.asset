@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
   m_Name: Brutus_Haymaker
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   guid: 362e5a7e-a636-43d6-bf69-345a56d78913
   displayName: Brutus
   maxHealth: 75
@@ -39,7 +39,7 @@ MonoBehaviour:
     behaviors:
     - intent: 4
       enemyTargetMethod: 7
-      targetsKey:
+      targetsKey: 
       displayValue: 3
       effectSteps:
       - rid: 2295167909047304423
@@ -51,12 +51,11 @@ MonoBehaviour:
     - intent: 6
       enemyTargetMethod: 6
       targetsKey: targets
-      displayValue: 1
+      displayValue: 0
       effectSteps:
       - rid: 2295167909047304423
       - rid: 3931529445166809326
       - rid: 3226456700144582656
-      - rid: 7189280385716453420
       - rid: 3226456700144582658
       - rid: 3226456700144582657
       - rid: 3226456700144582659
@@ -94,13 +93,14 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
-        inputKey:
+        useInputToExcludeOptions: 0
+        inputKey: 
         outputKey: self
-        validTargets:
+        validTargets: 
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-        cardSelectionHelperText:
+        cardSelectionHelperText: 
         selectionPurpose: 0
         selectionCardCategory: 0
     - rid: 3226456700144582656
@@ -108,13 +108,14 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
-        inputKey:
+        useInputToExcludeOptions: 0
+        inputKey: 
         outputKey: target
         validTargets: 00000000
         number: 1
         specialTargetRule: 7
         cantCancelTargetting: 0
-        cardSelectionHelperText:
+        cardSelectionHelperText: 
         selectionPurpose: 0
         selectionCardCategory: 0
     - rid: 3226456700144582657
@@ -125,11 +126,11 @@ MonoBehaviour:
         statusEffect: 0
         scale: 1
         getScaleFromKey: 0
-        inputScaleKey:
+        inputScaleKey: 
         multiplyByNumAuraStacks: 0
         multiplicity: 1
         getMultiplicityFromKey: 0
-        inputMultiplicityKey:
+        inputMultiplicityKey: 
         toggleStatus: 0
     - rid: 3226456700144582658
       type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
@@ -149,13 +150,15 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: targets
         combatEffect: 0
-        scale: 1
+        scale: 0
         getScaleFromKey: 0
-        inputScaleKey:
+        inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 0
-        inputMultiplicityKey:
+        inputMultiplicityKey: 
         vfxPrefab: {fileID: 7653236696634270727, guid: 06cb95438569b864b9c211e17409078e, type: 3}
+        casterTrail: {fileID: 0}
+        damageDealtOutputKey: 
     - rid: 5280922829633617990
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -179,11 +182,11 @@ MonoBehaviour:
         statusEffect: 0
         scale: 3
         getScaleFromKey: 0
-        inputScaleKey:
+        inputScaleKey: 
         multiplyByNumAuraStacks: 0
         multiplicity: 1
         getMultiplicityFromKey: 0
-        inputMultiplicityKey:
+        inputMultiplicityKey: 
         toggleStatus: 0
     - rid: 5602893111447519608
       type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
@@ -191,7 +194,7 @@ MonoBehaviour:
         effectStepName: BooleanComparison
         hardCodedInputKey1: 6
         useHardCodedInputKey1: 1
-        inputKey1:
+        inputKey1: 
         operation: 2
         inputKey2: numStrength
         outputKey: pastStrengthThreshold

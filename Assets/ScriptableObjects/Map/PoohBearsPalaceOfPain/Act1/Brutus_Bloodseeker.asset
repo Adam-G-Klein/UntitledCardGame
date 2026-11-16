@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
   m_Name: Brutus_Bloodseeker
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   guid: 045e27a7-74dd-4a06-9a83-a617707ee614
   displayName: Brutus
   maxHealth: 60
@@ -58,7 +58,7 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Sniff out Weakness
+    - title: Sniff Out Weakness
       description: Targets the rat on your team with the lowest HP
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
@@ -87,23 +87,26 @@ MonoBehaviour:
         combatEffect: 0
         scale: 3
         getScaleFromKey: 0
-        inputScaleKey:
+        inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 0
-        inputMultiplicityKey:
+        inputMultiplicityKey: 
         vfxPrefab: {fileID: 6137048663962808129, guid: 3b892de148474126aab69292f6f586ce, type: 3}
+        casterTrail: {fileID: 0}
+        damageDealtOutputKey: 
     - rid: 3931529445166809429
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
-        inputKey:
+        useInputToExcludeOptions: 0
+        inputKey: 
         outputKey: self
-        validTargets:
+        validTargets: 
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-        cardSelectionHelperText:
+        cardSelectionHelperText: 
         selectionPurpose: 0
         selectionCardCategory: 0
     - rid: 5280922829633617990
@@ -129,11 +132,11 @@ MonoBehaviour:
         statusEffect: 0
         scale: 2
         getScaleFromKey: 0
-        inputScaleKey:
+        inputScaleKey: 
         multiplyByNumAuraStacks: 0
         multiplicity: 1
         getMultiplicityFromKey: 0
-        inputMultiplicityKey:
+        inputMultiplicityKey: 
         toggleStatus: 0
     - rid: 5602893111447519608
       type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
@@ -141,7 +144,7 @@ MonoBehaviour:
         effectStepName: BooleanComparison
         hardCodedInputKey1: 10
         useHardCodedInputKey1: 1
-        inputKey1:
+        inputKey1: 
         operation: 2
         inputKey2: numStrength
         outputKey: pastStrengthThreshold

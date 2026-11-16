@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
   m_Name: Brutus_HighGuard
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   guid: e939cd7e-2c8b-40fc-a398-0be2edb2d5bc
   displayName: Brutus
   maxHealth: 65
@@ -59,9 +59,9 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Read and React
-      description: Whenever Butch Boxhound takes damage, he gains 1 temporary strength
-        for the next attack
+    - title: Learn Your Patterns
+      description: Whenever Brutus takes damage, he gains 1 temporary strength for
+        the next attack
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
       iconDescriptionLine: []
@@ -76,6 +76,12 @@ MonoBehaviour:
       data:
         effectStepName: ScriptableObjectEffectStep
         effectStepSO: {fileID: 11400000, guid: 46ac36b880e2ff14aa699c90b6e9f19c, type: 2}
+    - rid: 1700682198445196022
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}
     - rid: 3443535291885027969
       type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
       data:
@@ -89,23 +95,26 @@ MonoBehaviour:
         combatEffect: 0
         scale: 4
         getScaleFromKey: 0
-        inputScaleKey:
+        inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 0
-        inputMultiplicityKey:
+        inputMultiplicityKey: 
         vfxPrefab: {fileID: 6137048663962808129, guid: 3b892de148474126aab69292f6f586ce, type: 3}
+        casterTrail: {fileID: 0}
+        damageDealtOutputKey: 
     - rid: 3931529445166809429
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
-        inputKey:
+        useInputToExcludeOptions: 0
+        inputKey: 
         outputKey: self
-        validTargets:
+        validTargets: 
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-        cardSelectionHelperText:
+        cardSelectionHelperText: 
         selectionPurpose: 0
         selectionCardCategory: 0
     - rid: 5280922829633617990
@@ -131,11 +140,11 @@ MonoBehaviour:
         statusEffect: 0
         scale: 1
         getScaleFromKey: 0
-        inputScaleKey:
+        inputScaleKey: 
         multiplyByNumAuraStacks: 0
         multiplicity: 1
         getMultiplicityFromKey: 0
-        inputMultiplicityKey:
+        inputMultiplicityKey: 
         toggleStatus: 0
     - rid: 5602893111447519608
       type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
@@ -143,7 +152,7 @@ MonoBehaviour:
         effectStepName: BooleanComparison
         hardCodedInputKey1: 10
         useHardCodedInputKey1: 1
-        inputKey1:
+        inputKey1: 
         operation: 2
         inputKey2: numStrength
         outputKey: pastStrengthThreshold
@@ -168,13 +177,14 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
-        inputKey:
+        useInputToExcludeOptions: 0
+        inputKey: 
         outputKey: self
-        validTargets:
+        validTargets: 
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-        cardSelectionHelperText:
+        cardSelectionHelperText: 
         selectionPurpose: 0
         selectionCardCategory: 0
     - rid: 8790164513324270167
@@ -185,20 +195,14 @@ MonoBehaviour:
         statusEffect: 6
         scale: 1
         getScaleFromKey: 0
-        inputScaleKey:
+        inputScaleKey: 
         multiplyByNumAuraStacks: 0
         multiplicity: 1
         getMultiplicityFromKey: 0
-        inputMultiplicityKey:
+        inputMultiplicityKey: 
         toggleStatus: 0
     - rid: 8790164513324270204
       type: {class: EndWorkflowIfNoMapElement, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EndWorkflowIfNoMapElement
         keyToCheck: damagedEnemy
-    - rid: 1700682198445196022
-      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EntityAbilityTriggeredVFX
-        label:
-        icon: {fileID: 0}
