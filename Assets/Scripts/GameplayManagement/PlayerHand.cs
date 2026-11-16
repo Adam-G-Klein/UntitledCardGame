@@ -62,6 +62,9 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     private UIDocument cardInHandSelectionDoc;
     [SerializeField]
     private GameObject cardTabPrefab;
+    // Highlight color for cards whose on-exhaust/on-discard abilities would trigger from the current selection
+    [SerializeField]
+    private Color selectionTriggerHighlightColor = new Color(1f, 0.6f, 0.1f, 1f);
 
 
     private GameObject cardPrefab;
@@ -996,6 +999,17 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
         List<PlayableCard> selectedCards = new List<PlayableCard>();
 
+        // Highlight valid targets whose on-exhaust/on-discard abilities would trigger from this selection
+        foreach (PlayableCard card in GetCardsOrdered())
+        {
+            bool isValidTarget = (disallowedCards == null || !disallowedCards.Contains(card.gameObject)) &&
+                (cardsLimitedTo == null || cardsLimitedTo.Contains(card.gameObject));
+            if (isValidTarget && CardTriggersOnSelectionPurpose(card, selectionPurpose))
+            {
+                card.SetSelectionHighlight(true, selectionTriggerHighlightColor);
+            }
+        }
+
         TargettingManager.Instance.targetSuppliedHandler += SelectingCardSuppliedHandler;
         TargettingManager.Instance.cancelTargettingHandler += SelectingCardCancelHandler;
 
@@ -1094,6 +1108,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         {
             cancelCallback(context);
             if (context.canCancel != true) return;
+            ClearSelectionHighlights();
             combatEncounterView.SetCompanionsAndEnemiesEnabled(true);
             selectionView.RemoveConfirmedHandler(SelectingCardConfirmed);
             selectionView.RemoveCancelHandler();
@@ -1120,6 +1135,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         void SelectingCardConfirmed()
         {
             if (selectedCards.Count != number) return;
+            ClearSelectionHighlights();
             combatEncounterView.SetCompanionsAndEnemiesEnabled(true);
             selectionView.RemoveConfirmedHandler(SelectingCardConfirmed);
             selectionView.RemoveCancelHandler();
@@ -1143,6 +1159,19 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 UpdateCardPositions();
                 forceHandVisible = false;
             });
+        }
+
+        void ClearSelectionHighlights()
+        {
+            foreach (PlayableCard card in GetCardsOrdered())
+            {
+                card.SetSelectionHighlight(false, selectionTriggerHighlightColor);
+            }
+            foreach (PlayableCard card in selectedCards)
+            {
+                card.SetSelectionHighlight(false, selectionTriggerHighlightColor);
+            }
+            if (cardCast != null) cardCast.SetSelectionHighlight(false, selectionTriggerHighlightColor);
         }
 
         string GetPromptText()
@@ -1223,6 +1252,22 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 Vector3 editedPosition = new Vector3(splinePosition.x, yPos, zPos);
                 MoveSingleCard(selectedCards[i], editedPosition, Quaternion.identity, false);
             }
+        }
+    }
+
+    private static bool CardTriggersOnSelectionPurpose(PlayableCard card, GetTargets.SelectionPurposeEnum purpose)
+    {
+        CardType ct = card.card.cardType;
+        switch (purpose)
+        {
+            case GetTargets.SelectionPurposeEnum.Exhaust:
+            case GetTargets.SelectionPurposeEnum.ExhaustAsACost:
+                return ct.onExhaustEffectWorkflow != null && ct.onExhaustEffectWorkflow.effectSteps.Count > 0;
+            case GetTargets.SelectionPurposeEnum.Discard:
+            case GetTargets.SelectionPurposeEnum.DiscardAsACost:
+                return ct.onDiscardEffectWorkflow != null && ct.onDiscardEffectWorkflow.effectSteps.Count > 0;
+            default:
+                return false;
         }
     }
 

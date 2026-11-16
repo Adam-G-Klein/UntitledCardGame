@@ -459,4 +459,9 @@ public class PlayableCard : MonoBehaviour,
     {
         docCard?.ToggleDarkOverlay(turnOn);
     }
+
+    public void SetSelectionHighlight(bool isVisible, Color color)
+    {
+        docCard?.SetSelectionHighlight(isVisible, color);
+    }
 }

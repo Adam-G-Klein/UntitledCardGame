@@ -106,6 +106,11 @@ public class UIDocumentCard : MonoBehaviour
         cardView?.UpdateManaCost();
     }
 
+    public void SetSelectionHighlight(bool isVisible, Color color)
+    {
+        cardView?.SetSelectionHighlight(isVisible, color);
+    }
+
     void OnExitPlaymode()
     {
         //doc.panelSettings.targetTexture = defaultTexture;

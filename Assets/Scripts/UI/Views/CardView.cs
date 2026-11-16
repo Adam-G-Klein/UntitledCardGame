@@ -22,6 +22,12 @@ public class CardView {
 
     private Card.CardRarity rarity = Card.CardRarity.NONE;
 
+    // Matches the greenBorder color in CardTemplateV2.uxml
+    private static readonly Color DEFAULT_HIGHLIGHT_COLOR = new Color(0f, 1f, 21f / 255f, 1f);
+    private bool effectHighlight = false;
+    private bool selectionHighlight = false;
+    private Color selectionHighlightColor = DEFAULT_HIGHLIGHT_COLOR;
+
     public CardView(CardType cardType, CompanionTypeSO companionType, Card.CardRarity rarity, bool cardInShop = false, PackSO packSO = null, bool hideBackground = false) {
         this.cardType = cardType;
         this.rarity = rarity;
@@ -209,16 +215,30 @@ public class CardView {
         manaLabel.MarkDirtyRepaint();
     }
 
+    // Highlight driven by the card's calculation workflow ("highlightCard").
     public void SetHighlight(bool isHighlightVisible) {
+        effectHighlight = isHighlightVisible;
+        RefreshHighlight();
+    }
+
+    // Highlight driven by card selection (e.g. cards with on-exhaust/on-discard triggers).
+    // Takes precedence over the effect highlight's color while active.
+    public void SetSelectionHighlight(bool isHighlightVisible, Color color) {
+        selectionHighlight = isHighlightVisible;
+        selectionHighlightColor = color;
+        RefreshHighlight();
+    }
+
+    private void RefreshHighlight() {
         if (cardContainer == null) return;
         VisualElement ve = cardContainer.Q<VisualElement>("greenBorder");
-        if (isHighlightVisible) {
-            //UpdateCardText("active");
-            ve.visible = true;
-        } else {
-            //UpdateCardText("inactive");
-            ve.visible = false;
-        }
+        if (ve == null) return;
+        ve.visible = effectHighlight || selectionHighlight;
+        Color borderColor = selectionHighlight ? selectionHighlightColor : DEFAULT_HIGHLIGHT_COLOR;
+        ve.style.borderLeftColor = borderColor;
+        ve.style.borderRightColor = borderColor;
+        ve.style.borderTopColor = borderColor;
+        ve.style.borderBottomColor = borderColor;
         ve.MarkDirtyRepaint();
     }
 
