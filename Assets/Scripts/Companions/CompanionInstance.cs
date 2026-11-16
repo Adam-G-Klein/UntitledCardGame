@@ -60,7 +60,7 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
             case CompanionLevel.LevelTwo:
                 rarityColor = silverColor;
                 break;
-            case CompanionLevel.LevelOne:  
+            case CompanionLevel.LevelOne:
                 rarityColor = bronzeColor;
                 break;
         }
@@ -157,7 +157,8 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
                 StatusEffectType.Defended,
                 StatusEffectType.TemporaryStrength,
                 StatusEffectType.Invulnerability,
-                StatusEffectType.MaxBlockToLoseAtEndOfTurn}) // needs to be after defended to ensure block is maintained
+                StatusEffectType.MaxBlockToLoseAtEndOfTurn,
+                StatusEffectType.DoubleDamageThisTurn}) // needs to be after defended to ensure block is maintained
         ));
         statusEffectTriggers.Add(new TurnPhaseTrigger(
             TurnPhase.START_PLAYER_TURN,
