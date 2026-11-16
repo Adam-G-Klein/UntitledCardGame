@@ -22,6 +22,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: a4fdfc3d37d74ee4694d3ad83464085a, type: 3}
   startingDeck: {fileID: 11400000, guid: d84f93e68590444a1964af0761ce573a, type: 2}
   rarity: 1
+  startingTeamWeight: 0
   baseCompanionType: {fileID: 0}
   cacheValueConfigs: []
   cardPool: {fileID: 11400000, guid: 27aedd85a919e49f8aa3505aee035eff, type: 2}
@@ -40,9 +41,8 @@ MonoBehaviour:
       icon: {fileID: 0}
       iconDescriptionLine: []
       card: {fileID: 0}
-  keepsakeTitle: Daggermunk
-  keepsakeDescription: Each turn, create a 0 mana "Dagger" card in hand for a random
-    adjacent rat
+  keepsakeTitle: Sykes' Smuggling
+  keepsakeDescription: 
   tooltipTokens: 
   references:
     version: 2
@@ -65,6 +65,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 00000000

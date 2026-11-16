@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: Holdem_Common_Peashooter
+  m_Name: Holdem_Common_Derringer
   m_EditorClassIdentifier: 
   guid: 0234cf38-02da-4d10-91b9-f478a71d0c4d
-  Name: Peashooter
+  Name: Derringer
   Description: Deal {rpl_damage} damage and discard a card at random
   IconDescription:
   - tokenType: 0
@@ -88,6 +88,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: enemy
         validTargets: 02000000
@@ -119,12 +120,14 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
+        casterTrail: {fileID: 0}
         damageDealtOutputKey: 
     - rid: 7401433308100035075
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: cards
         validTargets: 03000000

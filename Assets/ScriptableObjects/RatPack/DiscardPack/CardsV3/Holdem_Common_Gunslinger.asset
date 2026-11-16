@@ -86,11 +86,42 @@ MonoBehaviour:
         effectSteps:
         - rid: 7401433308100034879
         - rid: 7401433308100034880
+    - rid: 3226456773783716039
+      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FXEffectStep
+        waitForEffect: 0
+        fXExperiencePrefab: {fileID: 7704051009126986559, guid: b3f27041862600f419eea89eeead48ab, type: 3}
+        rootLocationGameObjectKey: 
+        positionMappingList:
+        - fromWorkflow: shooter
+          toFxExperience: self
+        - fromWorkflow: target
+          toFxExperience: target
+        gameobjectMappingList: []
+        vePositionMappingList: []
+        veMappingList: []
+    - rid: 3226456773783716040
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
+        inputKey: 
+        outputKey: shooter
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 7189280385716453524
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: target
         validTargets: 02000000
@@ -112,13 +143,15 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
+        vfxPrefab: {fileID: 0}
+        casterTrail: {fileID: 0}
         damageDealtOutputKey: 
     - rid: 7189280385716453754
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: cards
         validTargets: 03000000
@@ -155,6 +188,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: enemy
         validTargets: 02000000
@@ -177,6 +211,7 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
+        casterTrail: {fileID: 0}
         damageDealtOutputKey: 
     - rid: 8034949815888773120
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
@@ -188,3 +223,5 @@ MonoBehaviour:
         - rid: 7189280385716453757
         - rid: 7189280385716453524
         - rid: 7189280385716453525
+        - rid: 3226456773783716040
+        - rid: 3226456773783716039

@@ -22,6 +22,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 307e082378dd2b942b03de45c5b20584, type: 3}
   startingDeck: {fileID: 11400000, guid: 8cfb59c3193db4a2cbced98c8ef59eda, type: 2}
   rarity: 1
+  startingTeamWeight: 0
   baseCompanionType: {fileID: 0}
   cacheValueConfigs: []
   cardPool: {fileID: 11400000, guid: 345480ef663c54cdfbd4be4285e0a8d6, type: 2}
@@ -42,9 +43,8 @@ MonoBehaviour:
       icon: {fileID: 0}
       iconDescriptionLine: []
       card: {fileID: 0}
-  keepsakeTitle: Rilla
-  keepsakeDescription: At the end of turn, retain 1 Charm card chosen at random.
-    If you have 2 or less Charm cards in hand, give leftmost rat 3 block
+  keepsakeTitle: Rilla's Sanctuary
+  keepsakeDescription: 
   tooltipTokens: 
   references:
     version: 2
@@ -54,6 +54,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: left
         validTargets: 00000000
@@ -68,6 +69,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: cards
         validTargets: 03000000
@@ -128,6 +130,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 
@@ -158,6 +161,18 @@ MonoBehaviour:
         inputKey: left
         prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
         scale: 1
+    - rid: 1700682198445196011
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}
+    - rid: 1700682198445196012
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}
     - rid: 6567162537147629906
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
@@ -176,6 +191,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: cards
         validTargets: 03000000
@@ -246,6 +262,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: cards
         validTargets: 03000000
@@ -296,6 +313,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 1
+        useInputToExcludeOptions: 0
         inputKey: charmsInHand
         outputKey: out
         validTargets: 03000000
@@ -329,16 +347,6 @@ MonoBehaviour:
         - rid: 1289961959942521088
         weight: 0
     - rid: 7707884639552274989
-      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EntityAbilityTriggeredVFX
-    - rid: 1700682198445196011
-      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EntityAbilityTriggeredVFX
-        label: 
-        icon: {fileID: 0}
-    - rid: 1700682198445196012
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX

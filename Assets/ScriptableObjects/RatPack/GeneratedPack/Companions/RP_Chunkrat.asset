@@ -40,8 +40,8 @@ MonoBehaviour:
       icon: {fileID: 0}
       iconDescriptionLine: []
       card: {fileID: 0}
-  keepsakeTitle: Chunkrat's Bulk
-  keepsakeDescription: End of combat, permanently add a "Yummy Snack" to this deck.
+  keepsakeTitle: Chunkrat's Gluttony
+  keepsakeDescription: 
   tooltipTokens: 
   references:
     version: 2
@@ -62,6 +62,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 
@@ -92,10 +93,6 @@ MonoBehaviour:
         inputKey: self
         prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
         scale: 1
-    - rid: 7707884639552274944
-      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EntityAbilityTriggeredVFX
     - rid: 7536449447159038706
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -103,3 +100,9 @@ MonoBehaviour:
         inputKey: self
         prefabToInstantiate: {fileID: 7436311061350229817, guid: 109d97cbe2a2df8469b92e79db0f3866, type: 3}
         scale: 1
+    - rid: 7707884639552274944
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}

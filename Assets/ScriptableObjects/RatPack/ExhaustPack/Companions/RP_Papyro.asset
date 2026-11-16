@@ -22,6 +22,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 95701b22de262434f8f786ac90d3820b, type: 3}
   startingDeck: {fileID: 11400000, guid: a8089ca7a87f448de91096b27f1f3d4e, type: 2}
   rarity: 1
+  startingTeamWeight: 0
   baseCompanionType: {fileID: 0}
   cacheValueConfigs:
   - key: numCardsLeftToExhaust
@@ -49,7 +50,7 @@ MonoBehaviour:
       icon: {fileID: 0}
       iconDescriptionLine: []
       card: {fileID: 0}
-  keepsakeTitle: 
+  keepsakeTitle: Dr. Papyro's Chaos
   keepsakeDescription: 
   tooltipTokens: 
   references:
@@ -109,6 +110,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 
@@ -165,6 +167,15 @@ MonoBehaviour:
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}
+    - rid: 6358791851119600343
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 7436311061350229817, guid: 109d97cbe2a2df8469b92e79db0f3866, type: 3}
+        scale: 1
     - rid: 6567162444329517058
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
@@ -188,15 +199,19 @@ MonoBehaviour:
         scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
+        outputKey: 
     - rid: 6567162444329517062
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}
     - rid: 6567162444329517064
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 
@@ -222,10 +237,3 @@ MonoBehaviour:
         effectStepName: EndWorkflowIfConditionMet
         inputKey1: alreadyZero
         conditionToEndOn: 1
-    - rid: 6358791851119600343
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: self
-        prefabToInstantiate: {fileID: 7436311061350229817, guid: 109d97cbe2a2df8469b92e79db0f3866, type: 3}
-        scale: 1

@@ -22,6 +22,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 3f5b0a8e22b327e4885b16e7e43d128a, type: 3}
   startingDeck: {fileID: 11400000, guid: 01bed10f78baa4885922ab894d8dd770, type: 2}
   rarity: 2
+  startingTeamWeight: 0
   baseCompanionType: {fileID: 0}
   cacheValueConfigs:
   - key: numDamage
@@ -47,9 +48,8 @@ MonoBehaviour:
       icon: {fileID: 0}
       iconDescriptionLine: []
       card: {fileID: 0}
-  keepsakeTitle: 
-  keepsakeDescription: Every 5 times Haemon or a rat adjacent to Haemon loses HP,
-    give Haemon and adjacent rats 1 strength
+  keepsakeTitle: Haemon's Blood Magic
+  keepsakeDescription: 
   tooltipTokens: 
   references:
     version: 2
@@ -104,6 +104,8 @@ MonoBehaviour:
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}
     - rid: 7082891692335693827
       type: {class: CombatInstanceCacheStore, ns: , asm: Assembly-CSharp}
       data:
@@ -127,6 +129,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 
@@ -201,6 +204,8 @@ MonoBehaviour:
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}
     - rid: 8790164513324270201
       type: {class: EndWorkflowIfNoMapElement, ns: , asm: Assembly-CSharp}
       data:

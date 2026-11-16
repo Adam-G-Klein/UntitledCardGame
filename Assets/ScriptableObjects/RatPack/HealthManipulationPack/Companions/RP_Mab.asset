@@ -42,9 +42,8 @@ MonoBehaviour:
       icon: {fileID: 0}
       iconDescriptionLine: []
       card: {fileID: 0}
-  keepsakeTitle: Mab's Mercy
-  keepsakeDescription: Each turn, bleed 1 HP from adjacent rats unless they would
-    die. At the end of combat, give adjacent rats 3 max HP & heal 3 HP.
+  keepsakeTitle: Mab's Medicine
+  keepsakeDescription: 
   tooltipTokens: 09000000
   references:
     version: 2
@@ -65,6 +64,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 
@@ -106,6 +106,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 
@@ -135,6 +136,8 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 1320532642761013391, guid: 5c396b5345581a240836e4caa8110510, type: 3}
+        casterTrail: {fileID: 0}
+        damageDealtOutputKey: 
     - rid: 7189280385716453596
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -148,6 +151,8 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 3850217184923880746, guid: 604f6efaa1e828d4bacfc84a25dfbd7a, type: 3}
+        casterTrail: {fileID: 0}
+        damageDealtOutputKey: 
     - rid: 7401433059192472008
       type: {class: FilterEntityByHP, ns: , asm: Assembly-CSharp}
       data:
@@ -162,7 +167,11 @@ MonoBehaviour:
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}
     - rid: 7707884639552274915
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}

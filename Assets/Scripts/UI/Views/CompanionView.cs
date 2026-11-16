@@ -679,7 +679,16 @@ public class CompanionView : IUIEventReceiver
     public IEnumerator AbilityTriggeredBadge(string label, Sprite icon) {
         CompanionTypeSO type = this.companion.companionType;
         if (string.IsNullOrEmpty(label)) {
-            label = !string.IsNullOrEmpty(type.keepsakeTitle) ? type.keepsakeTitle : type.companionName;
+            string keepsakeTitleBadge = type.GetBaseCompanionType().keepsakeTitle;
+            if (type.level == CompanionLevel.LevelTwo)
+            {
+                keepsakeTitleBadge += "+";
+            }
+            else if (type.level == CompanionLevel.LevelThree)
+            {
+                keepsakeTitleBadge += "++";
+            }
+            label = !string.IsNullOrEmpty(type.GetBaseCompanionType().keepsakeTitle) ? keepsakeTitleBadge : type.companionName;
             if (icon == null) icon = type.icon;
         }
         yield return AbilityTriggerBadge.Show(this.spriteElement, icon, label, this.statusArea);

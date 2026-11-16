@@ -49,8 +49,7 @@ MonoBehaviour:
       iconDescriptionLine: []
       card: {fileID: 0}
   keepsakeTitle: Plint's Armor
-  keepsakeDescription: The first 2 times each turn you exhaust a card, give leftmost
-    rat 3 block
+  keepsakeDescription: 
   tooltipTokens: 
   references:
     version: 2
@@ -60,6 +59,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: left
         validTargets: 00000000
@@ -90,6 +90,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 
@@ -167,3 +168,5 @@ MonoBehaviour:
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}

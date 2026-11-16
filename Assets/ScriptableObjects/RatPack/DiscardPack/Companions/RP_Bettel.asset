@@ -22,6 +22,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: f740daf1e5aadce4f83b8d4a29c6276c, type: 3}
   startingDeck: {fileID: 11400000, guid: de5f5f358da2f418397bc9379e0dd14f, type: 2}
   rarity: 1
+  startingTeamWeight: 0
   baseCompanionType: {fileID: 0}
   cacheValueConfigs:
   - key: numCardsToDraw
@@ -47,9 +48,8 @@ MonoBehaviour:
       icon: {fileID: 0}
       iconDescriptionLine: []
       card: {fileID: 0}
-  keepsakeTitle: 
-  keepsakeDescription: The first 2 times each turn you discard a card, draw a card
-    from Bettel
+  keepsakeTitle: Bettel's Bluff
+  keepsakeDescription: 
   tooltipTokens: 
   references:
     version: 2
@@ -73,6 +73,8 @@ MonoBehaviour:
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}
     - rid: 7401433308100034728
       type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
       data:
@@ -85,6 +87,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 

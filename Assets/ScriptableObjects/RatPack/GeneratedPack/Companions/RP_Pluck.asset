@@ -22,6 +22,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 5d4d57575afc13e4c90c77fa27727910, type: 3}
   startingDeck: {fileID: 11400000, guid: 9bd279683242744af81f7d07ca8471fc, type: 2}
   rarity: 2
+  startingTeamWeight: 0
   baseCompanionType: {fileID: 0}
   cacheValueConfigs: []
   cardPool: {fileID: 11400000, guid: af660616ddae84306801a30cf4e9036f, type: 2}
@@ -40,9 +41,8 @@ MonoBehaviour:
       icon: {fileID: 0}
       iconDescriptionLine: []
       card: {fileID: 0}
-  keepsakeTitle: Pluck
-  keepsakeDescription: At the end of turn, deal 3 damage to a random foe for each
-    Charm card in your hand
+  keepsakeTitle: Pluck's Slingshot
+  keepsakeDescription: 
   tooltipTokens: 
   references:
     version: 2
@@ -77,6 +77,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: cards
         validTargets: 03000000
@@ -111,6 +112,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: enemies
         validTargets: 02000000
@@ -134,6 +136,7 @@ MonoBehaviour:
         inputMultiplicityKey: numStatusCards
         vfxPrefab: {fileID: 6577544923726721386, guid: debbc833eef6b094c8b902475de2fa30, type: 3}
         casterTrail: {fileID: 5659583646960595402, guid: 08c4415a64147014c870829e56f9e551, type: 3}
+        damageDealtOutputKey: 
     - rid: 2034230176448512930
       type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
       data:
@@ -148,3 +151,5 @@ MonoBehaviour:
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}

@@ -22,6 +22,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 1a0a0559adb00d24fa86fc5408f4d98e, type: 3}
   startingDeck: {fileID: 11400000, guid: b7fb5f30fc0c4400aa60c7d3769912bd, type: 2}
   rarity: 2
+  startingTeamWeight: 0
   baseCompanionType: {fileID: 0}
   cacheValueConfigs:
   - key: skillsLeftToPlayThisTurn
@@ -47,9 +48,8 @@ MonoBehaviour:
       icon: {fileID: 0}
       iconDescriptionLine: []
       card: {fileID: 0}
-  keepsakeTitle: 
-  keepsakeDescription: The first 3 times each turn you play a Skill card, give adjacent
-    rats to Pommel 1 temporary strength
+  keepsakeTitle: Pommel's Command
+  keepsakeDescription: 
   tooltipTokens: 
   references:
     version: 2
@@ -77,6 +77,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 
@@ -180,3 +181,5 @@ MonoBehaviour:
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}
