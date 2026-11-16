@@ -55,6 +55,8 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     private int numCardsLeftInBoosterPack = 0;
     private int timesRerolledThisShop = 0;
     private int timesCardRemovedThisShop = 0;
+    private bool hasSwitchedDecksThisShop = false;
+    public bool HasSwitchedDecksThisShop => hasSwitchedDecksThisShop;
     private int numRatsBoughtThisShop = 0;
     private int numCardsBoughtThisShop = 0;
     private enum ShopPhase {
@@ -308,6 +310,8 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
     public void ProcessSwitchDecksRequest()
     {
+        if (hasSwitchedDecksThisShop) return;
+
         // For now, executive decision to make switching decks free :)
 
         // if (gameState.playerData.GetValue().gold >= shopEncounter.shopData.switchDecksPrice)
@@ -330,11 +334,12 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             shopViewController.CardBuyingSetup(shopItemView, cardInShop);
             shopViewController.DestroyAllTooltips();
 
-            // Activate a tutorial on the second card bought this shop.
+            // Activate a tutorial on buying a card :)
             if (gameState.InDemoTutorial() && !gameState.HasSeenAllShopTutorials &&
                 shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo &&
                 !DemoDirector.Instance.IsStepCompleted(DemoStepName.CardBuyingTutorial) &&
-                numCardsBoughtThisShop == 1) // we want to wait until the player has bought their first card to show the tutorial so that they have the context of buying a card before we show them how to click on a companion to give it to them
+                shopEncounter.shopData.showCardBuyingTutorialOnFirstCardOfShop &&
+                numCardsBoughtThisShop == 0)
              {
                 StartCoroutine(DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.CardBuyingTutorial));
             }
@@ -387,7 +392,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     }
 
     private void SetBoosterPackHelpText(int numCardsLeftToBuy) {
-        shopViewController.SetDraftingHelpText("Choose up to " + numCardsLeftToBuy + " card" + (numCardsLeftToBuy > 1 ? "s" : "") + " from the envelope for your rats");
+        shopViewController.SetDraftingHelpText("Choose up to " + numCardsLeftToBuy + " card" + (numCardsLeftToBuy > 1 ? "s" : "") + " from the booster pack for your rats");
     }
 
     public void ProcessBoosterPackDoneClicked() {
@@ -743,6 +748,10 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         // Update the UI to reflect the changes.
         shopViewController.RebuildUnitManagement(gameState.companions);
 
+        // Only allow switching decks once per shop.
+        hasSwitchedDecksThisShop = true;
+        shopViewController.DisableSwitchDecksButton();
+
         // Reset the switching decks state.
         ResetSwitchDecksState();
 
@@ -1013,6 +1022,62 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             tooltipViewModel.lines.Add(tooltipLine);
         }
         return tooltipViewModel;
+    }
+
+    // Generated tooltip showing the current shop level's stats/bonuses, then a preview
+    // of what the next level upgrade grants. Percentage lines (rat rarity, card envelope
+    // rarity) are generated from the ShopLevel's own fields; ShopLevel.upgradeBonusLines
+    // holds the dev-authored non-percentage perks (e.g. "Place cards anywhere").
+    public TooltipViewModel GetGeneratedShopUpgradeTooltip() {
+        List<TooltipLine> lines = new();
+        int currentLevelNumber = gameState.playerData.GetValue().shopLevel;
+        ShopLevel currentLevel = encounterConstants.GetShopLevel(currentLevelNumber);
+        lines.Add(BuildShopLevelTooltipLine(currentLevel, "Level {0} Benefits"));
+
+        bool hasNextLevel = encounterConstants.shopLevels.Any(level => level.level == currentLevelNumber + 1);
+        if (hasNextLevel) {
+            ShopLevel nextLevel = encounterConstants.GetShopLevel(currentLevelNumber + 1);
+            lines.Add(BuildShopLevelTooltipLine(nextLevel, "Upgrade to Level {0}"));
+        }
+        return new TooltipViewModel(lines);
+    }
+
+    // Builds a single TooltipLine per shop level: the header as the title, and the
+    // generated percentage stats + dev-authored bonus perks as newline-separated
+    // description text (rather than one TooltipLine per stat/perk).
+    private TooltipLine BuildShopLevelTooltipLine(ShopLevel level, string headerFormat) {
+        List<string> descriptionLines = new();
+
+        string ratLine = JoinNonzeroPercentages(new (string label, int pct)[] {
+            ("common rats", level.commonCompanionPercentage),
+            ("uncommon rats", level.uncommonCompanionPercentage),
+            ("rare rats", level.rareCompanionPercentage),
+        });
+        if (!string.IsNullOrEmpty(ratLine)) {
+            descriptionLines.Add(ratLine);
+        }
+
+        string envelopeLine = string.Join(" • ", level.boosterPackPcts
+            .Where(p => p.appearancePct > 0)
+            .Select(p => {
+                string typeName = BoosterPack.GetBoosterPackTypeName(p.boosterType);
+                string lowerFirstTypeName = char.ToLower(typeName[0]) + typeName[1..];
+                return $"{p.appearancePct}% {lowerFirstTypeName} booster packs";
+            }));
+        if (!string.IsNullOrEmpty(envelopeLine)) {
+            descriptionLines.Add(envelopeLine);
+        }
+
+        if (level.upgradeBonusLines != null) {
+            descriptionLines.AddRange(level.upgradeBonusLines.Where(bonus => !string.IsNullOrEmpty(bonus)));
+        }
+
+        string header = string.Format(headerFormat, level.level + 1);
+        return new TooltipLine(header, string.Join("\n", descriptionLines));
+    }
+
+    private static string JoinNonzeroPercentages(IEnumerable<(string label, int pct)> entries) {
+        return string.Join(" • ", entries.Where(e => e.pct > 0).Select(e => $"{e.pct}% {e.label}"));
     }
 
     // This exists to satisfy the IEncounterBuilder interface.

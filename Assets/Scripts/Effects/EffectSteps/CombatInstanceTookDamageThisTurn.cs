@@ -18,6 +18,8 @@ public class CombatInstanceTookDamageThisTurn : EffectStep, IEffectStepCalculati
 
     [SerializeField]
     private string numTimesOutputKey = "";
+    [SerializeField]
+    private string numRatsWhoLostHPOutputKey = "";
 
     public CombatInstanceTookDamageThisTurn() {
         effectStepName = "CombatInstanceTookDamageThisTurn";
@@ -29,17 +31,28 @@ public class CombatInstanceTookDamageThisTurn : EffectStep, IEffectStepCalculati
             EffectError("No input targets present for key " + inputCombatInstanceKey);
             yield break;
         }
-        if (instances.Count > 1) {
-            EffectError("Too many input targets for key " + inputCombatInstanceKey + ", only 1 allowed instead have " + instances.Count.ToString());
-            yield break;
-        }
         CombatInstance target = instances[0];
 
-        int numTimes = EnemyEncounterManager.Instance.combatEncounterState.GetNumTimesCombatInstanceTookDamageThisTurn(target);
         if (numTimesOutputKey != "") {
-            document.intMap[numTimesOutputKey] = numTimes;
+            int count = 0;
+            foreach (CombatInstance instance in instances)
+            {
+                count += EnemyEncounterManager.Instance.combatEncounterState.GetNumTimesCombatInstanceTookDamageThisTurn(instance);
+            }
+            document.intMap[numTimesOutputKey] = count;
         }
-        document.boolMap[outputKey] = numTimes > 0;
+        if (numRatsWhoLostHPOutputKey != "")
+        {
+            int count = 0;
+            foreach (CombatInstance instance in instances)
+            {
+                bool tookdmg = EnemyEncounterManager.Instance.combatEncounterState.GetNumTimesCombatInstanceTookDamageThisTurn(instance) > 0;
+                if (tookdmg)
+                    count++;
+            }
+            document.intMap[numRatsWhoLostHPOutputKey] = count;
+        }
+        document.boolMap[outputKey] = EnemyEncounterManager.Instance.combatEncounterState.GetNumTimesCombatInstanceTookDamageThisTurn(target) > 0;
         yield return null;
     }
 

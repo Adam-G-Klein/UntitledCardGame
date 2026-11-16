@@ -214,12 +214,13 @@ public class CombatInstance : MonoBehaviour
         return combatStats.baseAttackDamage + statusEffects[StatusEffectType.Strength] + statusEffects[StatusEffectType.TemporaryStrength];
     }
 
-    public void ApplyNonStatusCombatEffect(CombatEffect effect, int scale, CombatInstance effector, GameObject vfxPrefab, bool shouldShake = false, float screenShakeForce = 0.0f) {
+    public int ApplyNonStatusCombatEffect(CombatEffect effect, int scale, CombatInstance effector, GameObject vfxPrefab, bool shouldShake = false, float screenShakeForce = 0.0f) {
         // All the non-status-effect combat effects are handled here
         // status effects are handled in applyCombatEffects
         if (vfxPrefab != null) {
             PlayVFX(vfxPrefab);
         }
+        int effectiveScaleApplied = 0;
         switch (effect)
         {
             case CombatEffect.Damage:
@@ -259,6 +260,7 @@ public class CombatInstance : MonoBehaviour
                     }
                     if (shouldShake) AddShake(damageTaken);
                     if (damageTaken > 0) EnemyEncounterManager.Instance.DamageIndicator(this, damageTaken);
+                    effectiveScaleApplied = damageTaken;
                     CombatEntityManager.Instance.PlayHitWeight(this, effector, damageTaken);
                     UpdateView();
                 });
@@ -277,6 +279,7 @@ public class CombatInstance : MonoBehaviour
                 {
                     StartCoroutine(CombatEntityManager.Instance.OnHeal(this));
                 }
+                effectiveScaleApplied = diff;
                 break;
             case CombatEffect.DrawFrom:
                 // This no longer needs to be here, completely handled by DeckInstance
@@ -294,6 +297,7 @@ public class CombatInstance : MonoBehaviour
                 break;
         }
         UpdateView();
+        return effectiveScaleApplied;
     }
 
     private int TakeDamage(CombatEffect combatEffect, int damage, CombatInstance attacker) {
@@ -513,12 +517,19 @@ public class CombatInstance : MonoBehaviour
         }
     }
 
+    // Note this is <=
+    private bool BelowHalfHP()
+    {
+        float threshold = combatStats.maxHealth * 0.5f;
+        return combatStats.currentHealth <= threshold;
+    }
+
     private void UpdateStatusEffect(StatusEffectType status) {
         int before = statusEffects[status];
         switch (status)
         {
             case StatusEffectType.Defended:
-                if (HasPower(PowerSO.PowerType.Barricade))
+                if (HasPower(PowerSO.PowerType.Unyielding) && BelowHalfHP())
                 {
                     break;
                 }

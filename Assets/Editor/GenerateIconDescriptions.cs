@@ -531,7 +531,6 @@ Tooltip:
                 Debug.Log($"Applying changes to {path}:\n{llmOutput}");
 
                 cardType.IconDescription = ParseLLMOutput(llmOutput); // Placeholder assignment
-                cardType.IconDescriptionTooltipLines = ParseTooltipFromLLMOutput(llmOutput); // Placeholder assignment
 
                 // Example: cardType.IconDescription = parsedIconDescription;
                 EditorUtility.SetDirty(cardType);

@@ -64,6 +64,10 @@ public class TeamSelectionUI : MonoBehaviour, ICompanionViewDelegate
         }
         docRenderer = GetComponent<UIDocumentScreenspace>();
 
+        team1ActiveCompanions.activeCompanions = team1ActiveCompanions.activeCompanions
+            .OrderByDescending(companion => companion.companionType.startingTeamWeight)
+            .ToList();
+
         root = GetComponent<UIDocument>().rootVisualElement;
         InitializeCompanions(team1ActiveCompanions.activeCompanions);
 

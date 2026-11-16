@@ -1,0 +1,164 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: Attack_Patient_Common_Enmity
+  m_EditorClassIdentifier:
+  guid: b8cfff9f-dcdd-488c-9c5c-4f21264a6a20
+  Name: Enmity
+  Description:
+  IconDescription:
+  - tokenType: 0
+    text: Retain
+    icon: 0
+  - tokenType: 1
+    text:
+    icon: 0
+  - tokenType: 0
+    text: '{rpl_damage}'
+    icon: 0
+  - tokenType: 2
+    text:
+    icon: 1
+  - tokenType: 2
+    text:
+    icon: 18
+  - tokenType: 1
+    text:
+    icon: 0
+  - tokenType: 2
+    text:
+    icon: 17
+  - tokenType: 0
+    text: ': '
+    icon: 17
+  - tokenType: 0
+    text: 1
+    icon: 17
+  - tokenType: 2
+    text:
+    icon: 34
+  IconDescriptionTooltipLineOverrides: []
+  defaultValues:
+  - key: rpl_damage
+    value: 6
+  Cost: 1
+  Artwork: {fileID: 21300000, guid: 977664b7b0443cc4682f0fb74f848cd1, type: 3}
+  cardCategory: 1
+  packFrom: {fileID: 11400000, guid: 908f28c6f48104c2d85d2fcbd973771e, type: 2}
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 1
+  effectWorkflows:
+  - rid: 5602892675124822189
+  onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: 758316142852046941
+  onDrawEffectWorkflow:
+    rid: -2
+  tooltips:
+  tooltipKeyword: 37
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 758316142852046941
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 758316142852046942
+        - rid: 1700682291002736694
+        - rid: 758316142852046943
+        - rid: 1700682291002736695
+        - rid: 758316142852046944
+    - rid: 758316142852046942
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
+        inputKey:
+        outputKey: self
+        validTargets:
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+        cardSelectionHelperText:
+        selectionPurpose: 0
+        selectionCardCategory: 0
+    - rid: 758316142852046943
+      type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardModificationEffect
+        inputKey: self
+        scale: 1
+        affectsAllCardsOfType: 0
+        cardTypeToModify: {fileID: 0}
+        getScaleFromKey: 0
+        scaleKey:
+        modification: 0
+    - rid: 758316142852046944
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+        scale: 1
+    - rid: 5602892675124822189
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 5602892675124822190
+        - rid: 5602892675124822191
+    - rid: 5602892675124822190
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
+        inputKey:
+        outputKey: enemy
+        validTargets: 02000000
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 0
+        cardSelectionHelperText:
+        selectionPurpose: 0
+        selectionCardCategory: 0
+    - rid: 5602892675124822191
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: enemy
+        combatEffect: 0
+        scale: 6
+        getScaleFromKey: 0
+        inputScaleKey:
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey:
+        vfxPrefab: {fileID: 1320532642761013391, guid: 5f052df6dbd171a4b8742cfda625109c, type: 3}
+    - rid: 1700682291002736694
+      type: {class: CardTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardTriggeredVFX
+        vfxPrefab: {fileID: 3402153693038389984, guid: a3b6b31a75a68b1498be5837432eabd6, type: 3}
+    - rid: 1700682291002736695
+      type: {class: CardsChangedVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardsChangedVFX
+        inputKey: self
+        vfxPrefab: {fileID: 1872837941943473356, guid: c1728413e5bf48543b46f1ce54f452c5, type: 3}

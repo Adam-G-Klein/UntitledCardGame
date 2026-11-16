@@ -25,7 +25,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 24e688fb9bddd43af988a311dd8879b2, type: 2}
   - {fileID: 11400000, guid: 968e08e64774045e88eb7ebba74c9113, type: 2}
   rerollShopPrice: 2
-  incrementalRerollPriceIncrease: 1
+  incrementalRerollPriceIncrease: 0.5
   cardRemovalPrice: 6
   cardRemovalPriceIncrease: 4
   switchDecksPrice: 1
@@ -48,6 +48,7 @@ MonoBehaviour:
   freeRerolls: 6
   freeCardRemovals: 2
   maximumMoneyLeftBeforeNextCombat: 10
+  showCardBuyingTutorialOnFirstCardOfShop: 0
   neutralCardPool: {fileID: 11400000, guid: f16e9cd7d69314290ae5bed1edae4ce0, type: 2}
   numCompanionsSellFactor: 1.5
   numCardsBoughtSellFactor: 1
@@ -55,14 +56,14 @@ MonoBehaviour:
   boosterPackCardPrice: 0
   boosterPackPcts:
   - boosterType: 6
-    commonCardPct: 15
-    uncommonCardPct: 50
-    rareCardPct: 35
+    commonCardPct: 10
+    uncommonCardPct: 45
+    rareCardPct: 45
     price: 4
     numCards: 4
     numCardsToBuy: 1
-    ratSourcePct: 40
-    packSourcePct: 60
+    ratSourcePct: 100
+    packSourcePct: 100
   - boosterType: 5
     commonCardPct: 70
     uncommonCardPct: 30
@@ -70,26 +71,26 @@ MonoBehaviour:
     price: 1
     numCards: 3
     numCardsToBuy: 1
-    ratSourcePct: 30
-    packSourcePct: 70
+    ratSourcePct: 100
+    packSourcePct: 100
   - boosterType: 7
     commonCardPct: 70
     uncommonCardPct: 30
     rareCardPct: 0
-    price: 1
+    price: 2
     numCards: 3
     numCardsToBuy: 2
-    ratSourcePct: 30
-    packSourcePct: 70
+    ratSourcePct: 100
+    packSourcePct: 100
   - boosterType: 8
-    commonCardPct: 15
-    uncommonCardPct: 50
-    rareCardPct: 35
-    price: 4
+    commonCardPct: 10
+    uncommonCardPct: 45
+    rareCardPct: 45
+    price: 5
     numCards: 4
     numCardsToBuy: 2
-    ratSourcePct: 30
-    packSourcePct: 70
+    ratSourcePct: 100
+    packSourcePct: 100
   baseCardsToRemoveOnUpgrade:
   - {fileID: 11400000, guid: 38df20cfa67a247b7ba206413d7f874e, type: 2}
   - {fileID: 11400000, guid: 2483a7d7534424a4498e2abb3572b2e0, type: 2}

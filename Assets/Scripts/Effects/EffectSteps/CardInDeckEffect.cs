@@ -10,7 +10,7 @@ using UnityEngine;
     Parameters:
         - Effect: The effect to enact on the card(s)
 */
-public class CardInDeckEffect : EffectStep, ITooltipProvider
+public class CardInDeckEffect : EffectStep
 {
     [SerializeField]
     private string inputCardsKey = "";
@@ -95,13 +95,13 @@ public class CardInDeckEffect : EffectStep, ITooltipProvider
         AddToHand,
         PermaTransform,
     }
-    public TooltipViewModel GetTooltip(){
-        if (effect == CardInDeckEffectName.PermaTransform) {
-            return KeywordTooltipProvider.Instance.GetTooltip(cardToTransformInto.GetTooltipKeyword());
-        }
-        if(KeywordTooltipProvider.Instance.HasTooltip(tooltipMapping[effect])){
-            return KeywordTooltipProvider.Instance.GetTooltip(tooltipMapping[effect]);
-        }
-        else return new TooltipViewModel(empty: true);
-    }
+    // public TooltipViewModel GetTooltip(){
+    //     if (effect == CardInDeckEffectName.PermaTransform) {
+    //         return KeywordTooltipProvider.Instance.GetTooltip(cardToTransformInto.GetTooltipKeyword());
+    //     }
+    //     if(KeywordTooltipProvider.Instance.HasTooltip(tooltipMapping[effect])){
+    //         return KeywordTooltipProvider.Instance.GetTooltip(tooltipMapping[effect]);
+    //     }
+    //     else return new TooltipViewModel(empty: true);
+    // }
 }

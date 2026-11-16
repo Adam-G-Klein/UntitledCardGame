@@ -63,6 +63,11 @@
 .shopButton:active {
 }
 
+.shopButton:disabled {
+    -unity-background-image-tint-color: rgb(110, 110, 110);
+    opacity: 0.6;
+}
+
 .single-unit-container {
     border-top-width: 4px;
     border-right-width: 4px;

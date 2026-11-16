@@ -11,12 +11,13 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
   m_Name: Brutus_Haymaker
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:
   guid: 362e5a7e-a636-43d6-bf69-345a56d78913
   displayName: Brutus
-  maxHealth: 80
+  maxHealth: 75
   baseAttackDamage: 0
   enemyDisplayType: 0
+  big: 1
   sprite: {fileID: 21300000, guid: d870e904ee392490caaf72d57f82b5dd, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
@@ -24,7 +25,10 @@ MonoBehaviour:
   - dialogue: Hey bozo.
     sprite: {fileID: 21300000, guid: d870e904ee392490caaf72d57f82b5dd, type: 3}
     pause: 0
-  - dialogue: If ya want your head bashed in, I'll be waiting at that table back
+  - dialogue: That's right, I'm talking to you.
+    sprite: {fileID: 21300000, guid: d870e904ee392490caaf72d57f82b5dd, type: 3}
+    pause: 0
+  - dialogue: If you want your head bashed in, I'll be waiting at that table back
       there.
     sprite: {fileID: 21300000, guid: d870e904ee392490caaf72d57f82b5dd, type: 3}
     pause: 0
@@ -35,24 +39,28 @@ MonoBehaviour:
     behaviors:
     - intent: 4
       enemyTargetMethod: 7
-      targetsKey: 
-      displayValue: 2
+      targetsKey:
+      displayValue: 3
       effectSteps:
       - rid: 2295167909047304423
       - rid: 5602893111447519606
       - rid: 5602893111447519608
       - rid: 5602893111447519609
-      - rid: 3443535291885027969
       - rid: 5602893111447519607
       - rid: 5280922829633617990
     - intent: 6
       enemyTargetMethod: 6
-      targetsKey: target
-      displayValue: 2
+      targetsKey: targets
+      displayValue: 1
       effectSteps:
       - rid: 2295167909047304423
       - rid: 3931529445166809326
-    behaviorType: 0
+      - rid: 3226456700144582656
+      - rid: 7189280385716453420
+      - rid: 3226456700144582658
+      - rid: 3226456700144582657
+      - rid: 3226456700144582659
+    behaviorType: 2
   belowHalfHPEnemyPattern:
     behaviors: []
     behaviorType: 0
@@ -64,13 +72,14 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Wind Up
-      description: Gains strength and prepares a mighty AOE attack
+      description: Gains strength and prepares a mighty attack that hits your entire
+        team
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
       iconDescriptionLine: []
       card: {fileID: 0}
     - title: Haymaker
-      description: Deals AOE damage to your entire team
+      description: Deals AOE damage to your entire team and grows slightly stronger
       relatedBehaviorIndex: 1
       icon: {fileID: 0}
       iconDescriptionLine: []
@@ -85,32 +94,67 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
-        inputKey: 
+        inputKey:
         outputKey: self
-        validTargets: 
+        validTargets:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-        cardSelectionHelperText: 
+        cardSelectionHelperText:
         selectionPurpose: 0
         selectionCardCategory: 0
-    - rid: 3443535291885027969
+    - rid: 3226456700144582656
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey:
+        outputKey: target
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 7
+        cantCancelTargetting: 0
+        cardSelectionHelperText:
+        selectionPurpose: 0
+        selectionCardCategory: 0
+    - rid: 3226456700144582657
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 0
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey:
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey:
+        toggleStatus: 0
+    - rid: 3226456700144582658
       type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: WaitForSecondsEffect
         seconds: 0.3
+    - rid: 3226456700144582659
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 4bed509d0589dae4d922d8eeb61a6292, type: 3}
+        scale: 1
     - rid: 3931529445166809326
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
-        inputKey: target
+        inputKey: targets
         combatEffect: 0
-        scale: 2
+        scale: 1
         getScaleFromKey: 0
-        inputScaleKey: 
+        inputScaleKey:
         multiplicity: 1
         getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
+        inputMultiplicityKey:
         vfxPrefab: {fileID: 7653236696634270727, guid: 06cb95438569b864b9c211e17409078e, type: 3}
     - rid: 5280922829633617990
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
@@ -133,13 +177,13 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 0
-        scale: 2
+        scale: 3
         getScaleFromKey: 0
-        inputScaleKey: 
+        inputScaleKey:
         multiplyByNumAuraStacks: 0
         multiplicity: 1
         getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
+        inputMultiplicityKey:
         toggleStatus: 0
     - rid: 5602893111447519608
       type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
@@ -147,7 +191,7 @@ MonoBehaviour:
         effectStepName: BooleanComparison
         hardCodedInputKey1: 6
         useHardCodedInputKey1: 1
-        inputKey1: 
+        inputKey1:
         operation: 2
         inputKey2: numStrength
         outputKey: pastStrengthThreshold

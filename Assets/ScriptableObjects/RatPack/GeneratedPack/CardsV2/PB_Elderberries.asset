@@ -35,7 +35,7 @@ MonoBehaviour:
     text: 
     icon: 18
   - tokenType: 0
-    text: Shuffle a Bitterbark into their deck.
+    text: Shuffle a Bitterbark into their deck
     icon: 18
   IconDescriptionTooltipLines:
   - This card exhausts when played.
@@ -87,6 +87,7 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        outputKey: 
     - rid: 2268261004812222482
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:

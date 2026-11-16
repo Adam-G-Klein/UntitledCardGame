@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ac8d29b7a56d46539bdf7eeb2d1260a, type: 3}
   m_Name: SeizeTheInitiative
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:
   powerType: 36
   title: Seize the Initiative
   description: The first time you play an Attack each turn, gain 1 energy and draw
@@ -19,10 +19,11 @@ MonoBehaviour:
   abilities:
   - rid: 754093991137641276
   displaySprite: {fileID: -708212254, guid: a858744b83e5a80448c69680deac9279, type: 3}
-  tooltip:
-    rid: 754093871974056657
+  extraTooltip:
+    rid: 3226456462082179560
+  stackable: 0
   cacheConfiguration:
-    key: perpetualMotionActivated
+    key: seizeTheInitiative
     display: 1
     sprite: {fileID: 21300000, guid: ee68b8ed994d6413fbc2f7d6df902689, type: 3}
     startOfTurnValue: 1
@@ -65,29 +66,32 @@ MonoBehaviour:
       data:
         effectStepName: DrawCards
         inputKey: self
-        outputKey: 
+        outputKey:
         scale: 1
         getScaleFromKey: 0
-        inputScaleKey: 
+        inputScaleKey:
+        waitForDrawsToResolve: 0
     - rid: 754093991137641281
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
-        inputKey: 
+        inputKey:
         outputKey: self
-        validTargets: 
+        validTargets:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-        cardSelectionHelperText: 
+        cardSelectionHelperText:
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 754093991137641282
       type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatInstanceCacheLoad
         inputCombatInstanceKey: self
-        cacheKey: perpetualMotionActivated
-        currentWorkflowKey: perpetualMotionActivated
+        cacheKey: seizeTheInitiative
+        currentWorkflowKey: seizeTheInitiative
     - rid: 754093991137641283
       type: {class: CombatInstanceCacheStore, ns: , asm: Assembly-CSharp}
       data:
@@ -97,8 +101,8 @@ MonoBehaviour:
         useHardCodedBool: 0
         hardCodedInt: 0
         useHardCodedInt: 0
-        currentWorkflowKey: perpetualMotionActivated
-        cacheKey: perpetualMotionActivated
+        currentWorkflowKey: seizeTheInitiative
+        cacheKey: seizeTheInitiative
     - rid: 754093991137641284
       type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
       data:
@@ -111,29 +115,37 @@ MonoBehaviour:
         effectStepName: BooleanComparison
         hardCodedInputKey1: 0
         useHardCodedInputKey1: 1
-        inputKey1: 
+        inputKey1:
         operation: 0
-        inputKey2: perpetualMotionActivated
+        inputKey2: seizeTheInitiative
         outputKey: done
     - rid: 758316142852046940
       type: {class: MathStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: MathStep
-        inputKey: perpetualMotionActivated
+        inputKey: seizeTheInitiative
         operand2InputKey: UNUSED
         operation: 1
         scale: 1
-        outputKey: perpetualMotionActivated
+        outputKey: seizeTheInitiative
     - rid: 2511001254715195972
       type: {class: ManaChange, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ManaChange
         scale: 1
         getScaleFromKey: 0
-        inputScaleKey: 
+        inputScaleKey:
+<<<<<<< HEAD
     - rid: 1700682198445196058
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
         label: Seize the Initiative
         icon: {fileID: 0}
+=======
+    - rid: 3226456462082179560
+      type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
+      data:
+        empty: 1
+        lines: []
+>>>>>>> james/we-back-full-game-balling

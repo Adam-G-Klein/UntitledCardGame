@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: PB_Peashooter
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:
   guid: bf37f444-06b4-4968-b0f7-c7e178f94656
   Name: Peashooter
   Description: Deal {rpl_damage} damage and discard a card at random
@@ -20,18 +20,21 @@ MonoBehaviour:
     text: '{rpl_damage}'
     icon: 0
   - tokenType: 2
-    text: 
+    text:
     icon: 1
+  - tokenType: 2
+    text:
+    icon: 18
   - tokenType: 1
-    text: 
+    text:
     icon: 0
   - tokenType: 2
-    text: 
+    text:
     icon: 13
   - tokenType: 2
-    text: 
+    text:
     icon: 4
-  IconDescriptionTooltipLines: []
+  IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: rpl_damage
     value: 9
@@ -53,7 +56,7 @@ MonoBehaviour:
     rid: -2
   onDrawEffectWorkflow:
     rid: -2
-  tooltips: 
+  tooltips:
   tooltipKeyword: 37
   references:
     version: 2
@@ -76,7 +79,7 @@ MonoBehaviour:
         effectStepName: GetRandomItems
         inputKey: cards
         scale: 1
-        scaleKey: 
+        scaleKey:
         getScaleFromKey: 0
         outputKey: selected
         withReplacement: 0
@@ -85,13 +88,13 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
-        inputKey: 
+        inputKey:
         outputKey: enemy
         validTargets: 02000000
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
-        cardSelectionHelperText: 
+        cardSelectionHelperText:
         selectionPurpose: 0
         selectionCardCategory: 0
     - rid: 5602892563578094203
@@ -114,23 +117,23 @@ MonoBehaviour:
         combatEffect: 0
         scale: 9
         getScaleFromKey: 0
-        inputScaleKey: 
+        inputScaleKey:
         multiplicity: 1
         getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
+        inputMultiplicityKey:
         vfxPrefab: {fileID: 0}
     - rid: 7401433308100035075
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
-        inputKey: 
+        inputKey:
         outputKey: cards
         validTargets: 03000000
         number: 1
         specialTargetRule: 2
         cantCancelTargetting: 0
-        cardSelectionHelperText: 
+        cardSelectionHelperText:
         selectionPurpose: 0
         selectionCardCategory: 0
     - rid: 1700682291002736701
@@ -139,7 +142,7 @@ MonoBehaviour:
         effectStepName: FXEffectStep
         waitForEffect: 0
         fXExperiencePrefab: {fileID: 47118788139193846, guid: b68b8539b94b6de439f121a4a8fd4a86, type: 3}
-        rootLocationGameObjectKey: 
+        rootLocationGameObjectKey:
         positionMappingList:
         - fromWorkflow: shooter
           toFxExperience: self
@@ -158,12 +161,12 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
-        inputKey: 
+        inputKey:
         outputKey: shooter
-        validTargets: 
+        validTargets:
         number: 1
         specialTargetRule: 4
         cantCancelTargetting: 0
-        cardSelectionHelperText: 
+        cardSelectionHelperText:
         selectionPurpose: 0
         selectionCardCategory: 0

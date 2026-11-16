@@ -55,7 +55,7 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Naptime
-      description: Grows stronger until you get her below half HP
+      description: Grows stronger until you get her at or below half HP
       relatedBehaviorIndex: -1
       icon: {fileID: 0}
       iconDescriptionLine: []
@@ -103,13 +103,13 @@ MonoBehaviour:
         percentThreshold: 0.5
         absoluteThreshold: 0
         useAbsoluteThreshold: 0
-        outputKey: 
+        outputKey: belowHP
         below: 1
     - rid: 2038553076039155811
       type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EndWorkflowIfListEmpty
-        inputKey1: self
+        inputKey1: belowHP
     - rid: 2038553076039155812
       type: {class: SpriteSwap, ns: , asm: Assembly-CSharp}
       data:

@@ -252,6 +252,9 @@ public abstract class EntityAbilityInstance
             if (document.originEntityType == EntityType.CompanionInstance) {
                 CompanionInstance source = document.map.GetItem<CompanionInstance>(EffectDocument.ORIGIN, 0);
                 document.boolMap.Add("exhaustedFromThisOrigin", source == companion);
+
+                bool fromSelfOrAdjacent = CombatEntityManager.Instance.GetAdjacentCompanions(source, true).Contains(companion);
+                document.boolMap.Add("fromSelfOrAdjacent", fromSelfOrAdjacent);
             }
         }
         document.map.AddItem<PlayableCard>("cardExhausted", card);

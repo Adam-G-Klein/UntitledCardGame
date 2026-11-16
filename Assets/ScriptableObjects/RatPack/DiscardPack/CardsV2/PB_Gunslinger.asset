@@ -11,31 +11,13 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: PB_Gunslinger
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:
   guid: 8da1dd46-fc3c-4d86-9581-bad5ee8fcecd
   Name: Gunslinger
-  Description: 
+  Description:
   IconDescription:
   - tokenType: 2
-    text: 
-    icon: 30
-  - tokenType: 0
-    text: ': '
-    icon: 0
-  - tokenType: 0
-    text: '{rpl_damage}'
-    icon: 0
-  - tokenType: 2
-    text: 
-    icon: 1
-  - tokenType: 2
-    text: 
-    icon: 18
-  - tokenType: 1
-    text: 
-    icon: 0
-  - tokenType: 2
-    text: 
+    text:
     icon: 15
   - tokenType: 0
     text: ':'
@@ -44,14 +26,30 @@ MonoBehaviour:
     text: '{ondiscard_rpl_damage}'
     icon: 0
   - tokenType: 2
-    text: 
+    text:
     icon: 1
   - tokenType: 2
-    text: 
+    text:
     icon: 33
-  IconDescriptionTooltipLines:
-  - If you have 3 or less cards in hand, deal damage to a foe of your choice.
-  - When this card is discarded, deal damage to all foes.
+  - tokenType: 3
+    text:
+    icon: 0
+  - tokenType: 0
+    text: 'If you have less than 3 cards in hand:'
+    icon: 0
+  - tokenType: 1
+    text:
+    icon: 18
+  - tokenType: 0
+    text: '{rpl_damage}'
+    icon: 0
+  - tokenType: 2
+    text:
+    icon: 1
+  - tokenType: 2
+    text:
+    icon: 18
+  IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: rpl_damage
     value: 11
@@ -75,7 +73,7 @@ MonoBehaviour:
     rid: -2
   onDrawEffectWorkflow:
     rid: -2
-  tooltips: 
+  tooltips:
   tooltipKeyword: 37
   references:
     version: 2
@@ -94,13 +92,13 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
-        inputKey: 
+        inputKey:
         outputKey: target
         validTargets: 02000000
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
-        cardSelectionHelperText: 
+        cardSelectionHelperText:
         selectionPurpose: 0
         selectionCardCategory: 0
     - rid: 7189280385716453525
@@ -111,23 +109,23 @@ MonoBehaviour:
         combatEffect: 0
         scale: 11
         getScaleFromKey: 0
-        inputScaleKey: 
+        inputScaleKey:
         multiplicity: 1
         getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
+        inputMultiplicityKey:
         vfxPrefab: {fileID: 0}
     - rid: 7189280385716453754
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
-        inputKey: 
+        inputKey:
         outputKey: cards
         validTargets: 03000000
         number: 1
         specialTargetRule: 1
         cantCancelTargetting: 0
-        cardSelectionHelperText: 
+        cardSelectionHelperText:
         selectionPurpose: 0
         selectionCardCategory: 0
     - rid: 7189280385716453755
@@ -142,7 +140,7 @@ MonoBehaviour:
         effectStepName: BooleanComparison
         hardCodedInputKey1: 3
         useHardCodedInputKey1: 1
-        inputKey1: 
+        inputKey1:
         operation: 4
         inputKey2: numCards
         outputKey: lessThan3
@@ -157,13 +155,13 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
-        inputKey: 
+        inputKey:
         outputKey: enemy
         validTargets: 02000000
         number: 1
         specialTargetRule: 1
         cantCancelTargetting: 0
-        cardSelectionHelperText: 
+        cardSelectionHelperText:
         selectionPurpose: 0
         selectionCardCategory: 0
     - rid: 7401433308100034880
@@ -174,11 +172,16 @@ MonoBehaviour:
         combatEffect: 0
         scale: 4
         getScaleFromKey: 0
-        inputScaleKey: 
+        inputScaleKey:
         multiplicity: 1
         getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
+        inputMultiplicityKey:
+<<<<<<< HEAD
         vfxPrefab: {fileID: 8842018153899722763, guid: 33fb972d1906aee4aaf993b3ba08ebee, type: 3}
+=======
+        vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
+        damageDealtOutputKey:
+>>>>>>> james/we-back-full-game-balling
     - rid: 8034949815888773120
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -198,7 +201,7 @@ MonoBehaviour:
         effectStepName: FXEffectStep
         waitForEffect: 0
         fXExperiencePrefab: {fileID: 6985075528276778387, guid: ad90be7a413b7844f88ed0cdce6a0f9d, type: 3}
-        rootLocationGameObjectKey: 
+        rootLocationGameObjectKey:
         positionMappingList:
         - fromWorkflow: shooter
           toFxExperience: self
@@ -217,13 +220,13 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
-        inputKey: 
+        inputKey:
         outputKey: shooter
-        validTargets: 
+        validTargets:
         number: 1
         specialTargetRule: 4
         cantCancelTargetting: 0
-        cardSelectionHelperText: 
+        cardSelectionHelperText:
         selectionPurpose: 0
         selectionCardCategory: 0
     - rid: 1700682291002736647

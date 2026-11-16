@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac8d29b7a56d46539bdf7eeb2d1260a, type: 3}
   m_Name: Stonechucker
   m_EditorClassIdentifier: 
-  powerType: 9
-  title: Stonechucker
-  description: Whenever you draw a Charm card from another deck, deal 4 damage to
-    a random foe
+  powerType: 38
+  title: Woodchucker
+  description: Whenever you exhaust a Charm card, deal 3 damage to a random foe
   abilities:
   - rid: 758316142852047499
   displaySprite: {fileID: 21300000, guid: d368c9ba74e98f7408c2a579fc6febcb, type: 3}
@@ -43,28 +42,25 @@ MonoBehaviour:
       data:
         abilityTrigger: 19
         effectSteps:
-        - rid: 758316142852047500
         - rid: 758316142852047568
         - rid: 758316142852047569
         - rid: 758316142852047570
         - rid: 758316142852047572
         - rid: 758316142852047571
         weight: 0
-    - rid: 758316142852047500
-      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EndWorkflowIfConditionMet
-        inputKey1: cardFromThisOrigin
-        conditionToEndOn: 1
     - rid: 758316142852047568
       type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: FilterCards
         inputKey: cardDrawn
+        companionInstanceKey: 
         filter:
           cardCategoriesToInclude: 04000000
           retainedCardsFilter: 0
+          manaCostFilter: 0
+          manaCost: 0
           exactCardType: {fileID: 0}
+          companionInstanceFilterEnabled: 0
         outputKey: cardDrawnCharm
     - rid: 758316142852047569
       type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
@@ -83,13 +79,15 @@ MonoBehaviour:
         specialTargetRule: 6
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 758316142852047571
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
         inputKey: foe
         combatEffect: 14
-        scale: 4
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

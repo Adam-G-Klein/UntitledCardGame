@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerType: 14
   title: Retaliation
-  description: Whenever self loses HP, deal 4 damage to a random foe
+  description: Whenever self loses HP, deal 3 damage to a random foe
   abilities:
   - rid: 754094139776958566
   displaySprite: {fileID: 21300000, guid: b8234437e62f749a9b907d6e36c2e1e1, type: 3}
@@ -61,6 +61,8 @@ MonoBehaviour:
         specialTargetRule: 6
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 754094139776958570
       type: {class: EndWorkflowIfNoMapElement, ns: , asm: Assembly-CSharp}
       data:
@@ -72,7 +74,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 14
-        scale: 4
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

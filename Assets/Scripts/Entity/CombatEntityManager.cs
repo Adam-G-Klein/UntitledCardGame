@@ -63,6 +63,16 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
         return new List<CompanionInstance>(companions);
     }
 
+    public int GetStacksOfPowerAcrossCompanions(PowerSO.PowerType power)
+    {
+        int count = 0;
+        foreach (CompanionInstance i in companions)
+        {
+            count += i.combatInstance.GetNumStackOfPower(power);
+        }
+        return count;
+    }
+
     // position 0 is front
     // position -1 is back
     public CompanionInstance GetCompanionInstanceAtPosition(int position)
@@ -132,14 +142,13 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
     {
         List<CompanionInstance> adjacentCompanions = new List<CompanionInstance>();
         int companionIndex = companions.IndexOf(instance);
-        // Check if the companion is on the left (0 index)
-        if (companionIndex == 0) {
-            adjacentCompanions.Add(companions[1]);
-        } else if (companionIndex == companions.Count - 1) {
-            adjacentCompanions.Add(companions[companionIndex - 1]);
-        } else if (companionIndex > 0 && companionIndex < companions.Count - 1) {
-            adjacentCompanions.Add(companions[companionIndex - 1]);
-            adjacentCompanions.Add(companions[companionIndex + 1]);
+        if (companionIndex != -1) {
+            if (companionIndex > 0) {
+                adjacentCompanions.Add(companions[companionIndex - 1]);
+            }
+            if (companionIndex < companions.Count - 1) {
+                adjacentCompanions.Add(companions[companionIndex + 1]);
+            }
         }
 
         if (includeInputCompanion) {

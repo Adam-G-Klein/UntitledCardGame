@@ -11,16 +11,24 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
   m_Name: Act2_V2_SeverineTactician
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:
   guid: cc0c228a-72e0-4dc0-b07c-b466465dc335
   displayName: "S\xE9verine"
   maxHealth: 135
   baseAttackDamage: 0
   enemyDisplayType: 0
+  big: 1
   sprite: {fileID: 21300000, guid: 23bc518f234bc4068a5d545786175dd7, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
-  trashTalkDialogue: []
+  trashTalkDialogue:
+  - dialogue: That is a good looking team of rats you have put together.
+    sprite: {fileID: 21300000, guid: 23bc518f234bc4068a5d545786175dd7, type: 3}
+    pause: 0
+  - dialogue: Once we are finished, I hope you don't mind me using one of them for
+      a new handbag.
+    sprite: {fileID: 21300000, guid: 23bc518f234bc4068a5d545786175dd7, type: 3}
+    pause: 0
   morale: 0
   abilities:
   - rid: 6567162444329517186
@@ -91,13 +99,13 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
-        inputKey: 
+        inputKey:
         outputKey: self
-        validTargets: 
+        validTargets:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-        cardSelectionHelperText: 
+        cardSelectionHelperText:
         selectionPurpose: 0
         selectionCardCategory: 0
     - rid: 205828126246961606
@@ -108,10 +116,10 @@ MonoBehaviour:
         combatEffect: 0
         scale: 6
         getScaleFromKey: 0
-        inputScaleKey: 
+        inputScaleKey:
         multiplicity: 1
         getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
+        inputMultiplicityKey:
         vfxPrefab: {fileID: 6137048663962808129, guid: 418a03ccd75ca98409952e0384c196fd, type: 3}
     - rid: 6567162444329517186
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
@@ -145,13 +153,13 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
-        inputKey: 
+        inputKey:
         outputKey: self
-        validTargets: 
+        validTargets:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-        cardSelectionHelperText: 
+        cardSelectionHelperText:
         selectionPurpose: 0
         selectionCardCategory: 0
     - rid: 6567162444329517220
@@ -200,7 +208,7 @@ MonoBehaviour:
         effectStepName: BooleanComparison
         hardCodedInputKey1: 0
         useHardCodedInputKey1: 1
-        inputKey1: 
+        inputKey1:
         operation: 4
         inputKey2: hpLeftToLose
         outputKey: hpLeftIsZero
@@ -223,11 +231,11 @@ MonoBehaviour:
         statusEffect: 0
         scale: 2
         getScaleFromKey: 0
-        inputScaleKey: 
+        inputScaleKey:
         multiplyByNumAuraStacks: 0
         multiplicity: 1
         getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
+        inputMultiplicityKey:
         toggleStatus: 0
     - rid: 7189280543290425399
       type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
@@ -249,11 +257,11 @@ MonoBehaviour:
         statusEffect: 0
         scale: 2
         getScaleFromKey: 0
-        inputScaleKey: 
+        inputScaleKey:
         multiplyByNumAuraStacks: 0
         multiplicity: 1
         getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
+        inputMultiplicityKey:
         toggleStatus: 0
     - rid: 7189280543290425403
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
@@ -275,7 +283,7 @@ MonoBehaviour:
         effectStepName: BooleanComparison
         hardCodedInputKey1: 0
         useHardCodedInputKey1: 1
-        inputKey1: 
+        inputKey1:
         operation: 0
         inputKey2: abilityActivated
         outputKey: alreadyActivated
@@ -294,5 +302,5 @@ MonoBehaviour:
         useHardCodedBool: 0
         hardCodedInt: 0
         useHardCodedInt: 1
-        currentWorkflowKey: 
+        currentWorkflowKey:
         cacheKey: abilityActivated

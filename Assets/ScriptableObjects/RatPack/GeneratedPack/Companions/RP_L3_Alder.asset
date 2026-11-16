@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
   m_Name: RP_L3_Alder
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:
   guid: ccb2d944-9306-494a-aa53-9dab59d78166
   companionName: Alder++
   maxHealth: 60
@@ -34,8 +34,8 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Alder++
-      description: Whenever you draw a Charm card from Alder or a rat adjacent to
-        Alder, draw 1 card from that rat
+      description: Whenever you draw a Charm card from Alder, draw 1 card from a
+        random rat
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
       iconDescriptionLine: []
@@ -43,7 +43,7 @@ MonoBehaviour:
   keepsakeTitle: Hidden Cache
   keepsakeDescription: Whenever you draw a Charm card from another rat's deck, draw
     1 card from that rat.
-  tooltipTokens: 
+  tooltipTokens:
   references:
     version: 2
     RefIds:
@@ -52,11 +52,11 @@ MonoBehaviour:
       data:
         abilityTrigger: 19
         effectSteps:
-        - rid: 758316142852047367
         - rid: 754093871974056130
         - rid: 754093968382754844
         - rid: 754093968382754845
         - rid: 2511001095643857208
+        - rid: 8966137386555146259
         - rid: 2511001095643857209
         - rid: 6567162537147629634
         weight: 0
@@ -65,13 +65,13 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
-        inputKey: 
+        inputKey:
         outputKey: self
-        validTargets: 
+        validTargets:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-        cardSelectionHelperText: 
+        cardSelectionHelperText:
         selectionPurpose: 0
         selectionCardCategory: 0
     - rid: 754093968382754844
@@ -79,24 +79,20 @@ MonoBehaviour:
       data:
         effectStepName: FilterCards
         inputKey: cardDrawn
+        companionInstanceKey:
         filter:
           cardCategoriesToInclude: 04000000
           retainedCardsFilter: 0
           manaCostFilter: 0
           manaCost: 0
           exactCardType: {fileID: 0}
+          companionInstanceFilterEnabled: 0
         outputKey: statusCards
     - rid: 754093968382754845
       type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EndWorkflowIfListEmpty
         inputKey1: statusCards
-    - rid: 758316142852047367
-      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EndWorkflowIfConditionMet
-        inputKey1: fromSelfOrAdjacent
-        conditionToEndOn: 0
     - rid: 2511001095643857208
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
@@ -105,16 +101,30 @@ MonoBehaviour:
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DrawCards
-        inputKey: companionCardPlayedFrom
-        outputKey: 
+        inputKey: random
+        outputKey:
         scale: 1
         getScaleFromKey: 0
-        inputScaleKey: 
+        inputScaleKey:
         waitForDrawsToResolve: 0
     - rid: 6567162537147629634
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: companionCardPlayedFrom
+        inputKey: random
         prefabToInstantiate: {fileID: 9028122300360462519, guid: 9a51d49c5066ce74cb95e42b96240249, type: 3}
         scale: 1
+    - rid: 8966137386555146259
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey:
+        outputKey: random
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 6
+        cantCancelTargetting: 0
+        cardSelectionHelperText:
+        selectionPurpose: 0
+        selectionCardCategory: 0

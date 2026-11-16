@@ -30,6 +30,7 @@ public class EnemyTypeSO : IdentifiableSO
     public int maxHealth;
     public int baseAttackDamage;
     public DisplayType enemyDisplayType = DisplayType.UIDOC;
+    public bool big = false;
     [Space]
     public Sprite sprite;
     public Sprite backgroundImage;

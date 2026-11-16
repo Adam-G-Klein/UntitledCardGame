@@ -15,8 +15,17 @@ MonoBehaviour:
   guid: df61af15-e3d6-434c-9aaf-73f5aa5ee004
   Name: Redistribute
   Description: Discard an Attack card & create a Dagger in hand for adjacent
-  IconDescription: []
-  IconDescriptionTooltipLines: []
+  IconDescription:
+  - tokenType: 0
+    text: Discard an Attack card in hand
+    icon: 0
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 0
+    text: Create a Dagger in hand for adjacent rats
+    icon: 0
+  IconDescriptionTooltipLineOverrides: []
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 8b7f45e259d8a914ca69c92891ca4bf1, type: 3}
@@ -62,12 +71,14 @@ MonoBehaviour:
       data:
         effectStepName: FilterCards
         inputKey: cards
+        companionInstanceKey: 
         filter:
           cardCategoriesToInclude: 01000000
           retainedCardsFilter: 0
           manaCostFilter: 0
           manaCost: 0
           exactCardType: {fileID: 0}
+          companionInstanceFilterEnabled: 0
         outputKey: attacks
     - rid: 1289961820425028208
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}

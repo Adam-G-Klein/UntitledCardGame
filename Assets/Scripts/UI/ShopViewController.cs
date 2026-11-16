@@ -366,17 +366,16 @@ public class ShopViewController : MonoBehaviour,
         rerollButton.SetEnabled(true);
         FocusManager.Instance.EnableFocusableTarget(rerollButton.AsFocusable());
 
-        switchDecksButton.SetEnabled(true);
-        FocusManager.Instance.EnableFocusableTarget(switchDecksButton.AsFocusable());
+        if (!shopManager.HasSwitchedDecksThisShop) EnableSwitchDecksButton();
 
-        upgradeButton.SetEnabled(true);
-        FocusManager.Instance.EnableFocusableTarget(upgradeButton.AsFocusable());
+        if (shopManager.gameState.playerData.GetValue().shopLevel < shopManager.encounterConstants.shopLevels.Count - 1)
+        {
+            upgradeButton.SetEnabled(true);
+            FocusManager.Instance.EnableFocusableTarget(upgradeButton.AsFocusable());
+        }
 
         cardRemovalButton.SetEnabled(true);
         FocusManager.Instance.EnableFocusableTarget(cardRemovalButton.AsFocusable());
-
-        switchDecksButton.SetEnabled(true);
-        FocusManager.Instance.EnableFocusableTarget(switchDecksButton.AsFocusable());
 
         upgradeButtonContainer.style.display = DisplayStyle.Flex;
         rerollContainer.style.display = DisplayStyle.Flex;
@@ -1266,14 +1265,16 @@ public class ShopViewController : MonoBehaviour,
         if (currentShopLevel.switchDecksEnabled)
         {
             switchDecksButton.style.display = DisplayStyle.Flex;
-            switchDecksButton.SetEnabled(true);
-            FocusManager.Instance.EnableFocusableTarget(switchDecksButton.AsFocusable());
+            if (shopManager.HasSwitchedDecksThisShop) {
+                DisableSwitchDecksButton();
+            } else {
+                EnableSwitchDecksButton();
+            }
         }
         else
         {
             switchDecksButton.style.display = DisplayStyle.None;
-            switchDecksButton.SetEnabled(false);
-            FocusManager.Instance.DisableFocusableTarget(switchDecksButton.AsFocusable());
+            DisableSwitchDecksButton();
         }
     }
 
@@ -1892,7 +1893,8 @@ public class ShopViewController : MonoBehaviour,
     }
 
     private void ShowUpgradeButtonTooltip() {
-        VisualElement tooltip = shopManager.GetShopUpgradeTooltip().GetVisualElement();
+        // Tooltip is generated...
+        VisualElement tooltip = shopManager.GetGeneratedShopUpgradeTooltip().GetVisualElement();
 
         VisualElement background = new VisualElement();
 
@@ -1941,6 +1943,18 @@ public class ShopViewController : MonoBehaviour,
     public void EnableCardRemovalButton()
     {
         cardRemovalButton.SetEnabled(true);
+    }
+
+    public void DisableSwitchDecksButton()
+    {
+        switchDecksButton.SetEnabled(false);
+        FocusManager.Instance.DisableFocusableTarget(switchDecksButton.AsFocusable());
+    }
+
+    public void EnableSwitchDecksButton()
+    {
+        switchDecksButton.SetEnabled(true);
+        FocusManager.Instance.EnableFocusableTarget(switchDecksButton.AsFocusable());
     }
 
 

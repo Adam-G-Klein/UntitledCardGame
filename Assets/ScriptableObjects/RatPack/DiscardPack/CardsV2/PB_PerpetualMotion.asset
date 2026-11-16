@@ -16,9 +16,9 @@ MonoBehaviour:
   Name: 
   Description: 
   IconDescription: []
-  IconDescriptionTooltipLines: []
+  IconDescriptionTooltipLineOverrides: []
   defaultValues: []
-  Cost: 2
+  Cost: 1
   Artwork: {fileID: 0}
   cardCategory: 5
   packFrom: {fileID: 11400000, guid: 5f4300e0913784f05aeff0dd086d4338, type: 2}
@@ -76,8 +76,8 @@ MonoBehaviour:
         effectStepName: CombatInstanceCacheStore
         inputCombatInstanceKey: self
         hardCodedBool: 0
-        useHardCodedBool: 1
-        hardCodedInt: 0
-        useHardCodedInt: 0
+        useHardCodedBool: 0
+        hardCodedInt: 1
+        useHardCodedInt: 1
         currentWorkflowKey: 
-        cacheKey: perpetualMotionActivated
+        cacheKey: perpetualMotion

@@ -7,7 +7,7 @@ using UnityEngine;
     Effect that adds card(s) to a deck
 
     Input: One or more entities with a deck (companion or minion)
-    Output: NA
+    Output: The cards that were added to the deck(s)
     Parameters:
         - CardTypes: List of card types to add to deck if GetCardsFromKey is unchecked
         - GetCardsFromKey: If checked, uses cards from input docoument to add to a deck(s)
@@ -33,6 +33,8 @@ public class AddCardsToDeck : EffectStep, ITooltipProvider {
     private bool getScaleFromKey = false;
     [SerializeField]
     private string inputScaleKey = "";
+    [SerializeField]
+    private string outputKey = "";
 
     public AddCardsToDeck() {
         effectStepName = "AddCardsToDeck";
@@ -68,26 +70,30 @@ public class AddCardsToDeck : EffectStep, ITooltipProvider {
         }
 
         // Add the cards
-        addCardsToEntities(deckInstances, cardTypesToAdd, finalScale);
+        List<Card> addedCards = addCardsToEntities(deckInstances, cardTypesToAdd, finalScale);
+        document.map.AddItems<Card>(outputKey, addedCards);
 
         yield return null;
     }
 
-    private void addCardsToEntities(
+    private List<Card> addCardsToEntities(
             List<DeckInstance> deckInstances,
             List<CardType> cardTypes,
             int scale) {
+        List<Card> addedCards = new List<Card>();
         foreach (DeckInstance deckInstance in deckInstances) {
             CompanionTypeSO companionType = deckInstance.GetCompanionTypeSO();
             if(companionType != null) {
-                addCardsToEntity(deckInstance, cardTypes, scale, companionType);
+                addedCards.AddRange(addCardsToEntity(deckInstance, cardTypes, scale, companionType));
             } else {
                 Debug.LogError("DeckInstance does not have a companion type, cannot create new cards to add to it. won't know how to display their frames and icons without the companion reference");
             }
         }
+        return addedCards;
     }
 
-    private void addCardsToEntity(DeckInstance deckInstance, List<CardType> cardTypes, int scale, CompanionTypeSO companionType) {
+    private List<Card> addCardsToEntity(DeckInstance deckInstance, List<CardType> cardTypes, int scale, CompanionTypeSO companionType) {
+        List<Card> addedCards = new List<Card>();
         for (int i = 0; i < scale; i++) {
             List<Card> cards = new List<Card>();
             foreach (CardType cardType in cardTypes) {
@@ -115,7 +121,10 @@ public class AddCardsToDeck : EffectStep, ITooltipProvider {
             }
             // lets the shuffle-into-deck VFX show the real card instead of a blank card shape
             ShuffleCardFace.NotifyCardsAdded(deckInstance, cards);
+
+            addedCards.AddRange(cards);
         }
+        return addedCards;
     }
 
     public TooltipViewModel GetTooltip() {

@@ -56,7 +56,8 @@ public enum TooltipKeyword
     IronSkin,
     Treegunk,
     PowerfulStature,
-    Tiefvision
+    Tiefvision,
+    ExhaustsWhenPlayed,
 }
 public interface ITooltipProvider
 {

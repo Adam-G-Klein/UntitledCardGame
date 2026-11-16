@@ -11,24 +11,23 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ac8d29b7a56d46539bdf7eeb2d1260a, type: 3}
   m_Name: PerpetualMotion
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:
   powerType: 7
   title: Perpetual Motion
   description: The first time each turn your hand is empty, draw 1 card from self
     and adjacent
   abilities:
   - rid: 754093991137641276
-  - rid: 754093991137641285
   displaySprite: {fileID: 21300000, guid: 5e40f858eddaed340a6366c33c4e216f, type: 3}
   extraTooltip:
     rid: 758316142852047306
   stackable: 0
   cacheConfiguration:
-    key: 
+    key: perpetualMotion
     display: 1
-    sprite: {fileID: 0}
-    startOfTurnValue: 0
-    setStartOfTurnValue: 0
+    sprite: {fileID: 21300000, guid: e1e7ebd578f2d4684bfcfb3f2cf1f3e5, type: 3}
+    startOfTurnValue: 1
+    setStartOfTurnValue: 1
     startOfCombatValue: 0
     setStartOfCombatValue: 0
   references:
@@ -48,6 +47,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 754093991137641281
         - rid: 754093991137641282
+        - rid: 3226456462082179672
         - rid: 754093991137641284
         - rid: 754093991137641278
         - rid: 1700682198445196053
@@ -68,86 +68,59 @@ MonoBehaviour:
       data:
         effectStepName: DrawCards
         inputKey: self
-        outputKey: 
+        outputKey:
         scale: 1
         getScaleFromKey: 0
-        inputScaleKey: 
+        inputScaleKey:
+        waitForDrawsToResolve: 0
     - rid: 754093991137641280
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DrawCards
         inputKey: adj
-        outputKey: 
+        outputKey:
         scale: 1
         getScaleFromKey: 0
-        inputScaleKey: 
+        inputScaleKey:
+        waitForDrawsToResolve: 0
     - rid: 754093991137641281
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
-        inputKey: 
+        inputKey:
         outputKey: self
-        validTargets: 
+        validTargets:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-        cardSelectionHelperText: 
+        cardSelectionHelperText:
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 754093991137641282
       type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatInstanceCacheLoad
         inputCombatInstanceKey: self
-        cacheKey: perpetualMotionActivated
-        currentWorkflowKey: perpetualMotionActivated
+        cacheKey: perpetualMotion
+        currentWorkflowKey: perpetualMotion
     - rid: 754093991137641283
       type: {class: CombatInstanceCacheStore, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatInstanceCacheStore
         inputCombatInstanceKey: self
-        hardCodedBool: 1
-        useHardCodedBool: 1
+        hardCodedBool: 0
+        useHardCodedBool: 0
         hardCodedInt: 0
-        useHardCodedInt: 0
-        currentWorkflowKey: 
-        cacheKey: perpetualMotionActivated
+        useHardCodedInt: 1
+        currentWorkflowKey:
+        cacheKey: perpetualMotion
     - rid: 754093991137641284
       type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EndWorkflowIfConditionMet
-        inputKey1: perpetualMotionActivated
+        inputKey1: empty
         conditionToEndOn: 1
-    - rid: 754093991137641285
-      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
-      data:
-        abilityTrigger: 12
-        effectSteps:
-        - rid: 754093991137641287
-        - rid: 754093991137641288
-        weight: 0
-    - rid: 754093991137641287
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: self
-        validTargets: 
-        number: 1
-        specialTargetRule: 3
-        cantCancelTargetting: 0
-        cardSelectionHelperText: 
-    - rid: 754093991137641288
-      type: {class: CombatInstanceCacheStore, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatInstanceCacheStore
-        inputCombatInstanceKey: self
-        hardCodedBool: 0
-        useHardCodedBool: 1
-        hardCodedInt: 0
-        useHardCodedInt: 0
-        currentWorkflowKey: 
-        cacheKey: perpetualMotionActivated
     - rid: 758316142852047306
       type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
       data:
@@ -159,3 +132,13 @@ MonoBehaviour:
         effectStepName: EntityAbilityTriggeredVFX
         label: Perpetual Motion
         icon: {fileID: 21300000, guid: 5e40f858eddaed340a6366c33c4e216f, type: 3}
+    - rid: 3226456462082179672
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 0
+        useHardCodedInputKey1: 1
+        inputKey1:
+        operation: 0
+        inputKey2: perpetualMotion
+        outputKey: empty

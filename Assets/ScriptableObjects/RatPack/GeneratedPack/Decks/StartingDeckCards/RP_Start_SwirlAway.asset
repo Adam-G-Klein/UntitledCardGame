@@ -23,7 +23,7 @@ MonoBehaviour:
     text: 
     icon: 0
   - tokenType: 0
-    text: 6
+    text: 7
     icon: 0
   - tokenType: 2
     text: 
@@ -31,9 +31,7 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 6
-  IconDescriptionTooltipLines:
-  - Exhaust a Charm card in hand as a cost to play this card.
-  - Give 6 block to the leftmost rat, which prevents damage until next turn
+  IconDescriptionTooltipLineOverrides: []
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 8c16952da6b2cfa4181be941e4a49469, type: 3}
@@ -108,7 +106,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: target
         statusEffect: 2
-        scale: 6
+        scale: 7
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0

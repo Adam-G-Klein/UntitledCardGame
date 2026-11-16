@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
   m_Name: RP_L2_Alder
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:
   guid: 8df049ee-aa0e-4b94-b7fb-ea8b28c7a3bf
   companionName: Alder+
   maxHealth: 40
@@ -41,16 +41,16 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Alder+
-      description: The first 5 times you draw a Charm card from Alder or a rat adjacent
-        to Alder each turn, draw 1 from that rat
+      description: The first 5 times you draw a Charm card each turn, draw 1 card
+        from a random rat
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
       iconDescriptionLine: []
       card: {fileID: 0}
   keepsakeTitle: Hidden Cache
-  keepsakeDescription: The first 5 times you draw a Charm card from Alder or an adjacent
-    rat each turn, draw 1 from that rat
-  tooltipTokens: 
+  keepsakeDescription: The first 5 times you draw a Charm card each turn, draw 1
+    card from a random rat
+  tooltipTokens:
   references:
     version: 2
     RefIds:
@@ -59,7 +59,6 @@ MonoBehaviour:
       data:
         abilityTrigger: 19
         effectSteps:
-        - rid: 758316142852047366
         - rid: 754093871974056130
         - rid: 754093968382754844
         - rid: 754093968382754847
@@ -70,6 +69,7 @@ MonoBehaviour:
         - rid: 754093968382754838
         - rid: 754093968382754842
         - rid: 754093968382754843
+        - rid: 8966137386555146258
         - rid: 2511001095643857207
         - rid: 6567162537147629632
         weight: 0
@@ -78,13 +78,13 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
-        inputKey: 
+        inputKey:
         outputKey: self
-        validTargets: 
+        validTargets:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-        cardSelectionHelperText: 
+        cardSelectionHelperText:
         selectionPurpose: 0
         selectionCardCategory: 0
     - rid: 754093968382754838
@@ -104,7 +104,7 @@ MonoBehaviour:
         effectStepName: BooleanComparison
         hardCodedInputKey1: 0
         useHardCodedInputKey1: 1
-        inputKey1: 
+        inputKey1:
         operation: 0
         inputKey2: numDrawn
         outputKey: isZero
@@ -139,12 +139,14 @@ MonoBehaviour:
       data:
         effectStepName: FilterCards
         inputKey: cardDrawn
+        companionInstanceKey:
         filter:
           cardCategoriesToInclude: 04000000
           retainedCardsFilter: 0
           manaCostFilter: 0
           manaCost: 0
           exactCardType: {fileID: 0}
+          companionInstanceFilterEnabled: 0
         outputKey: statusCards
     - rid: 754093968382754845
       type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
@@ -160,26 +162,34 @@ MonoBehaviour:
         ints: 1
         strings: 0
         bools: 0
-    - rid: 758316142852047366
-      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EndWorkflowIfConditionMet
-        inputKey1: fromSelfOrAdjacent
-        conditionToEndOn: 0
     - rid: 2511001095643857207
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DrawCards
-        inputKey: companionCardPlayedFrom
-        outputKey: 
+        inputKey: random
+        outputKey:
         scale: 1
         getScaleFromKey: 0
-        inputScaleKey: 
+        inputScaleKey:
         waitForDrawsToResolve: 0
     - rid: 6567162537147629632
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: companionCardPlayedFrom
+        inputKey: random
         prefabToInstantiate: {fileID: 9028122300360462519, guid: 9a51d49c5066ce74cb95e42b96240249, type: 3}
         scale: 1
+    - rid: 8966137386555146258
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey:
+        outputKey: random
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 6
+        cantCancelTargetting: 0
+        cardSelectionHelperText:
+        selectionPurpose: 0
+        selectionCardCategory: 0

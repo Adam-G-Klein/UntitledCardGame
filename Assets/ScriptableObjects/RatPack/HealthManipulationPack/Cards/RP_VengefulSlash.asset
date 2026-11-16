@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 338f2055-a793-46ae-a3b9-e18f265ac10e
   Name: Vengeful Slash
-  Description: Deal {rpl_damage} damage & if self below half HP, deal {rpl_damage}
+  Description: Deal {rpl_damage} damage & if self at or below half HP, deal {rpl_damage}
     damage
   defaultValues:
   - key: rpl_damage

@@ -67,6 +67,7 @@ public class ShopDataSO : IdentifiableSO
     public int freeRerolls = 6;
     public int freeCardRemovals = 2;
     public int maximumMoneyLeftBeforeNextCombat = 10;
+    public bool showCardBuyingTutorialOnFirstCardOfShop = false;
 
     [Header("Neutral cards")]
     public CardPoolSO neutralCardPool;
@@ -132,6 +133,11 @@ public class ShopLevel {
     [Space(10)]
     [Header("Help the player understand this shit")]
     public TooltipViewModel upgradeTooltip;
+
+    [Space(10)]
+    [Header("Extra bonus lines shown in the generated upgrade tooltip\n" +
+            "(the % stats are generated automatically; put non-percentage perks here, e.g. \"Place cards anywhere\")")]
+    public List<string> upgradeBonusLines;
 
     public int GetTotalCompanionPercentage() {
         return commonCompanionPercentage +

@@ -16,7 +16,8 @@ public class EnemyView : IUIEventReceiver
 
     public static string STATUS_EFFECTS_CONTAINER_SUFFIX = "-status-effects";
 
-    private float SCREEN_WIDTH_PERCENT = 0.15f;
+    private float SCREEN_WIDTH_PERCENT = 0.16f;
+    private float SCREEN_WIDTH_PERCENT_BIG = 0.18f;
     private float ENEMY_RATIO = 1.15f;
 
     private Enemy enemy = null;
@@ -364,13 +365,16 @@ public class EnemyView : IUIEventReceiver
 
     private Tuple<int, int> GetWidthAndHeight()
     {
-        int width = (int)(Screen.width * SCREEN_WIDTH_PERCENT);
+        float width_percent = SCREEN_WIDTH_PERCENT;
+        if (GetEnemy().enemyType.big)
+            width_percent = SCREEN_WIDTH_PERCENT_BIG;
+        int width = (int)(Screen.width * width_percent);
         int height = (int)(width * ENEMY_RATIO);
 
         // This drove me insane btw
         #if UNITY_EDITOR
         UnityEditor.PlayModeWindow.GetRenderingResolution(out uint windowWidth, out uint windowHeight);
-        width = (int)(windowWidth * SCREEN_WIDTH_PERCENT);
+        width = (int)(windowWidth * width_percent);
         height = (int)(width * ENEMY_RATIO);
         #endif
 

@@ -39,27 +39,40 @@ public class TooltipLine
             Label titleLabel = new Label();
             titleLabel.AddToClassList("tooltip-icon-description-text");
             string titleLabelText = "";
-            Dictionary<DescriptionToken.DescriptionIconType, bool> seen = new();
-            foreach (var token in iconDescriptionLine)
-            {
-                if (token.tokenType == DescriptionToken.TokenType.Icon) {
-                    DescriptionIconInfo descriptionIconInfo = GameplayConstantsSingleton.Instance.gameplayConstants.descriptionIconSprites[token.icon];
-                    if (descriptionIconInfo.iconName != "" && !seen.ContainsKey(token.icon)) {
-                        if (titleLabelText != "") titleLabelText += " ";
-                        titleLabelText += descriptionIconInfo.iconName;
-                    }
-                    seen[token.icon] = true;
-                }
-            }
-            if (titleLabelText == "" && iconDescriptionLine.Count == 1 && iconDescriptionLine[0].tokenType == DescriptionToken.TokenType.Text) {
+            if (iconDescriptionLine.Count == 1 && iconDescriptionLine[0].tokenType == DescriptionToken.TokenType.Text) {
                 string[] words = iconDescriptionLine[0].text.Split(new[] { ' ', '\t', '\n' }, System.StringSplitOptions.RemoveEmptyEntries);
                 // Debug.Log("TooltipLine: GetVisualElement: words: " + string.Join(", ", words));
+                int NUM_WORDS_TO_KEEP = 5;
                 if (words.Length > 0) {
-                    titleLabelText = string.Join(" ", words.Take(3));
+                    titleLabelText = string.Join(" ", words.Take(NUM_WORDS_TO_KEEP));
                 }
-                if (words.Length > 3) {
+                if (words.Length > NUM_WORDS_TO_KEEP) {
                     titleLabelText += "...";
                 }
+            } else
+            {
+                Dictionary<DescriptionToken.DescriptionIconType, bool> seen = new();
+                foreach (var token in iconDescriptionLine)
+                {
+                    if (token.tokenType == DescriptionToken.TokenType.Icon) {
+                        DescriptionIconInfo descriptionIconInfo = GameplayConstantsSingleton.Instance.gameplayConstants.descriptionIconSprites[token.icon];
+                        if (descriptionIconInfo.iconName != "" && !seen.ContainsKey(token.icon)) {
+                            titleLabelText += descriptionIconInfo.iconName;
+                            if (titleLabelText != "") titleLabelText += " ";
+                        }
+                        seen[token.icon] = true;
+                    }
+                    else if (token.tokenType == DescriptionToken.TokenType.Text)
+                    {
+                        string trimmedText = token.text.Trim();
+                        if (trimmedText.Any(char.IsLetterOrDigit)) {
+                            titleLabelText += trimmedText;
+                            // Add a space after each icon / text.
+                            if (titleLabelText != "") titleLabelText += " ";
+                        }
+                    }
+                }
+                titleLabelText = titleLabelText.Trim();
             }
 
             if (titleLabelText != "") {

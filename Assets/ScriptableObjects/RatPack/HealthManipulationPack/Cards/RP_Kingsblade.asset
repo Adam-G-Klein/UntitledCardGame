@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: fc545a1f-3c04-4095-ae84-85246b01a6a1
   Name: Kingsblade
-  Description: Deal {rpl_damage} damage. If self below half HP, draw 1 card from
+  Description: Deal {rpl_damage} damage. If self at or below half HP, draw 1 card from
     self
   defaultValues:
   - key: rpl_damage

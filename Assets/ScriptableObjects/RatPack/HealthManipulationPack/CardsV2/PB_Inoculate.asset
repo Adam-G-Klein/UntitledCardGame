@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: cfe67ff1-2ed8-4e57-9acd-7be3b6500069
   Name: Inoculate
-  Description: 'Exhaust. If self below half HP, draw 1 card from self. Heal all 4
+  Description: 'Exhaust. If self at or below half HP, draw 1 card from self. Heal all 4
     HP. '
   IconDescription:
   - tokenType: 0
@@ -52,7 +52,7 @@ MonoBehaviour:
     icon: 33
   IconDescriptionTooltipLines:
   - This card exhausts when played.
-  - If the owner rat is below half HP, draw 2 card from the owner rat.
+  - If the owner rat is at or below half HP, draw 2 card from the owner rat.
   - Heal all rats on your team.
   defaultValues: []
   Cost: 0

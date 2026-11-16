@@ -11,14 +11,31 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: PB_GolemsMight
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:
   guid: 75f3719e-db2a-46d3-ac2f-91dd00e125f8
   Name: Golem's Might
   Description: Deal damage equal to this rat's missing HP ({rpl_damage} damage)
-  IconDescription: []
-  IconDescriptionTooltipLines: []
+  IconDescription:
+  - tokenType: 0
+    text: N
+    icon: 0
+  - tokenType: 2
+    text:
+    icon: 1
+  - tokenType: 2
+    text:
+    icon: 18
+  - tokenType: 1
+    text:
+    icon: 18
+  - tokenType: 0
+    text: N = This rat's missing HP ({missingHP} missing HP, {rpl_damage} damage)
+    icon: 18
+  IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: rpl_damage
+    value: 0
+  - key: missingHP
     value: 0
   Cost: 2
   Artwork: {fileID: 21300000, guid: b6a3a72ddfbd65c429c809259c81ca0b, type: 3}
@@ -38,7 +55,7 @@ MonoBehaviour:
     rid: -2
   onDrawEffectWorkflow:
     rid: -2
-  tooltips: 
+  tooltips:
   tooltipKeyword: 37
   references:
     version: 2
@@ -58,13 +75,13 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
-        inputKey: 
+        inputKey:
         outputKey: self
-        validTargets: 
+        validTargets:
         number: 1
         specialTargetRule: 4
         cantCancelTargetting: 0
-        cardSelectionHelperText: 
+        cardSelectionHelperText:
         selectionPurpose: 0
         selectionCardCategory: 0
     - rid: 2034230108114649620
@@ -72,9 +89,9 @@ MonoBehaviour:
       data:
         effectStepName: GetHPStatistics
         inputKey: self
-        outputMaxHPKey: 
-        outputCurrentHPKey: 
-        outputMissingHPKey: dmg
+        outputMaxHPKey:
+        outputCurrentHPKey:
+        outputMissingHPKey: missingHP
     - rid: 2034230108114649622
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -83,22 +100,22 @@ MonoBehaviour:
         combatEffect: 0
         scale: 0
         getScaleFromKey: 1
-        inputScaleKey: dmg
+        inputScaleKey: missingHP
         multiplicity: 1
         getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
+        inputMultiplicityKey:
         vfxPrefab: {fileID: 3627792303146131902, guid: 1340f9b7c2e72c143934f054a8e4202b, type: 3}
     - rid: 2034230108114649623
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
-        inputKey: 
+        inputKey:
         outputKey: target
         validTargets: 02000000
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
-        cardSelectionHelperText: 
+        cardSelectionHelperText:
         selectionPurpose: 0
         selectionCardCategory: 0

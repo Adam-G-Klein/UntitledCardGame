@@ -20,6 +20,7 @@ public class DescriptionToken
         Text,
         NewLine,
         Icon,
+        NewLineHorizontalDiv,
     }
 
     public enum DescriptionIconType
@@ -66,6 +67,14 @@ public class DescriptionToken
     public DescriptionIconType icon;
 }
 
+[Serializable]
+public class IconDescriptionTooltipLineOverride
+{
+    public int lineIndex;
+    public string bonusText = "";
+    public bool hidden = false;
+}
+
 [CreateAssetMenu(
     fileName ="New Card",
     menuName = "Cards/New Card Type")]
@@ -76,7 +85,11 @@ public class CardType: IdentifiableSO, ITooltipProvider
     public string Description;
     // Experimental field for a description with hieroglyphic shorthand.
     public List<DescriptionToken> IconDescription = new();
-    public List<string> IconDescriptionTooltipLines = new();
+
+    [Header("Per-line control over icon description tooltip lines.\n" +
+            "By default every line gets a tooltip with empty text; add an entry here to\n" +
+            "give a specific line (by index) bonus explanatory text, or to hide it entirely.")]
+    public List<IconDescriptionTooltipLineOverride> IconDescriptionTooltipLineOverrides = new();
 
     public List<CardValue> defaultValues = new();
     public int Cost;
@@ -309,82 +322,58 @@ public class CardType: IdentifiableSO, ITooltipProvider
     {
         TooltipViewModel tooltip = new TooltipViewModel(empty: true);
 
+        if (exhaustsWhenPlayed)
+        {
+            tooltip += KeywordTooltipProvider.Instance.GetTooltip(TooltipKeyword.ExhaustsWhenPlayed);
+
+        }
+        if (retain)
+        {
+            tooltip += KeywordTooltipProvider.Instance.GetTooltip(TooltipKeyword.Retain);
+        }
+
         if (HasIconDescription())
         {
             Debug.Log("CardType.GetTooltip(): Generating icon description tooltip");
             // Loop through the description tokens with icons.
-            List<DescriptionToken> tokens = GetIconDescriptionTokens(fillDefaultValues: false);
+            List<DescriptionToken> tokens = GetIconDescriptionTokens(fillDefaultValues: true);
 
             // Split across newlines
             List<List<DescriptionToken>> descriptionLines = new List<List<DescriptionToken>> { new List<DescriptionToken>() };
             foreach (DescriptionToken token in tokens)
             {
-                if (token.tokenType == DescriptionToken.TokenType.NewLine)
+                if (token.tokenType == DescriptionToken.TokenType.NewLine || token.tokenType == DescriptionToken.TokenType.NewLineHorizontalDiv)
                 {
                     descriptionLines.Add(new List<DescriptionToken>());
                     continue;
                 }
-                // Exclude tokens that are only placeholders for default values.
-                // if (token.tokenType == DescriptionToken.TokenType.Text && System.Text.RegularExpressions.Regex.IsMatch(token.text, @"\{.+\}"))
-                // {
-                //     continue;
-                // }
                 descriptionLines.Last().Add(token);
             }
-            // Remove lines without at least one icon token.
-            // descriptionLines = descriptionLines.Where(line => line.Any(token => token.tokenType == DescriptionToken.TokenType.Icon)).ToList();
             for (int i = 0; i < descriptionLines.Count; i++)
             {
-                List<DescriptionToken> line = descriptionLines[i];
-                if (i >= IconDescriptionTooltipLines.Count)
+                // Do not make tooltips for pure text on cards.
+                // The text should be able to explain itself.
+                if (descriptionLines[i].Count == 1 && descriptionLines[i].First().tokenType == DescriptionToken.TokenType.Text)
                 {
                     continue;
                 }
-                string description = "";
-                // If the line has only one token and it's a text token, use that as the description.
-                if (line.Count == 1 && line[0].tokenType == DescriptionToken.TokenType.Text)
-                {
-                    description = IconDescriptionTooltipLines[i];
-                }
 
+                List<DescriptionToken> line = descriptionLines[i];
+                IconDescriptionTooltipLineOverride lineOverride = IconDescriptionTooltipLineOverrides
+                    .FirstOrDefault(o => o.lineIndex == i);
+                if (lineOverride != null && lineOverride.hidden)
+                {
+                    continue;
+                }
+                string description = lineOverride?.bonusText ?? "";
                 tooltip += new TooltipViewModel(description, line);
-                // Do not add the tooltips if they haven't been filled out yet.
-                // else
-                // {
-                //     tooltip += new TooltipViewModel("TODO", line);
-                // }
             }
-
-            /*
-            // Add this if we want to see tooltips for individual icons.
-            List<DescriptionToken.DescriptionIconType> uniqueIconTokens = tokens.Where(t => t.tokenType == DescriptionToken.TokenType.Icon).Select(t => t.icon).Distinct().ToList();
-            foreach (DescriptionToken.DescriptionIconType tokenType in uniqueIconTokens)
-            {
-                if (KeywordTooltipProvider.Instance.HasTooltip(tokenType))
-                {
-                    // Don't include the description, only the title and icon.
-                    tooltip += KeywordTooltipProvider.Instance.GetTooltip(tokenType, includeDescription: false);
-                }
-            }
-            */
         }
-        else
+
+        foreach (TooltipKeyword keyword in tooltips)
         {
-            List<TooltipKeyword> tooltipKeywords = new();
-            tooltipKeywords.AddRange(tooltips);
-            if (!tooltipKeywords.Contains(TooltipKeyword.Exhaust) && exhaustsWhenPlayed)
-            {
-                tooltipKeywords.Add(TooltipKeyword.Exhaust);
-            }
-            if (!tooltipKeywords.Contains(TooltipKeyword.Retain) && retain)
-            {
-                tooltipKeywords.Add(TooltipKeyword.Retain);
-            }
-            foreach (TooltipKeyword keyword in tooltipKeywords)
-            {
-                Debug.Log("CardType.GetTooltip(): Adding tooltip keyword " + keyword);
-                tooltip += KeywordTooltipProvider.Instance.GetTooltip(keyword);
-            }
+            Debug.Log("CardType.GetTooltip(): Adding tooltip keyword " + keyword);
+            tooltip += KeywordTooltipProvider.Instance.GetTooltip(keyword);
         }
 
         List<EffectWorkflow> tooltipWorkflows = new();
@@ -401,32 +390,7 @@ public class CardType: IdentifiableSO, ITooltipProvider
         {
             tooltipWorkflows.Add(onDiscardEffectWorkflow);
         }
-        foreach (EffectWorkflow workflow in tooltipWorkflows)
-        {
-            if (workflow == null)
-            {
-                continue;
-            }
-            foreach (EffectStep step in workflow.effectSteps)
-            {
-                if (step is ITooltipProvider)
-                {
-                    Debug.Log("CardType.GetTooltip(): Found effect step " + step.effectStepName + " that provides a tooltip, adding it to the card tooltip");
-                    ITooltipProvider tooltipProvider = (ITooltipProvider)step;
-                    // + is overridden in Tooltip class to concatenate plaintext strings
-                    // this code should stay operable when images are added if we update the
-                    // operation override
-                    TooltipViewModel stepTooltip = tooltipProvider.GetTooltip();
-                    if (HasIconDescription() && IconDescriptionTooltipLines.Count > 0 && !stepTooltip.lines.Any(line => line.card != null))
-                    {
-                        Debug.Log("CardType.GetTooltip(): Skipping adding tooltip from effect step " + step.effectStepName + " because it doesn't have a card associated with it and this card has an icon description with custom tooltip lines");
-                        continue;
-                    }
-                    tooltip += stepTooltip;
-                    Debug.Log("CardType.GetTooltip(): Added tooltip " + tooltip.plainText);
-                }
-            }
-        }
+        tooltip += EffectWorkflow.GetEffectStepTooltips(tooltipWorkflows, x => true);
         return tooltip;
     }
 }

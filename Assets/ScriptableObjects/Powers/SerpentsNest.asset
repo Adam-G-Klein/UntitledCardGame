@@ -1,0 +1,210 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ac8d29b7a56d46539bdf7eeb2d1260a, type: 3}
+  m_Name: SerpentsNest
+  m_EditorClassIdentifier: 
+  powerType: 47
+  title: Serpent's Nest
+  description: End of turn, shuffle a Serpent's Tooth into a random rat's deck with
+    +3 damage for each Charm exhausted this turn
+  abilities:
+  - rid: 8966137386555146505
+  - rid: 754093991137640772
+  displaySprite: {fileID: 21300000, guid: 06c409edcf5e308438ea9c89ccd99c68, type: 3}
+  extraTooltip:
+    rid: 8966137386555146489
+  stackable: 1
+  cacheConfiguration:
+    key: numCharmsExhausted
+    display: 1
+    sprite: {fileID: 21300000, guid: e1e7ebd578f2d4684bfcfb3f2cf1f3e5, type: 3}
+    startOfTurnValue: 0
+    setStartOfTurnValue: 1
+    startOfCombatValue: 0
+    setStartOfCombatValue: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 754093991137640772
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 2
+        effectSteps:
+        - rid: 8966137386555146513
+        - rid: 754093991137641208
+        - rid: 2511001254715195668
+        - rid: 8966137386555146512
+        - rid: 8966137386555146514
+        - rid: 8966137386555146515
+        - rid: 754093991137641210
+        weight: 0
+    - rid: 754093991137641208
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: targets
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 6
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
+    - rid: 754093991137641210
+      type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardModificationEffect
+        inputKey: out
+        scale: 0
+        affectsAllCardsOfType: 0
+        cardTypeToModify: {fileID: 0}
+        getScaleFromKey: 1
+        scaleKey: buff
+        modification: 0
+    - rid: 2511001254715195668
+      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToDeck
+        inputKey: targets
+        cardTypes:
+        - {fileID: 11400000, guid: 301601cabeda94c299c91c956a5da030, type: 2}
+        addToDeckMethod: 1
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        outputKey: out
+    - rid: 8966137386555146489
+      type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
+      data:
+        empty: 1
+        lines: []
+    - rid: 8966137386555146505
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 9
+        effectSteps:
+        - rid: 8966137386555146506
+        - rid: 8966137386555146511
+        - rid: 8966137386555146507
+        - rid: 8966137386555146508
+        - rid: 8966137386555146510
+        - rid: 8966137386555146509
+        weight: 0
+    - rid: 8966137386555146506
+      type: {class: FilterCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FilterCards
+        inputKey: cardExhausted
+        companionInstanceKey: 
+        filter:
+          cardCategoriesToInclude: 04000000
+          retainedCardsFilter: 0
+          manaCostFilter: 0
+          manaCost: 0
+          exactCardType: {fileID: 0}
+          companionInstanceFilterEnabled: 0
+        outputKey: charmCard
+    - rid: 8966137386555146507
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
+    - rid: 8966137386555146508
+      type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheLoad
+        inputCombatInstanceKey: self
+        cacheKey: numCharmsExhausted
+        currentWorkflowKey: numCharmsExhausted
+    - rid: 8966137386555146509
+      type: {class: CombatInstanceCacheStore, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheStore
+        inputCombatInstanceKey: self
+        hardCodedBool: 0
+        useHardCodedBool: 0
+        hardCodedInt: 0
+        useHardCodedInt: 0
+        currentWorkflowKey: numCharmsExhausted
+        cacheKey: numCharmsExhausted
+    - rid: 8966137386555146510
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: numCharmsExhausted
+        operand2InputKey: UNUSED
+        operation: 0
+        scale: 1
+        outputKey: numCharmsExhausted
+    - rid: 8966137386555146511
+      type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfListEmpty
+        inputKey1: charmCard
+    - rid: 8966137386555146512
+      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FXEffectStep
+        waitForEffect: 0
+        fXExperiencePrefab: {fileID: 4075960956037802917, guid: ec7b1a1529f9141458320888bf8e3d96, type: 3}
+        rootLocationGameObjectKey: 
+        positionMappingList:
+        - fromWorkflow: self
+          toFxExperience: start
+        - fromWorkflow: targets
+          toFxExperience: end
+        gameobjectMappingList: []
+        vePositionMappingList: []
+        veMappingList: []
+    - rid: 8966137386555146513
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
+    - rid: 8966137386555146514
+      type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheLoad
+        inputCombatInstanceKey: self
+        cacheKey: numCharmsExhausted
+        currentWorkflowKey: numCharmsExhausted
+    - rid: 8966137386555146515
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: numCharmsExhausted
+        operand2InputKey: UNUSED
+        operation: 2
+        scale: 3
+        outputKey: buff

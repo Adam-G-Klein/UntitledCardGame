@@ -33,7 +33,7 @@ public class GenerateRun : MonoBehaviour
     [Header("Card Test Build")]
     public MapGeneratorSO cardTestMapGenerator;
     public List<CompanionTypeSO> testStaticCompanions;
-    public StartingDeckSO testOverrideStartingDeck;
+    public CardTestConfigurationSO cardTestConfiguration;
     public int testTeamSize;
     public int testStartingGold;
 
@@ -77,7 +77,7 @@ public class GenerateRun : MonoBehaviour
         foreach (CompanionTypeSO companionType in testStaticCompanions) {
             Companion companion = new Companion(companionType);
             companion.deck = new Deck(
-                testOverrideStartingDeck.cards
+                cardTestConfiguration.GetAllCards()
                     .Select(cardType => new Card(cardType, companionType, isStartingDeckCard: true))
                     .ToList(),
                 companionType.initialCardsDealtPerTurn);

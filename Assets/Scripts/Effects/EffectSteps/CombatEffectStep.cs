@@ -41,6 +41,8 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
     private GameObject casterTrail = null;
     private CombatInstance originCombatInstance;
     private int baseMultiplicity;
+    [SerializeField]
+    private string damageDealtOutputKey = "";
     public CombatEffectStep()
     {
         effectStepName = "CombatEffectStep";
@@ -60,6 +62,7 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
 
         const float delayIncrement = 1f;
 
+        int totalEffectiveScaleApplied = 0;
         // Update loop to do each instance of damage as the outer loop so that they can be timed across companions
         // taking damage from the same effect
         for (int i = 0; i < baseMultiplicity; i++)
@@ -79,7 +82,7 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
                     if (quickTrail) HitTiming.Expect(instance, vfxPrefab, PrecastTrailController.QuickFlightTime);
                     else if (trail && vfxPrefab != null) HitTiming.Expect(instance, vfxPrefab, PrecastTrailController.Instance.FlightTime);
 
-                    instance.ApplyNonStatusCombatEffect(combatEffect,
+                    int scaleApplied = instance.ApplyNonStatusCombatEffect(combatEffect,
                         finalScale,
                         originCombatInstance,
                         immediateVfx,
@@ -123,6 +126,7 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
                             target,
                             () => { if (target != null) GameObject.Instantiate(vfxPrefab, target.transform.position, Quaternion.identity); });
                     }
+                    totalEffectiveScaleApplied += scaleApplied;
                 }
             }
 
@@ -131,6 +135,9 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
                 yield return new WaitForSeconds(delayIncrement / baseMultiplicity);
             }
         }
+
+        if (damageDealtOutputKey != "")
+            document.intMap[damageDealtOutputKey] = totalEffectiveScaleApplied;
     }
 
     private int getFinalScale(EffectDocument document)

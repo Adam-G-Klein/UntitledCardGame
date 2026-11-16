@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: Costly Rerolls
   m_EditorClassIdentifier: 
   description: Costly Rerolls
-  devDescription: Make rerolling more expensive so it's harder to force things
+  devDescription: Make rerolling and booster packs more expensive so it's harder
+    to force things
   ascensionType: 6
   ascensionModificationValues:
     entries:
     - Key: incrementalCostIncrease
       Value: 0.5
     - Key: baseCostIncrease
-      Value: 0
+      Value: 3

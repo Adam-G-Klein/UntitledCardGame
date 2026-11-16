@@ -11,42 +11,33 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: PB_Slobber
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:
   guid: 157a80d9-e926-4514-953e-989151a44ab5
   Name: Slobber
-  Description: 
+  Description:
   IconDescription:
   - tokenType: 0
     text: '{rpl_damage}'
     icon: 0
   - tokenType: 2
-    text: 
+    text:
     icon: 1
   - tokenType: 2
-    text: 
+    text:
     icon: 33
-  - tokenType: 1
-    text: 
+  - tokenType: 3
+    text:
     icon: 0
-  - tokenType: 2
-    text: 
+  - tokenType: 0
+    text: 'If the last card you played was an Attack:'
     icon: 28
   - tokenType: 0
-    text: ': '
-    icon: 0
-  - tokenType: 0
-    text: '{rpl_damage_2}'
+    text: +{rpl_damage_2}
     icon: 0
   - tokenType: 2
-    text: 
+    text:
     icon: 1
-  - tokenType: 2
-    text: 
-    icon: 33
-  IconDescriptionTooltipLines:
-  - Deal damage to all foes.
-  - If the last card you played was an Attack, give the owner rat 1 strength, deal
-    more damage to all foes.
+  IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: rpl_damage
     value: 7
@@ -70,7 +61,7 @@ MonoBehaviour:
     rid: -2
   onDrawEffectWorkflow:
     rid: -2
-  tooltips: 
+  tooltips:
   tooltipKeyword: 37
   references:
     version: 2
@@ -85,10 +76,10 @@ MonoBehaviour:
         combatEffect: 0
         scale: 5
         getScaleFromKey: 0
-        inputScaleKey: 
+        inputScaleKey:
         multiplicity: 1
         getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
+        inputMultiplicityKey:
         vfxPrefab: {fileID: 7802981536919874616, guid: 16eae850e42612848bb7977c86eb870b, type: 3}
     - rid: 2511001503980847372
       type: {class: CheckTypeOfMostRecentlyPlayedCard, ns: , asm: Assembly-CSharp}
@@ -116,13 +107,13 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
-        inputKey: 
+        inputKey:
         outputKey: enemy
         validTargets: 02000000
         number: 1
         specialTargetRule: 1
         cantCancelTargetting: 0
-        cardSelectionHelperText: 
+        cardSelectionHelperText:
         selectionPurpose: 0
         selectionCardCategory: 0
     - rid: 5602892675124822191
@@ -133,8 +124,8 @@ MonoBehaviour:
         combatEffect: 0
         scale: 7
         getScaleFromKey: 0
-        inputScaleKey: 
+        inputScaleKey:
         multiplicity: 1
         getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
+        inputMultiplicityKey:
         vfxPrefab: {fileID: 7802981536919874616, guid: 16eae850e42612848bb7977c86eb870b, type: 3}

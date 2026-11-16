@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 759f238d-9a11-48e5-b598-7319cd51802c
   Name: Aegis
-  Description: Give self 8 block & if self below half HP, give self 6 block
+  Description: Give self 8 block & if self at or below half HP, give self 6 block
   IconDescription:
   - tokenType: 0
     text: 8
@@ -43,7 +43,7 @@ MonoBehaviour:
   IconDescriptionTooltipLines:
   - Give a rat of your choice 8 block, which prevents damage until the start of next
     turn.
-  - If the owner rat is below half HP, give an extra 6 block
+  - If the owner rat is at or below half HP, give an extra 6 block
   defaultValues: []
   Cost: 2
   Artwork: {fileID: 21300000, guid: 5e40f858eddaed340a6366c33c4e216f, type: 3}

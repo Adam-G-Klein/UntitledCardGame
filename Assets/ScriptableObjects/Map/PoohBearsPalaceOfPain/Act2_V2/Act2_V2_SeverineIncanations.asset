@@ -11,16 +11,27 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
   m_Name: Act2_V2_SeverineIncanations
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:
   guid: d6044fe9-86e3-42ed-a77b-692f25d36739
   displayName: "S\xE9verine"
   maxHealth: 130
   baseAttackDamage: 0
   enemyDisplayType: 0
+  big: 1
   sprite: {fileID: 21300000, guid: 3a4dd62a7f92a4c9c9902af9646d7316, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
-  trashTalkDialogue: []
+  trashTalkDialogue:
+  - dialogue: Ahh, so you're the one everyone's talking about?
+    sprite: {fileID: 21300000, guid: 3a4dd62a7f92a4c9c9902af9646d7316, type: 3}
+    pause: 0
+  - dialogue: I was expecting someone more impressive. Pity.
+    sprite: {fileID: 21300000, guid: 3a4dd62a7f92a4c9c9902af9646d7316, type: 3}
+    pause: 0
+  - dialogue: Nevertheless, I will enjoy tearing you and your little friends to tiny
+      pieces.
+    sprite: {fileID: 21300000, guid: 3a4dd62a7f92a4c9c9902af9646d7316, type: 3}
+    pause: 0
   morale: 0
   abilities:
   - rid: 8790164555430887889
@@ -56,8 +67,8 @@ MonoBehaviour:
       icon: {fileID: 0}
       iconDescriptionLine: []
       card: {fileID: 0}
-    - title: 
-      description: 
+    - title:
+      description:
       relatedBehaviorIndex: -1
       icon: {fileID: 0}
       iconDescriptionLine: []
@@ -107,23 +118,23 @@ MonoBehaviour:
         - {fileID: 11400000, guid: 1d778d4184ce44ae3b5f16f43e14c5b7, type: 2}
         addToDeckMethod: 1
         getCardsFromKey: 0
-        inputCardsKey: 
+        inputCardsKey:
         scale: 1
         getScaleFromKey: 0
-        inputScaleKey: 
-        outputKey: 
+        inputScaleKey:
+        outputKey:
     - rid: 8790164555430887928
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
-        inputKey: 
+        inputKey:
         outputKey: self
-        validTargets: 
+        validTargets:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-        cardSelectionHelperText: 
+        cardSelectionHelperText:
         selectionPurpose: 0
         selectionCardCategory: 0
     - rid: 8790164555430887929
@@ -131,7 +142,7 @@ MonoBehaviour:
       data:
         effectStepName: FilterCards
         inputKey: cardPlayed
-        companionInstanceKey: 
+        companionInstanceKey:
         filter:
           cardCategoriesToInclude: 02000000
           retainedCardsFilter: 0
@@ -152,7 +163,7 @@ MonoBehaviour:
         effectStepName: BooleanComparison
         hardCodedInputKey1: 0
         useHardCodedInputKey1: 1
-        inputKey1: 
+        inputKey1:
         operation: 1
         inputKey2: numNonAttackCards
         outputKey: playedNonAttack
@@ -167,13 +178,13 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
-        inputKey: 
+        inputKey:
         outputKey: self
-        validTargets: 
+        validTargets:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-        cardSelectionHelperText: 
+        cardSelectionHelperText:
         selectionPurpose: 0
         selectionCardCategory: 0
     - rid: 8790164555430887935
@@ -191,10 +202,10 @@ MonoBehaviour:
         combatEffect: 0
         scale: 10
         getScaleFromKey: 0
-        inputScaleKey: 
+        inputScaleKey:
         multiplicity: 1
         getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
+        inputMultiplicityKey:
         vfxPrefab: {fileID: 6137048663962808129, guid: 418a03ccd75ca98409952e0384c196fd, type: 3}
     - rid: 8790164555430887940
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
@@ -204,17 +215,17 @@ MonoBehaviour:
         statusEffect: 0
         scale: 2
         getScaleFromKey: 0
-        inputScaleKey: 
+        inputScaleKey:
         multiplyByNumAuraStacks: 0
         multiplicity: 1
         getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
+        inputMultiplicityKey:
         toggleStatus: 0
     - rid: 8790164555430888040
       type: {class: DebugEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DebugEffectStep
-        inputCombatInstanceCacheKey: 
+        inputCombatInstanceCacheKey:
         genericMap: 1
         ints: 1
         strings: 1
@@ -223,7 +234,7 @@ MonoBehaviour:
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
-        label: 
+        label:
         icon: {fileID: 0}
     - rid: 7277427003467276995
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}

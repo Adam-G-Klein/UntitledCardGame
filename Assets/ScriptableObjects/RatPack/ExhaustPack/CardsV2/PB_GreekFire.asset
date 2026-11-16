@@ -11,17 +11,13 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: PB_GreekFire
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:
   guid: 31c22698-2156-4d77-8dbe-0a0e0d84c307
   Name: Greek Fire
   Description: Exhaust. When exhausted, deal {onexhaust_rpl_damage} damage randomly,
-    shuffle a Greek Fire into a random rat's deck and draw 1 card from them
+    add a Greek Fire to a random rat's discard and draw 1 card from them
   IconDescription: []
-  IconDescriptionTooltipLines:
-  - This card exhausts when played, removing it for the rest of combat.
-  - When this card is exhausted, it deals X damage to a random foe.
-  - When this card is exhausted, it also shuffles a copy of Greek Fire into and draws
-    1 from a random rat's deck
+  IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: onexhaust_rpl_damage
     value: 5
@@ -43,7 +39,7 @@ MonoBehaviour:
     rid: -2
   onDrawEffectWorkflow:
     rid: -2
-  tooltips: 
+  tooltips:
   tooltipKeyword: 37
   references:
     version: 2
@@ -57,24 +53,24 @@ MonoBehaviour:
         inputKey: random
         cardTypes:
         - {fileID: 11400000}
-        addToDeckMethod: 1
+        addToDeckMethod: 4
         getCardsFromKey: 0
-        inputCardsKey: 
+        inputCardsKey:
         scale: 1
         getScaleFromKey: 0
-        inputScaleKey: 
+        inputScaleKey:
     - rid: 578314858522476879
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
-        inputKey: 
+        inputKey:
         outputKey: self
-        validTargets: 
+        validTargets:
         number: 1
         specialTargetRule: 4
         cantCancelTargetting: 0
-        cardSelectionHelperText: 
+        cardSelectionHelperText:
         selectionPurpose: 0
         selectionCardCategory: 0
     - rid: 3051694091506811091
@@ -82,13 +78,13 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
-        inputKey: 
+        inputKey:
         outputKey: random
         validTargets: 00000000
         number: 1
         specialTargetRule: 6
         cantCancelTargetting: 0
-        cardSelectionHelperText: 
+        cardSelectionHelperText:
         selectionPurpose: 0
         selectionCardCategory: 0
     - rid: 3051694091506811092
@@ -96,10 +92,10 @@ MonoBehaviour:
       data:
         effectStepName: DrawCards
         inputKey: random
-        outputKey: 
+        outputKey:
         scale: 1
         getScaleFromKey: 0
-        inputScaleKey: 
+        inputScaleKey:
         waitForDrawsToResolve: 0
     - rid: 4463206262261416071
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
@@ -128,13 +124,13 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
-        inputKey: 
+        inputKey:
         outputKey: enemy
         validTargets: 02000000
         number: 1
         specialTargetRule: 6
         cantCancelTargetting: 0
-        cardSelectionHelperText: 
+        cardSelectionHelperText:
         selectionPurpose: 0
         selectionCardCategory: 0
     - rid: 5602892557111787554
@@ -145,11 +141,12 @@ MonoBehaviour:
         combatEffect: 14
         scale: 5
         getScaleFromKey: 0
-        inputScaleKey: 
+        inputScaleKey:
         multiplicity: 1
         getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
+        inputMultiplicityKey:
         vfxPrefab: {fileID: 0}
+        damageDealtOutputKey:
     - rid: 5602892561590780065
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -159,13 +156,13 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
-        inputKey: 
+        inputKey:
         outputKey: thrower
-        validTargets: 
+        validTargets:
         number: 1
         specialTargetRule: 4
         cantCancelTargetting: 0
-        cardSelectionHelperText: 
+        cardSelectionHelperText:
         selectionPurpose: 0
         selectionCardCategory: 0
     - rid: 1700682198445195574
@@ -174,7 +171,7 @@ MonoBehaviour:
         effectStepName: FXEffectStep
         waitForEffect: 1
         fXExperiencePrefab: {fileID: 7941922193381376936, guid: 08c5de3276ade194ea1f87e308d3605a, type: 3}
-        rootLocationGameObjectKey: 
+        rootLocationGameObjectKey:
         positionMappingList:
         - fromWorkflow: thrower
           toFxExperience: self

@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: PB_Brainstorm
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:
   guid: 40d5c7c6-07a1-40bb-b03e-7897b174fa6b
   Name: Brainstorm
   Description: Deal {rpl_damage} damage for each card in hand ({numberOfCardsInHand}
@@ -21,27 +21,33 @@ MonoBehaviour:
     text: '{rpl_damage}'
     icon: 0
   - tokenType: 2
-    text: 
+    text:
     icon: 1
+  - tokenType: 0
+    text: xN
+    icon: 4
+  - tokenType: 2
+    text:
+    icon: 18
   - tokenType: 1
-    text: 
+    text:
     icon: 0
   - tokenType: 0
-    text: for each card in hand ({numberOfCardsInHand} cards)
+    text: N = Number of cards in hand ({numberOfCardsInHand} cards)
     icon: 0
   - tokenType: 1
-    text: 
+    text:
     icon: 0
   - tokenType: 2
-    text: 
+    text:
     icon: 13
   - tokenType: 2
-    text: 
+    text:
     icon: 13
   - tokenType: 2
-    text: 
+    text:
     icon: 4
-  IconDescriptionTooltipLines: []
+  IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: rpl_damage
     value: 2
@@ -65,7 +71,7 @@ MonoBehaviour:
     rid: -2
   onDrawEffectWorkflow:
     rid: -2
-  tooltips: 
+  tooltips:
   tooltipKeyword: 37
   references:
     version: 2
@@ -77,13 +83,13 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
-        inputKey: 
+        inputKey:
         outputKey: enemyTarget
         validTargets: 02000000
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
-        cardSelectionHelperText: 
+        cardSelectionHelperText:
         selectionPurpose: 0
         selectionCardCategory: 0
     - rid: 1886371092460208252
@@ -91,13 +97,13 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
-        inputKey: 
+        inputKey:
         outputKey: cardsInHand
         validTargets: 03000000
         number: 1
         specialTargetRule: 1
         cantCancelTargetting: 0
-        cardSelectionHelperText: 
+        cardSelectionHelperText:
         selectionPurpose: 0
         selectionCardCategory: 0
     - rid: 1886371092460208256
@@ -108,7 +114,7 @@ MonoBehaviour:
         combatEffect: 0
         scale: 2
         getScaleFromKey: 0
-        inputScaleKey: 
+        inputScaleKey:
         multiplicity: 0
         getMultiplicityFromKey: 1
         inputMultiplicityKey: numberOfCardsInHand
@@ -129,13 +135,13 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
-        inputKey: 
+        inputKey:
         outputKey: cards
         validTargets: 03000000
         number: 1
         specialTargetRule: 2
         cantCancelTargetting: 0
-        cardSelectionHelperText: 
+        cardSelectionHelperText:
         selectionPurpose: 0
         selectionCardCategory: 0
     - rid: 2295168569757139626
@@ -144,7 +150,7 @@ MonoBehaviour:
         effectStepName: GetRandomItems
         inputKey: cards
         scale: 2
-        scaleKey: 
+        scaleKey:
         getScaleFromKey: 0
         outputKey: card
         withReplacement: 0

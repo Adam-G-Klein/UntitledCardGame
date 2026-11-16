@@ -49,8 +49,8 @@ public class PowerSO : ScriptableObject
     public enum PowerType
     {
         None,
-        // Barricade: do not lose leftover Block end of turn
-        Barricade,
+        // Unyielding: do not lose leftover Block end of turn if at or below half HP
+        Unyielding,
         // DoubleDamage: all attacks played from this companion deal double damage
         DoubleDamage,
         // EveryAttackBlock: gain block each time you play an attack
@@ -106,13 +106,13 @@ public class PowerSO : ScriptableObject
         ForestProphet,
         // TotalMeltdown: add Firebreath cards to each deck
         TotalMeltdown,
-        // BalancedTemper: self damage until below half HP
+        // BalancedTemper: self damage until at or below half HP
         BalancedTemper,
         // _: whenever heals, they gain 3 block
         Rejuvenation,
         // _: Whenever a companion gains block, bleed self 1 HP and draw a card from self
         OldGodsSanctuary,
-        // _: Whenever a companion gains block, if self below half HP, heal 2 HP and deal 7 damage to random enemy
+        // _: Whenever a companion gains block, if self at or below half HP, heal 2 HP and deal 7 damage to random enemy
         UncheckedVitality,
         // _: End of turn, retain an Attack card and give it +3 damage
         Whetstone,
@@ -136,6 +136,19 @@ public class PowerSO : ScriptableObject
         Relentlessness,
         // _: lone wolf: whenever you only have 1 Attack card in hand, attacks from this rat deal +3 damage
         LoneWolf,
+        // _: whenever a rat shuffles its deck, it gains block equal to the number of cards it has.
+        TreeRings,
+        // _: end of turn, shuffle a Biggness card into a random rat's deck.
+        Biggness,
+        // _: end of turn, if you exhausted a Charm card this turn, shuffle a Serpentine Charm into a random rat's deck.
+        SerpentsNest,
+        // _: every 4 Charm cards you draw, gain 1 energy
+
+        // _: every 3 Charm cards you exhaust, draw 1 card from this rat & create a Bitterbark in hand
+        Floodwaters,
+        // _: anastasia's fury, rawr. whenever this rat dies, deal 50 damage to ALL rats and enemies.
+        // _: first attack from each rat each turn deals +3 damage.
+        FrontFoot,
     }
 
     public TooltipViewModel GetTooltip(int stackCount)
@@ -145,7 +158,16 @@ public class PowerSO : ScriptableObject
             modTitle = string.Format("{0} x{1}", this.title, stackCount);
         TooltipLine basePowerTooltip = new TooltipLine(modTitle, description);
         TooltipViewModel baseTooltip = new TooltipViewModel(new List<TooltipLine> {basePowerTooltip} );
+
         return baseTooltip + extraTooltip;
+    }
+
+    public TooltipViewModel GetActivatePowerTooltip()
+    {
+        TooltipViewModel abilityTooltips = EffectWorkflow.GetEffectStepTooltips(
+            abilities?.Select(a => a.effectWorkflow) ?? Enumerable.Empty<EffectWorkflow>());
+
+        return abilityTooltips + extraTooltip;
     }
 }
 

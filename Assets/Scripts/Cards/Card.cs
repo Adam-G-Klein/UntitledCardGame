@@ -220,6 +220,16 @@ public class Card : Entity, IEquatable<Card>
             }
             // We will update the cache value for attackCount in the CombatInstance after the card is cast, so we don't need to do it here.
         }
+        // FrontFoot: Each rat's first attack each turn deals +3 damage.
+        int frontFootStacks = CombatEntityManager.Instance.GetStacksOfPowerAcrossCompanions(PowerSO.PowerType.FrontFoot);
+        if (frontFootStacks > 0 && cardType.cardCategory == CardCategory.Attack)
+        {
+            int numAttacks = origin.cachedEffectValues.intMap.GetValueOrDefault("attackCount", 0);
+            if (numAttacks < 1)
+            {
+                newScale += 2 * frontFootStacks;
+            }
+        }
 
         // Making the choice to do fixed damage first, then multiplication. I don't think it will matter unless
         // both effects end up on one single card
