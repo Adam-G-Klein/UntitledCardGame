@@ -633,9 +633,9 @@ public class ShopViewController : MonoBehaviour,
         FocusManager.Instance.UnregisterFocusableTarget(shopItemView.visualElementFocusable);
         disableOnCompanionDrag.Remove(shopItemView.visualElementFocusable);
 
-        CompanionMoveAnimation(startPoint, endPoint, shopItemView.shopItemElement, isUpgrade, delay, onComplete);
-
         CompanionView companionView = shopItemView.GetCompanionView();
+        CompanionMoveAnimation(startPoint, endPoint, shopItemView.shopItemElement, companionView.container, isUpgrade, delay, onComplete);
+
         float widthRatio = CompanionViewOld.UNIT_MNGMT_CONTEXT.screenWidthPercent / CompanionViewOld.SHOP_CONTEXT.screenWidthPercent;
         float heightRatio = (CompanionViewOld.UNIT_MNGMT_CONTEXT.screenWidthPercent / CompanionViewOld.UNIT_MNGMT_CONTEXT.aspectRatio) / (CompanionViewOld.SHOP_CONTEXT.screenWidthPercent / CompanionViewOld.SHOP_CONTEXT.aspectRatio);
         float initialWidth = companionView.container.resolvedStyle.width;
@@ -663,11 +663,11 @@ public class ShopViewController : MonoBehaviour,
     {
         Vector2 startPoint = VisualElementUtils.GetCenterOfVisualElement(startingSlotView.root);
         Vector2 endPoint = VisualElementUtils.GetCenterOfVisualElement(endingSlotView.root);
-        CompanionMoveAnimation(startPoint, endPoint, startingSlotView.root, isUpgrade, delay, onComplete); // which container do I move here :thinking:
+        CompanionMoveAnimation(startPoint, endPoint, startingSlotView.root, startingSlotView.companionManagementView.container, isUpgrade, delay, onComplete);
     }
 
 
-    private void CompanionMoveAnimation(Vector2 startPoint, Vector2 endPoint, VisualElement parentContainer, bool isUpgrade, float delay = 0, Action onComplete = null)
+    private void CompanionMoveAnimation(Vector2 startPoint, Vector2 endPoint, VisualElement parentContainer, VisualElement companionElement, bool isUpgrade, float delay = 0, Action onComplete = null)
     {
         VisualElement tempContainer = new VisualElement();
         tempContainer.style.width = parentContainer.resolvedStyle.width;
@@ -677,7 +677,6 @@ public class ShopViewController : MonoBehaviour,
         tempContainer.style.alignItems = Align.Center;
 
         uiDoc.rootVisualElement.Add(tempContainer);
-        VisualElement companionElement = parentContainer.Children().LastOrDefault();
         tempContainer.style.left = startPoint.x - parentContainer.resolvedStyle.width / 2;
         tempContainer.style.top = startPoint.y - parentContainer.resolvedStyle.height / 2;
 
