@@ -60,6 +60,14 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
 
         if (finalScale == -1) yield break;
 
+        PlayableCard lungeCard = document.map.TryGetItem<PlayableCard>(EffectDocument.ORIGIN, 0);
+        if (IsDamageEffect() && lungeCard != null && lungeCard.card != null
+            && lungeCard.card.cardType.cardCategory == CardCategory.Attack)
+        {
+            float untilContact = CompanionAttackLunge.Play(originCombatInstance, instances);
+            if (untilContact > 0f) yield return new WaitForSeconds(untilContact);
+        }
+
         const float delayIncrement = 1f;
 
         int totalEffectiveScaleApplied = 0;
@@ -138,6 +146,13 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
 
         if (damageDealtOutputKey != "")
             document.intMap[damageDealtOutputKey] = totalEffectiveScaleApplied;
+    }
+
+    private bool IsDamageEffect()
+    {
+        return combatEffect == CombatEffect.Damage
+            || combatEffect == CombatEffect.FixedDamageWithCardModifications
+            || combatEffect == CombatEffect.FixedDamageThatIgnoresBlock;
     }
 
     private int getFinalScale(EffectDocument document)

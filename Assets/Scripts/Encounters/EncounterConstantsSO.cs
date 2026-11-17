@@ -62,6 +62,18 @@ public class EncounterConstantsSO : ScriptableObject {
              "(see HitTiming). Gameplay is unchanged either way. Off: they play when the damage is applied.")]
     public bool syncHitFeedbackToVfx = true;
 
+    [Header("Companion Attack Lunge")]
+    [Tooltip("When a companion's attack card damages enemies, the companion lunges toward its target and the hit " +
+             "lands as it arrives (CompanionAttackLunge).")]
+    public bool useCompanionAttackLunge = true;
+    [Tooltip("How far the companion travels toward the target, as a fraction of the distance between them.")]
+    [Range(0f, 1f)]
+    public float companionLungeDistance = 0.2f;
+    [Tooltip("Seconds to reach the target. The hit lands at the end of this.")]
+    public float companionLungeOutTime = 0.15f;
+    [Tooltip("Seconds to return to its spot after the hit.")]
+    public float companionLungeReturnTime = 0.3f;
+
     [Header("Last Kill")]
     public bool useLastKillSlowMo = true;
     [Tooltip("Game speed during the slow-mo, relative to the player's speed setting.")]
