@@ -104,9 +104,9 @@ MonoBehaviour:
     uncommonCardPercentage: 40
     rareCardPercentage: 10
     boosterPackPcts:
-    - boosterType: 7
+    - boosterType: 5
       appearancePct: 60
-    - boosterType: 8
+    - boosterType: 6
       appearancePct: 40
     ratBonusHealth: 0
     cardRemovalDiscount: 0
@@ -142,9 +142,9 @@ MonoBehaviour:
     uncommonCardPercentage: 40
     rareCardPercentage: 15
     boosterPackPcts:
-    - boosterType: 7
+    - boosterType: 5
       appearancePct: 60
-    - boosterType: 8
+    - boosterType: 6
       appearancePct: 40
     ratBonusHealth: 15
     cardRemovalDiscount: 3
@@ -185,6 +185,10 @@ MonoBehaviour:
   massiveHitStop: 0.09
   reshuffleTrailVFX: {fileID: 6795432970769161552, guid: cff810b7b6c5bf74daf937f0986068f2, type: 3}
   syncHitFeedbackToVfx: 1
+  useCompanionAttackLunge: 1
+  companionLungeDistance: 0.2
+  companionLungeOutTime: 0.15
+  companionLungeReturnTime: 0.3
   useLastKillSlowMo: 1
   lastKillSlowMoScale: 0.3
   lastKillSlowMoTime: 0.6
