@@ -14,6 +14,8 @@ public class MultiDeckView
     public VisualElement tabLeftIcon;
     public VisualElement tabRightIcon;
     public IconButton exitButton { get; private set; }
+    public IconButton starterCardsToggleButton { get; private set; }
+    private bool starterToggleVisible = false;
     [SerializeField]
     private UIDocument uiDocument;
     [SerializeField]
@@ -154,6 +156,60 @@ public class MultiDeckView
             GFGInputAction.BACK,
             ControlsManager.Instance.GetSpriteForGFGAction(GFGInputAction.BACK));
         ControlsManager.Instance.RegisterIconChanger(exitButton);
+
+        starterCardsToggleButton = uiDocument.rootVisualElement.Q<IconButton>("starter-cards-toggle-button");
+        starterCardsToggleButton.RegisterOnSelected(StarterCardsToggleClicked);
+    }
+
+    public void SetStarterCardsToggle(bool visible, bool isOn)
+    {
+        starterToggleVisible = visible;
+        starterCardsToggleButton.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
+        starterCardsToggleButton.text = isOn ? "Starters: Shown" : "Starters: Hidden";
+    }
+
+    public void StarterCardsToggleClicked(ClickEvent evt)
+    {
+        if (inTransition || interactionsDisabled) return;
+        tooltipController.DestroyAllTooltips();
+        multiDeckViewDelegate.ToggleStarterCards();
+    }
+
+    public int CurrentTabIndex => currentTabIndex;
+
+    public int CurrentSectionIndex
+    {
+        get
+        {
+            DeckTabView tabView = deckTabViews[currentTabIndex];
+            return Mathf.Max(0, tabView.sectionViews.IndexOf(tabView.focusedSectionView));
+        }
+    }
+
+    // Rebuilds the view contents in place (e.g. after toggling which cards are shown)
+    // while the view is open, keeping the given tab and section focused.
+    public void RebuildDeckView(List<DeckTab> deckTabs, int startingTab, int startingIndex)
+    {
+        FocusManager.Instance.UnlockFocusables();
+        // Unregister the old card/companion focusables so they don't linger as phantom focus
+        // targets, then clear the sections. Section focus/unfocus state is reset by PopulateDeckView.
+        foreach (DeckTabView deckTabView in deckTabViews)
+        {
+            foreach (DeckSectionView section in deckTabView.sectionViews)
+            {
+                foreach (VisualElement cardElement in section.scrollView.contentContainer.Children())
+                {
+                    if (cardElement.HasUserData<VisualElementFocusable>())
+                        FocusManager.Instance.UnregisterFocusableTarget(cardElement.AsFocusable());
+                }
+                if (section.companionView != null && section.companionView.container != null)
+                    FocusManager.Instance.UnregisterFocusableTarget(section.companionView.container.AsFocusable());
+                section.header.Clear();
+                section.scrollView.Clear();
+            }
+        }
+        PopulateDeckView(deckTabs, startingTab, startingIndex);
+        FocusManager.Instance.LockFocusables();
     }
 
     public void RegisterFocusables()
@@ -164,6 +220,7 @@ public class MultiDeckView
         // FocusManager.Instance.RegisterFocusableTarget(tabRightButton.AsFocusable());
         // TODO setup tab buttons for focus, loop through tabButtonContainer children
         FocusManager.Instance.RegisterFocusableTarget(exitButton.AsFocusable());
+        if (starterToggleVisible) FocusManager.Instance.RegisterFocusableTarget(starterCardsToggleButton.AsFocusable());
     }
 
     public void UnregisterFocusables()
@@ -174,6 +231,7 @@ public class MultiDeckView
         // FocusManager.Instance.UnregisterFocusableTarget(tabRightButton.AsFocusable());
         // TODO setup tab buttons for unregister, loop through tabButtonContainer children
         FocusManager.Instance.UnregisterFocusableTarget(exitButton.AsFocusable());
+        FocusManager.Instance.UnregisterFocusableTarget(starterCardsToggleButton.AsFocusable());
     }
 
     private void UnFocusDeckSection(DeckSectionView deckView, bool instant = false)

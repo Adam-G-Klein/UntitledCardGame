@@ -33,6 +33,10 @@ public class MultiDeckViewManager : GenericSingleton<MultiDeckViewManager>, IMul
     private bool optionsMenuOpen = false;
     private bool interactionsEnabled = true;
 
+    // Remembered so the shop deck view can be rebuilt in place when the starter-cards toggle changes
+    private bool lastShowCompanionForPurchase = false;
+    private Companion lastCompanionToShow = null;
+
     public enum TabType
     {
         Active = 0,
@@ -58,8 +62,9 @@ public class MultiDeckViewManager : GenericSingleton<MultiDeckViewManager>, IMul
         onViewEnterHandler?.Invoke();
     }
 
-    public void ShowView(List<DeckTab> deckViewTabs = null, int startingTab = 0, int startingIndex = 0)
+    public void ShowView(List<DeckTab> deckViewTabs = null, int startingTab = 0, int startingIndex = 0, bool showStarterCardsToggle = false)
     {
+        multiDeckView.SetStarterCardsToggle(showStarterCardsToggle, gameState.showStarterDeckCardsInShop);
         FocusManager.Instance.StashFocusables(this.GetType().Name);
         multiDeckView.PopulateDeckView(deckViewTabs, startingTab, startingIndex);
         multiDeckView.ToggleVisibility(true);
@@ -130,6 +135,34 @@ public class MultiDeckViewManager : GenericSingleton<MultiDeckViewManager>, IMul
         }
         OnViewEnter();
 
+        lastShowCompanionForPurchase = showCompanionForPurchase;
+        lastCompanionToShow = companionToShow;
+        List<Companion> activeCompanions = gameState.companions.activeCompanions;
+        List<Companion> benchCompanions = gameState.companions.benchedCompanions;
+        bool noActiveCompanions = activeCompanions.Count == 0;
+        List<DeckTab> shopDeckViewTabs = BuildShopDeckTabs(showCompanionForPurchase, companionToShow);
+
+        int startingIndex = 0;
+        if (!showCompanionForPurchase)
+        {
+            if (startingTab == TabType.Active)
+            {
+                startingIndex = companionToShow == null ? 0 : activeCompanions.IndexOf(companionToShow);
+            }
+            else
+            {
+                startingIndex = companionToShow == null ? 0 : benchCompanions.IndexOf(companionToShow);
+            }
+        }
+        int startingTabIndex = 0;
+        if (startingTab == TabType.Bench) startingTabIndex = noActiveCompanions ? 0 : 1;
+        if (startingTab == TabType.ForPurchase) startingTabIndex = shopDeckViewTabs.Count - 1;
+
+        ShowView(shopDeckViewTabs, startingTabIndex, startingIndex, true);
+    }
+
+    private List<DeckTab> BuildShopDeckTabs(bool showCompanionForPurchase, Companion companionToShow)
+    {
         List<Companion> activeCompanions = gameState.companions.activeCompanions;
         List<DeckTab> shopDeckViewTabs = new List<DeckTab>();
         bool noActiveCompanions = activeCompanions.Count == 0;
@@ -189,23 +222,19 @@ public class MultiDeckViewManager : GenericSingleton<MultiDeckViewManager>, IMul
             companionForPurchaseDeckViewTabs.sections.Add(companionForPurchase);
             shopDeckViewTabs.Add(companionForPurchaseDeckViewTabs);
         }
-        int startingIndex = 0;
-        if (!showCompanionForPurchase)
-        {
-            if (startingTab == TabType.Active)
-            {
-                startingIndex = companionToShow == null ? 0 : activeCompanions.IndexOf(companionToShow);
-            }
-            else
-            {
-                startingIndex = companionToShow == null ? 0 : benchCompanions.IndexOf(companionToShow);
-            }
-        }
-        int startingTabIndex = 0;
-        if (startingTab == TabType.Bench) startingTabIndex = noActiveCompanions ? 0 : 1;
-        if (startingTab == TabType.ForPurchase) startingTabIndex = shopDeckViewTabs.Count - 1;
+        return shopDeckViewTabs;
+    }
 
-        ShowView(shopDeckViewTabs, startingTabIndex, startingIndex);
+    public void ToggleStarterCards()
+    {
+        if (!isVisible || !ShopManager.Instance) return;
+        gameState.showStarterDeckCardsInShop = !gameState.showStarterDeckCardsInShop;
+        SaveManager.Instance.SavePlayerSettings();
+        multiDeckView.SetStarterCardsToggle(true, gameState.showStarterDeckCardsInShop);
+        multiDeckView.RebuildDeckView(
+            BuildShopDeckTabs(lastShowCompanionForPurchase, lastCompanionToShow),
+            multiDeckView.CurrentTabIndex,
+            multiDeckView.CurrentSectionIndex);
     }
 
     public void HideDeckView()
@@ -309,4 +338,5 @@ public class MultiDeckViewManager : GenericSingleton<MultiDeckViewManager>, IMul
 public interface IMultiDeckViewDelegate
 {
     void HideDeckView();
+    void ToggleStarterCards();
 }
