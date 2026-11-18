@@ -174,7 +174,6 @@ MonoBehaviour:
         - rid: 7082891827957727340
         - rid: 7994246834120818792
         - rid: 7082891827957727341
-        - rid: 7082891827957727342
         weight: 0
     - rid: 7082891827957727339
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -213,12 +212,6 @@ MonoBehaviour:
         vfxPrefab: {fileID: 1320532642761013391, guid: 5c396b5345581a240836e4caa8110510, type: 3}
         casterTrail: {fileID: 0}
         damageDealtOutputKey: 
-    - rid: 7082891827957727342
-      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EntityAbilityTriggeredVFX
-        label: 
-        icon: {fileID: 0}
     - rid: 7707884639552274900
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
