@@ -22,6 +22,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 63b1af6b7571c784c97dfcab05198781, type: 3}
   startingDeck: {fileID: 11400000, guid: 44c880e376d231e4faedb5567cc1676d, type: 2}
   rarity: 0
+  startingTeamWeight: 0
   baseCompanionType: {fileID: 11400000, guid: 8cf1e25e553d14d1283947f19397edb3, type: 2}
   cacheValueConfigs: []
   cardPool: {fileID: 11400000, guid: ea2e0be33aeb148b5b6fb019d0942226, type: 2}
@@ -34,14 +35,14 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Holdem++
-      description: Whenever you discard a card, deal 2 damage to a random enemy x2
+      description: Whenever you discard a card, deal 4 damage to a random enemy
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
       iconDescriptionLine: []
       card: {fileID: 0}
   keepsakeTitle: 
-  keepsakeDescription: Whenever you discard a card, deal 2 damage to a random enemy
-    x2
+  keepsakeDescription: Whenever you discard a card, deal 4 damage to a random enemy
+  tooltipTokens: 
   references:
     version: 2
     RefIds:
@@ -61,32 +62,8 @@ MonoBehaviour:
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
-    - rid: 7401433059192471555
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: randomEnemy
-        validTargets: 02000000
-        number: 2
-        specialTargetRule: 6
-        cantCancelTargetting: 0
-        cardSelectionHelperText: 
-        selectionPurpose: 0
-    - rid: 7401433059192471557
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatEffectStep
-        inputKey: randomEnemy
-        combatEffect: 14
-        scale: 2
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-        vfxPrefab: {fileID: 0}
+        label: 
+        icon: {fileID: 0}
     - rid: 1700682198445195786
       type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -112,6 +89,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: shooter
         validTargets: 
@@ -121,3 +99,33 @@ MonoBehaviour:
         cardSelectionHelperText: 
         selectionPurpose: 0
         selectionCardCategory: 0
+    - rid: 7401433059192471555
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
+        inputKey: 
+        outputKey: randomEnemy
+        validTargets: 02000000
+        number: 1
+        specialTargetRule: 6
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
+    - rid: 7401433059192471557
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: randomEnemy
+        combatEffect: 14
+        scale: 4
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}
+        casterTrail: {fileID: 0}
+        damageDealtOutputKey: 
