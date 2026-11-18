@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using System.Linq;
-using Unity.VisualScripting;
 
 /*
-    This will go through the map and for each kind of item under the input key,
-    it will randomly select X of them and then output them to output key. If multiple
-    types of items share the input key, this will happen for each kind of item.
+    This will go through the map and, for the items under the input key, randomly
+    select X of them and output them to the output key.
+
+    A single entity is usually stored under a key as several parallel typed lists
+    (e.g. EffectUtils.AddCompanionToDocument writes CompanionInstance, CombatInstance,
+    DeckInstance, GameObject, ... at the same index). To keep those lists aligned, the
+    random indices are chosen once per list length and applied to every list of that
+    length. Otherwise each type would pick different entities, and downstream steps
+    reading different types (e.g. DrawCards vs InstantiatePrefab) would disagree.
 */
 public class GetRandomItems : EffectStep, IEffectStepCalculation
 {
@@ -31,18 +36,32 @@ public class GetRandomItems : EffectStep, IEffectStepCalculation
     }
 
     public override IEnumerator invoke(EffectDocument document) {
-        List<KeyValuePair<Tuple<string, Type>, List<object>>> mapCopy = document.map.GetDict().ToList();
-        foreach(KeyValuePair<Tuple<string, Type>, List<object>> pair in mapCopy) {
-            if (pair.Key.Item1 != inputKey) {
-                continue;
+        int finalScale = scale;
+        if (getScaleFromKey) {
+            document.intMap.TryGetValue(scaleKey, out finalScale);
+        }
+
+        // Snapshot the matching lists first, since we write back into the same map.
+        List<KeyValuePair<Tuple<string, Type>, List<object>>> matching = document.map.GetDict()
+            .Where(pair => pair.Key.Item1 == inputKey)
+            .ToList();
+
+        // Parallel lists for the same set of entities share a length, so pick one
+        // set of indices per length and apply it to every list in that group.
+        Dictionary<int, List<int>> indicesByCount = new Dictionary<int, List<int>>();
+        foreach (KeyValuePair<Tuple<string, Type>, List<object>> pair in matching) {
+            List<object> items = pair.Value;
+            if (!indicesByCount.TryGetValue(items.Count, out List<int> indices)) {
+                indices = RandomIndices(items.Count, finalScale);
+                indicesByCount[items.Count] = indices;
             }
 
-            if (getScaleFromKey) {
-                scale = document.intMap.GetValueOrDefault(scaleKey, 0);
-            }
+            // TEMP DEBUG: remove once the Sift draw-count issue is understood.
+            // EffectLog(" type=" + pair.Key.Item2.Name + " count=" + items.Count +
+                // " scale=" + finalScale + " picked=[" + string.Join(",", indices) + "]");
 
-            List<object> items = RandomlyGetItems(pair.Value, scale);
-            document.map.AddItemsOfType(outputKey, items, pair.Key.Item2);
+            List<object> selected = indices.Select(i => items[i]).ToList();
+            document.map.AddItemsOfType(outputKey, selected, pair.Key.Item2);
         }
         yield return null;
     }
@@ -52,17 +71,20 @@ public class GetRandomItems : EffectStep, IEffectStepCalculation
         yield return invoke(document);
     }
 
-    private List<object> RandomlyGetItems(List<object> objs, int items) {
-        if (items > objs.Count && !withReplacement) {
-            return objs;
+    private List<int> RandomIndices(int count, int n) {
+        if (n > count && !withReplacement) {
+            return Enumerable.Range(0, count).ToList();
         }
-        List<object> returnList = new List<object>();
-        List<object> listCopy = new List<object>(objs);
-        for (int i = 0; i < items; i++) {
-            int index = UnityEngine.Random.Range(0, listCopy.Count);
-            returnList.Add(listCopy[index]);
+        List<int> returnList = new List<int>();
+        if (count == 0) {
+            return returnList;
+        }
+        List<int> pool = Enumerable.Range(0, count).ToList();
+        for (int i = 0; i < n; i++) {
+            int index = UnityEngine.Random.Range(0, pool.Count);
+            returnList.Add(pool[index]);
             if (!withReplacement) {
-                listCopy.RemoveAt(index);
+                pool.RemoveAt(index);
             }
         }
         return returnList;
