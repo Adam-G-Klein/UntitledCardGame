@@ -31,17 +31,14 @@
                         <ui:Label tabindex="-1" text="5   " parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-font-style: normal;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement style="flex-grow: 1; width: 100%; margin-top: 10px; margin-bottom: 10px; height: 21%;">
+                <ui:VisualElement style="flex-grow: 0; width: 100%; margin-top: 10px; margin-bottom: 10px;">
                     <ui:VisualElement class="menu-option" style="flex-grow: 0;">
                         <ui:Toggle label="Full Screen" name="fullscreenToggle" class="focusable selected-sfx options-menu-toggle" />
                     </ui:VisualElement>
                     <ui:VisualElement class="menu-option" style="flex-grow: 0; display: none;">
                         <ui:Toggle label="Auto Upgrade" name="auto-upgrade-toggle" class="focusable selected-sfx" style="font-size: 18px;" />
                     </ui:VisualElement>
-                    <ui:VisualElement class="menu-option" style="flex-grow: 0;">
-                        <ui:Toggle label="Show Starter Cards in Shop Deck View" name="show-starter-cards-toggle" class="focusable selected-sfx options-menu-toggle" />
-                    </ui:VisualElement>
-                    <ui:VisualElement style="flex-grow: 1;">
+                    <ui:VisualElement style="flex-grow: 1; display: none;">
                         <ui:DropdownField label="Render Scale" choices="1.0,1.5,2.0" index="2" name="render-scale-dropdown" style="font-size: 18px; width: 70%; align-items: auto; align-self: center; display: none;" />
                     </ui:VisualElement>
                     <ui:VisualElement style="flex-grow: 1; display: none;">

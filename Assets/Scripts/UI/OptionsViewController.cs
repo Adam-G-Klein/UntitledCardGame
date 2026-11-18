@@ -39,7 +39,6 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
     private Button creditsButton;
     private Toggle fullscreenToggle;
     private Toggle autoUpgradeToggle;
-    private Toggle showStarterCardsToggle;
     private DropdownField renderScaleDropdown;
     private DropdownField antiAliasingDropdown;
     [SerializeField]
@@ -136,9 +135,6 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
         autoUpgradeToggle = optionsUIDocument.rootVisualElement.Q<Toggle>("auto-upgrade-toggle");
         autoUpgradeToggle.RegisterValueChangedCallback(AutoUpgradeToggleEvent);
         autoUpgradeToggle.value = gameState.autoUpgrade;
-        showStarterCardsToggle = optionsUIDocument.rootVisualElement.Q<Toggle>("show-starter-cards-toggle");
-        showStarterCardsToggle.RegisterValueChangedCallback(ShowStarterCardsToggleEvent);
-        showStarterCardsToggle.value = gameState.showStarterDeckCardsInShop;
         renderScaleDropdown = optionsUIDocument.rootVisualElement.Q<DropdownField>("render-scale-dropdown");
         antiAliasingDropdown = optionsUIDocument.rootVisualElement.Q<DropdownField>("anti-aliasing-dropdown");
         renderScaleDropdown.RegisterValueChangedCallback(RenderScaleDropdownChanged);
@@ -278,10 +274,6 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
 
     private void AutoUpgradeToggleEvent(ChangeEvent<bool> evt) {
         gameState.autoUpgrade = evt.newValue;
-    }
-
-    private void ShowStarterCardsToggleEvent(ChangeEvent<bool> evt) {
-        gameState.showStarterDeckCardsInShop = evt.newValue;
     }
 
     public void ProcessGFGInputAction(GFGInputAction action)
