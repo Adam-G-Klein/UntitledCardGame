@@ -259,10 +259,10 @@ public class CombatInstance : MonoBehaviour
                     }
                     if (shouldShake) AddShake(damageTaken);
                     if (damageTaken > 0) EnemyEncounterManager.Instance.DamageIndicator(this, damageTaken);
-                    effectiveScaleApplied = damageTaken;
                     CombatEntityManager.Instance.PlayHitWeight(this, effector, damageTaken);
                     UpdateView();
                 });
+                effectiveScaleApplied = damageTaken;
                 break;
             case CombatEffect.Heal:
                 // HitTiming: healed now; the heal sound and health bar wait for the effect (e.g. a precast trail)
