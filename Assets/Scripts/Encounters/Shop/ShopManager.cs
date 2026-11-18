@@ -374,9 +374,8 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             Debug.Log("Processing booster pack buy request for " + boosterPackInShop.boosterPack.BoosterPackName());
             List<CardInShopWithPrice> generatedCards = boosterPackInShop.boosterPack.GenerateCards(shopEncounter.shopData, shopLevel);
 
-            BoosterPackData data = shopEncounter.shopData.GetBoosterPackDataForType(boosterPackInShop.boosterPack.boosterType);
-            numCardsLeftInBoosterPack = data.numCardsToBuy;
-            SetBoosterPackHelpText(data.numCardsToBuy);
+            numCardsLeftInBoosterPack = shopLevel.numCardsToTakeFromBoosterPack;
+            SetBoosterPackHelpText(shopLevel.numCardsToTakeFromBoosterPack);
 
             shopViewController.BuyBoosterPack(shopItemView, boosterPackInShop, generatedCards);
 

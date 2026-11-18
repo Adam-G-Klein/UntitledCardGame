@@ -19,7 +19,6 @@ public class BoosterPackData
     public int rareCardPct;
     public int price;
     public int numCards = 4;
-    public int numCardsToBuy = 1;
     public int ratSourcePct = 50;
     public int packSourcePct = 50;
 }
@@ -103,6 +102,8 @@ public class ShopLevel {
     public int numCardsToShow;
     public int numKeepsakesToShow;
     public int numBoosterPacksToShow;
+    [Tooltip("How many cards the player may take from each booster pack opened at this shop level.")]
+    public int numCardsToTakeFromBoosterPack = 1;
 
     [Space(10)]
     [Header("Percentage Manipulation")]
