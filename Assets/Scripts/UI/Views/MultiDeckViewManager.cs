@@ -225,12 +225,12 @@ public class MultiDeckViewManager : GenericSingleton<MultiDeckViewManager>, IMul
         return shopDeckViewTabs;
     }
 
-    public void ToggleStarterCards()
+    public void SetShowStarterCards(bool show)
     {
         if (!isVisible || !ShopManager.Instance) return;
-        gameState.showStarterDeckCardsInShop = !gameState.showStarterDeckCardsInShop;
+        if (gameState.showStarterDeckCardsInShop == show) return;
+        gameState.showStarterDeckCardsInShop = show;
         SaveManager.Instance.SavePlayerSettings();
-        multiDeckView.SetStarterCardsToggle(true, gameState.showStarterDeckCardsInShop);
         multiDeckView.RebuildDeckView(
             BuildShopDeckTabs(lastShowCompanionForPurchase, lastCompanionToShow),
             multiDeckView.CurrentTabIndex,
@@ -338,5 +338,5 @@ public class MultiDeckViewManager : GenericSingleton<MultiDeckViewManager>, IMul
 public interface IMultiDeckViewDelegate
 {
     void HideDeckView();
-    void ToggleStarterCards();
+    void SetShowStarterCards(bool show);
 }

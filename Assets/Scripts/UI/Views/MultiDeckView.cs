@@ -14,7 +14,7 @@ public class MultiDeckView
     public VisualElement tabLeftIcon;
     public VisualElement tabRightIcon;
     public IconButton exitButton { get; private set; }
-    public IconButton starterCardsToggleButton { get; private set; }
+    public Toggle starterCardsToggle { get; private set; }
     private bool starterToggleVisible = false;
     [SerializeField]
     private UIDocument uiDocument;
@@ -157,22 +157,29 @@ public class MultiDeckView
             ControlsManager.Instance.GetSpriteForGFGAction(GFGInputAction.BACK));
         ControlsManager.Instance.RegisterIconChanger(exitButton);
 
-        starterCardsToggleButton = uiDocument.rootVisualElement.Q<IconButton>("starter-cards-toggle-button");
-        starterCardsToggleButton.RegisterOnSelected(StarterCardsToggleClicked);
+        starterCardsToggle = uiDocument.rootVisualElement.Q<Toggle>("starter-cards-toggle");
+        starterCardsToggle.RegisterValueChangedCallback(StarterCardsToggleChanged);
+        starterCardsToggle.AsFocusable().additionalFocusAction += () => MusicController.Instance.PlaySFX("event:/SFX/SFX_UIHover");
+        starterCardsToggle.RegisterCallback<PointerEnterEvent>((evt) => MusicController.Instance.PlaySFX("event:/SFX/SFX_UIHover"));
     }
 
     public void SetStarterCardsToggle(bool visible, bool isOn)
     {
         starterToggleVisible = visible;
-        starterCardsToggleButton.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
-        starterCardsToggleButton.text = isOn ? "Starters: Shown" : "Starters: Hidden";
+        starterCardsToggle.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
+        starterCardsToggle.SetValueWithoutNotify(isOn);
     }
 
-    public void StarterCardsToggleClicked(ClickEvent evt)
+    private void StarterCardsToggleChanged(ChangeEvent<bool> evt)
     {
-        if (inTransition || interactionsDisabled) return;
+        if (inTransition || interactionsDisabled)
+        {
+            // Ignore the change mid-animation; put the checkbox back how it was
+            starterCardsToggle.SetValueWithoutNotify(evt.previousValue);
+            return;
+        }
         tooltipController.DestroyAllTooltips();
-        multiDeckViewDelegate.ToggleStarterCards();
+        multiDeckViewDelegate.SetShowStarterCards(evt.newValue);
     }
 
     public int CurrentTabIndex => currentTabIndex;
@@ -220,7 +227,7 @@ public class MultiDeckView
         // FocusManager.Instance.RegisterFocusableTarget(tabRightButton.AsFocusable());
         // TODO setup tab buttons for focus, loop through tabButtonContainer children
         FocusManager.Instance.RegisterFocusableTarget(exitButton.AsFocusable());
-        if (starterToggleVisible) FocusManager.Instance.RegisterFocusableTarget(starterCardsToggleButton.AsFocusable());
+        if (starterToggleVisible) FocusManager.Instance.RegisterFocusableTarget(starterCardsToggle.AsFocusable());
     }
 
     public void UnregisterFocusables()
@@ -231,7 +238,7 @@ public class MultiDeckView
         // FocusManager.Instance.UnregisterFocusableTarget(tabRightButton.AsFocusable());
         // TODO setup tab buttons for unregister, loop through tabButtonContainer children
         FocusManager.Instance.UnregisterFocusableTarget(exitButton.AsFocusable());
-        FocusManager.Instance.UnregisterFocusableTarget(starterCardsToggleButton.AsFocusable());
+        FocusManager.Instance.UnregisterFocusableTarget(starterCardsToggle.AsFocusable());
     }
 
     private void UnFocusDeckSection(DeckSectionView deckView, bool instant = false)
