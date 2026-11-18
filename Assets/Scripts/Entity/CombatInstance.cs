@@ -205,7 +205,8 @@ public class CombatInstance : MonoBehaviour
                 + statusEffects[StatusEffectType.Strength]
                 + statusEffects[StatusEffectType.TemporaryStrength]
                 - statusEffects[StatusEffectType.Weakness];
-        return Mathf.Max(0, dmg);
+        // Strength can be negative so allow it to go below zero.
+        return dmg;
     }
 
     public int GetTotalStrength()
