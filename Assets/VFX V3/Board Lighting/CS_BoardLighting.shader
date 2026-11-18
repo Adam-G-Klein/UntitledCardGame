@@ -24,6 +24,9 @@ Shader "Custom/CS_BoardLighting"
         _Shine_Normal ("Normal Inside Mask", Range(0, 4)) = 1.5
         _MatteMask ("Matte Mask (R): soft cloth etc. that should not reflect like metal", 2D) = "black" {}
         _Matte_Strength ("Matte Strength", Range(0, 1)) = 1
+        // Scales the skybox/ambient reflection on the board. That environment lighting is not reliable
+        // between editor and player builds (builds come out much brighter), so keep this low.
+        _Env_Strength ("Environment Reflection", Range(0, 1)) = 0
 
         [Header(Flow Glow)]
         _Flow_Tex ("Flow Noise", 2D) = "gray" {}
@@ -116,6 +119,7 @@ Shader "Custom/CS_BoardLighting"
                 half4 _Wave_Color; float4 _Wave_Dir; float _Wave_Scale, _Wave_Speed; half _Wave_Sharp; float _Wave_Streak;
                 half _Rainbow; float _Rainbow_Scale, _Rainbow_Speed;
                 float4 _Field; half _Field_Soft;
+                half _Env_Strength;
             CBUFFER_END
 
             half FlowAt(float2 fuv, float t)
@@ -231,7 +235,9 @@ Shader "Custom/CS_BoardLighting"
                 s.metallic = 1;
                 s.specular = 0;
                 s.smoothness = lerp(_Base_Smoothness, _Shine_Smoothness, mask) * (1.0 - 0.85 * matte);
-                s.occlusion = 1;
+                // occlusion only scales indirect light (SH ambient + reflection probe); emission and the
+                // rig's point lights are unaffected
+                s.occlusion = _Env_Strength;
                 s.emission = tex.rgb * saturate(_Emission_Strength * tex.a) + (flowEm + bandEm) * tex.a;
                 s.alpha = tex.a;
                 s.normalTS = nTS;
