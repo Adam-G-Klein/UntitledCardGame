@@ -25,10 +25,10 @@ MonoBehaviour:
   - dialogue: Hey sweetheart, can you tell me what time it is?
     sprite: {fileID: 21300000, guid: fdbd38259027a458da88d5cb9026888f, type: 3}
     pause: 0
-  - dialogue: No, no. It's your time.
+  - dialogue: No, no.
     sprite: {fileID: 21300000, guid: fdbd38259027a458da88d5cb9026888f, type: 3}
     pause: 0
-  - dialogue: It's nearly up.
+  - dialogue: It's your time. It's nearly up.
     sprite: {fileID: 21300000, guid: fdbd38259027a458da88d5cb9026888f, type: 3}
     pause: 0
   morale: 0
@@ -47,11 +47,18 @@ MonoBehaviour:
     - intent: 0
       enemyTargetMethod: 0
       targetsKey: target
-      displayValue: 7
+      displayValue: 10
       effectSteps:
       - rid: 205828126246961605
       - rid: 205828126246961606
       - rid: 173314522967966401
+    - intent: 6
+      enemyTargetMethod: 6
+      targetsKey: targets
+      displayValue: 2
+      effectSteps:
+      - rid: 205828126246961605
+      - rid: 205828126246961606
     behaviorType: 0
   belowHalfHPEnemyPattern:
     behaviors: []
@@ -63,9 +70,22 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Your Time is Up, Sweetie
-      description: "Every 4 cards you play, S\xE9verine gains 1 strength and 4 block"
+    - title: Watch the Clock
+      description: "Every 5 cards you play, S\xE9verine gains 1 strength, 2 temporary
+        strength, and 4 block"
+      relatedBehaviorIndex: -1
+      icon: {fileID: 0}
+      iconDescriptionLine: []
+      card: {fileID: 0}
+    - title: Obliterate
+      description: Big attack targeting the leftmost rat on your team
       relatedBehaviorIndex: 0
+      icon: {fileID: 0}
+      iconDescriptionLine: []
+      card: {fileID: 0}
+    - title: Time's Up, Sweetie
+      description: Attacks all the rats on your team.
+      relatedBehaviorIndex: 1
       icon: {fileID: 0}
       iconDescriptionLine: []
       card: {fileID: 0}
@@ -94,6 +114,7 @@ MonoBehaviour:
         - rid: 205828126246961465
         - rid: 205828126246961466
         - rid: 8034949928137261285
+        - rid: 3226456818927796586
         - rid: 205828126246961467
         weight: 0
     - rid: 205828126246961458
@@ -108,6 +129,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 
@@ -141,7 +163,7 @@ MonoBehaviour:
       type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: BooleanComparison
-        hardCodedInputKey1: 4
+        hardCodedInputKey1: 5
         useHardCodedInputKey1: 1
         inputKey1: 
         operation: 2
@@ -183,13 +205,14 @@ MonoBehaviour:
       data:
         effectStepName: InstantiatePrefab
         inputKey: self
-        prefabToInstantiate: {fileID: 7061810456412778628, guid: 056feea5b40bdc841b884fff65bf7722, type: 3}
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 4bed509d0589dae4d922d8eeb61a6292, type: 3}
         scale: 1
     - rid: 205828126246961605
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 
@@ -203,16 +226,37 @@ MonoBehaviour:
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
-        inputKey: target
+        inputKey: targets
         combatEffect: 0
-        scale: 7
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 6137048663962808129, guid: 418a03ccd75ca98409952e0384c196fd, type: 3}
+        vfxPrefab: {fileID: 7653236696634270727, guid: 06cb95438569b864b9c211e17409078e, type: 3}
+        casterTrail: {fileID: 0}
         damageDealtOutputKey: 
+    - rid: 1700682198445196026
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}
+    - rid: 3226456818927796586
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 6
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        toggleStatus: 0
     - rid: 8034949928137261285
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -227,9 +271,3 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         toggleStatus: 0
-    - rid: 1700682198445196026
-      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EntityAbilityTriggeredVFX
-        label: 
-        icon: {fileID: 0}
