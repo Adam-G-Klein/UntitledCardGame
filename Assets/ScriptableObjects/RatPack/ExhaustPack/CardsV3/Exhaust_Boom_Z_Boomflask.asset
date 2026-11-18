@@ -37,9 +37,7 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 33
-  IconDescriptionTooltipLines:
-  - This card exhausts when played.
-  - When this card is exhausted, deal damage to all foes.
+  IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: onexhaust_rpl_damage
     value: 12
@@ -84,6 +82,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: enemies
         validTargets: 02000000
@@ -98,7 +97,7 @@ MonoBehaviour:
       data:
         effectStepName: CombatEffectStep
         inputKey: enemies
-        combatEffect: 0
+        combatEffect: 14
         scale: 12
         getScaleFromKey: 0
         inputScaleKey: 
@@ -106,12 +105,14 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 3584626907990559297, guid: 446771491e5f549439fd7875c20cf67a, type: 3}
-    - rid: 2116895648763871339
-      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
-      data:
-        effectSteps: []
+        casterTrail: {fileID: 0}
+        damageDealtOutputKey: 
     - rid: 1700682291002736657
       type: {class: CardTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CardTriggeredVFX
         vfxPrefab: {fileID: 3402153693038389984, guid: a3b6b31a75a68b1498be5837432eabd6, type: 3}
+    - rid: 2116895648763871339
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps: []

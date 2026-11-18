@@ -23,16 +23,19 @@ public class CombatEncounterState
     public void CastCard(Card card)
     {
         cardsCastThisTurn.Add(card);
+        cardsCastThisCombat.Add(card);
     }
 
     public void ExhaustCard(Card card)
     {
         cardsExhaustThisTurn.Add(card);
+        cardsExhaustThisCombat.Add(card);
     }
 
     public void DiscardCard(Card card)
     {
         cardsDiscardedThisTurn.Add(card);
+        cardsDiscardedThisCombat.Add(card);
     }
 
     public void RecordExtraCardDrawn()
@@ -44,11 +47,8 @@ public class CombatEncounterState
     public void UpdateStateOnEndTurn()
     {
         turn++;
-        cardsCastThisCombat.AddRange(cardsCastThisTurn);
         cardsCastThisTurn = new List<Card>();
-        cardsExhaustThisCombat.AddRange(cardsExhaustThisTurn);
         cardsExhaustThisTurn = new List<Card>();
-        cardsDiscardedThisCombat.AddRange(cardsDiscardedThisTurn);
         cardsDiscardedThisTurn = new List<Card>();
         numTimesCombatInstanceTookDamageThisTurn.Clear();
         numExtraCardsDrawnThisTurn = 0;
