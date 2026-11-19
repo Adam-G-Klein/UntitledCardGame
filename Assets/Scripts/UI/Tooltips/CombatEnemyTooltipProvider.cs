@@ -67,12 +67,20 @@ public class CombatEnemyTooltipProvder : MonoBehaviour
             statuses.Add(kvp.Key);
         }
 
-        foreach (StatusEffect status in statusEffects) {
-            if (statuses.Contains(status.type) && !statusTooltips.ContainsKey(status.type)) {
-                statusTooltips.Add(status.type, status.tooltip);
-            } else if (!statuses.Contains(status.type) && statusTooltips.ContainsKey(status.type)) {
-                statusTooltips.Remove(status.type);
-            }
-        }        
+        // Add tooltips for newly applied statuses, looked up from the KeywordTooltipProvider
+        foreach (StatusEffectType statusType in statuses) {
+            if (statusTooltips.ContainsKey(statusType)) continue;
+            if (!KeywordTooltipProvider.Instance.HasTooltip(statusType)) continue;
+            statusTooltips.Add(statusType, KeywordTooltipProvider.Instance.GetTooltip(statusType));
+        }
+
+        // Remove tooltips for statuses that are no longer present
+        List<StatusEffectType> toRemove = new List<StatusEffectType>();
+        foreach (StatusEffectType statusType in statusTooltips.Keys) {
+            if (!statuses.Contains(statusType)) toRemove.Add(statusType);
+        }
+        foreach (StatusEffectType statusType in toRemove) {
+            statusTooltips.Remove(statusType);
+        }
     }
 }
