@@ -369,7 +369,21 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         return true;
     }
 
+    // True if at least one companion on the team (active or bench) could receive cards from this booster pack.
+    // Mirrors the pack check in IsApplicableCompanion.
+    public bool HasApplicableCompanionForBoosterPack(BoosterPack boosterPack) {
+        if (GetShopLevel().placeCardsAnywhere) return true;
+        PackSO packSO = boosterPack.GetPackSO();
+        if (packSO == null) return true;
+        return gameState.companions.activeCompanions.Any(companion => companion.companionType.pack == packSO) ||
+            gameState.companions.benchedCompanions.Any(companion => companion.companionType.pack == packSO);
+    }
+
     public void ProcessBoosterPackBuyRequest(ShopItemView shopItemView, BoosterPackInShopWithPrice boosterPackInShop) {
+        if (!HasApplicableCompanionForBoosterPack(boosterPackInShop.boosterPack)) {
+            StartCoroutine(shopViewController.ShowGenericNotification("You need at least one rat from this tribe to buy this booster pack", 2));
+            return;
+        }
         if (gameState.playerData.GetValue().gold >= boosterPackInShop.price) {
             Debug.Log("Processing booster pack buy request for " + boosterPackInShop.boosterPack.BoosterPackName());
             List<CardInShopWithPrice> generatedCards = boosterPackInShop.boosterPack.GenerateCards(shopEncounter.shopData, shopLevel);
