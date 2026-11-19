@@ -30,10 +30,8 @@ MonoBehaviour:
     icon: 2
   - tokenType: 2
     text: 
-    icon: 18
-  IconDescriptionTooltipLines:
-  - Choose a Charm card in hand to exhaust. This is a cost to play this card.
-  - Give a rat of your choice block, preventing damage until next turn.
+    icon: 12
+  IconDescriptionTooltipLineOverrides: []
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: a5222a8d127763c49b397cce916345ec, type: 3}
@@ -65,6 +63,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: allCards
         validTargets: 03000000
@@ -94,6 +93,13 @@ MonoBehaviour:
           exactCardType: {fileID: 0}
           companionInstanceFilterEnabled: 0
         outputKey: statusCards
+    - rid: 3226456818927796701
+      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetAdjacentCompanions
+        inputKey: self
+        includeInputCompanion: 1
+        outputKey: target
     - rid: 5602892561590779943
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -103,6 +109,7 @@ MonoBehaviour:
         - rid: 5602892561590779944
         - rid: 1289961959942521125
         - rid: 7150943289421332674
+        - rid: 3226456818927796701
         - rid: 7150943289421332675
         - rid: 7150943289421332676
     - rid: 5602892561590779944
@@ -110,6 +117,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 1
+        useInputToExcludeOptions: 0
         inputKey: statusCards
         outputKey: chosen
         validTargets: 03000000
@@ -124,12 +132,13 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
-        outputKey: target
+        outputKey: self
         validTargets: 00000000
         number: 1
-        specialTargetRule: 0
-        cantCancelTargetting: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
         selectionCardCategory: 0
