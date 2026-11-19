@@ -35,6 +35,8 @@ public class EnemyEncounter : Encounter
     }
 
     public EnemyEncounter(EnemyEncounterSerializable enemyEncounterSerializable, SORegistry registry) {
+        this.id = enemyEncounterSerializable.id;
+        this.isCompleted = enemyEncounterSerializable.isCompleted;
         this.act = enemyEncounterSerializable.act;
         this.encounterType = EncounterType.Enemy;
         this.enemyList = enemyEncounterSerializable.enemies.Select(enemy => new Enemy(enemy, registry)).ToList();

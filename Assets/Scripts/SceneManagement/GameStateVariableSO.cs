@@ -236,8 +236,17 @@ public class GameStateVariableSO : ScriptableObject
             currentLocation = Location.SHOP;
         }
         activeEncounter.SetValue(currentEncounter);
-        // Add last encounter safeguard
-        nextEncounter.SetValue(map.GetValue().encounters[currentEncounterIndex+1]);
+        // nextMapIndex isn't saved, so restore it from currentEncounterIndex.
+        // AdvanceEncounter() keeps nextMapIndex == currentEncounterIndex + 1 after
+        // moving into an encounter; without this it keeps whatever value the SO
+        // had (asset default or a previous session) and later AdvanceEncounter()
+        // calls activate the wrong (already completed) encounters.
+        nextMapIndex = currentEncounterIndex + 1;
+        if (nextMapIndex < map.GetValue().encounters.Count) {
+            nextEncounter.SetValue(map.GetValue().encounters[nextMapIndex]);
+        } else {
+            Debug.LogError("ERROR: Loaded save is on the last encounter, no next encounter in map");
+        }
         updateMusic(currentLocation, currentLocation == Location.COMBAT ? activeEncounter.GetValue().act : Act.One);
         LoadCurrentLocationScene();
     }
@@ -312,6 +321,13 @@ public class GameStateVariableSO : ScriptableObject
     {
         activeEncounter.SetValue(nextEncounter.GetValue());
         Debug.Log("Advanced encounter, new encounter type is : " + activeEncounter.GetValue().getEncounterType());
+        List<Encounter> encounters = map.GetValue().encounters;
+        if (buildType != BuildType.CARD_TEST
+            && currentEncounterIndex < encounters.Count
+            && activeEncounter.GetValue() != encounters[currentEncounterIndex])
+        {
+            Debug.LogWarning("Encounter drift: active encounter is not map.encounters[currentEncounterIndex=" + currentEncounterIndex + "] (nextMapIndex=" + nextMapIndex + ")");
+        }
         nextMapIndex += 1;
         if (nextMapIndex < map.GetValue().encounters.Count)
         {

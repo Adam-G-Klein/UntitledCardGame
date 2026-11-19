@@ -138,6 +138,8 @@ public class ShopEncounter : Encounter
     }
 
     public ShopEncounter(ShopEncounterSerializable shopEncounterSerializable, SORegistry registry) {
+        this.id = shopEncounterSerializable.id;
+        this.isCompleted = shopEncounterSerializable.isCompleted;
         this.act = shopEncounterSerializable.act;
         this.encounterType = EncounterType.Shop;
         this.shopData = registry.GetAsset<ShopDataSO>(shopEncounterSerializable.shopDataGuid);
