@@ -23,7 +23,7 @@ MonoBehaviour:
     text: 
     icon: 0
   - tokenType: 0
-    text: Give all Daggers +5 damage for the rest of combat
+    text: Give all Dagger cards +5 damage
     icon: 0
   IconDescriptionTooltipLineOverrides: []
   defaultValues: []
@@ -113,6 +113,42 @@ MonoBehaviour:
         getScaleFromKey: 0
         scaleKey: 
         modification: 0
+    - rid: 3226456845857062976
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
+        inputKey: 
+        outputKey: allCards
+        validTargets: 03000000
+        number: 1
+        specialTargetRule: 2
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
+    - rid: 3226456845857062977
+      type: {class: FilterCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FilterCards
+        inputKey: allCards
+        companionInstanceKey: 
+        filter:
+          cardCategoriesToInclude: 
+          retainedCardsFilter: 0
+          manaCostFilter: 0
+          manaCost: 0
+          exactCardType: {fileID: 11400000, guid: 224034c097974444fa35170919327ce6, type: 2}
+          companionInstanceFilterEnabled: 0
+        outputKey: daggers
+    - rid: 3226456845857062978
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: daggers
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+        scale: 1
     - rid: 5602892533381726226
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -122,3 +158,6 @@ MonoBehaviour:
         - rid: 1289961820425028208
         - rid: 1289961820425028209
         - rid: 3226456845857062925
+        - rid: 3226456845857062976
+        - rid: 3226456845857062977
+        - rid: 3226456845857062978
