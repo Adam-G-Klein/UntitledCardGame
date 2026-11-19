@@ -63,7 +63,8 @@ public enum EffectStepName
     FXEffectStep,
     WaitForSecondsEffect,
     ScriptableObjectEffectStep,
-    EntityAbilityTriggeredVFX
+    EntityAbilityTriggeredVFX,
+    CardTriggeredVFX
 }
 
 [System.Serializable]

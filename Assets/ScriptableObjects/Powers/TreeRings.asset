@@ -18,7 +18,7 @@ MonoBehaviour:
     of cards in their deck.
   abilities:
   - rid: 754093991137640772
-  displaySprite: {fileID: 21300000, guid: 27219c2682ae3af4fa76a9968109666f, type: 3}
+  displaySprite: {fileID: 21300000, guid: d1ea56d5b7ea8407faebb13c56ed8e92, type: 3}
   extraTooltip:
     rid: 8966137386555146333
   stackable: 1
@@ -38,15 +38,17 @@ MonoBehaviour:
       data:
         abilityTrigger: 10
         effectSteps:
-        - rid: 758315839196758782
         - rid: 8966137386555146334
         - rid: 8966137386555146335
         - rid: 8966137386555146336
+        - rid: 758315839196758782
         weight: 0
     - rid: 758315839196758782
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
+        label: Tree Rings
+        icon: {fileID: 21300000, guid: d1ea56d5b7ea8407faebb13c56ed8e92, type: 3}
     - rid: 8966137386555146333
       type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
       data:

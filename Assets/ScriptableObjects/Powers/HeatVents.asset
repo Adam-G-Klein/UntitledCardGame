@@ -17,7 +17,7 @@ MonoBehaviour:
   description: Whenever you exhaust a card, give self and adjacent rats 1 block
   abilities:
   - rid: 2511001254715195611
-  displaySprite: {fileID: 21300000, guid: 52f62e90b62fa9249aac77854a45e7d5, type: 3}
+  displaySprite: {fileID: 21300000, guid: c9caf3527c22415419b60dba97e5f518, type: 3}
   extraTooltip:
     rid: 6567162444329517607
   stackable: 1
@@ -32,6 +32,12 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 1700682198445196046
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: Heat Vents
+        icon: {fileID: 21300000, guid: c9caf3527c22415419b60dba97e5f518, type: 3}
     - rid: 2511001254715195611
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
@@ -48,6 +54,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 00000000
@@ -90,9 +97,3 @@ MonoBehaviour:
         inputKey: self
         includeInputCompanion: 1
         outputKey: all
-    - rid: 1700682198445196046
-      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EntityAbilityTriggeredVFX
-        label: Heat Vents
-        icon: {fileID: 21300000, guid: 52f62e90b62fa9249aac77854a45e7d5, type: 3}

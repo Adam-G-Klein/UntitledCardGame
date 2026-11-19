@@ -37,7 +37,7 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 4
-  IconDescriptionTooltipLines: []
+  IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: inhand_rpl_damage
     value: 7
@@ -74,20 +74,25 @@ MonoBehaviour:
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps: []
+    - rid: 3226456818927796700
+      type: {class: CardTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardTriggeredVFX
+        vfxPrefab: {fileID: 3402153693038389984, guid: a3b6b31a75a68b1498be5837432eabd6, type: 3}
     - rid: 5602892561590779904
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 8966137386555146426
-        - rid: 8966137386555146427
-        - rid: 8966137386555146428
         - rid: 8966137386555146429
+        - rid: 3226456818927796700
         - rid: 8966137386555146430
     - rid: 8966137386555146426
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: thisCard
         validTargets: 
@@ -97,23 +102,12 @@ MonoBehaviour:
         cardSelectionHelperText: 
         selectionPurpose: 0
         selectionCardCategory: 0
-    - rid: 8966137386555146427
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: thisCard
-        prefabToInstantiate: {fileID: 6137048663962808129, guid: 032e33b914ed32b418cdc1ed2f15fc6e, type: 3}
-        scale: 1
-    - rid: 8966137386555146428
-      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: WaitForSecondsEffect
-        seconds: 0.2
     - rid: 8966137386555146429
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: random
         validTargets: 02000000
@@ -135,4 +129,6 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
+        vfxPrefab: {fileID: 1320532642761013391, guid: 381a02582541e99408fa39f06422e946, type: 3}
+        casterTrail: {fileID: 0}
+        damageDealtOutputKey: 
