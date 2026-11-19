@@ -38,11 +38,7 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 18
-  IconDescriptionTooltipLines:
-  - This card is retained, so it stays in hand at the end of turn. It exhausts when
-    played.
-  - Draw 1 card from a rat of your choice.
-  - Then, choose 1 card in hand to discard.
+  IconDescriptionTooltipLineOverrides: []
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: e485a5f74ee5d074187ebd614e44b7fd, type: 3}
@@ -74,6 +70,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: targetCard
         validTargets: 03000000
@@ -81,7 +78,7 @@ MonoBehaviour:
         specialTargetRule: 5
         cantCancelTargetting: 1
         cardSelectionHelperText: 
-        selectionPurpose: 0
+        selectionPurpose: 2
         selectionCardCategory: 0
     - rid: 2034230108114649668
       type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
@@ -110,6 +107,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: target
         validTargets: 00000000

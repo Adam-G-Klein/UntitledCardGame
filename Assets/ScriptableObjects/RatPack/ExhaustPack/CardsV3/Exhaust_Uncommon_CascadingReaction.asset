@@ -87,6 +87,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: allCards
         validTargets: 03000000
@@ -114,6 +115,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: card
         validTargets: 03000000
@@ -121,7 +123,7 @@ MonoBehaviour:
         specialTargetRule: 5
         cantCancelTargetting: 1
         cardSelectionHelperText: 
-        selectionPurpose: 0
+        selectionPurpose: 1
         selectionCardCategory: 0
     - rid: 2034230176448512660
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
@@ -159,6 +161,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 
