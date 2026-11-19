@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Exhaust_Precise_Common_Pureknife
   m_EditorClassIdentifier: 
   guid: a0473668-2497-40b2-bce8-adb9f0345fd1
-  Name: Pureknife
+  Name: Purehammer
   Description: Deal {rpl_damage} damage. When drawn, gain +5 damage
   IconDescription:
   - tokenType: 0
@@ -40,9 +40,7 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 34
-  IconDescriptionTooltipLines:
-  - Deal damage to a foe of your choice
-  - Whenever this card is drawn, it gains +4 damage for the rest of combat.
+  IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: rpl_damage
     value: 3
@@ -76,6 +74,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 
@@ -100,6 +99,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: card
         validTargets: 03000000
@@ -141,6 +141,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: thrower
         validTargets: 
@@ -155,6 +156,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: enemy
         validTargets: 02000000
@@ -177,6 +179,8 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 0}
+        casterTrail: {fileID: 0}
+        damageDealtOutputKey: 
     - rid: 2116895648763871339
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
