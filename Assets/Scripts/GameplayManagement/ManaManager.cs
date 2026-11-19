@@ -44,6 +44,6 @@ public class ManaManager : GenericSingleton<ManaManager> {
     }
 
     public void AddExtraManaNextTurn(int mana) {
-        extraManaNextTurn = mana;
+        extraManaNextTurn += mana;
     }
 }
