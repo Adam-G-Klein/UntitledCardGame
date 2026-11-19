@@ -194,6 +194,8 @@ public class CompanionManagementView : IControlsReceiver {
 
     public void CompanionManagementOnPointerDown(PointerDownEvent evt, bool usingMouse) {
         if (!interactionsEnabled) return;
+        // Only the left mouse button drives companion dragging
+        if (usingMouse && evt.button != 0) return;
         Debug.Log("Companion on pointer down");
         RemoveCompanionHoverButtons();
         viewDelegate.DestroyTooltip(container);
@@ -219,6 +221,8 @@ public class CompanionManagementView : IControlsReceiver {
 
     public void ComapnionManagementOnPointerUp(PointerUpEvent evt) {
         if (!interactionsEnabled) return;
+        // Ignore releasing non-left buttons (e.g. right click) so they don't drop the companion
+        if (evt.button != 0) return;
         viewDelegate.ComapnionManagementOnPointerUp(this, evt.position);
         draggingThisCompanion = false;
     }

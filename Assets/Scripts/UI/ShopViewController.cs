@@ -79,6 +79,8 @@ public class ShopViewController : MonoBehaviour,
 
     // For dragging and dropping companions in the unit management
     private bool isDraggingCompanion = false;
+    // True during the frame between pointer down and FinishDragSetup completing
+    private bool isSettingUpCompanionDrag = false;
     private CompanionManagementView companionBeingDragged = null;
     private CompanionManagementSlotView originalSlot = null;
     private List<CompanionManagementSlotView> activeSlots = new List<CompanionManagementSlotView>();
@@ -320,7 +322,7 @@ public class ShopViewController : MonoBehaviour,
     }
 
     private void CancelCurrentInteraction() {
-        if (isDraggingCompanion) {
+        if (isDraggingCompanion || isSettingUpCompanionDrag) {
             CancelDraggingCompanion();
         }
     }
@@ -1426,7 +1428,9 @@ public class ShopViewController : MonoBehaviour,
 
     public void CompanionManagementOnPointerDown(CompanionManagementView companionView, Vector2 pointerPos)
     {
-        if (!canDragCompanions && !isDraggingCompanion) return;
+        // Ignore additional pointer downs (e.g. right click) while a drag is active or being set up,
+        // otherwise the dragged companion has no parent slot and we rebuild the view, duplicating it.
+        if (!canDragCompanions || isDraggingCompanion || isSettingUpCompanionDrag) return;
 
         DestroyAllTooltips();
         CompanionManagementSlotView parentSlot = GetParentSlotViewForCompanion(companionView);
@@ -1448,6 +1452,7 @@ public class ShopViewController : MonoBehaviour,
         tempContainer.style.alignItems = Align.Center;
 
         uiDoc.rootVisualElement.Add(tempContainer);
+        isSettingUpCompanionDrag = true;
         StartCoroutine(FinishDragSetup(tempContainer, companionView, pointerPos, parentSlot));
     }
 
@@ -1466,6 +1471,12 @@ public class ShopViewController : MonoBehaviour,
 
     private IEnumerator FinishDragSetup(VisualElement tempContainer, CompanionManagementView companion, Vector2 position, CompanionManagementSlotView originalSlot) {
         yield return new WaitForEndOfFrame();
+        if (!isSettingUpCompanionDrag) {
+            // Drag was cancelled before setup finished
+            tempContainer.RemoveFromHierarchy();
+            yield break;
+        }
+        isSettingUpCompanionDrag = false;
         tempContainer.style.top = position.y - tempContainer.layout.height / 2;
         tempContainer.style.left = position.x - tempContainer.layout.width / 2;
         this.originalSlot = originalSlot;
@@ -2266,6 +2277,8 @@ public class ShopViewController : MonoBehaviour,
 
     public void CancelDraggingCompanion()
     {
+        // If cancelled mid-setup, FinishDragSetup will see this and clean up its temp container
+        isSettingUpCompanionDrag = false;
         if (!isDraggingCompanion) return;
 
         FocusManager.Instance.UnstashFocusables(this.GetType().Name + COMPANION_MANAGEMENT);
@@ -2281,7 +2294,7 @@ public class ShopViewController : MonoBehaviour,
 
     public void SwappedControlMethod(ControlsManager.ControlMethod controlMethod)
     {
-        if (isDraggingCompanion) {
+        if (isDraggingCompanion || isSettingUpCompanionDrag) {
             CancelDraggingCompanion();
         }
 
