@@ -12,6 +12,8 @@ public class ManaManager : GenericSingleton<ManaManager> {
 
         }
     }
+    public int manaSpentThisTurn = 0;
+
     public int extraManaNextTurn = 0;
     public int manaPerTurn;
     public GameObject listener;
@@ -24,12 +26,13 @@ public class ManaManager : GenericSingleton<ManaManager> {
     void Update() {
     }
 
-    public void manaEventHandler(int info) {
-        currentMana += info;
-    }
-
     public void updateMana(int change) {
         currentMana += change;
+    }
+
+    public void recordManaSpent(int numManaSpent)
+    {
+        manaSpentThisTurn += numManaSpent;
     }
 
     public void SetManaPerTurn(int num) {
@@ -40,6 +43,7 @@ public class ManaManager : GenericSingleton<ManaManager> {
         if(info.newPhase == TurnPhase.START_PLAYER_TURN) {
             currentMana = manaPerTurn + extraManaNextTurn;
             extraManaNextTurn = 0;
+            manaSpentThisTurn = 0;
         }
     }
 

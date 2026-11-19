@@ -1,0 +1,138 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: Haemon_Uncommon_UnnaturalSpeed
+  m_EditorClassIdentifier: 
+  guid: 3d2467e5-b67b-4bf4-907a-abed817e5678
+  Name: Unnatural Speed
+  Description: Bleed self 2 HP & reduce the cost of all cards in hand by 1 until
+    the end of turn
+  IconDescription:
+  - tokenType: 0
+    text: "Reduce the cost of all cards in hand by 1 \xC9lan"
+    icon: 11
+  - tokenType: 1
+    text: 
+    icon: 11
+  - tokenType: 0
+    text: 2
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 9
+  - tokenType: 2
+    text: 
+    icon: 11
+  IconDescriptionTooltipLineOverrides: []
+  defaultValues: []
+  Cost: 2
+  Artwork: {fileID: 21300000, guid: b6a3a72ddfbd65c429c809259c81ca0b, type: 3}
+  cardCategory: 2
+  packFrom: {fileID: 11400000, guid: a87b5da767d4e4659b2965e31e340c58, type: 2}
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
+  effectWorkflows:
+  - rid: 5602893017534169563
+  onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  onDrawEffectWorkflow:
+    rid: -2
+  tooltips: 
+  tooltipKeyword: 37
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 1700682291002736692
+      type: {class: CardsChangedVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardsChangedVFX
+        inputKey: otherCards
+        vfxPrefab: {fileID: 1872837941943473356, guid: c1728413e5bf48543b46f1ce54f452c5, type: 3}
+    - rid: 5280922841426165948
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.3
+    - rid: 5602893017534169563
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 5602893017534169564
+        - rid: 5602893017534169565
+        - rid: 5602893017534169566
+        - rid: 1700682291002736692
+        - rid: 5602893017534169567
+        - rid: 5280922841426165948
+    - rid: 5602893017534169564
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
+    - rid: 5602893017534169565
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
+        inputKey: 
+        outputKey: otherCards
+        validTargets: 03000000
+        number: 1
+        specialTargetRule: 2
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
+    - rid: 5602893017534169566
+      type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardModificationEffect
+        inputKey: otherCards
+        scale: 1
+        affectsAllCardsOfType: 0
+        cardTypeToModify: {fileID: 0}
+        getScaleFromKey: 0
+        scaleKey: 
+        modification: 2
+    - rid: 5602893017534169567
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: self
+        combatEffect: 16
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 1320532642761013391, guid: f2880129efe84e249b6550440c43546b, type: 3}
+        casterTrail: {fileID: 0}
+        damageDealtOutputKey: 

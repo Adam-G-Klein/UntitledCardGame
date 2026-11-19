@@ -90,6 +90,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 00000000
@@ -104,6 +105,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: allrats
         validTargets: 00000000
@@ -125,5 +127,6 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 1
         inputMultiplicityKey: numTimes
-        vfxPrefab: {fileID: 3850217184923880746, guid: 604f6efaa1e828d4bacfc84a25dfbd7a, type: 3}
+        vfxPrefab: {fileID: 7628433404972162664, guid: a9880f1216ab99e46b419b3a899530e7, type: 3}
+        casterTrail: {fileID: 0}
         damageDealtOutputKey: 

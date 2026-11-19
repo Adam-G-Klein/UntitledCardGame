@@ -149,6 +149,9 @@ public class PowerSO : ScriptableObject
         // _: anastasia's fury, rawr. whenever this rat dies, deal 50 damage to ALL rats and enemies.
         // _: first attack from each rat each turn deals +3 damage.
         FrontFoot,
+        // _: deal with the devil.
+        DealWithTheDevil,
+        BeyondTheGrave,
     }
 
     public TooltipViewModel GetTooltip(int stackCount)

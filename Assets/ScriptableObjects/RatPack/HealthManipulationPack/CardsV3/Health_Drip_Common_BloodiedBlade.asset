@@ -37,9 +37,7 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 12
-  IconDescriptionTooltipLines:
-  - Deal damage to target foe
-  - Then, bleed 1 HP from self and adjacent rats.
+  IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: rpl_damage
     value: 8
@@ -89,6 +87,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 00000000
@@ -103,6 +102,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: enemy
         validTargets: 02000000
@@ -124,7 +124,9 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 543044791509807550, guid: c328362a1a7e6a14a9c9fc813026f7ac, type: 3}
+        vfxPrefab: {fileID: 2516262191440512575, guid: c328362a1a7e6a14a9c9fc813026f7ac, type: 3}
+        casterTrail: {fileID: 0}
+        damageDealtOutputKey: 
     - rid: 5602892949302281050
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -138,3 +140,5 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 1320532642761013391, guid: f2880129efe84e249b6550440c43546b, type: 3}
+        casterTrail: {fileID: 0}
+        damageDealtOutputKey: 

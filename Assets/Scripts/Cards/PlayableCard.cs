@@ -117,6 +117,7 @@ public class PlayableCard : MonoBehaviour,
         List<PlayableCard> cardsInHand = PlayerHand.Instance.GetCardsOrdered();
         int cardPlayedIndex = cardsInHand.IndexOf(this);
         // ManaManager.Instance.updateMana(-card.GetManaCost());
+        ManaManager.Instance.recordManaSpent(card.GetManaCost());
         StartCoroutine(cardCastEvent.RaiseAtEndOfFrameCoroutine(new CardCastEventInfo(card)));
         IncrementCastCount();
         EnemyEncounterManager.Instance.combatEncounterState.CastCard(card);
@@ -157,6 +158,7 @@ public class PlayableCard : MonoBehaviour,
             //PlayerHand.Instance.FocusACard(this);
         }
         Debug.Log("FINISHED CardFinishCastingCallback");
+
     }
 
     public void CardExhaustVFX()
