@@ -86,6 +86,7 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 6567162537147630139
+        - rid: 7630097088764037153
         - rid: 6567162537147630140
     - rid: 6567162537147630139
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -113,4 +114,9 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
+        vfxPrefab: {fileID: 9220211061628483914, guid: 41cb8c7784cebe14aa9922e6cb7c2768, type: 3}
+    - rid: 7630097088764037153
+      type: {class: CardTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardTriggeredVFX
+        vfxPrefab: {fileID: 3402153693038389984, guid: a3b6b31a75a68b1498be5837432eabd6, type: 3}

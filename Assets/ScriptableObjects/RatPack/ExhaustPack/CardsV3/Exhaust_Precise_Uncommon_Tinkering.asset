@@ -59,8 +59,7 @@ MonoBehaviour:
         - rid: 7082891692335694201
         - rid: 8966137386555146542
         - rid: 7082891692335694198
-        - rid: 8966137386555146544
-        - rid: 8966137386555146543
+        - rid: 7083365561741298937
     - rid: 7082891692335694198
       type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
       data:
@@ -86,6 +85,12 @@ MonoBehaviour:
         cardSelectionHelperText: 
         selectionPurpose: 0
         selectionCardCategory: 0
+    - rid: 7083365561741298937
+      type: {class: CardsChangedVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardsChangedVFX
+        inputKey: selected
+        vfxPrefab: {fileID: 1872837941943473356, guid: c1728413e5bf48543b46f1ce54f452c5, type: 3}
     - rid: 8966137386555146542
       type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
       data:
@@ -96,15 +101,3 @@ MonoBehaviour:
         getScaleFromKey: 0
         outputKey: selected
         withReplacement: 0
-    - rid: 8966137386555146543
-      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: WaitForSecondsEffect
-        seconds: 0.2
-    - rid: 8966137386555146544
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: selected
-        prefabToInstantiate: {fileID: 6137048663962808129, guid: 032e33b914ed32b418cdc1ed2f15fc6e, type: 3}
-        scale: 1

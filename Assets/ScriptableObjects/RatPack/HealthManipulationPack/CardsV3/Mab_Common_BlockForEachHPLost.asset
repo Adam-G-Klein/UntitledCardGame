@@ -85,6 +85,13 @@ MonoBehaviour:
         getMultiplicityFromKey: 1
         inputMultiplicityKey: numTimes
         toggleStatus: 0
+    - rid: 3236598681996578295
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 5544746409644772109, guid: cb9bb9abb30de5343bf49ed97b274104, type: 3}
+        scale: 1
     - rid: 5602892949302281046
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -93,6 +100,7 @@ MonoBehaviour:
         - rid: 5602892949302281048
         - rid: 758315839196758670
         - rid: 3226456462082179497
+        - rid: 3236598681996578295
     - rid: 5602892949302281047
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

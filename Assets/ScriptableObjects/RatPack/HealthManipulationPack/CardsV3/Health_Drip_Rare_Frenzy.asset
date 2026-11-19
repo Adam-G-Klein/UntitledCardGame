@@ -68,6 +68,13 @@ MonoBehaviour:
         outputKey: tookDamage
         numTimesOutputKey: numTimes
         numRatsWhoLostHPOutputKey: 
+    - rid: 1577049786485704905
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 5013861173896774169, guid: 42147a600b7b8774fa068fd68476c19a, type: 3}
+        scale: 1
     - rid: 5602892949302281046
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -77,6 +84,7 @@ MonoBehaviour:
         - rid: 758315839196758670
         - rid: 8966137042617237829
         - rid: 8966137042617237830
+        - rid: 1577049786485704905
     - rid: 5602892949302281047
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

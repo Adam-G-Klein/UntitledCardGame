@@ -69,8 +69,8 @@ MonoBehaviour:
       data:
         effectStepName: InstantiatePrefab
         inputKey: left
-        prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
-        scale: 1.5
+        prefabToInstantiate: {fileID: 5544746409644772109, guid: cb9bb9abb30de5343bf49ed97b274104, type: 3}
+        scale: 1
     - rid: 1289961820425028169
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -83,7 +83,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
+        vfxPrefab: {fileID: 1320532642761013391, guid: 5c396b5345581a240836e4caa8110510, type: 3}
         damageDealtOutputKey: 
     - rid: 1289961820425028170
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}

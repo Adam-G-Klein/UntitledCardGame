@@ -90,9 +90,15 @@ MonoBehaviour:
         - rid: 8966137386555146433
         - rid: 8966137386555146434
         - rid: 8966137386555146435
+        - rid: 7311200461327321184
         - rid: 8966137386555146436
         - rid: 8966137386555146437
         - rid: 8966137386555146438
+    - rid: 7311200461327321184
+      type: {class: CardTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardTriggeredVFX
+        vfxPrefab: {fileID: 3402153693038389984, guid: a3b6b31a75a68b1498be5837432eabd6, type: 3}
     - rid: 8966137386555146431
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -175,5 +181,5 @@ MonoBehaviour:
       data:
         effectStepName: InstantiatePrefab
         inputKey: adj
-        prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
+        prefabToInstantiate: {fileID: 7684460117381791310, guid: d04d999dedec0614baab8420fc7919ea, type: 3}
         scale: 1

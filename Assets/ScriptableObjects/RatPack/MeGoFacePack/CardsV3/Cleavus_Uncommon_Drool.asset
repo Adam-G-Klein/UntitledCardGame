@@ -51,13 +51,19 @@ MonoBehaviour:
       data:
         effectStepName: InstantiatePrefab
         inputKey: expensiveCards
-        prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+        prefabToInstantiate: {fileID: 7061810456412778628, guid: 056feea5b40bdc841b884fff65bf7722, type: 3}
         scale: 1
     - rid: 385751591190528745
       type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: WaitForSecondsEffect
         seconds: 0.3
+    - rid: 5058206259170219375
+      type: {class: CardsChangedVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardsChangedVFX
+        inputKey: expensiveCards
+        vfxPrefab: {fileID: 1872837941943473356, guid: c1728413e5bf48543b46f1ce54f452c5, type: 3}
     - rid: 7082891692335694194
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -65,6 +71,7 @@ MonoBehaviour:
         - rid: 7082891692335694195
         - rid: 7082891692335694196
         - rid: 7082891692335694198
+        - rid: 5058206259170219375
         - rid: 385751591190528744
         - rid: 385751591190528745
     - rid: 7082891692335694195

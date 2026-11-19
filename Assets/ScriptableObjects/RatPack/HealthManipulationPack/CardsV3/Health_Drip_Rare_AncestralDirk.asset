@@ -121,8 +121,14 @@ MonoBehaviour:
       data:
         effectStepName: InstantiatePrefab
         inputKey: attacks
-        prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+        prefabToInstantiate: {fileID: 7061810456412778628, guid: 056feea5b40bdc841b884fff65bf7722, type: 3}
         scale: 1
+    - rid: 4068765492903481617
+      type: {class: CardsChangedVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardsChangedVFX
+        inputKey: attacks
+        vfxPrefab: {fileID: 1872837941943473356, guid: c1728413e5bf48543b46f1ce54f452c5, type: 3}
     - rid: 5602892949302281046
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -135,6 +141,7 @@ MonoBehaviour:
         - rid: 758316092100444624
         - rid: 758316092100444625
         - rid: 758316092100444626
+        - rid: 4068765492903481617
         - rid: 758316092100444627
     - rid: 5602892949302281047
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -176,5 +183,5 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: 4847f21b038e1aa42bceefe5c97ab1ab, type: 3}
+        vfxPrefab: {fileID: 8642802995827560421, guid: ae578c6b2cd230b449a8a5fcee25d87b, type: 3}
         damageDealtOutputKey: 

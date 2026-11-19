@@ -66,10 +66,44 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 156532116443070245
+      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FXEffectStep
+        waitForEffect: 0
+        fXExperiencePrefab: {fileID: 4025317661659266955, guid: 552c818cbdb56b74ab103b90d0d8d0af, type: 3}
+        rootLocationGameObjectKey: 
+        positionMappingList:
+        - fromWorkflow: shooter
+          toFxExperience: self
+        - fromWorkflow: enemy
+          toFxExperience: target
+        gameobjectMappingList: []
+        vePositionMappingList: []
+        veMappingList: []
+    - rid: 665430805894537332
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: shooter
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 2034230108114649711
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps: []
+    - rid: 2182430936163609729
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.2
     - rid: 2268261022115299329
       type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
       data:
@@ -104,7 +138,10 @@ MonoBehaviour:
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
+        - rid: 665430805894537332
         - rid: 4463205916933357570
+        - rid: 156532116443070245
+        - rid: 2182430936163609729
         - rid: 7401433308100034878
         - rid: 7401433308100035075
         - rid: 2268261022115299347
@@ -121,7 +158,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
+        vfxPrefab: {fileID: 0}
         damageDealtOutputKey: 
     - rid: 7401433308100035075
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}

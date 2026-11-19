@@ -85,11 +85,17 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         waitForDrawsToResolve: 0
+    - rid: 3881509676596094081
+      type: {class: CardTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardTriggeredVFX
+        vfxPrefab: {fileID: 3402153693038389984, guid: a3b6b31a75a68b1498be5837432eabd6, type: 3}
     - rid: 6567162351591620633
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 6567162351591620634
+        - rid: 3881509676596094081
         - rid: 3226456462082179072
         - rid: 3226456462082179073
     - rid: 6567162351591620634

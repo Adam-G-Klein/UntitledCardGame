@@ -78,6 +78,13 @@ MonoBehaviour:
         effectStepName: EndWorkflowIfConditionMet
         inputKey1: tookDamage
         conditionToEndOn: 0
+    - rid: 4537268761413606587
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 5013861173896774169, guid: 42147a600b7b8774fa068fd68476c19a, type: 3}
+        scale: 1
     - rid: 5602892949302281046
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -86,6 +93,7 @@ MonoBehaviour:
         - rid: 5602892949302281048
         - rid: 8966137042617237829
         - rid: 8966137042617237830
+        - rid: 4537268761413606587
         - rid: 758315839196758670
         - rid: 758315839196758671
         - rid: 8966137042617237831

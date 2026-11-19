@@ -85,14 +85,25 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 7401433308100034879
+        - rid: 2098207676835684400
         - rid: 7401433308100034880
-    - rid: 3226456773783716039
+    - rid: 2098207676835684400
+      type: {class: CardTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardTriggeredVFX
+        vfxPrefab: {fileID: 3402153693038389984, guid: a3b6b31a75a68b1498be5837432eabd6, type: 3}
+    - rid: 2863069651118378156
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.28
+    - rid: 4778480926702719961
       type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: FXEffectStep
         waitForEffect: 0
-        fXExperiencePrefab: {fileID: 7704051009126986559, guid: b3f27041862600f419eea89eeead48ab, type: 3}
-        rootLocationGameObjectKey: 
+        fXExperiencePrefab: {fileID: 6985075528276778387, guid: ad90be7a413b7844f88ed0cdce6a0f9d, type: 3}
+        rootLocationGameObjectKey:
         positionMappingList:
         - fromWorkflow: shooter
           toFxExperience: self
@@ -101,19 +112,18 @@ MonoBehaviour:
         gameobjectMappingList: []
         vePositionMappingList: []
         veMappingList: []
-    - rid: 3226456773783716040
+    - rid: 5277686213858675915
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
-        useInputToExcludeOptions: 0
-        inputKey: 
+        inputKey:
         outputKey: shooter
-        validTargets: 
+        validTargets:
         number: 1
         specialTargetRule: 4
         cantCancelTargetting: 0
-        cardSelectionHelperText: 
+        cardSelectionHelperText:
         selectionPurpose: 0
         selectionCardCategory: 0
     - rid: 7189280385716453524
@@ -210,18 +220,19 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
+        vfxPrefab: {fileID: 8842018153899722763, guid: 33fb972d1906aee4aaf993b3ba08ebee, type: 3}
         casterTrail: {fileID: 0}
         damageDealtOutputKey: 
     - rid: 8034949815888773120
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
+        - rid: 5277686213858675915
         - rid: 7189280385716453754
         - rid: 7189280385716453755
         - rid: 7189280385716453756
         - rid: 7189280385716453757
         - rid: 7189280385716453524
+        - rid: 4778480926702719961
+        - rid: 2863069651118378156
         - rid: 7189280385716453525
-        - rid: 3226456773783716040
-        - rid: 3226456773783716039

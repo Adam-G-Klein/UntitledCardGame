@@ -60,6 +60,21 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 778966526016101442
+      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FXEffectStep
+        waitForEffect: 0
+        fXExperiencePrefab: {fileID: 4718147213966508192, guid: 13feae198fe5ef84bbb61f0e52f066d6, type: 3}
+        rootLocationGameObjectKey: 
+        positionMappingList:
+        - fromWorkflow: thrower
+          toFxExperience: self
+        - fromWorkflow: target
+          toFxExperience: target
+        gameobjectMappingList: []
+        vePositionMappingList: []
+        veMappingList: []
     - rid: 1289961959942521124
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -108,6 +123,11 @@ MonoBehaviour:
           exactCardType: {fileID: 0}
           companionInstanceFilterEnabled: 0
         outputKey: statusCards
+    - rid: 2352798941564201078
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.45
     - rid: 5602892561590779943
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -117,6 +137,9 @@ MonoBehaviour:
         - rid: 1289961959942521126
         - rid: 1289961959942521125
         - rid: 5602892561590779944
+        - rid: 6164567591107922209
+        - rid: 778966526016101442
+        - rid: 2352798941564201078
         - rid: 7401433037623787538
     - rid: 5602892561590779944
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -128,6 +151,20 @@ MonoBehaviour:
         validTargets: 02000000
         number: 1
         specialTargetRule: 6
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
+    - rid: 6164567591107922209
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: thrower
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
@@ -144,5 +181,5 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
+        vfxPrefab: {fileID: 0}
         damageDealtOutputKey: 

@@ -70,15 +70,21 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 290780982038380153
+      type: {class: CardsChangedVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardsChangedVFX
+        inputKey: card
+        vfxPrefab: {fileID: 1872837941943473356, guid: c1728413e5bf48543b46f1ce54f452c5, type: 3}
     - rid: 2034230108114649711
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 7401433308100035081
+        - rid: 5317632293539177705
         - rid: 7401433308100035082
         - rid: 7401433308100035083
-        - rid: 7401433308100035085
-        - rid: 7401433308100035086
+        - rid: 290780982038380153
     - rid: 4463205916933357570
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -93,6 +99,11 @@ MonoBehaviour:
         cardSelectionHelperText: 
         selectionPurpose: 0
         selectionCardCategory: 0
+    - rid: 5317632293539177705
+      type: {class: CardTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardTriggeredVFX
+        vfxPrefab: {fileID: 3402153693038389984, guid: a3b6b31a75a68b1498be5837432eabd6, type: 3}
     - rid: 5602892563578094203
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -111,7 +122,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
+        vfxPrefab: {fileID: 8866989754613855010, guid: 4cbf4f64f43f02d418c64fa019dd2477, type: 3}
         damageDealtOutputKey: 
     - rid: 7401433308100035081
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -144,15 +155,3 @@ MonoBehaviour:
         getScaleFromKey: 0
         scaleKey: 
         modification: 0
-    - rid: 7401433308100035085
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: self
-        prefabToInstantiate: {fileID: 6137048663962808129, guid: 032e33b914ed32b418cdc1ed2f15fc6e, type: 3}
-        scale: 1
-    - rid: 7401433308100035086
-      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: WaitForSecondsEffect
-        seconds: 0.5

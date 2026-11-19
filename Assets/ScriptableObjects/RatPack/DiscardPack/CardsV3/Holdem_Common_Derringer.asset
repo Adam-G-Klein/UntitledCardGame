@@ -63,6 +63,21 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 1781132794735794346
+      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FXEffectStep
+        waitForEffect: 0
+        fXExperiencePrefab: {fileID: 7704051009126986559, guid: b3f27041862600f419eea89eeead48ab, type: 3}
+        rootLocationGameObjectKey: 
+        positionMappingList:
+        - fromWorkflow: shooter
+          toFxExperience: self
+        - fromWorkflow: enemy
+          toFxExperience: target
+        gameobjectMappingList: []
+        vePositionMappingList: []
+        veMappingList: []
     - rid: 2034230108114649711
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -83,6 +98,11 @@ MonoBehaviour:
         getScaleFromKey: 0
         outputKey: selected
         withReplacement: 0
+    - rid: 2710188153016264325
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.38
     - rid: 4463205916933357570
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -102,11 +122,29 @@ MonoBehaviour:
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
+        - rid: 5692596818841507801
         - rid: 4463205916933357570
+        - rid: 1781132794735794346
+        - rid: 2710188153016264325
         - rid: 7401433308100034878
         - rid: 7401433308100035075
         - rid: 2268261022115299347
         - rid: 2268261022115299329
+    - rid: 5692596818841507801
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
+        inputKey: 
+        outputKey: shooter
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 7401433308100034878
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -119,7 +157,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
+        vfxPrefab: {fileID: 0}
         casterTrail: {fileID: 0}
         damageDealtOutputKey: 
     - rid: 7401433308100035075
