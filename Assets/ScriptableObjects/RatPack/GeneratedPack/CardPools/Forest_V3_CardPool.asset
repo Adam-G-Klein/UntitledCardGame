@@ -28,7 +28,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 57a466801f75c426bbd132cb6fb731ab, type: 2}
   - {fileID: 11400000, guid: c0fb3dbb8ac5449bfa4b114a6270955e, type: 2}
   - {fileID: 11400000, guid: 77df3ccb56e0548f8836beaf4a5ebd75, type: 2}
-  - {fileID: 11400000, guid: 5c37f2351b6cb4e8d8a85083f5b3fead, type: 2}
   rareCards:
   - {fileID: 11400000, guid: fee31618f5743448cba43d88249642d4, type: 2}
   - {fileID: 11400000, guid: 1463ff16446ae4232a9a422dd596ee9e, type: 2}
@@ -36,5 +35,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ca6a374d459e642619af4c9ba900ccc1, type: 2}
   genericCardIconSprite: {fileID: 0}
   unlockableCommonCards: []
-  unlockableUncommonCards: []
+  unlockableUncommonCards:
+  - {fileID: 11400000, guid: 5c37f2351b6cb4e8d8a85083f5b3fead, type: 2}
   unlockableRareCards: []

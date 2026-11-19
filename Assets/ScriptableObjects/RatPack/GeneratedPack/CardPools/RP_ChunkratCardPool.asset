@@ -18,10 +18,10 @@ MonoBehaviour:
   uncommonCards:
   - {fileID: 11400000, guid: 9549be07c7eea4ee0a0eb56661a348c8, type: 2}
   - {fileID: 11400000, guid: 0f66172aa38d5450386b6207a755f44e, type: 2}
-  - {fileID: 11400000, guid: 57ae589bcfe414be69e5d45eb9b30ad9, type: 2}
   rareCards:
   - {fileID: 11400000, guid: 57fd5ea77ed8b40e6b1e577021481633, type: 2}
   genericCardIconSprite: {fileID: 0}
   unlockableCommonCards: []
-  unlockableUncommonCards: []
+  unlockableUncommonCards:
+  - {fileID: 11400000, guid: 57ae589bcfe414be69e5d45eb9b30ad9, type: 2}
   unlockableRareCards: []
