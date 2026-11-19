@@ -14,27 +14,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerType: 24
   title: Pain Train
-  description: Whenever own deck is shuffled, deal 7 damage to a random enemy
+  description: Whenever a rat's deck is shuffled, deal 6 damage to a random enemy
   abilities:
   - rid: 754093991137640772
   displaySprite: {fileID: 21300000, guid: b6a3a72ddfbd65c429c809259c81ca0b, type: 3}
-  tooltip:
-    rid: 754093871974056657
+  extraTooltip:
+    rid: 3226456818927796235
   stackable: 1
+  cacheConfiguration:
+    key: 
+    display: 1
+    sprite: {fileID: 0}
+    startOfTurnValue: 0
+    setStartOfTurnValue: 0
+    startOfCombatValue: 0
+    setStartOfCombatValue: 0
   references:
     version: 2
     RefIds:
-    - rid: 754093871974056657
-      type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
-      data:
-        empty: 0
-        lines: []
     - rid: 754093991137640772
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
         abilityTrigger: 10
         effectSteps:
-        - rid: 2511001254715195609
         - rid: 754093991137641208
         - rid: 2511001254715195610
         - rid: 758315839196758782
@@ -44,6 +46,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: enemy
         validTargets: 02000000
@@ -51,25 +54,21 @@ MonoBehaviour:
         specialTargetRule: 6
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 758315839196758782
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
-        icon: {fileID: 21300000, guid: b6a3a72ddfbd65c429c809259c81ca0b, type: 3}
         label: Pain Train
-    - rid: 2511001254715195609
-      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EndWorkflowIfConditionMet
-        inputKey1: ownDeckShuffled
-        conditionToEndOn: 0
+        icon: {fileID: 21300000, guid: b6a3a72ddfbd65c429c809259c81ca0b, type: 3}
     - rid: 2511001254715195610
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
         inputKey: enemy
         combatEffect: 14
-        scale: 7
+        scale: 6
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
@@ -77,3 +76,9 @@ MonoBehaviour:
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 1320532642761013391, guid: e49a68dc032bc894aafd8af2fcb8483b, type: 3}
         casterTrail: {fileID: 3171343891902045044, guid: c9c550e20bc312c43acfef3a1351a0e2, type: 3}
+        damageDealtOutputKey: 
+    - rid: 3226456818927796235
+      type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
+      data:
+        empty: 1
+        lines: []
