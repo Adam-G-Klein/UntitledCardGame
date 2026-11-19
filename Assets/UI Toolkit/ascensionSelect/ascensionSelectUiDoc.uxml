@@ -20,7 +20,7 @@
             <ui:Button name="rightArrow" class="focusable" style="position: absolute; width: 127px; height: 127px; top: 106px; right: 0; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; background-color: rgba(0, 0, 0, 0); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0;">
                 <ui:VisualElement name="rightArrowImage" picking-mode="Ignore" style="width: 100%; height: 100%; background-image: url(&quot;project://database/Assets/Sprites/UI/Map/ARROW%20MAP.png?fileID=2800000&amp;guid=e61466a3ca0442f47b884ca6973fa902&amp;type=3#ARROW MAP&quot;); rotate: -90deg; scale: -1 1;" />
             </ui:Button>
-            <ui:Button text="Play!" parse-escape-sequences="true" display-tooltip-when-elided="true" name="startButton" class="main-menu-button focusable main-menu-button-size" style="position: absolute; left: 50%; bottom: -1px; width: 387px; height: 98px; translate: -50% 0;" />
+            <ui:Button text="Play" parse-escape-sequences="true" display-tooltip-when-elided="true" name="startButton" class="main-menu-button focusable main-menu-button-size" style="position: absolute; left: 50%; bottom: -1px; width: 387px; height: 98px; translate: -50% 0;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
