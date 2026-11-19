@@ -33,6 +33,8 @@ public class AddCardsToHand : EffectStep, ITooltipProvider {
     private string inputScaleKey = "";
     [SerializeField]
     private string outputKey = "";
+    [SerializeField]
+    public bool waitForDrawsToResolve = false;
 
     public AddCardsToHand() {
         effectStepName = "AddCardsToHand";
@@ -67,8 +69,27 @@ public class AddCardsToHand : EffectStep, ITooltipProvider {
             finalScale = document.intMap[inputScaleKey];
         }
 
+
+        List<PlayableCard> cardsAdded = addCardsToHand(cardTypesToAdd, finalScale, deckInstances);
+        if (waitForDrawsToResolve)
+        {
+            Debug.Log("Waiting for AddCardsToHand cards to be in hand...");
+            yield return new WaitUntil(() => {
+                foreach (PlayableCard card in cardsAdded)
+                {
+                    if (!PlayerHand.Instance.ContainsPlayableCard(card))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            });
+            yield return new WaitForSeconds(0.3f); // Small delay to ensure all card state updates have resolved
+            // yield return new WaitUntil(() => LeanTween.tweensRunning == 0); This doesn't work in the boss scene,
+            // because Meowthra uses tweens for their hand movement animation
+        }
         // Add the cards
-        document.map.AddItems(outputKey, addCardsToHand(cardTypesToAdd, finalScale, deckInstances));
+        document.map.AddItems(outputKey, cardsAdded);
 
         yield return null;
     }
@@ -95,7 +116,6 @@ public class AddCardsToHand : EffectStep, ITooltipProvider {
             } else {
                 Debug.LogError("DeckInstance does not have a companion type, cannot create new cards to add to it. won't know how to display their frames and icons without the companion reference");
             }
-
         }
         return cardsAdded;
     }

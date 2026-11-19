@@ -64,7 +64,8 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-        outputKey: out
+        outputKey: 
+        waitForDrawsToResolve: 1
     - rid: 3226456840182956153
       type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
@@ -90,24 +91,6 @@ MonoBehaviour:
         getScaleFromKey: 0
         scaleKey: 
         modification: 0
-    - rid: 3226456840182956165
-      type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CardModificationEffect
-        inputKey: out
-        scale: 5
-        affectsAllCardsOfType: 0
-        cardTypeToModify: {fileID: 0}
-        getScaleFromKey: 0
-        scaleKey: 
-        modification: 0
-    - rid: 3226456840182956166
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: out
-        prefabToInstantiate: {fileID: 3850217184923880746, guid: b2a4355251cfaff49a2dcb72d5dc5c99, type: 3}
-        scale: 1
     - rid: 3226456840182956167
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -135,12 +118,10 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 5280922841426165942
-        - rid: 5602892561590779944
         - rid: 758315839196758812
+        - rid: 5602892561590779944
         - rid: 3226456840182956153
         - rid: 3226456840182956154
-        - rid: 3226456840182956165
-        - rid: 3226456840182956166
         - rid: 3226456840182956167
     - rid: 5602892561590779944
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
