@@ -10,17 +10,47 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: PB_Thistleheart
+  m_Name: Pluck_Uncommon_Thistleheart
   m_EditorClassIdentifier: 
   guid: e663f924-eaab-4a2b-ae66-d79e7f69edda
   Name: Thistleheart
   Description: Unplayable. End of turn, deal {inhand_rpl_damage} damage to a random
     foe for each Charm card in hand ({numCharms} cards)
-  IconDescription: []
-  IconDescriptionTooltipLines: []
+  IconDescription:
+  - tokenType: 0
+    text: Unplayable
+    icon: 0
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 17
+  - tokenType: 0
+    text: ': '
+    icon: 17
+  - tokenType: 0
+    text: '{inhand_rpl_damage}'
+    icon: 17
+  - tokenType: 2
+    text: 
+    icon: 1
+  - tokenType: 0
+    text: xN
+    icon: 4
+  - tokenType: 2
+    text: 
+    icon: 4
+  - tokenType: 1
+    text: 
+    icon: 4
+  - tokenType: 0
+    text: N = Number of Charm cards in hand ({numCharms} cards)
+    icon: 4
+  IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: inhand_rpl_damage
-    value: 3
+    value: 2
   - key: numCharms
     value: 0
   Cost: 0
@@ -67,6 +97,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: allCards
         validTargets: 03000000
@@ -81,6 +112,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: enemy
         validTargets: 02000000
@@ -96,13 +128,20 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: enemy
         combatEffect: 14
-        scale: 3
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 1
         inputMultiplicityKey: numCharms
         vfxPrefab: {fileID: 6577544923726721386, guid: debbc833eef6b094c8b902475de2fa30, type: 3}
+        casterTrail: {fileID: 0}
+        damageDealtOutputKey: 
+    - rid: 1700682291002736688
+      type: {class: CardTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardTriggeredVFX
+        vfxPrefab: {fileID: 3402153693038389984, guid: a3b6b31a75a68b1498be5837432eabd6, type: 3}
     - rid: 2034230108114649282
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -127,8 +166,3 @@ MonoBehaviour:
         effectStepName: CountStep
         inputKey: charms
         outputKey: numCharms
-    - rid: 1700682291002736688
-      type: {class: CardTriggeredVFX, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CardTriggeredVFX
-        vfxPrefab: {fileID: 3402153693038389984, guid: a3b6b31a75a68b1498be5837432eabd6, type: 3}

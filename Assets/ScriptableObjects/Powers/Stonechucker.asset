@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Stonechucker
   m_EditorClassIdentifier: 
   powerType: 38
-  title: Woodchucker
-  description: Whenever you exhaust a Charm card, deal 3 damage to a random foe
+  title: Stonechucker
+  description: Whenever you draw a Charm card, deal 2 damage to a random foe
   abilities:
   - rid: 758316142852047499
-  displaySprite: {fileID: 21300000, guid: d368c9ba74e98f7408c2a579fc6febcb, type: 3}
+  displaySprite: {fileID: 21300000, guid: 69e0a325ef7679a469eebc7cea836acb, type: 3}
   extraTooltip:
     rid: 758316142852047497
   stackable: 1
@@ -72,6 +72,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: foe
         validTargets: 02000000
@@ -87,7 +88,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: foe
         combatEffect: 14
-        scale: 3
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
@@ -95,9 +96,10 @@ MonoBehaviour:
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 1320532642761013391, guid: 4847f21b038e1aa42bceefe5c97ab1ab, type: 3}
         casterTrail: {fileID: 3512837281690300094, guid: 177637e31229a3945ada8ebde354819a, type: 3}
+        damageDealtOutputKey: 
     - rid: 758316142852047572
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
-        icon: {fileID: 21300000, guid: d368c9ba74e98f7408c2a579fc6febcb, type: 3}
         label: Stonechucker
+        icon: {fileID: 21300000, guid: 69e0a325ef7679a469eebc7cea836acb, type: 3}

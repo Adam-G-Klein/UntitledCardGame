@@ -19,14 +19,14 @@ MonoBehaviour:
   abilities:
   - rid: 8966137386555146505
   - rid: 754093991137640772
-  displaySprite: {fileID: 21300000, guid: 06c409edcf5e308438ea9c89ccd99c68, type: 3}
+  displaySprite: {fileID: 21300000, guid: 4dd16061175a93546911c5e1d64ef624, type: 3}
   extraTooltip:
     rid: 8966137386555146489
   stackable: 1
   cacheConfiguration:
     key: numCharmsExhausted
     display: 1
-    sprite: {fileID: 21300000, guid: e1e7ebd578f2d4684bfcfb3f2cf1f3e5, type: 3}
+    sprite: {fileID: 21300000, guid: 4dd16061175a93546911c5e1d64ef624, type: 3}
     startOfTurnValue: 0
     setStartOfTurnValue: 1
     startOfCombatValue: 0
@@ -46,12 +46,14 @@ MonoBehaviour:
         - rid: 8966137386555146514
         - rid: 8966137386555146515
         - rid: 754093991137641210
+        - rid: 3226456840182956133
         weight: 0
     - rid: 754093991137641208
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: targets
         validTargets: 00000000
@@ -86,6 +88,12 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         outputKey: out
+    - rid: 3226456840182956133
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: Serpent's Nest
+        icon: {fileID: 21300000, guid: 4dd16061175a93546911c5e1d64ef624, type: 3}
     - rid: 8966137386555146489
       type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
       data:
@@ -122,6 +130,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 
@@ -183,6 +192,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 

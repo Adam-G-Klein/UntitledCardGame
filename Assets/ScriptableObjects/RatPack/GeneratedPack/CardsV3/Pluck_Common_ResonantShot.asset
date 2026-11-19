@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: PB_ResonantShot
+  m_Name: Pluck_Common_ResonantShot
   m_EditorClassIdentifier: 
   guid: 66489aed-445b-4db3-89d4-2a641850bfc3
   Name: Resonant Shot
@@ -23,11 +23,11 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 1
-  - tokenType: 2
-    text: 
-    icon: 18
   - tokenType: 0
     text: xN
+    icon: 18
+  - tokenType: 2
+    text: 
     icon: 18
   - tokenType: 1
     text: 
@@ -35,12 +35,10 @@ MonoBehaviour:
   - tokenType: 0
     text: N = Number of Charm cards in hand ({numStatusCards} cards)
     icon: 18
-  IconDescriptionTooltipLines:
-  - Deal damage to a foe of your choice N times.
-  - N equals the number of Charm cards in your hand.
+  IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: rpl_damage
-    value: 6
+    value: 4
   - key: numStatusCards
     value: 0
   Cost: 1
@@ -100,12 +98,15 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 1
         inputMultiplicityKey: numStatusCards
-        vfxPrefab: {fileID: 1320532642761013391, guid: 5f052df6dbd171a4b8742cfda625109c, type: 3}
+        vfxPrefab: {fileID: 6577544923726721386, guid: debbc833eef6b094c8b902475de2fa30, type: 3}
+        casterTrail: {fileID: 0}
+        damageDealtOutputKey: 
     - rid: 2268261004812222475
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: target
         validTargets: 02000000
@@ -120,6 +121,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: all
         validTargets: 03000000
