@@ -125,7 +125,7 @@ public class GetTargets : EffectStep, IEffectStepCalculation
             // UIStateManager.Instance.setState(UIState.EFFECT_TARGETTING);
             if (validTargets.Count == 1 && validTargets.Contains(Targetable.TargetType.Card)) {
                 bool isCostSelection = selectionPurpose == SelectionPurposeEnum.ExhaustAsACost || selectionPurpose == SelectionPurposeEnum.DiscardAsACost;
-                if (isCostSelection && !cantCancelTargetting && !HasSelectableCardsInHand()) {
+                if (isCostSelection && !cantCancelTargetting && !HasEnoughSelectableCardsInHand()) {
                     // Nothing in hand satisfies this cost (e.g. no charm cards to exhaust/discard).
                     // Short circuit instead of putting up a selection UI the player could never complete.
                     ShowNoValidCostCardsDialogue();
@@ -181,11 +181,15 @@ public class GetTargets : EffectStep, IEffectStepCalculation
         DialogueView.Instance.SpeakLine(companionInstance.companion.companionType.fullSprite, message);
     }
 
-    private bool HasSelectableCardsInHand() {
+    // Cost selections force the exact number of cards, so we need at least `number` selectable cards in hand.
+    private bool HasEnoughSelectableCardsInHand() {
+        int required = Math.Max(1, number);
+        int selectable = 0;
         foreach (PlayableCard card in PlayerHand.Instance.GetCardsOrdered()) {
             if (disallowedTargets != null && disallowedTargets.Contains(card.gameObject)) continue;
             if (limitOptions != null && !limitOptions.Contains(card.gameObject)) continue;
-            return true;
+            selectable++;
+            if (selectable >= required) return true;
         }
         return false;
     }
