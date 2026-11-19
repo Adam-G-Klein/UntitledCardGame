@@ -185,7 +185,15 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
     }
 
     public void onCreditsHandler() {
-        creditsView = null;
+        // Don't roll credits on top of credits that are already rolling
+        if (creditsView != null) return;
+
+        // The credits render to a RenderTexture, so they don't block pointer events from reaching
+        // the options UI underneath. Disable picking on the options UI while the credits roll, but keep
+        // the root pickable so it still blocks anything behind the options menu (e.g. the main menu).
+        UIDocumentUtils.SetAllPickingMode(optionsUIDocument.rootVisualElement, PickingMode.Ignore);
+        optionsUIDocument.rootVisualElement.pickingMode = PickingMode.Position;
+
         FocusManager.Instance.StashLockedFocusables(this.GetType().Name);
         GameObject creditsGO = Instantiate(creditsPrefab, Vector3.zero, Quaternion.identity);
         creditsView = creditsGO.GetComponent<CreditsView>();
@@ -194,6 +202,8 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
 
     public void creditsFinishedHandler() {
         creditsView = null;
+        if (optionsUIDocument.rootVisualElement.style.visibility != Visibility.Hidden)
+            UIDocumentUtils.SetAllPickingMode(optionsUIDocument.rootVisualElement, PickingMode.Position);
         SetFocusOnBackButton();
     }
 
