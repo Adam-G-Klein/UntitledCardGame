@@ -16,7 +16,7 @@ public class CompendiumView : IControlsReceiver {
     private ScrollView companionScrollView;
     private enum CompendiumType {
         COMPANION,
-        CARD, 
+        CARD,
         ENEMY
     }
     private VisualElement companionsSection;
@@ -29,7 +29,7 @@ public class CompendiumView : IControlsReceiver {
     private Button cardButton;
 
     private List<Coroutine> scrollCoroutines = new List<Coroutine>();
-    
+
     private HashSet<CardType> unlockedCards;
 
     private bool cardsSetup = false;
@@ -53,7 +53,7 @@ public class CompendiumView : IControlsReceiver {
 
         this.unlockedCards = unlockedCards.ToHashSet();
         uiDocument.StartCoroutine(SetupCardView(companionPool, neutralCardPool, packSOs));
-        uiDocument.StartCoroutine(SetupCompanionView(companionPool));
+        uiDocument.StartCoroutine(SetupCompanionView(companionPool, packSOs));
 
         // setup buttons
         companionButton = uiDocument.rootVisualElement.Q<Button>("companionButton");
@@ -82,6 +82,15 @@ public class CompendiumView : IControlsReceiver {
         FocusManager.Instance.RegisterFocusables(uiDocument);
         MusicController.Instance.RegisterButtonClickSFX(uiDocument);
         CardButtonHandler();
+
+        // The card sections are built a frame at a time while the scroll view is already visible, and each
+        // CardView stays hidden until a GeometryChangedEvent sizes it. Sections added late (the packs) can
+        // miss a correct layout pass, which is why they only appeared after tabbing to companions and back.
+        // Do the same display toggle here once everything is built so every card gets laid out and scaled.
+        cardsScrollView.style.display = DisplayStyle.None;
+        yield return null;
+        cardsScrollView.style.display = DisplayStyle.Flex;
+        ResetScrollers();
     }
 
     private void EnemyButtonHandler()
@@ -131,12 +140,32 @@ public class CompendiumView : IControlsReceiver {
         cardsSection = new VisualElement();
         cardsSection.AddToClassList("compendium-container");
         cardsScrollView.Add(cardsSection);
-        List<CompanionTypeSO> companions = companionPool.commonCompanions.Concat(companionPool.uncommonCompanions).Concat(companionPool.rareCompanions).ToList();
-        companions.Sort((a, b) => a.companionName.CompareTo(b.companionName)); // we should allow for filtering by rarity or something as well...eventually  
-        yield return AddAllCompanionContainers(companions, cardsSection);
-        yield return AddAllPackContainers(packSOs, cardsSection);
-        yield return AddCards(neutralCardPool, null, cardsSection);
+        List<CompanionTypeSO> companions = SortCompanionsByTribe(GetAllCompanions(companionPool), packSOs);
+        // Group by tribe: each tribe's rats (alphabetical), followed by that tribe's pack cards
+        foreach (PackSO packSO in packSOs) {
+            yield return AddAllCompanionContainers(companions.FindAll(c => c.pack == packSO), cardsSection);
+            yield return AddCards(packSO.packCardPoolSO, null, cardsSection, packSO);
+        }
+        // Rats whose tribe isn't in the pack list go at the end
+        yield return AddAllCompanionContainers(companions.FindAll(c => !packSOs.Contains(c.pack)), cardsSection);
+        // yield return AddCards(neutralCardPool, null, cardsSection);
         cardsSetup = true;
+    }
+
+    private static List<CompanionTypeSO> GetAllCompanions(CompanionPoolSO companionPool) {
+        return companionPool.commonCompanions.Concat(companionPool.uncommonCompanions).Concat(companionPool.rareCompanions).ToList();
+    }
+
+    // Orders rats by tribe (in packSOs order, unknown tribes last), then alphabetically within a tribe
+    private static List<CompanionTypeSO> SortCompanionsByTribe(List<CompanionTypeSO> companions, List<PackSO> packSOs) {
+        int TribeIndex(CompanionTypeSO c) {
+            int index = packSOs.IndexOf(c.pack);
+            return index < 0 ? int.MaxValue : index;
+        }
+        return companions
+            .OrderBy(TribeIndex)
+            .ThenBy(c => c.companionName)
+            .ToList();
     }
 
     // private void AddAllCompanionContainers(List<CompanionTypeSO> companions, VisualElement ve) {
@@ -148,16 +177,7 @@ public class CompendiumView : IControlsReceiver {
             yield return AddCards(companion.cardPool, companion, ve);
         }
     }
-    
-    // private void AddAllPackContainers(List<PackSO> packSOs, VisualElement ve) {
-    private IEnumerator AddAllPackContainers(List<PackSO> packSOs, VisualElement ve) {
-        // packSOs.ForEach(packSO => {
-        //     yield return AddCards(packSO.packCardPoolSO, null, ve, packSO);
-        // });
-        foreach (PackSO packSO in packSOs) {
-            yield return AddCards(packSO.packCardPoolSO, null, ve, packSO);
-        }
-    }
+
 
     // private void AddCards(CardPoolSO cardPool, CompanionTypeSO companion, VisualElement ve, PackSO packSO = null) {
     private IEnumerator AddCards(CardPoolSO cardPool, CompanionTypeSO companion, VisualElement ve, PackSO packSO = null) {
@@ -166,7 +186,7 @@ public class CompendiumView : IControlsReceiver {
             companionContainerTitle.text = packSO.packName + " Pack Cards";
         }
         else {
-            companionContainerTitle.text = companion != null ? (companion.companionName + "'s Cards") : "Neutral Cards";   
+            companionContainerTitle.text = companion != null ? (companion.companionName + "'s Cards") : "Neutral Cards";
         }
         companionContainerTitle.AddToClassList("compendium-header-text");
         ve.Add(companionContainerTitle);
@@ -218,7 +238,7 @@ public class CompendiumView : IControlsReceiver {
             cardFocusable.canFocusOffscreen = true;
             cardFocusable.commonalityObject = cardsScrollView;
             cardFocusable.additionalFocusAction += () => {
-                cardsScrollView.ScrollToMakeElementVisible(cardFocusable.GetVisualElement(), 70f); 
+                cardsScrollView.ScrollToMakeElementVisible(cardFocusable.GetVisualElement(), 70f);
                 MusicController.Instance.PlaySFX("event:/SFX/SFX_UIHover");
                 if (card.GetTooltip().empty || locked) {
                     return;
@@ -232,13 +252,13 @@ public class CompendiumView : IControlsReceiver {
     }
 
     // private void SetupCompanionView(CompanionPoolSO companionPool) {
-    private IEnumerator SetupCompanionView(CompanionPoolSO companionPool) {
+    private IEnumerator SetupCompanionView(CompanionPoolSO companionPool, List<PackSO> packSOs) {
         companionsSection = new VisualElement();
         companionsSection.AddToClassList("compendium-container");
-        List<CompanionTypeSO> companions = companionPool.commonCompanions.Concat(companionPool.uncommonCompanions).Concat(companionPool.rareCompanions).ToList();
+        List<CompanionTypeSO> companions = SortCompanionsByTribe(GetAllCompanions(companionPool), packSOs);
         for (int i = 0; i < companions.Count; i++) {
             CompanionTypeSO companion = companions[i];
-    
+
 
             Label sectionTitle = new Label();
             sectionTitle.text = companion.companionName + "'s Upgrades!";
@@ -268,7 +288,7 @@ public class CompendiumView : IControlsReceiver {
                 entityViewFocusable.canFocusOffscreen = true;
                 entityViewFocusable.commonalityObject = companionScrollView;
                 entityViewFocusable.additionalFocusAction += () => {
-                    companionScrollView.ScrollToMakeElementVisible(entityViewFocusable.GetVisualElement(), 70f); 
+                    companionScrollView.ScrollToMakeElementVisible(entityViewFocusable.GetVisualElement(), 70f);
                     tooltipController.DisplayTooltip(companionView.container, companionToDisplay.companionType.GetTooltip(), TooltipContext.CompendiumCompanion);
                 };
                 entityViewFocusable.additionalUnfocusAction += () => {

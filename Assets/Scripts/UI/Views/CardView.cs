@@ -262,6 +262,9 @@ public class CardView {
 
         float width = cardContainer.resolvedStyle.width;
         float height = cardContainer.resolvedStyle.height;
+        // Not laid out yet (e.g. parent hidden or still being built): wait for the next geometry pass
+        // instead of showing the card at scale 0 / NaN.
+        if (float.IsNaN(width) || float.IsNaN(height) || width <= 0f || height <= 0f) return;
 
         float scaleX = width / BASE_WIDTH;
         float scaleY = height / BASE_HEIGHT;
