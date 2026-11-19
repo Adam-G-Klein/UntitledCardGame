@@ -500,7 +500,8 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
             ResetTurnCounter());
         TurnManager.Instance.addTurnPhaseTrigger(setTurnCounterTrigger);
 
-        if (ProgressManager.Instance.IsFeatureEnabled(AscensionType.ENEMIES_DEADLIER))
+        if (ProgressManager.Instance.IsFeatureEnabled(AscensionType.ENEMIES_DEADLIER) ||
+            ProgressManager.Instance.IsFeatureEnabled(AscensionType.ELITES_AND_BOSS_DEADLIER))
         {
             TurnPhaseTrigger startcombatTrigger = new TurnPhaseTrigger(
                 TurnPhase.START_ENCOUNTER,
@@ -511,18 +512,25 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     }
 
     private IEnumerable SetupDeadlyEnemies() {
+        // Elite and boss encounters use ELITES_AND_BOSS_DEADLIER, all other encounters use ENEMIES_DEADLIER
+        AscensionType deadlierType = (isBoss || isEliteCombat)
+            ? AscensionType.ELITES_AND_BOSS_DEADLIER
+            : AscensionType.ENEMIES_DEADLIER;
+        if (!ProgressManager.Instance.IsFeatureEnabled(deadlierType)) yield break;
+        AscensionSO deadlierAscension = ProgressManager.Instance.GetAscensionSO(deadlierType);
+
         foreach (EnemyInstance enemy in EnemyEncounterViewModel.Instance.enemies)
         {
             CombatInstance ci = enemy.GetCombatInstance();
             int additionalStrength = enemy.enemy.enemyType.DeadlierEnemyBonusStr;
-            if (additionalStrength == -1) additionalStrength = (int)ProgressManager.Instance.GetAscensionSO(AscensionType.ENEMIES_DEADLIER).
+            if (additionalStrength == -1) additionalStrength = (int)deadlierAscension.
                 ascensionModificationValues.GetValueOrDefault("extraStrength", 1f);
             ci.ApplyStatusEffects(
                 StatusEffectType.Strength,
                 additionalStrength
             );
             int additionalHealth = enemy.enemy.enemyType.HealthierEnemyBonusHealth;
-            if (additionalHealth == -1) additionalHealth = (int)ProgressManager.Instance.GetAscensionSO(AscensionType.ENEMIES_DEADLIER).
+            if (additionalHealth == -1) additionalHealth = (int)deadlierAscension.
                 ascensionModificationValues.GetValueOrDefault("extraHealth", 0f);
             ci.combatStats.IncreaseMaxHealth(additionalHealth);
             ci.combatStats.setCurrentHealth(ci.combatStats.getCurrentHealth() + additionalHealth);

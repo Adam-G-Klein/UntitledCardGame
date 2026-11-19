@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d16a72e0e0a744b35b9551fb7d766634, type: 3}
   m_Name: DeadlierEnemies
   m_EditorClassIdentifier: 
-  description: Harder Enemies
+  description: Harder Normal Enemies
   devDescription: Enemies are more difficult - stat boosts :)
   ascensionType: 0
   ascensionModificationValues:
     entries:
     - Key: extraStrength
-      Value: 1
+      Value: 2
     - Key: extraHealth
-      Value: 0
+      Value: 25
