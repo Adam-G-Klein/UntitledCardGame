@@ -152,6 +152,7 @@ public class PowerSO : ScriptableObject
         // _: deal with the devil.
         DealWithTheDevil,
         BeyondTheGrave,
+        Retreebution,
     }
 
     public TooltipViewModel GetTooltip(int stackCount)

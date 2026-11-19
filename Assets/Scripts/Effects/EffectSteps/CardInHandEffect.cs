@@ -68,6 +68,11 @@ public class CardInHandEffect : EffectStep, ITooltipProvider
 
                 case CardInHandEffectName.Copy:
                     Card duplicatedCard = new Card(card.card.cardType, card.card.getCompanionFrom());
+                    if (card.card.cardModifications != null) {
+                        foreach (KeyValuePair<CardModification, int> mod in card.card.cardModifications) {
+                            duplicatedCard.cardModifications[mod.Key] = mod.Value;
+                        }
+                    }
                     card.deckFrom.inHand.Add(duplicatedCard);
                     List<Card> cardsToBeDealt = new();
                     cardsToBeDealt.Add(duplicatedCard);
