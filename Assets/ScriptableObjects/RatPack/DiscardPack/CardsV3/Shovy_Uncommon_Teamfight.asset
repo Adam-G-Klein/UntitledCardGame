@@ -21,16 +21,10 @@ MonoBehaviour:
     icon: 3
   - tokenType: 2
     text: 
-    icon: 3
-  - tokenType: 2
-    text: 
-    icon: 3
-  - tokenType: 2
-    text: 
-    icon: 3
-  - tokenType: 2
-    text: 
     icon: 4
+  - tokenType: 0
+    text: x4
+    icon: 3
   - tokenType: 1
     text: 
     icon: 0
@@ -76,7 +70,7 @@ MonoBehaviour:
         scaleKey: 
         getScaleFromKey: 0
         outputKey: target
-        withReplacement: 0
+        withReplacement: 1
     - rid: 3226456818927796637
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
