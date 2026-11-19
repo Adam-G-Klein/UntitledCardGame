@@ -40,7 +40,6 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
     [SerializeField]
     private GameObject casterTrail = null;
     private CombatInstance originCombatInstance;
-    private int baseMultiplicity;
     [SerializeField]
     private string damageDealtOutputKey = "";
     public CombatEffectStep()
@@ -60,6 +59,11 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
 
         if (finalScale == -1) yield break;
 
+        // Read the hit count into a local now. This step instance is shared with the card's in-hand damage
+        // calculation (invokeForCalculation), which can run during the yields below and recompute from a
+        // different document (e.g. after Empty the Clip discards the hand, numCards recalculates to 0).
+        int hits = GetMultiplicity(document);
+
         PlayableCard lungeCard = document.map.TryGetItem<PlayableCard>(EffectDocument.ORIGIN, 0);
         if (IsDamageEffect() && lungeCard != null && lungeCard.card != null
             && lungeCard.card.cardType.cardCategory == CardCategory.Attack)
@@ -73,7 +77,7 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
         int totalEffectiveScaleApplied = 0;
         // Update loop to do each instance of damage as the outer loop so that they can be timed across companions
         // taking damage from the same effect
-        for (int i = 0; i < baseMultiplicity; i++)
+        for (int i = 0; i < hits; i++)
         {
             foreach (CombatInstance instance in instances)
             {
@@ -138,14 +142,23 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
                 }
             }
 
-            if (vfxPrefab && i < baseMultiplicity - 1)
+            if (vfxPrefab && i < hits - 1)
             {
-                yield return new WaitForSeconds(delayIncrement / baseMultiplicity);
+                yield return new WaitForSeconds(delayIncrement / hits);
             }
         }
 
         if (damageDealtOutputKey != "")
             document.intMap[damageDealtOutputKey] = totalEffectiveScaleApplied;
+    }
+
+    private int GetMultiplicity(EffectDocument document)
+    {
+        if (getMultiplicityFromKey && document.intMap.ContainsKey(inputMultiplicityKey))
+        {
+            return document.intMap[inputMultiplicityKey];
+        }
+        return multiplicity;
     }
 
     private bool IsDamageEffect()
@@ -187,15 +200,6 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
         else
         {
             baseScale = scale;
-        }
-
-        if (getMultiplicityFromKey && document.intMap.ContainsKey(inputMultiplicityKey))
-        {
-            baseMultiplicity = document.intMap[inputMultiplicityKey];
-        }
-        else
-        {
-            baseMultiplicity = multiplicity;
         }
 
         return UpdateScaleForEffect(baseScale, originCombatInstance, originCard);
