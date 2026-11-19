@@ -352,7 +352,8 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
         foreach (CompanionInstance companion in CombatEntityManager.Instance.getCompanions())
         {
-            companionGOToCardTab[companion.gameObject].ToggleDarkOverlay(deckFrom != null && companion.deckInstance != deckFrom);
+            if (!companionGOToCardTab.TryGetValue(companion.gameObject, out CardTab cardTab)) continue;
+            cardTab.ToggleDarkOverlay(deckFrom != null && companion.deckInstance != deckFrom);
         }
      }
 
@@ -439,7 +440,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
         CardTab cardTab = null;
         if (deckInstanceToPlayableCard[cardToMove.deckFrom].IndexOf(cardToMove) == 0) {
-            cardTab = companionGOToCardTab[cardToMove.deckFrom.gameObject];
+            companionGOToCardTab.TryGetValue(cardToMove.deckFrom.gameObject, out cardTab);
         }
 
         float rotationTime = 0.25f;
@@ -682,6 +683,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             UpdateCardPositions();
             // Only hide tabs for companions that have no retained cards left in hand.
             foreach (DeckInstance deckInstance in orderedDeckInstances) {
+                if (deckInstance == null) continue;
                 if (!companionGOToCardTab.TryGetValue(deckInstance.gameObject, out CardTab cardTab)) continue;
                 if (retainedCards.Any(c => c.deckFrom == deckInstance)) continue;
                 cardTab.Hide();
@@ -706,14 +708,26 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             yield return SafeRemoveCardFromHand(card);
             Destroy(card.gameObject);
         }
+        RemoveCardTab(deckInstance);
         UpdateCardPositions();
     }
 
+    private void RemoveCardTab(DeckInstance deckInstance) {
+        if (deckInstance == null) return;
+        if (!companionGOToCardTab.TryGetValue(deckInstance.gameObject, out CardTab cardTab)) return;
+        companionGOToCardTab.Remove(deckInstance.gameObject);
+        if (cardTab == null) return;
+        LeanTween.cancel(cardTab.gameObject);
+        Destroy(cardTab.gameObject);
+    }
+
     private void SetTabVisibility(PlayableCard card) {
+        // Tab may have been removed if the companion died
+        if (!companionGOToCardTab.TryGetValue(card.deckFrom.gameObject, out CardTab cardTab)) return;
         if (deckInstanceToPlayableCard[card.deckFrom].Count > 0) {
-            companionGOToCardTab[card.deckFrom.gameObject].Show();
+            cardTab.Show();
         } else {
-            companionGOToCardTab[card.deckFrom.gameObject].Hide();
+            cardTab.Hide();
         }
     }
 
