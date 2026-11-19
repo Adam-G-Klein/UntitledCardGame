@@ -17,6 +17,7 @@ MonoBehaviour:
   maxHealth: 75
   baseAttackDamage: 0
   enemyDisplayType: 0
+  big: 0
   sprite: {fileID: 21300000, guid: 50638a9243a3945b189a489b4c956673, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
@@ -65,15 +66,15 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Underwen's Trap
-      description: At the end of each turn, if you played less than 5 cards, Underwen
-        and all foes gain 6 temporary strength
+    - title: Corrupted Carl's Trap
+      description: At the end of each turn, if you played less than 5 cards, Corrupted
+        Carl gives all enemies 6 temporary strength
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
       iconDescriptionLine: []
       card: {fileID: 0}
-  DEADLIER_ENEMY_BONUS_STR: -1
-  HEALTHIER_ENEMY_BONUS_HEALTH: -1
+  DEADLIER_ENEMY_BONUS_STR: 2
+  HEALTHIER_ENEMY_BONUS_HEALTH: 30
   references:
     version: 2
     RefIds:
@@ -104,6 +105,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 
@@ -138,6 +140,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 
@@ -160,6 +163,8 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 0}
+        casterTrail: {fileID: 0}
+        damageDealtOutputKey: 
     - rid: 385751591190528416
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -185,8 +190,6 @@ MonoBehaviour:
         - rid: 1289961934975926476
         - rid: 1289961934975926479
         - rid: 1700682198445196032
-        - rid: 1289961934975926508
-        - rid: 1289961934975926507
         - rid: 1289961934975926477
         - rid: 1289961934975926478
         weight: 0
@@ -195,6 +198,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 
@@ -253,6 +257,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: all
         validTargets: 02000000
@@ -262,23 +267,18 @@ MonoBehaviour:
         cardSelectionHelperText: 
         selectionPurpose: 0
         selectionCardCategory: 0
-    - rid: 1289961934975926507
-      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+    - rid: 1700682198445196032
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: WaitForSecondsEffect
-        seconds: 0.8
-    - rid: 1289961934975926508
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: self
-        prefabToInstantiate: {fileID: 3850217184923880746, guid: 4bed509d0589dae4d922d8eeb61a6292, type: 3}
-        scale: 1
+        effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}
     - rid: 8034950092883230790
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 
@@ -301,6 +301,8 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 6137048663962808129, guid: 418a03ccd75ca98409952e0384c196fd, type: 3}
+        casterTrail: {fileID: 0}
+        damageDealtOutputKey: 
     - rid: 8034950092883230792
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -327,9 +329,3 @@ MonoBehaviour:
       data:
         effectStepName: ScriptableObjectEffectStep
         effectStepSO: {fileID: 11400000, guid: 46ac36b880e2ff14aa699c90b6e9f19c, type: 2}
-    - rid: 1700682198445196032
-      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EntityAbilityTriggeredVFX
-        label: 
-        icon: {fileID: 0}

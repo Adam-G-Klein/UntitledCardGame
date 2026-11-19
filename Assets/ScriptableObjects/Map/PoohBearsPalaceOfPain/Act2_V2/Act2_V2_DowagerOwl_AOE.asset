@@ -17,6 +17,7 @@ MonoBehaviour:
   maxHealth: 30
   baseAttackDamage: 0
   enemyDisplayType: 0
+  big: 0
   sprite: {fileID: 21300000, guid: 90312fe27b6b1487bbb504ceb21997ca, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
@@ -29,7 +30,7 @@ MonoBehaviour:
     - intent: 2
       enemyTargetMethod: 7
       targetsKey: 0
-      displayValue: 2
+      displayValue: 3
       effectSteps:
       - rid: 3931529445166809421
       - rid: 2268260642759377006
@@ -37,7 +38,7 @@ MonoBehaviour:
     - intent: 2
       enemyTargetMethod: 7
       targetsKey: 0
-      displayValue: 2
+      displayValue: 3
       effectSteps:
       - rid: 3931529445166809421
       - rid: 2268260642759377006
@@ -82,7 +83,7 @@ MonoBehaviour:
       icon: {fileID: 0}
       iconDescriptionLine: []
       card: {fileID: 0}
-  DEADLIER_ENEMY_BONUS_STR: 1
+  DEADLIER_ENEMY_BONUS_STR: 2
   HEALTHIER_ENEMY_BONUS_HEALTH: 10
   references:
     version: 2
@@ -100,7 +101,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 0
-        scale: 2
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
@@ -120,6 +121,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 
@@ -142,6 +144,8 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 7653236696634270727, guid: 06cb95438569b864b9c211e17409078e, type: 3}
+        casterTrail: {fileID: 0}
+        damageDealtOutputKey: 
     - rid: 7150943289421333095
       type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
       data:

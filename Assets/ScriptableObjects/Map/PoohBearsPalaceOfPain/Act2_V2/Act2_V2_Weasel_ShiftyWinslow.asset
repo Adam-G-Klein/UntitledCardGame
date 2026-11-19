@@ -17,6 +17,7 @@ MonoBehaviour:
   maxHealth: 20
   baseAttackDamage: 0
   enemyDisplayType: 0
+  big: 0
   sprite: {fileID: 21300000, guid: 4ac8fc33a227c424c9559e23af5cf04e, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
@@ -64,8 +65,8 @@ MonoBehaviour:
       icon: {fileID: 0}
       iconDescriptionLine: []
       card: {fileID: 11400000, guid: 01e9bc7af1f214202a3ba7dd901f4a21, type: 2}
-  DEADLIER_ENEMY_BONUS_STR: -1
-  HEALTHIER_ENEMY_BONUS_HEALTH: -1
+  DEADLIER_ENEMY_BONUS_STR: 0
+  HEALTHIER_ENEMY_BONUS_HEALTH: 10
   references:
     version: 2
     RefIds:
@@ -82,6 +83,8 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 2088516068117912119, guid: b9dc6b402fe99ef4b97ddceeb485394c, type: 3}
+        casterTrail: {fileID: 0}
+        damageDealtOutputKey: 
     - rid: 754093826381185271
       type: {class: ScriptableObjectEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -92,6 +95,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 
@@ -114,6 +118,7 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        outputKey: 
     - rid: 7289556481640835866
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
