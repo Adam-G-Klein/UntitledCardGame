@@ -83,10 +83,7 @@ public class SimpleEnemyPoolMapGeneratorSO: MapGeneratorSO {
             if (i == 0 || shopEncounters[i - 1].act != SE.act)
             {
                 Enemy nextElite = enemyEncounters[nextEliteEncounterIndex].enemyList.FirstOrDefault();
-                if (nextElite != null && nextElite.enemyType != null && nextElite.enemyType.trashTalkDialogue != null && nextElite.enemyType.trashTalkDialogue.Count > 0)
-                {
-                    SE.trashTalk.AddRange(nextElite.enemyType.GetTrashTalkDialogue());
-                }
+                SE.SetTrashTalk(nextElite?.enemyType);
             }
 
             shopEncounters.Add(SE);

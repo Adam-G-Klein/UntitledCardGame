@@ -19,6 +19,7 @@ MonoBehaviour:
   enemyDisplayType: 0
   big: 1
   sprite: {fileID: 21300000, guid: fdbd38259027a458da88d5cb9026888f, type: 3}
+  upcomingFloorBossOverride: {fileID: 0}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
   trashTalkDialogue:
@@ -47,7 +48,7 @@ MonoBehaviour:
     - intent: 0
       enemyTargetMethod: 0
       targetsKey: target
-      displayValue: 10
+      displayValue: 12
       effectSteps:
       - rid: 205828126246961605
       - rid: 205828126246961606
@@ -58,7 +59,7 @@ MonoBehaviour:
       displayValue: 2
       effectSteps:
       - rid: 205828126246961605
-      - rid: 205828126246961606
+      - rid: 3226456856950734959
     behaviorType: 0
   belowHalfHPEnemyPattern:
     behaviors: []
@@ -71,8 +72,8 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Watch the Clock
-      description: "Every 5 cards you play, S\xE9verine gains 1 strength, 2 temporary
-        strength, and 4 block"
+      description: "Every 5 cards you play, S\xE9verine gains 1 strength and 2 temporary
+        strength"
       relatedBehaviorIndex: -1
       icon: {fileID: 0}
       iconDescriptionLine: []
@@ -113,7 +114,6 @@ MonoBehaviour:
         - rid: 1700682198445196026
         - rid: 205828126246961465
         - rid: 205828126246961466
-        - rid: 8034949928137261285
         - rid: 3226456818927796586
         - rid: 205828126246961467
         weight: 0
@@ -226,15 +226,15 @@ MonoBehaviour:
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
-        inputKey: targets
+        inputKey: target
         combatEffect: 0
-        scale: 2
+        scale: 12
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 7653236696634270727, guid: 06cb95438569b864b9c211e17409078e, type: 3}
+        vfxPrefab: {fileID: 6137048663962808129, guid: 418a03ccd75ca98409952e0384c196fd, type: 3}
         casterTrail: {fileID: 0}
         damageDealtOutputKey: 
     - rid: 1700682198445196026
@@ -257,17 +257,18 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         toggleStatus: 0
-    - rid: 8034949928137261285
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+    - rid: 3226456856950734959
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: ApplyStatus
-        inputKey: self
-        statusEffect: 2
-        scale: 4
+        effectStepName: CombatEffectStep
+        inputKey: targets
+        combatEffect: 0
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
-        multiplyByNumAuraStacks: 0
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        toggleStatus: 0
+        vfxPrefab: {fileID: 7653236696634270727, guid: 06cb95438569b864b9c211e17409078e, type: 3}
+        casterTrail: {fileID: 0}
+        damageDealtOutputKey: 

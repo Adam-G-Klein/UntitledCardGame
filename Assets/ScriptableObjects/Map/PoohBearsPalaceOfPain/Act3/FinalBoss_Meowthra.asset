@@ -13,15 +13,25 @@ MonoBehaviour:
   m_Name: FinalBoss_Meowthra
   m_EditorClassIdentifier: 
   guid: f2c8da66-e8b5-458f-899b-949c5c1e5eb3
-  displayName: Baron Grimmclaw
+  displayName: The Baron
   maxHealth: 350
   baseAttackDamage: 0
   enemyDisplayType: 2
   big: 0
   sprite: {fileID: 21300000, guid: 27f1adcfc988441759631bb342034add, type: 3}
+  upcomingFloorBossOverride: {fileID: 21300000, guid: 948db1674be21c24790387166ea4bef1, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
-  trashTalkDialogue: []
+  trashTalkDialogue:
+  - dialogue: ......
+    sprite: {fileID: 21300000, guid: 786c45ebb9d51d643a7503181f266d81, type: 3}
+    pause: 0
+  - dialogue: YOU... AND YOUR RAT FRIENDS...
+    sprite: {fileID: 21300000, guid: 948db1674be21c24790387166ea4bef1, type: 3}
+    pause: 0
+  - dialogue: WILL NEVER GET THE HOTEL BACK...
+    sprite: {fileID: 21300000, guid: 948db1674be21c24790387166ea4bef1, type: 3}
+    pause: 0
   morale: 0
   abilities:
   - rid: 385751591190528357
@@ -57,8 +67,8 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Financial Ruin
-      description: Whenever a rat takes damage on Baron Grimmclaw's turn, he shuffles
-        a Liability card into their deck
+      description: Whenever a rat takes damage on the Baron's turn, the rat gets
+        a Liability card shuffled into their deck
       relatedBehaviorIndex: -1
       icon: {fileID: 0}
       iconDescriptionLine: []

@@ -104,6 +104,8 @@ public class ShopEncounter : Encounter
     private ShopManager shopManager;
     private int staticShopIndex;
     public List<EliteTrashTalkDialogue> trashTalk = new List<EliteTrashTalkDialogue>();
+    // The elite whose trash talk plays in this shop. Saved so the trash talk replays after a load.
+    public EnemyTypeSO trashTalkEnemyType;
 
     public ShopEncounter() {
         this.encounterType = EncounterType.Shop;
@@ -143,6 +145,19 @@ public class ShopEncounter : Encounter
         this.act = shopEncounterSerializable.act;
         this.encounterType = EncounterType.Shop;
         this.shopData = registry.GetAsset<ShopDataSO>(shopEncounterSerializable.shopDataGuid);
+        if (!string.IsNullOrEmpty(shopEncounterSerializable.trashTalkEnemyTypeGuid))
+        {
+            SetTrashTalk(registry.GetAsset<EnemyTypeSO>(shopEncounterSerializable.trashTalkEnemyTypeGuid));
+        }
+    }
+
+    public void SetTrashTalk(EnemyTypeSO enemyType)
+    {
+        trashTalk.Clear();
+        trashTalkEnemyType = null;
+        if (enemyType == null || enemyType.trashTalkDialogue == null || enemyType.trashTalkDialogue.Count == 0) return;
+        trashTalkEnemyType = enemyType;
+        trashTalk.AddRange(enemyType.GetTrashTalkDialogue());
     }
 
     public void Build(
@@ -581,8 +596,10 @@ public class ShopEncounter : Encounter
 [System.Serializable]
 public class ShopEncounterSerializable : EncounterSerializable {
     public string shopDataGuid;
+    public string trashTalkEnemyTypeGuid;
     public ShopEncounterSerializable(ShopEncounter encounter) : base(encounter) {
         this.shopDataGuid = encounter.shopData.GUID;
+        this.trashTalkEnemyTypeGuid = encounter.trashTalkEnemyType != null ? encounter.trashTalkEnemyType.GUID : null;
 
     }
 }

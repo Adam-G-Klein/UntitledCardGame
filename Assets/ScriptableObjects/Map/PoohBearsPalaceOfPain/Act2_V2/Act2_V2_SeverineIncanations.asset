@@ -19,6 +19,7 @@ MonoBehaviour:
   enemyDisplayType: 0
   big: 1
   sprite: {fileID: 21300000, guid: 3a4dd62a7f92a4c9c9902af9646d7316, type: 3}
+  upcomingFloorBossOverride: {fileID: 0}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
   trashTalkDialogue:
@@ -41,7 +42,7 @@ MonoBehaviour:
     - intent: 0
       enemyTargetMethod: 0
       targetsKey: target
-      displayValue: 10
+      displayValue: 8
       effectSteps:
       - rid: 8790164555430887934
       - rid: 173314522967966409
@@ -215,7 +216,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 0
-        scale: 10
+        scale: 8
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
@@ -230,7 +231,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 0
-        scale: 2
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0

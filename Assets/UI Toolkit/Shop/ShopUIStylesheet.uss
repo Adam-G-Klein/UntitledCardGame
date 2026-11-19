@@ -425,3 +425,45 @@
     -unity-text-align: middle-center;
     white-space: normal;
 }
+
+.upcoming-boss-preview {
+    position: absolute;
+    right: 0.5%;
+    top: 10%;
+    height: 85%;
+    align-items: center;
+    justify-content: flex-end;
+    transition-property: opacity;
+    transition-duration: 0.4s;
+    transition-timing-function: ease-out;
+}
+
+.upcoming-boss-preview.upcoming-boss-preview--hidden {
+    opacity: 0;
+}
+
+.upcoming-boss-sprite {
+    flex-grow: 1;
+    width: 140px;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.upcoming-boss-sprite.upcoming-boss-sprite--cropped {
+    background-size: cover;
+    background-position-x: center;
+    background-position-y: top;
+    overflow: hidden;
+}
+
+.upcoming-boss-label {
+    background-image: url("project://database/Assets/Sprites/UI/MultiDeckView/Multiscreen_Exit_Button.png?fileID=2800000&guid=4c51223a65a23bc48a47dcac7cea9c37&type=3#Multiscreen_Exit_Button");
+    -unity-background-scale-mode: stretch-to-fill;
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
+    font-size: 22px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 40px;
+    padding-right: 40px;
+    margin-top: -20px;
+}

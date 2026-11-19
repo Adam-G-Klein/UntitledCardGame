@@ -33,6 +33,8 @@ public class EnemyTypeSO : IdentifiableSO
     public bool big = false;
     [Space]
     public Sprite sprite;
+    [Tooltip("Optional. Shown in the shop's Upcoming Floor Boss preview instead of `sprite` when set.")]
+    public Sprite upcomingFloorBossOverride;
     public Sprite backgroundImage;
     public Sprite entityFrame;
     // You're a lil bitch, Harry.
@@ -72,6 +74,11 @@ public class EnemyTypeSO : IdentifiableSO
         {
             return HEALTHIER_ENEMY_BONUS_HEALTH;
         }
+    }
+
+    public Sprite GetUpcomingFloorBossSprite()
+    {
+        return upcomingFloorBossOverride != null ? upcomingFloorBossOverride : sprite;
     }
 
     public List<EliteTrashTalkDialogue> GetTrashTalkDialogue()

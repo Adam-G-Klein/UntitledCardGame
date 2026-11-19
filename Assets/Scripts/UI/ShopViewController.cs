@@ -167,6 +167,7 @@ public class ShopViewController : MonoBehaviour,
 
         mapContainer = uiDoc.rootVisualElement.Q("mapContainer");
         SetupMap(shopManager);
+        SetupUpcomingBossPreview(shopManager);
         shopGoodsAreaContainer = uiDoc.rootVisualElement.Q("shop-view-goods-area-container");
         shopGoodsArea = uiDoc.rootVisualElement.Q("shop-goods-area");
         shopButtonsContainer = uiDoc.rootVisualElement.Q("shop-view-button-container");
@@ -486,6 +487,79 @@ public class ShopViewController : MonoBehaviour,
         mapContainer.Clear();
         mapView = new MapView(shopManager.gameState.map.GetValue(), shopManager.gameState.currentEncounterIndex, EncounterType.Shop);
         mapContainer.Add(mapView.mapContainer);
+    }
+
+    private VisualElement upcomingBossPreview;
+
+    // Used to hold the preview back while the elite's trash talk plays. Fades via USS transition.
+    public void SetUpcomingBossPreviewVisible(bool visible)
+    {
+        upcomingBossPreview?.EnableInClassList("upcoming-boss-preview--hidden", !visible);
+    }
+
+    private void SetupUpcomingBossPreview(ShopManager shopManager)
+    {
+        VisualElement preview = uiDoc.rootVisualElement.Q("upcoming-boss-preview");
+        upcomingBossPreview = preview;
+        if (preview == null) return;
+        VisualElement spriteElement = preview.Q("upcoming-boss-sprite");
+
+        Map map = shopManager.gameState.map.GetValue();
+        int currentIndex = shopManager.gameState.currentEncounterIndex;
+
+        // The next elite from here on is this floor's boss. If there isn't one, fall back to
+        // the last enemy encounter on the map (e.g. a final boss that isn't flagged elite).
+        EnemyEncounter upcomingBoss = null;
+        if (map != null)
+        {
+            upcomingBoss = map.encounters
+                .Skip(Math.Max(currentIndex, 0))
+                .OfType<EnemyEncounter>()
+                .FirstOrDefault(ee => ee.isEliteEncounter)
+                ?? map.encounters.OfType<EnemyEncounter>().LastOrDefault();
+        }
+
+        EnemyTypeSO bossType = upcomingBoss?.enemyList.FirstOrDefault()?.enemyType;
+        Sprite bossSprite = bossType != null ? bossType.GetUpcomingFloorBossSprite() : null;
+        if (bossSprite == null)
+        {
+            preview.style.display = DisplayStyle.None;
+            return;
+        }
+
+        spriteElement.style.backgroundImage = new StyleBackground(bossSprite);
+        preview.style.display = DisplayStyle.Flex;
+
+        // A custom override is shown as-is. The default enemy portrait is cropped to its upper half.
+        bool cropToUpperHalf = bossType.upcomingFloorBossOverride == null;
+        spriteElement.EnableInClassList("upcoming-boss-sprite--cropped", cropToUpperHalf);
+        spriteElement.UnregisterCallback<GeometryChangedEvent>(SizeCroppedBossSprite);
+        if (cropToUpperHalf)
+        {
+            upcomingBossSpriteAspect = bossSprite.rect.width / bossSprite.rect.height;
+            spriteElement.RegisterCallback<GeometryChangedEvent>(SizeCroppedBossSprite);
+        }
+        else
+        {
+            spriteElement.style.width = StyleKeyword.Null;
+        }
+    }
+
+    private float upcomingBossSpriteAspect = 1f;
+
+    // The box's height comes from the layout. Its width is set so the box shows exactly the
+    // top half of the sprite when the background uses `cover` anchored to the top.
+    private void SizeCroppedBossSprite(GeometryChangedEvent evt)
+    {
+        VisualElement spriteElement = (VisualElement)evt.target;
+        float height = spriteElement.resolvedStyle.height;
+        if (float.IsNaN(height) || height <= 0) return;
+
+        float targetWidth = height * 2f * upcomingBossSpriteAspect;
+        if (Mathf.Abs(spriteElement.resolvedStyle.width - targetWidth) > 0.5f)
+        {
+            spriteElement.style.width = targetWidth;
+        }
     }
 
     public void SetupUpgradeIncrements(bool shopFullyUpgraded = false) {

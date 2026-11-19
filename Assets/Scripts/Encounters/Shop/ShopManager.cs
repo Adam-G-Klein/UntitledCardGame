@@ -186,6 +186,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             yield break;
         }
 
+        shopViewController.SetUpcomingBossPreviewVisible(false);
         shopViewController.DisableAllUIPreserveAppearance();
         yield return new WaitForSeconds(0.5f);
         foreach (EliteTrashTalkDialogue dialogue in shopEncounter.trashTalk)
@@ -198,6 +199,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         }
         DialogueView.Instance.Hide();
         shopViewController.EnableAllUI();
+        shopViewController.SetUpcomingBossPreviewVisible(true);
     }
 
     public void CinematicIntroComplete()
