@@ -10,36 +10,39 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_Teamwork
+  m_Name: Shovy_Common_EnergyDrink
   m_EditorClassIdentifier: 
-  guid: 660190eb-004a-4729-9055-1d6883375ab5
-  Name: Teamfight
-  Description: Draw 1 card from 4 random rats
+  guid: 2b5a7e0e-aba6-47e3-8765-a8aa04fa1d4a
+  Name: Energy Drink
+  Description: exhaust. draw 1 and gain 1 energy
   IconDescription:
+  - tokenType: 0
+    text: Exhaust
+    icon: 3
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 10
+  - tokenType: 1
+    text: 
+    icon: 4
   - tokenType: 2
     text: 
     icon: 3
   - tokenType: 2
     text: 
-    icon: 3
-  - tokenType: 2
-    text: 
-    icon: 3
-  - tokenType: 2
-    text: 
-    icon: 3
-  - tokenType: 2
-    text: 
-    icon: 19
+    icon: 4
   IconDescriptionTooltipLineOverrides: []
   defaultValues: []
-  Cost: 1
-  Artwork: {fileID: 21300000, guid: 04bf14070e798284f9f39ea08b676c4a, type: 3}
+  Cost: 0
+  Artwork: {fileID: 21300000, guid: 7d13e867f4dd988488e4c5a179fa0857, type: 3}
   cardCategory: 2
   packFrom: {fileID: 11400000, guid: 5f4300e0913784f05aeff0dd086d4338, type: 2}
   vfxPrefab: {fileID: 0}
   playable: 1
-  exhaustsWhenPlayed: 0
+  exhaustsWhenPlayed: 1
   retain: 0
   effectWorkflows:
   - rid: 5602892723852673195
@@ -58,41 +61,39 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 2295168569757139010
-      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
+    - rid: 3226456818927796639
+      type: {class: ManaChange, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: GetRandomItems
-        inputKey: all
-        scale: 4
-        scaleKey: 
+        effectStepName: ManaChange
+        scale: 1
         getScaleFromKey: 0
-        outputKey: target
-        withReplacement: 0
+        inputScaleKey: 
     - rid: 5280922841426165977
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
         inputKey: target
         prefabToInstantiate: {fileID: 9028122300360462519, guid: 9a51d49c5066ce74cb95e42b96240249, type: 3}
-        scale: 1
+        scale: 1.5
     - rid: 5602892723852673195
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 5602892723852673196
-        - rid: 2295168569757139010
         - rid: 5602892723852673197
         - rid: 5280922841426165977
+        - rid: 3226456818927796639
     - rid: 5602892723852673196
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
-        outputKey: all
+        outputKey: target
         validTargets: 00000000
         number: 1
-        specialTargetRule: 1
+        specialTargetRule: 6
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0

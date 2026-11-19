@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bettel_Rare_MonteCristo
   m_EditorClassIdentifier: 
   guid: e8035aec-9d54-492c-b427-27c79b9b28d7
-  Name: Monte Carlo
+  Name: Monte Cristo
   Description: Discard your hand & draw 1 card from all rats
   IconDescription:
   - tokenType: 0
@@ -78,6 +78,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: card
         validTargets: 03000000
@@ -98,6 +99,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: all
         validTargets: 00000000
