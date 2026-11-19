@@ -92,6 +92,7 @@ public class PlayableCard : MonoBehaviour,
         }
         if (eventData != null && eventData.button != PointerEventData.InputButton.Left) return;
         EnemyEncounterManager.Instance.SetCastingCard(true);
+        ManaManager.Instance.updateMana(-card.GetManaCost());
         EnemyEncounterManager.Instance.DestroyAllTooltips();
         PlayerHand.Instance.SetHoverable(false);
         PlayerHand.Instance.HighlightRelevantCards(null);
@@ -115,7 +116,7 @@ public class PlayableCard : MonoBehaviour,
 
         List<PlayableCard> cardsInHand = PlayerHand.Instance.GetCardsOrdered();
         int cardPlayedIndex = cardsInHand.IndexOf(this);
-        ManaManager.Instance.updateMana(-card.GetManaCost());
+        // ManaManager.Instance.updateMana(-card.GetManaCost());
         StartCoroutine(cardCastEvent.RaiseAtEndOfFrameCoroutine(new CardCastEventInfo(card)));
         IncrementCastCount();
         EnemyEncounterManager.Instance.combatEncounterState.CastCard(card);

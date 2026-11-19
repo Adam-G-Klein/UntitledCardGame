@@ -252,6 +252,7 @@ public class GetTargets : EffectStep, IEffectStepCalculation
                     originCard.ResetCardScale(false);
                 }
                 EnemyEncounterManager.Instance.SetCastingCard(false);
+                ManaManager.Instance.updateMana(originCard.card.GetManaCost());
                 PlayerHand.Instance.UpdateCardPositions();
             }
         }
