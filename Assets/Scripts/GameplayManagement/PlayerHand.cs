@@ -139,6 +139,36 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         splineMiddleYpos = splineContainer.Spline[1].Position.y;
 
         StartCoroutine(CardDealerWorker());
+
+        // In-hand end of turn workflows run as a BEFORE_END_PLAYER_TURN trigger so they are ordered
+        // against EndOfPlayerTurn entity abilities by weight (lower weights run first).
+        TurnManager.Instance.addTurnPhaseTrigger(
+            new TurnPhaseTrigger(TurnPhase.BEFORE_END_PLAYER_TURN, RunInHandEndOfTurnWorkflows()),
+            IN_HAND_END_OF_TURN_WEIGHT);
+    }
+
+    // EndOfPlayerTurn abilities with a weight below this resolve before in-hand end of turn card effects,
+    // abilities above it resolve after (e.g. Retreebution at 100 sees the block Bezoar gives).
+    public const int IN_HAND_END_OF_TURN_WEIGHT = 50;
+
+    private IEnumerable RunInHandEndOfTurnWorkflows()
+    {
+        canPlayCards = false;
+        cardsInHandLocked = true;
+        foreach (PlayableCard card in GetCardsOrdered())
+        {
+            CardType ct = card.card.cardType;
+            if (ct.inPlayerHandEndOfTurnWorkflow == null || ct.inPlayerHandEndOfTurnWorkflow.effectSteps.Count == 0) continue;
+
+            List<EffectStep> workflowSteps = ct.inPlayerHandEndOfTurnWorkflow.effectSteps;
+            EffectDocument document = new EffectDocument();
+            document.map.AddItem(EffectDocument.ORIGIN, card);
+            document.originEntityType = EntityType.Card;
+            Debug.Log("Invoking end of turn effect workflow with steps: " + workflowSteps.Count);
+            EffectManager.Instance.invokeEffectWorkflow(document, workflowSteps, null);
+        }
+        cardsInHandLocked = false;
+        yield return null;
     }
 
     // This is called in EnemyEncounterManager after setting up the encounter
@@ -629,17 +659,15 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             Debug.Log("PlayerHand: Player turn ended, disabling hand");
             canPlayCards = false;
             List<PlayableCard> retainedCards = new();
-            // Run the effect workflows for all the cards left in the hand,
-            // then destroy them with the callback.
-            // The reason we want to use the callback is that otherwise, the
-            // game objects are destroyed before the effect workflow can complete.
+            // In-hand end of turn workflows already ran during BEFORE_END_PLAYER_TURN
+            // (see RunInHandEndOfTurnWorkflows), and the TurnManager waits for effects to
+            // resolve before moving to END_PLAYER_TURN, so the hand can be discarded right away.
             cardsInHandLocked = true;
             indexToHover = 0;
             List<PlayableCard> cardsInHand = GetCardsOrdered();
             List<PlayableCard> cardsToImmediatelyDiscard = new();
             foreach (PlayableCard card in cardsInHand)
             {
-                IEnumerator callback = null;
                 card.ResetCardModificationsForEndOfTurn();
                 // Do not destroy the card if it is retained.
                 if (card.retained)
@@ -655,21 +683,6 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 else
                 {
                     StartCoroutine(ResizeHand(card));
-                    callback = DiscardCard(card, true);
-                }
-                CardType ct = card.card.cardType;
-
-                if (ct.inPlayerHandEndOfTurnWorkflow != null && ct.inPlayerHandEndOfTurnWorkflow.effectSteps.Count > 0)
-                {
-                    List<EffectStep> workflowSteps = ct.inPlayerHandEndOfTurnWorkflow.effectSteps;
-                    EffectDocument document = new EffectDocument();
-                    document.map.AddItem(EffectDocument.ORIGIN, card.GetComponent<PlayableCard>());
-                    document.originEntityType = EntityType.Card;
-                    Debug.Log("Invoking end of turn effect workflow with steps: " + workflowSteps.Count);
-                    EffectManager.Instance.invokeEffectWorkflow(document, workflowSteps, callback);
-                }
-                else if (!retainedCards.Contains(card))
-                {
                     cardsToImmediatelyDiscard.Add(card);
                 }
             }
