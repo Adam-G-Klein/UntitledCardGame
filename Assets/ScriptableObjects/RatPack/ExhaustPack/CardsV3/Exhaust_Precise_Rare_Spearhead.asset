@@ -33,7 +33,7 @@ MonoBehaviour:
     text: If this is the only Attack in the rat's deck, give all Attack cards in
       hand +3 damage
     icon: 0
-  IconDescriptionTooltipLines: []
+  IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: rpl_damage
     value: 6
@@ -71,6 +71,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: enemy
         validTargets: 02000000
@@ -118,7 +119,7 @@ MonoBehaviour:
         inputKey: self
         getLimitedNumber: 0
         numberOfCardsToGet: 0
-        shuffleIfEmpty: 1
+        shuffleIfEmpty: 0
         outputKey: allCards
         getAllCardsFromEntities: 1
         getCardsFromSourceDeck: 0
@@ -128,6 +129,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: all
         validTargets: 03000000
@@ -187,11 +189,14 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
+        casterTrail: {fileID: 0}
+        damageDealtOutputKey: 
     - rid: 8034949928137261274
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 
