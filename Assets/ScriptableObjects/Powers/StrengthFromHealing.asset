@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ac8d29b7a56d46539bdf7eeb2d1260a, type: 3}
+  m_Name: StrengthFromHealing
+  m_EditorClassIdentifier: 
+  powerType: 54
+  title: Strong Recovery
+  description: Whenever any rat heals HP, they get 1 strength
+  abilities:
+  - rid: 2511001254715195776
+  displaySprite: {fileID: 21300000, guid: 73da16e4782784447a7155a6d3a1d58b, type: 3}
+  extraTooltip:
+    rid: 6567162537147629579
+  stackable: 1
+  cacheConfiguration:
+    key: 
+    display: 1
+    sprite: {fileID: 0}
+    startOfTurnValue: 0
+    setStartOfTurnValue: 0
+    startOfCombatValue: 0
+    setStartOfCombatValue: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 1700682198445196055
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: Strong Recovery
+        icon: {fileID: 21300000, guid: 73da16e4782784447a7155a6d3a1d58b, type: 3}
+    - rid: 2511001254715195776
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 15
+        effectSteps:
+        - rid: 2511001254715195777
+        - rid: 3226456856950735253
+        - rid: 3226456856950735254
+        - rid: 1700682198445196055
+        weight: 0
+    - rid: 2511001254715195777
+      type: {class: EndWorkflowIfNoMapElement, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfNoMapElement
+        keyToCheck: healedCompanion
+    - rid: 3226456856950735253
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: healedCompanion
+        statusEffect: 0
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        toggleStatus: 0
+    - rid: 3226456856950735254
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: healedCompanion
+        prefabToInstantiate: {fileID: 7061810456412778628, guid: 056feea5b40bdc841b884fff65bf7722, type: 3}
+        scale: 1
+    - rid: 6567162537147629579
+      type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
+      data:
+        empty: 1
+        lines: []

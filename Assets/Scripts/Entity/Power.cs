@@ -155,6 +155,7 @@ public class PowerSO : ScriptableObject
         Retreebution,
         // caboose: block from deck shuffling
         Caboose,
+        StrengthFromHealing,
     }
 
     public TooltipViewModel GetTooltip(int stackCount)
