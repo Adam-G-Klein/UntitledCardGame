@@ -53,6 +53,7 @@ public class DefeatView : MonoBehaviour
 
     public void Setup(List<Enemy> enemies) {
         VisualElement container = doc.rootVisualElement.Q(name: "enemiesThatDefeatedYou");
+        container.Clear();
         for (int i = 0; i < enemies.Count; i++) {
             Enemy enemy = enemies[i];
             VisualElement enemyContainer = new VisualElement();

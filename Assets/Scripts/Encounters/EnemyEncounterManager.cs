@@ -232,6 +232,12 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         of the VFX timing for reviving companions at the end of the encounter
     */
     private IEnumerator EndEncounterCoroutine(EndEncounterEventInfo info) {
+        // The end encounter event can fire more than once (e.g. last enemy and last companion
+        // dying together), so only handle the first one.
+        if (combatOver) {
+            Debug.LogWarning("EndEncounterCoroutine called again after combat was already over, ignoring. Outcome: " + info.outcome);
+            yield break;
+        }
         TurnOffInteractions();
         DestroyAllTooltips();
         combatOver = true;
