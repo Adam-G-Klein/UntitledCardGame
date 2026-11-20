@@ -34,7 +34,7 @@ using UnityEngine;
 */
 
 [System.Serializable]
-public class GetTargets : EffectStep, IEffectStepCalculation
+public class GetTargets : EffectStep, IEffectStepCalculation, ITooltipProvider
 {
     [SerializeField]
     private bool useInputToLimitOptions = false;
@@ -421,6 +421,24 @@ public class GetTargets : EffectStep, IEffectStepCalculation
         } else {
             yield return invoke(document);
         }
+    }
+
+    public TooltipViewModel GetTooltip() {
+        TooltipKeyword keyword;
+        switch (selectionPurpose) {
+            case SelectionPurposeEnum.ExhaustAsACost:
+                keyword = TooltipKeyword.ExhaustAsACost;
+                break;
+            case SelectionPurposeEnum.DiscardAsACost:
+                keyword = TooltipKeyword.DiscardAsACost;
+                break;
+            default:
+                return new TooltipViewModel(empty: true);
+        }
+        if (KeywordTooltipProvider.Instance.HasTooltip(keyword)) {
+            return KeywordTooltipProvider.Instance.GetTooltip(keyword);
+        }
+        return new TooltipViewModel(empty: true);
     }
 
     public enum SpecialTargetRule {

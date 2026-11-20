@@ -58,6 +58,8 @@ public enum TooltipKeyword
     PowerfulStature,
     Tiefvision,
     ExhaustsWhenPlayed,
+    ExhaustAsACost,
+    DiscardAsACost,
 }
 public interface ITooltipProvider
 {
