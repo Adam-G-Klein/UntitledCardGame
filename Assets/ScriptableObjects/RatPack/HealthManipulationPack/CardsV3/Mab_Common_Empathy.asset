@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: Mab_Common_HealAdjBelow
+  m_Name: Mab_Common_Empathy
   m_EditorClassIdentifier: 
   guid: 89253e1e-b87b-4f21-9f5d-beba84fe5d34
-  Name: ...
+  Name: Empathy
   Description: heal adj if self below half
   IconDescription:
   - tokenType: 0
@@ -89,6 +89,7 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 7628433404972162664, guid: a9880f1216ab99e46b419b3a899530e7, type: 3}
+        casterTrail: {fileID: 0}
         damageDealtOutputKey: 
     - rid: 2295168569757139965
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
@@ -105,6 +106,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 
