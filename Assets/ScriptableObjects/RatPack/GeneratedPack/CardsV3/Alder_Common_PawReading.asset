@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: fe7f45d4-f4e3-4781-aa38-fc33d5e22290
   Name: Paw Reading
-  Description: Scry 1 from any. If the top card is a Charm, draw it
+  Description: Scry 2 from any. If the top card is a Charm, draw it
   IconDescription:
   - tokenType: 0
-    text: Scry 1
+    text: Scry 2
     icon: 0
   - tokenType: 2
     text: 
@@ -28,7 +28,7 @@ MonoBehaviour:
   - tokenType: 0
     text: If the top card of their deck is a Charm, draw it
     icon: 18
-  IconDescriptionTooltipLines: []
+  IconDescriptionTooltipLineOverrides: []
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 27219c2682ae3af4fa76a9968109666f, type: 3}
@@ -55,6 +55,18 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 597101366047835426
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 98836261379580132, guid: a041841b3ef3cd143989ca9ee38a85d7, type: 3}
+        scale: 1
+    - rid: 1700682185020014660
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.5
     - rid: 2295168569757138949
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -92,6 +104,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: target
         validTargets: 00000000
@@ -107,7 +120,7 @@ MonoBehaviour:
         effectStepName: GetCardsFromDeck
         inputKey: target
         getLimitedNumber: 1
-        numberOfCardsToGet: 1
+        numberOfCardsToGet: 2
         shuffleIfEmpty: 0
         outputKey: topCard
         getAllCardsFromEntities: 0
@@ -121,7 +134,7 @@ MonoBehaviour:
         outputKey: discarded
         promptText: Choose card(s) to discard.
         minTargets: 0
-        maxTargets: 1
+        maxTargets: 2
         getNumberOfTargetsFromKey: 0
         inputNumberOfTargetsKey: 
         randomizeOrder: 0
@@ -165,15 +178,3 @@ MonoBehaviour:
       data:
         effectStepName: EndWorkflowIfListEmpty
         inputKey1: topCardCharm
-    - rid: 597101366047835426
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: target
-        prefabToInstantiate: {fileID: 98836261379580132, guid: a041841b3ef3cd143989ca9ee38a85d7, type: 3}
-        scale: 1
-    - rid: 1700682185020014660
-      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: WaitForSecondsEffect
-        seconds: 0.5

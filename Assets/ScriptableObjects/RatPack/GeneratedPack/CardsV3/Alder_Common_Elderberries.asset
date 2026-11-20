@@ -37,10 +37,6 @@ MonoBehaviour:
   - tokenType: 0
     text: Shuffle a Bitterbark into their deck
     icon: 18
-  IconDescriptionTooltipLines:
-  - This card exhausts when played.
-  - Heal a rat of your choice 10 HP.
-  - Then, shuffle a Bitterbark Charm card into their deck.
   IconDescriptionTooltipLineOverrides:
   - lineIndex: 0
     bonusText: 
@@ -108,6 +104,8 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 0}
+        casterTrail: {fileID: 0}
+        damageDealtOutputKey: 
     - rid: 5602892561590779943
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -123,6 +121,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: target
         validTargets: 00000000
@@ -152,6 +151,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 
