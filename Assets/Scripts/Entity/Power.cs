@@ -153,6 +153,8 @@ public class PowerSO : ScriptableObject
         DealWithTheDevil,
         BeyondTheGrave,
         Retreebution,
+        // caboose: block from deck shuffling
+        Caboose,
     }
 
     public TooltipViewModel GetTooltip(int stackCount)

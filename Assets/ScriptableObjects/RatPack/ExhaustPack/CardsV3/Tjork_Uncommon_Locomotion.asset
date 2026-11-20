@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: Tjork_Uncommon_Locomotion
   m_EditorClassIdentifier: 
-  guid: f27e4daa-a862-4a19-be8b-c0b82aa95169
+  guid: 809f9519-43f3-451e-8e0d-d96e05df2670
   Name: Locomotion
   Description: Exhaust 2 cards in hand and gain 2 energy
   IconDescription:
@@ -34,7 +34,9 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 10
-  IconDescriptionTooltipLineOverrides: []
+  IconDescriptionTooltipLines:
+  - Choose 2 cards in hand to exhaust, removing them for the rest of combat.
+  - "Gain 2 \xC9lan to spend on playing other cards."
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 47602993e540997478144938c9b7ec9b, type: 3}

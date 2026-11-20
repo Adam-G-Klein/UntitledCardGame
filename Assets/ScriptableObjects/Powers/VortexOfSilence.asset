@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerType: 17
   title: Last Word
-  description: End of turn, if your hand is empty, deal 15 damage to all enemies
+  description: End of turn, if your hand is empty, deal 20 damage to all enemies
   abilities:
   - rid: 754093991137641285
   displaySprite: {fileID: 21300000, guid: 52f62e90b62fa9249aac77854a45e7d5, type: 3}
@@ -49,6 +49,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: enemies
         validTargets: 02000000
@@ -85,7 +86,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: enemies
         combatEffect: 14
-        scale: 15
+        scale: 20
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
@@ -93,12 +94,13 @@ MonoBehaviour:
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 1320532642761013391, guid: d7616faad6e38814a82737c28111114b, type: 3}
         casterTrail: {fileID: 787713172746466458, guid: 879826723b4cd3647a536d9e843b6b8a, type: 3}
+        damageDealtOutputKey: 
     - rid: 2511000990761353373
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
-        icon: {fileID: 21300000, guid: 52f62e90b62fa9249aac77854a45e7d5, type: 3}
         label: Last Word
+        icon: {fileID: 21300000, guid: 52f62e90b62fa9249aac77854a45e7d5, type: 3}
     - rid: 7150943289421332485
       type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
       data:

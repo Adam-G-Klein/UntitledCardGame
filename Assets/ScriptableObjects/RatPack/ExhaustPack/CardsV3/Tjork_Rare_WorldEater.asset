@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: PB_SteamCannon
+  m_Name: Tjork_Rare_WorldEater
   m_EditorClassIdentifier: 
-  guid: 783b4acd-1fe8-4b40-8f20-00c7c1a736fe
-  Name: Steam Cannon
-  Description: Deal {rpl_damage} damage. Gain +1 damage for each card you exhausted
+  guid: 46f5559d-7e5e-4af3-895d-d1b764e0fef1
+  Name: World Eater
+  Description: Deal {rpl_damage} damage. Gain +3 damage for each card you exhausted
     this combat ({numExhausted} cards)
   IconDescription:
   - tokenType: 0
@@ -30,7 +30,7 @@ MonoBehaviour:
     text: 
     icon: 18
   - tokenType: 0
-    text: 1
+    text: 3
     icon: 0
   - tokenType: 2
     text: 
@@ -42,15 +42,15 @@ MonoBehaviour:
     text: 
     icon: 0
   - tokenType: 0
-    text: N = Number of cards exhausted this turn ({numExhausted} cards)
+    text: N = Number of cards exhausted this combat ({numExhausted} cards)
     icon: 0
-  IconDescriptionTooltipLines: []
+  IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: rpl_damage
     value: 8
   - key: numExhausted
     value: 0
-  Cost: 1
+  Cost: 2
   Artwork: {fileID: 21300000, guid: 109c4464923594f4bb2478d2624dcf1a, type: 3}
   cardCategory: 1
   packFrom: {fileID: 11400000, guid: 79e479ca9df7a4369ba7fa951e0af116, type: 2}
@@ -75,11 +75,18 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 1700682291002736669
+      type: {class: CardsChangedVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardsChangedVFX
+        inputKey: thisCard
+        vfxPrefab: {fileID: 1872837941943473356, guid: c1728413e5bf48543b46f1ce54f452c5, type: 3}
     - rid: 2034230176448512659
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: thisCard
         validTargets: 
@@ -93,16 +100,13 @@ MonoBehaviour:
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 1700682198445195776
         - rid: 5602892675124822190
         - rid: 2034230176448512659
-        - rid: 1700682198445195774
-        - rid: 1700682198445195775
         - rid: 5602892675124822191
         - rid: 7150943289421332659
         - rid: 7150943289421332661
         - rid: 7150943289421332662
-        - rid: 1700682291002736668
+        - rid: 1700682291002736669
         - rid: 7150943289421332663
         - rid: 7150943289421332664
     - rid: 5602892675124822190
@@ -110,6 +114,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: enemy
         validTargets: 02000000
@@ -131,12 +136,14 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 0}
+        vfxPrefab: {fileID: 6371297272294343316, guid: 1b6867ffe8ec3e446a0df158d9a47cef, type: 3}
+        casterTrail: {fileID: 0}
+        damageDealtOutputKey: 
     - rid: 7150943289421332659
       type: {class: GetCombatEncounterStat, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetCombatEncounterStat
-        statOfInterest: 2
+        statOfInterest: 3
         outputKey: numExhausted
     - rid: 7150943289421332661
       type: {class: MathStep, ns: , asm: Assembly-CSharp}
@@ -145,7 +152,7 @@ MonoBehaviour:
         inputKey: numExhausted
         operand2InputKey: UNUSED
         operation: 2
-        scale: 1
+        scale: 3
         outputKey: buff
     - rid: 7150943289421332662
       type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
@@ -155,6 +162,7 @@ MonoBehaviour:
         scale: 0
         affectsAllCardsOfType: 0
         cardTypeToModify: {fileID: 0}
+        getCardTypeFromInputCard: 0
         getScaleFromKey: 1
         scaleKey: buff
         modification: 0
@@ -170,43 +178,3 @@ MonoBehaviour:
       data:
         effectStepName: WaitForSecondsEffect
         seconds: 0.3
-    - rid: 1700682198445195774
-      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FXEffectStep
-        waitForEffect: 0
-        fXExperiencePrefab: {fileID: 166372752271642552, guid: f80963ce88d847a49bb82ecb6cb75117, type: 3}
-        rootLocationGameObjectKey: 
-        positionMappingList:
-        - fromWorkflow: shooter
-          toFxExperience: self
-        - fromWorkflow: enemy
-          toFxExperience: target
-        gameobjectMappingList: []
-        vePositionMappingList: []
-        veMappingList: []
-    - rid: 1700682198445195775
-      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: WaitForSecondsEffect
-        seconds: 0.54
-    - rid: 1700682198445195776
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: shooter
-        validTargets: 
-        number: 1
-        specialTargetRule: 4
-        cantCancelTargetting: 0
-        cardSelectionHelperText: 
-        selectionPurpose: 0
-        selectionCardCategory: 0
-    - rid: 1700682291002736668
-      type: {class: CardsChangedVFX, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CardsChangedVFX
-        inputKey: thisCard
-        vfxPrefab: {fileID: 1872837941943473356, guid: c1728413e5bf48543b46f1ce54f452c5, type: 3}
