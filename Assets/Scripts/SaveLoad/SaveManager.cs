@@ -111,6 +111,10 @@ public class SaveManager : GenericSingleton<SaveManager>
             gameStateVariableSO.HasCompletedTutorialRun = false;
         }
         playerProgressState?.LoadToLocalPlayerProgress(gameStateVariableSO, soRegistry);
+        // Retroactively unlock any cards the player is owed for their level (e.g. cards added in an update)
+        if (playerProgressState != null && ProgressManager.Instance.CatchUpCardUnlocks().Count > 0) {
+            SavePlayerProgress();
+        }
     }
 
     public void SavePlayerProgress()

@@ -23,6 +23,8 @@ public class ProgressManager : GenericSingleton<ProgressManager>
     public PersistentProgressSO progressSO;
     public CardUnlockerSO cardUnlockerSO;
     public PlayerLevelingSO playerLevelingSO;
+    [Tooltip("Every released pack. Used to retroactively unlock cards on load, when there is no run team/active packs to draw from.")]
+    public List<PackSO> allUnlockablePacks;
 
     public void ReportProgressEvent(GameActionType gameActionType, int amount)
     {
@@ -71,6 +73,47 @@ public class ProgressManager : GenericSingleton<ProgressManager>
         progressSO.unlockedCards.AddRange(cardsToUnlock);
         progressSO.cardsUnlockedThisRun = new List<CardType>(cardsToUnlock);
         return cardsToUnlock;
+    }
+
+    // Retroactively unlocks cards the player is owed for their current level, e.g. XP earned before
+    // card unlocks existed. Max level players also get every card that's still locked, so cards added
+    // in later updates reach them. Doesn't touch the end of run summary, so this is silent.
+    public List<CardType> CatchUpCardUnlocks() {
+        List<CardType> cardsToUnlock = new List<CardType>();
+        if (gameState.BuildTypeDemoOrConvention()) return cardsToUnlock;
+        if (playerLevelingSO == null) {
+            Debug.LogError("ProgressManager has no PlayerLevelingSO assigned, can't catch up card unlocks");
+            return cardsToUnlock;
+        }
+
+        int level = playerLevelingSO.GetLevel(progressSO.totalXP);
+        // With no thresholds MaxLevel is 1, which would count every player as max level.
+        bool isMaxLevel = playerLevelingSO.levelXPThresholds.Count > 0 && level >= playerLevelingSO.MaxLevel;
+
+        HashSet<CardType> alreadyUnlocked = new HashSet<CardType>(progressSO.unlockedCards);
+        List<CardType> locked = CardUnlockerSO.GetUnlockableCards(allUnlockablePacks)
+            .FindAll(card => !alreadyUnlocked.Contains(card));
+
+        int owed = (level - 1) * playerLevelingSO.cardsUnlockedPerLevel;
+        int count = isMaxLevel ? locked.Count : Mathf.Max(0, owed - progressSO.unlockedCards.Count);
+        count = Mathf.Min(count, locked.Count);
+
+        for (int i = 0; i < count; i++) {
+            int randomIndex = UnityEngine.Random.Range(i, locked.Count);
+            (locked[i], locked[randomIndex]) = (locked[randomIndex], locked[i]);
+            Debug.Log($"Catch-up unlocking card: {locked[i].GetName()}");
+            cardsToUnlock.Add(locked[i]);
+        }
+        progressSO.unlockedCards.AddRange(cardsToUnlock);
+        Debug.Log($"Card unlock catch-up: level {level}{(isMaxLevel ? " (max)" : "")}, owed {owed}, had {alreadyUnlocked.Count}, {locked.Count} locked, unlocked {cardsToUnlock.Count}");
+        return cardsToUnlock;
+    }
+
+    [ContextMenu("Run Card Unlock Catch-Up")]
+    private void RunCardUnlockCatchUp() {
+        if (CatchUpCardUnlocks().Count > 0) {
+            SaveManager.Instance.SavePlayerProgress();
+        }
     }
 
     [ContextMenu("Unlock Cards For One Level")]

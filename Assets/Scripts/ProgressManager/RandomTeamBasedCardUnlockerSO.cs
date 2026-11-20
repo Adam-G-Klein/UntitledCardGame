@@ -59,15 +59,8 @@ public class RandomTeamBasedCardUnlockerSO : CardUnlockerSO {
         return baseType != null ? baseType : companionType;
     }
 
-    private static IEnumerable<CompanionTypeSO> AllCompanionsInPack(PackSO pack) {
-        CompanionPoolSO pool = pack.companionPoolSO;
-        if (pool == null) return Enumerable.Empty<CompanionTypeSO>();
-        return pool.commonCompanions.Concat(pool.uncommonCompanions).Concat(pool.rareCompanions);
-    }
-
     private static void AddUnlockableCards(List<CardType> cards, CardPoolSO pool, Dictionary<CardType, string> cardSources, string source) {
-        if (pool == null) return;
-        foreach (CardType card in pool.unlockableRareCards.Concat(pool.unlockableUncommonCards).Concat(pool.unlockableCommonCards)) {
+        foreach (CardType card in UnlockableCardsInPool(pool)) {
             cards.Add(card);
             if (!cardSources.ContainsKey(card)) {
                 cardSources[card] = source;
