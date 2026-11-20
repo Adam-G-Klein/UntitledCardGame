@@ -42,7 +42,7 @@ MonoBehaviour:
         - rid: 8966137386555146513
         - rid: 754093991137641208
         - rid: 2511001254715195668
-        - rid: 8966137386555146512
+        - rid: 1152423886844330174
         - rid: 8966137386555146514
         - rid: 8966137386555146515
         - rid: 754093991137641210
@@ -71,9 +71,17 @@ MonoBehaviour:
         scale: 0
         affectsAllCardsOfType: 0
         cardTypeToModify: {fileID: 0}
+        getCardTypeFromInputCard: 0
         getScaleFromKey: 1
         scaleKey: buff
         modification: 0
+    - rid: 1152423886844330174
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: targets
+        prefabToInstantiate: {fileID: 7436311061350229817, guid: 109d97cbe2a2df8469b92e79db0f3866, type: 3}
+        scale: 1
     - rid: 2511001254715195668
       type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
       data:
@@ -172,21 +180,6 @@ MonoBehaviour:
       data:
         effectStepName: EndWorkflowIfListEmpty
         inputKey1: charmCard
-    - rid: 8966137386555146512
-      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FXEffectStep
-        waitForEffect: 0
-        fXExperiencePrefab: {fileID: 4075960956037802917, guid: ec7b1a1529f9141458320888bf8e3d96, type: 3}
-        rootLocationGameObjectKey: 
-        positionMappingList:
-        - fromWorkflow: self
-          toFxExperience: start
-        - fromWorkflow: targets
-          toFxExperience: end
-        gameobjectMappingList: []
-        vePositionMappingList: []
-        veMappingList: []
     - rid: 8966137386555146513
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

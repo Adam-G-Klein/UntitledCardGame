@@ -15,6 +15,8 @@ MonoBehaviour:
   guid: af49f114-2ff8-4c6d-bcc8-341910d387ff
   Name: 
   Description: 
+  IconDescription: []
+  IconDescriptionTooltipLineOverrides: []
   defaultValues: []
   Cost: 2
   Artwork: {fileID: 0}
@@ -47,11 +49,13 @@ MonoBehaviour:
         effectSteps:
         - rid: 754093991137641290
         - rid: 754093991137641291
+        - rid: 1152423886844330113
     - rid: 754093991137641290
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 
@@ -59,9 +63,18 @@ MonoBehaviour:
         specialTargetRule: 4
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 754093991137641291
       type: {class: ActivatePower, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ActivatePower
         inputKey: self
         power: {fileID: 11400000, guid: ddb2c3df8bea64aa6a4821bd3b7ff2c7, type: 2}
+    - rid: 1152423886844330113
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 8619761499956299014, guid: 2e45da831c3a01f4dba1f9515b52e6e7, type: 3}
+        scale: 1

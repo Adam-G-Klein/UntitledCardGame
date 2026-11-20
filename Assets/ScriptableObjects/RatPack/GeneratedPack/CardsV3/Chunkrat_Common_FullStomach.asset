@@ -31,7 +31,7 @@ MonoBehaviour:
   - tokenType: 0
     text: Shuffle a Bitterbark into own deck
     icon: 18
-  IconDescriptionTooltipLines: []
+  IconDescriptionTooltipLineOverrides: []
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 46c78f719703f154f896d900ed853b52, type: 3}
@@ -58,6 +58,13 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 1152423886844330177
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 7436311061350229817, guid: 109d97cbe2a2df8469b92e79db0f3866, type: 3}
+        scale: 1
     - rid: 1274772082283774706
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -65,26 +72,12 @@ MonoBehaviour:
         inputKey: target
         prefabToInstantiate: {fileID: 3264951993900767650, guid: 3c1dbbde6cf62ae4ea101b706b060f63, type: 3}
         scale: 1
-    - rid: 5280922841426165941
-      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FXEffectStep
-        waitForEffect: 0
-        fXExperiencePrefab: {fileID: 4075960956037802917, guid: ec7b1a1529f9141458320888bf8e3d96, type: 3}
-        rootLocationGameObjectKey: 
-        positionMappingList:
-        - fromWorkflow: self
-          toFxExperience: end
-        - fromWorkflow: self
-          toFxExperience: start
-        gameobjectMappingList: []
-        vePositionMappingList: []
-        veMappingList: []
     - rid: 5280922841426165942
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 
@@ -103,12 +96,13 @@ MonoBehaviour:
         - rid: 5602892561590779945
         - rid: 5602892561590779946
         - rid: 1274772082283774706
-        - rid: 5280922841426165941
+        - rid: 1152423886844330177
     - rid: 5602892561590779944
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: target
         validTargets: 00000000

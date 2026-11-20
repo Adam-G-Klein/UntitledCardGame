@@ -32,6 +32,13 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 1152423886844330186
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: random
+        prefabToInstantiate: {fileID: 7436311061350229817, guid: 109d97cbe2a2df8469b92e79db0f3866, type: 3}
+        scale: 1
     - rid: 2511001254715195600
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
@@ -40,7 +47,7 @@ MonoBehaviour:
         - rid: 2511001254715195601
         - rid: 8966137386555146541
         - rid: 2511001254715195606
-        - rid: 8966137386555146538
+        - rid: 1152423886844330186
         - rid: 8966137386555146539
         weight: 0
     - rid: 2511001254715195601
@@ -48,6 +55,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 
@@ -76,30 +84,18 @@ MonoBehaviour:
       data:
         empty: 1
         lines: []
-    - rid: 8966137386555146538
-      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FXEffectStep
-        waitForEffect: 0
-        fXExperiencePrefab: {fileID: 4075960956037802917, guid: ec7b1a1529f9141458320888bf8e3d96, type: 3}
-        rootLocationGameObjectKey: 
-        positionMappingList:
-        - fromWorkflow: self
-          toFxExperience: start
-        - fromWorkflow: random
-          toFxExperience: end
-        gameobjectMappingList: []
-        vePositionMappingList: []
-        veMappingList: []
     - rid: 8966137386555146539
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}
     - rid: 8966137386555146541
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: random
         validTargets: 00000000

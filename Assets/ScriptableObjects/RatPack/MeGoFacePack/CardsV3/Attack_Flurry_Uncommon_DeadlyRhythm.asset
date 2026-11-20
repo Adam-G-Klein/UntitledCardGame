@@ -16,7 +16,7 @@ MonoBehaviour:
   Name: 
   Description: 
   IconDescription: []
-  IconDescriptionTooltipLines: []
+  IconDescriptionTooltipLineOverrides: []
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 0}
@@ -49,11 +49,13 @@ MonoBehaviour:
         effectSteps:
         - rid: 754093991137641290
         - rid: 754093991137641291
+        - rid: 1152423886844330121
     - rid: 754093991137641290
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 
@@ -69,3 +71,10 @@ MonoBehaviour:
         effectStepName: ActivatePower
         inputKey: self
         power: {fileID: 11400000, guid: db2e80b209562401997534cce557d7d8, type: 2}
+    - rid: 1152423886844330121
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 5874088915011964626, guid: 643a247eeb4f7e94a8d19b88d349da1e, type: 3}
+        scale: 1

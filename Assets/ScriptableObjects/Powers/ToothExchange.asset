@@ -42,12 +42,14 @@ MonoBehaviour:
         - rid: 7082891488814170925
         - rid: 754093871974056663
         - rid: 7082891692335693826
+        - rid: 1152423886844330175
         weight: 0
     - rid: 754093871974056663
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 
@@ -55,6 +57,15 @@ MonoBehaviour:
         specialTargetRule: 3
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
+    - rid: 1152423886844330175
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1
     - rid: 7082891488814170924
       type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
       data:
@@ -64,17 +75,21 @@ MonoBehaviour:
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
-        icon: {fileID: 2128375166, guid: 818b02860100fe742851a85eea5612ad, type: 3}
         label: Tooth Exchange
+        icon: {fileID: 2128375166, guid: 818b02860100fe742851a85eea5612ad, type: 3}
     - rid: 7082891692335693824
       type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: FilterCards
         inputKey: cardDiscarded
+        companionInstanceKey: 
         filter:
           cardCategoriesToInclude: 01000000
           retainedCardsFilter: 0
+          manaCostFilter: 0
+          manaCost: 0
           exactCardType: {fileID: 0}
+          companionInstanceFilterEnabled: 0
         outputKey: attacks
     - rid: 7082891692335693825
       type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
@@ -94,3 +109,4 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         outputKey: 
+        waitForDrawsToResolve: 0

@@ -39,6 +39,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 7150943403050008585
         - rid: 7150943403050008584
+        - rid: 1152423886844330180
         - rid: 7150943403050008586
         weight: 0
     - rid: 758316142852047275
@@ -46,6 +47,13 @@ MonoBehaviour:
       data:
         empty: 1
         lines: []
+    - rid: 1152423886844330180
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1
     - rid: 7150943403050008584
       type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
       data:

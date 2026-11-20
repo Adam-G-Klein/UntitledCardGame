@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ac8d29b7a56d46539bdf7eeb2d1260a, type: 3}
   m_Name: EbbAndFlow
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   powerType: 27
   title: Ebb and Flow
   description: Every 3 times you exhaust a Charm card, draw 1 from self and create
@@ -33,6 +33,13 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 1152423886844330178
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1
     - rid: 2511001254715195611
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
@@ -48,6 +55,7 @@ MonoBehaviour:
         - rid: 3226456462082179145
         - rid: 3226456462082179140
         - rid: 3226456462082179141
+        - rid: 1152423886844330178
         - rid: 3226456462082179147
         - rid: 3226456462082179148
         weight: 0
@@ -56,13 +64,14 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
-        inputKey:
+        useInputToExcludeOptions: 0
+        inputKey: 
         outputKey: self
         validTargets: 00000000
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-        cardSelectionHelperText:
+        cardSelectionHelperText: 
         selectionPurpose: 0
         selectionCardCategory: 0
     - rid: 3226456462082179137
@@ -70,7 +79,7 @@ MonoBehaviour:
       data:
         effectStepName: FilterCards
         inputKey: cardExhausted
-        companionInstanceKey:
+        companionInstanceKey: 
         filter:
           cardCategoriesToInclude: 04000000
           retainedCardsFilter: 0
@@ -89,10 +98,10 @@ MonoBehaviour:
       data:
         effectStepName: DrawCards
         inputKey: self
-        outputKey:
+        outputKey: 
         scale: 1
         getScaleFromKey: 0
-        inputScaleKey:
+        inputScaleKey: 
         waitForDrawsToResolve: 0
     - rid: 3226456462082179141
       type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
@@ -102,11 +111,12 @@ MonoBehaviour:
         cardTypes:
         - {fileID: 11400000, guid: e5aefb6a1e4354d73910a59bd8677cf0, type: 2}
         getCardsFromKey: 0
-        inputCardsKey:
+        inputCardsKey: 
         scale: 1
         getScaleFromKey: 0
-        inputScaleKey:
-        outputKey:
+        inputScaleKey: 
+        outputKey: 
+        waitForDrawsToResolve: 0
     - rid: 3226456462082179142
       type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
       data:
@@ -129,7 +139,7 @@ MonoBehaviour:
         effectStepName: BooleanComparison
         hardCodedInputKey1: 3
         useHardCodedInputKey1: 1
-        inputKey1:
+        inputKey1: 
         operation: 3
         inputKey2: numCharmsExhausted
         outputKey: notEnough
@@ -165,14 +175,10 @@ MonoBehaviour:
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}
     - rid: 6567162444329517607
       type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
       data:
         empty: 1
         lines: []
-    - rid: 1700682198445196042
-      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EntityAbilityTriggeredVFX
-        label: Ebb and Flow
-        icon: {fileID: 21300000, guid: 8c16952da6b2cfa4181be941e4a49469, type: 3}

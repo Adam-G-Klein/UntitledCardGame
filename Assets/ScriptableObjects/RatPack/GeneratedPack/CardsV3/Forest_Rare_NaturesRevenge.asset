@@ -49,6 +49,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 754093991137641290
         - rid: 754093991137641291
+        - rid: 1152423886844330125
     - rid: 754093991137641290
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -70,3 +71,10 @@ MonoBehaviour:
         effectStepName: ActivatePower
         inputKey: self
         power: {fileID: 11400000, guid: 8fc94f995514a4abf83319b68d0b1bca, type: 2}
+    - rid: 1152423886844330125
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 6936423743007009748, guid: eca2ef77f6fc35c4bbf9904d21e7bf8a, type: 3}
+        scale: 1

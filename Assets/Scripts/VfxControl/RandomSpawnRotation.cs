@@ -20,7 +20,10 @@ public class RandomSpawnRotation : MonoBehaviour
 
     public static void Apply(GameObject root, float angle)
     {
-        root.transform.Rotate(0f, 0f, angle, Space.Self);
+        // about the view axis, not the effect's own Z: several effects (the enemy claws) have a root turned 90° on Y, and
+        // turning those about their own Z tilted their streaks and smoke into the screen while the sprites turned flat,
+        // so the slash's parts pointed different ways (some sideways)
+        root.transform.Rotate(0f, 0f, angle, Space.World);
         // A positive transform Z rotation turns counter-clockwise on screen, while a positive
         // particle start rotation turns clockwise, so the particle offset is negated.
         float radians = -angle * Mathf.Deg2Rad;

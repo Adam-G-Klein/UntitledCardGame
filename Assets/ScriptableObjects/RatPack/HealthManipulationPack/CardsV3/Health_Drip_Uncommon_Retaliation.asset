@@ -16,7 +16,7 @@ MonoBehaviour:
   Name: 
   Description: 
   IconDescription: []
-  IconDescriptionTooltipLines: []
+  IconDescriptionTooltipLineOverrides: []
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 0}
@@ -55,6 +55,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 
@@ -75,5 +76,5 @@ MonoBehaviour:
       data:
         effectStepName: InstantiatePrefab
         inputKey: self
-        prefabToInstantiate: {fileID: 0}
+        prefabToInstantiate: {fileID: 3336466803866098210, guid: 0c8c9e039783c3e48a9df256da288065, type: 3}
         scale: 1

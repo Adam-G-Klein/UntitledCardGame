@@ -109,7 +109,36 @@ public class MusicController : GenericSingleton<MusicController>
         { "Slobber", Slobber },
         { "Gnaw", Slobber },             // a bite
         { "Wrist Flick", CardHandle },   // flicked cards
+        // the new (V3) cards
+        { "Derringer", Gunshot },
+        { "Empty the Clip", Gunshot },
+        { "Tiny Musket", Gunshot },
+        { "Flashbang", Detonate },
+        { "Spearhead", GreekFire },
+        { "Card Advantage", MagicBoom }, // Brainstorm's magic hit
+        { "Overwhelming Value", MagicBoom },
+        { "Trump Card", MagicBoom },
+        { "Typhoon Trident", MagicBoom }, // Nature Rapid Hit, as Resonant Shot
+        { "Burrow", MagicBoom },         // a damaging Skill: the doombloom burst
+        { "Pluck", MagicBoom },          // the rat's stone-throw ability (Nature Rapid Hit)
     };
+
+    // A power's or rat ability's hit (no card played, the rat not listed above) takes its sound from the effect it plays,
+    // so passives aren't silent. Bleeds and other status hits return null: applying the status plays its own sound.
+    public static string AttackSoundForEffect(string vfxName)
+    {
+        if (string.IsNullOrEmpty(vfxName)) return null;
+        string n = vfxName.ToLowerInvariant();
+        if (n.Contains("heal") || n.Contains("block") || n.Contains("buff")) return null;
+        // a bleed or burn hit (self-bleeds, Everything Burns): no status is applied with it, so the status sting plays here
+        if (n.Contains("bleed") || n.Contains("status")) return "event:/SFX/SFX_NegativeEffect";
+        if (n.Contains("gun") || n.Contains("bullet") || n.Contains("cannon") || n.Contains("muzzle")) return Gunshot;
+        if (n.Contains("fire") || n.Contains("ember") || n.Contains("flame") || n.Contains("burn") || n.Contains("pyro")) return GreekFire;
+        if (n.Contains("magic") || n.Contains("monsoon") || n.Contains("ebb") || n.Contains("doombloom") || n.Contains("lash out")) return MagicBoom;
+        if (n.Contains("bite") || n.Contains("slobber")) return Slobber;
+        if (n.Contains("hit") || n.Contains("slash") || n.Contains("strike") || n.Contains("retaliation") || n.Contains("blade") || n.Contains("claw") || n.Contains("attack")) return BasicAttack;
+        return null;
+    }
 
     private static string SoundKey(string name) => name == null ? "" : name.Trim().TrimEnd('+').Trim();
 

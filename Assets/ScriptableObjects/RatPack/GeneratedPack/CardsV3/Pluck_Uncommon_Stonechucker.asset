@@ -64,12 +64,20 @@ MonoBehaviour:
         effectStepName: ActivatePower
         inputKey: self
         power: {fileID: 11400000, guid: 535226579d138435690672d9cae6245a, type: 2}
+    - rid: 1152423886844330136
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 6936423743007009748, guid: eca2ef77f6fc35c4bbf9904d21e7bf8a, type: 3}
+        scale: 1
     - rid: 2034230108114649328
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 754093991137640776
         - rid: 754093991137640777
+        - rid: 1152423886844330136
     - rid: 2295168179404538063
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:

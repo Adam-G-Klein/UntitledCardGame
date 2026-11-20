@@ -9785,6 +9785,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6346191133496128588}
+  - component: {fileID: 8179173752518951441}
   m_Layer: 0
   m_Name: Elite Screen Vignette
   m_TagString: Untagged
@@ -9809,3 +9810,18 @@ Transform:
   - {fileID: 8254674073644378952}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8179173752518951441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6237719490985458671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da531a640316ab144b4c49e30388a837, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeInTime: 2.5
+  breathTime: 9
+  breathDepth: 0.25

@@ -31,10 +31,12 @@ public class EliteEnemyFlair : MonoBehaviour
         return mine >= most;
     }
 
+    [Tooltip("Big enemies (EnemyTypeSO.big, the elites) are drawn wider (EnemyView: 18% of the screen, not 16%): their smoke and flair grow by the same.")]
+    [SerializeField] private float bigEnemyScale = 0.18f / 0.16f;
+
     private IEnumerator Start()
     {
         if (gameState == null || eliteFlair == null) yield break;
-        if (!(gameState.activeEncounter.GetValue() is EnemyEncounter encounter) || !encounter.isEliteEncounter) yield break;
         // the enemy is set up by whoever spawned it; give it a few frames
         EnemyInstance enemy = null;
         for (int tries = 0; tries < 30; tries++)
@@ -44,12 +46,31 @@ public class EliteEnemyFlair : MonoBehaviour
             yield return null;
         }
         if (enemy == null || enemy.enemy == null || enemy.enemy.enemyType == null) yield break;
+        bool big = enemy.enemy.enemyType.big && enemy.enemy.enemyType.enemyDisplayType != DisplayType.MEOTHRA;
+        // the smoke behind a big enemy fits its bigger token
+        if (big) ScaleSmoke(gameObject, bigEnemyScale);
+        if (!(gameState.activeEncounter.GetValue() is EnemyEncounter encounter) || !encounter.isEliteEncounter) yield break;
         if (enemy.enemy.enemyType.enemyDisplayType == DisplayType.MEOTHRA) yield break;
         if (headlinerOnly && !IsHeadliner(enemy)) yield break;
         GameObject instance = Instantiate(eliteFlair, transform);
         instance.transform.localPosition = Vector3.zero;
         instance.transform.localRotation = Quaternion.identity;
+        // the flair's layers scale with their hierarchy, so its root takes the big enemy's size
+        if (big) instance.transform.localScale *= bigEnemyScale;
         SpawnScreenVignette();
+    }
+
+    // this smoke highlight's own particles (not the flair, spawned after): their sizes and emission areas
+    private static void ScaleSmoke(GameObject smoke, float by)
+    {
+        foreach (ParticleSystem ps in smoke.GetComponentsInChildren<ParticleSystem>(true))
+        {
+            ParticleSystem.MainModule m = ps.main;
+            if (m.startSize3D) { m.startSizeXMultiplier *= by; m.startSizeYMultiplier *= by; m.startSizeZMultiplier *= by; }
+            else m.startSizeMultiplier *= by;
+            ParticleSystem.ShapeModule shape = ps.shape;
+            if (shape.enabled) { shape.scale *= by; shape.radius *= by; }
+        }
     }
 
     private void SpawnScreenVignette()

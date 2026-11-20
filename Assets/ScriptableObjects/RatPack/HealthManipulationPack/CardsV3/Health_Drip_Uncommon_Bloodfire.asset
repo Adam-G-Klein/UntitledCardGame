@@ -16,7 +16,7 @@ MonoBehaviour:
   Name: Bloodfire
   Description: Each turn, bleed self 1 HP and draw a card from self
   IconDescription: []
-  IconDescriptionTooltipLines: []
+  IconDescriptionTooltipLineOverrides: []
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: e3425c0bf387f4d47907af9ce0eff56b, type: 3}
@@ -48,6 +48,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 
@@ -63,12 +64,20 @@ MonoBehaviour:
         effectStepName: ActivatePower
         inputKey: self
         power: {fileID: 11400000, guid: 8142207c6988f461ebe1420c4dc895fe, type: 2}
+    - rid: 1152423886844330115
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 3336466803866098210, guid: 0c8c9e039783c3e48a9df256da288065, type: 3}
+        scale: 1
     - rid: 2034230108114649328
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 754093991137640776
         - rid: 754093991137640777
+        - rid: 1152423886844330115
     - rid: 2295168179404538063
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:

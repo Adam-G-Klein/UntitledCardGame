@@ -103,7 +103,7 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
                         PlayableCard originPlayableCard = document.map.TryGetItem<PlayableCard>(EffectDocument.ORIGIN, 0);
                         // the attack sound: attack cards always; other cards (the damaging Charms: Greek Fire, Bezoar,
                         // Boomflask) and rat abilities (Hold'em's gun) only when they have a sound of their own
-                        string attackName = null;
+                        string attackName = null, effectSound = null;
                         if (originPlayableCard != null && originPlayableCard.card != null)
                         {
                             Card originCard = originPlayableCard.card;
@@ -115,6 +115,8 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
                             CompanionInstance rat = originCombatInstance.GetComponentInParent<CompanionInstance>();
                             string ratName = rat != null && rat.companion != null && rat.companion.companionType != null ? rat.companion.companionType.companionName : null;
                             if (MusicController.HasOwnAttackSound(ratName)) attackName = ratName;
+                            // a power's or ability's hit: the sound of the effect it plays (Nov 2026: these were silent)
+                            else if (rat != null) effectSound = MusicController.AttackSoundForEffect(vfxPrefab != null ? vfxPrefab.name : null);
                         }
                         if (attackName != null)
                         {
@@ -122,6 +124,11 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
                             string sound = attackName;
                             HitTiming.AtImpact(instance, HitTiming.CurrentDelay(instance),
                                 () => MusicController.Instance.PlayCorrectAttackSound(sound));
+                        }
+                        else if (effectSound != null)
+                        {
+                            string sfx = effectSound;
+                            HitTiming.AtImpact(instance, HitTiming.CurrentDelay(instance), () => MusicController.Instance.PlaySFX(sfx));
                         }
 
                     if (quickTrail)

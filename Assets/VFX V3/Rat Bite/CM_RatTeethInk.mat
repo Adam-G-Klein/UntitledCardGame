@@ -60,15 +60,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _LERP_Mask_Texture:
-        m_Texture: {fileID: 2800000, guid: 5640c1a3853deae4789931d4ab102f1e, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: -0.1}
     - _LERP_Texture:
-        m_Texture: {fileID: 2800000, guid: 592720d899ca71a4bb528c63e6c86c0e, type: 3}
-        m_Scale: {x: 0.5, y: 0.75}
+        m_Texture: {fileID: 2800000, guid: 79510919aa73bdf40beff4c7a9322b2b, type: 3}
+        m_Scale: {x: 0.6, y: 0.45}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 7e2abba7a46695349a268234ccd343c5, type: 3}
+        m_Texture: {fileID: 2800000, guid: c52ecf3b4e9e1c2459172e895c137a22, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Mask_Tex:
@@ -113,7 +113,7 @@ Material:
     - _Fade_Tex_Pow: 1
     - _Fresnel: 0
     - _Fresnel_Thickness: 2.11
-    - _Intensity: 3.24
+    - _Intensity: 0.9
     - _Mask_Animation: 0
     - _Mask_Power: 1
     - _Mask_Strength: 0.3
@@ -139,15 +139,15 @@ Material:
     - _ZWriteControl: 0
     m_Colors:
     - _Color: {r: 1.4980392, g: 1.4980392, b: 1.4980392, a: 1}
-    - _Colour_A: {r: 1, g: 0.9490196, b: 0.84705883, a: 1}
-    - _Colour_B: {r: 0.035, g: 0.01, b: 0.018, a: 1}
+    - _Colour_A: {r: 0, g: 0.13, b: 0.7, a: 1}
+    - _Colour_B: {r: 0.62, g: 0.4, b: 0.1, a: 1}
     - _Dissolve_Speed: {r: -0.1, g: 0, b: 0, a: 0}
     - _Distortion_Speed: {r: 0.06, g: 0.035, b: 0, a: 0}
     - _Fade_Tex_Speed: {r: -0.015, g: 0, b: 0, a: 0}
     - _Fresnel_Color: {r: 1, g: 1, b: 1, a: 0}
     - _Fresnel_Speed: {r: 0, g: 0, b: 0, a: 0}
     - _LERP_Texture_Scroll: {r: 0.25, g: -0.25, b: 0, a: 0}
-    - _Main_Tex_Colour: {r: 47.937256, g: 47.937256, b: 47.937256, a: 1}
+    - _Main_Tex_Colour: {r: 1.1, g: 1.1, b: 1.1, a: 1}
     - _Main_Text_Scroll_Speed: {r: 0, g: 0, b: 0, a: 0}
     - _Mask_Scroll_Speed: {r: 0, g: 0, b: 0, a: 0}
     - _Overlay_Speed: {r: 0.015, g: 0, b: 0, a: 0}

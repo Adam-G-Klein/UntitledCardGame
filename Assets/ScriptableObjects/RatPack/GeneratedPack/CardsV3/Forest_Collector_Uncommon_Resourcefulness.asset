@@ -74,6 +74,7 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         outputKey: 
+        waitForDrawsToResolve: 0
     - rid: 758316142852047577
       type: {class: CountStep, ns: , asm: Assembly-CSharp}
       data:
@@ -96,6 +97,13 @@ MonoBehaviour:
         effectStepName: EndWorkflowIfConditionMet
         inputKey1: charmDrawn
         conditionToEndOn: 1
+    - rid: 1152423886844330172
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1
     - rid: 2034229587402555941
       type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
@@ -156,6 +164,7 @@ MonoBehaviour:
         - rid: 758316142852047579
         - rid: 3226456700144582827
         - rid: 758316142852047573
+        - rid: 1152423886844330172
     - rid: 5602892723852673196
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

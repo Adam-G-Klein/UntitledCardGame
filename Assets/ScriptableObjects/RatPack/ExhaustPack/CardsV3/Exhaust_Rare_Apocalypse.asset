@@ -16,7 +16,7 @@ MonoBehaviour:
   Name: 
   Description: 
   IconDescription: []
-  IconDescriptionTooltipLines: []
+  IconDescriptionTooltipLineOverrides: []
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 0}
@@ -49,6 +49,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 754093991137641290
         - rid: 754093991137641291
+        - rid: 1152423886844330119
         - rid: 758316092100444554
         - rid: 754093991137641292
     - rid: 754093991137641290
@@ -56,6 +57,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 
@@ -88,3 +90,10 @@ MonoBehaviour:
         effectStepName: GetCombatEncounterStat
         statOfInterest: 2
         outputKey: numExhaust
+    - rid: 1152423886844330119
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 7097584416936025388, guid: 32b04be697890724d80dce6281d82db7, type: 3}
+        scale: 1

@@ -10,6 +10,8 @@ public class TweenMixerBehaviour : PlayableBehaviour
     bool m_ShouldInitializeTransform = true;
     Vector3 m_InitialPosition;
     bool shouldRotate = false;
+    // VFX (Nov 2026): whether a rotating clip placed the binding last frame (see the rotation below)
+    bool m_RotatedLastFrame = false;
 
     // Performs blend of position and rotation of all clips connected to a track mixer
     // The result is applied to the track binding's (playerData) transform.
@@ -27,6 +29,7 @@ public class TweenMixerBehaviour : PlayableBehaviour
         Quaternion accumRotation = QuaternionUtils.zero;
 
         float totalPositionWeight = 0.0f;
+        shouldRotate = false;
 
         // Iterate on all mixer's inputs (ie each clip on the track)
         int inputCount = playable.GetInputCount();
@@ -54,18 +57,23 @@ public class TweenMixerBehaviour : PlayableBehaviour
                 Vector3 direction = (endLocation - startLocation).normalized;
                 // Account for any odd positioning of anything on the screen z axis wise
                 direction = new Vector3(direction.x, direction.y, 0);
-                trackBinding.right = direction;
+                if (direction.sqrMagnitude > 1e-8f) trackBinding.right = direction;
             }
         }
 
         Vector3 newPosition = accumPosition + m_InitialPosition * (1.0f - totalPositionWeight);
 
-        if (shouldRotate) {
-            Vector3 direction = (newPosition - trackBinding.position).normalized;
+        // VFX (Nov 2026): follow the frame-to-frame travel only once the shot is already on its path, and only while a
+        // rotating clip plays. On a clip's first frame the binding still sits where the experience was spawned (the world
+        // origin when the effect has no root, as with Holdem's passive), so that "travel" pointed from mid-screen to the
+        // shooter and turned the bullet sideways or backwards; after the clip it pointed back at the spawn point.
+        if (shouldRotate && m_RotatedLastFrame) {
+            Vector3 direction = newPosition - trackBinding.position;
             // Account for any odd positioning of anything on the screen z axis wise
             direction = new Vector3(direction.x, direction.y, 0);
-            trackBinding.right = direction;
+            if (direction.sqrMagnitude > 1e-8f) trackBinding.right = direction.normalized;
         }
+        m_RotatedLastFrame = shouldRotate;
 
         // Apply the final position and rotation values in the track binding
         trackBinding.position = newPosition;
