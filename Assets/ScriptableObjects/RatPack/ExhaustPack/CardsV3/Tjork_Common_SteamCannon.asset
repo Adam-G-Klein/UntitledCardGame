@@ -30,11 +30,14 @@ MonoBehaviour:
     text: 
     icon: 18
   - tokenType: 0
-    text: N
+    text: 2
     icon: 0
   - tokenType: 2
     text: 
     icon: 34
+  - tokenType: 0
+    text: xN
+    icon: 0
   - tokenType: 1
     text: 
     icon: 0
@@ -187,7 +190,7 @@ MonoBehaviour:
         inputKey: numExhausted
         operand2InputKey: UNUSED
         operation: 2
-        scale: 1
+        scale: 2
         outputKey: buff
     - rid: 7150943289421332662
       type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
