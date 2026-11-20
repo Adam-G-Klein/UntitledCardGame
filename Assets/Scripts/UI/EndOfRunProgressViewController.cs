@@ -129,6 +129,15 @@ public class EndOfRunProgressViewController : MonoBehaviour
         root.Q<Label>("bossRowValue").text = summary.bossXP.ToString();
         root.Q<Label>("stakeBonusRowLabel").text = $"Stake {summary.ascensionLevel} Bonus (x{summary.ascensionMultiplier:0.##})";
         root.Q<Label>("stakeBonusRowValue").text = $"+{summary.ascensionBonusXP}";
+        if (summary.newStakeUnlocked)
+        {
+            // Winning at stake X unlocks stake X + 1
+            int unlockedStake = summary.ascensionLevel + 1;
+            List<AscensionSO> ascensions = ProgressManager.Instance.ascensionInfo.ascensionSOList;
+            string stakeName = unlockedStake < ascensions.Count ? ascensions[unlockedStake].description : "";
+            root.Q<Label>("stakeUnlockRowLabel").text = $"Stake {unlockedStake} unlocked: {stakeName}";
+            root.Q<Label>("stakeUnlockRowValue").text = "";
+        }
         totalRowValue.text = "0";
 
         foreach (VisualElement element in new[] { combatRow, bossRow, stakeBonusRow, divider, totalRow, stakeUnlockRow })
