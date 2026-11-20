@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: PB_Snoutguard
+  m_Name: Plint_Common_Snoutguard
   m_EditorClassIdentifier: 
   guid: acd11432-4064-4cfa-8b91-92527062129e
   Name: Snoutguard
-  Description: Exhaust 2 cards in hand and give block
+  Description: exhaust 2 cards
   IconDescription:
   - tokenType: 2
     text: 
@@ -36,10 +36,8 @@ MonoBehaviour:
     icon: 2
   - tokenType: 2
     text: 
-    icon: 18
-  IconDescriptionTooltipLines:
-  - Exhaust 2 cards in hand of your choice, removing them for the rest of combat.
-  - Give block to a rat of your choice, preventing damage until next turn.
+    icon: 6
+  IconDescriptionTooltipLineOverrides: []
   defaultValues: []
   Cost: 2
   Artwork: {fileID: 21300000, guid: 50bbe2ab14b04f54c96e28c3e3f8e313, type: 3}
@@ -71,6 +69,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: cards
         validTargets: 03000000
@@ -85,12 +84,13 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: rat
         validTargets: 00000000
         number: 1
-        specialTargetRule: 0
-        cantCancelTargetting: 1
+        specialTargetRule: 7
+        cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
         selectionCardCategory: 0

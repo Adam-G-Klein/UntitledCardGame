@@ -13,15 +13,16 @@ MonoBehaviour:
   m_Name: RP_PlintCardPool
   m_EditorClassIdentifier: 
   commonCards:
-  - {fileID: 11400000, guid: 36b73ff6a2dc543fa894c0e411e0e013, type: 2}
-  - {fileID: 11400000, guid: f7ac3659a836e49e38c2f7fae3a3b760, type: 2}
-  - {fileID: 11400000, guid: f768ef56707ab4a2291d0b635eabc3fc, type: 2}
-  uncommonCards:
-  - {fileID: 11400000, guid: 10844f9626f964c9899c7a039444b108, type: 2}
+  - {fileID: 11400000, guid: 0568886e5662243499f07346b08f2fc8, type: 2}
   - {fileID: 11400000, guid: 219dde2d6797149289f9bed7f56cd311, type: 2}
+  - {fileID: 11400000, guid: 95a3236bacb4e4d74a514f328c23a379, type: 2}
+  uncommonCards:
+  - {fileID: 11400000, guid: 963addfe5a7ad4e62b099d62e2d42247, type: 2}
+  - {fileID: 11400000, guid: ee0e6e748eac347529ff01e6ac78af68, type: 2}
   rareCards:
   - {fileID: 11400000, guid: 1c32bd9f6505c4a098b8b17792676b49, type: 2}
   genericCardIconSprite: {fileID: 0}
   unlockableCommonCards: []
-  unlockableUncommonCards: []
+  unlockableUncommonCards:
+  - {fileID: 11400000, guid: 4e0a72cad4ca64adca28555e6ce06611, type: 2}
   unlockableRareCards: []

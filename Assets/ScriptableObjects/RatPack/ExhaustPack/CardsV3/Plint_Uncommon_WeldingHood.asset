@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: Plint_Common_WeldingHood
+  m_Name: Plint_Uncommon_WeldingHood
   m_EditorClassIdentifier: 
   guid: eb02d832-90a8-43a1-8f99-5fa12ecc12c5
   Name: Welding Hood
   Description: 
   IconDescription:
   - tokenType: 0
-    text: 4
+    text: 7
     icon: 0
   - tokenType: 2
     text: 
@@ -85,7 +85,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: blockTarget
         statusEffect: 2
-        scale: 4
+        scale: 7
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
@@ -117,6 +117,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: target
         validTargets: 00000000
@@ -131,6 +132,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: blockTarget
         validTargets: 00000000
