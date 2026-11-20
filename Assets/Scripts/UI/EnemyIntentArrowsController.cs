@@ -101,13 +101,20 @@ public class EnemyIntentArrowsController : MonoBehaviour
 
     public void updateArrows(EnemyIntent intent)
     {
-        if (intent.targets.Count == 0 || intent.targets[0] == null || intent.enemyTargetMethod == EnemyTargetMethod.AllCompanions)
+        if (intent.targets.Count == 0)
         {
-            Debug.Log("Not displaying arrows, either no targets or AOE attack");
+            Debug.Log("Not displaying arrows, no targets");
+            return;
+        }
+        // Targeting all companions only gets arrows when it's an AOE attack (e.g. not an AOE debuff).
+        if (intent.enemyTargetMethod == EnemyTargetMethod.AllCompanions && intent.intentType != EnemyIntentType.AOEAttack)
+        {
+            Debug.Log("Not displaying arrows, targets all companions but intent is " + intent.intentType);
             return;
         }
         for (int i = 0; i < intent.targets.Count; i++)
         {
+            if (intent.targets[i] == null) continue;
             Debug.Log("Updating arrows, intent was: " + intent.enemyTargetMethod + " and targets count was: " + intent.targets.Count + " target pos: " + intent.targets[i].transform.position);
             TargettingArrow newArrow = createArrow(intent.targets[i].transform, intent.intentType);
             arrows.Add(newArrow);
