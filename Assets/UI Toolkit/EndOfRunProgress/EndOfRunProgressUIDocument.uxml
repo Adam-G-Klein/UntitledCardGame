@@ -10,7 +10,7 @@
         <ui:VisualElement name="dimOverlay" picking-mode="Ignore" style="position: absolute; left: 0; top: 0; width: 1920px; height: 1081px; background-color: rgb(0, 0, 0); opacity: 0.5;" />
         <ui:VisualElement name="progressScreen" picking-mode="Ignore" class="eor-screen">
             <ui:VisualElement name="content" picking-mode="Ignore" style="position: absolute; left: 453px; top: 163px; width: 1014.649px; align-items: center;">
-                <ui:Label text="Victory!" name="titleLabel" class="eor-text eor-title" style="margin-bottom: 60px;" />
+                <ui:Label text="Victory" name="titleLabel" class="eor-text eor-title" style="margin-bottom: 60px;" />
                 <ui:VisualElement name="statsRows" picking-mode="Ignore" style="width: 898px; height: 306px; justify-content: flex-end;">
                     <ui:VisualElement name="combatRow" class="eor-row">
                         <ui:Label text="Combats Won" name="combatRowLabel" class="eor-text" />
@@ -31,7 +31,7 @@
                     </ui:VisualElement>
                     <ui:VisualElement name="stakeUnlockRow" class="eor-row" style="margin-bottom: 0;">
                         <ui:Label text="Boss Defeated" name="stakeUnlockRowLabel" class="eor-text" />
-                        <ui:Label text="New Stake Unlocked!" name="stakeUnlockRowValue" class="eor-text eor-row-value" />
+                        <ui:Label text="New Stake Unlocked" name="stakeUnlockRowValue" class="eor-text eor-row-value" />
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="progressBar" picking-mode="Ignore" style="width: 1014.649px; height: 317.078px;">
@@ -44,10 +44,10 @@
                     <ui:Label text="0 unlocks remaining" name="unlocksRemainingLabel" class="eor-text eor-bar-label eor-row-value" style="right: 58.649px;" />
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:Button text="Unlock!" name="continueButton" class="main-menu-button focusable eor-button" />
+            <ui:Button text="Unlock" name="continueButton" class="main-menu-button focusable eor-button" />
         </ui:VisualElement>
         <ui:VisualElement name="cardUnlockScreen" picking-mode="Ignore" class="eor-screen" style="display: none;">
-            <ui:Label text="New Cards!" name="cardUnlockTitle" class="eor-text eor-title" style="position: absolute; left: 0; top: 191px;" />
+            <ui:Label text="New Cards" name="cardUnlockTitle" class="eor-text eor-title" style="position: absolute; left: 0; top: 191px;" />
             <ui:VisualElement name="envelopeArea" picking-mode="Ignore" class="eor-envelope-area" />
             <ui:Button text="Continue" name="cardUnlockContinueButton" class="main-menu-button focusable eor-button" />
         </ui:VisualElement>

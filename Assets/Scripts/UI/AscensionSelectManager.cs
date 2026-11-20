@@ -26,6 +26,7 @@ public class AscensionSelectManager : MonoBehaviour
     private List<AscensionSO> ascensions;
     private int selectedIndex = 0;
     private int maxSelectableIndex = 0;
+    private bool buttonsEnabled = false;
 
     void Start()
     {
@@ -63,6 +64,7 @@ public class AscensionSelectManager : MonoBehaviour
         FocusManager.Instance.RegisterFocusables(ascensionSelectUIDocument);
 
         UpdateDisplay();
+        SetButtonsEnabled(false);
         StartCoroutine(IntroDialogue());
     }
 
@@ -73,10 +75,21 @@ public class AscensionSelectManager : MonoBehaviour
             bool isLastLine = i == introDialogueLines.Count - 1;
             yield return DialogueView.Instance.SpeakLineCoroutine(introSpeakerSprite, introDialogueLines[i], !isLastLine);
         }
+        // Buttons stay disabled until the last line has finished typing out.
+        SetButtonsEnabled(true);
+    }
+
+    private void SetButtonsEnabled(bool enabled)
+    {
+        buttonsEnabled = enabled;
+        startButton.SetEnabled(enabled);
+        leftArrow.SetEnabled(enabled);
+        rightArrow.SetEnabled(enabled);
     }
 
     private void ChangeSelectedAscension(int change)
     {
+        if (!buttonsEnabled) return;
         int newIndex = Mathf.Clamp(selectedIndex + change, 0, maxSelectableIndex);
         if (newIndex == selectedIndex) return;
 
@@ -94,7 +107,8 @@ public class AscensionSelectManager : MonoBehaviour
 
     private void StartButtonHandler()
     {
-        startButton.SetEnabled(false);
+        if (!buttonsEnabled) return;
+        SetButtonsEnabled(false);
         gameState.ascensionLevel = selectedIndex;
         gameState.LoadNextLocation();
     }

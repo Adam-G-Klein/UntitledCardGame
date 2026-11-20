@@ -15,9 +15,9 @@ public class EndOfRunProgressViewController : MonoBehaviour
     [SerializeField] private List<CardType> debugUnlockedCards = new();
 
     [Header("Text")]
-    [SerializeField] private string victoryTitle = "Victory!";
+    [SerializeField] private string victoryTitle = "Victory";
     [SerializeField] private string defeatTitle = "Defeat";
-    [SerializeField] private string unlockButtonText = "Unlock!";
+    [SerializeField] private string unlockButtonText = "Unlock";
     [SerializeField] private string noUnlockButtonText = "Progress";
     [SerializeField] private string maxLevelText = "Max Level";
     [Tooltip("{0} is the number of levels left until max level")]
