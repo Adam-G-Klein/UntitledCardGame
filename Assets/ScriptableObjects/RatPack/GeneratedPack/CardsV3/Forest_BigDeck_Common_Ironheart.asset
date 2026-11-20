@@ -52,11 +52,31 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 3226456856950735174
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 7436311061350229817, guid: 109d97cbe2a2df8469b92e79db0f3866, type: 3}
+        scale: 1
+    - rid: 3226456856950735175
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 3256666915137446097, guid: 80b0419054a198d4698d4c5de562cdb9, type: 3}
+        scale: 1
+    - rid: 3226456856950735176
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.25
     - rid: 5280922841426165942
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 
@@ -73,13 +93,16 @@ MonoBehaviour:
         - rid: 5280922841426165942
         - rid: 5602892561590779944
         - rid: 8966137386555146574
+        - rid: 3226456856950735174
+        - rid: 3226456856950735176
         - rid: 8966137386555146354
-        - rid: 8966137386555146355
+        - rid: 3226456856950735175
     - rid: 5602892561590779944
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: target
         validTargets: 00000000
@@ -99,21 +122,6 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         waitForDrawsToResolve: 0
-    - rid: 8966137386555146355
-      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FXEffectStep
-        waitForEffect: 0
-        fXExperiencePrefab: {fileID: 4075960956037802917, guid: ec7b1a1529f9141458320888bf8e3d96, type: 3}
-        rootLocationGameObjectKey: 
-        positionMappingList:
-        - fromWorkflow: self
-          toFxExperience: start
-        - fromWorkflow: target
-          toFxExperience: end
-        gameobjectMappingList: []
-        vePositionMappingList: []
-        veMappingList: []
     - rid: 8966137386555146574
       type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
       data:
