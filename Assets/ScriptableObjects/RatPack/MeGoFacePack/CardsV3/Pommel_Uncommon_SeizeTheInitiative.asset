@@ -18,7 +18,7 @@ MonoBehaviour:
   IconDescription: []
   IconDescriptionTooltipLineOverrides: []
   defaultValues: []
-  Cost: 1
+  Cost: 2
   Artwork: {fileID: 0}
   cardCategory: 5
   packFrom: {fileID: 11400000, guid: 908f28c6f48104c2d85d2fcbd973771e, type: 2}
@@ -49,10 +49,6 @@ MonoBehaviour:
         effectSteps:
         - rid: 754093991137641290
         - rid: 754093991137641291
-        - rid: 2511001254715195976
-        - rid: 2511001254715195978
-        - rid: 2511001254715195979
-        - rid: 2511001254715195980
         - rid: 2511001254715195981
     - rid: 754093991137641290
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -75,40 +71,6 @@ MonoBehaviour:
         effectStepName: ActivatePower
         inputKey: self
         power: {fileID: 11400000, guid: d77a85e75840f48e4903c931968b06c4, type: 2}
-    - rid: 2511001254715195976
-      type: {class: CombatInstanceCacheStore, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatInstanceCacheStore
-        inputCombatInstanceKey: self
-        hardCodedBool: 0
-        useHardCodedBool: 0
-        hardCodedInt: 0
-        useHardCodedInt: 1
-        currentWorkflowKey: 
-        cacheKey: seizeTheInitiative
-    - rid: 2511001254715195978
-      type: {class: QuantityOfCardTypePlayedThisTurn, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: QuantityOfCardTypePlayedThisTurn
-        cardCategory: 1
-        getAll: 0
-        outputKey: numAttacks
-    - rid: 2511001254715195979
-      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: BooleanComparison
-        hardCodedInputKey1: 0
-        useHardCodedInputKey1: 1
-        inputKey1: 
-        operation: 1
-        inputKey2: numAttacks
-        outputKey: attackPlayed
-    - rid: 2511001254715195980
-      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EndWorkflowIfConditionMet
-        inputKey1: attackPlayed
-        conditionToEndOn: 0
     - rid: 2511001254715195981
       type: {class: CombatInstanceCacheStore, ns: , asm: Assembly-CSharp}
       data:
