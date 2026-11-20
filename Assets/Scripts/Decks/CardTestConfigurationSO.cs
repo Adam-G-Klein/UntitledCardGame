@@ -9,6 +9,9 @@ using UnityEngine;
     menuName = "Decks/Card Test Configuration")]
 public class CardTestConfigurationSO : ScriptableObject
 {
+    // The companions on the test team. If empty, GenerateRun's testStaticCompanions are used instead.
+    public List<CompanionTypeSO> companionTypes;
+
     public List<CardPoolSO> cardPools;
 
     // Cards to add to the starting deck that aren't pulled from a card pool.

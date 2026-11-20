@@ -74,7 +74,10 @@ public class GenerateRun : MonoBehaviour
 
     private void initializeCardTestRun() {
         gameState.companions.respawn(testTeamSize);
-        foreach (CompanionTypeSO companionType in testStaticCompanions) {
+        List<CompanionTypeSO> testCompanions = cardTestConfiguration.companionTypes != null && cardTestConfiguration.companionTypes.Count > 0
+            ? cardTestConfiguration.companionTypes
+            : testStaticCompanions;
+        foreach (CompanionTypeSO companionType in testCompanions) {
             Companion companion = new Companion(companionType);
             companion.deck = new Deck(
                 cardTestConfiguration.GetAllCards()
@@ -85,7 +88,7 @@ public class GenerateRun : MonoBehaviour
         }
         gameState.playerData.initialize(testStartingGold);
         gameState.playerData.GetValue().teamSize = testTeamSize;
-        gameState.playerData.GetValue().numStartingRats = testStaticCompanions.Count;
+        gameState.playerData.GetValue().numStartingRats = testCompanions.Count;
     }
 
 }
