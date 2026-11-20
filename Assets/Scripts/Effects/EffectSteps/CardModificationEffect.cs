@@ -13,6 +13,9 @@ public class CardModificationEffect : EffectStep {
     // CardTypeToModify is only used if the `affectsAllCardsOfType` is checked.
     private CardType cardTypeToModify;
     [SerializeField]
+    [Tooltip("Only used if affectsAllCardsOfType is checked. Uses the CardType of the card(s) under inputKey instead of cardTypeToModify.")]
+    private bool getCardTypeFromInputCard = false;
+    [SerializeField]
     private bool getScaleFromKey = false;
     [SerializeField]
     private string scaleKey = "";
@@ -33,6 +36,20 @@ public class CardModificationEffect : EffectStep {
             newScale = document.intMap[scaleKey];
         }
 
+        if (affectsAllCardsOfType && getCardTypeFromInputCard) {
+            if (!document.map.ContainsValueWithKey<Card>(inputKey)) {
+                EffectError("No input Card for given key " + inputKey);
+                yield break;
+            }
+            HashSet<CardType> cardTypes = new HashSet<CardType>();
+            foreach (Card card in document.map.GetList<Card>(inputKey)) {
+                if (cardTypes.Add(card.cardType)) {
+                    card.cardType.ChangeCardModification(modification, newScale);
+                }
+            }
+            PlayerHand.Instance.UpdatePlayableCards();
+            yield break;
+        }
         if (affectsAllCardsOfType) {
             cardTypeToModify.ChangeCardModification(modification, newScale);
             yield break;
