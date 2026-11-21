@@ -19,6 +19,7 @@ MonoBehaviour:
   enemyDisplayType: 0
   big: 0
   sprite: {fileID: 21300000, guid: 4ac8fc33a227c424c9559e23af5cf04e, type: 3}
+  upcomingFloorBossOverride: {fileID: 0}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
   trashTalkDialogue: []
@@ -35,6 +36,7 @@ MonoBehaviour:
       - rid: 5280922829633618019
       - rid: 5602892723852673492
       - rid: 7289556481640835866
+      - rid: 3226456883611828502
     behaviorType: 0
   belowHalfHPEnemyPattern:
     behaviors: []
@@ -54,7 +56,7 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: You can't live without it!
-      description: Shuffles a Stinky Cheese into each rat's deck
+      description: Shuffles a Stinky Cheese into ALL rats' decks
       relatedBehaviorIndex: -1
       icon: {fileID: 0}
       iconDescriptionLine: []
@@ -90,6 +92,12 @@ MonoBehaviour:
       data:
         effectStepName: ScriptableObjectEffectStep
         effectStepSO: {fileID: 11400000, guid: 46ac36b880e2ff14aa699c90b6e9f19c, type: 2}
+    - rid: 3226456883611828502
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}
     - rid: 5280922829633618019
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

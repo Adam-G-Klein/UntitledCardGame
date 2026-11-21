@@ -19,6 +19,7 @@ MonoBehaviour:
   enemyDisplayType: 0
   big: 0
   sprite: {fileID: 21300000, guid: 63cef8bf5cc0e4008aa20a17f5389c74, type: 3}
+  upcomingFloorBossOverride: {fileID: 0}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
   trashTalkDialogue: []
@@ -54,7 +55,7 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: It's a Keeper, Trust Me
+    - title: An Offer You Can't Refuse
       description: Shuffles 2 Wooden Idols into a random rat's deck
       relatedBehaviorIndex: -1
       icon: {fileID: 0}

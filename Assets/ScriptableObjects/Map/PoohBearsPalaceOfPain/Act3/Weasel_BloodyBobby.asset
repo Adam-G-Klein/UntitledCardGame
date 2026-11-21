@@ -19,6 +19,7 @@ MonoBehaviour:
   enemyDisplayType: 0
   big: 0
   sprite: {fileID: 21300000, guid: cfaa907d45db54501bcde37c9ba32e36, type: 3}
+  upcomingFloorBossOverride: {fileID: 0}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
   trashTalkDialogue: []
@@ -35,7 +36,7 @@ MonoBehaviour:
       - rid: 5280922829633618019
       - rid: 5602892723852673492
       - rid: 3043763502229881108
-      - rid: 935854102680186715
+      - rid: 3226456883611828499
     - intent: 3
       enemyTargetMethod: 6
       targetsKey: targets
@@ -43,6 +44,8 @@ MonoBehaviour:
       effectSteps:
       - rid: 5280922829633618019
       - rid: 5602892723852673492
+      - rid: 3226456883611828458
+      - rid: 3226456883611828500
     - intent: 1
       enemyTargetMethod: 0
       targetsKey: target
@@ -124,13 +127,6 @@ MonoBehaviour:
       data:
         effectStepName: ScriptableObjectEffectStep
         effectStepSO: {fileID: 11400000, guid: 46ac36b880e2ff14aa699c90b6e9f19c, type: 2}
-    - rid: 935854102680186715
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: targets
-        prefabToInstantiate: {fileID: 5466705246177039183, guid: 1a8f1abab5093804688a9fb55d6d4f27, type: 3}
-        scale: 1
     - rid: 2038553114991919107
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -158,6 +154,25 @@ MonoBehaviour:
         inputKey: targets
         prefabToInstantiate: {fileID: 5466705246177039183, guid: 1a8f1abab5093804688a9fb55d6d4f27, type: 3}
         scale: 1
+    - rid: 3226456883611828458
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: targets
+        prefabToInstantiate: {fileID: 5466705246177039183, guid: 1a8f1abab5093804688a9fb55d6d4f27, type: 3}
+        scale: 1
+    - rid: 3226456883611828499
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: An Offer You Can't Refuse
+        icon: {fileID: 0}
+    - rid: 3226456883611828500
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: An Offer You Can't Refuse
+        icon: {fileID: 0}
     - rid: 5280922829633618019
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

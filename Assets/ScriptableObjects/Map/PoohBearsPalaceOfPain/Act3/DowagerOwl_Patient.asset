@@ -19,6 +19,7 @@ MonoBehaviour:
   enemyDisplayType: 0
   big: 0
   sprite: {fileID: 21300000, guid: 90312fe27b6b1487bbb504ceb21997ca, type: 3}
+  upcomingFloorBossOverride: {fileID: 0}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
   trashTalkDialogue: []
@@ -36,6 +37,7 @@ MonoBehaviour:
       - rid: 2268260642759376989
       - rid: 2268260642759376990
       - rid: 2268260642759376991
+      - rid: 3226456883611828457
     behaviorType: 0
   belowHalfHPEnemyPattern:
     behaviors:
@@ -75,7 +77,7 @@ MonoBehaviour:
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
-        label: 
+        label: Naptime's Over
         icon: {fileID: 0}
     - rid: 2038553076039155808
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
@@ -85,6 +87,8 @@ MonoBehaviour:
         - rid: 2038553076039155809
         - rid: 2038553076039155810
         - rid: 2038553076039155811
+        - rid: 3226456883611828454
+        - rid: 3226456883611828455
         - rid: 1700682198445196028
         - rid: 2038553076039155812
         weight: 0
@@ -191,3 +195,27 @@ MonoBehaviour:
         cardSelectionHelperText: 
         selectionPurpose: 0
         selectionCardCategory: 0
+    - rid: 3226456883611828454
+      type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheLoad
+        inputCombatInstanceKey: self
+        cacheKey: alreadyTriggered
+        currentWorkflowKey: alreadyTriggered
+    - rid: 3226456883611828455
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: alreadyTriggered
+        conditionToEndOn: 1
+    - rid: 3226456883611828457
+      type: {class: CombatInstanceCacheStore, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheStore
+        inputCombatInstanceKey: self
+        hardCodedBool: 1
+        useHardCodedBool: 1
+        hardCodedInt: 0
+        useHardCodedInt: 0
+        currentWorkflowKey: 
+        cacheKey: alreadyTriggered
