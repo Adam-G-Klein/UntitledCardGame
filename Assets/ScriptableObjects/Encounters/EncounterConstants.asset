@@ -44,14 +44,7 @@ MonoBehaviour:
     placeCardsAnywhere: 0
     upgradeTooltip:
       empty: 0
-      lines:
-      - title: Upgrade to Level 2
-        description: Uncommon rats, +1 rat available, premium card envelopes, place
-          cards anywhere
-        relatedBehaviorIndex: 0
-        icon: {fileID: 0}
-        iconDescriptionLine: []
-        card: {fileID: 0}
+      lines: []
     upgradeBonusLines: []
   - level: 1
     shopLevelIncrementsToUnlock: 7
@@ -60,12 +53,12 @@ MonoBehaviour:
     numKeepsakesToShow: 3
     numBoosterPacksToShow: 2
     numCardsToTakeFromBoosterPack: 1
-    commonCompanionPercentage: 70
+    commonCompanionPercentage: 66
     uncommonCompanionPercentage: 30
-    rareCompanionPercentage: 0
-    commonCardPercentage: 55
-    uncommonCardPercentage: 40
-    rareCardPercentage: 5
+    rareCompanionPercentage: 4
+    commonCardPercentage: 0
+    uncommonCardPercentage: 0
+    rareCardPercentage: 0
     boosterPackPcts:
     - boosterType: 5
       appearancePct: 65
@@ -80,13 +73,7 @@ MonoBehaviour:
     placeCardsAnywhere: 1
     upgradeTooltip:
       empty: 0
-      lines:
-      - title: Upgrade to Level 3
-        description: Rare rats, take +1 card from card envelopes
-        relatedBehaviorIndex: 0
-        icon: {fileID: 0}
-        iconDescriptionLine: []
-        card: {fileID: 0}
+      lines: []
     upgradeBonusLines:
     - +1 rat available in shop
     - Place cards anywhere
@@ -100,9 +87,9 @@ MonoBehaviour:
     commonCompanionPercentage: 40
     uncommonCompanionPercentage: 45
     rareCompanionPercentage: 15
-    commonCardPercentage: 50
-    uncommonCardPercentage: 40
-    rareCardPercentage: 10
+    commonCardPercentage: 0
+    uncommonCardPercentage: 0
+    rareCardPercentage: 0
     boosterPackPcts:
     - boosterType: 5
       appearancePct: 60
@@ -117,14 +104,7 @@ MonoBehaviour:
     placeCardsAnywhere: 1
     upgradeTooltip:
       empty: 0
-      lines:
-      - title: Upgrade to Level 4
-        description: +1 card envelope available, stronger rats in shop, card removal
-          button
-        relatedBehaviorIndex: 0
-        icon: {fileID: 0}
-        iconDescriptionLine: []
-        card: {fileID: 0}
+      lines: []
     upgradeBonusLines:
     - Take +1 card from booster packs
     - Swap cards between rats
@@ -138,9 +118,9 @@ MonoBehaviour:
     commonCompanionPercentage: 30
     uncommonCompanionPercentage: 40
     rareCompanionPercentage: 30
-    commonCardPercentage: 45
-    uncommonCardPercentage: 40
-    rareCardPercentage: 15
+    commonCardPercentage: 0
+    uncommonCardPercentage: 0
+    rareCardPercentage: 0
     boosterPackPcts:
     - boosterType: 5
       appearancePct: 60

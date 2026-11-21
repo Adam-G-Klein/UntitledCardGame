@@ -22,6 +22,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 307e082378dd2b942b03de45c5b20584, type: 3}
   startingDeck: {fileID: 11400000, guid: 8cfb59c3193db4a2cbced98c8ef59eda, type: 2}
   rarity: 1
+  startingTeamWeight: 0
   baseCompanionType: {fileID: 11400000, guid: 3e106f4f46ecc4b3e999378b87e6b0de, type: 2}
   cacheValueConfigs: []
   cardPool: {fileID: 11400000, guid: 345480ef663c54cdfbd4be4285e0a8d6, type: 2}
@@ -36,7 +37,7 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Rilla+
-      description: At the end of turn, choose 1 Charm card to retain. If you have
+      description: At the end of turn, choose 1 Charm card to retain.\n\nIf you have
         2 or less Charm cards in hand, give leftmost rat 6 block
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
@@ -54,6 +55,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: left
         validTargets: 00000000
@@ -68,6 +70,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: cards
         validTargets: 03000000
@@ -82,12 +85,14 @@ MonoBehaviour:
       data:
         effectStepName: FilterCards
         inputKey: cards
+        companionInstanceKey: 
         filter:
           cardCategoriesToInclude: 04000000
           retainedCardsFilter: 0
           manaCostFilter: 0
           manaCost: 0
           exactCardType: {fileID: 0}
+          companionInstanceFilterEnabled: 0
         outputKey: status
     - rid: 1289961959942521053
       type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
@@ -126,6 +131,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 
@@ -156,6 +162,18 @@ MonoBehaviour:
         inputKey: left
         prefabToInstantiate: {fileID: 3264951993900767650, guid: 3c1dbbde6cf62ae4ea101b706b060f63, type: 3}
         scale: 1
+    - rid: 1700682198445196007
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}
+    - rid: 1700682198445196008
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}
     - rid: 6567162537147629906
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
@@ -174,6 +192,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: cards
         validTargets: 03000000
@@ -188,12 +207,14 @@ MonoBehaviour:
       data:
         effectStepName: FilterCards
         inputKey: cards
+        companionInstanceKey: 
         filter:
           cardCategoriesToInclude: 04000000
           retainedCardsFilter: 0
           manaCostFilter: 0
           manaCost: 0
           exactCardType: {fileID: 0}
+          companionInstanceFilterEnabled: 0
         outputKey: charmsInHand
     - rid: 6567162537147629911
       type: {class: CountStep, ns: , asm: Assembly-CSharp}
@@ -242,6 +263,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: cards
         validTargets: 03000000
@@ -256,12 +278,14 @@ MonoBehaviour:
       data:
         effectStepName: FilterCards
         inputKey: cards
+        companionInstanceKey: 
         filter:
           cardCategoriesToInclude: 04000000
           retainedCardsFilter: 0
           manaCostFilter: 0
           manaCost: 0
           exactCardType: {fileID: 0}
+          companionInstanceFilterEnabled: 0
         outputKey: charmsInHand
     - rid: 6567162537147629919
       type: {class: CountStep, ns: , asm: Assembly-CSharp}
@@ -290,6 +314,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 1
+        useInputToExcludeOptions: 0
         inputKey: charmsInHand
         outputKey: out
         validTargets: 03000000
@@ -323,16 +348,6 @@ MonoBehaviour:
         - rid: 1289961959942521088
         weight: 0
     - rid: 7707884639552274989
-      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EntityAbilityTriggeredVFX
-    - rid: 1700682198445196007
-      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EntityAbilityTriggeredVFX
-        label: 
-        icon: {fileID: 0}
-    - rid: 1700682198445196008
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
