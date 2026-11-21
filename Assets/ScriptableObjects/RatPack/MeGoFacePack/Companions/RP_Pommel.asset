@@ -42,8 +42,8 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Pommel
-      description: The first 3 times each turn you play a Skill card, give adjacent
-        rats to Pommel 1 temporary strength
+      description: The first 3 times each turn you play a Skill card, give all other
+        rats 1 temporary strength
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
       iconDescriptionLine: []
@@ -68,6 +68,7 @@ MonoBehaviour:
         - rid: 7707884639552274890
         - rid: 578314858522477121
         - rid: 578314858522477122
+        - rid: 3226456883611828435
         - rid: 2034230176448512662
         - rid: 205827988172308706
         - rid: 205827988172308707
@@ -91,7 +92,7 @@ MonoBehaviour:
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
-        inputKey: adj
+        inputKey: others
         statusEffect: 6
         scale: 1
         getScaleFromKey: 0
@@ -105,7 +106,7 @@ MonoBehaviour:
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: adj
+        inputKey: others
         prefabToInstantiate: {fileID: 2620088698237070065, guid: 1e45bd8777e328c4898ce50d5a1df398, type: 3}
         scale: 1
     - rid: 578314858522477118
@@ -177,6 +178,21 @@ MonoBehaviour:
         inputKey: self
         includeInputCompanion: 0
         outputKey: adj
+    - rid: 3226456883611828435
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
+        inputKey: 
+        outputKey: others
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 2
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 7707884639552274890
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:

@@ -22,7 +22,8 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 1a0a0559adb00d24fa86fc5408f4d98e, type: 3}
   startingDeck: {fileID: 11400000, guid: b7fb5f30fc0c4400aa60c7d3769912bd, type: 2}
   rarity: 2
-  baseCompanionType: {fileID: 0}
+  startingTeamWeight: 0
+  baseCompanionType: {fileID: 11400000, guid: 78fe07f26375b42c9bfd64f03469d871, type: 2}
   cacheValueConfigs:
   - key: skillsLeftToPlayThisTurn
     display: 1
@@ -41,8 +42,8 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Pommel
-      description: The first 3 times each turn you play a Skill card, give adjacent
-        rats to Pommel 2 temporary strength
+      description: The first 3 times each turn you play a Skill card, give all other
+        rats 2 temporary strength
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
       iconDescriptionLine: []
@@ -69,6 +70,7 @@ MonoBehaviour:
         - rid: 578314858522477121
         - rid: 578314858522477122
         - rid: 2034230176448512662
+        - rid: 3226456883611828436
         - rid: 205827988172308706
         - rid: 205827988172308707
         weight: 0
@@ -77,6 +79,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 
@@ -90,7 +93,7 @@ MonoBehaviour:
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
-        inputKey: adj
+        inputKey: others
         statusEffect: 6
         scale: 2
         getScaleFromKey: 0
@@ -104,7 +107,7 @@ MonoBehaviour:
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: adj
+        inputKey: others
         prefabToInstantiate: {fileID: 2620088698237070065, guid: 1e45bd8777e328c4898ce50d5a1df398, type: 3}
         scale: 1
     - rid: 578314858522477118
@@ -155,12 +158,14 @@ MonoBehaviour:
       data:
         effectStepName: FilterCards
         inputKey: cardPlayed
+        companionInstanceKey: 
         filter:
           cardCategoriesToInclude: 02000000
           retainedCardsFilter: 0
           manaCostFilter: 0
           manaCost: 0
           exactCardType: {fileID: 0}
+          companionInstanceFilterEnabled: 0
         outputKey: attackCardPlayed
     - rid: 2034230176448512490
       type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
@@ -174,7 +179,24 @@ MonoBehaviour:
         inputKey: self
         includeInputCompanion: 0
         outputKey: adj
+    - rid: 3226456883611828436
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
+        inputKey: 
+        outputKey: others
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 2
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 7707884639552274890
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
+        label: 
+        icon: {fileID: 0}

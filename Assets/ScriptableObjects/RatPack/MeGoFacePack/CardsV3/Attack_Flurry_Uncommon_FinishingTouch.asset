@@ -22,11 +22,11 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 1
-  - tokenType: 2
-    text: 
-    icon: 18
   - tokenType: 0
     text: xN
+    icon: 18
+  - tokenType: 2
+    text: 
     icon: 18
   - tokenType: 1
     text: 
@@ -34,9 +34,7 @@ MonoBehaviour:
   - tokenType: 0
     text: N = Number of Attacks you played this turn ({numAttacksPlayed} cards)
     icon: 18
-  IconDescriptionTooltipLines:
-  - 
-  - 
+  IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: rpl_damage
     value: 3
@@ -67,6 +65,11 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 5452667019370463365
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.5
     - rid: 5602892723852673313
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -88,6 +91,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: enemy
         validTargets: 02000000
@@ -110,6 +114,8 @@ MonoBehaviour:
         getMultiplicityFromKey: 1
         inputMultiplicityKey: numAttacksPlayed
         vfxPrefab: {fileID: 8854358128355295904, guid: f205082b03575964bb0f8a19410304c1, type: 3}
+        casterTrail: {fileID: 0}
+        damageDealtOutputKey: 
     - rid: 8994734043792506954
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -117,8 +123,3 @@ MonoBehaviour:
         inputKey: enemy
         prefabToInstantiate: {fileID: 1320532642761013391, guid: 2c2e40260edec1f4aad8975773f3c2dd, type: 3}
         scale: 1
-    - rid: 5452667019370463365
-      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: WaitForSecondsEffect
-        seconds: 0.5

@@ -25,9 +25,7 @@ MonoBehaviour:
   - tokenType: 0
     text: "Gain 2 \xC9lan next turn"
     icon: 0
-  IconDescriptionTooltipLines:
-  - 
-  - 
+  IconDescriptionTooltipLineOverrides: []
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: c0e53d043957bac4c8fb2528ecd0a1b9, type: 3}
@@ -64,6 +62,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: cards
         validTargets: 03000000
@@ -115,6 +114,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 1
+        useInputToExcludeOptions: 0
         inputKey: onlyAttacks
         outputKey: card
         validTargets: 03000000
@@ -122,5 +122,5 @@ MonoBehaviour:
         specialTargetRule: 5
         cantCancelTargetting: 0
         cardSelectionHelperText: 
-        selectionPurpose: 0
-        selectionCardCategory: 0
+        selectionPurpose: 3
+        selectionCardCategory: 1

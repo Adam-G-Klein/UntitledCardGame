@@ -15,6 +15,7 @@ public class GetCombatEncounterStat : EffectStep, IEffectStepCalculation
         NumCharmsExhaustedThisCombat,
         NumCardsPlayedThisCombat,
         NumElanSpentThisTurn,
+        NumAttacksPlayedThisCombat,
     }
 
     [SerializeField]
@@ -56,6 +57,10 @@ public class GetCombatEncounterStat : EffectStep, IEffectStepCalculation
                 break;
             case StatType.NumElanSpentThisTurn:
                 document.intMap[outputKey] = ManaManager.Instance.manaSpentThisTurn;
+                break;
+            case StatType.NumAttacksPlayedThisCombat:
+                document.intMap[outputKey] = EnemyEncounterManager.Instance.combatEncounterState.cardsCastThisCombat
+                    .Count(card => card.cardType.cardCategory == CardCategory.Attack);
                 break;
             default:
                 Debug.LogError("Unhandled stat type: " + statOfInterest);
