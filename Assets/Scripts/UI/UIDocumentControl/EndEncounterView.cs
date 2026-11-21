@@ -39,15 +39,19 @@ public class EndEncounterView : MonoBehaviour
         mat = GetComponent<RawImage>().material;
         mat.SetFloat("_alpha", 0);
 
-        // Ensure the CanvasGroup alpha is set to 0 and blocks raycasts
+        // Start invisible and not catching clicks; Show() turns raycasts back on when it fades in.
         canvasGroup = GetComponent<CanvasGroup>();
         if (canvasGroup == null)
         {
             canvasGroup = gameObject.AddComponent<CanvasGroup>();
         }
         canvasGroup.alpha = 0;
+        canvasGroup.blocksRaycasts = false;
 
         nextSceneButton = doc.rootVisualElement.Q<VisualElement>("next-scene");
+        // The screen is enabled at the end of combat but only shown after a delay. Keep the (invisible) button
+        // disabled until EnableNextButton(), or a stray click during the delay skips straight to the next location.
+        nextSceneButton.SetEnabled(false);
         nextSceneButton.RegisterOnSelected(NextClick);
         VisualElementFocusable nextSceneButtonFocusable = nextSceneButton.AsFocusable();
         FocusManager.Instance.RegisterFocusableTarget(nextSceneButtonFocusable);
