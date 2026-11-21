@@ -18,7 +18,7 @@ MonoBehaviour:
     a Bitterbark in hand
   abilities:
   - rid: 2511001254715195611
-  displaySprite: {fileID: 21300000, guid: d72b830c014fec04190fbb044d03f83a, type: 3}
+  displaySprite: {fileID: 21300000, guid: 8c16952da6b2cfa4181be941e4a49469, type: 3}
   extraTooltip:
     rid: 6567162444329517607
   stackable: 1
@@ -53,11 +53,11 @@ MonoBehaviour:
         - rid: 3226456462082179144
         - rid: 3226456462082179146
         - rid: 3226456462082179145
+        - rid: 3226456462082179148
         - rid: 3226456462082179140
         - rid: 3226456462082179141
         - rid: 1152423886844330178
         - rid: 3226456462082179147
-        - rid: 3226456462082179148
         weight: 0
     - rid: 2511001254715195612
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -168,15 +168,15 @@ MonoBehaviour:
         hardCodedBool: 0
         useHardCodedBool: 0
         hardCodedInt: 0
-        useHardCodedInt: 0
-        currentWorkflowKey: numCharmsExhausted
+        useHardCodedInt: 1
+        currentWorkflowKey: 
         cacheKey: numCharmsExhausted
     - rid: 3226456462082179148
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
-        label: 
-        icon: {fileID: 0}
+        label: Ebb and Flow
+        icon: {fileID: 21300000, guid: 8c16952da6b2cfa4181be941e4a49469, type: 3}
     - rid: 6567162444329517607
       type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
       data:

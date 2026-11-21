@@ -28,7 +28,7 @@ MonoBehaviour:
   - tokenType: 0
     text: ': '
     icon: 16
-  - tokenType: 0
+  - tokenType: 2
     text: 
     icon: 3
   - tokenType: 2
@@ -37,9 +37,7 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 19
-  IconDescriptionTooltipLines:
-  - This card is not playable
-  - When this card is exhausted, give block to all rats
+  IconDescriptionTooltipLineOverrides: []
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 46c78f719703f154f896d900ed853b52, type: 3}
@@ -103,6 +101,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: all
         validTargets: 00000000

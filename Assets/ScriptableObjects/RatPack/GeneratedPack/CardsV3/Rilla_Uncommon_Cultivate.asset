@@ -23,7 +23,7 @@ MonoBehaviour:
     text: 
     icon: 0
   - tokenType: 0
-    text: Create a Byggshroom in hand for the card's owner
+    text: Create a Byggshroom in hand for this rat
     icon: 0
   IconDescriptionTooltipLineOverrides: []
   defaultValues: []
@@ -56,7 +56,7 @@ MonoBehaviour:
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: target
+        inputKey: self
         prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
         scale: 1
     - rid: 1289961959942521124
@@ -104,7 +104,7 @@ MonoBehaviour:
       type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: AddCardsToHand
-        entityFromKey: target
+        entityFromKey: self
         cardTypes:
         - {fileID: 11400000, guid: 7f6d7b7541cbd4b0c815e5b8d987a6a6, type: 2}
         getCardsFromKey: 0
@@ -114,6 +114,21 @@ MonoBehaviour:
         inputScaleKey: 
         outputKey: 
         waitForDrawsToResolve: 0
+    - rid: 3226456883611828235
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 5602892561590779943
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -123,6 +138,7 @@ MonoBehaviour:
         - rid: 5602892561590779944
         - rid: 3226456462082179171
         - rid: 1289961959942521125
+        - rid: 3226456883611828235
         - rid: 3226456462082179172
         - rid: 1152423886844330139
     - rid: 5602892561590779944
