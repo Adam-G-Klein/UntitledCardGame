@@ -184,7 +184,9 @@ public class GameStateVariableSO : ScriptableObject
             case Location.POST_COMBAT:
                 Debug.Log("Leaving post combat, current location is: " + currentLocation);
                 if (buildType == BuildType.CARD_TEST) {
-                    currentLocation = Location.COMBAT;
+                    // Card test maps only have shops if the generator was given shop data
+                    bool nextIsShop = nextEncounter.GetValue().getEncounterType() == EncounterType.Shop;
+                    currentLocation = nextIsShop ? Location.SHOP : Location.COMBAT;
                     AdvanceEncounter();
                     break;
                 }
