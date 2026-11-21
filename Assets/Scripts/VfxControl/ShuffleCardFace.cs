@@ -87,8 +87,17 @@ public class ShuffleCardFace : MonoBehaviour
         docObject.SetActive(false);
         UIDocument doc = docObject.AddComponent<UIDocument>();
         doc.panelSettings = panelSettings;
+        // Use the same source asset as a hand card's UIDocument: it brings worldspaceCardStyle.uss, which sizes the
+        // card container to the panel. CardView keeps the card hidden until its container has a size, so without
+        // this the card never shows and the render texture stays empty.
+        UIDocument templateDoc = template.GetComponent<UIDocument>();
+        if (templateDoc != null) doc.visualTreeAsset = templateDoc.visualTreeAsset;
         docObject.SetActive(true);
         CardView cardView = new CardView(add.Value.card, add.Value.deck.GetCompanionTypeSO(), false);
+        // Same sizing inline, in case the template has no source asset.
+        cardView.cardContainer.style.flexShrink = 0;
+        cardView.cardContainer.style.width = Length.Percent(100);
+        cardView.cardContainer.style.height = Length.Percent(100);
         doc.rootVisualElement.Add(cardView.cardContainer);
         UIDocumentUtils.SetAllPickingMode(doc.rootVisualElement, PickingMode.Ignore);
 
