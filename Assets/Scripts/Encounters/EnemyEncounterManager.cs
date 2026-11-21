@@ -540,6 +540,8 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
                 ascensionModificationValues.GetValueOrDefault("extraHealth", 0f);
             ci.combatStats.IncreaseMaxHealth(additionalHealth);
             ci.combatStats.setCurrentHealth(ci.combatStats.getCurrentHealth() + additionalHealth);
+            // CombatStats changes don't notify views, so push the new health out (e.g. Meothra's boss health bar).
+            ci.RefreshView();
         }
         yield return null;
     }

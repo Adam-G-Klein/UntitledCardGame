@@ -339,6 +339,11 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
     public void CheckHandMinimization(bool cardHovered, bool cardUnhovered) {
         if (forceHandVisible) {
+            // Cancel any pending minimize so the hand can't drop while it's being forced visible.
+            if (handMinimizationCoroutine != null) {
+                StopCoroutine(handMinimizationCoroutine);
+                handMinimizationCoroutine = null;
+            }
             if (handMinimized) SetHandMinimized(false);
             return;
         }
@@ -362,6 +367,14 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     private IEnumerator HandMinimization() {
         yield return new WaitForSeconds(0.2f);
         SetHandMinimized(true);
+        handMinimizationCoroutine = null;
+    }
+
+    // Stop forcing the hand visible (e.g. after a card selection). Hovers and unhovers during the selection
+    // were ignored by CheckHandMinimization, so if nothing is hovered now, start minimizing the hand.
+    private void StopForcingHandVisible() {
+        forceHandVisible = false;
+        if (hoveredCard == null) CheckHandMinimization(false, true);
     }
 
     private void SetHandMinimized(bool minimized) {
@@ -1032,6 +1045,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         SetHoverable(true);
         forceHandVisible = true;
         isSelectingCards = true;
+        CheckHandMinimization(true, false);
 
         List<PlayableCard> selectedCards = new List<PlayableCard>();
 
@@ -1171,7 +1185,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             UpdateOrderedCards();
             UpdateCardPositions();
             cardsInSelectionSpline = null;
-            forceHandVisible = false;
+            StopForcingHandVisible();
             isSelectingCards = false;
         }
 
@@ -1201,7 +1215,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 }
                 UpdateOrderedCards();
                 UpdateCardPositions();
-                forceHandVisible = false;
+                StopForcingHandVisible();
             });
         }
 

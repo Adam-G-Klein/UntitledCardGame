@@ -645,6 +645,11 @@ public class CombatInstance : MonoBehaviour
         updateViewHandler?.Invoke();
     }
 
+    // For callers that change combatStats directly (CombatStats doesn't notify views on its own).
+    public void RefreshView() {
+        UpdateView();
+    }
+
     public void SetStatusEffect(StatusEffectType statusEffectType, int value) {
         statusEffects[statusEffectType] = value;
         UpdateView();
