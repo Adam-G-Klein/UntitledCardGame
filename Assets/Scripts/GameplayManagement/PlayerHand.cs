@@ -1035,12 +1035,18 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
         List<PlayableCard> selectedCards = new List<PlayableCard>();
 
-        // Highlight valid targets whose on-exhaust/on-discard abilities would trigger from this selection
+        // Highlight valid targets. If the selection asks for a specific category (e.g. Attacks, Charms),
+        // highlight cards of that category only. Otherwise highlight cards whose on-exhaust/on-discard
+        // abilities would trigger from this selection.
         foreach (PlayableCard card in GetCardsOrdered())
         {
             bool isValidTarget = (disallowedCards == null || !disallowedCards.Contains(card.gameObject)) &&
                 (cardsLimitedTo == null || cardsLimitedTo.Contains(card.gameObject));
-            if (isValidTarget && CardTriggersOnSelectionPurpose(card, selectionPurpose))
+            if (!isValidTarget) continue;
+            bool highlight = cardCategory != CardCategory.None
+                ? card.card.cardType.cardCategory == cardCategory
+                : CardTriggersOnSelectionPurpose(card, selectionPurpose);
+            if (highlight)
             {
                 card.SetSelectionHighlight(true, selectionTriggerHighlightColor);
             }
