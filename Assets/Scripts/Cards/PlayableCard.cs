@@ -358,7 +358,7 @@ public class PlayableCard : MonoBehaviour,
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (!hoverable || !PlayerHand.Instance.GetCanPlayCards()) return;
+        if (!hoverable || (!PlayerHand.Instance.GetCanPlayCards() && !PlayerHand.Instance.IsSelectingCards())) return;
         hovered = true;
         HoverAssociatedCompanion();
         // Set the volume first

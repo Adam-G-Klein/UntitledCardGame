@@ -120,6 +120,9 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     public List<PlayableCard> cardsInSelectionSpline = null;
     private bool handMinimized = true;
     private bool forceHandVisible = false;
+    // True while SelectCardsFromHand is waiting on the player. Cards stay hoverable/focusable during
+    // a selection even if canPlayCards is false (e.g. Rilla's retain selection at BEFORE_END_PLAYER_TURN).
+    private bool isSelectingCards = false;
     private Coroutine handMinimizationCoroutine = null;
 
     void Awake()
@@ -944,6 +947,11 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         return canPlayCards;
     }
 
+    public bool IsSelectingCards()
+    {
+        return isSelectingCards;
+    }
+
     public bool StillEnoughManaToPlayCards(int currentMana)
     {
         foreach (PlayableCard card in GetCardsOrdered())
@@ -1023,6 +1031,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
         SetHoverable(true);
         forceHandVisible = true;
+        isSelectingCards = true;
 
         List<PlayableCard> selectedCards = new List<PlayableCard>();
 
@@ -1157,11 +1166,13 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             UpdateCardPositions();
             cardsInSelectionSpline = null;
             forceHandVisible = false;
+            isSelectingCards = false;
         }
 
         void SelectingCardConfirmed()
         {
             if (selectedCards.Count != number) return;
+            isSelectingCards = false;
             ClearSelectionHighlights();
             combatEncounterView.SetCompanionsAndEnemiesEnabled(true);
             selectionView.RemoveConfirmedHandler(SelectingCardConfirmed);
