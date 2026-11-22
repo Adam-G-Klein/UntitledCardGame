@@ -121,6 +121,8 @@ public class CardView {
                         {
                             textLbl.style.fontSize = 60;
                         }
+                        // Remember the unscaled font size so FitIconRowToWidth can scale from it.
+                        textLbl.userData = textLbl.style.fontSize.value.value;
 
                         row.Add(textLbl);
                         break;
@@ -145,6 +147,11 @@ public class CardView {
                         break;
                 }
             }
+
+            foreach (VisualElement iconRow in iconDescContainer.Query<VisualElement>(className: "iconDescRow").ToList())
+            {
+                SetupIconRowFitting(iconRow);
+            }
         } else
         {
             iconDescContainer.visible = false;
@@ -166,6 +173,87 @@ public class CardView {
         ).Trim();
 
         return container;
+    }
+
+    // Matches the width of .iconDescSprite / .iconDescSpriteShop in cardTemplateV2.uss.
+    private const float ICON_BASE_WIDTH_PERCENT = 25f;
+    private const float MIN_ICON_ROW_SCALE = 0.4f;
+
+    private class IconRowFitState {
+        public float scale = 1f;
+        public bool pending = false;
+    }
+
+    // Rows that contain icons must stay on one line. Instead of letting the labels wrap,
+    // shrink the whole row (fonts and icons together) until it fits the card width.
+    // Text-only rows (e.g. "N = ...") are left alone so they can still wrap.
+    private static void SetupIconRowFitting(VisualElement row)
+    {
+        bool hasIcon = row.Children().Any(c => c.ClassListContains("iconDescSprite"));
+        if (!hasIcon) return;
+
+        row.userData = new IconRowFitState();
+        foreach (VisualElement child in row.Children())
+        {
+            if (child is Label lbl)
+            {
+                lbl.style.whiteSpace = WhiteSpace.NoWrap;
+                lbl.style.flexShrink = 0;
+            }
+            // Children change size when their text or font changes; the row itself only
+            // changes size when the card does. Listen to both.
+            child.RegisterCallback<GeometryChangedEvent>(_ => ScheduleIconRowFit(row));
+        }
+        row.RegisterCallback<GeometryChangedEvent>(_ => ScheduleIconRowFit(row));
+    }
+
+    // Several children fire GeometryChanged in the same layout pass; collapse them into one
+    // fit that runs after layout has settled, so it always measures fresh sizes.
+    private static void ScheduleIconRowFit(VisualElement row)
+    {
+        if (row.userData is not IconRowFitState state || state.pending) return;
+        state.pending = true;
+        row.schedule.Execute(() => {
+            state.pending = false;
+            FitIconRowToWidth(row, state);
+        });
+    }
+
+    private static void FitIconRowToWidth(VisualElement row, IconRowFitState state)
+    {
+        float available = row.contentRect.width;
+        if (available <= 0f || float.IsNaN(available)) return;
+
+        float needed = 0f;
+        foreach (VisualElement child in row.Children())
+        {
+            if (child.resolvedStyle.display == DisplayStyle.None) continue;
+            needed += child.layout.width + child.resolvedStyle.marginLeft + child.resolvedStyle.marginRight;
+        }
+        if (needed <= 0f || float.IsNaN(needed)) return;
+
+        // Estimate the width at full size, then pick the largest scale (up to 1) that fits.
+        // Aim slightly under the available width so rounding doesn't cause a wrap.
+        float neededAtFullSize = needed / state.scale;
+        float targetScale = Mathf.Clamp(available * 0.98f / neededAtFullSize, MIN_ICON_ROW_SCALE, 1f);
+
+        // Only re-apply when it overflows now, or when there's meaningful room to grow back.
+        bool overflowing = needed > available + 0.5f;
+        bool canGrow = targetScale > state.scale + 0.02f;
+        if (!overflowing && !canGrow) return;
+
+        state.scale = targetScale;
+        foreach (VisualElement child in row.Children())
+        {
+            if (child is Label lbl && lbl.userData is float baseFontSize)
+            {
+                lbl.style.fontSize = baseFontSize * targetScale;
+            }
+            else if (child.ClassListContains("iconDescSprite"))
+            {
+                child.style.width = Length.Percent(ICON_BASE_WIDTH_PERCENT * targetScale);
+            }
+        }
     }
 
     private void setManaCost(Label manaCost, CardType card) {
