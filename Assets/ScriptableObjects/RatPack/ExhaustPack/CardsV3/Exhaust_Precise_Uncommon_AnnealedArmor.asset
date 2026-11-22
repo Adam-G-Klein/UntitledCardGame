@@ -17,7 +17,7 @@ MonoBehaviour:
   Description: 
   IconDescription:
   - tokenType: 0
-    text: 5
+    text: '{rpl_block}'
     icon: 0
   - tokenType: 2
     text: 
@@ -41,7 +41,9 @@ MonoBehaviour:
     text: 
     icon: 35
   IconDescriptionTooltipLineOverrides: []
-  defaultValues: []
+  defaultValues:
+  - key: rpl_block
+    value: 5
   Cost: 1
   Artwork: {fileID: 21300000, guid: 109c4464923594f4bb2478d2624dcf1a, type: 3}
   cardCategory: 2
