@@ -10,24 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: Haemon_Uncommon_HealForElanSpent
+  m_Name: Haemon_Uncommon_RitualDagger
   m_EditorClassIdentifier: 
-  guid: 857c311c-19e0-460d-80cf-999837ac01b6
-  Name: ...
+  guid: 5843f4ff-893d-48db-ba95-51a808ad985c
+  Name: Ritual Dagger
   Description: 
   IconDescription:
   - tokenType: 0
-    text: Exhaust
-    icon: 22
-  - tokenType: 1
-    text: 
-    icon: 22
-  - tokenType: 0
-    text: 4
+    text: '{rpl_damage}'
     icon: 0
   - tokenType: 2
     text: 
-    icon: 20
+    icon: 1
   - tokenType: 0
     text: xN
     icon: 10
@@ -42,15 +36,17 @@ MonoBehaviour:
     icon: 22
   IconDescriptionTooltipLineOverrides: []
   defaultValues:
+  - key: rpl_damage
+    value: 10
   - key: numElan
     value: 0
-  Cost: 0
+  Cost: 2
   Artwork: {fileID: 21300000, guid: 0f5ecf3627abce84490e1f8ec8e4f24f, type: 3}
-  cardCategory: 2
+  cardCategory: 1
   packFrom: {fileID: 11400000, guid: a87b5da767d4e4659b2965e31e340c58, type: 2}
   vfxPrefab: {fileID: 0}
   playable: 1
-  exhaustsWhenPlayed: 1
+  exhaustsWhenPlayed: 0
   retain: 0
   effectWorkflows:
   - rid: 5602892949302281046
@@ -106,7 +102,7 @@ MonoBehaviour:
         useInputToExcludeOptions: 0
         inputKey: 
         outputKey: target
-        validTargets: 00000000
+        validTargets: 02000000
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
@@ -118,13 +114,13 @@ MonoBehaviour:
       data:
         effectStepName: CombatEffectStep
         inputKey: target
-        combatEffect: 9
-        scale: 4
+        combatEffect: 0
+        scale: 10
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 1
         inputMultiplicityKey: numElan
-        vfxPrefab: {fileID: 7628433404972162664, guid: a9880f1216ab99e46b419b3a899530e7, type: 3}
+        vfxPrefab: {fileID: 2516262191440512575, guid: c328362a1a7e6a14a9c9fc813026f7ac, type: 3}
         casterTrail: {fileID: 0}
         damageDealtOutputKey: 

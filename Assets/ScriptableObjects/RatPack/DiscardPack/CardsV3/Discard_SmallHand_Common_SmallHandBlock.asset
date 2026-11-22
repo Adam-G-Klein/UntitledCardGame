@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Discard_SmallHand_Common_SmallHandBlock
   m_EditorClassIdentifier: 
   guid: 79d6ab30-c8a7-4057-9c1d-9014674bf320
-  Name: dagnabbit
+  Name: Planned Defense
   Description: Give any 3 block & if you have 3 or less cards in hand, give +4 block
   IconDescription:
   - tokenType: 0
@@ -72,6 +72,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: cards
         validTargets: 03000000
@@ -116,6 +117,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: target
         validTargets: 00000000

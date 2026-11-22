@@ -10,46 +10,36 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: Hex_Common_DrawBleedBlade
+  m_Name: Hex_Common_BloodFeud
   m_EditorClassIdentifier: 
-  guid: d764f72d-2ac5-46ba-8b44-2daceca7e953
-  Name: idk bleed blade
-  Description: deal dmg & draw self & bleed self
+  guid: 5da54f49-f4e4-41dd-b230-aa602c153690
+  Name: Blood Feud
+  Description: 
   IconDescription:
   - tokenType: 0
     text: '{rpl_damage}'
-    icon: 0
+    icon: 1
   - tokenType: 2
     text: 
     icon: 1
+  - tokenType: 0
+    text: xN
+    icon: 0
   - tokenType: 2
     text: 
     icon: 18
   - tokenType: 1
     text: 
-    icon: 0
+    icon: 18
   - tokenType: 0
-    text: 1
-    icon: 0
-  - tokenType: 2
-    text: 
-    icon: 9
-  - tokenType: 2
-    text: 
-    icon: 11
-  - tokenType: 1
-    text: 
-    icon: 3
-  - tokenType: 2
-    text: 
-    icon: 3
-  - tokenType: 2
-    text: 
-    icon: 11
+    text: N = Number of times this rat lost HP this turn ({numTimes} times)
+    icon: 22
   IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: rpl_damage
-    value: 5
+    value: 4
+  - key: numTimes
+    value: 0
   Cost: 1
   Artwork: {fileID: 21300000, guid: 0f5ecf3627abce84490e1f8ec8e4f24f, type: 3}
   cardCategory: 1
@@ -75,43 +65,33 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 758315839196758637
-      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+    - rid: 758315839196758670
+      type: {class: CombatInstanceTookDamageThisTurn, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: GetAdjacentCompanions
-        inputKey: self
-        includeInputCompanion: 0
-        outputKey: bleeders
-    - rid: 3226456462082179369
-      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DrawCards
-        inputKey: self
-        outputKey: 
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-        waitForDrawsToResolve: 0
+        effectStepName: CombatInstanceTookDamageThisTurn
+        inputCombatInstanceKey: self
+        outputKey: tookDamage
+        numTimesOutputKey: numTimes
+        numRatsWhoLostHPOutputKey: numRats
     - rid: 5602892949302281046
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 5602892949302281047
-        - rid: 758315839196758637
         - rid: 5602892949302281048
-        - rid: 5602892949302281049
-        - rid: 5602892949302281050
-        - rid: 3226456462082179369
+        - rid: 758315839196758670
+        - rid: 8966137386555146815
     - rid: 5602892949302281047
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
-        outputKey: self
-        validTargets: 00000000
+        outputKey: target
+        validTargets: 02000000
         number: 1
-        specialTargetRule: 4
+        specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
@@ -121,40 +101,28 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
-        outputKey: enemy
-        validTargets: 02000000
+        outputKey: self
+        validTargets: 00000000
         number: 1
-        specialTargetRule: 0
+        specialTargetRule: 4
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
         selectionCardCategory: 0
-    - rid: 5602892949302281049
+    - rid: 8966137386555146815
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
-        inputKey: enemy
+        inputKey: target
         combatEffect: 0
-        scale: 5
+        scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
+        getMultiplicityFromKey: 1
+        inputMultiplicityKey: numTimes
         vfxPrefab: {fileID: 8642802995827560421, guid: ae578c6b2cd230b449a8a5fcee25d87b, type: 3}
-        damageDealtOutputKey: 
-    - rid: 5602892949302281050
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatEffectStep
-        inputKey: self
-        combatEffect: 16
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-        vfxPrefab: {fileID: 8642802995827560421, guid: ae578c6b2cd230b449a8a5fcee25d87b, type: 3}
+        casterTrail: {fileID: 0}
         damageDealtOutputKey: 
