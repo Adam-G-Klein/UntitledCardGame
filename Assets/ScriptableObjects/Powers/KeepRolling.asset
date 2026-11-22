@@ -15,7 +15,7 @@ MonoBehaviour:
   powerType: 21
   title: Keep Rolling
   description: End of turn, if you have 3 or less cards in hand, draw an extra card
-    next turn from self
+    next turn from this rat
   abilities:
   - rid: 2511001503980847362
   displaySprite: {fileID: 21300000, guid: 04bf14070e798284f9f39ea08b676c4a, type: 3}
@@ -56,6 +56,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 
@@ -63,6 +64,8 @@ MonoBehaviour:
         specialTargetRule: 3
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
+        selectionCardCategory: 0
     - rid: 2511001503980847365
       type: {class: GetNumberOfCardsInHand, ns: , asm: Assembly-CSharp}
       data:
@@ -97,12 +100,13 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        toggleStatus: 0
     - rid: 2511001503980847369
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
-        icon: {fileID: 21300000, guid: 04bf14070e798284f9f39ea08b676c4a, type: 3}
         label: Keep Rolling
+        icon: {fileID: 21300000, guid: 04bf14070e798284f9f39ea08b676c4a, type: 3}
     - rid: 2511001503980847370
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
