@@ -23,7 +23,7 @@ MonoBehaviour:
     text: 
     icon: 0
   - tokenType: 0
-    text: Create a Dagger in hand for adjacent rats
+    text: Create a Dagger in hand for 2 random rats
     icon: 0
   IconDescriptionTooltipLineOverrides: []
   defaultValues: []
@@ -102,6 +102,16 @@ MonoBehaviour:
         effectStepName: CardInHandEffect
         inputKey: attackCard
         effect: 0
+    - rid: 3226456907728551947
+      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetRandomItems
+        inputKey: all
+        scale: 2
+        scaleKey: out
+        getScaleFromKey: 0
+        outputKey: 
+        withReplacement: 0
     - rid: 5602892533381726226
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -111,7 +121,7 @@ MonoBehaviour:
         - rid: 1289961820425028208
         - rid: 1289961820425028209
         - rid: 5602892533381726227
-        - rid: 8034949815888773199
+        - rid: 3226456907728551947
         - rid: 8034949815888773200
         - rid: 8034949815888773201
     - rid: 5602892533381726227
@@ -121,26 +131,19 @@ MonoBehaviour:
         useInputToLimitOptions: 0
         useInputToExcludeOptions: 0
         inputKey: 
-        outputKey: self
+        outputKey: all
         validTargets: 
         number: 1
-        specialTargetRule: 4
+        specialTargetRule: 1
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
         selectionCardCategory: 0
-    - rid: 8034949815888773199
-      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetAdjacentCompanions
-        inputKey: self
-        includeInputCompanion: 0
-        outputKey: adj
     - rid: 8034949815888773200
       type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: AddCardsToHand
-        entityFromKey: adj
+        entityFromKey: out
         cardTypes:
         - {fileID: 11400000, guid: 224034c097974444fa35170919327ce6, type: 2}
         getCardsFromKey: 0
@@ -149,10 +152,11 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         outputKey: 
+        waitForDrawsToResolve: 0
     - rid: 8034949815888773201
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: adj
+        inputKey: out
         prefabToInstantiate: {fileID: 9028122300360462519, guid: 9a51d49c5066ce74cb95e42b96240249, type: 3}
         scale: 1
