@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Chunkrat_Common_HealForNumCards
   m_EditorClassIdentifier: 
   guid: d42404a0-dc9e-4fcd-9b83-6bdb7153f0a7
-  Name: 
-  Description: heal a rat equal to the number of cards in its deck
+  Name: Cached Food
+  Description: 
   IconDescription:
   - tokenType: 0
     text: Exhaust
@@ -79,6 +79,7 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 7074477475192407216, guid: 9fed630d88303104ab98a0fdec3dabfc, type: 3}
+        casterTrail: {fileID: 0}
         damageDealtOutputKey: 
     - rid: 3226456462082179353
       type: {class: CountCardsInDeck, ns: , asm: Assembly-CSharp}
