@@ -71,6 +71,16 @@ public class MusicController : GenericSingleton<MusicController>
     private const string GreekFire = "event:/SFX/SFX_GreekFire", Detonate = "event:/SFX/SFX_Detonate", Gunshot = "event:/SFX/SFX_Gunshot",
         Flamethrower = "event:/SFX/SFX_Flamethrower", MagicBoom = "event:/SFX/SFX_MagicBoom", Slobber = "event:/SFX/SFX_Slobber",
         CardHandle = "event:/SFX/SFX_CardHandle", BasicAttack = "event:/SFX/SFX_BasicAttack";
+    public const string EnemyAttack = "event:/SFX/SFX_EnemyAttack";
+
+    // Seconds from the start of a sound to its impact (the wind-up/swoosh before the hit). Hit sounds are
+    // started this much before the VFX strikes so the impact in the audio lines up with the visual one.
+    // Measured from the source files' loudest point; tune by ear. Sounds not listed start at the impact.
+    private static readonly Dictionary<string, float> SfxLeadIn = new Dictionary<string, float>
+    {
+        { BasicAttack, 0.2f },   // PlayerAttackStrike v1_01 peaks ~178ms, v1_03 ~250ms
+        { EnemyAttack, 0.2f },   // EnemyAttack v2_01 peaks ~160ms, v2_02 ~220ms
+    };
 
     private static readonly Dictionary<string, string> AttackSounds = new Dictionary<string, string>
     {
@@ -146,18 +156,31 @@ public class MusicController : GenericSingleton<MusicController>
     // damage play theirs too
     public static bool HasOwnAttackSound(string name) => AttackSounds.ContainsKey(SoundKey(name));
 
+    public static string AttackSoundFor(string cardName) =>
+        AttackSounds.TryGetValue(SoundKey(cardName), out string sfx) ? sfx : BasicAttack;
+
     public void PlayCorrectAttackSound(String cardName)
     {
-        PlaySFX(AttackSounds.TryGetValue(SoundKey(cardName), out string sfx) ? sfx : BasicAttack);
+        PlaySFX(AttackSoundFor(cardName));
     }
-    
+
+    // Plays a hit sound so that its impact lands impactDelay seconds from now (when the VFX strikes the target),
+    // starting it early by the sound's lead-in. If the effect has less wind-up than the sound, it plays right
+    // away: as close as we can get, and never later than before. (The hit events play from FMOD action sheets,
+    // which have no timeline to skip into.)
+    public void PlaySFXAtImpact(CombatInstance target, float impactDelay, string sfx)
+    {
+        float leadIn = SfxLeadIn.TryGetValue(sfx, out float l) ? l : 0f;
+        HitTiming.AtImpact(target, Mathf.Max(0f, impactDelay - leadIn), () => PlaySFX(sfx));
+    }
+
     public void PlayMusicLocation(Location location, Act act = Act.One)
     {
         if (locationTracks == null) {
             Debug.LogWarning("No location tracks set in MusicController2");
             return;
         }
-        
+
         if (location == Location.COMBAT)
         {
             SetCombatState("Combat");
@@ -276,7 +299,7 @@ public class MusicController : GenericSingleton<MusicController>
                 RuntimeManager.StudioSystem.setParameterByName(combatState, 2);
                 PlaySFX("event:/MX/MX_CombatStingers");
                 break;
-            
+
             case "Run Complete":
                 RuntimeManager.StudioSystem.setParameterByName(combatState, 3);
                 PlaySFX("event:/MX/MX_CombatStingers");
@@ -306,7 +329,7 @@ public class MusicController : GenericSingleton<MusicController>
         }
     }
 
-    public void PlayBossMusic() 
+    public void PlayBossMusic()
     {
         instance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         instance.release();
@@ -325,7 +348,7 @@ public class MusicController : GenericSingleton<MusicController>
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
 

@@ -236,6 +236,9 @@ public class CombatInstance : MonoBehaviour
                 bool fromCompanion = effector.GetComponent<CompanionInstance>() != null;
                 bool fromEnemy = effector.GetComponent<EnemyInstance>() != null;
                 bool fullBlock = damageTaken <= 0 && !killed;
+                // started ahead of the rest of the feedback so the impact in the sound lands with the VFX
+                if (fromEnemy && !fullBlock)
+                    MusicController.Instance.PlaySFXAtImpact(this, damageDelay, MusicController.EnemyAttack);
                 HitTiming.AtImpact(this, damageDelay, () => {
                     if (screenShakeForce > 0.0f)
                     {
@@ -254,7 +257,6 @@ public class CombatInstance : MonoBehaviour
                         }
                         else
                         {
-                            MusicController.Instance.PlaySFX("event:/SFX/SFX_EnemyAttack");
                             MusicController.Instance.PlaySFX("event:/VO/Combat/Damage/VO_CombatBarks_DamageMedium");
                         }
                     }
