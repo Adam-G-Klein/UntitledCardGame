@@ -129,13 +129,19 @@
 		</property>
 	</object>
 	<object class="SingleSound" id="{4a14974a-de96-412c-930f-4d22dddb662d}">
+		<property name="volume">
+			<value>2.5</value>
+		</property>
 		<relationship name="audioFile">
-			<destination>{a3a5278f-f915-4da4-a23a-e1a71ce9f787}</destination>
+			<destination>{651ee17a-f072-4a73-8fb2-13b700bde899}</destination>
 		</relationship>
 	</object>
 	<object class="SingleSound" id="{693153e5-fd9b-434a-b28e-861cf78ac94d}">
+		<property name="volume">
+			<value>3.5</value>
+		</property>
 		<relationship name="audioFile">
-			<destination>{ebb3ed12-2b3f-4b7f-be62-cbb93c0c6577}</destination>
+			<destination>{48a281e8-bb72-4d3f-8287-518cbc0cc4de}</destination>
 		</relationship>
 	</object>
 	<object class="RandomizerModulator" id="{6b5086a6-3af5-4d11-b6e0-200287f31408}">
