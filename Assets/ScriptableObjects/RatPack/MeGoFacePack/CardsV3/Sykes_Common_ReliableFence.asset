@@ -108,9 +108,9 @@ MonoBehaviour:
         effectStepName: GetRandomItems
         inputKey: all
         scale: 2
-        scaleKey: out
+        scaleKey: 
         getScaleFromKey: 0
-        outputKey: 
+        outputKey: out
         withReplacement: 0
     - rid: 5602892533381726226
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
@@ -132,7 +132,7 @@ MonoBehaviour:
         useInputToExcludeOptions: 0
         inputKey: 
         outputKey: all
-        validTargets: 
+        validTargets: 00000000
         number: 1
         specialTargetRule: 1
         cantCancelTargetting: 0
