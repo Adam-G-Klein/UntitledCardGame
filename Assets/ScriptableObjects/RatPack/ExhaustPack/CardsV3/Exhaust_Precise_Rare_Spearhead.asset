@@ -26,17 +26,31 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 18
-  - tokenType: 1
+  - tokenType: 3
     text: 
     icon: 18
   - tokenType: 0
-    text: If this is the only Attack in the rat's deck, give all Attack cards in
-      hand +3 damage
+    text: 'If this is the only Attack in this rat''s deck:'
     icon: 0
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 3
+  - tokenType: 2
+    text: 
+    icon: 3
+  - tokenType: 2
+    text: 
+    icon: 3
+  - tokenType: 2
+    text: 
+    icon: 4
   IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: rpl_damage
-    value: 6
+    value: 9
   Cost: 1
   Artwork: {fileID: 21300000, guid: 9c7b553a4a5050646818dbc514a54e9a, type: 3}
   cardCategory: 1
@@ -62,16 +76,37 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 498484404141691771
-      type: {class: CardsChangedVFX, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CardsChangedVFX
-        inputKey: targets
-        vfxPrefab: {fileID: 1872837941943473356, guid: c1728413e5bf48543b46f1ce54f452c5, type: 3}
     - rid: 2034230108114649711
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps: []
+    - rid: 3226456907728551950
+      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetRandomItems
+        inputKey: all
+        scale: 3
+        scaleKey: 
+        getScaleFromKey: 0
+        outputKey: out
+        withReplacement: 0
+    - rid: 3226456907728551951
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: out
+        outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        waitForDrawsToResolve: 0
+    - rid: 3226456907728551952
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: out
+        prefabToInstantiate: {fileID: 8717003073532261601, guid: b6c3a7e1c9e201b4e84035d897e93b0a, type: 3}
+        scale: 1
     - rid: 4463205916933357570
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -100,11 +135,9 @@ MonoBehaviour:
         - rid: 8034949928137261276
         - rid: 8034949928137261277
         - rid: 7150943289421333167
-        - rid: 7150943289421333168
-        - rid: 7150943289421333169
-        - rid: 498484404141691771
-        - rid: 7150943289421333171
-        - rid: 7150943289421333170
+        - rid: 3226456907728551950
+        - rid: 3226456907728551951
+        - rid: 3226456907728551952
     - rid: 7082891488814170849
       type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
@@ -139,57 +172,20 @@ MonoBehaviour:
         useInputToExcludeOptions: 0
         inputKey: 
         outputKey: all
-        validTargets: 03000000
+        validTargets: 00000000
         number: 1
         specialTargetRule: 1
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
         selectionCardCategory: 0
-    - rid: 7150943289421333168
-      type: {class: FilterCards, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FilterCards
-        inputKey: all
-        companionInstanceKey: 
-        filter:
-          cardCategoriesToInclude: 01000000
-          retainedCardsFilter: 0
-          manaCostFilter: 0
-          manaCost: 0
-          exactCardType: {fileID: 0}
-          companionInstanceFilterEnabled: 0
-        outputKey: targets
-    - rid: 7150943289421333169
-      type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CardModificationEffect
-        inputKey: targets
-        scale: 3
-        affectsAllCardsOfType: 0
-        cardTypeToModify: {fileID: 0}
-        getScaleFromKey: 0
-        scaleKey: 
-        modification: 0
-    - rid: 7150943289421333170
-      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: WaitForSecondsEffect
-        seconds: 0.2
-    - rid: 7150943289421333171
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: targets
-        prefabToInstantiate: {fileID: 7431735970999202438, guid: a820425780cc9a947bc7f413bf8174d0, type: 3}
-        scale: 1
     - rid: 7401433308100034878
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
         inputKey: enemy
         combatEffect: 0
-        scale: 6
+        scale: 9
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

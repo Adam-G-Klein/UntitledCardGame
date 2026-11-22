@@ -22,8 +22,14 @@ MonoBehaviour:
   - tokenType: 1
     text: 
     icon: 0
+  - tokenType: 2
+    text: 
+    icon: 3
+  - tokenType: 2
+    text: 
+    icon: 4
   - tokenType: 0
-    text: Draw 1 card from all rats
+    text: x6
     icon: 0
   IconDescriptionTooltipLineOverrides: []
   defaultValues: []
@@ -103,8 +109,8 @@ MonoBehaviour:
         inputKey: 
         outputKey: all
         validTargets: 00000000
-        number: 1
-        specialTargetRule: 1
+        number: 6
+        specialTargetRule: 6
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0

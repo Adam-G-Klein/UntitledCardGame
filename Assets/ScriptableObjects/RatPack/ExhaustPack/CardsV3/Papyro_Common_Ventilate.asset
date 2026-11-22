@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Papyro_Common_Ventilate
   m_EditorClassIdentifier: 
   guid: 60d61a8c-da22-45ec-bafe-55de364af9f3
-  Name: ...
+  Name: Catalyze
   Description: 
   IconDescription:
   - tokenType: 2
@@ -120,6 +120,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: targets
         validTargets: 00000000
@@ -140,6 +141,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: valid
         validTargets: 03000000

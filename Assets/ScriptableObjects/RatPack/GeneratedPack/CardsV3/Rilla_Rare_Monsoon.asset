@@ -17,13 +17,19 @@ MonoBehaviour:
   Description: 
   IconDescription:
   - tokenType: 0
-    text: Retain\nExhaust all Charm cards in hand
+    text: Retain
     icon: 0
   - tokenType: 1
     text: 
     icon: 0
   - tokenType: 0
-    text: 4
+    text: Exhaust 3 Charm cards in hand as cost
+    icon: 33
+  - tokenType: 1
+    text: 
+    icon: 33
+  - tokenType: 0
+    text: 15
     icon: 33
   - tokenType: 2
     text: 
@@ -31,22 +37,9 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 33
-  - tokenType: 0
-    text: xN
-    icon: 33
-  - tokenType: 1
-    text: 
-    icon: 33
-  - tokenType: 0
-    text: N = Number of Charms exhausted ({numCharms} cards)
-    icon: 33
-  IconDescriptionTooltipLines: []
-  defaultValues:
-  - key: b
-    value: 0
-  - key: numCharms
-    value: 0
-  Cost: 2
+  IconDescriptionTooltipLineOverrides: []
+  defaultValues: []
+  Cost: 1
   Artwork: {fileID: 21300000, guid: 11ab1a8caee32d042ac3a1366784f67e, type: 3}
   cardCategory: 2
   packFrom: {fileID: 11400000, guid: 0d12b03c0c8754470a900cb4f78a9217, type: 2}
@@ -71,22 +64,17 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 1289961959942521122
-      type: {class: CountStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CountStep
-        inputKey: filtered
-        outputKey: numStatus
     - rid: 1289961959942521135
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: target
         validTargets: 00000000
         number: 1
-        specialTargetRule: 0
+        specialTargetRule: 1
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
@@ -97,23 +85,14 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: target
         statusEffect: 2
-        scale: 4
+        scale: 15
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
         multiplicity: 1
-        getMultiplicityFromKey: 1
-        inputMultiplicityKey: numStatus
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
         toggleStatus: 0
-    - rid: 1289961959942521137
-      type: {class: MathStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: MathStep
-        inputKey: numStatus
-        operand2InputKey: UNUSED
-        operation: 2
-        scale: 4
-        outputKey: b
     - rid: 1289961959942521138
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -135,17 +114,33 @@ MonoBehaviour:
           exactCardType: {fileID: 0}
           companionInstanceFilterEnabled: 0
         outputKey: filtered
-    - rid: 2268261004812222471
+    - rid: 3226456907728551953
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 1
+        useInputToExcludeOptions: 0
+        inputKey: filtered
+        outputKey: out
+        validTargets: 03000000
+        number: 1
+        specialTargetRule: 5
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 5
+        selectionCardCategory: 4
+    - rid: 3226456907728551954
       type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CardInHandEffect
-        inputKey: filtered
+        inputKey: out
         effect: 1
     - rid: 4463206079571951821
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: all
         validTargets: 03000000
@@ -162,8 +157,7 @@ MonoBehaviour:
         - rid: 1289961959942521135
         - rid: 4463206079571951821
         - rid: 2268261004812222470
-        - rid: 1289961959942521122
-        - rid: 2268261004812222471
-        - rid: 1289961959942521137
+        - rid: 3226456907728551953
+        - rid: 3226456907728551954
         - rid: 1289961959942521136
         - rid: 1289961959942521138

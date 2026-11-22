@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Papyro_Common_RandomExhaustShield
   m_EditorClassIdentifier: 
   guid: a6eb58fa-ca90-4fe2-b2aa-bc31e161638e
-  Name: ...
+  Name: Oxidized Armor
   Description: give 7 block & exhaust card in hand
   IconDescription:
   - tokenType: 0
@@ -107,6 +107,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: target
         validTargets: 00000000
@@ -121,6 +122,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: validCards
         validTargets: 03000000

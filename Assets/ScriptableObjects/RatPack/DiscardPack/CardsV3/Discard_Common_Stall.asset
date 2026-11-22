@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: Discard_Common_Discardandblock
+  m_Name: Discard_Common_Stall
   m_EditorClassIdentifier: 
   guid: 2c683e26-26c0-40df-8ee2-0d4b1c0d6662
-  Name: butt sniff
-  Description: block & discard at random
+  Name: Stall
+  Description: 
   IconDescription:
   - tokenType: 2
     text: 
@@ -66,6 +66,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: card
         validTargets: 03000000
@@ -80,6 +81,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: target
         validTargets: 00000000

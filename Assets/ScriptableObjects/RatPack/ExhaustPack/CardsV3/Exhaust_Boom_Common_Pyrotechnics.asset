@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: Exhaust_Boom_Common_Flashbang
+  m_Name: Exhaust_Boom_Common_Pyrotechnics
   m_EditorClassIdentifier: 
   guid: 53ee48ae-c249-40bb-85d9-2747d404354d
-  Name: Flashbang
+  Name: Pyrotechnics
   Description: 
   IconDescription:
   - tokenType: 0
@@ -46,8 +46,8 @@ MonoBehaviour:
   IconDescriptionTooltipLineOverrides: []
   defaultValues:
   - key: rpl_damage
-    value: 5
-  Cost: 0
+    value: 15
+  Cost: 2
   Artwork: {fileID: 21300000, guid: 50bbe2ab14b04f54c96e28c3e3f8e313, type: 3}
   cardCategory: 1
   packFrom: {fileID: 11400000, guid: 79e479ca9df7a4369ba7fa951e0af116, type: 2}
@@ -93,7 +93,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 0
-        scale: 5
+        scale: 15
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

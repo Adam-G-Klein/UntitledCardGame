@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Attack_Patient_Common_InHandBuffBlade
   m_EditorClassIdentifier: 
   guid: 76dff15a-a36c-4978-a059-d3ce0d5bbe28
-  Name: ??? buff blade
+  Name: Malice
   Description: 
   IconDescription:
   - tokenType: 0
@@ -86,6 +86,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 
@@ -103,6 +104,7 @@ MonoBehaviour:
         scale: 1
         affectsAllCardsOfType: 0
         cardTypeToModify: {fileID: 0}
+        getCardTypeFromInputCard: 0
         getScaleFromKey: 0
         scaleKey: 
         modification: 0
@@ -129,6 +131,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: enemy
         validTargets: 02000000
@@ -151,6 +154,7 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 3963970696620186251, guid: b08c8dcddf789574d8a0da62c7bed2c5, type: 3}
+        casterTrail: {fileID: 0}
         damageDealtOutputKey: 
     - rid: 6871274662661651967
       type: {class: CardsChangedVFX, ns: , asm: Assembly-CSharp}
