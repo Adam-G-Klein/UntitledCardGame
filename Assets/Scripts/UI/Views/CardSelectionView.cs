@@ -1,9 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 
+/*
+    Full-screen "pick cards from a list" view: Scry / SelectCardsFromList, shop card removal, and the read-only
+    deck viewer (no handler attached, nothing to select).
+
+    Selection feedback:
+      - Selected cards lift and get a gold frame.
+      - Hovering/focusing a card shows a faint frame, so you can tell which card a click will toggle.
+      - Once the maximum is picked, the other cards dim. When only one card can be picked, clicking another
+        card moves the selection to it instead.
+      - The footer shows the prompt next to Confirm, which is greyed out until the minimum is met.
+*/
 [RequireComponent(typeof(Canvas))]
 public class CardSelectionView : MonoBehaviour
 {
@@ -12,6 +22,12 @@ public class CardSelectionView : MonoBehaviour
 
     public delegate void CardsSelected(List<Card> cards, Companion companion);
     public event CardsSelected cardsSelectedHandler;
+
+    private const string WrapperSelectedClass = "card-wrapper--selected";
+    private const string WrapperUnavailableClass = "card-wrapper--unavailable";
+    private const string WrapperFocusedClass = "card-wrapper--focused";
+    private const string ButtonDisabledClass = "exit-button--disabled";
+    private const string PromptWarningClass = "selection-prompt--warning";
 
     private VisualElement companionArea;
     private VisualElement cardContainer;
@@ -27,6 +43,12 @@ public class CardSelectionView : MonoBehaviour
     private TooltipController tooltipController;
 
     private List<CardView> cardViews;
+    private readonly Dictionary<CardView, VisualElement> wrapperFor = new Dictionary<CardView, VisualElement>();
+
+    // The read-only deck viewer passes no limits and attaches no handler.
+    private bool IsSelectable => cardsSelectedHandler != null || minSelections > 0 || maxSelections > 0;
+    private bool SingleSelect => maxSelections == 1;
+    private bool AtMax => maxSelections != -1 && cardsSelected.Count >= maxSelections;
 
     public void Start() {
         if (uiDoc == null) {
@@ -34,6 +56,8 @@ public class CardSelectionView : MonoBehaviour
         }
         Canvas canvas = GetComponent<Canvas>();
         canvas.worldCamera = Camera.main;
+        // The handler is attached right after Setup, so refresh once it's there (e.g. "select any number" scry).
+        if (cardsSelected != null) UpdateSelectionUI();
     }
 
     public void Setup(List<Card> cards, Companion companion, VisualTreeAsset companionViewTemplate) {
@@ -54,19 +78,13 @@ public class CardSelectionView : MonoBehaviour
         this.maxSelections = maxSelections;
         this.promptText = promptText;
         cardViews = new List<CardView>();
+        wrapperFor.Clear();
         tooltipController = new TooltipController(tooltipPrefab);
 
         FocusManager.Instance.StashFocusables(this.GetType().Name);
 
-        if (minSelections <= 0) {
-            this.confirmExitButton.text = "Exit";
-        } else {
-            this.confirmExitButton.text = "Confirm";
-        }
-
-        if (promptText == "") {
-            this.promptTextLabel.style.display = DisplayStyle.None;
-            this.confirmExitButton.style.marginLeft = 0;
+        if (string.IsNullOrEmpty(promptText)) {
+            SetPromptVisible(false);
         }
 
         if (companion == null || companionViewTemplate == null) {
@@ -85,61 +103,96 @@ public class CardSelectionView : MonoBehaviour
             CardView newCardView = new CardView(card, card.getCompanionFrom(), true);
             VisualElement cardWrapper = new VisualElement();
             cardWrapper.AddToClassList("card-wrapper");
-            newCardView.cardContainer.RegisterOnSelected(() => CardViewClicked(null, newCardView));
-            newCardView.cardContainer.RegisterOnFocused(() => tooltipController.DisplayTooltip(newCardView.cardContainer, card.cardType.GetTooltip(), TooltipContext.CardSelection));
-            newCardView.cardContainer.RegisterOnUnfocused(() => tooltipController.DestroyTooltip(newCardView.cardContainer));
+
+            // Drawn over the card; never takes clicks away from it.
+            VisualElement frame = new VisualElement();
+            frame.AddToClassList("card-selection-frame");
+            frame.pickingMode = PickingMode.Ignore;
+
+            newCardView.cardContainer.RegisterOnSelected(() => CardViewClicked(newCardView));
+            newCardView.cardContainer.RegisterOnFocused(() => {
+                cardWrapper.AddToClassList(WrapperFocusedClass);
+                tooltipController.DisplayTooltip(newCardView.cardContainer, card.cardType.GetTooltip(), TooltipContext.CardSelection);
+            });
+            newCardView.cardContainer.RegisterOnUnfocused(() => {
+                cardWrapper.RemoveFromClassList(WrapperFocusedClass);
+                tooltipController.DestroyTooltip(newCardView.cardContainer);
+            });
+
             cardWrapper.Add(newCardView.cardContainer);
+            cardWrapper.Add(frame);
             cardViews.Add(newCardView);
+            wrapperFor[newCardView] = cardWrapper;
             this.cardContainer.Add(cardWrapper);
         }
-        
+
         this.promptTextLabel.text = promptText;
+        UpdateSelectionUI();
         FocusManager.Instance.RegisterFocusables(uiDoc);
         FocusManager.Instance.LockFocusables();
     }
 
     private void InitFields() {
         cardsSelected = new List<CardView>();
-        this.companionArea = uiDoc.rootVisualElement.Q("companion-area");
-        this.cardContainer = uiDoc.rootVisualElement.Q("card-scroll-view-container");
-        this.confirmExitButton = uiDoc.rootVisualElement.Q<Button>("confirm-exit-button");
-        this.promptTextLabel = uiDoc.rootVisualElement.Q<Label>("prompt-text-label");
+        VisualElement root = uiDoc.rootVisualElement;
+        this.companionArea = root.Q("companion-area");
+        this.cardContainer = root.Q("card-scroll-view-container");
+        this.confirmExitButton = root.Q<Button>("confirm-exit-button");
+        this.promptTextLabel = root.Q<Label>("prompt-text-label");
         this.confirmExitButton.RegisterOnSelected(() => ExitView());
     }
 
-    private void CardViewClicked(ClickEvent evt, CardView cardView) {
+    private void CardViewClicked(CardView cardView) {
+        if (!IsSelectable) return;
+
         if (cardsSelected.Contains(cardView)) {
             cardsSelected.Remove(cardView);
-            // Undo styling for having card selected
-            // cardView.cardContainer.parent.RemoveFromClassList("card-selected");
-            // cardView.cardContainer.RemoveFromClassList("card-selected");
-            cardView.SetBlackBorder(false);
+        } else if (!AtMax) {
+            cardsSelected.Add(cardView);
+        } else if (SingleSelect) {
+            // Only one can be picked: move the pick to this card.
+            cardsSelected.Clear();
+            cardsSelected.Add(cardView);
+        } else {
+            ShowWarning("You can only select " + CardCount(maxSelections));
             return;
         }
 
-        if (maxSelections != -1 && cardsSelected.Count >= maxSelections) {
-            return;
+        UpdateSelectionUI();
+    }
+
+    private void UpdateSelectionUI() {
+        bool atMax = AtMax;
+        foreach (CardView cardView in cardViews) {
+            if (!wrapperFor.TryGetValue(cardView, out VisualElement wrapper)) continue;
+            bool selected = cardsSelected.Contains(cardView);
+            wrapper.EnableInClassList(WrapperSelectedClass, selected);
+            wrapper.EnableInClassList(WrapperUnavailableClass, atMax && !selected && !SingleSelect);
         }
 
-        cardsSelected.Add(cardView);
-        // Setup styling for having card selected
-        // cardView.cardContainer.parent.AddToClassList("card-selected");
-        // cardView.cardContainer.AddToClassList("card-selected");
-        cardView.SetBlackBorder(true);
+        int count = cardsSelected.Count;
+        bool enoughSelected = count >= minSelections;
+
+        if (!IsSelectable) {
+            confirmExitButton.text = "Close";
+        } else if (count == 0 && minSelections <= 0) {
+            confirmExitButton.text = "Skip";
+        } else {
+            confirmExitButton.text = "Confirm";
+        }
+        // Still clickable when greyed out, so pressing it explains what's missing.
+        confirmExitButton.EnableInClassList(ButtonDisabledClass, IsSelectable && !enoughSelected);
     }
 
     private void ExitView() {
+        if (cardsSelected.Count < minSelections) {
+            ShowWarning("Select " + CardCount(minSelections - cardsSelected.Count, "more "));
+            return;
+        }
+
         cardViews.Clear();
         tooltipController.DestroyAllTooltips();
 
-        if (cardsSelected.Count < minSelections) {
-            if (currentCoroutine == null) {
-                currentCoroutine = changePromptText("Please select " + 
-                    (minSelections - cardsSelected.Count) + " more cards");
-                StartCoroutine(currentCoroutine);
-            }
-            return;
-        }
         List<Card> outputCards = new List<Card>();
         foreach (CardView cardView in cardsSelected) {
             outputCards.Add(cardView.cardInstance);
@@ -156,11 +209,28 @@ public class CardSelectionView : MonoBehaviour
         Destroy(this.gameObject);
     }
 
+    private static string CardCount(int n, string adjective = "") {
+        return n + " " + adjective + (n == 1 ? "card" : "cards");
+    }
+
+    private void SetPromptVisible(bool visible) {
+        promptTextLabel.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
+    }
+
+    private void ShowWarning(string text) {
+        if (currentCoroutine != null) StopCoroutine(currentCoroutine);
+        currentCoroutine = changePromptText(text);
+        StartCoroutine(currentCoroutine);
+    }
+
     private IEnumerator changePromptText(string newText) {
+        SetPromptVisible(true);
         promptTextLabel.text = newText;
+        promptTextLabel.AddToClassList(PromptWarningClass);
         yield return new WaitForSeconds(1.5f);
+        promptTextLabel.RemoveFromClassList(PromptWarningClass);
         promptTextLabel.text = promptText;
+        if (string.IsNullOrEmpty(promptText)) SetPromptVisible(false);
         currentCoroutine = null;
-        yield return null;
     }
 }

@@ -1,23 +1,60 @@
-.card-wrapper {
-    flex-grow: 0;
-    flex-shrink: 0;
-    margin-top: 10px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    margin-left: 10px;
+/* ---------- Layout ---------- */
+
+.selection-prompt {
+    font-size: 32px;
+    color: rgb(255, 240, 210);
+    -unity-font-style: bold;
+    -unity-text-align: middle-right;
+    white-space: normal;
+    flex-shrink: 1;
+    max-width: 70%;
+    margin-right: 40px;
+    -unity-text-outline-width: 0.6px;
+    -unity-text-outline-color: rgba(0, 0, 0, 0.85);
+    transition-property: color;
+    transition-duration: 0.15s;
 }
 
+/* Briefly shown when Confirm is pressed before enough cards are picked */
+.selection-prompt--warning {
+    color: rgb(255, 120, 95);
+}
+
+.selection-footer {
+    flex-grow: 0;
+    flex-shrink: 0;
+    height: 11%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 6px;
+}
+
+/* ---------- Confirm button ---------- */
+
+.exit-button {
+    min-width: 200px;
+    height: 80%;
+    transition-property: scale, opacity;
+    transition-duration: 0.12s;
+}
+
+.exit-button:hover,
 .exit-button:focus {
-    scale: 1.1 1.1;
+    scale: 1.08 1.08;
     -unity-background-image-tint-color: rgb(188, 188, 188);
 }
 
-.card-view-container:focus {
-    scale: 1.1 1.1;
+.exit-button--disabled {
+    opacity: 0.45;
 }
 
-.card-view-container:hover {
-    scale: 1.1 1.1;
+/* ---------- Cards ---------- */
+
+/* Room above the top row for the lift, so the scroll view doesn't clip them */
+#card-scroll-view-container {
+    padding-top: 20px;
+    padding-bottom: 12px;
 }
 
 .card-view-container {
@@ -26,6 +63,73 @@
     flex-shrink: 0;
 }
 
+.card-wrapper {
+    flex-grow: 0;
+    flex-shrink: 0;
+    margin-top: 22px;
+    margin-right: 16px;
+    margin-bottom: 14px;
+    margin-left: 16px;
+    transition-property: translate, scale, opacity;
+    transition-duration: 0.12s;
+    transition-timing-function: ease-out;
+}
+
+/* Hover/focus scales the whole wrapper (card + frame together) instead of only the card */
+.card-wrapper > .card-view-container:hover,
+.card-wrapper > .card-view-container:focus {
+    scale: 1 1;
+}
+
+.card-wrapper:hover,
+.card-wrapper--focused {
+    scale: 1.06 1.06;
+}
+
+/* Selected: lifted, gold frame */
+.card-wrapper--selected {
+    translate: 0 -16px;
+}
+
+/* Can't be picked right now (the maximum is already selected) */
+.card-wrapper--unavailable {
+    opacity: 0.4;
+}
+
+.card-selection-frame {
+    position: absolute;
+    left: -9px;
+    right: -9px;
+    top: -9px;
+    bottom: -9px;
+    border-left-width: 7px;
+    border-right-width: 7px;
+    border-top-width: 7px;
+    border-bottom-width: 7px;
+    border-left-color: rgb(255, 205, 80);
+    border-right-color: rgb(255, 205, 80);
+    border-top-color: rgb(255, 205, 80);
+    border-bottom-color: rgb(255, 205, 80);
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+    border-bottom-left-radius: 18px;
+    border-bottom-right-radius: 18px;
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: 0.12s;
+}
+
+/* Faint outline on hover/focus so you can tell which card a click will toggle */
+.card-wrapper:hover > .card-selection-frame,
+.card-wrapper--focused > .card-selection-frame {
+    opacity: 0.35;
+}
+
+.card-wrapper--selected > .card-selection-frame {
+    opacity: 1;
+}
+
+/* Legacy class, kept in case anything else still adds it */
 .card-selected {
     border-left-color: rgb(0, 0, 0);
     border-right-color: rgb(0, 0, 0);

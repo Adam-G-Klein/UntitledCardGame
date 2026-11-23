@@ -22,7 +22,7 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 18
-  IconDescriptionTooltipLines: []
+  IconDescriptionTooltipLineOverrides: []
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 27219c2682ae3af4fa76a9968109666f, type: 3}
@@ -61,6 +61,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: self
         validTargets: 00000000
@@ -86,6 +87,7 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
         outputKey: target
         validTargets: 00000000
@@ -113,7 +115,7 @@ MonoBehaviour:
         effectStepName: SelectCardsFromList
         inputKey: topCard
         outputKey: discarded
-        promptText: Choose card(s) to discard.
+        promptText: 'Scry: choose card(s) to discard'
         minTargets: 0
         maxTargets: 3
         getNumberOfTargetsFromKey: 0

@@ -15,9 +15,9 @@
                 <ui:VisualElement name="card-scroll-view-container" style="flex-grow: 1; flex-wrap: wrap; height: 100%; flex-direction: row; justify-content: center;" />
             </ui:ScrollView>
         </ui:VisualElement>
-        <ui:VisualElement style="flex-grow: 0; height: 10%; align-items: center; flex-direction: row; justify-content: center;">
-            <ui:Label tabindex="-1" text="Please select 1 card." parse-escape-sequences="true" display-tooltip-when-elided="true" name="prompt-text-label" style="font-size: 30px; margin-right: 5%; color: rgb(255, 255, 255); height: 90%; flex-wrap: nowrap; max-width: 80%; white-space: normal; -unity-text-align: upper-left;" />
-            <ui:Button text="Confirm" parse-escape-sequences="true" display-tooltip-when-elided="true" name="confirm-exit-button" class="focusable exit-button" style="font-size: 30px; margin-left: 5%; flex-shrink: 1; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; flex-grow: 0; width: 10%; background-image: url(&quot;project://database/Assets/Sprites/UI/CombatScreen_HoverButton.png?fileID=2800000&amp;guid=5a7e6950ede86cb47811b1d9e1947916&amp;type=3#CombatScreen_HoverButton&quot;); background-color: rgba(188, 188, 188, 0); white-space: normal; align-self: flex-start;" />
+        <ui:VisualElement name="selection-footer" class="selection-footer">
+            <ui:Label tabindex="-1" text="Please select 1 card." parse-escape-sequences="true" display-tooltip-when-elided="true" name="prompt-text-label" class="selection-prompt" />
+            <ui:Button text="Confirm" parse-escape-sequences="true" display-tooltip-when-elided="true" name="confirm-exit-button" class="focusable exit-button" style="font-size: 30px; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; flex-grow: 0; flex-shrink: 0; background-image: url(&quot;project://database/Assets/Sprites/UI/CombatScreen_HoverButton.png?fileID=2800000&amp;guid=5a7e6950ede86cb47811b1d9e1947916&amp;type=3#CombatScreen_HoverButton&quot;); background-color: rgba(188, 188, 188, 0); white-space: normal;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
