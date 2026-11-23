@@ -47,6 +47,8 @@ public class MusicController : GenericSingleton<MusicController>
     public void PrepareForGoingBackToMainMenu() {
         instance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         instance.release();
+        // FMOD instances outlive this object: stop the concierge here or nothing can stop it later
+        StopConciergeDialogue();
         SceneManager.sceneLoaded -= OnSceneLoaded;
         Destroy(this.gameObject);
     }
@@ -212,6 +214,9 @@ public class MusicController : GenericSingleton<MusicController>
         switch (command)
         {
             case "start":
+                // Only one handle is kept, so a still-running instance would be lost (and loop forever)
+                // if we overwrote it. E.g. a line cut off by a scene change before its "stop".
+                StopConciergeDialogue();
                 // for in-editor
                 try {
                     conciergeDialogueInstance = FMODUnity.RuntimeManager.CreateInstance(conciergeDialogue);
@@ -229,9 +234,22 @@ public class MusicController : GenericSingleton<MusicController>
                 conciergeDialogueInstance.setParameterByName("talking", 1);
                 break;
             case "stop":
-                conciergeDialogueInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+                StopConciergeDialogue();
                 break;
         }
+    }
+
+    private void StopConciergeDialogue()
+    {
+        if (!conciergeDialogueInstance.isValid()) return;
+        conciergeDialogueInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        conciergeDialogueInstance.release();   // freed once the fade-out finishes
+        conciergeDialogueInstance.clearHandle();
+    }
+
+    private void OnDestroy()
+    {
+        StopConciergeDialogue();
     }
 
     public void PlayStartSFX()
