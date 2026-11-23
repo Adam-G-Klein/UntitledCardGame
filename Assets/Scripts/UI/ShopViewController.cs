@@ -2090,7 +2090,7 @@ public class ShopViewController : MonoBehaviour,
         if (cardSelectionViewPrefab != null) {
             GameObject cardSelectionViewGo = Instantiate(cardSelectionViewPrefab);
             CardSelectionView cardSelectionView = cardSelectionViewGo.GetComponent<CardSelectionView>();
-            cardSelectionView.Setup(companion.getDeck().cards, "Select a Card For Removal!", 1, 1, companion, shopManager.encounterConstants.companionViewTemplate);
+            cardSelectionView.Setup(companion.getDeck().cards, "Select a Card For Removal", 1, 1, companion, shopManager.encounterConstants.companionViewTemplate);
             cardSelectionView.cardsSelectedHandler += ProcessCardRemoval;
         }
     }
