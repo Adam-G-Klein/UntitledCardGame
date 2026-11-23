@@ -524,13 +524,36 @@ public class CombatInstance : MonoBehaviour
         return combatStats.currentHealth <= threshold;
     }
 
+    // Several rats can keep their block in the same end of turn; the power should trigger once for all of them.
+    private static float lastUnyieldingVfxTime = -10f;
+    private const float UnyieldingVfxCooldown = 1f;
+
+    // The ability-triggered VFX and badge (named and iconed after the power) on every rat holding Unyielding.
+    private void PlayUnyieldingTriggeredVfx() {
+        if (Time.time - lastUnyieldingVfxTime < UnyieldingVfxCooldown) return;
+        lastUnyieldingVfxTime = Time.time;
+
+        foreach (CompanionInstance companion in CombatEntityManager.Instance.getCompanions()) {
+            if (companion == null || companion.companionView == null) continue;
+            CombatInstance holder = companion.combatInstance;
+            if (holder == null || !holder.HasPower(PowerSO.PowerType.Unyielding)) continue;
+
+            PowerSO power = holder.GetPowersWithStackCounts().First(p => p.Item1.powerType == PowerSO.PowerType.Unyielding).Item1;
+            CoroutineRunner.Instance.Run(companion.companionView.AbilityActivatedVFX());
+            CoroutineRunner.Instance.Run(companion.companionView.AbilityTriggeredBadge(power.title, power.displaySprite));
+        }
+    }
+
     private void UpdateStatusEffect(StatusEffectType status) {
         int before = statusEffects[status];
         switch (status)
         {
             case StatusEffectType.Defended:
-                if (HasPower(PowerSO.PowerType.Unyielding) && BelowHalfHP())
+                if (CombatEntityManager.Instance.GetStacksOfPowerAcrossCompanions(PowerSO.PowerType.Unyielding) > 0 && BelowHalfHP())
                 {
+                    // Unyielding: this rat keeps its block. Show the power triggering on each rat that has it
+                    // (only when there was block to keep).
+                    if (before > 0) PlayUnyieldingTriggeredVfx();
                     break;
                 }
                 else if (statusEffects[StatusEffectType.MaxBlockToLoseAtEndOfTurn] != initialStatusEffects[StatusEffectType.MaxBlockToLoseAtEndOfTurn])
