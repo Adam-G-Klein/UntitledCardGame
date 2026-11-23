@@ -120,14 +120,15 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
                         }
                         if (attackName != null)
                         {
-                            // HitTiming: the attack sound's impact lands when the effect strikes this target, with the
-                            // rest of the hit (started early by the sound's wind-up)
-                            MusicController.Instance.PlaySFXAtImpact(instance, HitTiming.CurrentDelay(instance),
-                                MusicController.AttackSoundFor(attackName));
+                            // HitTiming: the attack sound plays when the effect strikes this target, with the rest of the hit
+                            string sound = attackName;
+                            HitTiming.AtImpact(instance, HitTiming.CurrentDelay(instance),
+                                () => MusicController.Instance.PlayCorrectAttackSound(sound));
                         }
                         else if (effectSound != null)
                         {
-                            MusicController.Instance.PlaySFXAtImpact(instance, HitTiming.CurrentDelay(instance), effectSound);
+                            string sfx = effectSound;
+                            HitTiming.AtImpact(instance, HitTiming.CurrentDelay(instance), () => MusicController.Instance.PlaySFX(sfx));
                         }
 
                     if (quickTrail)
