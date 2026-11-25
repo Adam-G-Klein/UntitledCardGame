@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerType: 2
   title: Final Form
-  description: This rat's Attacks deal double damage. Each turn, bleed self 2 HP
+  description: This rat's Attacks deal double damage. Each turn, bleed this rat 3
+    HP
   abilities:
   - rid: 3226456462082179370
   displaySprite: {fileID: 21300000, guid: 9c7b553a4a5050646818dbc514a54e9a, type: 3}
@@ -66,7 +67,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: self
         combatEffect: 16
-        scale: 2
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
