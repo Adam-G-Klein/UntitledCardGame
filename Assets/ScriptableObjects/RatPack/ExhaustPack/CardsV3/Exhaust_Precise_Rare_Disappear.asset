@@ -67,11 +67,22 @@ MonoBehaviour:
         effectStepName: UseRemovalVFX
         inputKey: target
         removalVFXPrefab: {fileID: 6841246063235012224, guid: 1352775812e44cf49b2aafd8c2d3d60c, type: 3}
+    - rid: 3226456926317707470
+      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetRandomItems
+        inputKey: targets
+        scale: 1
+        scaleKey: 
+        getScaleFromKey: 0
+        outputKey: target
+        withReplacement: 0
     - rid: 5602893017534169679
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 5602893017534169680
+        - rid: 3226456926317707470
         - rid: 5602893017534169682
         - rid: 5602893017534169684
         - rid: 1749966585238224497
