@@ -21,6 +21,11 @@ public class RemoveStatus : EffectStep
         effectStepName = "RemoveStatus";
     }
 
+    // Goes through CombatInstance.ApplyStatusEffects, which plays the status sound
+    public override bool PlaysSoundFor(CardType card) {
+        return true;
+    }
+
     public override IEnumerator invoke(EffectDocument document) {
         List<CombatInstance> combatInstances = document.map.GetList<CombatInstance>(inputKey);
         if (combatInstances.Count == 0) {

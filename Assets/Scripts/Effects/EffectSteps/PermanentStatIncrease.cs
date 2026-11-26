@@ -34,6 +34,7 @@ public class PermanentStatIncrease : EffectStep {
     }
 
     public override IEnumerator invoke(EffectDocument document) {
+        CardStepSfx.Play(this, document, CardStepSfx.Kind.StatUp);   // a sound when the card is otherwise silent
         List<CombatInstance> instances = document.map.GetList<CombatInstance>(inputKey);
         if (instances.Count == 0) {
             EffectError("No valid inputs for increasing stats");

@@ -27,6 +27,7 @@ public class ManaChange : EffectStep
 
     public override IEnumerator invoke(EffectDocument document)
     {
+        CardStepSfx.Play(this, document, CardStepSfx.Kind.Energy);   // a sound when the card is otherwise silent
         int finalScale = scale;
         if (getScaleFromKey && document.intMap.ContainsKey(inputScaleKey)) {
             finalScale = document.intMap[inputScaleKey];

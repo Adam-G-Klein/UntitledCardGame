@@ -20,6 +20,7 @@ public class UseRemovalVFX : EffectStep
     }
 
     public override IEnumerator invoke(EffectDocument document) {
+        CardStepSfx.Play(this, document, CardStepSfx.Kind.Removal);   // a sound when the card is otherwise silent
         if (removalVFXPrefab != null && document.map.ContainsValueWithKey<PlayableCard>(inputKey)) {
             List<PlayableCard> cards = document.map.GetList<PlayableCard>(inputKey);
             foreach (PlayableCard card in cards)

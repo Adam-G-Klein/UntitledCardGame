@@ -308,10 +308,10 @@ public class CombatInstance : MonoBehaviour
             case CombatEffect.SetHealth:
                 // won't work for setting health to 0, misses the death check. Pretty sure we should just use sacrifice for that
                 // in all cases though
-                combatStats.setCurrentHealth(scale);
+                SetHealthWithSound(scale);
                 break;
             case CombatEffect.SetToHalfHealth:
-                combatStats.setCurrentHealth(combatStats.maxHealth / 2);
+                SetHealthWithSound(combatStats.maxHealth / 2);
                 break;
             case CombatEffect.Sacrifice:
                 StartCoroutine(OnDeath(effector));
@@ -319,6 +319,20 @@ public class CombatInstance : MonoBehaviour
         }
         UpdateView();
         return effectiveScaleApplied;
+    }
+
+    // Setting HP directly (Equilibrium) used to be silent: it now sounds like a heal when HP goes up and a
+    // negative effect when it goes down, timed with the effect's VFX like other hits.
+    private void SetHealthWithSound(int newHealth) {
+        int before = combatStats.getCurrentHealth();
+        combatStats.setCurrentHealth(newHealth);
+        int after = combatStats.getCurrentHealth();
+        if (after == before) return;
+        bool raised = after > before;
+        HitTiming.AtImpact(this, HitTiming.Take(this), () => {
+            MusicController.Instance.PlaySFX(raised ? "event:/SFX/SFX_PositiveEffect" : "event:/SFX/SFX_NegativeEffect");
+            MusicController.Instance.PlaySFX(raised ? "event:/VO/Combat/Status/VO_PositiveStatus_Medium" : "event:/VO/Combat/Status/VO_NegativeStatus_Medium");
+        });
     }
 
     private int TakeDamage(CombatEffect combatEffect, int damage, CombatInstance attacker) {

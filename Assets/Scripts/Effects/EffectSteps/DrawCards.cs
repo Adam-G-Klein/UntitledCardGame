@@ -33,6 +33,7 @@ public class DrawCards : EffectStep, ITooltipProvider
     }
 
     public override IEnumerator invoke(EffectDocument document) {
+        CardStepSfx.Play(this, document, CardStepSfx.Kind.Draw);   // a sound when the card is otherwise silent
         List<DeckInstance> instances = document.map.GetList<DeckInstance>(inputKey);
         if (instances.Count == 0)
         {

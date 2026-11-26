@@ -100,7 +100,7 @@ public class MusicController : GenericSingleton<MusicController>
         { "Deadly Precision", MagicBoom },
         { "Enmity", MagicBoom },
         { "Only Way Out", MagicBoom },
-        { "Resonant Shot", MagicBoom },
+        { "Resonant Shot", Gunshot },
         { "Deferred Doom", MagicBoom },
         { "Massive Damage", MagicBoom },
         { "The Chosen One", MagicBoom },
@@ -122,7 +122,12 @@ public class MusicController : GenericSingleton<MusicController>
         { "Trump Card", MagicBoom },
         { "Typhoon Trident", MagicBoom }, // Nature Rapid Hit, as Resonant Shot
         { "Burrow", MagicBoom },         // a damaging Skill: the doombloom burst
-        { "Pluck", MagicBoom },          // the rat's stone-throw ability (Nature Rapid Hit)
+        { "Byggshroom", MagicBoom },         // a damaging Skill: the doombloom burst
+        { "Pluck", Gunshot },          // the rat's stone-throw ability (Nature Rapid Hit)
+        // non-Attack cards whose damage was silent
+        { "Ace of Spades", CardHandle },  // a thrown card, as Wrist Flick
+        { "Serpent's Tooth", Slobber },   // a bite
+        { "Thistleheart", MagicBoom },    // a nature hit
     };
 
     // A power's or rat ability's hit (no card played, the rat not listed above) takes its sound from the effect it plays,
@@ -152,14 +157,14 @@ public class MusicController : GenericSingleton<MusicController>
     {
         PlaySFX(AttackSounds.TryGetValue(SoundKey(cardName), out string sfx) ? sfx : BasicAttack);
     }
-    
+
     public void PlayMusicLocation(Location location, Act act = Act.One)
     {
         if (locationTracks == null) {
             Debug.LogWarning("No location tracks set in MusicController2");
             return;
         }
-        
+
         if (location == Location.COMBAT)
         {
             SetCombatState("Combat");
@@ -294,7 +299,7 @@ public class MusicController : GenericSingleton<MusicController>
                 RuntimeManager.StudioSystem.setParameterByName(combatState, 2);
                 PlaySFX("event:/MX/MX_CombatStingers");
                 break;
-            
+
             case "Run Complete":
                 RuntimeManager.StudioSystem.setParameterByName(combatState, 3);
                 PlaySFX("event:/MX/MX_CombatStingers");
@@ -324,7 +329,7 @@ public class MusicController : GenericSingleton<MusicController>
         }
     }
 
-    public void PlayBossMusic() 
+    public void PlayBossMusic()
     {
         instance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         instance.release();
@@ -343,7 +348,7 @@ public class MusicController : GenericSingleton<MusicController>
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
 

@@ -9,11 +9,11 @@ using UnityEngine;
 public class HasCardActionBeenTakenThisTurn : EffectStep, IEffectStepCalculation
 {
     [SerializeField]
-    private CardAction cardAction; 
-    
+    private CardAction cardAction;
+
     [SerializeField]
     private string outputKey = "";
-    
+
     public HasCardActionBeenTakenThisTurn() {
         effectStepName = "HasCardActionBeenTakenThisTurn";
     }

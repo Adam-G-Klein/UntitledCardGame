@@ -27,6 +27,7 @@ public class CardModificationEffect : EffectStep {
     }
 
     public override IEnumerator invoke(EffectDocument document) {
+        CardStepSfx.Play(this, document, CardStepSfx.Kind.Upgrade);   // a sound when the card is otherwise silent
         int newScale = scale;
         if (getScaleFromKey) {
             if (!document.intMap.ContainsKey(scaleKey)) {

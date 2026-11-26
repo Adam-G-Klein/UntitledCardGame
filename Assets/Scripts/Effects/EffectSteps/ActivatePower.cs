@@ -22,6 +22,7 @@ public class ActivatePower : EffectStep, ITooltipProvider
 
     public override IEnumerator invoke(EffectDocument document)
     {
+        CardStepSfx.Play(this, document, CardStepSfx.Kind.Power);   // a sound when the card is otherwise silent
         List<CompanionInstance> companions = document.map.GetList<CompanionInstance>(inputKey);
         if (companions.Count == 0)
         {

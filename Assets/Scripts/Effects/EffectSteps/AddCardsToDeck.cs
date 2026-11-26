@@ -41,6 +41,7 @@ public class AddCardsToDeck : EffectStep, ITooltipProvider {
     }
 
     public override IEnumerator invoke(EffectDocument document) {
+        CardStepSfx.Play(this, document, CardStepSfx.Kind.CreateCard);   // a sound when the card is otherwise silent
         // Check for valid entity with deck target(s)
         List<DeckInstance> deckInstances = document.map.GetList<DeckInstance>(inputKey);
         if (deckInstances.Count == 0) {

@@ -47,6 +47,25 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
         effectStepName = "CombatEffectStep";
     }
 
+    // Mirrors the sounds below and in CombatInstance: heals and HP changes always play one; damage plays the
+    // attack sound for Attack cards and cards with their own sound, and the "took a hit" sound for bleeds.
+    public override bool PlaysSoundFor(CardType card)
+    {
+        switch (combatEffect)
+        {
+            case CombatEffect.Heal:
+            case CombatEffect.SetHealth:
+            case CombatEffect.SetToHalfHealth:
+            case CombatEffect.FixedDamageThatIgnoresBlock:
+                return true;
+            case CombatEffect.Damage:
+            case CombatEffect.FixedDamageWithCardModifications:
+                return card != null && (card.cardCategory == CardCategory.Attack || MusicController.HasOwnAttackSound(card.Name));
+            default:
+                return false;
+        }
+    }
+
     public override IEnumerator invoke(EffectDocument document)
     {
         List<CombatInstance> instances = document.map.GetList<CombatInstance>(inputKey);

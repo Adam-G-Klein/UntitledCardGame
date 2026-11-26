@@ -78,6 +78,12 @@ public abstract class EffectStep
         EnemyEncounterViewModel.Instance.SetStateDirty();
     }
 
+    // Whether this step plays a sound of its own when run for this card (status sounds, heals, attack sounds).
+    // CardStepSfx uses it to give otherwise-silent card workflows a sound without doubling up on loud ones.
+    public virtual bool PlaysSoundFor(CardType card) {
+        return false;
+    }
+
     protected void EffectError(string errorString) {
         Debug.LogError(effectStepName + " Effect: " + errorString);
     }

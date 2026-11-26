@@ -29,6 +29,7 @@ public class CardInHandEffect : EffectStep, ITooltipProvider
     }
 
     public override IEnumerator invoke(EffectDocument document) {
+        CardStepSfx.Play(this, document, CardStepSfx.Kind.CardInHand);   // a sound when the card is otherwise silent
         if (!document.map.ContainsValueWithKey<PlayableCard>(inputKey)) {
             EffectError("No input PlayableCard for given key " + inputKey);
             yield break;

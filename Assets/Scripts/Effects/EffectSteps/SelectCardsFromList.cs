@@ -39,6 +39,7 @@ public class SelectCardsFromList : EffectStep {
 
     public override IEnumerator invoke(EffectDocument document)
     {
+        CardStepSfx.Play(this, document, CardStepSfx.Kind.Scry);   // a sound when the card is otherwise silent
         if (!document.map.ContainsValueWithKey<Card>(inputKey)) {
             EffectLog("No cards to select from, this could be intentional (scrying from an empty deck)");
         }
