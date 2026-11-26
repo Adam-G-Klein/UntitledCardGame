@@ -35,12 +35,12 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 1
-  - tokenType: 2
-    text: 
-    icon: 4
   - tokenType: 0
     text: xN
     icon: 0
+  - tokenType: 2
+    text: 
+    icon: 4
   - tokenType: 1
     text: 
     icon: 0
@@ -55,7 +55,7 @@ MonoBehaviour:
     value: 3
   Cost: 0
   Artwork: {fileID: 21300000, guid: 5f66e07752da0d34ca5ca0b6a327d011, type: 3}
-  cardCategory: 2
+  cardCategory: 1
   packFrom: {fileID: 11400000, guid: 5f4300e0913784f05aeff0dd086d4338, type: 2}
   vfxPrefab: {fileID: 0}
   playable: 0
@@ -93,7 +93,6 @@ MonoBehaviour:
         effectSteps:
         - rid: 7189280543290425345
         - rid: 7189280543290425346
-        - rid: 7189280543290425347
         - rid: 4536317864282661553
         - rid: 7189280543290425348
     - rid: 7189280543290425345
@@ -101,11 +100,12 @@ MonoBehaviour:
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
+        useInputToExcludeOptions: 0
         inputKey: 
-        outputKey: enemies
+        outputKey: selected
         validTargets: 02000000
         number: 1
-        specialTargetRule: 1
+        specialTargetRule: 6
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
@@ -116,16 +116,6 @@ MonoBehaviour:
         effectStepName: GetCombatEncounterStat
         statOfInterest: 4
         outputKey: numCards
-    - rid: 7189280543290425347
-      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetRandomItems
-        inputKey: enemies
-        scale: 4
-        scaleKey: numCards
-        getScaleFromKey: 1
-        outputKey: selected
-        withReplacement: 1
     - rid: 7189280543290425348
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -136,7 +126,8 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
+        getMultiplicityFromKey: 1
+        inputMultiplicityKey: numCards
         vfxPrefab: {fileID: 2833159171010421099, guid: fa7853f72b1fe38468db96dbe33a7ad3, type: 3}
+        casterTrail: {fileID: 0}
         damageDealtOutputKey: 

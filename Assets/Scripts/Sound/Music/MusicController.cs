@@ -76,10 +76,9 @@ public class MusicController : GenericSingleton<MusicController>
 
     private static readonly Dictionary<string, string> AttackSounds = new Dictionary<string, string>
     {
-        { "Pyrotechnics", GreekFire },
+        { "Pyrotechnics", Flamethrower },
         { "Greek Fire", GreekFire },     // a Charm: plays through HasOwnAttackSound
-        { "Bezoar", GreekFire },         // a Charm
-        { "Boomflask", GreekFire },      // a Charm
+        { "Boomflask", Flamethrower },      // a Charm
         { "Detonate", Detonate },
         { "Golem's Might", Detonate },   // a stone fist slam
         { "Pew Pew", Gunshot },
@@ -108,7 +107,6 @@ public class MusicController : GenericSingleton<MusicController>
         // "Overwhelming APM": probably best as the sword sound (the default)
         { "Slobber", Slobber },
         { "Gnaw", Slobber },             // a bite
-        { "Wrist Flick", CardHandle },   // flicked cards
         // the new (V3) cards
         { "Derringer", Gunshot },
         { "Empty the Clip", Gunshot },
@@ -123,7 +121,6 @@ public class MusicController : GenericSingleton<MusicController>
         { "Byggshroom", MagicBoom },         // a damaging Skill: the doombloom burst
         { "Pluck", Gunshot },          // the rat's stone-throw ability (Nature Rapid Hit)
         // non-Attack cards whose damage was silent
-        { "Ace of Spades", CardHandle },  // a thrown card, as Wrist Flick
         { "Serpent's Tooth", MagicBoom },   // a bite
         { "Thistleheart", MagicBoom },    // a nature hit
     };
