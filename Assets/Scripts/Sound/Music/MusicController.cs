@@ -92,15 +92,13 @@ public class MusicController : GenericSingleton<MusicController>
         { "Howitzer", Gunshot },
         { "Holdem", Gunshot },           // the Hold'em rat's own gun ability (no card): plays through HasOwnAttackSound
         { "Peacemaker", Gunshot },
+        { "Resonant Shot", Gunshot },
         { "Flamethrower", Flamethrower },
         { "World Eater", MagicBoom },
         { "Forest's Might", MagicBoom },
         // the attacks whose hit is a magic hit (Allied Small/Big Magic Hit, Nature Big Magic Hit, the storm, the tide)
-        { "Careful Move", MagicBoom },
         { "Deadly Precision", MagicBoom },
-        { "Enmity", MagicBoom },
         { "Only Way Out", MagicBoom },
-        { "Resonant Shot", Gunshot },
         { "Deferred Doom", MagicBoom },
         { "Massive Damage", MagicBoom },
         { "The Chosen One", MagicBoom },
@@ -126,7 +124,7 @@ public class MusicController : GenericSingleton<MusicController>
         { "Pluck", Gunshot },          // the rat's stone-throw ability (Nature Rapid Hit)
         // non-Attack cards whose damage was silent
         { "Ace of Spades", CardHandle },  // a thrown card, as Wrist Flick
-        { "Serpent's Tooth", Slobber },   // a bite
+        { "Serpent's Tooth", MagicBoom },   // a bite
         { "Thistleheart", MagicBoom },    // a nature hit
     };
 
