@@ -214,6 +214,16 @@ public class CombatInstance : MonoBehaviour
         return combatStats.baseAttackDamage + statusEffects[StatusEffectType.Strength] + statusEffects[StatusEffectType.TemporaryStrength];
     }
 
+    // Damage that ignores block dealt to the caster's own side (rat -> rat, enemy -> enemy): bleeds, HP costs,
+    // burn ticks. It gets the "took a hit" sound instead of the attacker's attack sound and bark.
+    public static bool IsSelfSideBleed(CombatEffect effect, CombatInstance target, CombatInstance effector)
+    {
+        if (effect != CombatEffect.FixedDamageThatIgnoresBlock || target == null || effector == null) return false;
+        bool bothRats = target.GetComponent<CompanionInstance>() != null && effector.GetComponent<CompanionInstance>() != null;
+        bool bothEnemies = target.GetComponent<EnemyInstance>() != null && effector.GetComponent<EnemyInstance>() != null;
+        return bothRats || bothEnemies;
+    }
+
     public int ApplyNonStatusCombatEffect(CombatEffect effect, int scale, CombatInstance effector, GameObject vfxPrefab, bool shouldShake = false, float screenShakeForce = 0.0f) {
         // All the non-status-effect combat effects are handled here
         // status effects are handled in applyCombatEffects
@@ -236,12 +246,23 @@ public class CombatInstance : MonoBehaviour
                 bool fromCompanion = effector.GetComponent<CompanionInstance>() != null;
                 bool fromEnemy = effector.GetComponent<EnemyInstance>() != null;
                 bool fullBlock = damageTaken <= 0 && !killed;
+                bool selfSideBleed = IsSelfSideBleed(effect, this, effector);
+                bool targetIsCompanion = GetComponent<CompanionInstance>() != null;
                 HitTiming.AtImpact(this, damageDelay, () => {
                     if (screenShakeForce > 0.0f)
                     {
                         ScreenShakeManager.Instance.ShakeWithForce(screenShakeForce);
                     }
-                    if (fromCompanion)
+                    if (selfSideBleed)
+                    {
+                        // A bleed (HP cost, self/ally bleed, burn tick): sounds like taking a hit, not dealing one
+                        if (damageTaken > 0)
+                        {
+                            MusicController.Instance.PlaySFX("event:/SFX/SFX_EnemyAttack");
+                            if (targetIsCompanion) MusicController.Instance.PlaySFX("event:/VO/Combat/Damage/VO_CombatBarks_DamageMedium");
+                        }
+                    }
+                    else if (fromCompanion)
                     {
                         // MusicController.Instance.PlaySFX("event:/SFX/SFX_BasicAttack");
                         MusicController.Instance.PlaySFX("event:/VO/Combat/Attacks/VO_CombatBarks_AttacksMedium");

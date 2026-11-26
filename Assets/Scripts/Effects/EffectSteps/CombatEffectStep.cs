@@ -104,7 +104,11 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
                         // the attack sound: attack cards always; other cards (the damaging Charms: Greek Fire, Bezoar,
                         // Boomflask) and rat abilities (Hold'em's gun) only when they have a sound of their own
                         string attackName = null, effectSound = null;
-                        if (originPlayableCard != null && originPlayableCard.card != null)
+                        if (CombatInstance.IsSelfSideBleed(combatEffect, instance, originCombatInstance))
+                        {
+                            // a bleed on our own side: no attack sound, CombatInstance plays the "took a hit" sound
+                        }
+                        else if (originPlayableCard != null && originPlayableCard.card != null)
                         {
                             Card originCard = originPlayableCard.card;
                             if (originCard.cardType.cardCategory == CardCategory.Attack || MusicController.HasOwnAttackSound(originCard.cardType.Name))
